@@ -1,0 +1,128 @@
+<?php
+
+namespace Softmedia\AdminBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Softmedia\AdminBundle\Entity\Taxonomy;
+use Softmedia\AdminBundle\Form\TaxonomyAdminType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class TaxonomyAdminController extends AbstractAdminController
+{
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getEntityClassName(): string
+	{
+		return Taxonomy::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getFormClassName(): string
+	{
+		return TaxonomyAdminType::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getRoutePrefix(): string
+	{
+		return 'taxonomy';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		// TODO: Implement defineFilters() method.
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFields(): void
+	{
+		// TODO: Implement defineFields() method.
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function preDecorateEntity($entity)
+	{
+		foreach ($this->getParameter('locales') as $locale)
+		{
+			/**
+			 * @var Taxonomy $entity
+			 */
+			$entity->translate($locale);
+		};
+
+		$entity->mergeNewTranslations();
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function postDecorateEntity($entity)
+	{
+		/**
+		 * @var Taxonomy $entity
+		 */
+		$entity->mergeNewTranslations();
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/", name="softmedia_admin_taxonomy_list")
+	 */
+	public function indexAction(Request $request): Response
+	{
+		return $this->doIndexAction($request);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/add", name="softmedia_admin_taxonomy_add")
+	 * @Method({"POST", "GET"})
+	 */
+	public function addIndex(Request $request)
+	{
+		return $this->doAddIndex($request);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/edit/{id}", name="softmedia_admin_taxonomy_edit", requirements={ "id" = "\d+" })
+	 * @Method({"POST", "GET"})
+	 */
+	public function editIndex(Request $request, int $id)
+	{
+		return $this->doEditIndex($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/destroy/{id}", name="softmedia_admin_taxonomy_destroy", requirements={ "id" = "\d+" })
+	 * @Method("POST")
+	 */
+	public function destroyIndex(Request $request, int $id): RedirectResponse
+	{
+		return $this->doDestroyIndex($request, $id);
+	}
+}

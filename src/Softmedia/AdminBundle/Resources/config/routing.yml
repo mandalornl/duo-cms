@@ -1,0 +1,9 @@
+softmedia_admin_page:
+    resource: '@SoftmediaAdminBundle/Controller/PageAdminController.php'
+    type: annotation
+    prefix: /page
+
+softmedia_admin_taxonomy:
+    resource: '@SoftmediaAdminBundle/Controller/TaxonomyAdminController.php'
+    type: annotation
+    prefix: /taxonomy

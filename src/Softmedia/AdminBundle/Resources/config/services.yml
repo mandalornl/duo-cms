@@ -1,0 +1,30 @@
+parameters:
+
+services:
+    Softmedia\AdminBundle\Listener\Behavior\BlameableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Listener\Behavior\CloneableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Listener\Behavior\SluggableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Listener\Behavior\SortableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Listener\Behavior\TaxonomySubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Listener\Behavior\TimeStampableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Listener\Behavior\TranslatableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
