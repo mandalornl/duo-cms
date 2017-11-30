@@ -30,20 +30,25 @@ trait TranslatableTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function __call(string $method, array $arguments = []): ?mixed
+	public function __call(string $name, array $arguments = [])
 	{
-		if ($this->currentLocale !== $this->defaultLocale)
+		if (($entity = $this->translate($this->currentLocale)) === null)
 		{
-			if (($translation = $this->translate($this->currentLocale)) === null ||
-				!is_callable([$translation, $method]))
-			{
-				return null;
-			}
-
-			return call_user_func_array([$translation, $method], $arguments);
+			return null;
 		}
 
-		return null;
+		$propertyName = lcfirst(preg_replace('#^set|get#', '', $name));
+
+		$reflectionClass = new \ReflectionClass($entity);
+		$property = $reflectionClass->getProperty($propertyName);
+		$property->setAccessible(true);
+
+		if (count($arguments))
+		{
+			$property->setValue($entity, $arguments[0]);
+		}
+
+		return $property->getValue($entity);
 	}
 
 	/**

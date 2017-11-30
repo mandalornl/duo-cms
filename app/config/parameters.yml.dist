@@ -20,3 +20,5 @@ parameters:
 
     locale: nl
     locales: [nl, en]
+
+    webpack.devserver.host: localhost

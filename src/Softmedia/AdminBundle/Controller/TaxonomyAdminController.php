@@ -4,6 +4,7 @@ namespace Softmedia\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Softmedia\AdminBundle\Configuration\Field;
 use Softmedia\AdminBundle\Entity\Taxonomy;
 use Softmedia\AdminBundle\Form\TaxonomyAdminType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -49,7 +50,12 @@ class TaxonomyAdminController extends AbstractAdminController
 	 */
 	protected function defineFields(): void
 	{
-		// TODO: Implement defineFields() method.
+		$this
+			->addField(
+				(new Field())
+					->setTitle('Name')
+					->setProperty('name')
+			);
 	}
 
 	/**

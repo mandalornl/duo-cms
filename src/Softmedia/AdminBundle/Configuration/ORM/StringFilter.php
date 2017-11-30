@@ -2,7 +2,7 @@
 
 namespace Softmedia\AdminBundle\Configuration\ORM;
 
-class Filter implements FilterInterface
+class StringFilter extends AbstractFilter
 {
 
 }

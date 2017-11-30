@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 trait CloneableTrait
 {
 	/**
-	 * @var int
+	 * @var CloneableInterface
 	 */
 	protected $version;
 
@@ -18,13 +18,27 @@ trait CloneableTrait
 	protected $versions;
 
 	/**
-	 * Add version
-	 *
-	 * @param CloneableInterface $version
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function addVersion(CloneableInterface $version)
+	public function setVersion(CloneableInterface $version = null): CloneableInterface
+	{
+		$this->version = $version;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getVersion(): ?CloneableInterface
+	{
+		return $this->version;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function addVersion(CloneableInterface $version): CloneableInterface
 	{
 		$this->getVersions()->add($version);
 
@@ -32,13 +46,9 @@ trait CloneableTrait
 	}
 
 	/**
-	 * Remove version
-	 *
-	 * @param CloneableInterface $version
-	 *
-	 * @return $this
+	 * {@inheritdoc
 	 */
-	public function removeVersion(CloneableInterface $version)
+	public function removeVersion(CloneableInterface $version): CloneableInterface
 	{
 		$this->getVersions()->removeElement($version);
 
@@ -46,9 +56,7 @@ trait CloneableTrait
 	}
 
 	/**
-	 * Get versions
-	 *
-	 * @return ArrayCollection
+	 * {@inheritdoc}
 	 */
 	public function getVersions()
 	{

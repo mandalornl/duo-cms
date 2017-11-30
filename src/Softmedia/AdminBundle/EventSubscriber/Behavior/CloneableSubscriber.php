@@ -1,9 +1,9 @@
 <?php
 
-namespace Softmedia\AdminBundle\Listener\Behavior;
+namespace Softmedia\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;

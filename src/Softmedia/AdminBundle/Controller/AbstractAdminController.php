@@ -29,6 +29,9 @@ abstract class AbstractAdminController extends Controller
 	{
 		$this->filters = new ArrayCollection();
 		$this->fields = new ArrayCollection();
+
+		$this->defineFilters();
+		$this->defineFields();
 	}
 
 	/**
@@ -141,9 +144,11 @@ abstract class AbstractAdminController extends Controller
     protected function doIndexAction(Request $request): Response
     {
     	return $this->render($this->getListTemplate(), [
-    		'filters' => $this->filters,
-    		'fields' => $this->fields,
-    		'entities' => $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll()
+			'list' => [
+				'filters' => $this->filters,
+				'fields' => $this->fields,
+				'entities' => $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll()
+			]
 		]);
     }
 

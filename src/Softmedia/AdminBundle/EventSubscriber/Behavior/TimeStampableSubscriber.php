@@ -1,10 +1,10 @@
 <?php
 
-namespace Softmedia\AdminBundle\Listener\Behavior;
+namespace Softmedia\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
 use Softmedia\AdminBundle\Helper\ReflectionClassHelper;

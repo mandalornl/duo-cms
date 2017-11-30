@@ -4,6 +4,9 @@ namespace Softmedia\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Softmedia\AdminBundle\Configuration\Field;
+use Softmedia\AdminBundle\Controller\Behavior\SoftDeletableTrait;
+use Softmedia\AdminBundle\Controller\Behavior\SortableTrait;
 use Softmedia\AdminBundle\Entity\Page;
 use Softmedia\AdminBundle\Form\PageAdminType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -52,7 +55,17 @@ class PageAdminController extends AbstractAdminController
 	 */
 	protected function defineFields(): void
 	{
-		// TODO: Implement defineFields() method.
+		$this
+			->addField(
+				(new Field())
+					->setTitle('Title')
+					->setProperty('title')
+			)
+			->addField(
+				(new Field())
+					->setTitle('Content')
+					->setProperty('content')
+			);
 	}
 
 	/**

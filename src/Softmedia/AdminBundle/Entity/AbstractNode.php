@@ -9,13 +9,14 @@ use Softmedia\AdminBundle\Entity\Behavior\CloneableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\IdableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\SluggableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SortableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TaxonomyTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableTrait;
 
-abstract class AbstractNode implements TranslatableInterface, CloneableInterface
+abstract class AbstractNode implements TranslatableInterface, CloneableInterface, SortableInterface
 {
 	use IdableTrait;
 	use SluggableTrait;

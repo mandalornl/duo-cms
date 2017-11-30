@@ -1,3 +1,8 @@
+softmedia_admin_test:
+    resource: '@SoftmediaAdminBundle/Controller/TestController.php'
+    type: annotation
+    prefix: /test
+
 softmedia_admin_page:
     resource: '@SoftmediaAdminBundle/Controller/PageAdminController.php'
     type: annotation

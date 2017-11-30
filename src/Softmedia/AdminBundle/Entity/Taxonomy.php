@@ -11,7 +11,7 @@ use Softmedia\AdminBundle\Entity\Behavior\TranslationInterface;
 
 /**
  * @ORM\Table(name="taxonomy")
- * @ORM\Entity(repositoryClass="Softmedia\AdminBundle\Repository\TaxonomyRepository")
+ * @ORM\Entity()
  */
 class Taxonomy implements TranslatableInterface
 {

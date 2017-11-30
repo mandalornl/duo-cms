@@ -1,7 +1,3 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
-
 softmedia_admin:
     resource: '@SoftmediaAdminBundle/Resources/config/routing.yml'
     prefix: /admin

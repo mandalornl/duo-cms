@@ -1,9 +1,32 @@
 <!doctype html>
-<html lang="{{ app.request.locale }}">
+{% set htmlLocale = app.request.locale | slice(0, 2) %}
+<html lang="{{ htmlLocale }}">
 <head>
+	{# Google Analytics #}
+	{% include '@SoftmediaAdmin/Layout/_googleanalytics.html.twig' %}
 
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<title>{% block title %}Admin{% endblock %}</title>
+
+	{# Webfonts #}
+	{% include '@SoftmediaAdmin/Layout/_webfonts.html.twig' %}
+
+	{# Favicon #}
+	{% include '@SoftmediaAdmin/Layout/_favicon.html.twig' %}
+
+	{# CSS #}
+	{% include '@SoftmediaAdmin/Layout/_css.html.twig' %}
 </head>
 <body>
+	<div class="container-fluid">
+		{# Content #}
+		{% block content %}{% endblock %}
+	</div>
 
+	{# Javascript #}
+	{% include '@SoftmediaAdmin/Layout/_js_footer.html.twig' %}
 </body>
 </html>

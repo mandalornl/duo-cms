@@ -1,7 +1,8 @@
 <?php
 
-namespace Softmedia\AdminBundle\Controller;
+namespace Softmedia\AdminBundle\Controller\Behavior;
 
+use Softmedia\AdminBundle\Controller\AbstractAdminController;
 use Softmedia\AdminBundle\Entity\Behavior;
 use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;

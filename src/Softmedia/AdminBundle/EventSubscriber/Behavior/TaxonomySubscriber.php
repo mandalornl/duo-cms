@@ -1,6 +1,6 @@
 <?php
 
-namespace Softmedia\AdminBundle\Listener\Behavior;
+namespace Softmedia\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
