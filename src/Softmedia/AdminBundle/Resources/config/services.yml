@@ -28,3 +28,11 @@ services:
     Softmedia\AdminBundle\EventSubscriber\Behavior\TranslatableSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\EventSubscriber\Behavior\TreeableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Softmedia\AdminBundle\Twig\TwigTestExtension:
+        tags:
+            - { name: twig.extension }

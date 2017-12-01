@@ -20,6 +20,11 @@ class Field implements FieldInterface
 	private $sortable = true;
 
 	/**
+	 * @var string
+	 */
+	private $template;
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function setTitle(string $title): FieldInterface
@@ -71,5 +76,23 @@ class Field implements FieldInterface
 	public function getSortable(): bool
 	{
 		return $this->sortable;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setTemplate(string $template): FieldInterface
+	{
+		$this->template = $template;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getTemplate(): ?string
+	{
+		return $this->template;
 	}
 }

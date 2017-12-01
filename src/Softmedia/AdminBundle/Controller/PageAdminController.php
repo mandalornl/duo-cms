@@ -58,13 +58,28 @@ class PageAdminController extends AbstractAdminController
 		$this
 			->addField(
 				(new Field())
+					->setTitle('Name')
+					->setProperty('name')
+			)
+			->addField(
+				(new Field())
+					->setTitle('Slug')
+					->setProperty('slug')
+			)
+			->addField(
+				(new Field())
 					->setTitle('Title')
 					->setProperty('title')
 			)
 			->addField(
 				(new Field())
-					->setTitle('Content')
-					->setProperty('content')
+					->setTitle('Created at')
+					->setProperty('createdAt')
+			)
+			->addField(
+				(new Field())
+					->setTitle('Modified at')
+					->setProperty('modifiedAt')
 			);
 	}
 

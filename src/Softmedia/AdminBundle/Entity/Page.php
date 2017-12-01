@@ -4,13 +4,17 @@ namespace Softmedia\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Softmedia\AdminBundle\Entity\Behavior\TranslationInterface;
+use Softmedia\AdminBundle\Entity\Behavior\TreeableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\TreeableTrait;
 
 /**
  * @ORM\Table(name="page")
  * @ORM\Entity()
  */
-class Page extends AbstractNode
+class Page extends AbstractNode implements TreeableInterface
 {
+	use TreeableTrait;
+
 	/**
 	 * @var boolean
 	 *

@@ -1,10 +1,17 @@
 {% extends '@SoftmediaAdmin/index.html.twig' %}
 
 {% block content %}
+	{% set uniqid = random() %}
 	<div class="table-responsive">
-		<table class="table table-hover table-striped">
+		<table class="table table-hover table-striped checkable">
 			<thead>
 				<tr>
+					<th>
+						<label for="{{ uniqid }}_all" class="custom-control custom-checkbox">
+							<input type="checkbox" id="{{ uniqid }}_all" class="custom-control-input">
+							<span class="custom-control-indicator"></span>
+						</label>
+					</th>
 					{% for field in list.fields %}
 						<th{% if field.sortable %} class="sortable"{% endif %}>
 							{{- field.title -}}
@@ -15,9 +22,20 @@
 			<tbody>
 				{% for entity in list.entities %}
 					<tr>
+						<td>
+							<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control custom-checkbox">
+								<input type="checkbox" id="{{ uniqid }}_{{ entity.id }}" value="{{ entity.id }}" class="custom-control-input">
+								<span class="custom-control-indicator"></span>
+							</label>
+						</td>
 						{% for field in list.fields %}
 							<td>
-								{{- attribute(entity, field.property) -}}
+								{%- set value = attribute(entity, field.property) -%}
+								{%- if value is instanceof('DateTime') -%}
+									{{- value | localizeddate('short', 'short', app.request.locale) -}}
+								{%- else -%}
+									{{- value -}}
+								{%- endif -%}
 							</td>
 						{% endfor %}
 					</tr>

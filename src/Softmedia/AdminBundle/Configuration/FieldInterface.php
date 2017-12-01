@@ -51,4 +51,20 @@ interface FieldInterface
 	 * @return bool
 	 */
 	public function getSortable(): bool;
+
+	/**
+	 * Set template
+	 *
+	 * @param string $template
+	 *
+	 * @return FieldInterface
+	 */
+	public function setTemplate(string $template): FieldInterface;
+
+	/**
+	 * Get template
+	 *
+	 * @return string
+	 */
+	public function getTemplate(): ?string;
 };

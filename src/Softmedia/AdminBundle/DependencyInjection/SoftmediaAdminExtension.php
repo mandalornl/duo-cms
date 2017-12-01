@@ -24,5 +24,11 @@ class SoftmediaAdminExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('twig.form.resources', array_merge(
+        	$container->getParameter('twig.form.resources'), [
+        		'SoftmediaAdminBundle:Form:fields.html.twig'
+			]
+		));
     }
 }

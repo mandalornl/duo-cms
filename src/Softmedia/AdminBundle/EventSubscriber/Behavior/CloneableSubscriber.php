@@ -23,6 +23,11 @@ final class CloneableSubscriber implements EventSubscriber
 		];
 	}
 
+	/**
+	 * Load class metadata
+	 *
+	 * @param LoadClassMetadataEventArgs $args
+	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $args)
 	{
 		/**
@@ -30,14 +35,8 @@ final class CloneableSubscriber implements EventSubscriber
 		 */
 		$classMetadata = $args->getClassMetadata();
 
-		if ($classMetadata->getReflectionClass() === null)
-		{
-			return;
-		}
-
-		$reflectionClass = $classMetadata->getReflectionClass();
-
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, CloneableTrait::class))
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
+			!ReflectionClassHelper::hasTrait($reflectionClass, CloneableTrait::class))
 		{
 			return;
 		}

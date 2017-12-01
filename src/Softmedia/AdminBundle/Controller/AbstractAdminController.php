@@ -145,6 +145,7 @@ abstract class AbstractAdminController extends Controller
     {
     	return $this->render($this->getListTemplate(), [
 			'list' => [
+				'prefix' => $this->getRoutePrefix(),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 				'entities' => $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll()
