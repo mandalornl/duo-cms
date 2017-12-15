@@ -58,3 +58,8 @@ a
 {
 	cursor: pointer;
 }
+
+.custom-select
+{
+	@include appearance(none);
+}

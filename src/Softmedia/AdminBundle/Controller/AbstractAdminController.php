@@ -5,6 +5,7 @@ namespace Softmedia\AdminBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Softmedia\AdminBundle\Configuration\ORM\FilterInterface;
+use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,7 +146,7 @@ abstract class AbstractAdminController extends Controller
     {
     	return $this->render($this->getListTemplate(), [
 			'list' => [
-				'prefix' => $this->getRoutePrefix(),
+				'type' => $this->getListType(),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 				'entities' => $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll()
@@ -177,7 +178,7 @@ abstract class AbstractAdminController extends Controller
 
 				$this->addFlash('error', (string)$form->getErrors(true, false));
 
-				return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_add");
+				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_add");
 			}
 
 			$this->postDecorateEntity($entity);
@@ -186,11 +187,15 @@ abstract class AbstractAdminController extends Controller
 			$em->persist($entity);
 			$em->flush();
 
-			return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_list");
+			return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 		}
 
 		return $this->render($this->getAddTemplate(), [
-			'form' => $form->createView()
+			'form' => $form->createView(),
+			'item' => [
+				'type' => $this->getListType()
+			],
+			'isTranslatable' => $entity instanceof TranslatableInterface
 		]);
 	}
 
@@ -207,7 +212,7 @@ abstract class AbstractAdminController extends Controller
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			// TODO: implement exception
+			return $this->entityNotFound($id);
 		}
 
 		$form = $this->createForm($this->getFormClassName(), $entity);
@@ -217,9 +222,11 @@ abstract class AbstractAdminController extends Controller
 		{
 			if (!$form->isValid())
 			{
+				// TODO: implement form error
+
 				$this->addFlash('error', (string)$form->getErrors(true, false));
 
-				return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_edit", [
+				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
 					'id' => $entity->getId()
 				]);
 			}
@@ -228,11 +235,15 @@ abstract class AbstractAdminController extends Controller
 			$em->persist($entity);
 			$em->flush();
 
-			return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_list");
+			return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 		}
 
 		return $this->render($this->getEditTemplate(), [
-			'form' => $form->createView()
+			'form' => $form->createView(),
+			'item' => [
+				'type' => $this->getListType()
+			],
+			'isTranslatable' => $entity instanceof TranslatableInterface
 		]);
 	}
 
@@ -242,21 +253,21 @@ abstract class AbstractAdminController extends Controller
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return RedirectResponse|Response
 	 */
-	protected function doDestroyIndex(Request $request, int $id): RedirectResponse
+	protected function doDestroyIndex(Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			// TODO: implement exception
+			return $this->entityNotFound($id);
 		}
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($entity);
 		$em->flush();
 
-		return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_list");
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 	}
 
 	/**
@@ -290,6 +301,18 @@ abstract class AbstractAdminController extends Controller
 	}
 
 	/**
+	 * Entity not found
+	 *
+	 * @param int $id
+	 *
+	 * @return Response
+	 */
+	protected function entityNotFound(int $id)
+	{
+		return new Response("Entity of type '{$this->getEntityClassName()}' with id '{$id}' not found", 404);
+	}
+
+	/**
 	 * Get entity class name
 	 *
 	 * @return string
@@ -308,7 +331,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return string
 	 */
-	abstract protected function getRoutePrefix(): string;
+	abstract protected function getListType(): string;
 
 		/**
 	 * Define filters
@@ -354,7 +377,7 @@ abstract class AbstractAdminController extends Controller
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	abstract public function destroyIndex(Request $request, int $id): RedirectResponse;
+	abstract public function destroyIndex(Request $request, int $id);
 }

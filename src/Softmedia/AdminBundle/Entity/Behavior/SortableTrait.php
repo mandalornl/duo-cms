@@ -14,13 +14,9 @@ trait SortableTrait
 	protected $weight = 0;
 
 	/**
-	 * Set weight
-	 *
-	 * @param int $weight
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setWeight(int $weight = 0)
+	public function setWeight(int $weight = 0): SortableInterface
 	{
 		$this->weight = $weight;
 
@@ -28,9 +24,7 @@ trait SortableTrait
 	}
 
 	/**
-	 * Get weight
-	 *
-	 * @return int
+	 * {@inheritdoc}
 	 */
 	public function getWeight(): int
 	{

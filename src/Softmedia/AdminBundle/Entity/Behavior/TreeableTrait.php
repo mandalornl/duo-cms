@@ -45,6 +45,9 @@ trait TreeableTrait
 		return $this;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function removeChild(TreeableInterface $child): TreeableInterface
 	{
 		$this->getChildren()->removeElement($child);

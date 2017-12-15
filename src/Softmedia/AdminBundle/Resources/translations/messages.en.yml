@@ -1,0 +1,7 @@
+softmedia_adminbundle:
+    toolbar:
+        add_new: New %type%
+        toggler_label: Toggle toolbar
+        change_language: Change language
+        save_label: Save
+        cancel_label: Cancel

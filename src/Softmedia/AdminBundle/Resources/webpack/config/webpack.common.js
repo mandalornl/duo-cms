@@ -74,7 +74,11 @@ module.exports = {
 			$: 'jquery',
 			jQuery: 'jquery',
 
-			Util: 'exports-loader?Util!bootstrap/js/dist/util'
+			Popper: ['popper.js', 'default'],
+
+			Util: 'exports-loader?Util!bootstrap/js/dist/util',
+			Collapse: 'exports-loader?Collapse!bootstrap/js/dist/collapse',
+			Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown'
 		})
 	]
 };

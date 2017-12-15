@@ -46,10 +46,12 @@ class TestController extends Controller
 			$taxonomies[] = $taxonomy;
 		}
 
+		$parent = null;
 		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'home'])) === null)
 		{
 			$page = new Page();
 			$page->setName('Home');
+			$page->setParent($parent);
 			$page
 				->setPublished(true)
 				->setCreatedBy($user);
@@ -61,6 +63,66 @@ class TestController extends Controller
 			$page->translate('en')
 				->setTitle('Home')
 				->setContent('<p>This is the home page.</p>');
+
+			$page->mergeNewTranslations();
+
+			foreach ($taxonomies as $taxonomy)
+			{
+				$page->addTaxonomy($taxonomy);
+			}
+
+			$em->persist($page);
+			$em->flush();
+
+			$parent = $page;
+		}
+
+		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'foo'])) === null)
+		{
+			$page = new Page();
+			$page->setName('Foo');
+			$page->setParent($parent);
+			$page
+				->setPublished(true)
+				->setCreatedBy($user);
+
+			$page->translate('nl')
+				->setTitle('Foo')
+				->setContent('<p>Dit is foo.</p>');
+
+			$page->translate('en')
+				->setTitle('Foo')
+				->setContent('<p>This is foo.</p>');
+
+			$page->mergeNewTranslations();
+
+			foreach ($taxonomies as $taxonomy)
+			{
+				$page->addTaxonomy($taxonomy);
+			}
+
+			$em->persist($page);
+			$em->flush();
+
+			$parent = $page;
+		}
+
+		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'bar'])) === null)
+		{
+			$page = new Page();
+			$page->setName('Bar');
+			$page->setParent($parent);
+			$page
+				->setPublished(true)
+				->setCreatedBy($user);
+
+			$page->translate('nl')
+				->setTitle('Bar')
+				->setContent('<p>Dit is bar.</p>');
+
+			$page->translate('en')
+				->setTitle('Bar')
+				->setContent('<p>This is bar.</p>');
 
 			$page->mergeNewTranslations();
 

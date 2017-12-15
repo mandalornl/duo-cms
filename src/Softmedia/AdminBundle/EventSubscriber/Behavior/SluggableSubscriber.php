@@ -6,8 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Softmedia\AdminBundle\Entity\Behavior\SluggableTrait;
-use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
+use Softmedia\AdminBundle\Entity\Behavior\SluggableInterface;
 use Softmedia\AdminBundle\Helper\SlugifyHelper;
 
 final class SluggableSubscriber implements EventSubscriber
@@ -23,21 +22,23 @@ final class SluggableSubscriber implements EventSubscriber
 		];
 	}
 
-	/**
-	 * On pre persist event
-	 *
-	 * @param LifecycleEventArgs $args
-	 */
+    /**
+     * On pre persist event
+     *
+     * @param LifecycleEventArgs $args
+     * @throws \IntlException
+     */
 	public function prePersist(LifecycleEventArgs $args)
 	{
 		$this->setSlug($args->getObject());
 	}
 
-	/**
-	 * On pre update event
-	 *
-	 * @param PreUpdateEventArgs $args
-	 */
+    /**
+     * On pre update event
+     *
+     * @param PreUpdateEventArgs $args
+     * @throws \IntlException
+     */
 	public function preUpdate(PreUpdateEventArgs $args)
 	{
 		$this->setSlug($args->getObject());
@@ -47,23 +48,15 @@ final class SluggableSubscriber implements EventSubscriber
 	 * Set slug
 	 *
 	 * @param object $entity
-	 * @param \ReflectionClass $reflectionClass
-	 */
-	private function setSlug($entity, \ReflectionClass $reflectionClass = null)
+     * @throws \IntlException
+     */
+	private function setSlug($entity)
 	{
-		$reflectionClass = $reflectionClass ?: new \ReflectionClass($entity);
-
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, SluggableTrait::class))
+		if (!$entity instanceof SluggableInterface)
 		{
 			return;
 		}
 
-		$property = $reflectionClass->getProperty('slug');
-		$property->setAccessible(true);
-
-		/**
-		 * @var SluggableTrait $entity
-		 */
-		$property->setValue($entity, SlugifyHelper::slugify($entity->getValueToSlugify()));
+		$entity->setSlug(SlugifyHelper::slugify($entity->getValueToSlugify()));
 	}
 }

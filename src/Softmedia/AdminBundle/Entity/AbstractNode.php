@@ -7,7 +7,7 @@ use Softmedia\AdminBundle\Entity\Behavior\BlameableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\CloneableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\CloneableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\IdableTrait;
-use Softmedia\AdminBundle\Entity\Behavior\SluggableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SortableTrait;
@@ -16,10 +16,9 @@ use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableTrait;
 
-abstract class AbstractNode implements TranslatableInterface, CloneableInterface, SortableInterface
+abstract class AbstractNode implements TranslatableInterface, CloneableInterface, SortableInterface, SoftDeletableInterface
 {
 	use IdableTrait;
-	use SluggableTrait;
 	use BlameableTrait;
 	use SoftDeletableTrait;
 	use TranslatableTrait;
@@ -58,14 +57,6 @@ abstract class AbstractNode implements TranslatableInterface, CloneableInterface
     {
         return $this->name;
     }
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getValueToSlugify(): string
-	{
-		return $this->name;
-	}
 
 	/**
 	 * {@inheritdoc}

@@ -3,10 +3,10 @@
 namespace Softmedia\AdminBundle\Controller\Behavior;
 
 use Softmedia\AdminBundle\Controller\AbstractAdminController;
-use Softmedia\AdminBundle\Entity\Behavior;
-use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
+use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 trait SortableTrait
 {
@@ -16,9 +16,9 @@ trait SortableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	protected function doMoveUp(Request $request, int $id): RedirectResponse
+	protected function doMoveUp(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -26,17 +26,15 @@ trait SortableTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			// TODO: implement exception
+			return $this->entityNotFound($id);
 		}
 
-		$reflectionClass = new \ReflectionClass($entity);
-
-		if (ReflectionClassHelper::hasTrait($reflectionClass, Behavior\SortableTrait::class))
+		if (!$entity instanceof SortableInterface)
 		{
 			// TODO: implement move up
 		}
 
-		return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_list");
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 	}
 
 	/**
@@ -45,9 +43,9 @@ trait SortableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	protected function doMoveDown(Request $request, int $id): RedirectResponse
+	protected function doMoveDown(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -55,17 +53,15 @@ trait SortableTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			// TODO: implement exception
+			return $this->entityNotFound($id);
 		}
 
-		$reflectionClass = new \ReflectionClass($entity);
-
-		if (ReflectionClassHelper::hasTrait($reflectionClass, Behavior\SortableTrait::class))
+		if (!$entity instanceof SortableInterface)
 		{
 			// TODO: implement move down
 		}
 
-		return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_list");
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 	}
 
 	/**
@@ -74,9 +70,9 @@ trait SortableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	abstract public function moveUp(Request $request, int $id): RedirectResponse;
+	abstract public function moveUp(Request $request, int $id);
 
 	/**
 	 * Move entity down
@@ -84,7 +80,7 @@ trait SortableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	abstract public function moveDown(Request $request, int $id): RedirectResponse;
+	abstract public function moveDown(Request $request, int $id);
 }

@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Softmedia\AdminBundle\Entity\Behavior\CloneableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\CloneableTrait;
 use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
 
@@ -99,13 +100,13 @@ final class CloneableSubscriber implements EventSubscriber
 	public function prePersist(LifecycleEventArgs $args)
 	{
 		$entity = $args->getObject();
-		$reflectionClass = new \ReflectionClass($entity);
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, CloneableTrait::class))
+		if (!$entity instanceof CloneableInterface)
 		{
 			return;
 		}
 
+		$reflectionClass = new \ReflectionClass($entity);
 		$property = $reflectionClass->getProperty('version');
 		$property->setAccessible(true);
 

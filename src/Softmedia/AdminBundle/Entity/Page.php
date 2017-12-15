@@ -3,17 +3,23 @@
 namespace Softmedia\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Softmedia\AdminBundle\Entity\Behavior\SluggableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\SluggableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TranslationInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TreeableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TreeableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\UrlableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\UrlableTrait;
 
 /**
  * @ORM\Table(name="page")
  * @ORM\Entity()
  */
-class Page extends AbstractNode implements TreeableInterface
+class Page extends AbstractNode implements TreeableInterface, SluggableInterface, UrlableInterface
 {
 	use TreeableTrait;
+    use SluggableTrait;
+    use UrlableTrait;
 
 	/**
 	 * @var boolean
@@ -54,5 +60,21 @@ class Page extends AbstractNode implements TreeableInterface
 	public function translate(string $locale = null, bool $fallback = true): PageTranslation
 	{
 		return $this->doTranslate($locale, $fallback);
+	}
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getValueToSlugify(): string
+    {
+        return $this->name;
+    }
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getValueToUrlize(): string
+	{
+		return $this->slug;
 	}
 }

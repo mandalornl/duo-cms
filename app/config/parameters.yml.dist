@@ -18,7 +18,7 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    locale: nl
+    locale: en
     locales: [nl, en]
 
     webpack.devserver.host: localhost

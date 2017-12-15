@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TreeableTrait;
 use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
 
@@ -21,6 +22,11 @@ final class TreeableSubscriber implements EventSubscriber
 		];
 	}
 
+    /**
+     * Load class metadata
+     *
+     * @param LoadClassMetadataEventArgs $args
+     */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $args)
 	{
 		/**
@@ -78,14 +84,24 @@ final class TreeableSubscriber implements EventSubscriber
 	{
 		if (!$classMetadata->hasAssociation('children'))
 		{
-			$classMetadata->mapOneToMany([
+			$mapping = [
 				'fieldName'		=> 'children',
 				'mappedBy'		=> 'parent',
 				'cascade'		=> ['persist', 'merge', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'orphanRemoval'	=> true
-			]);
+			];
+
+			// order by weight
+			if ($reflectionClass->implementsInterface(SortableInterface::class))
+			{
+				$mapping['orderBy'] = [
+					'weight' => 'ASC'
+				];
+			}
+
+			$classMetadata->mapOneToMany($mapping);
 		}
 	}
 }

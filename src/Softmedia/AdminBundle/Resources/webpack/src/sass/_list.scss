@@ -1,0 +1,25 @@
+.table-list
+{
+	thead th,
+	tbody td
+	{
+		white-space: nowrap;
+
+		&:first-child
+		{
+			width: 1%;
+
+			.custom-control
+			{
+				display: block;
+
+				margin: 0;
+			}
+		}
+	}
+
+	tbody tr[data-url] td
+	{
+		cursor: pointer;
+	}
+}

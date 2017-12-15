@@ -14,13 +14,9 @@ trait SoftDeletableTrait
 	protected $deletedAt;
 
 	/**
-	 * Set deletedAt
-	 *
-	 * @param \DateTime $deletedAt
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setDeletedAt(\DateTime $deletedAt)
+	public function setDeletedAt(\DateTime $deletedAt): SoftDeletableInterface
 	{
 		$this->deletedAt = $deletedAt;
 
@@ -28,9 +24,7 @@ trait SoftDeletableTrait
 	}
 
 	/**
-	 * Get deletedAt
-	 *
-	 * @return \DateTime
+	 * {@inheritdoc}
 	 */
 	public function getDeletedAt(): ?\DateTime
 	{
@@ -38,11 +32,9 @@ trait SoftDeletableTrait
 	}
 
 	/**
-	 * Delete entity
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function delete()
+	public function delete(): SoftDeletableInterface
 	{
 		$this->deletedAt = $this->getCurrentDateTime();
 
@@ -50,11 +42,9 @@ trait SoftDeletableTrait
 	}
 
 	/**
-	 * Restore entity
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function restore()
+	public function restore(): SoftDeletableInterface
 	{
 		$this->deletedAt = null;
 
@@ -62,9 +52,7 @@ trait SoftDeletableTrait
 	}
 
 	/**
-	 * Check whether or not entity is deleted
-	 *
-	 * @return bool
+	 * {@inheritdoc}
 	 */
 	public function isDeleted(): bool
 	{

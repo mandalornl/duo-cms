@@ -3,10 +3,10 @@
 namespace Softmedia\AdminBundle\Controller\Behavior;
 
 use Softmedia\AdminBundle\Controller\AbstractAdminController;
-use Softmedia\AdminBundle\Entity\Behavior;
-use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
+use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 trait SoftDeletableTrait
 {
@@ -16,9 +16,9 @@ trait SoftDeletableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	protected function doDeleteIndex(Request $request, int $id): RedirectResponse
+	protected function doDeleteIndex(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -26,16 +26,11 @@ trait SoftDeletableTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			// TODO: implement exception
+			return $this->entityNotFound($id);
 		}
 
-		$reflectionClass = new \ReflectionClass($entity);
-
-		if (ReflectionClassHelper::hasTrait($reflectionClass, SoftDeletableTrait::class))
+		if ($entity instanceof SoftDeletableInterface)
 		{
-			/**
-			 * @var Behavior\SoftDeletableTrait $entity
-			 */
 			$entity->delete();
 
 			$em = $this->getDoctrine()->getManager();
@@ -43,7 +38,7 @@ trait SoftDeletableTrait
 			$em->flush();
 		}
 
-		return $this->redirectToRoute("softmedia_admin_{$this->getRoutePrefix()}_list");
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 	}
 
 	/**
@@ -52,9 +47,9 @@ trait SoftDeletableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	protected function doRestoreAction(Request $request, int $id): RedirectResponse
+	protected function doRestoreAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -62,16 +57,11 @@ trait SoftDeletableTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			// TODO: implement exception
+			return $this->entityNotFound($id);
 		}
 
-		$reflectionClass = new \ReflectionClass($entity);
-
-		if (ReflectionClassHelper::hasTrait($reflectionClass, Behavior\SoftDeletableTrait::class))
+		if ($entity instanceof SoftDeletableInterface)
 		{
-			/**
-			 * @var Behavior\SoftDeletableTrait $entity
-			 */
 			$entity->restore();
 
 			$em = $this->getDoctrine()->getManager();
@@ -79,7 +69,7 @@ trait SoftDeletableTrait
 			$em->flush();
 		}
 
-		return $this->redirect("softmedia_admin_{$this->getRoutePrefix()}_list");
+		return $this->redirect("softmedia_admin_{$this->getListType()}_list");
 	}
 
 	/**
@@ -88,15 +78,15 @@ trait SoftDeletableTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	abstract public function deleteIndex(Request $request, int $id): RedirectResponse;
+	abstract public function deleteIndex(Request $request, int $id);
 
 	/**
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse
+	 * @return Response|RedirectResponse
 	 */
-	abstract public function restoreIndex(Request $request, int $id): RedirectResponse;
+	abstract public function restoreIndex(Request $request, int $id);
 }

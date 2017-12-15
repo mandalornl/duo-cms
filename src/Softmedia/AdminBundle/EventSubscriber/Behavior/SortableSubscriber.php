@@ -6,8 +6,9 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Events;
-use Softmedia\AdminBundle\Entity\Behavior\SortableTrait;
-use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 
 final class SortableSubscriber implements EventSubscriber
 {
@@ -29,34 +30,26 @@ final class SortableSubscriber implements EventSubscriber
 	public function prePersist(LifecycleEventArgs $args)
 	{
 		$entity = $args->getObject();
-		$reflectionClass = new \ReflectionClass($entity);
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, SortableTrait::class))
+		if (!$entity instanceof SortableInterface || $entity->getWeight() !== null)
 		{
 			return;
 		}
 
-		$property = $reflectionClass->getProperty('weight');
-		$property->setAccessible(true);
-
-		if ($property->getValue($entity) !== null)
-		{
-			return;
-		}
-
-		$property->setValue($entity, $this->getNextWeight($args, $reflectionClass));
+		$entity->setWeight($this->getNextWeight($args));
 	}
 
 	/**
 	 * Get next weight
 	 *
 	 * @param LifecycleEventArgs $args
-	 * @param \ReflectionClass $reflectionClass
 	 *
 	 * @return int
 	 */
-	private function getNextWeight(LifecycleEventArgs $args, \ReflectionClass $reflectionClass): int
+	private function getNextWeight(LifecycleEventArgs $args): int
 	{
+		$reflectionClass = new \ReflectionClass($args->getObject());
+
 		/**
 		 * @var EntityManager $entityManager
 		 */
@@ -73,6 +66,13 @@ final class SortableSubscriber implements EventSubscriber
 				->setParameter('parent', $reflectionClass->getProperty('parent'));
 		}
 
-		return (int)$builder->getQuery()->getSingleScalarResult();
+		try
+		{
+			return (int)$builder->getQuery()->getSingleScalarResult();
+		}
+		catch (NonUniqueResultException | NoResultException $e)
+		{
+			return 0;
+		}
 	}
 }

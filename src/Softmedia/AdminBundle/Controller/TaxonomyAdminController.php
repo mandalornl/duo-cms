@@ -32,7 +32,7 @@ class TaxonomyAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getRoutePrefix(): string
+	protected function getListType(): string
 	{
 		return 'taxonomy';
 	}
@@ -127,7 +127,7 @@ class TaxonomyAdminController extends AbstractAdminController
 	 * @Route("/destroy/{id}", name="softmedia_admin_taxonomy_destroy", requirements={ "id" = "\d+" })
 	 * @Method("POST")
 	 */
-	public function destroyIndex(Request $request, int $id): RedirectResponse
+	public function destroyIndex(Request $request, int $id)
 	{
 		return $this->doDestroyIndex($request, $id);
 	}

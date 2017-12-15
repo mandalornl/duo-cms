@@ -37,7 +37,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getRoutePrefix(): string
+	protected function getListType(): string
 	{
 		return 'page';
 	}
@@ -60,11 +60,6 @@ class PageAdminController extends AbstractAdminController
 				(new Field())
 					->setTitle('Name')
 					->setProperty('name')
-			)
-			->addField(
-				(new Field())
-					->setTitle('Slug')
-					->setProperty('slug')
 			)
 			->addField(
 				(new Field())
@@ -152,7 +147,7 @@ class PageAdminController extends AbstractAdminController
 	 * @Route("/delete/{id}", name="softmedia_admin_page_delete", requirements={ "id" = "\d+" })
 	 * @Method("POST")
 	 */
-	public function deleteIndex(Request $request, int $id): RedirectResponse
+	public function deleteIndex(Request $request, int $id)
 	{
 		return $this->doDeleteIndex($request, $id);
 	}
@@ -163,7 +158,7 @@ class PageAdminController extends AbstractAdminController
 	 * @Route("/restore/{id}", name="softmedia_admin_page_restore", requirements={ "id" = "\d+" })
 	 * @Method("POST")
 	 */
-	public function restoreIndex(Request $request, int $id): RedirectResponse
+	public function restoreIndex(Request $request, int $id)
 	{
 		return $this->doRestoreAction($request, $id);
 	}
@@ -185,7 +180,7 @@ class PageAdminController extends AbstractAdminController
 	 * @Route("/move-up/{id}", name="softmedia_admin_page_move_up", requirements={ "id" = "\d+" })
 	 * @Method("POST")
 	 */
-	public function moveUp(Request $request, int $id): RedirectResponse
+	public function moveUp(Request $request, int $id)
 	{
 		return $this->doMoveUp($request, $id);
 	}
@@ -196,7 +191,7 @@ class PageAdminController extends AbstractAdminController
 	 * @Route("/move-up/{id}", name="softmedia_admin_page_move_down", requirements={ "id" = "\d+" })
 	 * @Method("POST")
 	 */
-	public function moveDown(Request $request, int $id): RedirectResponse
+	public function moveDown(Request $request, int $id)
 	{
 		return $this->doMoveDown($request, $id);
 	}

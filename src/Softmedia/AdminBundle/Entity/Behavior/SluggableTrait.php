@@ -3,24 +3,22 @@
 namespace Softmedia\AdminBundle\Entity\Behavior;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait SluggableTrait
 {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="slug", type="string", nullable=false)
+	 * @ORM\Column(name="slug", type="string", nullable=true)
+     * @Assert\NotBlank()
 	 */
 	protected $slug;
 
 	/**
-	 * Set slug
-	 *
-	 * @param string $slug
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setSlug(string $slug = null)
+	public function setSlug(string $slug = null): SluggableInterface
 	{
 		$this->slug = $slug;
 
@@ -28,19 +26,10 @@ trait SluggableTrait
 	}
 
 	/**
-	 * Get slug
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getSlug(): ?string
 	{
 		return $this->slug;
 	}
-
-	/**
-	 * Get value to slugify
-	 *
-	 * @return string
-	 */
-	abstract public function getValueToSlugify(): string;
 }

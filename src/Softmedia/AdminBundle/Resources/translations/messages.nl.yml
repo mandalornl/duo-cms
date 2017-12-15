@@ -1,0 +1,7 @@
+softmedia_adminbundle:
+    toolbar:
+        add_new: Nieuwe %type%
+        toggler_label: Toggle werkbalk
+        change_language: Wissel van taal
+        save_label: Opslaan
+        cancel_label: Annuleren
