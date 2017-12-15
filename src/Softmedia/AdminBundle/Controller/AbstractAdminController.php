@@ -5,7 +5,10 @@ namespace Softmedia\AdminBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Softmedia\AdminBundle\Configuration\ORM\FilterInterface;
+use Softmedia\AdminBundle\Entity\Behavior\PublishableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\ViewableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -190,13 +193,12 @@ abstract class AbstractAdminController extends Controller
 			return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 		}
 
-		return $this->render($this->getAddTemplate(), [
+		return $this->render($this->getAddTemplate(), array_merge([
 			'form' => $form->createView(),
-			'item' => [
+			'list' => [
 				'type' => $this->getListType()
-			],
-			'isTranslatable' => $entity instanceof TranslatableInterface
-		]);
+			]
+		], $this->getEntityBehaviors($entity)));
 	}
 
 	/**
@@ -238,13 +240,30 @@ abstract class AbstractAdminController extends Controller
 			return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 		}
 
-		return $this->render($this->getEditTemplate(), [
+		return $this->render($this->getEditTemplate(), array_merge([
 			'form' => $form->createView(),
-			'item' => [
+			'entity' => $entity,
+			'list' => [
 				'type' => $this->getListType()
-			],
-			'isTranslatable' => $entity instanceof TranslatableInterface
-		]);
+			]
+		], $this->getEntityBehaviors($entity)));
+	}
+
+	/**
+	 * Get entity behaviors
+	 *
+	 * @param object $entity
+	 *
+	 * @return array
+	 */
+	private function getEntityBehaviors($entity)
+	{
+		return [
+			'isTranslatable' => $entity instanceof TranslatableInterface,
+			'isPublishable' => $entity instanceof PublishableInterface,
+			'isSoftDeletable' => $entity instanceof SoftDeletableInterface,
+			'isViewable' => $entity instanceof ViewableInterface
+		];
 	}
 
 	/**

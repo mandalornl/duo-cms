@@ -2,10 +2,10 @@
 
 {% block toolbar %}
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ item.type }}" aria-controls="navbar_{{ item.type }}" aria-expanded="false" aria-label="{{ 'softmedia_adminbundle.toolbar.toggler_label' | trans }}">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ list.type }}" aria-controls="navbar_{{ list.type }}" aria-expanded="false" aria-label="{{ 'softmedia_adminbundle.toolbar.toggler_label' | trans }}">
 			<i class="navbar-toggler-icon"></i>
 		</button>
-		<div class="collapse navbar-collapse justify-content-end" id="navbar_{{ item.type }}">
+		<div class="collapse navbar-collapse justify-content-end" id="navbar_{{ list.type }}">
 			{#<ul class="navbar-nav">
 				<li class="nav-item mr-lg-2">
 					<span class="navbar-text">Do something</span>
@@ -23,12 +23,53 @@
 						{% endfor %}
 					</select>
 				{% endif %}
-				<a href="{{ path('softmedia_admin_' ~ item.type ~ '_list') }}" class="btn btn-danger mr-2">
-					{{- 'softmedia_adminbundle.toolbar.cancel_label' | trans -}}
-				</a>
-				<button type="button" class="btn btn-success">
-					{{- 'softmedia_adminbundle.toolbar.save_label' | trans -}}
-				</button>
+				<div class="btn-toolbar" role="toolbar" aria-label="{{ 'softmedia_adminbundle.toolbar.actions_label' | trans }}">
+					<div class="btn-group" role="group">
+						<div class="btn-group" role="group">
+							<button id="actions_{{ list.type }}" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								{{- 'softmedia_adminbundle.toolbar.more_label' | trans -}}
+							</button>
+							<div class="dropdown-menu" aria-labelledby="actions_{{ list.type }}">
+								{% if isSoftDeletable %}
+									<button type="button" class="dropdown-item" data-action="delete">
+										{%- if entity is defined and entity.isDeleted() -%}
+											{{- 'softmedia_adminbundle.toolbar.undelete_label' | trans -}}
+										{%- else -%}
+											{{- 'softmedia_adminbundle.toolbar.delete_label' | trans -}}
+										{%- endif -%}
+									</button>
+								{% else %}
+									<button type="button" class="dropdown-item" data-action="remove">
+										{{- 'softmedia_adminbundle.toolbar.remove_label' | trans -}}
+									</button>
+								{% endif %}
+								{% if isPublishable %}
+									<button type="button" class="dropdown-item" data-action="publish">
+										{%- if entity is defined and entity.published -%}
+											{{- 'softmedia_adminbundle.toolbar.unpublish_label' | trans -}}
+										{%- else -%}
+											{{- 'softmedia_adminbundle.toolbar.publish_label' | trans -}}
+										{%- endif -%}
+									</button>
+								{% endif %}
+								{% if isViewable %}
+									<button type="button" class="dropdown-item" data-action="preview">
+										{{- 'softmedia_adminbundle.toolbar.preview_label' | trans -}}
+									</button>
+								{% endif %}
+								<button type="button" class="dropdown-item" data-action="duplicate">
+									{{- 'softmedia_adminbundle.toolbar.duplicate_label' | trans -}}
+								</button>
+							</div>
+						</div>
+						<a href="{{ path('softmedia_admin_' ~ list.type ~ '_list') }}" class="btn btn-danger">
+							{{- 'softmedia_adminbundle.toolbar.cancel_label' | trans -}}
+						</a>
+						<button type="button" class="btn btn-success" data-action="save">
+							{{- 'softmedia_adminbundle.toolbar.save_label' | trans -}}
+						</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	</nav>

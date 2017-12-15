@@ -3,6 +3,8 @@
 namespace Softmedia\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Softmedia\AdminBundle\Entity\Behavior\PublishableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\PublishableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\SluggableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SluggableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TranslationInterface;
@@ -10,47 +12,18 @@ use Softmedia\AdminBundle\Entity\Behavior\TreeableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TreeableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\UrlableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\UrlableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\ViewableInterface;
 
 /**
  * @ORM\Table(name="page")
  * @ORM\Entity()
  */
-class Page extends AbstractNode implements TreeableInterface, SluggableInterface, UrlableInterface
+class Page extends AbstractNode implements TreeableInterface, SluggableInterface, UrlableInterface, PublishableInterface, ViewableInterface
 {
 	use TreeableTrait;
     use SluggableTrait;
     use UrlableTrait;
-
-	/**
-	 * @var boolean
-	 *
-	 * @ORM\Column(name="published", type="boolean", options={ "default" = 0 })
-	 */
-	protected $published = 0;
-
-	/**
-	 * Set published
-	 *
-	 * @param boolean $published
-	 *
-	 * @return Page
-	 */
-	public function setPublished(bool $published = false): Page
-	{
-		$this->published = $published;
-
-		return $this;
-	}
-
-	/**
-	 * Get published
-	 *
-	 * @return boolean
-	 */
-	public function getPublished(): bool
-	{
-		return $this->published;
-	}
+    use PublishableTrait;
 
 	/**
 	 * {@inheritdoc}
