@@ -83,6 +83,8 @@ trait SoftDeletableTrait
 	abstract public function deleteIndex(Request $request, int $id);
 
 	/**
+     * Restore entity
+     *
 	 * @param Request $request
 	 * @param int $id
 	 *

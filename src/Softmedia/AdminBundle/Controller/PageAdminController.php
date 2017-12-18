@@ -5,6 +5,7 @@ namespace Softmedia\AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Softmedia\AdminBundle\Configuration\Field;
+use Softmedia\AdminBundle\Controller\Behavior\CloneableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\SoftDeletableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\SortableTrait;
 use Softmedia\AdminBundle\Entity\Page;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageAdminController extends AbstractAdminController
 {
+	use CloneableTrait;
 	use SortableTrait;
 	use SoftDeletableTrait;
 
@@ -141,7 +143,18 @@ class PageAdminController extends AbstractAdminController
 		return $this->doEditIndex($request, $id);
 	}
 
-	/**
+    /**
+     * {@inheritdoc}
+     *
+     * @Route("/view/{id}/version/{versionId}", name="softmedia_admin_page_version", requirements={ "id" = "\d+", "versionId" = "\d+" })
+     * @Method("GET")
+     */
+    public function versionIndex(Request $request, int $id, int $versionId)
+    {
+        return $this->doVersionIndex($request, $id, $versionId);
+    }
+
+    /**
 	 * {@inheritdoc}
 	 *
 	 * @Route("/delete/{id}", name="softmedia_admin_page_delete", requirements={ "id" = "\d+" })

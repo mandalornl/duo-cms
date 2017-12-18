@@ -4,7 +4,9 @@ namespace Softmedia\AdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Softmedia\AdminBundle\Configuration\FieldInterface;
 use Softmedia\AdminBundle\Configuration\ORM\FilterInterface;
+use Softmedia\AdminBundle\Entity\Behavior\CloneableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\PublishableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
@@ -79,11 +81,11 @@ abstract class AbstractAdminController extends Controller
 	/**
 	 * Add field
 	 *
-	 * @param $field
+	 * @param FieldInterface $field
 	 *
 	 * @return $this
 	 */
-	public function addField($field)
+	public function addField(FieldInterface $field)
 	{
 		$this->fields[] = $field;
 
@@ -93,11 +95,11 @@ abstract class AbstractAdminController extends Controller
 	/**
 	 * Remove field
 	 *
-	 * @param $field
+	 * @param FieldInterface $field
 	 *
 	 * @return $this
 	 */
-	public function removeField($field)
+	public function removeField(FieldInterface $field)
 	{
 		$this->fields->removeElement($field);
 
@@ -117,7 +119,7 @@ abstract class AbstractAdminController extends Controller
 	/**
 	 * Pre decorate entity
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return $this
 	 */
@@ -129,7 +131,7 @@ abstract class AbstractAdminController extends Controller
 	/**
 	 * Post decorate entity
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return $this
 	 */
@@ -145,17 +147,33 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response
 	 */
-    protected function doIndexAction(Request $request): Response
-    {
-    	return $this->render($this->getListTemplate(), [
+	protected function doIndexAction(Request $request): Response
+	{
+		return $this->render($this->getListTemplate(), [
 			'list' => [
 				'type' => $this->getListType(),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
-				'entities' => $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll()
+				'entities' => $this->getEntities()
 			]
 		]);
-    }
+	}
+
+	/**
+	 * Get entities
+	 *
+	 * @return array
+	 */
+	protected function getEntities(): array
+	{
+		$reflectionClass = new \ReflectionClass($this->getEntityClassName());
+		if ($reflectionClass->implementsInterface(CloneableInterface::class))
+		{
+			// TODO: implement
+		}
+
+		return $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll();
+	}
 
 	/**
 	 * Add entity
@@ -164,7 +182,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 */
-    protected function doAddIndex(Request $request)
+	protected function doAddIndex(Request $request)
 	{
 		$class = $this->getEntityClassName();
 		$entity = new $class();
@@ -352,7 +370,7 @@ abstract class AbstractAdminController extends Controller
 	 */
 	abstract protected function getListType(): string;
 
-		/**
+	/**
 	 * Define filters
 	 */
 	abstract protected function defineFilters(): void;
