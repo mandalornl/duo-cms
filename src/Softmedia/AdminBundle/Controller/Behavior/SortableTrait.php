@@ -2,6 +2,7 @@
 
 namespace Softmedia\AdminBundle\Controller\Behavior;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Softmedia\AdminBundle\Controller\AbstractAdminController;
 use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,20 +19,40 @@ trait SortableTrait
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	protected function doMoveUp(Request $request, int $id)
+	protected function doMoveUpAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
-		if ($entity === null)
+		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
+
+		if (($entity = $repository->find($id)) === null)
 		{
 			return $this->entityNotFound($id);
 		}
 
 		if (!$entity instanceof SortableInterface)
 		{
-			// TODO: implement move up
+			return $this->sortableInterfaceNotImplemented($id);
+		}
+
+		/**
+		 * @var SortableInterface $previousEntity
+		 */
+		$previousEntity = $repository->findPreviousWeight($entity);
+		if ($previousEntity !== null)
+		{
+			$weight = $previousEntity->getWeight();
+			$previousEntity->setWeight($entity->getWeight());
+			$entity->setWeight($weight);
+
+			/**
+			 * @var ObjectManager $em
+			 */
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($previousEntity);
+			$em->persist($entity);
+			$em->flush();
 		}
 
 		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
@@ -45,23 +66,56 @@ trait SortableTrait
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	protected function doMoveDown(Request $request, int $id)
+	protected function doMoveDownAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
-		if ($entity === null)
+		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
+
+		if (($entity = $repository->find($id)) === null)
 		{
 			return $this->entityNotFound($id);
 		}
 
 		if (!$entity instanceof SortableInterface)
 		{
-			// TODO: implement move down
+			return $this->sortableInterfaceNotImplemented($id);
+		}
+
+		/**
+		 * @var SortableInterface $nextEntity
+		 */
+		$nextEntity = $repository->findNextWeight($entity);
+		if ($nextEntity !== null)
+		{
+			$weight = $nextEntity->getWeight();
+			$nextEntity->setWeight($entity->getWeight());
+			$entity->setWeight($weight);
+
+			/**
+			 * @var ObjectManager $em
+			 */
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($nextEntity);
+			$em->persist($entity);
+			$em->flush();
 		}
 
 		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
+	}
+
+	/**
+	 * Sortable interface not implemented
+	 *
+	 * @param int $id
+	 *
+	 * @return Response
+	 */
+	private function sortableInterfaceNotImplemented(int $id): Response
+	{
+		$interface = SortableInterface::class;
+		return new Response("Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'", 500);
 	}
 
 	/**
@@ -72,7 +126,7 @@ trait SortableTrait
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function moveUp(Request $request, int $id);
+	abstract public function moveUpAction(Request $request, int $id);
 
 	/**
 	 * Move entity down
@@ -82,5 +136,5 @@ trait SortableTrait
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function moveDown(Request $request, int $id);
+	abstract public function moveDownAction(Request $request, int $id);
 }

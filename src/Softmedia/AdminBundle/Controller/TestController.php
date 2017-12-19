@@ -74,7 +74,22 @@ class TestController extends Controller
 			$em->persist($page);
 			$em->flush();
 
-			$parent = $page;
+			for ($i = 1; $i <= 10; $i++)
+			{
+				$dateTime = new \DateTime();
+				$dateTime->add(new \DateInterval("PT{$i}S"));
+
+				$clone = clone $page;
+				$clone->setName("{$page->getName()} {$i}");
+				$clone->setCreatedAt($dateTime);
+				$clone->setModifiedAt($dateTime);
+
+				$em->persist($clone);
+
+				$parent = $clone;
+			}
+
+			$em->flush();
 		}
 
 		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'foo'])) === null)

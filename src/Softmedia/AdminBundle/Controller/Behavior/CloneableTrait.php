@@ -17,7 +17,7 @@ trait CloneableTrait
 	 *
 	 * @return Response
 	 */
-	protected function doVersionIndex(Request $request, int $id, int $versionId)
+	protected function doVersionAction(Request $request, int $id, int $versionId)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -51,7 +51,7 @@ trait CloneableTrait
 	 *
 	 * @return Response
 	 */
-	protected function versionNotFound(int $id)
+	protected function versionNotFound(int $id): Response
 	{
 		return new Response("Version for entity of type '{$this->getEntityClassName()}' with id '{$id}' not found", 404);
 	}
@@ -65,5 +65,5 @@ trait CloneableTrait
 	 *
 	 * @return Response
 	 */
-	abstract public function versionIndex(Request $request, int $id, int $versionId);
+	abstract public function versionAction(Request $request, int $id, int $versionId);
 }

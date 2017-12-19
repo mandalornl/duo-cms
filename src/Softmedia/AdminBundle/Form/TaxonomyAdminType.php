@@ -16,14 +16,12 @@ class TaxonomyAdminType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder
-			->add('translations', CollectionType::class, [
-				'entry_type' => TaxonomyAdminTranslationType::class,
-				'allow_add' => false,
-				'allow_delete' => false,
-				'by_reference' => false
-			])
-			->add('Save', SubmitType::class);
+		$builder->add('translations', CollectionType::class, [
+			'entry_type' => TaxonomyAdminTranslationType::class,
+			'allow_add' => false,
+			'allow_delete' => false,
+			'by_reference' => false
+		]);
 	}
 
 	/**

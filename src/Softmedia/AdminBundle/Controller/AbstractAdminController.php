@@ -4,6 +4,8 @@ namespace Softmedia\AdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Softmedia\AdminBundle\Configuration\FieldInterface;
 use Softmedia\AdminBundle\Configuration\ORM\FilterInterface;
 use Softmedia\AdminBundle\Entity\Behavior\CloneableInterface;
@@ -167,9 +169,33 @@ abstract class AbstractAdminController extends Controller
 	protected function getEntities(): array
 	{
 		$reflectionClass = new \ReflectionClass($this->getEntityClassName());
+
+		// only fetch latest version of entities
 		if ($reflectionClass->implementsInterface(CloneableInterface::class))
 		{
-			// TODO: implement
+			/**
+			 * @var EntityManager $em
+			 */
+			$em = $this->getDoctrine()->getManager();
+
+			$tableName = $em->getClassMetadata($this->getEntityClassName())->getTableName();
+
+			$rsm = new ResultSetMapping();
+			$rsm->addScalarResult('id', 'id', 'integer');
+
+			$sql = <<<SQL
+SELECT MAX(id) id FROM {$tableName} GROUP BY version_id ORDER BY created_at DESC, id
+SQL;
+
+			$ids = array_column($em->createNativeQuery($sql, $rsm)->getScalarResult(), 'id');
+			if (!count($ids))
+			{
+				return [];
+			}
+
+			return $this->getDoctrine()->getRepository($this->getEntityClassName())->findBy([
+				'id' => $ids
+			]);
 		}
 
 		return $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll();
@@ -182,7 +208,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	protected function doAddIndex(Request $request)
+	protected function doAddAction(Request $request)
 	{
 		$class = $this->getEntityClassName();
 		$entity = new $class();
@@ -213,9 +239,8 @@ abstract class AbstractAdminController extends Controller
 
 		return $this->render($this->getAddTemplate(), array_merge([
 			'form' => $form->createView(),
-			'list' => [
-				'type' => $this->getListType()
-			]
+			'entity' => $entity,
+			'type' => $this->getListType()
 		], $this->getEntityBehaviors($entity)));
 	}
 
@@ -227,7 +252,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	protected function doEditIndex(Request $request, int $id)
+	protected function doEditAction(Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -247,8 +272,14 @@ abstract class AbstractAdminController extends Controller
 				$this->addFlash('error', (string)$form->getErrors(true, false));
 
 				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
-					'id' => $entity->getId()
+					'id' => $id
 				]);
+			}
+
+			// create clone for versioning
+			if ($entity instanceof CloneableInterface)
+			{
+				$entity = clone $entity;
 			}
 
 			$em = $this->getDoctrine()->getManager();
@@ -261,9 +292,7 @@ abstract class AbstractAdminController extends Controller
 		return $this->render($this->getEditTemplate(), array_merge([
 			'form' => $form->createView(),
 			'entity' => $entity,
-			'list' => [
-				'type' => $this->getListType()
-			]
+			'type' => $this->getListType()
 		], $this->getEntityBehaviors($entity)));
 	}
 
@@ -274,7 +303,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return array
 	 */
-	private function getEntityBehaviors($entity)
+	private function getEntityBehaviors($entity): array
 	{
 		return [
 			'isTranslatable' => $entity instanceof TranslatableInterface,
@@ -290,9 +319,9 @@ abstract class AbstractAdminController extends Controller
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return RedirectResponse|Response
+	 * @return Response|RedirectResponse
 	 */
-	protected function doDestroyIndex(Request $request, int $id)
+	protected function doDestroyAction(Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -305,6 +334,39 @@ abstract class AbstractAdminController extends Controller
 		$em->flush();
 
 		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
+	}
+
+	/**
+	 * Duplicate entity
+	 *
+	 * @param Request $request
+	 * @param int $id
+	 *
+	 * @return Response|RedirectResponse
+	 */
+	protected function doDuplicateAction(Request $request, int $id)
+	{
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
+		if ($entity === null)
+		{
+			return $this->entityNotFound($id);
+		}
+
+		$clone = clone $entity;
+
+		// use clone as initial version
+		if ($clone instanceof CloneableInterface)
+		{
+			$clone->setVersion($clone);
+		}
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($clone);
+		$em->flush();
+
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
+			'id' => $clone->getId()
+		]);
 	}
 
 	/**
@@ -344,7 +406,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response
 	 */
-	protected function entityNotFound(int $id)
+	protected function entityNotFound(int $id): Response
 	{
 		return new Response("Entity of type '{$this->getEntityClassName()}' with id '{$id}' not found", 404);
 	}
@@ -396,7 +458,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function addIndex(Request $request);
+	abstract public function addAction(Request $request);
 
 	/**
 	 * Edit entity
@@ -406,7 +468,7 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function editIndex(Request $request, int $id);
+	abstract public function editAction(Request $request, int $id);
 
 	/**
 	 * Destroy entity
@@ -416,5 +478,5 @@ abstract class AbstractAdminController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function destroyIndex(Request $request, int $id);
+	abstract public function destroyAction(Request $request, int $id);
 }

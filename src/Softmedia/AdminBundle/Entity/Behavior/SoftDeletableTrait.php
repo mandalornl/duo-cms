@@ -44,7 +44,7 @@ trait SoftDeletableTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function restore(): SoftDeletableInterface
+	public function undelete(): SoftDeletableInterface
 	{
 		$this->deletedAt = null;
 

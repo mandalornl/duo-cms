@@ -8,17 +8,18 @@ use Softmedia\AdminBundle\Configuration\Field;
 use Softmedia\AdminBundle\Controller\Behavior\CloneableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\SoftDeletableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\SortableTrait;
+use Softmedia\AdminBundle\Controller\Behavior\PublishableTrait;
 use Softmedia\AdminBundle\Entity\Page;
 use Softmedia\AdminBundle\Form\PageAdminType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PageAdminController extends AbstractAdminController
 {
 	use CloneableTrait;
-	use SortableTrait;
 	use SoftDeletableTrait;
+	use SortableTrait;
+	use PublishableTrait;
 
 	/**
 	 * {@inheritdoc}
@@ -127,9 +128,9 @@ class PageAdminController extends AbstractAdminController
 	 * @Route("/add", name="softmedia_admin_page_add")
 	 * @Method({"POST", "GET"})
 	 */
-	public function addIndex(Request $request)
+	public function addAction(Request $request)
 	{
-		return $this->doAddIndex($request);
+		return $this->doAddAction($request);
 	}
 
 	/**
@@ -138,9 +139,31 @@ class PageAdminController extends AbstractAdminController
 	 * @Route("/edit/{id}", name="softmedia_admin_page_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
-	public function editIndex(Request $request, int $id)
+	public function editAction(Request $request, int $id)
 	{
-		return $this->doEditIndex($request, $id);
+		return $this->doEditAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/destroy/{id}", name="softmedia_admin_page_destroy", requirements={ "id" = "\d+" })
+	 * @Method({"POST", "GET"})
+	 */
+	public function destroyAction(Request $request, int $id)
+	{
+		return $this->doDestroyAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/duplicate/{id}", name="softmedia_admin_page_duplicate", requirements={ "id" = "\d+" })
+	 * @Method({"POST", "GET"})
+	 */
+	public function duplicateAction(Request $request, int $id)
+	{
+		return $this->doDuplicateAction($request, $id);
 	}
 
     /**
@@ -149,63 +172,74 @@ class PageAdminController extends AbstractAdminController
      * @Route("/view/{id}/version/{versionId}", name="softmedia_admin_page_version", requirements={ "id" = "\d+", "versionId" = "\d+" })
      * @Method("GET")
      */
-    public function versionIndex(Request $request, int $id, int $versionId)
+    public function versionAction(Request $request, int $id, int $versionId)
     {
-        return $this->doVersionIndex($request, $id, $versionId);
+        return $this->doVersionAction($request, $id, $versionId);
     }
 
     /**
 	 * {@inheritdoc}
 	 *
 	 * @Route("/delete/{id}", name="softmedia_admin_page_delete", requirements={ "id" = "\d+" })
-	 * @Method("POST")
+	 * @Method({"POST", "GET"})
 	 */
-	public function deleteIndex(Request $request, int $id)
+	public function deleteAction(Request $request, int $id)
 	{
-		return $this->doDeleteIndex($request, $id);
+		return $this->doDeleteAction($request, $id);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/restore/{id}", name="softmedia_admin_page_restore", requirements={ "id" = "\d+" })
-	 * @Method("POST")
+	 * @Route("/undelete/{id}", name="softmedia_admin_page_undelete", requirements={ "id" = "\d+" })
+	 * @Method({"POST", "GET"})
 	 */
-	public function restoreIndex(Request $request, int $id)
+	public function undeleteAction(Request $request, int $id)
 	{
-		return $this->doRestoreAction($request, $id);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @Route("/destroy/{id}", name="softmedia_admin_page_destroy", requirements={ "id" = "\d+" })
-	 * @Method("POST")
-	 */
-	public function destroyIndex(Request $request, int $id): RedirectResponse
-	{
-		return $this->doDestroyIndex($request, $id);
+		return $this->doUndeleteAction($request, $id);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 *
 	 * @Route("/move-up/{id}", name="softmedia_admin_page_move_up", requirements={ "id" = "\d+" })
-	 * @Method("POST")
+	 * @Method({"POST", "GET"})
 	 */
-	public function moveUp(Request $request, int $id)
+	public function moveUpAction(Request $request, int $id)
 	{
-		return $this->doMoveUp($request, $id);
+		return $this->doMoveUpAction($request, $id);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 *
 	 * @Route("/move-up/{id}", name="softmedia_admin_page_move_down", requirements={ "id" = "\d+" })
-	 * @Method("POST")
+	 * @Method({"POST", "GET"})
 	 */
-	public function moveDown(Request $request, int $id)
+	public function moveDownAction(Request $request, int $id)
 	{
-		return $this->doMoveDown($request, $id);
+		return $this->doMoveDownAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/publish/{id}", name="softmedia_admin_page_publish", requirements={ "id" = "\d+" })
+	 * @Method({"POST", "GET"})
+	 */
+	public function publishAction(Request $request, int $id)
+	{
+		return $this->doPublishAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/unpublish/{id}", name="softmedia_admin_page_unpublish", requirements={ "id" = "\d+" })
+	 * @Method({"POST", "GET"})
+	 */
+	public function unpublishAction(Request $request, int $id)
+	{
+		return $this->doUnpublishAction($request, $id);
 	}
 }

@@ -24,8 +24,7 @@ class PageAdminType extends AbstractType
 				'allow_add' => false,
 				'allow_delete' => false,
 				'by_reference' => false
-			])
-			->add('Save', SubmitType::class);
+			]);
 	}
 
 	/**

@@ -16,7 +16,7 @@ use Softmedia\AdminBundle\Entity\Behavior\ViewableInterface;
 
 /**
  * @ORM\Table(name="page")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Softmedia\AdminBundle\Repository\PageRepository")
  */
 class Page extends AbstractNode implements TreeableInterface, SluggableInterface, UrlableInterface, PublishableInterface, ViewableInterface
 {

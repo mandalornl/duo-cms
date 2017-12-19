@@ -4,22 +4,22 @@ namespace Softmedia\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Softmedia\AdminBundle\Controller\AbstractAdminController;
-use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\PublishableInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-trait SoftDeletableTrait
+trait PublishableTrait
 {
 	/**
-	 * Delete entity
+	 * Publish action
 	 *
 	 * @param Request $request
 	 * @param int $id
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	protected function doDeleteAction(Request $request, int $id)
+	protected function doPublishAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -30,12 +30,12 @@ trait SoftDeletableTrait
 			return $this->entityNotFound($id);
 		}
 
-		if (!$entity instanceof SoftDeletableInterface)
+		if (!$entity instanceof PublishableInterface)
 		{
-			return $this->softDeletableInterfaceNotImplemented($id);
+			return $this->publishableInterfaceNotImplemented($id);
 		}
 
-		$entity->delete();
+		$entity->setPublished(true);
 
 		/**
 		 * @var ObjectManager $em
@@ -44,18 +44,20 @@ trait SoftDeletableTrait
 		$em->persist($entity);
 		$em->flush();
 
-		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
+			'id' => $id
+		]);
 	}
 
 	/**
-	 * Undelete entity
+	 * Unpublish action
 	 *
 	 * @param Request $request
 	 * @param int $id
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	protected function doUndeleteAction(Request $request, int $id)
+	protected function doUnpublishAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
@@ -66,12 +68,12 @@ trait SoftDeletableTrait
 			return $this->entityNotFound($id);
 		}
 
-		if (!$entity instanceof SoftDeletableInterface)
+		if (!$entity instanceof PublishableInterface)
 		{
-			return $this->softDeletableInterfaceNotImplemented($id);
+			return $this->publishableInterfaceNotImplemented($id);
 		}
 
-		$entity->undelete();
+		$entity->setPublished(false);
 
 		/**
 		 * @var ObjectManager $em
@@ -80,39 +82,41 @@ trait SoftDeletableTrait
 		$em->persist($entity);
 		$em->flush();
 
-		return $this->redirect("softmedia_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
+			'id' => $id
+		]);
 	}
 
 	/**
-	 * Soft deletable interface not implemented
+	 * Publishable interface not implemented
 	 *
 	 * @param int $id
 	 *
 	 * @return Response
 	 */
-	private function softDeletableInterfaceNotImplemented(int $id): Response
+	private function publishableInterfaceNotImplemented(int $id): Response
 	{
-		$interface = SoftDeletableInterface::class;
+		$interface = PublishableInterface::class;
 		return new Response("Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'", 500);
 	}
 
 	/**
-	 * Delete entity
+	 * Publish action
 	 *
 	 * @param Request $request
 	 * @param int $id
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function deleteAction(Request $request, int $id);
+	abstract public function publishAction(Request $request, int $id);
 
 	/**
-     * Undelete entity
-     *
+	 * Unpublish action
+	 *
 	 * @param Request $request
 	 * @param int $id
 	 *
 	 * @return Response|RedirectResponse
 	 */
-	abstract public function undeleteAction(Request $request, int $id);
+	abstract public function unpublishAction(Request $request, int $id);
 }

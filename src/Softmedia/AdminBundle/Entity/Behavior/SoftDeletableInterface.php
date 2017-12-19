@@ -28,11 +28,11 @@ interface SoftDeletableInterface
 	public function delete(): SoftDeletableInterface;
 
 	/**
-	 * Restore entity
+	 * Undelete entity
 	 *
 	 * @return SoftDeletableInterface
 	 */
-	public function restore(): SoftDeletableInterface;
+	public function undelete(): SoftDeletableInterface;
 
 	/**
 	 * Check whether or not entity is deleted

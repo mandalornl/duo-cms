@@ -105,9 +105,9 @@ class TaxonomyAdminController extends AbstractAdminController
 	 * @Route("/add", name="softmedia_admin_taxonomy_add")
 	 * @Method({"POST", "GET"})
 	 */
-	public function addIndex(Request $request)
+	public function addAction(Request $request)
 	{
-		return $this->doAddIndex($request);
+		return $this->doAddAction($request);
 	}
 
 	/**
@@ -116,9 +116,9 @@ class TaxonomyAdminController extends AbstractAdminController
 	 * @Route("/edit/{id}", name="softmedia_admin_taxonomy_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
-	public function editIndex(Request $request, int $id)
+	public function editAction(Request $request, int $id)
 	{
-		return $this->doEditIndex($request, $id);
+		return $this->doEditAction($request, $id);
 	}
 
 	/**
@@ -127,8 +127,8 @@ class TaxonomyAdminController extends AbstractAdminController
 	 * @Route("/destroy/{id}", name="softmedia_admin_taxonomy_destroy", requirements={ "id" = "\d+" })
 	 * @Method("POST")
 	 */
-	public function destroyIndex(Request $request, int $id)
+	public function destroyAction(Request $request, int $id)
 	{
-		return $this->doDestroyIndex($request, $id);
+		return $this->doDestroyAction($request, $id);
 	}
 }
