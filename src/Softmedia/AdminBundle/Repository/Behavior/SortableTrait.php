@@ -13,10 +13,11 @@ trait SortableTrait
 	 * Find next weight
 	 *
 	 * @param SortableInterface $entity
+	 * @param int $limit [optional]
 	 *
 	 * @return SortableInterface
 	 */
-	public function findNextWeight(SortableInterface $entity)
+	public function findNextWeight(SortableInterface $entity, int $limit = 1)
 	{
 		/**
 		 * @var EntityRepository $this
@@ -24,15 +25,18 @@ trait SortableTrait
 		$builder = $this->createQueryBuilder('e')
 			->where('e.weight > :weight')
 			->setParameter('weight', $entity->getWeight())
-			->setMaxResults(1);
+			->orderBy('e.weight', 'ASC')
+			->setMaxResults($limit);
 
 		// use parent of entity
-		if ($entity instanceof TreeableInterface)
+		if ($entity instanceof TreeableInterface && ($parent = $entity->getParent()) !== null)
 		{
 			$builder
 				->andWhere('e.parent = :parent')
 				->setParameter('parent', $entity->getParent());
 		}
+
+		// TODO: use latest version of node
 
 		try
 		{
@@ -50,10 +54,11 @@ trait SortableTrait
 	 * Find previous weight
 	 *
 	 * @param SortableInterface $entity
+	 * @param int $limit [optional]
 	 *
 	 * @return SortableInterface
 	 */
-	public function findPreviousWeight(SortableInterface $entity)
+	public function findPreviousWeight(SortableInterface $entity, int $limit = 1)
 	{
 		/**
 		 * @var EntityRepository $this
@@ -62,15 +67,17 @@ trait SortableTrait
 			->where('e.weight < :weight')
 			->setParameter('weight', $entity->getWeight())
 			->orderBy('e.weight', 'DESC')
-			->setMaxResults(1);
+			->setMaxResults($limit);
 
 		// use parent of entity
-		if ($entity instanceof TreeableInterface)
+		if ($entity instanceof TreeableInterface && ($parent = $entity->getParent()) !== null)
 		{
 			$builder
 				->andWhere('e.parent = :parent')
-				->setParameter('parent', $entity->getParent());
+				->setParameter('parent', $parent);
 		}
+
+		// TODO: use latest version of node
 
 		try
 		{

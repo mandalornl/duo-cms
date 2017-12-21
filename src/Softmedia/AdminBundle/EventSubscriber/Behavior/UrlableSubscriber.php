@@ -4,7 +4,7 @@ namespace Softmedia\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Softmedia\AdminBundle\Entity\Behavior\TreeableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\UrlableInterface;
@@ -44,6 +44,7 @@ class UrlableSubscriber implements EventSubscriber
 
 	/**
 	 * Set url
+	 *
 	 * @param object $entity
 	 */
 	private function setUrl($entity)

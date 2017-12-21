@@ -58,7 +58,7 @@ final class TaxonomySubscriber implements EventSubscriber
 
 		if (!$classMetadata->hasAssociation('taxonomies'))
 		{
-			$mapping = [
+			$classMetadata->mapManyToMany([
 				'fieldName' => 'taxonomies',
 				'fetch' => ClassMetadata::FETCH_LAZY,
 				'targetEntity' => Taxonomy::class,
@@ -76,17 +76,7 @@ final class TaxonomySubscriber implements EventSubscriber
 						'onDelete' => 'CASCADE'
 					]]
 				]
-			];
-
-			// order by name
-			if ($classMetadata->hasField('name'))
-			{
-				$mapping['orderBy'] = [
-					'name' => 'ASC'
-				];
-			}
-
-			$classMetadata->mapManyToMany($mapping);
+			]);
 		}
 	}
 }

@@ -87,14 +87,14 @@ final class TreeableSubscriber implements EventSubscriber
 			$mapping = [
 				'fieldName'		=> 'children',
 				'mappedBy'		=> 'parent',
-				'cascade'		=> ['persist', 'merge', 'remove'],
+				'cascade'		=> ['persist', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'orphanRemoval'	=> true
 			];
 
 			// order by weight
-			if ($reflectionClass->implementsInterface(SortableInterface::class))
+			if ($classMetadata->hasField('weight'))
 			{
 				$mapping['orderBy'] = [
 					'weight' => 'ASC'

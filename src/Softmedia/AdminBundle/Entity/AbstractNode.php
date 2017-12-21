@@ -12,19 +12,23 @@ use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SortableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TaxonomyTrait;
+use Softmedia\AdminBundle\Entity\Behavior\TimeStampableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\VersionableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\VersionableTrait;
 
-abstract class AbstractNode implements TranslatableInterface, CloneableInterface, SortableInterface, SoftDeletableInterface
+abstract class AbstractNode implements SoftDeletableInterface, TranslatableInterface, SortableInterface, CloneableInterface, VersionableInterface, TimeStampableInterface
 {
 	use IdableTrait;
 	use BlameableTrait;
+	use TaxonomyTrait;
 	use SoftDeletableTrait;
 	use TranslatableTrait;
-	use TaxonomyTrait;
 	use SortableTrait;
 	use CloneableTrait;
+	use VersionableTrait;
 	use TimeStampableTrait;
 
     /**

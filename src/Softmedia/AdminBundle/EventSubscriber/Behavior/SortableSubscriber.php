@@ -9,6 +9,7 @@ use Doctrine\ORM\Events;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Softmedia\AdminBundle\Entity\Behavior\SortableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\TreeableInterface;
 
 final class SortableSubscriber implements EventSubscriber
 {
@@ -48,7 +49,8 @@ final class SortableSubscriber implements EventSubscriber
 	 */
 	private function getNextWeight(LifecycleEventArgs $args): int
 	{
-		$reflectionClass = new \ReflectionClass($args->getObject());
+		$entity = $args->getObject();
+		$reflectionClass = new \ReflectionClass($entity);
 
 		/**
 		 * @var EntityManager $entityManager
@@ -59,11 +61,12 @@ final class SortableSubscriber implements EventSubscriber
 			->select('COALESCE(MAX(e.weight) + 1, 0)')
 			->from($reflectionClass->getName(), 'e');
 
-		if ($reflectionClass->hasProperty('parent'))
+		// use parent of entity
+		if ($entity instanceof TreeableInterface && ($parent = $entity->getParent()) !== null)
 		{
 			$builder
 				->andWhere('e.parent = :parent')
-				->setParameter('parent', $reflectionClass->getProperty('parent'));
+				->setParameter('parent', $parent);
 		}
 
 		try

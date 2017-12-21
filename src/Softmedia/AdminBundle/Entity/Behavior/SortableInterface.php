@@ -11,12 +11,12 @@ interface SortableInterface
 	 *
 	 * @return SortableInterface
 	 */
-	public function setWeight(int $weight = 0): SortableInterface;
+	public function setWeight(int $weight = null): SortableInterface;
 
 	/**
 	 * Get weight
 	 *
 	 * @return int
 	 */
-	public function getWeight(): int;
+	public function getWeight(): ?int;
 }

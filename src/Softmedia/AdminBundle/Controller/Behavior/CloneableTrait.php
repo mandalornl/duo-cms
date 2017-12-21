@@ -2,68 +2,61 @@
 
 namespace Softmedia\AdminBundle\Controller\Behavior;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Softmedia\AdminBundle\Controller\AbstractAdminController;
+use Softmedia\AdminBundle\Entity\Behavior\VersionableInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 trait CloneableTrait
 {
 	/**
-	 * Version index
+	 * Duplicate entity
 	 *
 	 * @param Request $request
 	 * @param int $id
-	 * @param int $versionId
 	 *
-	 * @return Response
+	 * @return Response|RedirectResponse
 	 */
-	protected function doVersionAction(Request $request, int $id, int $versionId)
+	protected function doDuplicateAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractAdminController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($versionId);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->versionNotFound($versionId);
+			return $this->entityNotFound($id);
 		}
 
-		// TODO: use form with disabled fields instead of plain entity?
-		return $this->render($this->getVersionTemplate(), [
-			'entity' => $entity
+		$clone = clone $entity;
+
+		// use clone as initial version
+		if ($clone instanceof VersionableInterface)
+		{
+			$clone->setVersion($clone);
+		}
+
+		/**
+		 * @var ObjectManager $em
+		 */
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($clone);
+		$em->flush();
+
+		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
+			'id' => $clone->getId()
 		]);
 	}
 
 	/**
-	 * Get version template
-	 *
-	 * @return string
-	 */
-	protected function getVersionTemplate(): string
-	{
-		return '@SoftmediaAdmin/List/version.html.twig';
-	}
-
-	/**
-	 * Version not found
-	 *
-	 * @param int $id
-	 *
-	 * @return Response
-	 */
-	protected function versionNotFound(int $id): Response
-	{
-		return new Response("Version for entity of type '{$this->getEntityClassName()}' with id '{$id}' not found", 404);
-	}
-
-	/**
-	 * Version index
+	 * Duplicate entity
 	 *
 	 * @param Request $request
 	 * @param int $id
-	 * @param int $versionId
 	 *
-	 * @return Response
+	 * @return Response|RedirectResponse
 	 */
-	abstract public function versionAction(Request $request, int $id, int $versionId);
+	abstract public function duplicateAction(Request $request, int $id);
 }

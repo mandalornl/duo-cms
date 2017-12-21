@@ -1,7 +1,7 @@
 {% extends '@SoftmediaAdmin/index.html.twig' %}
 
 {% block toolbar %}
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ type }}" aria-controls="navbar_{{ type }}" aria-expanded="false" aria-label="{{ 'softmedia_adminbundle.toolbar.toggler_label' | trans }}">
 			<i class="navbar-toggler-icon"></i>
 		</button>
@@ -62,13 +62,15 @@
 											{{- 'softmedia_adminbundle.toolbar.preview_label' | trans -}}
 										</a>
 									{% endif %}
-									<a href="{{ path('softmedia_admin_' ~ type ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-action="duplicate">
-										{{- 'softmedia_adminbundle.toolbar.duplicate_label' | trans -}}
-									</a>
+									{% if isCloneable %}
+										<a href="{{ path('softmedia_admin_' ~ type ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-action="duplicate">
+											{{- 'softmedia_adminbundle.toolbar.duplicate_label' | trans -}}
+										</a>
+									{% endif %}
 								</div>
 							</div>
 						{% endif %}
-						<a href="{{ path('softmedia_admin_' ~ type ~ '_list') }}" class="btn btn-danger">
+						<a href="{{ path('softmedia_admin_' ~ type ~ '_list') }}" class="btn btn-light">
 							{{- 'softmedia_adminbundle.toolbar.cancel_label' | trans -}}
 						</a>
 						<button type="button" class="btn btn-success" data-action="save" data-type="{{ type }}">

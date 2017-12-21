@@ -21,13 +21,9 @@ trait TimeStampableTrait
 	protected $modifiedAt;
 
 	/**
-	 * Set created at
-	 *
-	 * @param \DateTime $createdAt
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setCreatedAt(\DateTime $createdAt)
+	public function setCreatedAt(\DateTime $createdAt = null): TimeStampableInterface
 	{
 		$this->createdAt = $createdAt;
 
@@ -35,9 +31,7 @@ trait TimeStampableTrait
 	}
 
 	/**
-	 * Get created at
-	 *
-	 * @return \DateTime
+	 * {@inheritdoc}
 	 */
 	public function getCreatedAt(): ?\DateTime
 	{
@@ -45,13 +39,9 @@ trait TimeStampableTrait
 	}
 
 	/**
-	 * Set modified at
-	 *
-	 * @param \DateTime $modifiedAt
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setModifiedAt(\DateTime $modifiedAt)
+	public function setModifiedAt(\DateTime $modifiedAt = null): TimeStampableInterface
 	{
 		$this->modifiedAt = $modifiedAt;
 
@@ -59,9 +49,7 @@ trait TimeStampableTrait
 	}
 
 	/**
-	 * Get modified at
-	 *
-	 * @return \DateTime
+	 * {@inheritdoc}
 	 */
 	public function getModifiedAt(): ?\DateTime
 	{

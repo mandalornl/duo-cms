@@ -8,11 +8,17 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Softmedia\AdminBundle\Configuration\FieldInterface;
 use Softmedia\AdminBundle\Configuration\ORM\FilterInterface;
+use Softmedia\AdminBundle\Controller\Behavior\SortableTrait;
 use Softmedia\AdminBundle\Entity\Behavior\CloneableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\VersionableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\PublishableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\SoftDeletableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TranslatableInterface;
+use Softmedia\AdminBundle\Entity\Behavior\TreeableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\ViewableInterface;
+use Softmedia\AdminBundle\Event\Behavior\VersionableEvent;
+use Softmedia\AdminBundle\Event\Events;
+use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -151,12 +157,15 @@ abstract class AbstractAdminController extends Controller
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
+		$reflectionClass = new \ReflectionClass($this);
+
 		return $this->render($this->getListTemplate(), [
 			'list' => [
 				'type' => $this->getListType(),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
-				'entities' => $this->getEntities()
+				'entities' => $this->getEntities(),
+				'isSortable' => ReflectionClassHelper::hasTrait($reflectionClass, SortableTrait::class)
 			]
 		]);
 	}
@@ -168,10 +177,21 @@ abstract class AbstractAdminController extends Controller
 	 */
 	protected function getEntities(): array
 	{
+		$criteria = [];
+		$orderBy = null;
+
 		$reflectionClass = new \ReflectionClass($this->getEntityClassName());
 
+		// order by weight
+		if ($reflectionClass->implementsInterface(TreeableInterface::class))
+		{
+			$orderBy = [
+				'weight' => 'ASC'
+			];
+		}
+
 		// only fetch latest version of entities
-		if ($reflectionClass->implementsInterface(CloneableInterface::class))
+		if ($reflectionClass->implementsInterface(VersionableInterface::class))
 		{
 			/**
 			 * @var EntityManager $em
@@ -184,7 +204,7 @@ abstract class AbstractAdminController extends Controller
 			$rsm->addScalarResult('id', 'id', 'integer');
 
 			$sql = <<<SQL
-SELECT MAX(id) id FROM {$tableName} GROUP BY version_id ORDER BY created_at DESC, id
+SELECT version_id id FROM {$tableName} GROUP BY version_id
 SQL;
 
 			$ids = array_column($em->createNativeQuery($sql, $rsm)->getScalarResult(), 'id');
@@ -193,12 +213,12 @@ SQL;
 				return [];
 			}
 
-			return $this->getDoctrine()->getRepository($this->getEntityClassName())->findBy([
+			$criteria = [
 				'id' => $ids
-			]);
+			];
 		}
 
-		return $this->getDoctrine()->getRepository($this->getEntityClassName())->findAll();
+		return $this->getDoctrine()->getRepository($this->getEntityClassName())->findBy($criteria, $orderBy);
 	}
 
 	/**
@@ -217,17 +237,8 @@ SQL;
 		$form = $this->createForm($this->getFormClassName(), $entity);
 		$form->handleRequest($request);
 
-		if ($form->isSubmitted())
+		if ($form->isSubmitted() && $form->isValid())
 		{
-			if (!$form->isValid())
-			{
-				// TODO: implement form error
-
-				$this->addFlash('error', (string)$form->getErrors(true, false));
-
-				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_add");
-			}
-
 			$this->postDecorateEntity($entity);
 
 			$em = $this->getDoctrine()->getManager();
@@ -260,40 +271,55 @@ SQL;
 			return $this->entityNotFound($id);
 		}
 
-		$form = $this->createForm($this->getFormClassName(), $entity);
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted())
+		// handle entity versioning
+		if ($entity instanceof VersionableInterface)
 		{
-			if (!$form->isValid())
+			$clone = clone $entity;
+
+			$form = $this->createForm($this->getFormClassName(), $clone);
+			$form->handleRequest($request);
+
+			if ($form->isSubmitted() && $form->isValid())
 			{
-				// TODO: implement form error
+				// dispatch versionable pre clone event
+				$this->get('event_dispatcher')->dispatch(Events::VERSIONABLE_PRE_CLONE, new VersionableEvent($clone, $entity));
 
-				$this->addFlash('error', (string)$form->getErrors(true, false));
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($clone);
+				$em->flush();
 
-				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
-					'id' => $id
-				]);
+				// dispatch versionable post clone event
+				$this->get('event_dispatcher')->dispatch(Events::VERSIONABLE_POST_CLONE, new VersionableEvent($clone, $entity));
+
+				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
 			}
 
-			// create clone for versioning
-			if ($entity instanceof CloneableInterface)
-			{
-				$entity = clone $entity;
-			}
-
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($entity);
-			$em->flush();
-
-			return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
+			return $this->render($this->getEditTemplate(), array_merge([
+				'form' => $form->createView(),
+				'entity' => $clone,
+				'type' => $this->getListType()
+			], $this->getEntityBehaviors($clone)));
 		}
+		else
+		{
+			$form = $this->createForm($this->getFormClassName(), $entity);
+			$form->handleRequest($request);
 
-		return $this->render($this->getEditTemplate(), array_merge([
-			'form' => $form->createView(),
-			'entity' => $entity,
-			'type' => $this->getListType()
-		], $this->getEntityBehaviors($entity)));
+			if ($form->isSubmitted() && $form->isValid())
+			{
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($entity);
+				$em->flush();
+
+				return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
+			}
+
+			return $this->render($this->getEditTemplate(), array_merge([
+				'form' => $form->createView(),
+				'entity' => $entity,
+				'type' => $this->getListType()
+			], $this->getEntityBehaviors($entity)));
+		}
 	}
 
 	/**
@@ -309,7 +335,8 @@ SQL;
 			'isTranslatable' => $entity instanceof TranslatableInterface,
 			'isPublishable' => $entity instanceof PublishableInterface,
 			'isSoftDeletable' => $entity instanceof SoftDeletableInterface,
-			'isViewable' => $entity instanceof ViewableInterface
+			'isViewable' => $entity instanceof ViewableInterface,
+			'isCloneable' => $entity instanceof CloneableInterface
 		];
 	}
 
@@ -334,39 +361,6 @@ SQL;
 		$em->flush();
 
 		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_list");
-	}
-
-	/**
-	 * Duplicate entity
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse
-	 */
-	protected function doDuplicateAction(Request $request, int $id)
-	{
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
-		if ($entity === null)
-		{
-			return $this->entityNotFound($id);
-		}
-
-		$clone = clone $entity;
-
-		// use clone as initial version
-		if ($clone instanceof CloneableInterface)
-		{
-			$clone->setVersion($clone);
-		}
-
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($clone);
-		$em->flush();
-
-		return $this->redirectToRoute("softmedia_admin_{$this->getListType()}_edit", [
-			'id' => $clone->getId()
-		]);
 	}
 
 	/**

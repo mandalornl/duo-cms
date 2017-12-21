@@ -17,11 +17,21 @@ class PageAdminTranslationType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('title', TextType::class)
-			->add('content', TextareaType::class)
-			->add('metaTitle', TextType::class)
-			->add('metaDescription', TextareaType::class)
-			->add('metaKeywords', TextType::class);
+			->add('title', TextType::class, [
+				'required' => false
+			])
+			->add('content', TextareaType::class, [
+				'required' => false
+			])
+			->add('metaTitle', TextType::class, [
+				'required' => false
+			])
+			->add('metaDescription', TextareaType::class, [
+				'required' => false
+			])
+			->add('metaKeywords', TextType::class, [
+				'required' => false
+			]);
 	}
 
 	/**

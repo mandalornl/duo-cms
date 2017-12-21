@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Softmedia\AdminBundle\Configuration\Field;
 use Softmedia\AdminBundle\Controller\Behavior\CloneableTrait;
+use Softmedia\AdminBundle\Controller\Behavior\VersionableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\SoftDeletableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\SortableTrait;
 use Softmedia\AdminBundle\Controller\Behavior\PublishableTrait;
@@ -16,10 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageAdminController extends AbstractAdminController
 {
-	use CloneableTrait;
+	use VersionableTrait;
 	use SoftDeletableTrait;
 	use SortableTrait;
 	use PublishableTrait;
+	use CloneableTrait;
 
 	/**
 	 * {@inheritdoc}
@@ -219,6 +221,17 @@ class PageAdminController extends AbstractAdminController
 	public function moveDownAction(Request $request, int $id)
 	{
 		return $this->doMoveDownAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/move-to/{id}/{index}", name="softmedia_admin_page_move_to", requirements={ "id" = "\d+", "index" = "\d+" })
+	 * @Method({"POST", "GET"})
+	 */
+	public function moveToAction(Request $request, int $id, int $weight)
+	{
+		return $this->doMoveToAction($request, $id, $weight);
 	}
 
 	/**

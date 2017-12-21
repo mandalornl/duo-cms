@@ -31,7 +31,7 @@ $(() =>
 	});
 
 	$container.closest('.form-group').append($container);
-	$container.addClass('col-12');
+	//$container.addClass('col-12'); // uncomment when using horizontal layout
 	$container.prevAll().remove();
 
 	$('#toolbar_language').on('change', function()

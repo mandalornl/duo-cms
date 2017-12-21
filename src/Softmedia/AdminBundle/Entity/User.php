@@ -5,6 +5,7 @@ namespace Softmedia\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Softmedia\AdminBundle\Entity\Behavior\BlameableUserInterface;
 use Softmedia\AdminBundle\Entity\Behavior\IdableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\TimeStampableInterface;
 use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
 
 /**
@@ -20,7 +21,7 @@ use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
  * )
  * @ORM\Entity()
  */
-class User implements BlameableUserInterface
+class User implements BlameableUserInterface, TimeStampableInterface
 {
 	use IdableTrait;
 	use TimeStampableTrait;

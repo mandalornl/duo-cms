@@ -4,7 +4,7 @@ namespace Softmedia\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Softmedia\AdminBundle\Entity\Behavior\SluggableInterface;
 use Softmedia\AdminBundle\Helper\SlugifyHelper;

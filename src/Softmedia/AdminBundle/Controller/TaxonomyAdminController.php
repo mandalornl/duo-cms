@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Softmedia\AdminBundle\Configuration\Field;
 use Softmedia\AdminBundle\Entity\Taxonomy;
 use Softmedia\AdminBundle\Form\TaxonomyAdminType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

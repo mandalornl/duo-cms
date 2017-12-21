@@ -7,11 +7,10 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Softmedia\AdminBundle\Entity\Behavior\CloneableInterface;
-use Softmedia\AdminBundle\Entity\Behavior\CloneableTrait;
+use Softmedia\AdminBundle\Entity\Behavior\VersionableInterface;
 use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
 
-final class CloneableSubscriber implements EventSubscriber
+final class VersionableSubscriber implements EventSubscriber
 {
 	/**
 	 * {@inheritdoc}
@@ -37,7 +36,7 @@ final class CloneableSubscriber implements EventSubscriber
 		$classMetadata = $args->getClassMetadata();
 
 		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
-			!ReflectionClassHelper::hasTrait($reflectionClass, CloneableTrait::class))
+			!$reflectionClass->implementsInterface(VersionableInterface::class))
 		{
 			return;
 		}
@@ -84,10 +83,13 @@ final class CloneableSubscriber implements EventSubscriber
 			$classMetadata->mapOneToMany([
 				'fieldName' 	=> 'versions',
 				'mappedBy'		=> 'version',
-				'cascade'		=> ['persist', 'merge', 'remove'],
+				'cascade'		=> ['persist', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
-				'orphanRemoval'	=> true
+				'orphanRemoval'	=> true,
+				'orderBy' => [
+					'id' => 'DESC'
+				]
 			]);
 		}
 	}
@@ -101,20 +103,11 @@ final class CloneableSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof CloneableInterface)
+		if (!$entity instanceof VersionableInterface)
 		{
 			return;
 		}
 
-		$reflectionClass = new \ReflectionClass($entity);
-		$property = $reflectionClass->getProperty('version');
-		$property->setAccessible(true);
-
-		if ($property->getValue($entity) !== null)
-		{
-			return;
-		}
-
-		$property->setValue($entity, $entity);
+		$entity->setVersion($entity);
 	}
 }

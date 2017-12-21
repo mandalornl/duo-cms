@@ -74,81 +74,111 @@ class TestController extends Controller
 			$em->persist($page);
 			$em->flush();
 
-			for ($i = 1; $i <= 10; $i++)
-			{
-				$dateTime = new \DateTime();
-				$dateTime->add(new \DateInterval("PT{$i}S"));
-
-				$clone = clone $page;
-				$clone->setName("{$page->getName()} {$i}");
-				$clone->setCreatedAt($dateTime);
-				$clone->setModifiedAt($dateTime);
-
-				$em->persist($clone);
-
-				$parent = $clone;
-			}
-
-			$em->flush();
+//			for ($i = 1; $i <= 10; $i++)
+//			{
+//				$dateTime = new \DateTime();
+//				$dateTime->add(new \DateInterval("PT{$i}S"));
+//
+//				$clone = clone $page;
+//				$clone->setName("{$page->getName()} {$i}");
+//				$clone->setCreatedAt($dateTime);
+//				$clone->setModifiedAt($dateTime);
+//
+//				$em->persist($clone);
+//
+//				$parent = $clone;
+//			}
+//
+//			$em->flush();
 		}
 
-		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'foo'])) === null)
-		{
-			$page = new Page();
-			$page->setName('Foo');
-			$page->setParent($parent);
-			$page
-				->setPublished(true)
-				->setCreatedBy($user);
-
-			$page->translate('nl')
-				->setTitle('Foo')
-				->setContent('<p>Dit is foo.</p>');
-
-			$page->translate('en')
-				->setTitle('Foo')
-				->setContent('<p>This is foo.</p>');
-
-			$page->mergeNewTranslations();
-
-			foreach ($taxonomies as $taxonomy)
-			{
-				$page->addTaxonomy($taxonomy);
-			}
-
-			$em->persist($page);
-			$em->flush();
-
-			$parent = $page;
-		}
-
-		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'bar'])) === null)
-		{
-			$page = new Page();
-			$page->setName('Bar');
-			$page->setParent($parent);
-			$page
-				->setPublished(true)
-				->setCreatedBy($user);
-
-			$page->translate('nl')
-				->setTitle('Bar')
-				->setContent('<p>Dit is bar.</p>');
-
-			$page->translate('en')
-				->setTitle('Bar')
-				->setContent('<p>This is bar.</p>');
-
-			$page->mergeNewTranslations();
-
-			foreach ($taxonomies as $taxonomy)
-			{
-				$page->addTaxonomy($taxonomy);
-			}
-
-			$em->persist($page);
-			$em->flush();
-		}
+//		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'foo'])) === null)
+//		{
+//			$page = new Page();
+//			$page->setName('Foo');
+//			$page->setParent($parent);
+//			$page
+//				->setPublished(true)
+//				->setCreatedBy($user);
+//
+//			$page->translate('nl')
+//				->setTitle('Foo')
+//				->setContent('<p>Dit is foo.</p>');
+//
+//			$page->translate('en')
+//				->setTitle('Foo')
+//				->setContent('<p>This is foo.</p>');
+//
+//			$page->mergeNewTranslations();
+//
+//			foreach ($taxonomies as $taxonomy)
+//			{
+//				$page->addTaxonomy($taxonomy);
+//			}
+//
+//			$em->persist($page);
+//			$em->flush();
+//
+//			for ($i = 1; $i <= 3; $i++)
+//			{
+//				$dateTime = new \DateTime();
+//				$dateTime->add(new \DateInterval("PT{$i}S"));
+//
+//				$clone = clone $page;
+//				$clone->setName("{$page->getName()} {$i}");
+//				$clone->setCreatedAt($dateTime);
+//				$clone->setModifiedAt($dateTime);
+//
+//				$em->persist($clone);
+//
+//				$parent = $clone;
+//			}
+//
+//			$em->flush();
+//		}
+//
+//		if (($page = $em->getRepository(Page::class)->findOneBy(['slug' => 'bar'])) === null)
+//		{
+//			$page = new Page();
+//			$page->setName('Bar');
+//			$page->setParent($parent);
+//			$page
+//				->setPublished(true)
+//				->setCreatedBy($user);
+//
+//			$page->translate('nl')
+//				->setTitle('Bar')
+//				->setContent('<p>Dit is bar.</p>');
+//
+//			$page->translate('en')
+//				->setTitle('Bar')
+//				->setContent('<p>This is bar.</p>');
+//
+//			$page->mergeNewTranslations();
+//
+//			foreach ($taxonomies as $taxonomy)
+//			{
+//				$page->addTaxonomy($taxonomy);
+//			}
+//
+//			$em->persist($page);
+//			$em->flush();
+//
+//			for ($i = 1; $i <= 5; $i++)
+//			{
+//				$dateTime = new \DateTime();
+//				$dateTime->add(new \DateInterval("PT{$i}S"));
+//
+//				$clone = clone $page;
+//				$clone->setName("{$page->getName()} {$i}");
+//				$clone->setCreatedAt($dateTime);
+//				$clone->setModifiedAt($dateTime);
+//
+//				$em->persist($clone);
+//			}
+//
+//			$em->flush();
+//		}
 
 		return $this->json('Hello world!');
 	}

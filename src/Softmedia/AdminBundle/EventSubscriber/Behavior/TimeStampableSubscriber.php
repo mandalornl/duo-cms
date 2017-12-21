@@ -4,10 +4,9 @@ namespace Softmedia\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Softmedia\AdminBundle\Entity\Behavior\TimeStampableTrait;
-use Softmedia\AdminBundle\Helper\ReflectionClassHelper;
+use Softmedia\AdminBundle\Entity\Behavior\TimeStampableInterface;
 
 final class TimeStampableSubscriber implements EventSubscriber
 {
@@ -30,22 +29,18 @@ final class TimeStampableSubscriber implements EventSubscriber
 	public function prePersist(LifecycleEventArgs $args)
 	{
 		$entity = $args->getObject();
-		$reflectionClass = new \ReflectionClass($entity);
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, TimeStampableTrait::class))
+		if (!$entity instanceof TimeStampableInterface)
 		{
 			return;
 		}
 
-		$property = $reflectionClass->getProperty('createdAt');
-		$property->setAccessible(true);
-
-		if (!$property->getValue($entity) instanceof \DateTime)
+		if ($entity->getCreatedAt() === null)
 		{
-			$property->setValue($entity, new \DateTime());
+			$entity->setCreatedAt(new \DateTime());
 		}
 
-		$this->setModifiedAt($entity, $reflectionClass);
+		$entity->setModifiedAt(new \DateTime());
 	}
 
 	/**
@@ -56,26 +51,12 @@ final class TimeStampableSubscriber implements EventSubscriber
 	public function preUpdate(PreUpdateEventArgs $args)
 	{
 		$entity = $args->getObject();
-		$reflectionClass = new \ReflectionClass($entity);
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, TimeStampableTrait::class))
+		if (!$entity instanceof TimeStampableInterface)
 		{
 			return;
 		}
 
-		$this->setModifiedAt($entity, $reflectionClass);
-	}
-
-	/**
-	 * Set modified at
-	 *
-	 * @param object $entity
-	 * @param \ReflectionClass $reflectionClass
-	 */
-	private function setModifiedAt($entity, \ReflectionClass $reflectionClass)
-	{
-		$property = $reflectionClass->getProperty('modifiedAt');
-		$property->setAccessible(true);
-		$property->setValue($entity, new \DateTime());
+		$entity->setModifiedAt(new \DateTime());
 	}
 }

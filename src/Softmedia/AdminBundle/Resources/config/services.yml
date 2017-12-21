@@ -1,11 +1,12 @@
 parameters:
 
 services:
-    Softmedia\AdminBundle\EventSubscriber\Behavior\BlameableSubscriber:
+    Softmedia\AdminBundle\EventListener\Behavior\VersionableListener:
+        arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: kernel.event_listener, event: softmedia_admin.versionable.postClone, method: postClone }
 
-    Softmedia\AdminBundle\EventSubscriber\Behavior\CloneableSubscriber:
+    Softmedia\AdminBundle\EventSubscriber\Behavior\BlameableSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
@@ -36,6 +37,10 @@ services:
     Softmedia\AdminBundle\EventSubscriber\Behavior\UrlableSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: 0 }
+
+    Softmedia\AdminBundle\EventSubscriber\Behavior\VersionableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
 
     Softmedia\AdminBundle\Twig\TestTwigExtension:
         tags:

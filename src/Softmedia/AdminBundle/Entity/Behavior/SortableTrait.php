@@ -11,12 +11,12 @@ trait SortableTrait
 	 *
 	 * @ORM\Column(name="weight", type="integer", options={ "default" = 0 })
 	 */
-	protected $weight = 0;
+	protected $weight;
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setWeight(int $weight = 0): SortableInterface
+	public function setWeight(int $weight = null): SortableInterface
 	{
 		$this->weight = $weight;
 
@@ -26,7 +26,7 @@ trait SortableTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getWeight(): int
+	public function getWeight(): ?int
 	{
 		return $this->weight;
 	}
