@@ -1,5 +1,5 @@
 {
-	"name": "SoftmediaAdminBundle",
+	"name": "DuoAdminBundle",
 	"version": "0.0.1",
 	"license": "UNLICENSED",
 	"dependencies": {
@@ -10,6 +10,7 @@
 		"babel-polyfill": "^6.23.0",
 		"babel-preset-env": "^1.6.0",
 		"bootstrap": "https://github.com/twbs/bootstrap#v4-dev",
+		"bootstrap-datepicker": "^1.7.1",
 		"chokidar": "^1.7.0",
 		"clean-webpack-plugin": "^0.1.16",
 		"compass-sass-mixins": "^0.12.7",
@@ -46,6 +47,6 @@
 	},
 	"scripts": {
 		"dev": "bin/server.js",
-		"build": "NODE_ENV=production webpack --config src/Softmedia/AdminBundle/Resources/webpack/webpack.config.js"
+		"build": "NODE_ENV=production webpack --config src/Duo/AdminBundle/Resources/webpack/webpack.config.js"
 	}
 }

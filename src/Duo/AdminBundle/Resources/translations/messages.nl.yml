@@ -1,0 +1,51 @@
+duo_admin:
+    type:
+        page: pagina
+        taxonomy: taxonomie
+
+    toolbar:
+        toggle: Toggle werkbalk
+        change_language: Wissel van taal
+        actions:
+            label: Acties
+            new: Nieuwe %type%
+            save: Opslaan
+            cancel: Annuleren
+            publish: Publiceren
+            unpublish: Depubliceren
+            preview: Preview
+            delete: Verwijderen
+            undelete: Herstellen
+            remove: Verwijderen
+            duplicate: Dupliceren
+            versions: Versies
+
+        dropdown:
+            global:
+                more: Meer
+
+    modal:
+        global:
+            close: Sluiten
+            cancel: Annuleren
+            ok: Ok
+            actions: Acties
+        versions:
+            title: Versies
+            name: Naam
+            modified_at: Gewijzigd op
+            revert: Terugzetten
+        revert:
+            title: Terugzetten?
+            body: Weet u zeker dat u deze %type% wilt terugzetten?
+        duplicate:
+            title: Dupliceren?
+            body: Weet u zeker dat u deze %type% wilt dupliceren?
+        delete:
+            title: Verwijderen?
+            body: Weet u zeker dat u deze %type% wilt verwijderen?
+        undelete:
+            title: Herstellen?
+            body: Weet u zeker dat u deze %type% wilt herstellen?
+        publish:
+            title: Publiceren

@@ -1,0 +1,99 @@
+{% extends '@DuoAdmin/index.html.twig' %}
+
+{% block toolbar %}
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ type }}" aria-controls="navbar_{{ type }}" aria-expanded="false" aria-label="{{ 'duo_admin.toolbar.toggle' | trans }}">
+			<i class="navbar-toggler-icon"></i>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbar_{{ type }}">
+			{#<ul class="navbar-nav">
+				<li class="nav-item mr-lg-2">
+					<span class="navbar-text">Do something</span>
+				</li>
+			</ul>#}
+			<form class="form-inline my-2 my-lg-0">
+				{% if isTranslatable %}
+					<label for="toolbar_language" class="sr-only">
+						{{- 'duo_admin.toolbar.change_language' | trans -}}
+					</label>
+					<select id="toolbar_language" class="custom-select mr-2">
+						{% set locales = get_locales() %}
+						{% for locale, name in locales %}
+							<option value="{{ locale }}"{% if app.request.locale == locale %} selected{% endif %}>{{ name }}</option>
+						{% endfor %}
+					</select>
+				{% endif %}
+				<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo_admin.toolbar.actions.label' | trans }}">
+					<div class="btn-group" role="group">
+						{% if entity.id > 0 %}
+							<div class="btn-group" role="group">
+								<button id="actions_{{ type }}" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									{{- 'duo_admin.toolbar.dropdown.global.more' | trans -}}
+								</button>
+								<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
+									{% if isVersionable %}
+										<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_{{ type }}_versions_{{ entity.id }}">
+											{{- 'duo_admin.toolbar.actions.versions' | trans -}}
+										</button>
+									{% endif %}
+									{% if isSoftDeletable %}
+										{%- if entity.isDeleted() -%}
+											<a href="{{ path('duo_admin_' ~ type ~ '_undelete', { id: entity.id }) }}" class="dropdown-item" data-action="undelete" data-title="{{ 'duo_admin.modal.undelete.title' | trans }}" data-body="{{ 'duo_admin.modal.undelete.body' | trans({ '%type%': transType }) }}">
+												{{- 'duo_admin.toolbar.actions.undelete' | trans -}}
+											</a>
+										{%- else -%}
+											<a href="{{ path('duo_admin_' ~ type ~ '_delete', { id: entity.id }) }}" class="dropdown-item" data-action="delete" data-title="{{ 'duo_admin.modal.delete.title' | trans }}" data-body="{{ 'duo_admin.modal.delete.body' | trans({ '%type%': transType }) }}">
+												{{- 'duo_admin.toolbar.actions.delete' | trans -}}
+											</a>
+										{%- endif -%}
+									{% else %}
+										<a href="{{ path('duo_admin_' ~ type ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-action="destroy" data-title="{{ 'duo_admin.modal.delete.title' | trans }}" data-body="{{ 'duo_admin.modal.delete.body' | trans({ '%type%': transType }) }}">
+											{{- 'duo_admin.toolbar.actions.remove' | trans -}}
+										</a>
+									{% endif %}
+									{% if isPublishable %}
+										{%- if entity.published -%}
+											<a href="{{ path('duo_admin_' ~ type ~ '_unpublish', { id: entity.id }) }}" class="dropdown-item">
+												{{- 'duo_admin.toolbar.actions.unpublish' | trans -}}
+											</a>
+										{%- else -%}
+											<a href="{{ path('duo_admin_' ~ type ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-toggle="modal" data-target="#modal_{{ type }}_publish_{{ entity.id }}">
+												{{- 'duo_admin.toolbar.actions.publish' | trans -}}
+											</a>
+										{%- endif -%}
+									{% endif %}
+									{% if isViewable %}
+										<a href="#" class="dropdown-item" data-action="preview">
+											{{- 'duo_admin.toolbar.actions.preview' | trans -}}
+										</a>
+									{% endif %}
+									{% if isCloneable %}
+										<a href="{{ path('duo_admin_' ~ type ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-action="duplicate" data-title="{{ 'duo_admin.modal.duplicate.title' | trans }}" data-body="{{ 'duo_admin.modal.duplicate.body' | trans({ '%type%': transType }) }}">
+											{{- 'duo_admin.toolbar.actions.duplicate' | trans -}}
+										</a>
+									{% endif %}
+								</div>
+							</div>
+						{% endif %}
+						<a href="{{ path('duo_admin_' ~ type ~ '_list') }}" class="btn btn-light">
+							{{- 'duo_admin.toolbar.actions.cancel' | trans -}}
+						</a>
+						<button type="button" class="btn btn-success" data-action="save" data-type="{{ type }}">
+							{{- 'duo_admin.toolbar.actions.save' | trans -}}
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</nav>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-10 col-lg-8">
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+parameters:
+
+services:
+    Duo\AdminBundle\EventListener\Behavior\VersionableListener:
+        arguments: [ '@doctrine.orm.entity_manager' ]
+        tags:
+            - { name: kernel.event_listener, event: duo_admin.versionable.postClone, method: postClone }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\BlameableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\SluggableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: 1 }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\SortableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\TimeStampableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\TranslatableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\TreeableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\UrlableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: 0 }
+
+    Duo\AdminBundle\EventSubscriber\Behavior\VersionableSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\AdminBundle\Twig\TestTwigExtension:
+        tags:
+            - { name: twig.extension }
+
+    Duo\AdminBundle\Twig\LocaleTwigExtension:
+        arguments:
+            $locales: '%locales%'
+        tags:
+            - { name: twig.extension }
+
+    Duo\AdminBundle\Twig\MenuTwigExtension:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $requestStack: '@request_stack'
+        tags:
+            - { name: twig.extension }

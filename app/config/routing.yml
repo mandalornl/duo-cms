@@ -1,3 +1,3 @@
-softmedia_admin:
-    resource: '@SoftmediaAdminBundle/Resources/config/routing.yml'
+duo_admin:
+    resource: '@DuoAdminBundle/Resources/config/routing.yml'
     prefix: /admin

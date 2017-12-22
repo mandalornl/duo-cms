@@ -1,0 +1,10 @@
+{% extends '@DuoAdmin/List/add.html.twig' %}
+
+{% block modal %}
+	{% if isVersionable %}
+		{% include '@DuoAdmin/List/Modal/versions.html.twig' %}
+	{% endif %}
+	{% if isPublishable %}
+		{% include '@DuoAdmin/List/Modal/publish.html.twig' %}
+	{% endif %}
+{% endblock %}

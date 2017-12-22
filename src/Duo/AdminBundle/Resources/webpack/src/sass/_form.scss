@@ -1,0 +1,9 @@
+.form-control-label.required:after
+{
+	content: ' *';
+}
+
+.invalid-feedback
+{
+	display: flex;
+}

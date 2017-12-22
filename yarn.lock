@@ -815,9 +815,15 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
+bootstrap-datepicker@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/bootstrap-datepicker/-/bootstrap-datepicker-1.7.1.tgz#4ee7faf34888dbec7834fbf9dbe7c4277e01ddaf"
+  dependencies:
+    jquery ">=1.7.1 <4.0.0"
+
 "bootstrap@https://github.com/twbs/bootstrap#v4-dev":
   version "4.0.0-beta.2"
-  resolved "https://github.com/twbs/bootstrap#a649c7f2089e51190e8c0ba6454fb887d6400535"
+  resolved "https://github.com/twbs/bootstrap#5cede314698a382fb9d7fddacce0a990bc2940d9"
 
 brace-expansion@^1.1.7:
   version "1.1.8"
@@ -2678,7 +2684,7 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jquery@^3.1.1:
+"jquery@>=1.7.1 <4.0.0", jquery@^3.1.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 

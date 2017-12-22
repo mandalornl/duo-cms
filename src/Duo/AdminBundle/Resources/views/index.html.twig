@@ -1,0 +1,41 @@
+<!doctype html>
+{% set htmlLocale = app.request.locale | slice(0, 2) %}
+<html lang="{{ htmlLocale }}">
+<head>
+	{# Google Analytics #}
+	{% include '@DuoAdmin/Layout/_googleanalytics.html.twig' %}
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<title>{% block title %}Admin{% endblock %}</title>
+
+	{# Webfonts #}
+	{% include '@DuoAdmin/Layout/_webfonts.html.twig' %}
+
+	{# Favicon #}
+	{% include '@DuoAdmin/Layout/_favicon.html.twig' %}
+
+	{# CSS #}
+	{% include '@DuoAdmin/Layout/_css.html.twig' %}
+</head>
+<body>
+	{# Toolbar #}
+	{% block toolbar %}{% endblock %}
+
+	<div class="container-fluid">
+		{# Content #}
+		{% block content %}{% endblock %}
+	</div>
+
+	{# Modals #}
+	{% block modal %}{% endblock %}
+
+	{# Confirm modal #}
+	{% include '@DuoAdmin/List/Modal/confirm.html.twig' %}
+
+	{# Javascript #}
+	{% include '@DuoAdmin/Layout/_js_footer.html.twig' %}
+</body>
+</html>

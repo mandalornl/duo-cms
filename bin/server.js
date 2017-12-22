@@ -7,7 +7,7 @@ const _ = require('lodash');
 const chokidar = require('chokidar');
 const readYaml = require('util').promisify(require('read-yaml'));
 
-const bundleRoot = path.resolve(process.cwd(), 'src/Softmedia/AdminBundle');
+const bundleRoot = path.resolve(process.cwd(), 'src/Duo/AdminBundle');
 
 const WebpackDevServer = require('webpack-dev-server');
 

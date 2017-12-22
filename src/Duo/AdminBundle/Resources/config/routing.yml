@@ -1,0 +1,14 @@
+duo_admin_test:
+    resource: '@DuoAdminBundle/Controller/TestController.php'
+    type: annotation
+    prefix: /test
+
+duo_admin_page:
+    resource: '@DuoAdminBundle/Controller/PageAdminController.php'
+    type: annotation
+    prefix: /page
+
+duo_admin_taxonomy:
+    resource: '@DuoAdminBundle/Controller/TaxonomyAdminController.php'
+    type: annotation
+    prefix: /taxonomy
