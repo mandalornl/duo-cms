@@ -8,16 +8,16 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
-use Duo\AdminBundle\Controller\Behavior\SortableTrait;
-use Duo\AdminBundle\Entity\Behavior\CloneableInterface;
-use Duo\AdminBundle\Entity\Behavior\VersionableInterface;
-use Duo\AdminBundle\Entity\Behavior\PublishableInterface;
-use Duo\AdminBundle\Entity\Behavior\SoftDeletableInterface;
-use Duo\AdminBundle\Entity\Behavior\TranslatableInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
-use Duo\AdminBundle\Entity\Behavior\ViewableInterface;
-use Duo\AdminBundle\Event\Behavior\VersionableEvent;
-use Duo\AdminBundle\Event\Behavior\VersionableEvents;
+use Duo\AdminBundle\Controller\Behavior\SortTrait;
+use Duo\AdminBundle\Entity\Behavior\CloneInterface;
+use Duo\AdminBundle\Entity\Behavior\VersionInterface;
+use Duo\AdminBundle\Entity\Behavior\PublishInterface;
+use Duo\AdminBundle\Entity\Behavior\SoftDeleteInterface;
+use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
+use Duo\AdminBundle\Entity\Behavior\TreeInterface;
+use Duo\AdminBundle\Entity\Behavior\ViewInterface;
+use Duo\AdminBundle\Event\Behavior\VersionEvent;
+use Duo\AdminBundle\Event\Behavior\VersionEvents;
 use Duo\AdminBundle\Helper\ReflectionClassHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -134,7 +134,7 @@ abstract class AbstractAdminController extends Controller
 	 */
 	protected function preDecorateEntity($entity)
 	{
-		if ($entity instanceof TranslatableInterface)
+		if ($entity instanceof TranslateInterface)
 		{
 			foreach ($this->getParameter('locales') as $locale)
 			{
@@ -156,7 +156,7 @@ abstract class AbstractAdminController extends Controller
 	 */
 	protected function postDecorateEntity($entity)
 	{
-		if ($entity instanceof TranslatableInterface)
+		if ($entity instanceof TranslateInterface)
 		{
 			$entity->mergeNewTranslations();
 		}
@@ -182,7 +182,7 @@ abstract class AbstractAdminController extends Controller
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 				'entities' => $this->getEntities(),
-				'isSortable' => ReflectionClassHelper::hasTrait($reflectionClass, SortableTrait::class)
+				'isSortable' => ReflectionClassHelper::hasTrait($reflectionClass, SortTrait::class)
 			]
 		]);
 	}
@@ -200,7 +200,7 @@ abstract class AbstractAdminController extends Controller
 		$reflectionClass = new \ReflectionClass($this->getEntityClassName());
 
 		// order by weight
-		if ($reflectionClass->implementsInterface(TreeableInterface::class))
+		if ($reflectionClass->implementsInterface(TreeInterface::class))
 		{
 			$orderBy = [
 				'weight' => 'ASC',
@@ -209,7 +209,7 @@ abstract class AbstractAdminController extends Controller
 		}
 
 		// only fetch latest version of entities
-		if ($reflectionClass->implementsInterface(VersionableInterface::class))
+		if ($reflectionClass->implementsInterface(VersionInterface::class))
 		{
 			/**
 			 * @var EntityManager $em
@@ -291,7 +291,7 @@ SQL;
 		}
 
 		// handle entity versioning
-		if ($entity instanceof VersionableInterface)
+		if ($entity instanceof VersionInterface)
 		{
 			$clone = clone $entity;
 
@@ -312,14 +312,14 @@ SQL;
 					$eventDispatcher = $this->get('event_dispatcher');
 
 					// dispatch pre clone event
-					$eventDispatcher->dispatch(VersionableEvents::PRE_CLONE, new VersionableEvent($clone, $entity));
+					$eventDispatcher->dispatch(VersionEvents::PRE_CLONE, new VersionEvent($clone, $entity));
 
 					$em = $this->getDoctrine()->getManager();
 					$em->persist($clone);
 					$em->flush();
 
 					// dispatch post clone event
-					$eventDispatcher->dispatch(VersionableEvents::POST_CLONE, new VersionableEvent($clone, $entity));
+					$eventDispatcher->dispatch(VersionEvents::POST_CLONE, new VersionEvent($clone, $entity));
 				}
 
 				return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
@@ -365,12 +365,12 @@ SQL;
 	private function getEntityBehaviors($entity): array
 	{
 		return [
-			'isTranslatable' => $entity instanceof TranslatableInterface,
-			'isPublishable' => $entity instanceof PublishableInterface,
-			'isSoftDeletable' => $entity instanceof SoftDeletableInterface,
-			'isViewable' => $entity instanceof ViewableInterface,
-			'isCloneable' => $entity instanceof CloneableInterface,
-			'isVersionable' => $entity instanceof VersionableInterface
+			'isTranslatable' => $entity instanceof TranslateInterface,
+			'isPublishable' => $entity instanceof PublishInterface,
+			'isSoftDeletable' => $entity instanceof SoftDeleteInterface,
+			'isViewable' => $entity instanceof ViewInterface,
+			'isCloneable' => $entity instanceof CloneInterface,
+			'isVersionable' => $entity instanceof VersionInterface
 		];
 	}
 

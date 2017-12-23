@@ -3,27 +3,27 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\PublishableInterface;
-use Duo\AdminBundle\Entity\Behavior\PublishableTrait;
-use Duo\AdminBundle\Entity\Behavior\SluggableInterface;
-use Duo\AdminBundle\Entity\Behavior\SluggableTrait;
+use Duo\AdminBundle\Entity\Behavior\PublishInterface;
+use Duo\AdminBundle\Entity\Behavior\PublishTrait;
+use Duo\AdminBundle\Entity\Behavior\SlugInterface;
+use Duo\AdminBundle\Entity\Behavior\SlugTrait;
 use Duo\AdminBundle\Entity\Behavior\TranslationInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeableTrait;
-use Duo\AdminBundle\Entity\Behavior\UrlableInterface;
-use Duo\AdminBundle\Entity\Behavior\UrlableTrait;
-use Duo\AdminBundle\Entity\Behavior\ViewableInterface;
+use Duo\AdminBundle\Entity\Behavior\TreeInterface;
+use Duo\AdminBundle\Entity\Behavior\TreeTrait;
+use Duo\AdminBundle\Entity\Behavior\UrlInterface;
+use Duo\AdminBundle\Entity\Behavior\UrlTrait;
+use Duo\AdminBundle\Entity\Behavior\ViewInterface;
 
 /**
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="Duo\AdminBundle\Repository\PageRepository")
  */
-class Page extends AbstractNode implements TreeableInterface, SluggableInterface, UrlableInterface, PublishableInterface, ViewableInterface
+class Page extends AbstractNode implements TreeInterface, SlugInterface, UrlInterface, PublishInterface, ViewInterface
 {
-	use TreeableTrait;
-    use SluggableTrait;
-    use UrlableTrait;
-    use PublishableTrait;
+	use TreeTrait;
+    use SlugTrait;
+    use UrlTrait;
+    use PublishTrait;
 
 	/**
 	 * {@inheritdoc}

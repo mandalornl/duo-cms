@@ -1,26 +1,26 @@
 parameters:
 
 services:
-    Duo\AdminBundle\EventListener\Behavior\SortableListener:
+    Duo\AdminBundle\EventListener\Behavior\SortListener:
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: kernel.event_listener, event: duo.sortable.preSort, method: preSort }
+            - { name: kernel.event_listener, event: duo.sort.preSort, method: preSort }
 
-    Duo\AdminBundle\EventListener\Behavior\VersionableListener:
+    Duo\AdminBundle\EventListener\Behavior\VersionListener:
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: kernel.event_listener, event: duo.versionable.preClone, method: preClone }
-            - { name: kernel.event_listener, event: duo.versionable.onRevert, method: preRevert }
+            - { name: kernel.event_listener, event: duo.version.preClone, method: preClone }
+            - { name: kernel.event_listener, event: duo.version.onRevert, method: preRevert }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\BlameableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\BlameSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\SluggableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\SlugSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: 1 }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\SortableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\SortSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
@@ -28,23 +28,23 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TimeStampableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\TimeStampSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TranslatableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\TranslateSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TreeableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\TreeSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\UrlableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\UrlSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: 0 }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\VersionableSubscriber:
+    Duo\AdminBundle\EventSubscriber\Behavior\VersionSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 

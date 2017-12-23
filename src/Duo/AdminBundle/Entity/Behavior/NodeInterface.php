@@ -2,13 +2,13 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
-interface NodeInterface extends BlameableInterface,
-								SoftDeletableInterface,
-								TranslatableInterface,
-								SortableInterface,
-								CloneableInterface,
-								VersionableInterface,
-								TimeStampableInterface
+interface NodeInterface extends BlameInterface,
+								SoftDeleteInterface,
+								TranslateInterface,
+								SortInterface,
+								CloneInterface,
+								VersionInterface,
+								TimeStampInterface
 {
 	/**
 	 * Set name

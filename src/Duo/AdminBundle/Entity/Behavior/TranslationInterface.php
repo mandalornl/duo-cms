@@ -14,18 +14,18 @@ interface TranslationInterface
 	/**
 	 * Set translatable
 	 *
-	 * @param TranslatableInterface $translatable
+	 * @param TranslateInterface $translatable
 	 *
 	 * @return TranslationInterface
 	 */
-	public function setTranslatable(TranslatableInterface $translatable): TranslationInterface;
+	public function setTranslatable(TranslateInterface $translatable): TranslationInterface;
 
 	/**
 	 * Get translatable
 	 *
-	 * @return TranslatableInterface
+	 * @return TranslateInterface
 	 */
-	public function getTranslatable(): TranslatableInterface;
+	public function getTranslatable(): TranslateInterface;
 
 	/**
 	 * Set locale

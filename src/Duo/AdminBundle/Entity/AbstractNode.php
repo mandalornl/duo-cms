@@ -3,29 +3,29 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\BlameableTrait;
-use Duo\AdminBundle\Entity\Behavior\CloneableTrait;
-use Duo\AdminBundle\Entity\Behavior\IdableTrait;
+use Duo\AdminBundle\Entity\Behavior\BlameTrait;
+use Duo\AdminBundle\Entity\Behavior\CloneTrait;
+use Duo\AdminBundle\Entity\Behavior\IdTrait;
 use Duo\AdminBundle\Entity\Behavior\NodeInterface;
-use Duo\AdminBundle\Entity\Behavior\SoftDeletableTrait;
-use Duo\AdminBundle\Entity\Behavior\SortableTrait;
+use Duo\AdminBundle\Entity\Behavior\SoftDeleteTrait;
+use Duo\AdminBundle\Entity\Behavior\SortTrait;
 use Duo\AdminBundle\Entity\Behavior\TaxonomyTrait;
-use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
-use Duo\AdminBundle\Entity\Behavior\TranslatableTrait;
-use Duo\AdminBundle\Entity\Behavior\VersionableTrait;
+use Duo\AdminBundle\Entity\Behavior\TimeStampTrait;
+use Duo\AdminBundle\Entity\Behavior\TranslateTrait;
+use Duo\AdminBundle\Entity\Behavior\VersionTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class AbstractNode implements NodeInterface
 {
-	use IdableTrait;
+	use IdTrait;
 	use TaxonomyTrait;
-	use BlameableTrait;
-	use SoftDeletableTrait;
-	use TranslatableTrait;
-	use SortableTrait;
-	use CloneableTrait;
-	use VersionableTrait;
-	use TimeStampableTrait;
+	use BlameTrait;
+	use SoftDeleteTrait;
+	use TranslateTrait;
+	use SortTrait;
+	use CloneTrait;
+	use VersionTrait;
+	use TimeStampTrait;
 
     /**
      * @var string

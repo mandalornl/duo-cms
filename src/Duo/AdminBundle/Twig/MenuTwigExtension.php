@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
+use Duo\AdminBundle\Entity\Behavior\TreeInterface;
 use Duo\AdminBundle\Service\Menu;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -45,11 +45,11 @@ class MenuTwigExtension extends \Twig_Extension
 	/**
 	 * Get menu
 	 *
-	 * @param TreeableInterface $root
+	 * @param TreeInterface $root
 	 *
 	 * @return Menu
 	 */
-	public function getMenu(TreeableInterface $root)
+	public function getMenu(TreeInterface $root)
 	{
 		return (new Menu())
 			->setRoot($root)

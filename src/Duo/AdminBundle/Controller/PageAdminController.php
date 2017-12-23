@@ -5,11 +5,11 @@ namespace Duo\AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Controller\Behavior\CloneableTrait;
-use Duo\AdminBundle\Controller\Behavior\VersionableTrait;
-use Duo\AdminBundle\Controller\Behavior\SoftDeletableTrait;
-use Duo\AdminBundle\Controller\Behavior\SortableTrait;
-use Duo\AdminBundle\Controller\Behavior\PublishableTrait;
+use Duo\AdminBundle\Controller\Behavior\CloneTrait;
+use Duo\AdminBundle\Controller\Behavior\VersionTrait;
+use Duo\AdminBundle\Controller\Behavior\SoftDeleteTrait;
+use Duo\AdminBundle\Controller\Behavior\SortTrait;
+use Duo\AdminBundle\Controller\Behavior\PublishTrait;
 use Duo\AdminBundle\Entity\Page;
 use Duo\AdminBundle\Form\PageAdminType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageAdminController extends AbstractAdminController
 {
-	use VersionableTrait;
-	use SoftDeletableTrait;
-	use SortableTrait;
-	use PublishableTrait;
-	use CloneableTrait;
+	use VersionTrait;
+	use SoftDeleteTrait;
+	use SortTrait;
+	use PublishTrait;
+	use CloneTrait;
 
 	/**
 	 * {@inheritdoc}

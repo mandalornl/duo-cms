@@ -3,22 +3,22 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\IdableTrait;
-use Duo\AdminBundle\Entity\Behavior\TimeStampableInterface;
-use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
-use Duo\AdminBundle\Entity\Behavior\TranslatableInterface;
-use Duo\AdminBundle\Entity\Behavior\TranslatableTrait;
+use Duo\AdminBundle\Entity\Behavior\IdTrait;
+use Duo\AdminBundle\Entity\Behavior\TimeStampInterface;
+use Duo\AdminBundle\Entity\Behavior\TimeStampTrait;
+use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
+use Duo\AdminBundle\Entity\Behavior\TranslateTrait;
 use Duo\AdminBundle\Entity\Behavior\TranslationInterface;
 
 /**
  * @ORM\Table(name="taxonomy")
  * @ORM\Entity()
  */
-class Taxonomy implements TranslatableInterface, TimeStampableInterface
+class Taxonomy implements TranslateInterface, TimeStampInterface
 {
-	use IdableTrait;
-	use TranslatableTrait;
-	use TimeStampableTrait;
+	use IdTrait;
+	use TranslateTrait;
+	use TimeStampTrait;
 
 	/**
 	 * {@inheritdoc}

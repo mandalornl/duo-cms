@@ -4,9 +4,9 @@ namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\AdminBundle\Entity\Behavior\UserInterface;
-use Duo\AdminBundle\Entity\Behavior\IdableTrait;
-use Duo\AdminBundle\Entity\Behavior\TimeStampableInterface;
-use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
+use Duo\AdminBundle\Entity\Behavior\IdTrait;
+use Duo\AdminBundle\Entity\Behavior\TimeStampInterface;
+use Duo\AdminBundle\Entity\Behavior\TimeStampTrait;
 
 /**
  * @ORM\Table(
@@ -21,10 +21,10 @@ use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
  * )
  * @ORM\Entity()
  */
-class User implements UserInterface, TimeStampableInterface
+class User implements UserInterface, TimeStampInterface
 {
-	use IdableTrait;
-	use TimeStampableTrait;
+	use IdTrait;
+	use TimeStampTrait;
 
 	/**
      * @var string

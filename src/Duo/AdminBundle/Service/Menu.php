@@ -4,13 +4,13 @@ namespace Duo\AdminBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
+use Duo\AdminBundle\Entity\Behavior\TreeInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class Menu
 {
 	/**
-	 * @var TreeableInterface
+	 * @var TreeInterface
 	 */
 	private $root;
 
@@ -27,11 +27,11 @@ class Menu
 	/**
 	 * Set root
 	 *
-	 * @param TreeableInterface $root
+	 * @param TreeInterface $root
 	 *
 	 * @return Menu
 	 */
-	public function setRoot(TreeableInterface $root): Menu
+	public function setRoot(TreeInterface $root): Menu
 	{
 		$this->root = $root;
 
@@ -41,9 +41,9 @@ class Menu
 	/**
 	 * Get root
 	 *
-	 * @return TreeableInterface
+	 * @return TreeInterface
 	 */
-	public function getRoot(): ?TreeableInterface
+	public function getRoot(): ?TreeInterface
 	{
 		return $this->root;
 	}
