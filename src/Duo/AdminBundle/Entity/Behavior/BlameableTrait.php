@@ -7,28 +7,24 @@ use Duo\AdminBundle\Entity\User;
 trait BlameableTrait
 {
 	/**
-	 * @var BlameableUserInterface
+	 * @var UserInterface
 	 */
 	protected $createdBy;
 
 	/**
-	 * @var BlameableUserInterface
+	 * @var UserInterface
 	 */
 	protected $modifiedBy;
 
 	/**
-	 * @var BlameableUserInterface
+	 * @var UserInterface
 	 */
 	protected $deletedBy;
 
 	/**
-	 * Set createdBy
-	 *
-	 * @param BlameableUserInterface $createdBy
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setCreatedBy(BlameableUserInterface $createdBy = null)
+	public function setCreatedBy(UserInterface $createdBy = null): BlameableInterface
 	{
 		$this->createdBy = $createdBy;
 
@@ -36,23 +32,17 @@ trait BlameableTrait
 	}
 
 	/**
-	 * Get createdBy
-	 *
-	 * @return BlameableUserInterface
+	 * {@inheritdoc}
 	 */
-	public function getCreatedBy(): ?BlameableUserInterface
+	public function getCreatedBy(): ?UserInterface
 	{
 		return $this->createdBy;
 	}
 
 	/**
-	 * Set modified by
-	 *
-	 * @param BlameableUserInterface $modifiedBy
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setModifiedBy(BlameableUserInterface $modifiedBy = null)
+	public function setModifiedBy(UserInterface $modifiedBy = null): BlameableInterface
 	{
 		$this->modifiedBy = $modifiedBy;
 
@@ -60,23 +50,17 @@ trait BlameableTrait
 	}
 
 	/**
-	 * Get modifiedBy
-	 *
-	 * @return BlameableUserInterface
+	 * {@inheritdoc}
 	 */
-	public function getModifiedBy(): ?BlameableUserInterface
+	public function getModifiedBy(): ?UserInterface
 	{
 		return $this->modifiedBy;
 	}
 
 	/**
-	 * Set deletedBy
-	 *
-	 * @param BlameableUserInterface $deletedBy
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function setDeletedBy(BlameableUserInterface $deletedBy = null)
+	public function setDeletedBy(UserInterface $deletedBy = null): BlameableInterface
 	{
 		$this->deletedBy = $deletedBy;
 
@@ -84,32 +68,18 @@ trait BlameableTrait
 	}
 
 	/**
-	 * Get deletedBy
-	 *
-	 * @return BlameableUserInterface
+	 * {@inheritdoc}
 	 */
-	public function getDeletedBy(): ?BlameableUserInterface
+	public function getDeletedBy(): ?UserInterface
 	{
 		return $this->deletedBy;
 	}
 
 	/**
-	 * Get blameable entity class name
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public static function getBlameableUserEntityClassName(): string
 	{
 		return User::class;
-	}
-
-	/**
-	 * On clone blameable
-	 */
-	protected function onCloneBlameable()
-	{
-		$this->createdBy = null;
-		$this->modifiedBy = null;
-		$this->deletedBy = null;
 	}
 }

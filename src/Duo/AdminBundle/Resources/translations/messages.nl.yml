@@ -1,4 +1,4 @@
-duo_admin:
+duo:
     type:
         page: pagina
         taxonomy: taxonomie

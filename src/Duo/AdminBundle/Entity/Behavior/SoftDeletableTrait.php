@@ -71,12 +71,4 @@ trait SoftDeletableTrait
 
 		return $dateTime;
 	}
-
-	/**
-	 * On clone soft delete
-	 */
-	protected function onCloneSoftDelete()
-	{
-		$this->undelete();
-	}
 }

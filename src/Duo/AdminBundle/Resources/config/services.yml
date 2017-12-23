@@ -4,7 +4,8 @@ services:
     Duo\AdminBundle\EventListener\Behavior\VersionableListener:
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: kernel.event_listener, event: duo_admin.versionable.postClone, method: postClone }
+            - { name: kernel.event_listener, event: duo.versionable.prePersist, method: prePersist }
+            - { name: kernel.event_listener, event: duo.versionable.postFlush, method: postFlush }
 
     Duo\AdminBundle\EventSubscriber\Behavior\BlameableSubscriber:
         tags:

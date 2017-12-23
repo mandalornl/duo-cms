@@ -3,7 +3,7 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\BlameableUserInterface;
+use Duo\AdminBundle\Entity\Behavior\UserInterface;
 use Duo\AdminBundle\Entity\Behavior\IdableTrait;
 use Duo\AdminBundle\Entity\Behavior\TimeStampableInterface;
 use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
@@ -21,7 +21,7 @@ use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
  * )
  * @ORM\Entity()
  */
-class User implements BlameableUserInterface, TimeStampableInterface
+class User implements UserInterface, TimeStampableInterface
 {
 	use IdableTrait;
 	use TimeStampableTrait;

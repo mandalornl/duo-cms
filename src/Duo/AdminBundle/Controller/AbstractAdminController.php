@@ -17,7 +17,7 @@ use Duo\AdminBundle\Entity\Behavior\TranslatableInterface;
 use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
 use Duo\AdminBundle\Entity\Behavior\ViewableInterface;
 use Duo\AdminBundle\Event\Behavior\VersionableEvent;
-use Duo\AdminBundle\Event\Events;
+use Duo\AdminBundle\Event\Behavior\VersionableEvents;
 use Duo\AdminBundle\Helper\ReflectionClassHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -178,7 +178,7 @@ abstract class AbstractAdminController extends Controller
 		return $this->render($this->getListTemplate(), [
 			'list' => [
 				'type' => $this->getListType(),
-				'transType' => $this->get('translator')->trans("duo_admin.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 				'entities' => $this->getEntities(),
@@ -203,7 +203,8 @@ abstract class AbstractAdminController extends Controller
 		if ($reflectionClass->implementsInterface(TreeableInterface::class))
 		{
 			$orderBy = [
-				'weight' => 'ASC'
+				'weight' => 'ASC',
+				'id' => 'ASC'
 			];
 		}
 
@@ -269,7 +270,7 @@ SQL;
 			'form' => $form->createView(),
 			'entity' => $entity,
 			'type' => $this->getListType(),
-			'transType' => $this->get('translator')->trans("duo_admin.type.{$this->getListType()}"),
+			'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
 		], $this->getEntityBehaviors($entity)));
 	}
 
@@ -308,15 +309,17 @@ SQL;
 				// check whether or not entity was modified
 				if (strcmp($preSubmitState, $postSubmitState) !== 0)
 				{
-					// dispatch versionable pre clone event
-					$this->get('event_dispatcher')->dispatch(Events::VERSIONABLE_PRE_CLONE, new VersionableEvent($clone, $entity));
+					$eventDispatcher = $this->get('event_dispatcher');
+
+					// dispatch pre persist event
+					$eventDispatcher->dispatch(VersionableEvents::PRE_PERSIST, new VersionableEvent($clone, $entity));
 
 					$em = $this->getDoctrine()->getManager();
 					$em->persist($clone);
 					$em->flush();
 
-					// dispatch versionable post clone event
-					$this->get('event_dispatcher')->dispatch(Events::VERSIONABLE_POST_CLONE, new VersionableEvent($clone, $entity));
+					// dispatch post flush event
+					$eventDispatcher->dispatch(VersionableEvents::POST_FLUSH, new VersionableEvent($clone, $entity));
 				}
 
 				return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
@@ -326,7 +329,7 @@ SQL;
 				'form' => $form->createView(),
 				'entity' => $clone,
 				'type' => $this->getListType(),
-				'transType' => $this->get('translator')->trans("duo_admin.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($clone)));
 		}
 		else
@@ -347,7 +350,7 @@ SQL;
 				'form' => $form->createView(),
 				'entity' => $entity,
 				'type' => $this->getListType(),
-				'transType' => $this->get('translator')->trans("duo_admin.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($entity)));
 		}
 	}

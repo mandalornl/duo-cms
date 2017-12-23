@@ -2,4 +2,4 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
-interface BlameableUserInterface {};
+interface UserInterface {};

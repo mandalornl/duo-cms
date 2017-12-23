@@ -99,7 +99,7 @@ trait SoftDeletableTrait
 			]);
 		}
 
-		return $this->redirect("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
 	}
 
 	/**

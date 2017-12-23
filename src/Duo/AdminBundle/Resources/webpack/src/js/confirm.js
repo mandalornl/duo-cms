@@ -2,39 +2,33 @@ import $ from 'jquery';
 import 'bootstrap/js/dist/modal';
 
 /**
- * Open confirm dialog
+ * Open modal
  *
  * @param {Function} callback
  * @param {string} [selector]
- */
-const open = (callback, selector = '#modal_confirm') =>
-{
-	const $modal = $(selector);
-
-	$modal.on('show.bs.modal', function(e)
-	{
-		const $target = $(e.relatedTarget);
-
-		$modal.find('.modal-title').text($target.data('title'));
-		$modal.find('.modal-body p').html($target.data('body').replace(/\r\n|\r|\n/g, '<br>'));
-
-		$modal.on('click', '.btn:not([data-dismiss])', function(e)
-		{
-			e.preventDefault();
-
-			callback();
-		});
-	}).modal('show');
-};
-
-/**
- * Hide confirm dialog
  *
- * @param {string} [selector]
+ * @returns {function(*=)}
  */
-const close = (selector = '#modal_confirm') =>
+const modal = (callback, selector = '#modal_confirm') =>
 {
-	$(selector).modal('hide');
+	return (e) =>
+	{
+		e.preventDefault();
+
+		const $this = $(e.target);
+		const $modal = $(selector);
+
+		$modal.on('show.bs.modal', () =>
+		{
+			$modal.find('.modal-title').text($this.data('title'));
+			$modal.find('.modal-body p').html($this.data('body').replace(/\r\n|\r|\n/g, '<br>'));
+
+			$modal.on('click', '.btn:not([data-dismiss])', () =>
+			{
+				callback(e);
+			});
+		}).modal('show');
+	};
 };
 
-export {open, close};
+export {modal};

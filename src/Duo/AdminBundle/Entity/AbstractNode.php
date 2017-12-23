@@ -4,27 +4,22 @@ namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\AdminBundle\Entity\Behavior\BlameableTrait;
-use Duo\AdminBundle\Entity\Behavior\CloneableInterface;
 use Duo\AdminBundle\Entity\Behavior\CloneableTrait;
 use Duo\AdminBundle\Entity\Behavior\IdableTrait;
-use Duo\AdminBundle\Entity\Behavior\SoftDeletableInterface;
+use Duo\AdminBundle\Entity\Behavior\NodeInterface;
 use Duo\AdminBundle\Entity\Behavior\SoftDeletableTrait;
-use Duo\AdminBundle\Entity\Behavior\SortableInterface;
 use Duo\AdminBundle\Entity\Behavior\SortableTrait;
 use Duo\AdminBundle\Entity\Behavior\TaxonomyTrait;
-use Duo\AdminBundle\Entity\Behavior\TimeStampableInterface;
 use Duo\AdminBundle\Entity\Behavior\TimeStampableTrait;
-use Duo\AdminBundle\Entity\Behavior\TranslatableInterface;
 use Duo\AdminBundle\Entity\Behavior\TranslatableTrait;
-use Duo\AdminBundle\Entity\Behavior\VersionableInterface;
 use Duo\AdminBundle\Entity\Behavior\VersionableTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class AbstractNode implements SoftDeletableInterface, TranslatableInterface, SortableInterface, CloneableInterface, VersionableInterface, TimeStampableInterface
+abstract class AbstractNode implements NodeInterface
 {
 	use IdableTrait;
-	use BlameableTrait;
 	use TaxonomyTrait;
+	use BlameableTrait;
 	use SoftDeletableTrait;
 	use TranslatableTrait;
 	use SortableTrait;
@@ -41,13 +36,9 @@ abstract class AbstractNode implements SoftDeletableInterface, TranslatableInter
     protected $name;
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return AbstractNode
+     * {@inheritdoc}
      */
-    public function setName(string $name = null): AbstractNode
+    public function setName(string $name = null): NodeInterface
     {
         $this->name = $name;
 
@@ -55,9 +46,7 @@ abstract class AbstractNode implements SoftDeletableInterface, TranslatableInter
     }
 
     /**
-     * Get name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName(): ?string
     {
