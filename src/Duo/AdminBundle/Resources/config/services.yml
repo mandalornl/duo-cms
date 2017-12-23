@@ -1,11 +1,16 @@
 parameters:
 
 services:
+    Duo\AdminBundle\EventListener\Behavior\SortableListener:
+        arguments: [ '@doctrine.orm.entity_manager' ]
+        tags:
+            - { name: kernel.event_listener, event: duo.sortable.preSort, method: preSort }
+
     Duo\AdminBundle\EventListener\Behavior\VersionableListener:
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: kernel.event_listener, event: duo.versionable.prePersist, method: prePersist }
-            - { name: kernel.event_listener, event: duo.versionable.postFlush, method: postFlush }
+            - { name: kernel.event_listener, event: duo.versionable.preClone, method: preClone }
+            - { name: kernel.event_listener, event: duo.versionable.onRevert, method: preRevert }
 
     Duo\AdminBundle\EventSubscriber\Behavior\BlameableSubscriber:
         tags:

@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Duo\AdminBundle\Entity\Behavior\BlameableInterface;
 use Duo\AdminBundle\Entity\Behavior\SoftDeletableInterface;
+use Duo\AdminBundle\Entity\Behavior\SortableInterface;
+use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
 use Duo\AdminBundle\Entity\Behavior\VersionableInterface;
 use Duo\AdminBundle\Event\Behavior\VersionableEvent;
 
@@ -27,13 +29,22 @@ class VersionableListener
 	}
 
 	/**
-	 * On pre persist event
+	 * On pre clone event
 	 *
 	 * @param VersionableEvent $event
 	 */
-	public function prePersist(VersionableEvent $event)
+	public function preClone(VersionableEvent $event)
 	{
-		$entity = $event->getClone();
+		$entity = $event->getEntity();
+		$origin = $event->getOrigin();
+
+		/**
+		 * @var VersionableInterface $version
+		 */
+		foreach ($origin->getVersions() as $version)
+		{
+			$version->setVersion($entity);
+		}
 
 		// reset blameable
 		if ($entity instanceof BlameableInterface)
@@ -44,7 +55,7 @@ class VersionableListener
 				->setDeletedBy(null);
 		}
 
-		// reset soft delete
+		// undelete entity
 		if ($entity instanceof SoftDeletableInterface)
 		{
 			$entity->undelete();
@@ -52,23 +63,39 @@ class VersionableListener
 	}
 
 	/**
-	 * On post flush event
+	 * On pre revert event
 	 *
 	 * @param VersionableEvent $event
 	 */
-	public function postFlush(VersionableEvent $event)
+	public function preRevert(VersionableEvent $event)
 	{
-		// update versions
-		foreach ($event->getOriginal()->getVersions() as $entity)
-		{
-			/**
-			 * @var VersionableInterface $entity
-			 */
-			$entity->setVersion($event->getClone());
+		$entity = $event->getEntity();
+		$origin = $event->getOrigin();
 
-			$this->entityManager->persist($entity);
+		/**
+		 * @var VersionableInterface $version
+		 */
+		foreach ($origin->getVersions() as $version)
+		{
+			$version->setVersion($entity);
 		}
 
-		$this->entityManager->flush();
+		// update parent
+		if ($entity instanceof TreeableInterface)
+		{
+			/**
+			 * @var TreeableInterface $origin
+			 */
+			$entity->setParent($origin->getParent());
+		}
+
+		// update weight
+		if ($entity instanceof SortableInterface)
+		{
+			/**
+			 * @var SortableInterface $origin
+			 */
+			$entity->setWeight($origin->getWeight());
+		}
 	}
 }

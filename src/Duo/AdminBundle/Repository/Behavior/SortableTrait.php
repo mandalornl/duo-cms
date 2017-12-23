@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Duo\AdminBundle\Entity\Behavior\SortableInterface;
 use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
+use Duo\AdminBundle\Entity\Behavior\VersionableInterface;
 
 trait SortableTrait
 {
@@ -25,7 +26,7 @@ trait SortableTrait
 		$builder = $this->createQueryBuilder('e')
 			->where('e.weight > :weight')
 			->setParameter('weight', $entity->getWeight())
-			->orderBy('e.weight', 'ASC')
+			->addOrderBy('e.weight', 'ASC')
 			->setMaxResults($limit);
 
 		// use parent of entity
@@ -36,7 +37,11 @@ trait SortableTrait
 				->setParameter('parent', $entity->getParent());
 		}
 
-		// TODO: use latest version of node
+		// use latest version
+		if ($entity instanceof VersionableInterface)
+		{
+			$builder->andWhere('e.version = e.id');
+		}
 
 		try
 		{
@@ -66,7 +71,7 @@ trait SortableTrait
 		$builder = $this->createQueryBuilder('e')
 			->where('e.weight < :weight')
 			->setParameter('weight', $entity->getWeight())
-			->orderBy('e.weight', 'DESC')
+			->addOrderBy('e.weight', 'DESC')
 			->setMaxResults($limit);
 
 		// use parent of entity
@@ -77,7 +82,11 @@ trait SortableTrait
 				->setParameter('parent', $parent);
 		}
 
-		// TODO: use latest version of node
+		// use latest version
+		if ($entity instanceof VersionableInterface)
+		{
+			$builder->andWhere('e.version = e.id');
+		}
 
 		try
 		{

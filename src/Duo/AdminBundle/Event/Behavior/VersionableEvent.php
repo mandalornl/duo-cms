@@ -10,70 +10,70 @@ final class VersionableEvent extends Event
 	/**
 	 * @var VersionableInterface
 	 */
-	private $clone;
+	private $entity;
 
 	/**
 	 * @var VersionableInterface
 	 */
-	private $original;
+	private $origin;
 
 	/**
 	 * VersionableEvent constructor
 	 *
-	 * @param VersionableInterface $clone
-	 * @param VersionableInterface $original
+	 * @param VersionableInterface $entity
+	 * @param VersionableInterface $origin
 	 */
-	public function __construct(VersionableInterface $clone, VersionableInterface $original)
+	public function __construct(VersionableInterface $entity, VersionableInterface $origin)
 	{
-		$this->clone = $clone;
-		$this->original = $original;
+		$this->entity = $entity;
+		$this->origin = $origin;
 	}
 
 	/**
-	 * Set clone
+	 * Set entity
 	 *
-	 * @param VersionableInterface $clone
+	 * @param VersionableInterface $entity
 	 *
 	 * @return VersionableEvent
 	 */
-	public function setClone(VersionableInterface $clone): VersionableEvent
+	public function setEntity(VersionableInterface $entity): VersionableEvent
 	{
-		$this->clone = $clone;
+		$this->entity = $entity;
 
 		return $this;
 	}
 
 	/**
-	 * Get clone
+	 * Get entity
 	 *
 	 * @return VersionableInterface
 	 */
-	public function getClone(): ?VersionableInterface
+	public function getEntity(): ?VersionableInterface
 	{
-		return $this->clone;
+		return $this->entity;
 	}
 
 	/**
-	 * Set original
+	 * Set origin
 	 *
-	 * @param VersionableInterface $original
+	 * @param VersionableInterface $origin
 	 *
 	 * @return VersionableEvent
 	 */
-	public function setOriginal(VersionableInterface $original): VersionableEvent
+	public function setOrigin(VersionableInterface $origin): VersionableEvent
 	{
-		$this->original = $original;
+		$this->origin = $origin;
 
 		return $this;
 	}
 
 	/**
-	 * Get original
+	 * Get origin
 	 *
 	 * @return VersionableInterface
 	 */
-	public function getOriginal(): ?VersionableInterface
+	public function getOrigin(): ?VersionableInterface
 	{
-		return $this->original;
+		return $this->origin;
 	}
 }

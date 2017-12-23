@@ -196,7 +196,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-up/{id}", name="duo_admin_page_move_down", requirements={ "id" = "\d+" })
+	 * @Route("/move-down/{id}", name="duo_admin_page_move_down", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function moveDownAction(Request $request, int $id)
@@ -207,12 +207,16 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-to/{id}/{weight}", name="duo_admin_page_move_to", requirements={ "id" = "\d+", "weight" = "\d+" })
+	 * @Route(
+	 *     "/move-to/{id}/{weight}/{parentId}",
+	 *     name="duo_admin_page_move_to",
+	 *     requirements={ "id" = "\d+", "weight" = "\d+", "parentId" = "\d+" }
+	 * )
 	 * @Method({"POST", "GET"})
 	 */
-	public function moveToAction(Request $request, int $id, int $weight)
+	public function moveToAction(Request $request, int $id, int $weight, int $parentId = null)
 	{
-		return $this->doMoveToAction($request, $id, $weight);
+		return $this->doMoveToAction($request, $id, $weight, $parentId);
 	}
 
 	/**

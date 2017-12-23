@@ -311,15 +311,15 @@ SQL;
 				{
 					$eventDispatcher = $this->get('event_dispatcher');
 
-					// dispatch pre persist event
-					$eventDispatcher->dispatch(VersionableEvents::PRE_PERSIST, new VersionableEvent($clone, $entity));
+					// dispatch pre clone event
+					$eventDispatcher->dispatch(VersionableEvents::PRE_CLONE, new VersionableEvent($clone, $entity));
 
 					$em = $this->getDoctrine()->getManager();
 					$em->persist($clone);
 					$em->flush();
 
-					// dispatch post flush event
-					$eventDispatcher->dispatch(VersionableEvents::POST_FLUSH, new VersionableEvent($clone, $entity));
+					// dispatch post clone event
+					$eventDispatcher->dispatch(VersionableEvents::POST_CLONE, new VersionableEvent($clone, $entity));
 				}
 
 				return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");

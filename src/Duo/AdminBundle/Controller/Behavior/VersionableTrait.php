@@ -5,6 +5,9 @@ namespace Duo\AdminBundle\Controller\Behavior;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractAdminController;
 use Duo\AdminBundle\Entity\Behavior\VersionableInterface;
+use Duo\AdminBundle\Event\Behavior\VersionableEvent;
+use Duo\AdminBundle\Event\Behavior\VersionableEvents;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,21 +77,19 @@ trait VersionableTrait
 		}
 
 		/**
+		 * @var TraceableEventDispatcher $dispatcher
+		 */
+		$dispatcher = $this->get('event_dispatcher');
+		$dispatcher->dispatch(VersionableEvents::PRE_REVERT, new VersionableEvent($entity->getVersion(), $entity));
+
+		/**
 		 * @var ObjectManager $em
 		 */
 		$em = $this->getDoctrine()->getManager();
-
-		/**
-		 * @var VersionableInterface $version
-		 */
-		foreach ($entity->getVersion()->getVersions() as $version)
-		{
-			$version->setVersion($entity);
-
-			$em->persist($version);
-		}
-
+		$em->persist($entity);
 		$em->flush();
+
+		$dispatcher->dispatch(VersionableEvents::POST_REVERT, new VersionableEvent($entity->getVersion(), $entity));
 
 		if ($request->getMethod() === 'post')
 		{

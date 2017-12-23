@@ -6,6 +6,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractAdminController;
 use Duo\AdminBundle\Entity\Behavior\SortableInterface;
 use Duo\AdminBundle\Entity\Behavior\TreeableInterface;
+use Duo\AdminBundle\Entity\Behavior\VersionableInterface;
+use Duo\AdminBundle\Event\Behavior\SortableEvent;
+use Duo\AdminBundle\Event\Behavior\SortableEvents;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,11 +46,19 @@ trait SortableTrait
 		 * @var SortableInterface $previousEntity
 		 */
 		$previousEntity = $repository->findPreviousWeight($entity);
+
 		if ($previousEntity !== null)
 		{
 			$weight = $previousEntity->getWeight();
 			$previousEntity->setWeight($entity->getWeight());
 			$entity->setWeight($weight);
+
+			/**
+			 * @var TraceableEventDispatcher $dispatcher
+			 */
+			$dispatcher = $this->get('event_dispatcher');
+			$dispatcher->dispatch(SortableEvents::PRE_SORT, new SortableEvent($previousEntity));
+			$dispatcher->dispatch(SortableEvents::PRE_SORT, new SortableEvent($entity));
 
 			/**
 			 * @var ObjectManager $em
@@ -55,6 +67,9 @@ trait SortableTrait
 			$em->persist($previousEntity);
 			$em->persist($entity);
 			$em->flush();
+
+			$dispatcher->dispatch(SortableEvents::POST_SORT, new SortableEvent($previousEntity));
+			$dispatcher->dispatch(SortableEvents::POST_SORT, new SortableEvent($entity));
 		}
 
 		if ($request->getMethod() === 'post')
@@ -98,11 +113,19 @@ trait SortableTrait
 		 * @var SortableInterface $nextEntity
 		 */
 		$nextEntity = $repository->findNextWeight($entity);
+
 		if ($nextEntity !== null)
 		{
 			$weight = $nextEntity->getWeight();
 			$nextEntity->setWeight($entity->getWeight());
 			$entity->setWeight($weight);
+
+			/**
+			 * @var TraceableEventDispatcher $dispatcher
+			 */
+			$dispatcher = $this->get('event_dispatcher');
+			$dispatcher->dispatch(SortableEvents::PRE_SORT, new SortableEvent($nextEntity));
+			$dispatcher->dispatch(SortableEvents::PRE_SORT, new SortableEvent($entity));
 
 			/**
 			 * @var ObjectManager $em
@@ -111,6 +134,9 @@ trait SortableTrait
 			$em->persist($nextEntity);
 			$em->persist($entity);
 			$em->flush();
+
+			$dispatcher->dispatch(SortableEvents::POST_SORT, new SortableEvent($nextEntity));
+			$dispatcher->dispatch(SortableEvents::POST_SORT, new SortableEvent($entity));
 		}
 
 		if ($request->getMethod() === 'post')
@@ -156,10 +182,26 @@ trait SortableTrait
 			'weight' => $weight
 		];
 
-		// use parent of entity
+		// use parent entity
 		if ($entity instanceof TreeableInterface)
 		{
-			$criteria['parent'] = $entity->getParent();
+			if ($parentId !== null && ($parent = $repository->find($parentId)) !== null)
+			{
+				$criteria['parent'] = $parent;
+			}
+			else
+			{
+				if (($parent = $entity->getParent()) !== null)
+				{
+					$criteria['parent'] = $parent;
+				}
+			}
+		}
+
+		// use latest version
+		if ($entity instanceof VersionableInterface)
+		{
+			$criteria['version'] = $entity->getVersion();
 		}
 
 		/**
@@ -186,19 +228,21 @@ trait SortableTrait
 			 * @var SortableInterface[] $entities
 			 */
 			$entities = $repository->findNextWeight($currentEntity, null);
+
 			foreach ($entities as $entity)
 			{
 				$entity->setWeight($weight++);
 				$em->persist($entity);
 			}
+
+			$em->flush();
 		}
 		else
 		{
 			$entity->setWeight($weight);
 			$em->persist($entity);
+			$em->flush();
 		}
-
-		$em->flush();
 
 		if ($request->getMethod() === 'post')
 		{
@@ -223,7 +267,7 @@ trait SortableTrait
 	private function sortableInterfaceNotImplemented(int $id, Request $request)
 	{
 		$interface = SortableInterface::class;
-		$error ="Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'";
+		$error = "Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'";
 
 		if ($request->getMethod() === 'post')
 		{
@@ -264,8 +308,9 @@ trait SortableTrait
 	 * @param Request $request
 	 * @param int $id
 	 * @param int $weight
+	 * @oaram int $parentId [optional]
 	 *
 	 * @return Response|RedirectResponse|JsonResponse
 	 */
-	abstract public function moveToAction(Request $request, int $id, int $weight);
+	abstract public function moveToAction(Request $request, int $id, int $weight, int $parentId = null);
 }
