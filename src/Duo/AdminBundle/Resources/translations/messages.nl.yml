@@ -49,3 +49,10 @@ duo:
             body: Weet u zeker dat u deze %type% wilt herstellen?
         publish:
             title: Publiceren
+
+    form:
+        confirm_choice:
+            placeholder: Maak een keuze
+            choices:
+                yes: Ja
+                no: Nee

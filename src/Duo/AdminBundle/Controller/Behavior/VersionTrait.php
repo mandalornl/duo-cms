@@ -80,7 +80,7 @@ trait VersionTrait
 		 * @var TraceableEventDispatcher $dispatcher
 		 */
 		$dispatcher = $this->get('event_dispatcher');
-		$dispatcher->dispatch(VersionEvents::PRE_REVERT, new VersionEvent($entity->getVersion(), $entity));
+		$dispatcher->dispatch(VersionEvents::REVERT, new VersionEvent($entity, $entity->getVersion()));
 
 		/**
 		 * @var ObjectManager $em
@@ -88,8 +88,6 @@ trait VersionTrait
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($entity);
 		$em->flush();
-
-		$dispatcher->dispatch(VersionEvents::POST_REVERT, new VersionEvent($entity->getVersion(), $entity));
 
 		if ($request->getMethod() === 'post')
 		{

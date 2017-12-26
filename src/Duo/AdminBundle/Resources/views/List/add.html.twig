@@ -8,7 +8,7 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbar_{{ type }}">
 			<form class="form-inline my-2 my-lg-0">
-				{% if isTranslatable %}
+				{#{% if isTranslatable %}
 					<label for="toolbar_language" class="sr-only">
 						{{- 'duo.toolbar.change_language' | trans -}}
 					</label>
@@ -18,12 +18,12 @@
 							<option value="{{ locale }}"{% if app.request.locale == locale %} selected{% endif %}>{{ name }}</option>
 						{% endfor %}
 					</select>
-				{% endif %}
+				{% endif %}#}
 				<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.toolbar.actions.label' | trans }}">
 					<div class="btn-group" role="group">
 						{% if entity.id > 0 %}
 							<div class="btn-group" role="group">
-								<button id="actions_{{ type }}" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
 									{{- 'duo.toolbar.dropdown.global.more' | trans -}}
 								</button>
 								<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
@@ -71,7 +71,7 @@
 								</div>
 							</div>
 						{% endif %}
-						<a href="{{ path('duo_admin_' ~ type ~ '_list') }}" class="btn btn-light">
+						<a href="{{ path('duo_admin_' ~ type ~ '_list') }}" class="btn btn-white">
 							{{- 'duo.toolbar.actions.cancel' | trans -}}
 						</a>
 						<button type="button" class="btn btn-success" data-action="save" data-type="{{ type }}">

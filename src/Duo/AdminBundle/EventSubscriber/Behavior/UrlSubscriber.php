@@ -6,6 +6,8 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
+use Duo\AdminBundle\Entity\Behavior\TranslationInterface;
 use Duo\AdminBundle\Entity\Behavior\TreeInterface;
 use Duo\AdminBundle\Entity\Behavior\UrlInterface;
 
@@ -54,10 +56,10 @@ final class UrlSubscriber implements EventSubscriber
 			return;
 		}
 
+		$urls = [$entity->getValueToUrlize()];
+
 		if ($entity instanceof TreeInterface)
 		{
-			$urls = [$entity->getValueToUrlize()];
-
 			/**
 			 * @var UrlInterface|TreeInterface $parent
 			 */
@@ -69,11 +71,35 @@ final class UrlSubscriber implements EventSubscriber
 
 				$parent = $parent->getParent();
 			}
+		}
+		else
+		{
+			if ($entity instanceof TranslationInterface)
+			{
+				$translatable = $entity->getTranslatable();
 
-			$entity->setUrl(implode('/', array_reverse($urls)) . '/');
-			return;
+				if ($translatable instanceof TreeInterface)
+				{
+					/**
+					 * @var TranslateInterface|TreeInterface $parent
+					 */
+					$parent = $translatable->getParent();
+
+					while ($parent !== null)
+					{
+						/**
+						 * @var UrlInterface $translation
+						 */
+						$translation = $parent->translate($entity->getLocale());
+
+						$urls[] = $translation->getValueToUrlize();
+
+						$parent = $parent->getParent();
+					}
+				}
+			}
 		}
 
-		$entity->setUrl($entity->getValueToUrlize() . '/');
+		$entity->setUrl(implode('/', array_reverse($urls)));
 	}
 }

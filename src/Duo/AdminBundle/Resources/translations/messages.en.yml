@@ -49,3 +49,10 @@ duo:
             body: Are you sure you want to undelete this %type%?
         publish:
             title: Publish
+
+    form:
+        confirm_choice:
+            placeholder: Please choose
+            choices:
+                yes: Yes
+                no: No

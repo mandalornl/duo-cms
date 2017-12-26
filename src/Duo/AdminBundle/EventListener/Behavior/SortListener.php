@@ -26,24 +26,24 @@ class SortListener
 	}
 
 	/**
-	 * On pre sort event
+	 * On sort event
 	 *
 	 * @param SortEvent $event
 	 */
-	public function preSort(SortEvent $event)
+	public function onSort(SortEvent $event)
 	{
-		$entity = $event->getEntity();
-
-		// update weight
-		if ($entity instanceof VersionInterface)
-		{
-			/**
-			 * @var SortInterface $version
-			 */
-			foreach ($entity->getVersions() as $version)
-			{
-				$version->setWeight($entity->getWeight());
-			}
-		}
+//		$entity = $event->getEntity();
+//
+//		// update weight
+//		if ($entity instanceof VersionInterface)
+//		{
+//			/**
+//			 * @var SortInterface $version
+//			 */
+//			foreach ($entity->getVersions() as $version)
+//			{
+//				$version->setWeight($entity->getWeight());
+//			}
+//		}
 	}
 }

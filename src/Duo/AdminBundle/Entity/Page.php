@@ -18,11 +18,9 @@ use Duo\AdminBundle\Entity\Behavior\ViewInterface;
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="Duo\AdminBundle\Repository\PageRepository")
  */
-class Page extends AbstractNode implements TreeInterface, SlugInterface, UrlInterface, PublishInterface, ViewInterface
+class Page extends AbstractNode implements TreeInterface, PublishInterface, ViewInterface
 {
 	use TreeTrait;
-    use SlugTrait;
-    use UrlTrait;
     use PublishTrait;
 
 	/**
@@ -33,21 +31,5 @@ class Page extends AbstractNode implements TreeInterface, SlugInterface, UrlInte
 	public function translate(string $locale = null, bool $fallback = true): PageTranslation
 	{
 		return $this->doTranslate($locale, $fallback);
-	}
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValueToSlugify(): string
-    {
-        return $this->name;
-    }
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getValueToUrlize(): string
-	{
-		return $this->slug;
 	}
 }

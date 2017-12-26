@@ -16,22 +16,47 @@ class PageAdminTranslationType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder
-			->add('title', TextType::class, [
-				'required' => false
-			])
-			->add('content', TextareaType::class, [
-				'required' => false
-			])
-			->add('metaTitle', TextType::class, [
-				'required' => false
-			])
-			->add('metaDescription', TextareaType::class, [
-				'required' => false
-			])
-			->add('metaKeywords', TextType::class, [
-				'required' => false
-			]);
+		$tabs = $builder->create('tabs', TabsType::class)
+			->add(
+				$builder->create('content', TabType::class, [
+					'label' => 'Content'
+				])
+				->add('title', TextType::class, [
+					'required' => false
+				])
+				->add('content', TextareaType::class, [
+					'required' => false
+				])
+			)
+			->add(
+				$builder->create('menu', TabType::class, [
+					'label' => 'Menu'
+				])
+				->add('slug', TextType::class, [
+					'required' => false,
+					'disabled' => true
+				])
+				->add('url', TextType::class, [
+					'required' => false,
+					'disabled' => true
+				])
+			)
+			->add(
+				$builder->create('seo', TabType::class, [
+					'label' => 'Seo'
+				])
+				->add('metaTitle', TextType::class, [
+					'required' => false
+				])
+				->add('metaDescription', TextareaType::class, [
+					'required' => false
+				])
+				->add('metaKeywords', TextType::class, [
+					'required' => false
+				])
+			);
+
+		$builder->add($tabs);
 	}
 
 	/**

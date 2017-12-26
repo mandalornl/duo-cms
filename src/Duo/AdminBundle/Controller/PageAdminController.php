@@ -73,6 +73,11 @@ class PageAdminController extends AbstractAdminController
 			)
 			->addField(
 				(new Field())
+					->setTitle('Url')
+					->setProperty('url')
+			)
+			->addField(
+				(new Field())
 					->setTitle('Created at')
 					->setProperty('createdAt')
 			)

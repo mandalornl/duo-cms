@@ -35,14 +35,16 @@ class LocaleTwigExtension extends \Twig_Extension
 	/**
 	 * Get countries
 	 *
+	 * @param string $displayLocale
+	 *
 	 * @return string[]
 	 */
-	public function getCountries(): array
+	public function getCountries(string $displayLocale = null): array
 	{
-		$countries = array_map(function(string $locale)
+		$countries = array_map(function(string $locale) use ($displayLocale)
 		{
 			$country = strtoupper($locale === 'en' ? 'gb' : $locale);
-			return Intl::getRegionBundle()->getCountryName($country, $locale);
+			return Intl::getRegionBundle()->getCountryName($country, $displayLocale ?: $locale);
 		}, array_combine($this->locales, $this->locales));
 
 		ksort($countries);
@@ -53,13 +55,15 @@ class LocaleTwigExtension extends \Twig_Extension
 	/**
 	 * Get locales
 	 *
+	 * @param string $displayLocale
+	 *
 	 * @return string[]
 	 */
-	public function getLocales(): array
+	public function getLocales(string $displayLocale = null): array
 	{
-		$locales = array_map(function(string $locale)
+		$locales = array_map(function(string $locale) use ($displayLocale)
 		{
-			return ucfirst(Intl::getLocaleBundle()->getLocaleName($locale, $locale));
+			return ucfirst(Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale ?: $locale));
 		}, array_combine($this->locales, $this->locales));
 
 		ksort($locales);

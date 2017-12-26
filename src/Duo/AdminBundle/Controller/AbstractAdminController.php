@@ -309,17 +309,12 @@ SQL;
 				// check whether or not entity was modified
 				if (strcmp($preSubmitState, $postSubmitState) !== 0)
 				{
-					$eventDispatcher = $this->get('event_dispatcher');
-
-					// dispatch pre clone event
-					$eventDispatcher->dispatch(VersionEvents::PRE_CLONE, new VersionEvent($clone, $entity));
+					// dispatch onClone event
+					$this->get('event_dispatcher')->dispatch(VersionEvents::CLONE, new VersionEvent($clone, $entity));
 
 					$em = $this->getDoctrine()->getManager();
 					$em->persist($clone);
 					$em->flush();
-
-					// dispatch post clone event
-					$eventDispatcher->dispatch(VersionEvents::POST_CLONE, new VersionEvent($clone, $entity));
 				}
 
 				return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");

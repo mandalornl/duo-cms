@@ -1,6 +1,7 @@
 import $ from 'jquery';
-
-require('./translation');
+import 'bootstrap/js/dist/util';
+import 'bootstrap/js/dist/collapse';
+import 'bootstrap/js/dist/tab';
 
 $(() =>
 {

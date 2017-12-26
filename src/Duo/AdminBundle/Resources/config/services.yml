@@ -1,64 +1,78 @@
 parameters:
 
 services:
-    Duo\AdminBundle\EventListener\Behavior\SortListener:
+    duo.listener.sort:
+        class: Duo\AdminBundle\EventListener\Behavior\SortListener
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: kernel.event_listener, event: duo.sort.preSort, method: preSort }
+            - { name: kernel.event_listener, event: duo.event.onSort, method: onSort }
 
-    Duo\AdminBundle\EventListener\Behavior\VersionListener:
+    duo.listener.version:
+        class: Duo\AdminBundle\EventListener\Behavior\VersionListener
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: kernel.event_listener, event: duo.version.preClone, method: preClone }
-            - { name: kernel.event_listener, event: duo.version.onRevert, method: preRevert }
+            - { name: kernel.event_listener, event: duo.event.onClone, method: onClone }
+            - { name: kernel.event_listener, event: duo.event.onRevert, method: onRevert }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\BlameSubscriber:
+    duo.subscriber.blame:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\BlameSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\SlugSubscriber:
+    duo.subscriber.slug:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\SlugSubscriber
         tags:
-            - { name: doctrine.event_subscriber, priority: 1 }
+            - { name: doctrine.event_subscriber, priority: 16 }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\SortSubscriber:
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber:
+    duo.subscriber.sort:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\SortSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TimeStampSubscriber:
+    duo.subscriber.taxonomy:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TranslateSubscriber:
+    duo.subscriber.timestamp:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\TimeStampSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TreeSubscriber:
+    duo.subscriber.translate:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\TranslateSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\EventSubscriber\Behavior\UrlSubscriber:
-        tags:
-            - { name: doctrine.event_subscriber, priority: 0 }
-
-    Duo\AdminBundle\EventSubscriber\Behavior\VersionSubscriber:
+    duo.subscriber.tree:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\TreeSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\AdminBundle\Twig\TestTwigExtension:
+    duo.subscriber.url:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\UrlSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, priority: 8 }
+
+    duo.subscriber.version:
+        class: Duo\AdminBundle\EventSubscriber\Behavior\VersionSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    duo.twig.test:
+        class: Duo\AdminBundle\Twig\TestTwigExtension
         tags:
             - { name: twig.extension }
 
-    Duo\AdminBundle\Twig\LocaleTwigExtension:
+    duo.twig.locale:
+        class: Duo\AdminBundle\Twig\LocaleTwigExtension
         arguments:
             $locales: '%locales%'
         tags:
             - { name: twig.extension }
 
-    Duo\AdminBundle\Twig\MenuTwigExtension:
+    duo.twig.menu:
+        class: Duo\AdminBundle\Twig\MenuTwigExtension
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
             $requestStack: '@request_stack'

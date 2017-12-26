@@ -57,8 +57,8 @@ trait SortTrait
 			 * @var TraceableEventDispatcher $dispatcher
 			 */
 			$dispatcher = $this->get('event_dispatcher');
-			$dispatcher->dispatch(SortEvents::PRE_SORT, new SortEvent($previousEntity));
-			$dispatcher->dispatch(SortEvents::PRE_SORT, new SortEvent($entity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($previousEntity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
 
 			/**
 			 * @var ObjectManager $em
@@ -67,9 +67,6 @@ trait SortTrait
 			$em->persist($previousEntity);
 			$em->persist($entity);
 			$em->flush();
-
-			$dispatcher->dispatch(SortEvents::POST_SORT, new SortEvent($previousEntity));
-			$dispatcher->dispatch(SortEvents::POST_SORT, new SortEvent($entity));
 		}
 
 		if ($request->getMethod() === 'post')
@@ -124,8 +121,8 @@ trait SortTrait
 			 * @var TraceableEventDispatcher $dispatcher
 			 */
 			$dispatcher = $this->get('event_dispatcher');
-			$dispatcher->dispatch(SortEvents::PRE_SORT, new SortEvent($nextEntity));
-			$dispatcher->dispatch(SortEvents::PRE_SORT, new SortEvent($entity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($nextEntity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
 
 			/**
 			 * @var ObjectManager $em
@@ -134,9 +131,6 @@ trait SortTrait
 			$em->persist($nextEntity);
 			$em->persist($entity);
 			$em->flush();
-
-			$dispatcher->dispatch(SortEvents::POST_SORT, new SortEvent($nextEntity));
-			$dispatcher->dispatch(SortEvents::POST_SORT, new SortEvent($entity));
 		}
 
 		if ($request->getMethod() === 'post')
@@ -214,13 +208,21 @@ trait SortTrait
 		 */
 		$em = $this->getDoctrine()->getManager();
 
+		/**
+		 * @var TraceableEventDispatcher $dispatcher
+		 */
+		$dispatcher = $this->get('event_dispatcher');
+
 		if ($currentEntity !== null)
 		{
 			$entity->setWeight($currentEntity->getWeight());
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+
 			$em->persist($entity);
 
 			$weight = $currentEntity->getWeight();
 			$currentEntity->setWeight($weight++);
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($currentEntity));
 
 			$em->persist($currentEntity);
 
@@ -232,6 +234,8 @@ trait SortTrait
 			foreach ($entities as $entity)
 			{
 				$entity->setWeight($weight++);
+				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+
 				$em->persist($entity);
 			}
 
@@ -240,6 +244,8 @@ trait SortTrait
 		else
 		{
 			$entity->setWeight($weight);
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+
 			$em->persist($entity);
 			$em->flush();
 		}

@@ -1,1 +1,56 @@
 {% use 'bootstrap_4_layout.html.twig' %}
+
+{% block duo_tab_label %}
+	{% set selected = selected | default(false) %}
+	<a href="#{{ id }}_tab" id="{{ id }}_nav" class="nav-item nav-link{% if selected %} active{% endif %}" data-toggle="tab" role="tab" aria-controls="{{ id }}_tab" aria-selected="{{ selected }}">
+		{{- label -}}
+	</a>
+{% endblock %}
+
+{% block duo_tab_widget %}
+	{% set selected = selected | default(false) %}
+	<div class="tab-pane fade{% if selected %} show active{% endif %}" id="{{ id }}_tab" role="tabpanel" aria-labelledby="{{ id }}_nav">
+		{{- form_widget(form) -}}
+	</div>
+{% endblock %}
+
+{% block duo_tabs_row %}
+	<div id="{{ id }}">
+		<ul class="nav nav-tabs mb-3" role="tablist">
+			{% for tab in form %}
+				<li>{{ form_label(tab, null, { selected: loop.first }) }}</li>
+			{% endfor %}
+		</ul>
+		<div class="tab-content">
+			{% for tab in form %}
+				{{ form_widget(tab, { selected: loop.first }) }}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block duo_translation_row %}
+	{% set locales = get_locales(app.request.locale) %}
+	<div class="{{ id }}">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="list-group mb-3" id="{{ id }}_tablist" role="tablist">
+					{% for locale, child in form %}
+						<a class="list-group-item list-group-item-action{% if loop.first %} active{% endif %}" id="{{ child.vars.id }}_list" data-toggle="list" href="#{{ child.vars.id }}" role="tab" aria-controls="{{ child.vars.id }}">
+							{{- attribute(locales, locale) | default(locale | upper) -}}
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="tab-content" id="{{ id }}_content">
+					{% for child in form %}
+						<div class="tab-pane fade show{% if loop.first %} active{% endif %}" id="{{ child.vars.id }}" role="tabpanel" aria-labelledby="{{ child.vars.id }}_list">
+							{{- form_widget(child) -}}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

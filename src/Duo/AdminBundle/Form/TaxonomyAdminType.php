@@ -4,8 +4,6 @@ namespace Duo\AdminBundle\Form;
 
 use Duo\AdminBundle\Entity\Taxonomy;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +14,7 @@ class TaxonomyAdminType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('translations', CollectionType::class, [
+		$builder->add('translations', TranslationType::class, [
 			'entry_type' => TaxonomyAdminTranslationType::class,
 			'allow_add' => false,
 			'allow_delete' => false,

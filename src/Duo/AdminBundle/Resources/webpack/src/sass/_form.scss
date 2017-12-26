@@ -7,3 +7,14 @@
 {
 	display: flex;
 }
+
+.btn-white
+{
+	@include button-variant(
+		#fff,
+		#fff,
+		$gray-200,
+		$gray-200,
+		$gray-400,
+		$gray-400);
+}
