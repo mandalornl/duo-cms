@@ -2,6 +2,8 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 interface TimeStampInterface
 {
 	/**
@@ -35,4 +37,36 @@ interface TimeStampInterface
 	 * @return \DateTime
 	 */
 	public function getModifiedAt(): ?\DateTime;
+
+	/**
+	 * Set createdBy
+	 *
+	 * @param UserInterface $createdBy
+	 *
+	 * @return TimeStampInterface
+	 */
+	public function setCreatedBy(UserInterface $createdBy = null): TimeStampInterface;
+
+	/**
+	 * Get createdBy
+	 *
+	 * @return UserInterface
+	 */
+	public function getCreatedBy(): ?UserInterface;
+
+	/**
+	 * Set modifiedBy
+	 *
+	 * @param UserInterface $modifiedBy
+	 *
+	 * @return TimeStampInterface
+	 */
+	public function setModifiedBy(UserInterface $modifiedBy = null): TimeStampInterface;
+
+	/**
+	 * Get modifiedBy
+	 *
+	 * @return UserInterface
+	 */
+	public function getModifiedBy(): ?UserInterface;
 }

@@ -1,0 +1,6 @@
+duo:
+    errors:
+        username_used: This username is already used
+        name_used: This name is already used
+        role_used: This role is already used
+        taxonomy_used: This name is already used for this locale

@@ -3,6 +3,7 @@
 namespace Duo\AdminBundle\Entity\Behavior;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 trait SoftDeleteTrait
 {
@@ -12,6 +13,16 @@ trait SoftDeleteTrait
 	 * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
 	 */
 	protected $deletedAt;
+
+	/**
+	 * @var UserInterface
+	 *
+	 * @ORM\ManyToOne(targetEntity="Duo\AdminBundle\Entity\Security\User")
+	 * @ORM\JoinColumns({
+	 *     @ORM\JoinColumn(name="deleted_by_id", referencedColumnName="id", onDelete="SET NULL")
+	 * })
+	 */
+	protected $deletedBy;
 
 	/**
 	 * {@inheritdoc}
@@ -34,9 +45,27 @@ trait SoftDeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
+	public function setDeletedBy(UserInterface $deletedBy = null): SoftDeleteInterface
+	{
+		$this->deletedBy = $deletedBy;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getDeletedBy(): ?UserInterface
+	{
+		return $this->deletedBy;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function delete(): SoftDeleteInterface
 	{
-		$this->deletedAt = $this->getCurrentDateTime();
+		$this->deletedAt = new \DateTime();
 
 		return $this;
 	}
@@ -56,19 +85,6 @@ trait SoftDeleteTrait
 	 */
 	public function isDeleted(): bool
 	{
-		return $this->deletedAt !== null && $this->deletedAt <= $this->getCurrentDateTime();
-	}
-
-	/**
-	 * Get current date time
-	 *
-	 * @return \DateTime
-	 */
-	private function getCurrentDateTime(): \DateTime
-	{
-		$dateTime = new \DateTime();
-		$dateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-
-		return $dateTime;
+		return $this->deletedAt !== null && $this->deletedAt <= new \DateTime();
 	}
 }

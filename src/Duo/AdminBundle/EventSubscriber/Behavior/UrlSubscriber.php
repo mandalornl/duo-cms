@@ -31,7 +31,15 @@ final class UrlSubscriber implements EventSubscriber
 	 */
 	public function prePersist(LifecycleEventArgs $args)
 	{
-		$this->setUrl($args->getObject());
+		$entity = $args->getObject();
+
+		if (!$entity instanceof UrlInterface)
+		{
+			return;
+		}
+
+		$this->setUrl($entity);
+		$this->setTranslationUrl($entity);
 	}
 
 	/**
@@ -41,63 +49,85 @@ final class UrlSubscriber implements EventSubscriber
 	 */
 	public function preUpdate(PreUpdateEventArgs $args)
 	{
-		$this->setUrl($args->getObject());
+		$entity = $args->getObject();
+
+		if (!$entity instanceof UrlInterface)
+		{
+			return;
+		}
+
+		$this->setUrl($entity);
+		$this->setTranslationUrl($entity);
 	}
 
 	/**
 	 * Set url
 	 *
-	 * @param object $entity
+	 * @param UrlInterface $entity
 	 */
-	private function setUrl($entity)
+	private function setUrl(UrlInterface $entity)
 	{
-		if (!$entity instanceof UrlInterface)
+		if (!$entity instanceof TreeInterface)
 		{
 			return;
 		}
 
 		$urls = [$entity->getValueToUrlize()];
 
-		if ($entity instanceof TreeInterface)
+		/**
+		 * @var UrlInterface|TreeInterface $parent
+		 */
+		$parent = $entity->getParent();
+
+		while ($parent !== null)
+		{
+			$urls[] = $parent->getValueToUrlize();
+
+			$parent = $parent->getParent();
+		}
+
+		$entity->setUrl(implode('/', array_reverse($urls)));
+	}
+
+	/**
+	 * Set translation url
+	 *
+	 * @param UrlInterface $entity
+	 */
+	private function setTranslationUrl(UrlInterface $entity)
+	{
+		if (!$entity instanceof TranslationInterface)
+		{
+			return;
+		}
+
+		/**
+		 * @var TreeInterface $translatable
+		 */
+		$translatable = $entity->getTranslatable();
+
+		if (!$translatable instanceof TreeInterface)
+		{
+			return;
+		}
+
+		$urls = [$entity->getValueToUrlize()];
+
+		/**
+		 * @var TranslateInterface|TreeInterface $parent
+		 */
+		$parent = $translatable->getParent();
+
+		while ($parent !== null)
 		{
 			/**
-			 * @var UrlInterface|TreeInterface $parent
+			 * @var UrlInterface $translation
 			 */
-			$parent = $entity->getParent();
+			$translation = $parent->translate($entity->getLocale());
 
-			while ($parent !== null)
-			{
-				$urls[] = $parent->getValueToUrlize();
+			$urls[] = $translation->getValueToUrlize();
 
-				$parent = $parent->getParent();
-			}
-		}
-		else
-		{
-			if ($entity instanceof TranslationInterface)
-			{
-				$translatable = $entity->getTranslatable();
-
-				if ($translatable instanceof TreeInterface)
-				{
-					/**
-					 * @var TranslateInterface|TreeInterface $parent
-					 */
-					$parent = $translatable->getParent();
-
-					while ($parent !== null)
-					{
-						/**
-						 * @var UrlInterface $translation
-						 */
-						$translation = $parent->translate($entity->getLocale());
-
-						$urls[] = $translation->getValueToUrlize();
-
-						$parent = $parent->getParent();
-					}
-				}
-			}
+			$parent = $parent->getParent();
 		}
 
 		$entity->setUrl(implode('/', array_reverse($urls)));

@@ -24,7 +24,7 @@
 								{% if version.id != entity.id %}
 									<tr>
 										<td>
-											<a href="{{ path('duo_admin_' ~ type ~ '_version', { id: version.id }) }}" target="_blank">
+											<a href="{{ path('duo_admin_listing_' ~ type ~ '_version', { id: version.id }) }}" target="_blank">
 												{{- version.name -}}
 											</a>
 										</td>
@@ -32,7 +32,7 @@
 											{{- version.modifiedAt | localizeddate('short', 'short', app.request.locale) -}}
 										</td>
 										<td>
-											<a href="{{ path('duo_admin_' ~ type ~ '_revert', { id: version.id }) }}" data-action="revert" data-title="{{ 'duo.modal.revert.title' | trans }}" data-body="{{ 'duo.modal.revert.body' | trans({ '%type%': localizedType }) }}">
+											<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" data-action="revert" data-title="{{ 'duo.modal.revert.title' | trans }}" data-body="{{ 'duo.modal.revert.body' | trans({ '%type%': localizedType }) }}">
 												{{- 'duo.modal.versions.revert' | trans -}}
 											</a>
 										</td>

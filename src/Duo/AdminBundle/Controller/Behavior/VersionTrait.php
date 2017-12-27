@@ -3,7 +3,7 @@
 namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractAdminController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\AdminBundle\Entity\Behavior\VersionInterface;
 use Duo\AdminBundle\Event\Behavior\VersionEvent;
 use Duo\AdminBundle\Event\Behavior\VersionEvents;
@@ -26,7 +26,7 @@ trait VersionTrait
 	protected function doVersionAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -63,7 +63,7 @@ trait VersionTrait
 	protected function doRevertAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)

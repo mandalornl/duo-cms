@@ -3,7 +3,7 @@
 namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractAdminController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\AdminBundle\Entity\Behavior\PublishInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,7 +23,7 @@ trait PublishTrait
 	protected function doPublishAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -36,7 +36,7 @@ trait PublishTrait
 			return $this->publishableInterfaceNotImplemented($id, $request);
 		}
 
-		$entity->setPublished(true);
+		$entity->publish();
 
 		/**
 		 * @var ObjectManager $em
@@ -55,7 +55,7 @@ trait PublishTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_edit", [
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_edit", [
 			'id' => $id
 		]);
 	}
@@ -71,7 +71,7 @@ trait PublishTrait
 	protected function doUnpublishAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -84,7 +84,7 @@ trait PublishTrait
 			return $this->publishableInterfaceNotImplemented($id, $request);
 		}
 
-		$entity->setPublished(false);
+		$entity->unpublish();
 
 		/**
 		 * @var ObjectManager $em
@@ -103,7 +103,7 @@ trait PublishTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_edit", [
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_edit", [
 			'id' => $id
 		]);
 	}

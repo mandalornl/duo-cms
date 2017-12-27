@@ -3,7 +3,6 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\BlameTrait;
 use Duo\AdminBundle\Entity\Behavior\CloneTrait;
 use Duo\AdminBundle\Entity\Behavior\IdTrait;
 use Duo\AdminBundle\Entity\Behavior\NodeInterface;
@@ -19,7 +18,6 @@ abstract class AbstractNode implements NodeInterface
 {
 	use IdTrait;
 	use TaxonomyTrait;
-	use BlameTrait;
 	use SoftDeleteTrait;
 	use TranslateTrait;
 	use SortTrait;

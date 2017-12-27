@@ -26,6 +26,7 @@ final class SlugSubscriber implements EventSubscriber
      * On pre persist event
      *
      * @param LifecycleEventArgs $args
+	 *
      * @throws \IntlException
      */
 	public function prePersist(LifecycleEventArgs $args)
@@ -37,6 +38,7 @@ final class SlugSubscriber implements EventSubscriber
      * On pre update event
      *
      * @param PreUpdateEventArgs $args
+	 *
      * @throws \IntlException
      */
 	public function preUpdate(PreUpdateEventArgs $args)
@@ -48,6 +50,7 @@ final class SlugSubscriber implements EventSubscriber
 	 * Set slug
 	 *
 	 * @param object $entity
+	 *
      * @throws \IntlException
      */
 	private function setSlug($entity)

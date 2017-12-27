@@ -2,21 +2,92 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 interface PublishInterface
 {
 	/**
-	 * Set published
+	 * Set publishAt
 	 *
-	 * @param boolean $published
+	 * @param \DateTime $publishAt
 	 *
 	 * @return PublishInterface
 	 */
-	public function setPublished(bool $published = false): PublishInterface;
+	public function setPublishAt(\DateTime $publishAt = null): PublishInterface;
 
 	/**
-	 * Get published
+	 * Get publishAt
 	 *
-	 * @return boolean
+	 * @return \DateTime
 	 */
-	public function getPublished(): bool;
+	public function getPublishAt(): ?\DateTime;
+
+	/**
+	 * Set unpublishAt
+	 *
+	 * @param \DateTime $unpublishAt
+	 *
+	 * @return PublishInterface
+	 */
+	public function setUnpublishAt(\DateTime $unpublishAt = null): PublishInterface;
+
+	/**
+	 * Get unpublishAt
+	 *
+	 * @return \DateTime
+	 */
+	public function getUnpublishAt(): ?\DateTime;
+
+	/**
+	 * Set publishedBy
+	 *
+	 * @param UserInterface $publishedBy
+	 *
+	 * @return PublishInterface
+	 */
+	public function setPublishedBy(UserInterface $publishedBy = null): PublishInterface;
+
+	/**
+	 * Get publishedBy
+	 *
+	 * @return UserInterface
+	 */
+	public function getPublishedBy(): ?UserInterface;
+
+	/**
+	 * Set unpublishedBy
+	 *
+	 * @param UserInterface $unpublishedBy
+	 *
+	 * @return PublishInterface
+	 */
+	public function setUnpublishedBy(UserInterface $unpublishedBy = null): PublishInterface;
+
+	/**
+	 * Get unpublishedBy
+	 *
+	 * @return UserInterface
+	 */
+	public function getUnpublishedBy(): ?UserInterface;
+
+	/**
+	 * Publish
+	 *
+	 * @return PublishInterface
+	 */
+	public function publish(): PublishInterface;
+
+	/**
+	 * Unpublish
+	 *
+	 * @return PublishInterface
+	 */
+	public function unpublish(): PublishInterface;
+
+	/**
+	 * Is published
+	 *
+	 * @return bool
+	 */
+	public function isPublished(): bool;
 }

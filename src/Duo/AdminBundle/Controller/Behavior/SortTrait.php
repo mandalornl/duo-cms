@@ -3,7 +3,7 @@
 namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractAdminController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\AdminBundle\Entity\Behavior\SortInterface;
 use Duo\AdminBundle\Entity\Behavior\TreeInterface;
 use Duo\AdminBundle\Entity\Behavior\VersionInterface;
@@ -28,7 +28,7 @@ trait SortTrait
 	protected function doMoveUpAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
 
@@ -78,7 +78,7 @@ trait SortTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
 	/**
@@ -92,7 +92,7 @@ trait SortTrait
 	protected function doMoveDownAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
 
@@ -142,7 +142,7 @@ trait SortTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
 	/**
@@ -158,7 +158,7 @@ trait SortTrait
 	protected function doMoveToAction(Request $request, int $id, int $weight, int $parentId = null)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
 
@@ -259,7 +259,7 @@ trait SortTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
 	/**

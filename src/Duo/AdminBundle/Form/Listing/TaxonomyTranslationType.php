@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Form;
+namespace Duo\AdminBundle\Form\Listing;
 
 use Duo\AdminBundle\Entity\TaxonomyTranslation;
 use Symfony\Component\Form\AbstractType;
@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class TaxonomyAdminTranslationType extends AbstractType
+class TaxonomyTranslationType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -17,6 +17,7 @@ class TaxonomyAdminTranslationType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->add('name', TextType::class, [
+			'label' => 'duo.form.taxonomy.name.label',
 			'constraints' => [
 				new NotBlank()
 			]

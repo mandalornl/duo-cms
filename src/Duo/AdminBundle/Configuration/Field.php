@@ -25,6 +25,22 @@ class Field implements FieldInterface
 	private $template;
 
 	/**
+	 * Field constructor
+	 *
+	 * @param string $title
+	 * @param string $property
+	 * @param bool $sortable [optional]
+	 * @param string $template [optional]
+	 */
+	public function __construct(string $title, string $property, bool $sortable = true, string $template = null)
+	{
+		$this->title = $title;
+		$this->property = $property;
+		$this->sortable = $sortable;
+		$this->template = $template;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function setTitle(string $title): FieldInterface

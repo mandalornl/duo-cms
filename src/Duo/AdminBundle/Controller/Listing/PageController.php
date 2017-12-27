@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Controller;
+namespace Duo\AdminBundle\Controller\Listing;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,11 +11,11 @@ use Duo\AdminBundle\Controller\Behavior\SoftDeleteTrait;
 use Duo\AdminBundle\Controller\Behavior\SortTrait;
 use Duo\AdminBundle\Controller\Behavior\PublishTrait;
 use Duo\AdminBundle\Entity\Page;
-use Duo\AdminBundle\Form\PageAdminType;
+use Duo\AdminBundle\Form\Listing\PageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PageAdminController extends AbstractAdminController
+class PageController extends AbstractController
 {
 	use VersionTrait;
 	use SoftDeleteTrait;
@@ -36,7 +36,7 @@ class PageAdminController extends AbstractAdminController
 	 */
 	protected function getFormClassName(): string
 	{
-		return PageAdminType::class;
+		return PageType::class;
 	}
 
 	/**
@@ -61,37 +61,17 @@ class PageAdminController extends AbstractAdminController
 	protected function defineFields(): void
 	{
 		$this
-			->addField(
-				(new Field())
-					->setTitle('Name')
-					->setProperty('name')
-			)
-			->addField(
-				(new Field())
-					->setTitle('Title')
-					->setProperty('title')
-			)
-			->addField(
-				(new Field())
-					->setTitle('Url')
-					->setProperty('url')
-			)
-			->addField(
-				(new Field())
-					->setTitle('Created at')
-					->setProperty('createdAt')
-			)
-			->addField(
-				(new Field())
-					->setTitle('Modified at')
-					->setProperty('modifiedAt')
-			);
+			->addField(new Field('duo.list.field.name', 'name'))
+			->addField(new Field('duo.list.field.title', 'title'))
+			->addField(new Field('duo.list.field.url', 'url'))
+			->addField(new Field('duo.list.field.created_at', 'createdAt'))
+			->addField(new Field('duo.list.field.modified_at', 'modifiedAt'));
 	}
 
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_page_list")
+	 * @Route("/", name="duo_admin_listing_page_index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -102,7 +82,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_page_add")
+	 * @Route("/add", name="duo_admin_listing_page_add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -113,7 +93,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="duo_admin_page_edit", requirements={ "id" = "\d+" })
+	 * @Route("/edit/{id}", name="duo_admin_listing_page_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -124,7 +104,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_page_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="duo_admin_listing_page_destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)
@@ -135,7 +115,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/duplicate/{id}", name="duo_admin_page_duplicate", requirements={ "id" = "\d+" })
+	 * @Route("/duplicate/{id}", name="duo_admin_listing_page_duplicate", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function duplicateAction(Request $request, int $id)
@@ -146,7 +126,7 @@ class PageAdminController extends AbstractAdminController
     /**
      * {@inheritdoc}
      *
-     * @Route("/version/{id}/", name="duo_admin_page_version", requirements={ "id" = "\d+" })
+     * @Route("/version/{id}/", name="duo_admin_listing_page_version", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
      */
     public function versionAction(Request $request, int $id)
@@ -157,7 +137,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/revert/{id}", name="duo_admin_page_revert", requirements={ "id" = "\d+" })
+	 * @Route("/revert/{id}", name="duo_admin_listing_page_revert", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
     public function revertAction(Request $request, int $id)
@@ -168,7 +148,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/delete/{id}", name="duo_admin_page_delete", requirements={ "id" = "\d+" })
+	 * @Route("/delete/{id}", name="duo_admin_listing_page_delete", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function deleteAction(Request $request, int $id)
@@ -179,7 +159,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/undelete/{id}", name="duo_admin_page_undelete", requirements={ "id" = "\d+" })
+	 * @Route("/undelete/{id}", name="duo_admin_listing_page_undelete", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function undeleteAction(Request $request, int $id)
@@ -190,7 +170,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-up/{id}", name="duo_admin_page_move_up", requirements={ "id" = "\d+" })
+	 * @Route("/move-up/{id}", name="duo_admin_listing_page_move_up", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function moveUpAction(Request $request, int $id)
@@ -201,7 +181,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-down/{id}", name="duo_admin_page_move_down", requirements={ "id" = "\d+" })
+	 * @Route("/move-down/{id}", name="duo_admin_listing_page_move_down", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function moveDownAction(Request $request, int $id)
@@ -214,7 +194,7 @@ class PageAdminController extends AbstractAdminController
 	 *
 	 * @Route(
 	 *     "/move-to/{id}/{weight}/{parentId}",
-	 *     name="duo_admin_page_move_to",
+	 *     name="duo_admin_listing_page_move_to",
 	 *     requirements={ "id" = "\d+", "weight" = "\d+", "parentId" = "\d+" }
 	 * )
 	 * @Method({"POST", "GET"})
@@ -227,7 +207,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/publish/{id}", name="duo_admin_page_publish", requirements={ "id" = "\d+" })
+	 * @Route("/publish/{id}", name="duo_admin_listing_page_publish", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function publishAction(Request $request, int $id)
@@ -238,7 +218,7 @@ class PageAdminController extends AbstractAdminController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/unpublish/{id}", name="duo_admin_page_unpublish", requirements={ "id" = "\d+" })
+	 * @Route("/unpublish/{id}", name="duo_admin_listing_page_unpublish", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function unpublishAction(Request $request, int $id)

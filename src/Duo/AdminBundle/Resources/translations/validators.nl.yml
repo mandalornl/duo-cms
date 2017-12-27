@@ -1,0 +1,6 @@
+duo:
+    errors:
+        username_used: Deze gebruikersnaam is al in gebruik
+        name_used: Deze naam is al in gebruik
+        role_user: Deze rol is al in gebruik
+        taxonomy_used: Deze naam is al in gebruik voor deze taal

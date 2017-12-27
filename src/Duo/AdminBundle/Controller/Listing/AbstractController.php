@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Controller;
+namespace Duo\AdminBundle\Controller\Listing;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class AbstractAdminController extends Controller
+abstract class AbstractController extends Controller
 {
 	/**
 	 * @var Collection
@@ -38,7 +38,7 @@ abstract class AbstractAdminController extends Controller
 	private $fields;
 
 	/**
-	 * AbstractAdminController constructor
+	 * AbstractController constructor
 	 */
 	public function __construct()
 	{
@@ -178,7 +178,7 @@ abstract class AbstractAdminController extends Controller
 		return $this->render($this->getListTemplate(), [
 			'list' => [
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 				'entities' => $this->getEntities(),
@@ -263,14 +263,14 @@ SQL;
 			$em->persist($entity);
 			$em->flush();
 
-			return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+			return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 		}
 
 		return $this->render($this->getAddTemplate(), array_merge([
 			'form' => $form->createView(),
 			'entity' => $entity,
 			'type' => $this->getListType(),
-			'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
+			'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
 		], $this->getEntityBehaviors($entity)));
 	}
 
@@ -317,14 +317,14 @@ SQL;
 					$em->flush();
 				}
 
-				return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 			}
 
 			return $this->render($this->getEditTemplate(), array_merge([
 				'form' => $form->createView(),
 				'entity' => $clone,
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($clone)));
 		}
 		else
@@ -338,14 +338,14 @@ SQL;
 				$em->persist($entity);
 				$em->flush();
 
-				return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 			}
 
 			return $this->render($this->getEditTemplate(), array_merge([
 				'form' => $form->createView(),
 				'entity' => $entity,
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($entity)));
 		}
 	}
@@ -398,7 +398,7 @@ SQL;
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
 	/**

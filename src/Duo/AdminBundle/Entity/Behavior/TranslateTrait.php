@@ -267,10 +267,12 @@ trait TranslateTrait
 	 */
 	protected function onCloneTranslations(): void
 	{
-		foreach ($this->translations as $translation)
+		$translations = $this->getTranslations();
+		$this->translations = new ArrayCollection();
+
+		foreach ($translations as $translation)
 		{
 			$this->addTranslation(clone $translation);
-			$this->removeTranslation($translation);
 		}
 	}
 }

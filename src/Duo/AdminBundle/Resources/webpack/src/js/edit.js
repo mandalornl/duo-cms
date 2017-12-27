@@ -1,9 +1,6 @@
 import $ from 'jquery';
 import {modal} from "./confirm";
 
-//require('bootstrap-datepicker/dist/css/bootstrap-datepicker.css');
-//require('bootstrap-datepicker/dist/js/bootstrap-datepicker');
-
 $(() =>
 {
 	const $document = $(document);

@@ -5,6 +5,7 @@ namespace Duo\AdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\AdminBundle\Entity\Behavior\TranslationInterface;
 use Duo\AdminBundle\Entity\Behavior\TranslationTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(
@@ -17,6 +18,7 @@ use Duo\AdminBundle\Entity\Behavior\TranslationTrait;
  *	   }
  * )
  * @ORM\Entity()
+ * @UniqueEntity(fields={ "name", "locale" }, message="due.errors.taxonomy_used")
  */
 class TaxonomyTranslation implements TranslationInterface
 {

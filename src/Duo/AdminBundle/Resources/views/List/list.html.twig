@@ -2,7 +2,7 @@
 
 {% block toolbar %}
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a href="{{ path('duo_admin_' ~ list.type ~ '_list') }}" class="navbar-brand">Duo</a>
+		<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_index') }}" class="navbar-brand">Duo</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ list.type }}" aria-controls="navbar_{{ list.type }}" aria-expanded="false" aria-label="{{ 'duo.toolbar.toggler_label' | trans }}">
 			<i class="navbar-toggler-icon"></i>
 		</button>
@@ -15,7 +15,7 @@
 					<span class="navbar-text">Do something too</span>
 				</li>
 				<li class="nav-item">
-					<a href="{{ path('duo_admin_' ~ list.type ~ '_add') }}" class="btn btn-primary">
+					<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_add') }}" class="btn btn-primary">
 						{{- 'duo.toolbar.actions.new' | trans({
 							'%type%': list.localizedType
 						}) -}}
@@ -40,7 +40,7 @@
 					</th>
 					{% for field in list.fields %}
 						<th{% if field.sortable %} class="sortable"{% endif %}>
-							{{- field.title -}}
+							{{- field.title | trans -}}
 						</th>
 					{% endfor %}
 					{% if list.isSortable %}
@@ -50,7 +50,7 @@
 			</thead>
 			<tbody>
 				{% for entity in list.entities %}
-					<tr data-url="{{ path('duo_admin_' ~ list.type ~ '_edit', { id: entity.id }) }}">
+					<tr data-url="{{ path('duo_admin_listing_' ~ list.type ~ '_edit', { id: entity.id }) }}">
 						<td>
 							<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control custom-checkbox">
 								<input type="checkbox" id="{{ uniqid }}_{{ entity.id }}" value="{{ entity.id }}" class="custom-control-input">
@@ -60,10 +60,12 @@
 						{% for field in list.fields %}
 							<td>
 								{%- set value = attribute(entity, field.property) -%}
-								{%- if value is instanceof('DateTime') -%}
+								{%- if field.template -%}
+									{%- include field.template -%}
+								{%- elseif value is instanceof('DateTime') -%}
 									{{- value | localizeddate('short', 'short', app.request.locale) -}}
 								{%- elseif value is bool %}
-									{{ value ? 'Ja' : 'Nee' }}
+									{{ (value ? 'duo.type.bool.yes' : 'duo.type.bool.no') | trans }}
 								{%- else -%}
 									{{- value -}}
 								{%- endif -%}
@@ -71,8 +73,8 @@
 						{% endfor %}
 						{% if list.isSortable %}
 							<td>
-								<a href="{{ path('duo_admin_' ~ list.type ~ '_move_up', { id: entity.id }) }}">u</a>
-								<a href="{{ path('duo_admin_' ~ list.type ~ '_move_down', { id: entity.id }) }}">d</a>
+								<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_move_up', { id: entity.id }) }}">u</a>
+								<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_move_down', { id: entity.id }) }}">d</a>
 							</td>
 						{% endif %}
 					</tr>

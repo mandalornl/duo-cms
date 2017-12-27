@@ -2,36 +2,162 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 trait PublishTrait
 {
 	/**
-	 * @var boolean
+	 * @var \DateTime
 	 *
-	 * @ORM\Column(name="published", type="boolean", options={ "default" = 0 })
+	 * @ORM\Column(name="publish_at", type="datetime", nullable=true)
 	 */
-	protected $published = 0;
+	protected $publishAt;
 
 	/**
-	 * Set published
+	 * @var \DateTime
 	 *
-	 * @param boolean $published
-	 *
-	 * @return PublishInterface
+	 * @ORM\Column(name="unpublish_at", type="datetime", nullable=true)
 	 */
-	public function setPublished(bool $published = false): PublishInterface
+	protected $unpublishAt;
+
+	/**
+	 * @var UserInterface
+	 *
+	 * @ORM\ManyToOne(targetEntity="Duo\AdminBundle\Entity\Security\User")
+	 * @ORM\JoinColumns({
+	 *     @ORM\JoinColumn(name="published_by_id", referencedColumnName="id", onDelete="SET NULL")
+	 * })
+	 */
+	protected $publishedBy;
+
+	/**
+	 * @var UserInterface
+	 *
+	 * @ORM\ManyToOne(targetEntity="Duo\AdminBundle\Entity\Security\User")
+	 * @ORM\JoinColumns({
+	 *     @ORM\JoinColumn(name="unpublished_by_id", referencedColumnName="id", onDelete="SET NULL")
+	 * })
+	 */
+	protected $unpublishedBy;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setPublishAt(\DateTime $publishAt = null): PublishInterface
 	{
-		$this->published = $published;
+		$this->publishAt = $publishAt;
 
 		return $this;
 	}
 
 	/**
-	 * Get published
-	 *
-	 * @return boolean
+	 * {@inheritdoc}
 	 */
-	public function getPublished(): bool
+	public function getPublishAt(): ?\DateTime
 	{
-		return $this->published;
+		return $this->publishAt;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setUnpublishAt(\DateTime $unpublishAt = null): PublishInterface
+	{
+		$this->unpublishAt = $unpublishAt;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getUnpublishAt(): ?\DateTime
+	{
+		return $this->unpublishAt;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setPublishedBy(UserInterface $publishedBy = null): PublishInterface
+	{
+		$this->publishedBy = $publishedBy;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPublishedBy(): ?UserInterface
+	{
+		return $this->publishedBy;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setUnpublishedBy(UserInterface $unpublishedBy = null): PublishInterface
+	{
+		$this->unpublishedBy = $unpublishedBy;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getUnpublishedBy(): ?UserInterface
+	{
+		return $this->unpublishedBy;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function publish(): PublishInterface
+	{
+		$this->publishAt = new \DateTime();
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function unpublish(): PublishInterface
+	{
+		$this->unpublishAt = new \DateTime();
+
+		return $this;
+	}
+
+	/**
+	 * Is published
+	 *
+	 * @return bool
+	 */
+	public function isPublished(): bool
+	{
+		if ($this->publishAt === null && $this->unpublishAt === null)
+		{
+			return true;
+		}
+
+		$dateTime = new \DateTime();
+		if ($this->publishAt !== null && $this->publishAt <= $dateTime &&
+			$this->unpublishAt !== null && $this->unpublishAt > $dateTime)
+		{
+			return true;
+		}
+
+		if ($this->publishAt !== null && $this->publishAt <= $dateTime &&
+			$this->unpublishAt === null)
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

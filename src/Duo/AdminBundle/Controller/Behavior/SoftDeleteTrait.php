@@ -3,7 +3,7 @@
 namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractAdminController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\AdminBundle\Entity\Behavior\SoftDeleteInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,7 +23,7 @@ trait SoftDeleteTrait
 	protected function doDeleteAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -54,7 +54,7 @@ trait SoftDeleteTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
 	/**
@@ -68,7 +68,7 @@ trait SoftDeleteTrait
 	protected function doUndeleteAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractAdminController $this
+		 * @var AbstractController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
@@ -99,7 +99,7 @@ trait SoftDeleteTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_{$this->getListType()}_list");
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
 	/**

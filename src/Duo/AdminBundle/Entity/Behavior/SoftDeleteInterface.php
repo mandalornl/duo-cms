@@ -2,6 +2,8 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 interface SoftDeleteInterface
 {
 	/**
@@ -19,6 +21,22 @@ interface SoftDeleteInterface
 	 * @return \DateTime
 	 */
 	public function getDeletedAt(): ?\DateTime;
+
+	/**
+	 * Get deletedBy
+	 *
+	 * @param UserInterface $deletedBy
+	 *
+	 * @return SoftDeleteInterface
+	 */
+	public function setDeletedBy(UserInterface $deletedBy = null): SoftDeleteInterface;
+
+	/**
+	 * Set deletedBy
+	 *
+	 * @return UserInterface
+	 */
+	public function getDeletedBy(): ?UserInterface;
 
 	/**
 	 * Delete entity

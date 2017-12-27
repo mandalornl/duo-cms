@@ -87,7 +87,7 @@ final class TreeSubscriber implements EventSubscriber
 			$mapping = [
 				'fieldName'		=> 'children',
 				'mappedBy'		=> 'parent',
-				'cascade'		=> ['persist', 'remove'],
+				'cascade'		=> ['persist', 'merge', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'orphanRemoval'	=> true

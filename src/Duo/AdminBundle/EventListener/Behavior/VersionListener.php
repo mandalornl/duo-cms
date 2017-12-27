@@ -4,7 +4,6 @@ namespace Duo\AdminBundle\EventListener\Behavior;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\AdminBundle\Entity\Behavior\BlameInterface;
 use Duo\AdminBundle\Entity\Behavior\SoftDeleteInterface;
 use Duo\AdminBundle\Entity\Behavior\SortInterface;
 use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
@@ -37,50 +36,13 @@ class VersionListener
 	 */
 	public function onClone(VersionEvent $event)
 	{
-		$entity = $event->getEntity();
-		$origin = $event->getOrigin();
-
-		// update version
-		foreach ($origin->getVersions() as $version)
-		{
-			/**
-			 * @var VersionInterface $version
-			 */
-			$version->setVersion($entity);
-		}
-
-		// update parent for children
-		if ($entity instanceof TreeInterface)
-		{
-			/**
-			 * @var TreeInterface $child
-			 */
-			foreach ($entity->getChildren() as $child)
-			{
-				$child->setParent($entity);
-			}
-
-			// update url's for children
-			if ($entity instanceof UrlInterface)
-			{
-				$this->updateChildrenUrls($entity->getChildren());
-			}
-		}
-
-		// reset blameable
-		if ($entity instanceof BlameInterface)
-		{
-			$entity
-				->setCreatedBy(null)
-				->setModifiedBy(null)
-				->setDeletedBy(null);
-		}
-
-		// undelete entity
-		if ($entity instanceof SoftDeleteInterface)
-		{
-			$entity->undelete();
-		}
+		$this->setVersion($event);
+		// TODO: implement !
+		//$this->unsetBlame($event);
+		$this->undelete($event);
+		$this->setParentOnClone($event);
+		$this->unsetUrlOnClone($event);
+		$this->unsetTranslationUrlOnClone($event);
 	}
 
 	/**
@@ -89,6 +51,20 @@ class VersionListener
 	 * @param VersionEvent $event
 	 */
 	public function onRevert(VersionEvent $event)
+	{
+		$this->setVersion($event);
+		$this->setWeight($event);
+		$this->setParentOnRevert($event);
+		$this->unsetUrlOnRevert($event);
+		$this->unsetTranslationUrlOnRevert($event);
+	}
+
+	/**
+	 * Set version
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function setVersion(VersionEvent $event)
 	{
 		$entity = $event->getEntity();
 		$origin = $event->getOrigin();
@@ -100,50 +76,239 @@ class VersionListener
 		{
 			$version->setVersion($entity);
 		}
+	}
 
-		// update parent
-		if ($origin instanceof TreeInterface)
+	/**
+	 * Unset blame
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function unsetBlame(VersionEvent $event)
+	{
+//		$entity = $event->getEntity();
+//
+//		if (!$entity instanceof BlameInterface)
+//		{
+//			return;
+//		}
+//
+//		$entity
+//			->setCreatedBy(null)
+//			->setModifiedBy(null)
+//			->setDeletedBy(null);
+	}
+
+	/**
+	 * Undelete entity
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function undelete(VersionEvent $event)
+	{
+		$entity = $event->getEntity();
+
+		if (!$entity instanceof SoftDeleteInterface)
+		{
+			return;
+		}
+
+		$entity->undelete();
+	}
+
+	/**
+	 * Set weight
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function setWeight(VersionEvent $event)
+	{
+		$entity = $event->getEntity();
+
+		if (!$entity instanceof SortInterface)
+		{
+			return;
+		}
+
+		/**
+		 * @var SortInterface $origin
+		 */
+		$origin = $event->getOrigin();
+
+		$entity->setWeight($origin->getWeight());
+	}
+
+	/**
+	 * Set parent on clone
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function setParentOnClone(VersionEvent $event)
+	{
+		$entity = $event->getEntity();
+
+		if (!$entity instanceof TreeInterface)
+		{
+			return;
+		}
+
+		foreach ($entity->getChildren() as $child)
 		{
 			/**
 			 * @var TreeInterface $child
 			 */
-			foreach ($origin->getChildren() as $child)
-			{
-				$child->setParent($entity);
-			}
-
-			// update children url's
-			if ($origin instanceof UrlInterface)
-			{
-				$this->updateChildrenUrls($origin->getChildren());
-			}
-		}
-
-		// update weight
-		if ($entity instanceof SortInterface)
-		{
-			/**
-			 * @var SortInterface $origin
-			 */
-			$entity->setWeight($origin->getWeight());
+			$child->setParent($entity);
 		}
 	}
 
 	/**
-	 * Update children url's
+	 * Set parent on revert
 	 *
-	 * @param iterable $children
+	 * @param VersionEvent $event
 	 */
-	private function updateChildrenUrls(iterable $children)
+	private function setParentOnRevert(VersionEvent $event)
 	{
-		/**
-		 * @var TreeInterface|UrlInterface $child
-		 */
-		foreach ($children as $child)
+		$origin = $event->getOrigin();
+
+		if (!$origin instanceof TreeInterface)
 		{
+			return;
+		}
+
+		foreach ($origin->getChildren() as $child)
+		{
+			/**
+			 * @var TreeInterface $child
+			 */
+			$child->setParent($event->getEntity());
+		}
+	}
+
+	/**
+	 * Unset url on clone
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function unsetUrlOnClone(VersionEvent $event)
+	{
+		$entity = $event->getEntity();
+
+		if (!$entity instanceof TreeInterface)
+		{
+			return;
+		}
+
+		$this->unsetChildrenUrl($entity);
+	}
+
+	/**
+	 * Unset url on revert
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function unsetUrlOnRevert(VersionEvent $event)
+	{
+		$origin = $event->getOrigin();
+
+		if (!$origin instanceof TreeInterface)
+		{
+			return;
+		}
+
+		$this->unsetChildrenUrl($origin);
+	}
+
+	/**
+	 * Unset children url
+	 *
+	 * @param TreeInterface $entity
+	 */
+	private function unsetChildrenUrl(TreeInterface $entity)
+	{
+		if (!$entity instanceof UrlInterface)
+		{
+			return;
+		}
+
+		foreach ($entity->getChildren() as $child)
+		{
+			/**
+			 * @var TreeInterface|UrlInterface $child
+			 */
 			$child->setUrl(null);
 
-			$this->updateChildrenUrls($child->getChildren());
+			$this->unsetChildrenUrl($child);
+		}
+	}
+
+	/**
+	 * Unset translation url on clone
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function unsetTranslationUrlOnClone(VersionEvent $event)
+	{
+		$entity = $event->getEntity();
+
+		if (!$entity instanceof TranslateInterface || !$entity instanceof TreeInterface)
+		{
+			return;
+		}
+
+		$translation = $entity->getTranslations()->first();
+
+		if (!$translation instanceof UrlInterface)
+		{
+			return;
+		}
+
+		$this->unsetTranslationChildrenUrl($entity);
+	}
+
+	/**
+	 * Unset translation url on revert
+	 *
+	 * @param VersionEvent $event
+	 */
+	private function unsetTranslationUrlOnRevert(VersionEvent $event)
+	{
+		$origin = $event->getOrigin();
+
+		if (!$origin instanceof TranslateInterface || !$origin instanceof TreeInterface)
+		{
+			return;
+		}
+
+		$translation = $origin->getTranslations()->first();
+
+		if (!$translation instanceof UrlInterface)
+		{
+			return;
+		}
+
+		$this->unsetTranslationChildrenUrl($origin);
+	}
+
+	/**
+	 * Unset translation children url
+	 *
+	 * @param TreeInterface $entity
+	 */
+	private function unsetTranslationChildrenUrl(TreeInterface $entity)
+	{
+		foreach ($entity->getChildren() as $child)
+		{
+			/**
+			 * @var TreeInterface|TranslateInterface $child
+			 */
+			foreach ($child->getTranslations() as $translation)
+			{
+				/**
+				 * @var UrlInterface $translation
+				 */
+				$translation->setUrl(null);
+			}
+
+			$this->unsetTranslationChildrenUrl($child);
 		}
 	}
 }

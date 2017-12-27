@@ -1,11 +1,11 @@
 duo:
     type:
-        page: pagina
-        taxonomy: taxonomie
+        bool:
+            yes: Ja
+            no: Nee
 
     toolbar:
         toggle: Toggle werkbalk
-        change_language: Wissel van taal
         actions:
             label: Acties
             new: Nieuwe %type%
@@ -23,6 +23,23 @@ duo:
         dropdown:
             global:
                 more: Meer
+
+    list:
+        type:
+            page: pagina
+            taxonomy: taxonomie
+            user: gebruiker
+            group: groep
+            role: rol
+
+        field:
+            name: Naam
+            title: Titel
+            url: Url
+            username: Gebruikersnaam
+            active: Actief
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
     modal:
         global:
@@ -56,3 +73,73 @@ duo:
             choices:
                 yes: Ja
                 no: Nee
+
+        group_choice:
+            label: Groepen
+            placeholder: Maak een keuze
+
+        role_choice:
+            label: Rollen
+            placeholder: Maak een keuze
+
+        taxonomy_choice:
+            label: Taxonomieën
+            placeholder: Maak een keuze
+
+        weight_choice:
+            label: Gewicht
+            placeholder: Maak een keuze
+
+        role:
+            name:
+                label: Naam
+            role:
+                label: Rol
+
+        group:
+            name:
+                label: Naam
+            roles:
+                label: Rollen
+
+        user:
+            name:
+                label: Naam
+            username:
+                label: Gebruikersnaam
+            active:
+                label: Actief
+            groups:
+                label: Groepen
+
+        taxonomy:
+            name:
+                label: Naam
+
+        page:
+            name:
+                label: Naam
+            weight:
+                label: Gewicht
+            title:
+                label: Titel
+            content:
+                label: Content
+            visible:
+                label: Zichtbaar
+        seo:
+            meta_title:
+                label: Meta titel
+            meta_description:
+                label: Meta omschrijving
+            meta_keywords:
+                label: Meta trefwoorden
+            meta_robots:
+                label: Meta robotten
+
+    tab:
+        content: Content
+        seo: Seo
+        menu: Menu
+        properties: Eigenschappen
+        profile: Profiel

@@ -32,16 +32,23 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	protected $content;
 
 	/**
+	 * @var bool
+	 *
+	 * @ORM\Column(name="visible", type="boolean", options={ "default" = 1 })
+	 */
+	protected $visible = true;
+
+	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="meta_title", type="string", nullable=true)
+	 * @ORM\Column(name="meta_title", type="string", length=55, nullable=true)
 	 */
 	protected $metaTitle;
 
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="meta_keywords", type="string", nullable=true)
+	 * @ORM\Column(name="meta_keywords", type="string", length=155, nullable=true)
 	 */
 	protected $metaKeywords;
 
@@ -51,6 +58,13 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	 * @ORM\Column(name="meta_description", type="text", nullable=true)
 	 */
 	protected $metaDescription;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="meta_robots", type="string", length=56, nullable=true)
+	 */
+	protected $metaRobots;
 
 	/**
 	 * Set title
@@ -98,6 +112,30 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	public function getContent(): ?string
 	{
 		return $this->content;
+	}
+
+	/**
+	 * Set visible
+	 *
+	 * @param bool $visible
+	 *
+	 * @return PageTranslation
+	 */
+	public function setVisible(bool $visible = true): PageTranslation
+	{
+		$this->visible = $visible;
+
+		return $this;
+	}
+
+	/**
+	 * Get visible
+	 *
+	 * @return bool
+	 */
+	public function getVisible(): bool
+	{
+		return $this->visible;
 	}
 
 	/**
@@ -170,6 +208,30 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	public function getMetaDescription(): ?string
 	{
 		return $this->metaDescription;
+	}
+
+	/**
+	 * Set metaRobots
+	 *
+	 * @param string $metaRobots
+	 *
+	 * @return PageTranslation
+	 */
+	public function setMetaRobots(string $metaRobots = null): PageTranslation
+	{
+		$this->metaRobots = $metaRobots;
+
+		return $this;
+	}
+
+	/**
+	 * Get metaRobots
+	 *
+	 * @return string
+	 */
+	public function getMetaRobots(): ?string
+	{
+		return $this->metaRobots;
 	}
 
 	/**

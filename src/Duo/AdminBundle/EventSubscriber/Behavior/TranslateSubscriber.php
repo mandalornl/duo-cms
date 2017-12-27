@@ -3,22 +3,42 @@
 namespace Duo\AdminBundle\EventSubscriber\Behavior;
 
 use Doctrine\Common\EventSubscriber;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
 use Duo\AdminBundle\Entity\Behavior\TranslateTrait;
 use Duo\AdminBundle\Entity\Behavior\TranslationTrait;
+use Duo\AdminBundle\Helper\LocaleHelper;
 use Duo\AdminBundle\Helper\ReflectionClassHelper;
 
 final class TranslateSubscriber implements EventSubscriber
 {
+	/**
+	 * @var LocaleHelper
+	 */
+	private $localeHelper;
+
+	/**
+	 * TranslateSubscriber constructor
+	 *
+	 * @param LocaleHelper $localeHelper
+	 */
+	public function __construct(LocaleHelper $localeHelper)
+	{
+		$this->localeHelper = $localeHelper;
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
 	public function getSubscribedEvents(): array
 	{
 		return [
-			Events::loadClassMetadata
+			Events::loadClassMetadata,
+			Events::postLoad,
+			Events::prePersist
 		];
 	}
 
@@ -113,5 +133,44 @@ final class TranslateSubscriber implements EventSubscriber
 				]
 			];
 		}
+	}
+
+	/**
+	 * On post load event
+	 *
+	 * @param LifecycleEventArgs $args
+	 */
+	public function postLoad(LifecycleEventArgs $args)
+	{
+		$this->setLocale($args);
+	}
+
+	/**
+	 * On pre persist event
+	 *
+	 * @param LifecycleEventArgs $args
+	 */
+	public function prePersist(LifecycleEventArgs $args)
+	{
+		$this->setLocale($args);
+	}
+
+	/**
+	 * Set locale
+	 *
+	 * @param LifecycleEventArgs $args
+	 */
+	private function setLocale(LifecycleEventArgs $args)
+	{
+		$entity = $args->getObject();
+
+		if (!$entity instanceof TranslateInterface)
+		{
+			return;
+		}
+
+		$entity
+			->setDefaultLocale($this->localeHelper->getDefaultLocale())
+			->setCurrentLocale($this->localeHelper->getLocale());
 	}
 }

@@ -2,8 +2,7 @@
 
 namespace Duo\AdminBundle\Entity\Behavior;
 
-interface NodeInterface extends BlameInterface,
-								SoftDeleteInterface,
+interface NodeInterface extends SoftDeleteInterface,
 								TranslateInterface,
 								SortInterface,
 								CloneInterface,

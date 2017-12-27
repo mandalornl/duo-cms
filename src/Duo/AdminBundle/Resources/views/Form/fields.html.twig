@@ -1,9 +1,26 @@
 {% use 'bootstrap_4_layout.html.twig' %}
 
+{% block choice_widget_collapsed -%}
+	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' select2')|trim}) -%}
+	{{- parent() -}}
+{%- endblock choice_widget_collapsed %}
+
+{% block date_widget -%}
+	{%- if widget == 'single_text' %}
+		{% set attr = attr|merge({class: (attr.class|default('') ~ ' datepicker')|trim}) %}
+	{%- else -%}
+		{%- if not valid -%}
+			{% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+			{% set valid = true %}
+		{%- endif -%}
+	{%- endif -%}
+	{{- parent() -}}
+{%- endblock date_widget %}
+
 {% block duo_tab_label %}
 	{% set selected = selected | default(false) %}
 	<a href="#{{ id }}_tab" id="{{ id }}_nav" class="nav-item nav-link{% if selected %} active{% endif %}" data-toggle="tab" role="tab" aria-controls="{{ id }}_tab" aria-selected="{{ selected }}">
-		{{- label -}}
+		{{- label | trans({}, translation_domain) -}}
 	</a>
 {% endblock %}
 
@@ -36,7 +53,7 @@
 			<div class="col-md-3">
 				<div class="list-group mb-3" id="{{ id }}_tablist" role="tablist">
 					{% for locale, child in form %}
-						<a class="list-group-item list-group-item-action{% if loop.first %} active{% endif %}" id="{{ child.vars.id }}_list" data-toggle="list" href="#{{ child.vars.id }}" role="tab" aria-controls="{{ child.vars.id }}">
+						<a class="list-group-item list-group-item-action{% if locale == app.request.locale %} active{% endif %}" id="{{ child.vars.id }}_list" data-toggle="list" href="#{{ child.vars.id }}" role="tab" aria-controls="{{ child.vars.id }}">
 							{{- attribute(locales, locale) | default(locale | upper) -}}
 						</a>
 					{% endfor %}
@@ -44,8 +61,8 @@
 			</div>
 			<div class="col-md-9">
 				<div class="tab-content" id="{{ id }}_content">
-					{% for child in form %}
-						<div class="tab-pane fade show{% if loop.first %} active{% endif %}" id="{{ child.vars.id }}" role="tabpanel" aria-labelledby="{{ child.vars.id }}_list">
+					{% for locale, child in form %}
+						<div class="tab-pane fade show{% if locale == app.request.locale %} active{% endif %}" id="{{ child.vars.id }}" role="tabpanel" aria-labelledby="{{ child.vars.id }}_list">
 							{{- form_widget(child) -}}
 						</div>
 					{% endfor %}

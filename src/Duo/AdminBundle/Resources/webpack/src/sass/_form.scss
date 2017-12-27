@@ -8,6 +8,12 @@
 	display: flex;
 }
 
+.datepicker ~ select,
+.datepicker ~ select + .select2
+{
+	margin: 0 .5rem;
+}
+
 .btn-white
 {
 	@include button-variant(

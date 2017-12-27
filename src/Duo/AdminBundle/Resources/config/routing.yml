@@ -3,12 +3,27 @@ duo_admin_test:
     type: annotation
     prefix: /test
 
-duo_admin_page:
-    resource: '@DuoAdminBundle/Controller/PageAdminController.php'
+duo_admin_listing_page:
+    resource: '@DuoAdminBundle/Controller/Listing/PageController.php'
     type: annotation
     prefix: /page
 
-duo_admin_taxonomy:
-    resource: '@DuoAdminBundle/Controller/TaxonomyAdminController.php'
+duo_admin_listing_user:
+    resource: '@DuoAdminBundle/Controller/Listing/UserController.php'
+    type: annotation
+    prefix: /user
+
+duo_admin_listing_group:
+    resource: '@DuoAdminBundle/Controller/Listing/GroupController.php'
+    type: annotation
+    prefix: /group
+
+duo_admin_listing_role:
+    resource: '@DuoAdminBundle/Controller/Listing/RoleController.php'
+    type: annotation
+    prefix: /role
+
+duo_admin_listing_taxonomy:
+    resource: '@DuoAdminBundle/Controller/Listing/TaxonomyController.php'
     type: annotation
     prefix: /taxonomy
