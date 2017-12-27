@@ -1,5 +1,5 @@
 <div id="modal_{{ type }}_versions_{{ entity.id }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ type }}_versions_label">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal_{{ type }}_versions_label">
@@ -15,6 +15,7 @@
 						<thead>
 							<tr>
 								<th>{{ 'duo.modal.versions.name' | trans }}</th>
+								<th>{{ 'duo.modal.versions.created_at' | trans }}</th>
 								<th>{{ 'duo.modal.versions.modified_at' | trans }}</th>
 								<th>&nbsp;</th>
 							</tr>
@@ -27,6 +28,9 @@
 											<a href="{{ path('duo_admin_listing_' ~ type ~ '_version', { id: version.id }) }}" target="_blank">
 												{{- version.name -}}
 											</a>
+										</td>
+										<td>
+											{{- version.createdAt | localizeddate('short', 'short', app.request.locale) -}}
 										</td>
 										<td>
 											{{- version.modifiedAt | localizeddate('short', 'short', app.request.locale) -}}

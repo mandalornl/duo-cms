@@ -51,6 +51,7 @@ duo:
         versions:
             title: Versions
             name: Name
+            created_at: Created At
             modified_at: Modified At
             revert: Revert
 

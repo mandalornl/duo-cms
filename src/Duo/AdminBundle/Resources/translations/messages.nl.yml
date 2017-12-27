@@ -50,6 +50,7 @@ duo:
         versions:
             title: Versies
             name: Naam
+            created_at: Aangemaakt op
             modified_at: Gewijzigd op
             revert: Terugzetten
         revert:

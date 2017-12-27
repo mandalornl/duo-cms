@@ -99,7 +99,7 @@ trait VersionTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_page_edit", [
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_edit", [
 			'id' => $entity->getId()
 		]);
 	}

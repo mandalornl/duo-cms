@@ -1,5 +1,6 @@
 ## TODO ##
 
 - Security/User
-- Blameable
+- VersionListener, unset blame
+- Preview
 - PHPUnit
