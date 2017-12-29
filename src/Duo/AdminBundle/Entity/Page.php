@@ -3,16 +3,12 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\PublishInterface;
-use Duo\AdminBundle\Entity\Behavior\PublishTrait;
-use Duo\AdminBundle\Entity\Behavior\SlugInterface;
-use Duo\AdminBundle\Entity\Behavior\SlugTrait;
-use Duo\AdminBundle\Entity\Behavior\TranslationInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeTrait;
-use Duo\AdminBundle\Entity\Behavior\UrlInterface;
-use Duo\AdminBundle\Entity\Behavior\UrlTrait;
 use Duo\AdminBundle\Entity\Behavior\ViewInterface;
+use Duo\BehaviorBundle\Entity\PublishInterface;
+use Duo\BehaviorBundle\Entity\PublishTrait;
+use Duo\BehaviorBundle\Entity\TranslationInterface;
+use Duo\BehaviorBundle\Entity\TreeInterface;
+use Duo\BehaviorBundle\Entity\TreeTrait;
 
 /**
  * @ORM\Table(name="page")

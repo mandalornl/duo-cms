@@ -10,26 +10,26 @@ import * as doNotLeave from './util/donotleave';
 
 $(() =>
 {
-	const $document = $(document);
+	const $form = $('.form-add, .form-edit');
 
-	$document.on('click', 'button[data-action="save"]', function()
+	$(document).on('click', 'button[data-action="save"]', function()
 	{
 		const $this = $(this);
 		$this.prop('disabled', true);
 
 		doNotLeave.disable();
 
-		$(`form[name="${$this.data('type')}"]`).submit();
+		$form.submit();
 	});
 
-	$document.on('change.donotleave', 'select', function()
+	$form.on('change.donotleave', 'select', function()
 	{
 		doNotLeave.enable();
 
-		$document.off('.donotleave');
+		$form.off('.donotleave');
 	});
 
-	$document.on({
+	$form.on({
 		'keydown.donotleave': function()
 		{
 			$(this).data('donotleave.keydown', this.value);
@@ -42,7 +42,7 @@ $(() =>
 			{
 				doNotLeave.enable();
 
-				$document.off('.donotleave').removeData('donotleave.keydown');
+				$form.off('.donotleave').removeData('donotleave.keydown');
 			}
 		}
 	}, 'input, textarea');

@@ -3,8 +3,8 @@
 namespace Duo\AdminBundle\Controller\Listing;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Entity\Security\User;
 use Duo\AdminBundle\Form\Listing\UserType;
+use Duo\SecurityBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,11 +50,11 @@ class UserController extends AbstractController
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('duo.list.field.name', 'name'))
-			->addField(new Field('duo.list.field.username', 'username'))
-			->addField(new Field('duo.list.field.active', 'active'))
-			->addField(new Field('duo.list.field.created_at', 'createdAt'))
-			->addField(new Field('duo.list.field.modified_at', 'modifiedAt'));
+			->addField(new Field('duo.admin.listing.field.name', 'name'))
+			->addField(new Field('duo.admin.listing.field.username', 'username'))
+			->addField(new Field('duo.admin.listing.field.active', 'active'))
+			->addField(new Field('duo.admin.listing.field.created_at', 'createdAt'))
+			->addField(new Field('duo.admin.listing.field.modified_at', 'modifiedAt'));
 	}
 
 	/**

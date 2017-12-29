@@ -1,7 +1,7 @@
-duo_admin_test:
-    resource: '@DuoAdminBundle/Controller/TestController.php'
+duo_admin_dashboard:
+    resource: '@DuoAdminBundle/Controller/DashboardController.php'
     type: annotation
-    prefix: /test
+    prefix: /
 
 duo_admin_listing_page:
     resource: '@DuoAdminBundle/Controller/Listing/PageController.php'

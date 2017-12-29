@@ -3,9 +3,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal_{{ type }}_versions_label">
-					{{- 'duo.modal.versions.title' | trans -}}
+					{{- 'duo.admin.modal.versions.title' | trans -}}
 				</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.modal.global.close' | trans }}">
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -14,9 +14,9 @@
 					<table class="table table-hover table-striped">
 						<thead>
 							<tr>
-								<th>{{ 'duo.modal.versions.name' | trans }}</th>
-								<th>{{ 'duo.modal.versions.created_at' | trans }}</th>
-								<th>{{ 'duo.modal.versions.modified_at' | trans }}</th>
+								<th>{{ 'duo.admin.modal.versions.name' | trans }}</th>
+								<th>{{ 'duo.admin.modal.versions.created_at' | trans }}</th>
+								<th>{{ 'duo.admin.modal.versions.modified_at' | trans }}</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -36,8 +36,8 @@
 											{{- version.modifiedAt | localizeddate('short', 'short', app.request.locale) -}}
 										</td>
 										<td>
-											<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" data-action="revert" data-title="{{ 'duo.modal.revert.title' | trans }}" data-body="{{ 'duo.modal.revert.body' | trans({ '%type%': localizedType }) }}">
-												{{- 'duo.modal.versions.revert' | trans -}}
+											<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" data-action="revert" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans({ '%type%': localizedType }) }}">
+												{{- 'duo.admin.modal.versions.revert' | trans -}}
 											</a>
 										</td>
 									</tr>
@@ -49,7 +49,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">
-					{{- 'duo.modal.global.close' | trans -}}
+					{{- 'duo.admin.modal.global.close' | trans -}}
 				</button>
 			</div>
 		</div>

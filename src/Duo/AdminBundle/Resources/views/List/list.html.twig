@@ -3,7 +3,7 @@
 {% block toolbar %}
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_index') }}" class="navbar-brand">Duo</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ list.type }}" aria-controls="navbar_{{ list.type }}" aria-expanded="false" aria-label="{{ 'duo.toolbar.toggler_label' | trans }}">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ list.type }}" aria-controls="navbar_{{ list.type }}" aria-expanded="false" aria-label="{{ 'duo.admin.toolbar.toggler_label' | trans }}">
 			<i class="navbar-toggler-icon"></i>
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbar_{{ list.type }}">
@@ -16,7 +16,7 @@
 				</li>
 				<li class="nav-item">
 					<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_add') }}" class="btn btn-primary">
-						{{- 'duo.toolbar.actions.new' | trans({
+						{{- 'duo.admin.toolbar.actions.new' | trans({
 							'%type%': list.localizedType
 						}) -}}
 					</a>
@@ -65,7 +65,7 @@
 								{%- elseif value is instanceof('DateTime') -%}
 									{{- value | localizeddate('short', 'short', app.request.locale) -}}
 								{%- elseif value is bool %}
-									{{ (value ? 'duo.type.bool.yes' : 'duo.type.bool.no') | trans }}
+									{{ (value ? 'duo.admin.type.bool.yes' : 'duo.admin.type.bool.no') | trans }}
 								{%- else -%}
 									{{- value -}}
 								{%- endif -%}

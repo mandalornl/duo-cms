@@ -1,106 +1,31 @@
 parameters:
 
 services:
-    duo.helper.locale:
-        class: Duo\AdminBundle\Helper\LocaleHelper
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\AdminBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests,Configuration}'
+
+    Duo\AdminBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Duo\AdminBundle\Helper\LocaleHelper:
+        public: true
         calls:
-            - [ setRequestStack, [ '@request_stack' ]]
             - [ setDefaultLocale, [ '%locale%' ]]
 
-    duo.listener.sort:
-        class: Duo\AdminBundle\EventListener\Behavior\SortListener
-        arguments: [ '@doctrine.orm.entity_manager' ]
-        tags:
-            - { name: kernel.event_listener, event: duo.event.onSort, method: onSort }
-
-    duo.listener.version:
-        class: Duo\AdminBundle\EventListener\Behavior\VersionListener
-        arguments: [ '@doctrine.orm.entity_manager' ]
-        tags:
-            - { name: kernel.event_listener, event: duo.event.onClone, method: onClone }
-            - { name: kernel.event_listener, event: duo.event.onRevert, method: onRevert }
-
-    duo.subscriber.slug:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\SlugSubscriber
-        tags:
-            - { name: doctrine.event_subscriber, priority: 16 }
-
-    duo.subscriber.sort:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\SortSubscriber
+    Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber:
         tags:
             - { name: doctrine.event_subscriber }
 
-    duo.subscriber.taxonomy:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    duo.subscriber.timestamp:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\TimeStampSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    duo.subscriber.translate:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\TranslateSubscriber
-        arguments: [ '@duo.helper.locale' ]
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    duo.subscriber.tree:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\TreeSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    duo.subscriber.url:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\UrlSubscriber
-        tags:
-            - { name: doctrine.event_subscriber, priority: 8 }
-
-    duo.subscriber.version:
-        class: Duo\AdminBundle\EventSubscriber\Behavior\VersionSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    duo.twig.test:
-        class: Duo\AdminBundle\Twig\TestTwigExtension
-        tags:
-            - { name: twig.extension }
-
-    duo.twig.locale:
-        class: Duo\AdminBundle\Twig\LocaleTwigExtension
+    Duo\AdminBundle\Twig\LocaleTwigExtension:
         arguments:
             $locales: '%locales%'
         tags:
             - { name: twig.extension }
-
-    duo.twig.menu:
-        class: Duo\AdminBundle\Twig\MenuTwigExtension
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
-            $requestStack: '@request_stack'
-        tags:
-            - { name: twig.extension }
-
-    duo.form.group_choice:
-        class: Duo\AdminBundle\Form\Security\GroupChoiceType
-        arguments: [ '@translator' ]
-        tags:
-            - { name: form.type }
-
-    duo.form.role_choice:
-        class: Duo\AdminBundle\Form\Security\RoleChoiceType
-        arguments: [ '@translator' ]
-        tags:
-            - { name: form.type }
-
-    duo.form.weight_choice:
-        class: Duo\AdminBundle\Form\WeightChoiceType
-        arguments: [ '@translator' ]
-        tags:
-            - { name: form.type }
-
-    duo.form.taxonomy_choice:
-        class: Duo\AdminBundle\Form\TaxonomyChoiceType
-        arguments: [ '@translator' ]
-        tags:
-            - { name: form.type }

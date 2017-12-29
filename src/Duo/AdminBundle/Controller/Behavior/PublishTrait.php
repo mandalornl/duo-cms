@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\Listing\AbstractController;
-use Duo\AdminBundle\Entity\Behavior\PublishInterface;
+use Duo\BehaviorBundle\Entity\PublishInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

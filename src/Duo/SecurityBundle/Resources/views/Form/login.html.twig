@@ -1,0 +1,47 @@
+{% extends '@DuoAdmin/index.html.twig' %}
+
+{% block containerClass -%}
+	container-login
+{%- endblock %}
+
+{% block content %}
+	<div class="row justify-content-center align-items-center">
+		<div class="col-sm-6 col-md-4">
+			{% if error %}
+				<div class="alert alert-danger" role="alert">
+					{{- error.messageKey | trans(error.messageData, 'security') -}}
+				</div>
+			{% endif %}
+
+			<form name="security_login" action="{{ path('duo_security_login') }}" method="post" class="form-horizontal">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<div class="form-group">
+					<label for="security_username" class="form-control-label required">
+						{{- 'duo.security.form.login.username' | trans -}}
+					</label>
+					<input type="text" name="_username" id="security_username" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="security_password" class="form-control-label required">
+						{{- 'duo.security.form.login.password' | trans -}}
+					</label>
+					<input type="password" name="_password" id="security_password" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="security_remember_me" class="custom-control custom-checkbox">
+						<input type="checkbox" name="_remember_me" id="security_remember_me" value="1" class="custom-control-input" checked>
+						<span class="custom-control-indicator"></span>
+						<span class="custom-control-description">
+							{{- 'duo.security.form.login.remember_me' | trans -}}
+						</span>
+					</label>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-block">
+						{{- 'duo.security.form.login.submit' | trans -}}
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

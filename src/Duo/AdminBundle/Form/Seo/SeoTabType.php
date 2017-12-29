@@ -17,19 +17,19 @@ class SeoTabType extends AbstractType
 	{
 		$builder
 			->add('metaTitle', MetaTitleType::class, [
-				'label' => 'duo.form.seo.meta_title.label',
+				'label' => 'duo.admin.form.seo.meta_title.label',
 				'required' => false
 			])
 			->add('metaDescription', MetaDescriptionType::class, [
-				'label' => 'duo.form.seo.meta_description.label',
+				'label' => 'duo.admin.form.seo.meta_description.label',
 				'required' => false,
 			])
 			->add('metaKeywords', TextType::class, [
-				'label' => 'duo.form.seo.meta_keywords.label',
+				'label' => 'duo.admin.form.seo.meta_keywords.label',
 				'required' => false
 			])
-			->add('metaRobots', MetaRobotsType::class, [
-				'label' => 'duo.form.seo.meta_robots.label',
+			->add('metaRobots', MetaRobotsChoiceType::class, [
+				'label' => 'duo.admin.form.seo.meta_robots.label',
 				'required' => false
 			]);
 	}
@@ -40,7 +40,7 @@ class SeoTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.tab.seo'
+			'label' => 'duo.admin.tab.seo'
 		]);
 	}
 

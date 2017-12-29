@@ -1,0 +1,25 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\SecurityBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\SecurityBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Duo\SecurityBundle\EventSubscriber\UserSubscriber:
+        arguments:
+            $encoder: '@security.password_encoder'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\SecurityBundle\Helper\UserHelper:
+        public: true
+        arguments:
+            $tokenStorage: '@security.token_storage'

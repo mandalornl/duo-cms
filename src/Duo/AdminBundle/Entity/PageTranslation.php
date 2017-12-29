@@ -3,10 +3,10 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\AdminBundle\Entity\Behavior\SlugInterface;
-use Duo\AdminBundle\Entity\Behavior\SlugTrait;
-use Duo\AdminBundle\Entity\Behavior\UrlInterface;
-use Duo\AdminBundle\Entity\Behavior\UrlTrait;
+use Duo\BehaviorBundle\Entity\SlugInterface;
+use Duo\BehaviorBundle\Entity\SlugTrait;
+use Duo\BehaviorBundle\Entity\UrlInterface;
+use Duo\BehaviorBundle\Entity\UrlTrait;
 
 /**
  * @ORM\Table(name="page_translation")

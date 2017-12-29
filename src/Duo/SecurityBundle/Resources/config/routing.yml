@@ -1,0 +1,7 @@
+duo_security_logout:
+    path: /logout
+
+duo_security:
+    resource: '@DuoSecurityBundle/Controller/SecurityController.php'
+    type: annotation
+    prefix: /

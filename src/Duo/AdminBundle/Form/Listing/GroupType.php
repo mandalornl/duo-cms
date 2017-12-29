@@ -2,8 +2,8 @@
 
 namespace Duo\AdminBundle\Form\Listing;
 
-use Duo\AdminBundle\Entity\Security\Group;
-use Duo\AdminBundle\Form\Security\RoleChoiceType;
+use Duo\SecurityBundle\Entity\Group;
+use Duo\SecurityBundle\Form\RoleChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,10 +18,10 @@ class GroupType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.form.group.name.label'
+				'label' => 'duo.admin.form.group.name.label'
 			])
 			->add('roles', RoleChoiceType::class, [
-				'label' => 'duo.form.group.roles.label'
+				'label' => 'duo.admin.form.group.roles.label'
 			]);
 	}
 

@@ -3,8 +3,8 @@
 namespace Duo\AdminBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
-use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
 use Duo\AdminBundle\Entity\Taxonomy;
+use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +33,7 @@ class TaxonomyChoiceType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.taxonomy_choice.label',
+			'label' => 'duo.admin.form.taxonomy_choice.label',
 			'class' => Taxonomy::class,
 			'empty_data' => null,
 			'multiple' => true,
@@ -59,7 +59,7 @@ class TaxonomyChoiceType extends AbstractType
 				return $taxonomy->getName();
 			},
 			'attr' => [
-				'data-placeholder' => $this->translator->trans('duo.form.taxonomy_choice.placeholder')
+				'data-placeholder' => $this->translator->trans('duo.admin.form.taxonomy_choice.placeholder')
 			]
 		]);
 	}

@@ -22,6 +22,8 @@ class LocaleHelper
 	 * @param RequestStack $requestStack
 	 *
 	 * @return LocaleHelper
+	 *
+	 * @required
 	 */
 	public function setRequestStack(RequestStack $requestStack): LocaleHelper
 	{

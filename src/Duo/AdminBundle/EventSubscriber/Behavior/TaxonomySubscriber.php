@@ -6,11 +6,10 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Duo\AdminBundle\Entity\Behavior\TaxonomyTrait;
+use Duo\AdminBundle\Entity\Behavior\TaxonomyInterface;
 use Duo\AdminBundle\Entity\Taxonomy;
-use Duo\AdminBundle\Helper\ReflectionClassHelper;
 
-final class TaxonomySubscriber implements EventSubscriber
+class TaxonomySubscriber implements EventSubscriber
 {
 	/**
 	 * {@inheritdoc}
@@ -51,7 +50,7 @@ final class TaxonomySubscriber implements EventSubscriber
 	{
 		$reflectionClass = $classMetadata->getReflectionClass();
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, TaxonomyTrait::class))
+		if (!$reflectionClass->implementsInterface(TaxonomyInterface::class))
 		{
 			return;
 		}

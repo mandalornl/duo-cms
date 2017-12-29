@@ -4,11 +4,11 @@ namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\Listing\AbstractController;
-use Duo\AdminBundle\Entity\Behavior\SortInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeInterface;
-use Duo\AdminBundle\Entity\Behavior\VersionInterface;
-use Duo\AdminBundle\Event\Behavior\SortEvent;
-use Duo\AdminBundle\Event\Behavior\SortEvents;
+use Duo\BehaviorBundle\Entity\SortInterface;
+use Duo\BehaviorBundle\Entity\TreeInterface;
+use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Event\SortEvent;
+use Duo\BehaviorBundle\Event\SortEvents;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -314,7 +314,7 @@ trait SortTrait
 	 * @param Request $request
 	 * @param int $id
 	 * @param int $weight
-	 * @oaram int $parentId [optional]
+	 * @param int $parentId [optional]
 	 *
 	 * @return Response|RedirectResponse|JsonResponse
 	 */

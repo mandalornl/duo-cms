@@ -6,7 +6,9 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
-            "Duo\\AdminBundle\\": "src/Duo/AdminBundle"
+            "Duo\\AdminBundle\\": "src/Duo/AdminBundle",
+            "Duo\\SecurityBundle\\": "src/Duo/SecurityBundle",
+            "Duo\\BehaviorBundle\\": "src/Duo/BehaviorBundle"
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
@@ -31,6 +33,7 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },

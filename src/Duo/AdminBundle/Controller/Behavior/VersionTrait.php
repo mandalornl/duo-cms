@@ -4,9 +4,9 @@ namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\Listing\AbstractController;
-use Duo\AdminBundle\Entity\Behavior\VersionInterface;
-use Duo\AdminBundle\Event\Behavior\VersionEvent;
-use Duo\AdminBundle\Event\Behavior\VersionEvents;
+use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Event\VersionEvent;
+use Duo\BehaviorBundle\Event\VersionEvents;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

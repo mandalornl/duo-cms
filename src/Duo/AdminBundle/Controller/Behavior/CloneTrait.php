@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Controller\Behavior;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\Listing\AbstractController;
-use Duo\AdminBundle\Entity\Behavior\VersionInterface;
+use Duo\BehaviorBundle\Entity\VersionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

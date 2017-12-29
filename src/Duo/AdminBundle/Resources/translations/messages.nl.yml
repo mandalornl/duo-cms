@@ -1,146 +1,145 @@
 duo:
-    type:
-        bool:
-            yes: Ja
-            no: Nee
-
-    toolbar:
-        toggle: Toggle werkbalk
-        actions:
-            label: Acties
-            new: Nieuwe %type%
-            save: Opslaan
-            cancel: Annuleren
-            publish: Publiceren
-            unpublish: Depubliceren
-            preview: Preview
-            delete: Verwijderen
-            undelete: Herstellen
-            remove: Verwijderen
-            duplicate: Dupliceren
-            versions: Versies
-
-        dropdown:
-            global:
-                more: Meer
-
-    list:
+    admin:
         type:
-            page: pagina
-            taxonomy: taxonomie
-            user: gebruiker
-            group: groep
-            role: rol
-
-        field:
-            name: Naam
-            title: Titel
-            url: Url
-            username: Gebruikersnaam
-            active: Actief
-            created_at: Aangemaakt op
-            modified_at: Gewijzigd op
-
-    modal:
-        global:
-            close: Sluiten
-            cancel: Annuleren
-            ok: Ok
-            actions: Acties
-        versions:
-            title: Versies
-            name: Naam
-            created_at: Aangemaakt op
-            modified_at: Gewijzigd op
-            revert: Terugzetten
-        revert:
-            title: Terugzetten?
-            body: Weet u zeker dat u deze %type% wilt terugzetten?
-        duplicate:
-            title: Dupliceren?
-            body: Weet u zeker dat u deze %type% wilt dupliceren?
-        delete:
-            title: Verwijderen?
-            body: Weet u zeker dat u deze %type% wilt verwijderen?
-        undelete:
-            title: Herstellen?
-            body: Weet u zeker dat u deze %type% wilt herstellen?
-        publish:
-            title: Publiceren
-
-    form:
-        confirm_choice:
-            placeholder: Maak een keuze
-            choices:
+            bool:
                 yes: Ja
                 no: Nee
 
-        group_choice:
-            label: Groepen
-            placeholder: Maak een keuze
+        toolbar:
+            toggle: Toggle werkbalk
+            actions:
+                label: Acties
+                new: Nieuwe %type%
+                save: Opslaan
+                cancel: Annuleren
+                publish: Publiceren
+                unpublish: Depubliceren
+                preview: Preview
+                delete: Verwijderen
+                undelete: Herstellen
+                remove: Verwijderen
+                duplicate: Dupliceren
+                versions: Versies
 
-        role_choice:
-            label: Rollen
-            placeholder: Maak een keuze
+            dropdown:
+                global:
+                    more: Meer
 
-        taxonomy_choice:
-            label: Taxonomieën
-            placeholder: Maak een keuze
+        listing:
+            type:
+                page: pagina
+                taxonomy: taxonomie
+                user: gebruiker
+                group: groep
+                role: rol
 
-        weight_choice:
-            label: Gewicht
-            placeholder: Maak een keuze
+            field:
+                name: Naam
+                title: Titel
+                url: Url
+                username: Gebruikersnaam
+                active: Actief
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
 
-        role:
-            name:
-                label: Naam
-            role:
-                label: Rol
+        modal:
+            global:
+                close: Sluiten
+                cancel: Annuleren
+                ok: Ok
+                actions: Acties
+            versions:
+                title: Versies
+                name: Naam
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+                revert: Terugzetten
+            revert:
+                title: Terugzetten?
+                body: Weet u zeker dat u deze %type% wilt terugzetten?
+            duplicate:
+                title: Dupliceren?
+                body: Weet u zeker dat u deze %type% wilt dupliceren?
+            delete:
+                title: Verwijderen?
+                body: Weet u zeker dat u deze %type% wilt verwijderen?
+            undelete:
+                title: Herstellen?
+                body: Weet u zeker dat u deze %type% wilt herstellen?
+            publish:
+                title: Publiceren
 
-        group:
-            name:
-                label: Naam
-            roles:
-                label: Rollen
+        form:
+            confirm_choice:
+                placeholder: Maak een keuze
+                choices:
+                    yes: Ja
+                    no: Nee
 
-        user:
-            name:
-                label: Naam
-            username:
-                label: Gebruikersnaam
-            active:
-                label: Actief
-            groups:
-                label: Groepen
+            taxonomy_choice:
+                label: Taxonomieën
+                placeholder: Maak een keuze
 
-        taxonomy:
-            name:
-                label: Naam
-
-        page:
-            name:
-                label: Naam
-            weight:
+            weight_choice:
                 label: Gewicht
-            title:
-                label: Titel
-            content:
-                label: Content
-            visible:
-                label: Zichtbaar
-        seo:
-            meta_title:
-                label: Meta titel
-            meta_description:
-                label: Meta omschrijving
-            meta_keywords:
-                label: Meta trefwoorden
-            meta_robots:
-                label: Meta robotten
+                placeholder: Maak een keuze
 
-    tab:
-        content: Content
-        seo: Seo
-        menu: Menu
-        properties: Eigenschappen
-        profile: Profiel
+            role:
+                name:
+                    label: Naam
+                role:
+                    label: Rol
+
+            group:
+                name:
+                    label: Naam
+                roles:
+                    label: Rollen
+
+            user:
+                name:
+                    label: Naam
+                email:
+                    label: E-mailadres
+                username:
+                    label: Gebruikersnaam
+                password:
+                    label: Wachtwoord
+                active:
+                    label: Actief
+                groups:
+                    label: Groepen
+
+            taxonomy:
+                name:
+                    label: Naam
+
+            page:
+                name:
+                    label: Naam
+                weight:
+                    label: Gewicht
+                title:
+                    label: Titel
+                content:
+                    label: Content
+                visible:
+                    label: Zichtbaar
+
+            seo:
+                meta_title:
+                    label: Meta titel
+                meta_description:
+                    label: Meta omschrijving
+                meta_keywords:
+                    label: Meta trefwoorden
+                meta_robots:
+                    label: Meta robotten
+                    placeholder: Maak een keuze
+
+        tab:
+            content: Content
+            seo: Seo
+            menu: Menu
+            properties: Eigenschappen
+            profile: Profiel

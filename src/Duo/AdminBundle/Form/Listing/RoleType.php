@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Form\Listing;
 
-use Duo\AdminBundle\Entity\Security\Role;
+use Duo\SecurityBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,10 +17,10 @@ class RoleType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.form.role.name.label'
+				'label' => 'duo.admin.form.role.name.label'
 			])
 			->add('role', TextType::class, [
-				'label' => 'duo.form.role.role.label'
+				'label' => 'duo.admin.form.role.role.label'
 			]);
 	}
 

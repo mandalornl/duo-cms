@@ -1,0 +1,16 @@
+duo:
+    security:
+        form:
+            login:
+                username: Username
+                password: Password
+                submit: Login
+                remember_me: Keep me logged in
+
+            group_choice:
+                label: Groups
+                placeholder: Please choose
+
+            role_choice:
+                label: Roles
+                placeholder: Please choose

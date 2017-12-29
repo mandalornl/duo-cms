@@ -3,7 +3,7 @@
 namespace Duo\AdminBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Duo\AdminBundle\Repository\Behavior\SortTrait;
+use Duo\BehaviorBundle\Repository\SortTrait;
 
 class PageRepository extends EntityRepository
 {

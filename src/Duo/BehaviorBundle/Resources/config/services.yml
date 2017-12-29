@@ -1,0 +1,66 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\BehaviorBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\BehaviorBundle\EventListener\SortListener:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: kernel.event_listener, event: duo.behavior.event.onSort, method: onSort }
+
+    Duo\BehaviorBundle\EventListener\VersionListener:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: kernel.event_listener, event: duo.behavior.event.onClone, method: onClone }
+            - { name: kernel.event_listener, event: duo.behavior.event.onRevert, method: onRevert }
+
+    Duo\BehaviorBundle\EventSubscriber\PublishSubscriber:
+        arguments:
+            $helper: '@Duo\SecurityBundle\Helper\UserHelper'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\BehaviorBundle\EventSubscriber\SlugSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: 16 }
+
+    Duo\BehaviorBundle\EventSubscriber\SoftDeleteSubscriber:
+        arguments:
+            $helper: '@Duo\SecurityBundle\Helper\UserHelper'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\BehaviorBundle\EventSubscriber\SortSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\BehaviorBundle\EventSubscriber\TimeStampSubscriber:
+        arguments:
+            $helper: '@Duo\SecurityBundle\Helper\UserHelper'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\BehaviorBundle\EventSubscriber\TranslateSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\BehaviorBundle\EventSubscriber\TreeSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\BehaviorBundle\EventSubscriber\UrlSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: 8 }
+
+    Duo\BehaviorBundle\EventSubscriber\VersionSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }

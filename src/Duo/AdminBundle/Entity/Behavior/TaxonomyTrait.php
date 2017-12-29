@@ -14,13 +14,9 @@ trait TaxonomyTrait
 	protected $taxonomies;
 
 	/**
-	 * Add taxonomy
-	 *
-	 * @param Taxonomy $taxonomy
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function addTaxonomy(Taxonomy $taxonomy)
+	public function addTaxonomy(Taxonomy $taxonomy): TaxonomyInterface
 	{
 		$this->getTaxonomies()->add($taxonomy);
 
@@ -28,13 +24,9 @@ trait TaxonomyTrait
 	}
 
 	/**
-	 * Remove taxonomy
-	 *
-	 * @param Taxonomy $taxonomy
-	 *
-	 * @return $this
+	 * {@inheritdoc}
 	 */
-	public function removeTaxonomy(Taxonomy $taxonomy)
+	public function removeTaxonomy(Taxonomy $taxonomy): TaxonomyInterface
 	{
 		$this->getTaxonomies()->removeElement($taxonomy);
 
@@ -42,9 +34,7 @@ trait TaxonomyTrait
 	}
 
 	/**
-	 * Get taxonomies
-	 *
-	 * @return ArrayCollection
+	 * {@inheritdoc}
 	 */
 	public function getTaxonomies()
 	{

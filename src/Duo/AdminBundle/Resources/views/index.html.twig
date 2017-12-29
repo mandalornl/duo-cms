@@ -24,7 +24,7 @@
 	{# Toolbar #}
 	{% block toolbar %}{% endblock %}
 
-	<div class="container-fluid">
+	<div class="{% block containerClass %}container-fluid{% endblock %}">
 		{# Content #}
 		{% block content %}{% endblock %}
 	</div>

@@ -1,0 +1,16 @@
+duo:
+    security:
+        form:
+            login:
+                username: Gebruikersnaam
+                password: Wachtwoord
+                submit: Inloggen
+                remember_me: Houdt mij ingelogd
+
+            group_choice:
+                label: Groepen
+                placeholder: Maak een keuze
+
+            role_choice:
+                label: Rollen
+                placeholder: Maak een keuze

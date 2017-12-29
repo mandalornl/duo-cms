@@ -23,23 +23,23 @@ class PageTranslationType extends AbstractType
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
 				$builder->create('content', TabType::class, [
-					'label' => 'duo.tab.content'
+					'label' => 'duo.admin.tab.content'
 				])
 				->add('title', TextType::class, [
-					'label' => 'duo.form.page.title.label',
+					'label' => 'duo.admin.form.page.title.label',
 					'required' => false
 				])
 				->add('content', WYSIWYGType::class, [
-					'label' => 'duo.form.page.content.label',
+					'label' => 'duo.admin.form.page.content.label',
 					'required' => false
 				])
 			)
 			->add(
 				$builder->create('menu', TabType::class, [
-					'label' => 'duo.tab.menu'
+					'label' => 'duo.admin.tab.menu'
 				])
 				->add('visible', ConfirmChoiceType::class, [
-					'label' => 'duo.form.page.visible.label',
+					'label' => 'duo.admin.form.page.visible.label',
 					'required' => false
 				])
 				->add('slug', TextType::class, [

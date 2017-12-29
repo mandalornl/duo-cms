@@ -23,7 +23,7 @@ class PageType extends AbstractType
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
 				$builder->create('content', TabType::class, [
-					'label' => 'duo.tab.content'
+					'label' => 'duo.admin.tab.content'
 				])
 				->add('translations', TranslationType::class, [
 					'entry_type' => PageTranslationType::class,
@@ -34,10 +34,10 @@ class PageType extends AbstractType
 			)
 			->add(
 				$builder->create('properties', TabType::class, [
-					'label' => 'duo.tab.properties'
+					'label' => 'duo.admin.tab.properties'
 				])
 				->add('name', TextType::class, [
-					'label' => 'duo.form.page.name.label'
+					'label' => 'duo.admin.form.page.name.label'
 				])
 				->add('weight', WeightChoiceType::class, [
 					'required' => false

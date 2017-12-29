@@ -9,16 +9,16 @@ use Doctrine\ORM\Query\ResultSetMapping;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
 use Duo\AdminBundle\Controller\Behavior\SortTrait;
-use Duo\AdminBundle\Entity\Behavior\CloneInterface;
-use Duo\AdminBundle\Entity\Behavior\VersionInterface;
-use Duo\AdminBundle\Entity\Behavior\PublishInterface;
-use Duo\AdminBundle\Entity\Behavior\SoftDeleteInterface;
-use Duo\AdminBundle\Entity\Behavior\TranslateInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeInterface;
 use Duo\AdminBundle\Entity\Behavior\ViewInterface;
-use Duo\AdminBundle\Event\Behavior\VersionEvent;
-use Duo\AdminBundle\Event\Behavior\VersionEvents;
 use Duo\AdminBundle\Helper\ReflectionClassHelper;
+use Duo\BehaviorBundle\Entity\CloneInterface;
+use Duo\BehaviorBundle\Entity\PublishInterface;
+use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
+use Duo\BehaviorBundle\Entity\TranslateInterface;
+use Duo\BehaviorBundle\Entity\TreeInterface;
+use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Event\VersionEvent;
+use Duo\BehaviorBundle\Event\VersionEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -178,7 +178,7 @@ abstract class AbstractController extends Controller
 		return $this->render($this->getListTemplate(), [
 			'list' => [
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 				'entities' => $this->getEntities(),
@@ -252,7 +252,11 @@ SQL;
 		$entity = new $class();
 		$this->preDecorateEntity($entity);
 
-		$form = $this->createForm($this->getFormClassName(), $entity);
+		$form = $this->createForm($this->getFormClassName(), $entity, [
+			'attr' => [
+				'class' => 'form-add'
+			]
+		]);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
@@ -270,7 +274,7 @@ SQL;
 			'form' => $form->createView(),
 			'entity' => $entity,
 			'type' => $this->getListType(),
-			'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
+			'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 		], $this->getEntityBehaviors($entity)));
 	}
 
@@ -298,7 +302,11 @@ SQL;
 			// pre submit state
 			$preSubmitState = serialize($clone);
 
-			$form = $this->createForm($this->getFormClassName(), $clone);
+			$form = $this->createForm($this->getFormClassName(), $clone, [
+				'attr' => [
+					'class' => 'form-edit'
+				]
+			]);
 			$form->handleRequest($request);
 
 			if ($form->isSubmitted() && $form->isValid())
@@ -324,12 +332,16 @@ SQL;
 				'form' => $form->createView(),
 				'entity' => $clone,
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($clone)));
 		}
 		else
 		{
-			$form = $this->createForm($this->getFormClassName(), $entity);
+			$form = $this->createForm($this->getFormClassName(), $entity, [
+				'attr' => [
+					'class' => 'form-edit'
+				]
+			]);
 			$form->handleRequest($request);
 
 			if ($form->isSubmitted() && $form->isValid())
@@ -345,7 +357,7 @@ SQL;
 				'form' => $form->createView(),
 				'entity' => $entity,
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.list.type.{$this->getListType()}"),
+				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($entity)));
 		}
 	}

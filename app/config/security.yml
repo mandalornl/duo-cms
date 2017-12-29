@@ -7,6 +7,14 @@ security:
         in_memory:
             memory: ~
 
+        duo_security_provider:
+            entity:
+                class: Duo\SecurityBundle\Entity\User
+
+    encoders:
+        Duo\SecurityBundle\Entity\User:
+            algorithm: bcrypt
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -21,4 +29,31 @@ security:
             #http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+            form_login:
+                login_path: /admin/login
+                check_path: /admin/login
+                csrf_token_generator: security.csrf.token_manager
+                use_referer: true
+                remember_me: true
+
+            logout:
+                path: /admin/logout
+                target: /admin
+
+            remember_me:
+                secret: '%secret%'
+                lifetime: 604800 # 1 week
+                name: ADMIN_REMEMBERME
+                path: /admin
+                #secure: true
+
+            provider: duo_security_provider
+
+            logout_on_user_change: true
+
+    access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    role_hierarchy: ~
