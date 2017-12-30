@@ -1,0 +1,8 @@
+{%- set value = attribute(entity, field.property) -%}
+{%- if value is instanceof('DateTime') -%}
+	{{- value | localizeddate('short', 'short', app.request.locale) -}}
+{%- elseif value is bool %}
+	{{ (value ? 'duo.admin.type.bool.yes' : 'duo.admin.type.bool.no') | trans }}
+{%- else -%}
+	{{- value -}}
+{%- endif -%}

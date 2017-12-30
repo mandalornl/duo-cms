@@ -10,18 +10,27 @@ use Duo\AdminBundle\Controller\Behavior\SortTrait;
 use Duo\AdminBundle\Controller\Behavior\PublishTrait;
 use Duo\AdminBundle\Entity\Page;
 use Duo\AdminBundle\Form\Listing\PageType;
+use Duo\BehaviorBundle\Controller\CloneInterface;
+use Duo\BehaviorBundle\Controller\PublishInterface;
+use Duo\BehaviorBundle\Controller\SoftDeleteInterface;
+use Duo\BehaviorBundle\Controller\SortInterface;
+use Duo\BehaviorBundle\Controller\VersionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PageController extends AbstractController
+/**
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
+ */
+class PageController extends AbstractController implements CloneInterface, PublishInterface, SoftDeleteInterface, SortInterface, VersionInterface
 {
-	use VersionTrait;
+	use CloneTrait;
+	use PublishTrait;
 	use SoftDeleteTrait;
 	use SortTrait;
-	use PublishTrait;
-	use CloneTrait;
+	use VersionTrait;
 
 	/**
 	 * {@inheritdoc}
@@ -64,6 +73,7 @@ class PageController extends AbstractController
 			->addField(new Field('duo.admin.listing.field.name', 'name'))
 			->addField(new Field('duo.admin.listing.field.title', 'title'))
 			->addField(new Field('duo.admin.listing.field.url', 'url'))
+			->addField(new Field('duo.admin.listing.field.online', 'published'))
 			->addField(new Field('duo.admin.listing.field.created_at', 'createdAt'))
 			->addField(new Field('duo.admin.listing.field.modified_at', 'modifiedAt'));
 	}
@@ -139,6 +149,8 @@ class PageController extends AbstractController
 	 *
 	 * @Route("/revert/{id}", name="duo_admin_listing_page_revert", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
+	 *
+	 * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
 	 */
     public function revertAction(Request $request, int $id)
 	{
@@ -161,6 +173,8 @@ class PageController extends AbstractController
 	 *
 	 * @Route("/undelete/{id}", name="duo_admin_listing_page_undelete", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
+	 *
+	 * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
 	 */
 	public function undeleteAction(Request $request, int $id)
 	{
@@ -183,6 +197,8 @@ class PageController extends AbstractController
 	 *
 	 * @Route("/move-down/{id}", name="duo_admin_listing_page_move_down", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
+	 *
+	 * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
 	 */
 	public function moveDownAction(Request $request, int $id)
 	{

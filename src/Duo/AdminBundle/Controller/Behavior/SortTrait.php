@@ -57,8 +57,7 @@ trait SortTrait
 			 * @var TraceableEventDispatcher $dispatcher
 			 */
 			$dispatcher = $this->get('event_dispatcher');
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($previousEntity));
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
 
 			/**
 			 * @var ObjectManager $em
@@ -121,8 +120,7 @@ trait SortTrait
 			 * @var TraceableEventDispatcher $dispatcher
 			 */
 			$dispatcher = $this->get('event_dispatcher');
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($nextEntity));
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
 
 			/**
 			 * @var ObjectManager $em
@@ -216,13 +214,11 @@ trait SortTrait
 		if ($currentEntity !== null)
 		{
 			$entity->setWeight($currentEntity->getWeight());
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
-
 			$em->persist($entity);
 
 			$weight = $currentEntity->getWeight();
 			$currentEntity->setWeight($weight++);
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($currentEntity));
+			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $currentEntity));
 
 			$em->persist($currentEntity);
 
@@ -234,7 +230,7 @@ trait SortTrait
 			foreach ($entities as $entity)
 			{
 				$entity->setWeight($weight++);
-				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $currentEntity));
 
 				$em->persist($entity);
 			}
@@ -287,36 +283,4 @@ trait SortTrait
 
 		return new Response($error, 500);
 	}
-
-	/**
-	 * Move entity up
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function moveUpAction(Request $request, int $id);
-
-	/**
-	 * Move entity down
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function moveDownAction(Request $request, int $id);
-
-	/**
-	 * Move entity to
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 * @param int $weight
-	 * @param int $parentId [optional]
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function moveToAction(Request $request, int $id, int $weight, int $parentId = null);
 }

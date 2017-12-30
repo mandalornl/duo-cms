@@ -1,11 +1,9 @@
 import $ from 'jquery';
-import {modal} from "./confirm";
+import {confirm} from "./util/modal";
 
 $(() =>
 {
-	const $document = $(document);
-
-	$document.on('click', '[data-action]:not([data-action="save"])', modal((e) =>
+	$(document).on('click', '[data-modal="confirm"]', confirm((e) =>
 	{
 		location.href = $(e.target).attr('href');
 	}));

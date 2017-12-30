@@ -16,10 +16,11 @@ services:
     Duo\SecurityBundle\EventSubscriber\UserSubscriber:
         arguments:
             $encoder: '@security.password_encoder'
+            $validator: '@validator'
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\SecurityBundle\Helper\UserHelper:
+    Duo\SecurityBundle\Helper\TokenHelper:
         public: true
         arguments:
             $tokenStorage: '@security.token_storage'

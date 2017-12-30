@@ -5,7 +5,7 @@ namespace Duo\SecurityBundle\Helper;
 use Duo\SecurityBundle\Entity\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UserHelper
+class TokenHelper
 {
 	/**
 	 * @var TokenStorageInterface
@@ -13,7 +13,7 @@ class UserHelper
 	private $tokenStorage;
 
 	/**
-	 * UserHelper constructor
+	 * TokenHelper constructor
 	 *
 	 * @param TokenStorageInterface $tokenStorage
 	 */

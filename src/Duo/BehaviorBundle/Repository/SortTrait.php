@@ -4,6 +4,7 @@ namespace Duo\BehaviorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\VersionInterface;
@@ -16,7 +17,7 @@ trait SortTrait
 	 * @param SortInterface $entity
 	 * @param int $limit [optional]
 	 *
-	 * @return SortInterface
+	 * @return SortInterface|SortInterface[]
 	 */
 	public function findNextWeight(SortInterface $entity, int $limit = 1)
 	{
@@ -26,8 +27,7 @@ trait SortTrait
 		$builder = $this->createQueryBuilder('e')
 			->where('e.weight > :weight')
 			->setParameter('weight', $entity->getWeight())
-			->addOrderBy('e.weight', 'ASC')
-			->setMaxResults($limit);
+			->addOrderBy('e.weight', 'ASC');
 
 		// use parent of entity
 		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)
@@ -43,16 +43,30 @@ trait SortTrait
 			$builder->andWhere('e.version = e.id');
 		}
 
-		try
+		// ignore deleted
+		if ($entity instanceof SoftDeleteInterface)
 		{
-			return $builder
-				->getQuery()
-				->getOneOrNullResult();
+			$builder->andWhere('e.deletedAt IS NULL');
 		}
-		catch (NonUniqueResultException $e)
+
+		if ($limit === 1)
 		{
-			return null;
+			try
+			{
+				return $builder
+					->getQuery()
+					->getOneOrNullResult();
+			}
+			catch (NonUniqueResultException $e)
+			{
+				return null;
+			}
 		}
+
+		return $builder
+			->setMaxResults($limit)
+			->getQuery()
+			->getResult();
 	}
 
 	/**
@@ -61,7 +75,7 @@ trait SortTrait
 	 * @param SortInterface $entity
 	 * @param int $limit [optional]
 	 *
-	 * @return SortInterface
+	 * @return SortInterface|SortInterface[]
 	 */
 	public function findPreviousWeight(SortInterface $entity, int $limit = 1)
 	{
@@ -71,8 +85,7 @@ trait SortTrait
 		$builder = $this->createQueryBuilder('e')
 			->where('e.weight < :weight')
 			->setParameter('weight', $entity->getWeight())
-			->addOrderBy('e.weight', 'DESC')
-			->setMaxResults($limit);
+			->addOrderBy('e.weight', 'DESC');
 
 		// use parent of entity
 		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)
@@ -88,15 +101,29 @@ trait SortTrait
 			$builder->andWhere('e.version = e.id');
 		}
 
-		try
+		// ignore deleted
+		if ($entity instanceof SoftDeleteInterface)
 		{
-			return $builder
-				->getQuery()
-				->getOneOrNullResult();
+			$builder->andWhere('e.deletedAt IS NULL');
 		}
-		catch (NonUniqueResultException $e)
+
+		if ($limit === 1)
 		{
-			return null;
+			try
+			{
+				return $builder
+					->getQuery()
+					->getOneOrNullResult();
+			}
+			catch (NonUniqueResultException $e)
+			{
+				return null;
+			}
 		}
+
+		return $builder
+			->setMaxResults($limit)
+			->getQuery()
+			->getResult();
 	}
 }

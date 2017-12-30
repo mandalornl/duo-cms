@@ -12,8 +12,8 @@ duo:
                 new: New %type%
                 save: Save
                 cancel: Cancel
-                publish: Publish
-                unpublish: Unpublish
+                publish: Online
+                unpublish: Offline
                 preview: Preview
                 delete: Delete
                 undelete: Undelete
@@ -37,10 +37,16 @@ duo:
                 name: Name
                 title: Title
                 url: Url
+                online: Online
                 username: Username
                 active: Active
                 created_at: Created At
                 modified_at: Modified At
+
+            action:
+                move_up: Move up
+                move_down: Move down
+                delete: Delete
 
         modal:
             global:

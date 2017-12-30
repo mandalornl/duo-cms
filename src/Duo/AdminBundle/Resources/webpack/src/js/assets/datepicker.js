@@ -18,7 +18,8 @@ const init = (options = {}, selector = '.datepicker') =>
 		}
 
 		const options = $.extend({}, {
-
+			calendarWeeks: true,
+			clearBtn: true
 		}, options);
 
 		$this.datepicker(options).data('initalized.datepicker', true);

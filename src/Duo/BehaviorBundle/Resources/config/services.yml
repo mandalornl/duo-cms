@@ -10,11 +10,12 @@ services:
         resource: '../../*'
         exclude: '../../{Entity,Repository,Tests}'
 
-    Duo\BehaviorBundle\EventListener\SortListener:
+    Duo\BehaviorBundle\EventListener\SoftDeleteListener:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
         tags:
-            - { name: kernel.event_listener, event: duo.behavior.event.onSort, method: onSort }
+            - { name: kernel.event_listener, event: duo.behavior.event.onDelete, method: onDelete }
+            - { name: kernel.event_listener, event: duo.behavior.event.onUndelete, method: onUndelete }
 
     Duo\BehaviorBundle\EventListener\VersionListener:
         arguments:
@@ -25,7 +26,7 @@ services:
 
     Duo\BehaviorBundle\EventSubscriber\PublishSubscriber:
         arguments:
-            $helper: '@Duo\SecurityBundle\Helper\UserHelper'
+            $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
         tags:
             - { name: doctrine.event_subscriber }
 
@@ -35,7 +36,7 @@ services:
 
     Duo\BehaviorBundle\EventSubscriber\SoftDeleteSubscriber:
         arguments:
-            $helper: '@Duo\SecurityBundle\Helper\UserHelper'
+            $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
         tags:
             - { name: doctrine.event_subscriber }
 
@@ -45,7 +46,7 @@ services:
 
     Duo\BehaviorBundle\EventSubscriber\TimeStampSubscriber:
         arguments:
-            $helper: '@Duo\SecurityBundle\Helper\UserHelper'
+            $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
         tags:
             - { name: doctrine.event_subscriber }
 

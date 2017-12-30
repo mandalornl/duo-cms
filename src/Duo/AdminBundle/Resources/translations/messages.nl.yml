@@ -12,8 +12,8 @@ duo:
                 new: Nieuwe %type%
                 save: Opslaan
                 cancel: Annuleren
-                publish: Publiceren
-                unpublish: Depubliceren
+                publish: Online
+                unpublish: Offline
                 preview: Preview
                 delete: Verwijderen
                 undelete: Herstellen
@@ -37,10 +37,16 @@ duo:
                 name: Naam
                 title: Titel
                 url: Url
+                online: Online
                 username: Gebruikersnaam
                 active: Actief
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
+
+            action:
+                move_up: Verplaats omhoog
+                move_down: Verplaats omlaag
+                delete: Verwijderen
 
         modal:
             global:

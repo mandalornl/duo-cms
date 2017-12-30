@@ -132,24 +132,4 @@ trait PublishTrait
 		}
 		return new Response($error, 500);
 	}
-
-	/**
-	 * Publish action
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function publishAction(Request $request, int $id);
-
-	/**
-	 * Unpublish action
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function unpublishAction(Request $request, int $id);
 }

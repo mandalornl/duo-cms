@@ -4,15 +4,13 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
-
-        duo_security_provider:
+        admin:
             entity:
                 class: Duo\SecurityBundle\Entity\User
 
     encoders:
-        Duo\SecurityBundle\Entity\User:
+        admin:
+            class: Duo\SecurityBundle\Entity\User
             algorithm: bcrypt
 
     firewalls:
@@ -21,14 +19,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+        admin:
+            pattern: ^/admin
+            provider: admin
+
             anonymous: ~
-            # activate different ways to authenticate
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
                 login_path: /admin/login
                 check_path: /admin/login
@@ -45,9 +41,20 @@ security:
                 lifetime: 604800 # 1 week
                 name: ADMIN_REMEMBERME
                 path: /admin
+                domain: ~
                 #secure: true
 
-            provider: duo_security_provider
+            logout_on_user_change: true
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
 
             logout_on_user_change: true
 
@@ -56,4 +63,10 @@ security:
         - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
-    role_hierarchy: ~
+    role_hierarchy:
+        ROLE_CAN_VIEW:
+        ROLE_CAN_EDIT:       ROLE_CAN_VIEW
+        ROLE_CAN_DELETE:     ROLE_CAN_EDIT
+        ROLE_CAN_PUBLISH:    ROLE_CAN_EDIT
+        ROLE_ADMIN:          ROLE_USER
+        ROLE_SUPER_ADMIN:   [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]

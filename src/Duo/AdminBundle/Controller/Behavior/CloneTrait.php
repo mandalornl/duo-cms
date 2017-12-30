@@ -60,14 +60,4 @@ trait CloneTrait
 			'id' => $clone->getId()
 		]);
 	}
-
-	/**
-	 * Duplicate entity
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function duplicateAction(Request $request, int $id);
 }

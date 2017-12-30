@@ -1,0 +1,39 @@
+pages:
+    label: Pages
+    route: /admin/page
+media:
+    label: Media
+    route: /admin/media
+forms:
+    label: Forms
+    route: /admin/form
+modules:
+    label: Modules
+    children:
+        taxonomies:
+            label: Taxonomies
+            route: /admin/modules/taxonomy
+security:
+    label: Security
+    children:
+        users:
+            label: Users
+            route: /admin/security/user
+        groups:
+            label: Groups
+            route: /admin/security/group
+        roles:
+            label: Roles
+            route: /admin/security/role
+settings:
+    label: Settings
+    children:
+        translations:
+            label: Translations
+            route: /admin/settings/translation
+        redirects:
+            label: Redirects
+            route: /admin/settings/redirect
+        robots:
+            label: Robots
+            route: /admin/settings/robots

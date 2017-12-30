@@ -2,14 +2,14 @@ import $ from 'jquery';
 import 'bootstrap/js/dist/modal';
 
 /**
- * Open modal
+ * Open confirm dialog
  *
  * @param {Function} callback
  * @param {string} [selector]
  *
  * @returns {function(*=)}
  */
-const modal = (callback, selector = '#modal_confirm') =>
+const confirm = (callback, selector = '#modal_confirm') =>
 {
 	return (e) =>
 	{
@@ -31,4 +31,4 @@ const modal = (callback, selector = '#modal_confirm') =>
 	};
 };
 
-export {modal};
+export {confirm};

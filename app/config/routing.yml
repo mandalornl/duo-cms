@@ -5,3 +5,7 @@ duo_security:
 duo_admin:
     resource: '@DuoAdminBundle/Resources/config/routing.yml'
     prefix: /admin
+
+app:
+    resource: '@AppBundle/Resources/config/routing.yml'
+    prefix: /

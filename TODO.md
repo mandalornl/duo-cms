@@ -4,7 +4,8 @@
 
 - SecurityBundle (wip)
 - BehaviorBundle (wip)
-
-- Taxonomy namespace/bundle
+- FormBundle (wip, deferred)
 
 - Remember me, auto log in?
+
+- Pagination of listing

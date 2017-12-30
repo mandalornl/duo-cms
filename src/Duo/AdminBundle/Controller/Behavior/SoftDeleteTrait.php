@@ -5,6 +5,9 @@ namespace Duo\AdminBundle\Controller\Behavior;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
+use Duo\BehaviorBundle\Event\SoftDeleteEvent;
+use Duo\BehaviorBundle\Event\SoftDeleteEvents;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +40,12 @@ trait SoftDeleteTrait
 		}
 
 		$entity->delete();
+
+		/**
+		 * @var TraceableEventDispatcher $dispatcher
+		 */
+		$dispatcher = $this->get('event_dispatcher');
+		$dispatcher->dispatch(SoftDeleteEvents::DELETE, new SoftDeleteEvent($entity));
 
 		/**
 		 * @var ObjectManager $em
@@ -84,6 +93,12 @@ trait SoftDeleteTrait
 		$entity->undelete();
 
 		/**
+		 * @var TraceableEventDispatcher $dispatcher
+		 */
+		$dispatcher = $this->get('event_dispatcher');
+		$dispatcher->dispatch(SoftDeleteEvents::UNDELETE, new SoftDeleteEvent($entity));
+
+		/**
 		 * @var ObjectManager $em
 		 */
 		$em = $this->getDoctrine()->getManager();
@@ -127,24 +142,4 @@ trait SoftDeleteTrait
 
 		return new Response($error, 500);
 	}
-
-	/**
-	 * Delete entity
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function deleteAction(Request $request, int $id);
-
-	/**
-     * Undelete entity
-     *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|RedirectResponse|JsonResponse
-	 */
-	abstract public function undeleteAction(Request $request, int $id);
 }

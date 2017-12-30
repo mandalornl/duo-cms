@@ -5,27 +5,22 @@ namespace Duo\AdminBundle\Controller\Listing;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
-use Duo\AdminBundle\Controller\Behavior\SortTrait;
 use Duo\AdminBundle\Entity\Behavior\ViewInterface;
-use Duo\AdminBundle\Helper\ReflectionClassHelper;
-use Duo\BehaviorBundle\Entity\CloneInterface;
-use Duo\BehaviorBundle\Entity\PublishInterface;
-use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Controller;
+use Duo\BehaviorBundle\Entity;
 use Duo\BehaviorBundle\Event\VersionEvent;
 use Duo\BehaviorBundle\Event\VersionEvents;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as FrameworkController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class AbstractController extends Controller
+abstract class AbstractController extends FrameworkController
 {
 	/**
 	 * @var Collection
@@ -134,7 +129,7 @@ abstract class AbstractController extends Controller
 	 */
 	protected function preDecorateEntity($entity)
 	{
-		if ($entity instanceof TranslateInterface)
+		if ($entity instanceof Entity\TranslateInterface)
 		{
 			foreach ($this->getParameter('locales') as $locale)
 			{
@@ -156,7 +151,7 @@ abstract class AbstractController extends Controller
 	 */
 	protected function postDecorateEntity($entity)
 	{
-		if ($entity instanceof TranslateInterface)
+		if ($entity instanceof Entity\TranslateInterface)
 		{
 			$entity->mergeNewTranslations();
 		}
@@ -173,18 +168,30 @@ abstract class AbstractController extends Controller
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
-		$reflectionClass = new \ReflectionClass($this);
-
 		return $this->render($this->getListTemplate(), [
-			'list' => [
+			'list' => array_merge([
 				'type' => $this->getListType(),
 				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
-				'entities' => $this->getEntities(),
-				'isSortable' => ReflectionClassHelper::hasTrait($reflectionClass, SortTrait::class)
-			]
+				'entities' => $this->getEntities()
+			], $this->getListBehaviors())
 		]);
+	}
+
+	/**
+	 * Get list behaviors
+	 *
+	 * @return array
+	 */
+	private function getListBehaviors()
+	{
+		$reflectionClass = new \ReflectionClass($this);
+
+		return [
+			'isSortable' => $reflectionClass->implementsInterface(Controller\SortInterface::class),
+			'isSoftDeletable' => $reflectionClass->implementsInterface(Controller\SoftDeleteInterface::class)
+		];
 	}
 
 	/**
@@ -194,22 +201,25 @@ abstract class AbstractController extends Controller
 	 */
 	protected function getEntities(): array
 	{
-		$criteria = [];
-		$orderBy = null;
-
 		$reflectionClass = new \ReflectionClass($this->getEntityClassName());
 
+		/**
+		 * @var EntityRepository $repository
+		 */
+		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
+
+		$builder = $repository->createQueryBuilder('e');
+
 		// order by weight
-		if ($reflectionClass->implementsInterface(TreeInterface::class))
+		if ($reflectionClass->implementsInterface(Entity\TreeInterface::class))
 		{
-			$orderBy = [
-				'weight' => 'ASC',
-				'id' => 'ASC'
-			];
+			$builder
+				->addOrderBy('e.weight', 'ASC')
+				->addOrderBy('e.id', 'ASC');
 		}
 
 		// only fetch latest version of entities
-		if ($reflectionClass->implementsInterface(VersionInterface::class))
+		if ($reflectionClass->implementsInterface(Entity\VersionInterface::class))
 		{
 			/**
 			 * @var EntityManager $em
@@ -231,12 +241,18 @@ SQL;
 				return [];
 			}
 
-			$criteria = [
-				'id' => $ids
-			];
+			$builder
+				->andWhere('e.id IN(:ids)')
+				->setParameter('ids', $ids);
 		}
 
-		return $this->getDoctrine()->getRepository($this->getEntityClassName())->findBy($criteria, $orderBy);
+		// don't fetch deleted entities
+		if ($reflectionClass->implementsInterface(Entity\SoftDeleteInterface::class))
+		{
+			$builder->andWhere('e.deletedAt IS NULL');
+		}
+
+		return $builder->getQuery()->getResult();
 	}
 
 	/**
@@ -295,7 +311,7 @@ SQL;
 		}
 
 		// handle entity versioning
-		if ($entity instanceof VersionInterface)
+		if ($entity instanceof Entity\VersionInterface)
 		{
 			$clone = clone $entity;
 
@@ -372,12 +388,12 @@ SQL;
 	private function getEntityBehaviors($entity): array
 	{
 		return [
-			'isTranslatable' => $entity instanceof TranslateInterface,
-			'isPublishable' => $entity instanceof PublishInterface,
-			'isSoftDeletable' => $entity instanceof SoftDeleteInterface,
+			'isTranslatable' => $entity instanceof Entity\TranslateInterface,
+			'isPublishable' => $entity instanceof Entity\PublishInterface,
+			'isSoftDeletable' => $entity instanceof Entity\SoftDeleteInterface,
 			'isViewable' => $entity instanceof ViewInterface,
-			'isCloneable' => $entity instanceof CloneInterface,
-			'isVersionable' => $entity instanceof VersionInterface
+			'isCloneable' => $entity instanceof Entity\CloneInterface,
+			'isVersionable' => $entity instanceof Entity\VersionInterface
 		];
 	}
 
@@ -414,13 +430,38 @@ SQL;
 	}
 
 	/**
+	 * Destroy multiple
+	 *
+	 * @param Request $request
+	 *
+	 * @return Response|RedirectResponse|JsonResponse
+	 */
+	protected function doDestroyMultipleAction(Request $request)
+	{
+		$ids = $request->get('ids');
+
+		/**
+		 * @var EntityManager $em
+		 */
+		$em = $this->getDoctrine()->getManager();
+
+		$em->createQueryBuilder()
+			->delete($this->getEntityClassName(), 'e')
+			->where('e.id IN(:ids)')
+			->setParameter('ids', $ids)
+			->getQuery()->execute();
+
+		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
+	}
+
+	/**
 	 * Get list template
 	 *
 	 * @return string
 	 */
 	protected function getListTemplate(): string
 	{
-		return '@DuoAdmin/List/list.html.twig';
+		return '@DuoAdmin/Listing/list.html.twig';
 	}
 
 	/**
@@ -430,7 +471,7 @@ SQL;
 	 */
 	protected function getAddTemplate(): string
 	{
-		return '@DuoAdmin/List/add.html.twig';
+		return '@DuoAdmin/Listing/add.html.twig';
 	}
 
 	/**
@@ -440,7 +481,7 @@ SQL;
 	 */
 	protected function getEditTemplate(): string
 	{
-		return '@DuoAdmin/List/edit.html.twig';
+		return '@DuoAdmin/Listing/edit.html.twig';
 	}
 
 	/**

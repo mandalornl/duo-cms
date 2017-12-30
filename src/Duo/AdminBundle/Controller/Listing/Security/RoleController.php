@@ -1,23 +1,28 @@
 <?php
 
-namespace Duo\AdminBundle\Controller\Listing;
+namespace Duo\AdminBundle\Controller\Listing\Security;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Form\Listing\GroupType;
-use Duo\SecurityBundle\Entity\Group;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Form\Listing\RoleType;
+use Duo\SecurityBundle\Entity\Role;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GroupController extends AbstractController
+/**
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
+ */
+class RoleController extends AbstractController
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function getEntityClassName(): string
 	{
-		return Group::class;
+		return Role::class;
 	}
 
 	/**
@@ -25,7 +30,7 @@ class GroupController extends AbstractController
 	 */
 	protected function getFormClassName(): string
 	{
-		return GroupType::class;
+		return RoleType::class;
 	}
 
 	/**
@@ -35,7 +40,7 @@ class GroupController extends AbstractController
 	 */
 	protected function getListType(): string
 	{
-		return 'group';
+		return 'role';
 	}
 
 	/**
@@ -60,7 +65,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_group_index")
+	 * @Route("/", name="duo_admin_listing_role_index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -71,7 +76,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_group_add")
+	 * @Route("/add", name="duo_admin_listing_role_add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -82,7 +87,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="duo_admin_listing_group_edit", requirements={ "id" = "\d+" })
+	 * @Route("/edit/{id}", name="duo_admin_listing_role_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -93,7 +98,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_listing_group_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="duo_admin_listing_role_destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)

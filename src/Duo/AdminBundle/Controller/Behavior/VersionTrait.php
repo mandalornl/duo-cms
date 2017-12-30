@@ -137,26 +137,6 @@ trait VersionTrait
 	 */
 	protected function getVersionTemplate(): string
 	{
-		return '@DuoAdmin/List/version.html.twig';
+		return '@DuoAdmin/Listing/version.html.twig';
 	}
-
-	/**
-	 * Version action
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|JsonResponse
-	 */
-	abstract public function versionAction(Request $request, int $id);
-
-	/**
-	 * Revert action
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return Response|JsonResponse
-	 */
-	abstract public function revertAction(Request $request, int $id);
 }

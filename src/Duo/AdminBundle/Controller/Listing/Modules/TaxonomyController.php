@@ -1,23 +1,24 @@
 <?php
 
-namespace Duo\AdminBundle\Controller\Listing;
+namespace Duo\AdminBundle\Controller\Listing\Modules;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Form\Listing\RoleType;
-use Duo\SecurityBundle\Entity\Role;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Entity\Taxonomy;
+use Duo\AdminBundle\Form\Listing\TaxonomyType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-class RoleController extends AbstractController
+class TaxonomyController extends AbstractController
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function getEntityClassName(): string
 	{
-		return Role::class;
+		return Taxonomy::class;
 	}
 
 	/**
@@ -25,21 +26,19 @@ class RoleController extends AbstractController
 	 */
 	protected function getFormClassName(): string
 	{
-		return RoleType::class;
+		return TaxonomyType::class;
 	}
 
 	/**
-	 * Get route prefix
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	protected function getListType(): string
 	{
-		return 'role';
+		return 'taxonomy';
 	}
 
 	/**
-	 * Define filters
+	 * {@inheritdoc}
 	 */
 	protected function defineFilters(): void
 	{
@@ -47,7 +46,7 @@ class RoleController extends AbstractController
 	}
 
 	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -60,7 +59,7 @@ class RoleController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_role_index")
+	 * @Route("/", name="duo_admin_listing_taxonomy_index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -71,7 +70,7 @@ class RoleController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_role_add")
+	 * @Route("/add", name="duo_admin_listing_taxonomy_add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -82,7 +81,7 @@ class RoleController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="duo_admin_listing_role_edit", requirements={ "id" = "\d+" })
+	 * @Route("/edit/{id}", name="duo_admin_listing_taxonomy_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -93,7 +92,7 @@ class RoleController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_listing_role_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="duo_admin_listing_taxonomy_destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)

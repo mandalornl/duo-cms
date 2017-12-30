@@ -7,14 +7,14 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\BehaviorBundle\Entity\PublishInterface;
-use Duo\SecurityBundle\Helper\UserHelper;
+use Duo\SecurityBundle\Helper\TokenHelper;
 
 class PublishSubscriber implements EventSubscriber
 {
 	/**
-	 * @var UserHelper
+	 * @var TokenHelper
 	 */
-	private $helper;
+	private $tokenHelper;
 
 	/**
 	 * @var bool
@@ -24,11 +24,11 @@ class PublishSubscriber implements EventSubscriber
 	/**
 	 * PublishSubscriber constructor
 	 *
-	 * @param UserHelper $helper
+	 * @param TokenHelper $tokenHelper
 	 */
-	public function __construct(UserHelper $helper)
+	public function __construct(TokenHelper $tokenHelper)
 	{
-		$this->helper = $helper;
+		$this->tokenHelper = $tokenHelper;
 	}
 
 	/**
@@ -92,7 +92,7 @@ class PublishSubscriber implements EventSubscriber
 			return;
 		}
 
-		if (($user = $this->helper->getUser()) === null)
+		if (($user = $this->tokenHelper->getUser()) === null)
 		{
 			return;
 		}

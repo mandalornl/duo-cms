@@ -1,15 +1,20 @@
 <?php
 
-namespace Duo\AdminBundle\Controller\Listing;
+namespace Duo\AdminBundle\Controller\Listing\Security;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\AdminBundle\Form\Listing\UserType;
 use Duo\SecurityBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
+ */
 class UserController extends AbstractController
 {
 	/**

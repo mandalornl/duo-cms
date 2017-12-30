@@ -1,23 +1,28 @@
 <?php
 
-namespace Duo\AdminBundle\Controller\Listing;
+namespace Duo\AdminBundle\Controller\Listing\Security;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Entity\Taxonomy;
-use Duo\AdminBundle\Form\Listing\TaxonomyType;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Form\Listing\GroupType;
+use Duo\SecurityBundle\Entity\Group;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class TaxonomyController extends AbstractController
+/**
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
+ */
+class GroupController extends AbstractController
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function getEntityClassName(): string
 	{
-		return Taxonomy::class;
+		return Group::class;
 	}
 
 	/**
@@ -25,19 +30,21 @@ class TaxonomyController extends AbstractController
 	 */
 	protected function getFormClassName(): string
 	{
-		return TaxonomyType::class;
+		return GroupType::class;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Get route prefix
+	 *
+	 * @return string
 	 */
 	protected function getListType(): string
 	{
-		return 'taxonomy';
+		return 'group';
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Define filters
 	 */
 	protected function defineFilters(): void
 	{
@@ -45,7 +52,7 @@ class TaxonomyController extends AbstractController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Define fields
 	 */
 	protected function defineFields(): void
 	{
@@ -58,7 +65,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_taxonomy_index")
+	 * @Route("/", name="duo_admin_listing_group_index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -69,7 +76,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_taxonomy_add")
+	 * @Route("/add", name="duo_admin_listing_group_add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -80,7 +87,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="duo_admin_listing_taxonomy_edit", requirements={ "id" = "\d+" })
+	 * @Route("/edit/{id}", name="duo_admin_listing_group_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -91,7 +98,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_listing_taxonomy_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="duo_admin_listing_group_destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)

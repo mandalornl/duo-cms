@@ -45,7 +45,11 @@ class TestFixtures extends Fixture
 			'Super Administrator' => 'ROLE_SUPER_ADMIN',
 			'Administrator' => 'ROLE_ADMIN',
 			'User' => 'ROLE_USER',
-			'Anonymous' => 'IS_AUTHENTICATED_ANONYMOUSLY'
+			'Anonymous' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+			'Can view' => 'ROLE_CAN_VIEW',
+			'Can edit' => 'ROLE_CAN_EDIT',
+			'Can delete' => 'ROLE_CAN_DELETE',
+			'Can publish' => 'ROLE_CAN_PUBLISH'
 		 ] as $name => $roleName)
 		{
 			$role = (new Role())
@@ -81,14 +85,23 @@ class TestFixtures extends Fixture
 			'Super Administrators' => [
 				'ROLE_SUPER_ADMIN',
 				'ROLE_ADMIN',
-				'ROLE_USER'
+				'ROLE_USER',
+				'ROLE_CAN_VIEW',
+				'ROLE_CAN_EDIT',
+				'ROLE_CAN_DELETE',
+				'ROLE_CAN_PUBLISH'
 			],
 			'Administrators' => [
 				'ROLE_ADMIN',
-				'ROLE_USER'
+				'ROLE_USER',
+				'ROLE_CAN_VIEW',
+				'ROLE_CAN_EDIT',
+				'ROLE_CAN_DELETE',
+				'ROLE_CAN_PUBLISH'
 			],
 			'Users' => [
-				'ROLE_USER'
+				'ROLE_USER',
+				'ROLE_CAN_VIEW'
 			],
 			'Guests' => [
 				'IS_AUTHENTICATED_ANONYMOUSLY'
