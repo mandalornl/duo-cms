@@ -2,5 +2,6 @@ import $ from 'jquery';
 
 $(() =>
 {
-	const $sortable = $('.sortable');
+	//const $sortable = $('.sortable');
+	// TODO: implement
 });

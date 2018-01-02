@@ -5,6 +5,9 @@ duo:
                 yes: Ja
                 no: Nee
 
+            publish:
+                partially: Deels
+
         toolbar:
             toggle: Toggle werkbalk
             actions:
@@ -48,32 +51,50 @@ duo:
                 move_down: Verplaats omlaag
                 delete: Verwijderen
 
+        paginator:
+            label: Paginering
+            previous: Vorige
+            next: Volgende
+            current: Huidige
+
         modal:
             global:
                 close: Sluiten
                 cancel: Annuleren
                 ok: Ok
                 actions: Acties
+
             versions:
                 title: Versies
                 name: Naam
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+                created_by: Aangemaakt door
+                last_modified: Laatst gewijzigd
                 revert: Terugzetten
+                delete: Verwijderen
+
             revert:
-                title: Terugzetten?
+                title: Terugzetten
                 body: Weet u zeker dat u deze %type% wilt terugzetten?
+
             duplicate:
-                title: Dupliceren?
+                title: Dupliceren
                 body: Weet u zeker dat u deze %type% wilt dupliceren?
+
             delete:
-                title: Verwijderen?
+                title: Verwijderen
                 body: Weet u zeker dat u deze %type% wilt verwijderen?
+
             undelete:
-                title: Herstellen?
+                title: Herstellen
                 body: Weet u zeker dat u deze %type% wilt herstellen?
+
             publish:
                 title: Publiceren
+                body: Weet u zeker dat u deze %type% online wilt zetten?
+
+            unpublish:
+                title: Depubliceren
+                body: Weet u zeker dat u deze %type% offline wilt halen?
 
         form:
             confirm_choice:
@@ -143,9 +164,14 @@ duo:
                     label: Meta robotten
                     placeholder: Maak een keuze
 
+            publication:
+                publish_at: Publiceer op
+                unpublish_at: Depubliceer op
+
         tab:
             content: Content
             seo: Seo
             menu: Menu
             properties: Eigenschappen
             profile: Profiel
+            publication: Publicatie

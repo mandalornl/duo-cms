@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Form\Listing;
 
-use Duo\AdminBundle\Entity\Page;
+use Duo\AdminBundle\Entity\Page;;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\TaxonomyChoiceType;

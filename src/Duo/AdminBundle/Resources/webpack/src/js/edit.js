@@ -3,8 +3,8 @@ import {confirm} from "./util/modal";
 
 $(() =>
 {
-	$(document).on('click', '[data-modal="confirm"]', confirm((e) =>
+	$(document).on('click', '[data-modal="confirm"]', confirm(function()
 	{
-		location.href = $(e.target).attr('href');
+		location.href = $(this).attr('href');
 	}));
 });

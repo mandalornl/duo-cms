@@ -3,6 +3,7 @@
 namespace Duo\BehaviorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,7 +25,7 @@ interface VersionInterface
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	public function revertAction(Request $request, int $id);
 }

@@ -86,7 +86,19 @@ class UrlSubscriber implements EventSubscriber
 			$parent = $parent->getParent();
 		}
 
-		$entity->setUrl(implode('/', array_reverse($urls)));
+		$entity->setUrl($this->generateUrl($urls));
+	}
+
+	/**
+	 * Generate url
+	 *
+	 * @param array $urls
+	 *
+	 * @return string
+	 */
+	private function generateUrl(array $urls): string
+	{
+		return implode('/', array_reverse(array_filter($urls)));
 	}
 
 	/**
@@ -130,6 +142,6 @@ class UrlSubscriber implements EventSubscriber
 			$parent = $parent->getParent();
 		}
 
-		$entity->setUrl(implode('/', array_reverse($urls)));
+		$entity->setUrl($this->generateUrl($urls));
 	}
 }

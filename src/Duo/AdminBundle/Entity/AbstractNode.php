@@ -8,7 +8,7 @@ use Duo\AdminBundle\Entity\Behavior\TaxonomyInterface;
 use Duo\AdminBundle\Entity\Behavior\TaxonomyTrait;
 use Duo\BehaviorBundle\Entity\CloneTrait;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\SoftDeleteTrait;
+use Duo\BehaviorBundle\Entity\DeleteTrait;
 use Duo\BehaviorBundle\Entity\SortTrait;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
 use Duo\BehaviorBundle\Entity\TranslateTrait;
@@ -19,7 +19,7 @@ abstract class AbstractNode implements NodeInterface, TaxonomyInterface
 {
 	use IdTrait;
 	use TaxonomyTrait;
-	use SoftDeleteTrait;
+	use DeleteTrait;
 	use TranslateTrait;
 	use SortTrait;
 	use CloneTrait;

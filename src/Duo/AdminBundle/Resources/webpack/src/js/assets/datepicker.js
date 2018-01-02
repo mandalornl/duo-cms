@@ -19,10 +19,11 @@ const init = (options = {}, selector = '.datepicker') =>
 
 		const options = $.extend({}, {
 			calendarWeeks: true,
-			clearBtn: true
+			clearBtn: true,
+			format: 'dd-mm-yyyy'
 		}, options);
 
-		$this.datepicker(options).data('initalized.datepicker', true);
+		$this.attr('placeholder', options.format).datepicker(options).data('initalized.datepicker', true);
 	});
 };
 

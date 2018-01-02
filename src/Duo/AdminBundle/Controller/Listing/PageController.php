@@ -5,14 +5,14 @@ namespace Duo\AdminBundle\Controller\Listing;
 use Duo\AdminBundle\Configuration\Field;
 use Duo\AdminBundle\Controller\Behavior\CloneTrait;
 use Duo\AdminBundle\Controller\Behavior\VersionTrait;
-use Duo\AdminBundle\Controller\Behavior\SoftDeleteTrait;
+use Duo\AdminBundle\Controller\Behavior\DeleteTrait;
 use Duo\AdminBundle\Controller\Behavior\SortTrait;
 use Duo\AdminBundle\Controller\Behavior\PublishTrait;
 use Duo\AdminBundle\Entity\Page;
 use Duo\AdminBundle\Form\Listing\PageType;
 use Duo\BehaviorBundle\Controller\CloneInterface;
 use Duo\BehaviorBundle\Controller\PublishInterface;
-use Duo\BehaviorBundle\Controller\SoftDeleteInterface;
+use Duo\BehaviorBundle\Controller\DeleteInterface;
 use Duo\BehaviorBundle\Controller\SortInterface;
 use Duo\BehaviorBundle\Controller\VersionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -24,11 +24,11 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
-class PageController extends AbstractController implements CloneInterface, PublishInterface, SoftDeleteInterface, SortInterface, VersionInterface
+class PageController extends AbstractController implements CloneInterface, PublishInterface, DeleteInterface, SortInterface, VersionInterface
 {
 	use CloneTrait;
 	use PublishTrait;
-	use SoftDeleteTrait;
+	use DeleteTrait;
 	use SortTrait;
 	use VersionTrait;
 
@@ -72,8 +72,8 @@ class PageController extends AbstractController implements CloneInterface, Publi
 		$this
 			->addField(new Field('duo.admin.listing.field.name', 'name'))
 			->addField(new Field('duo.admin.listing.field.title', 'title'))
-			->addField(new Field('duo.admin.listing.field.url', 'url'))
-			->addField(new Field('duo.admin.listing.field.online', 'published'))
+			->addField(new Field('duo.admin.listing.field.url', 'url', true, '@DuoAdmin/Listing/Field/url.html.twig'))
+			->addField(new Field('duo.admin.listing.field.online', 'published', true, '@DuoAdmin/Listing/Field/published.html.twig'))
 			->addField(new Field('duo.admin.listing.field.created_at', 'createdAt'))
 			->addField(new Field('duo.admin.listing.field.modified_at', 'modifiedAt'));
 	}
@@ -103,7 +103,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="duo_admin_listing_page_edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="duo_admin_listing_page_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)

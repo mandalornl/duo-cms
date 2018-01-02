@@ -4,8 +4,6 @@ namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\AdminBundle\Entity\Behavior\ViewInterface;
-use Duo\BehaviorBundle\Entity\PublishInterface;
-use Duo\BehaviorBundle\Entity\PublishTrait;
 use Duo\BehaviorBundle\Entity\TranslationInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\TreeTrait;
@@ -14,10 +12,9 @@ use Duo\BehaviorBundle\Entity\TreeTrait;
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="Duo\AdminBundle\Repository\PageRepository")
  */
-class Page extends AbstractNode implements TreeInterface, PublishInterface, ViewInterface
+class Page extends AbstractNode implements TreeInterface, ViewInterface
 {
 	use TreeTrait;
-    use PublishTrait;
 
 	/**
 	 * {@inheritdoc}

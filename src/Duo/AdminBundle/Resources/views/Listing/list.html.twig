@@ -1,38 +1,37 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
 {% block toolbar %}
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
 		<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_index') }}" class="navbar-brand">Duo</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_{{ list.type }}" aria-controls="navbar_{{ list.type }}" aria-expanded="false" aria-label="{{ 'duo.admin.toolbar.toggler_label' | trans }}">
-			<i class="navbar-toggler-icon"></i>
-		</button>
-		<div class="collapse navbar-collapse justify-content-end" id="navbar_{{ list.type }}">
-			<form class="form-inline my-2 my-lg-0">
-				<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
+		<form class="form-inline my-2 my-lg-0">
+			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
+				<div class="btn-group" role="group">
 					<div class="btn-group" role="group">
-						<div class="btn-group" role="group">
-							<button id="actions_{{ list.type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
-								{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
+						<button id="actions_{{ list.type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
+						</button>
+						<div class="dropdown-menu" aria-labelledby="actions_{{ list.type }}">
+							<button type="button" class="dropdown-item" data-toggle="modal" data-target="">
+								{{- 'duo.admin.listing.action.delete' | trans -}}
 							</button>
-							<div class="dropdown-menu" aria-labelledby="actions_{{ list.type }}">
-								<button type="button" class="dropdown-item" data-toggle="modal" data-target="">
-									{{- 'duo.admin.listing.action.delete' | trans -}}
-								</button>
-							</div>
 						</div>
-						<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_add') }}" class="btn btn-primary">
-							{{- 'duo.admin.toolbar.actions.new' | trans({
-								'%type%': list.localizedType
-							}) -}}
-						</a>
 					</div>
+					<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_add') }}" class="btn btn-primary">
+						{{- 'duo.admin.toolbar.actions.new' | trans({
+							'%type%': list.localizedType
+						}) -}}
+					</a>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</nav>
 {% endblock %}
 
 {% block content %}
+	{% if paginator.canPaginate() %}
+		{{ paginator_widget(paginator, path('duo_admin_listing_' ~ list.type ~ '_index')) }}
+	{% endif %}
+
 	{% set uniqid = random() %}
 	<form action="javascript:;" method="post" class="form-list">
 		<div class="table-responsive">
@@ -41,7 +40,7 @@
 					<tr>
 						<th>
 							<label for="{{ uniqid }}_all" class="custom-control custom-checkbox">
-								<input type="checkbox" id="{{ uniqid }}_all" class="custom-control-input"{% if not list.entities | length %} disabled{% endif %}>
+								<input type="checkbox" id="{{ uniqid }}_all" class="custom-control-input"{% if not paginator.count %} disabled{% endif %}>
 								<span class="custom-control-indicator"></span>
 							</label>
 						</th>
@@ -54,7 +53,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for entity in list.entities %}
+					{% for entity in paginator.result %}
 						<tr data-url="{{ path('duo_admin_listing_' ~ list.type ~ '_edit', { id: entity.id }) }}">
 							<td>
 								<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control custom-checkbox">
@@ -80,7 +79,7 @@
 										<i class="icon-arrow-down"></i>
 									</a>
 								{% endif %}
-								{% if list.isSoftDeletable %}
+								{% if list.isDeletable %}
 									<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_delete', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
 										<i class="icon-bin"></i>
 									</a>

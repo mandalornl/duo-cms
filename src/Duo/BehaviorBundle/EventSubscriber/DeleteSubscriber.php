@@ -6,10 +6,10 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
+use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\SecurityBundle\Helper\TokenHelper;
 
-class SoftDeleteSubscriber implements EventSubscriber
+class DeleteSubscriber implements EventSubscriber
 {
 	/**
 	 * @var TokenHelper
@@ -17,7 +17,7 @@ class SoftDeleteSubscriber implements EventSubscriber
 	private $tokenHelper;
 
 	/**
-	 * SoftDeleteSubscriber constructor
+	 * DeleteSubscriber constructor
 	 *
 	 * @param TokenHelper $tokenHelper
 	 */
@@ -64,7 +64,7 @@ class SoftDeleteSubscriber implements EventSubscriber
 	 */
 	public function setDeletedBy($entity)
 	{
-		if (!$entity instanceof SoftDeleteInterface || !$entity->isDeleted())
+		if (!$entity instanceof DeleteInterface || !$entity->isDeleted())
 		{
 			return;
 		}

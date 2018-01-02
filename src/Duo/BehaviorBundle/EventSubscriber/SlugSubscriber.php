@@ -48,11 +48,11 @@ class SlugSubscriber implements EventSubscriber
 
 	/**
 	 * Set slug
-	 *
+	 * 
 	 * @param object $entity
 	 *
-     * @throws \IntlException
-     */
+	 * @throws \IntlException
+	 */
 	private function setSlug($entity)
 	{
 		if (!$entity instanceof SlugInterface)
@@ -60,6 +60,16 @@ class SlugSubscriber implements EventSubscriber
 			return;
 		}
 
-		$entity->setSlug(SlugifyHelper::slugify($entity->getValueToSlugify()));
+		// make sure slug is slugified
+		if (!empty($entity->getSlug()) && preg_match('#[^a-z0-9-]+#', $entity->getSlug()))
+		{
+			$entity->setSlug(SlugifyHelper::slugify($entity->getSlug()));
+			return;
+		}
+
+		if ($entity->getSlug() !== '')
+		{
+			$entity->setSlug(SlugifyHelper::slugify($entity->getValueToSlugify()));
+		}
 	}
 }

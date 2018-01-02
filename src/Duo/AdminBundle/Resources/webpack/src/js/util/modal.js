@@ -7,15 +7,14 @@ import 'bootstrap/js/dist/modal';
  * @param {Function} callback
  * @param {string} [selector]
  *
- * @returns {function(*=)}
  */
 const confirm = (callback, selector = '#modal_confirm') =>
 {
-	return (e) =>
+	return function(e)
 	{
 		e.preventDefault();
 
-		const $this = $(e.target);
+		const $this = $(this);
 		const $modal = $(selector);
 
 		$modal.on('show.bs.modal', () =>
@@ -25,7 +24,7 @@ const confirm = (callback, selector = '#modal_confirm') =>
 
 			$modal.on('click', '.btn:not([data-dismiss])', () =>
 			{
-				callback(e);
+				callback.call(this);
 			});
 		}).modal('show');
 	};

@@ -8,4 +8,6 @@
 
 - Remember me, auto log in?
 
-- Pagination of listing
+- Upgrade to Symfony 4.x
+
+- Dirty user when plainPassword is set

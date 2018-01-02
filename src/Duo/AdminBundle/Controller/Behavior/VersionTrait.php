@@ -10,6 +10,7 @@ use Duo\BehaviorBundle\Event\VersionEvents;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,12 +32,12 @@ trait VersionTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
 		if (!$entity instanceof VersionInterface)
 		{
-			return $this->versionableInterfaceNotImplemented($id, $request);
+			return $this->versionInterfaceNotImplemented($request, $id);
 		}
 
 		/**
@@ -58,7 +59,7 @@ trait VersionTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doRevertAction(Request $request, int $id)
 	{
@@ -68,12 +69,12 @@ trait VersionTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
 		if (!$entity instanceof VersionInterface)
 		{
-			return $this->versionableInterfaceNotImplemented($id, $request);
+			return $this->versionInterfaceNotImplemented($request, $id);
 		}
 
 		/**
@@ -89,7 +90,8 @@ trait VersionTrait
 		$em->persist($entity);
 		$em->flush();
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -110,14 +112,15 @@ trait VersionTrait
 	 * @param int $id
 	 * @param Request $request
 	 *
-	 * @return Response|JsonResponse
+	 * @return JsonResponse
 	 */
-	private function versionableInterfaceNotImplemented(int $id, Request $request)
+	private function versionInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = VersionInterface::class;
-		$error = "Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -127,7 +130,7 @@ trait VersionTrait
 			]);
 		}
 
-		return new Response($error, 500);
+		throw $this->createNotFoundException($error);
 	}
 
 	/**

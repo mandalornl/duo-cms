@@ -4,6 +4,7 @@ namespace Duo\BehaviorBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 trait TranslateTrait
 {
@@ -37,18 +38,16 @@ trait TranslateTrait
 			return null;
 		}
 
-		$propertyName = lcfirst(preg_replace('#^set|get#', '', $name));
-
-		$reflectionClass = new \ReflectionClass($entity);
-		$property = $reflectionClass->getProperty($propertyName);
-		$property->setAccessible(true);
+		$accessor = PropertyAccess::createPropertyAccessor();
 
 		if (count($arguments))
 		{
-			$property->setValue($entity, $arguments[0]);
+			$accessor->setValue($entity, $name, $arguments[0]);
+
+			return $entity;
 		}
 
-		return $property->getValue($entity);
+		return $accessor->getValue($entity, $name);
 	}
 
 	/**

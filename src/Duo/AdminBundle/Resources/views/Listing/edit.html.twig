@@ -1,11 +1,8 @@
 {% extends '@DuoAdmin/Listing/add.html.twig' %}
 
 {% block modal %}
-	{{ parent() }}
 	{% if isVersionable %}
 		{% include '@DuoAdmin/Listing/Modal/versions.html.twig' %}
 	{% endif %}
-	{% if isPublishable %}
-		{% include '@DuoAdmin/Listing/Modal/publish.html.twig' %}
-	{% endif %}
+	{{ parent() }}
 {% endblock %}

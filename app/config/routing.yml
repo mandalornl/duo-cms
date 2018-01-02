@@ -6,6 +6,10 @@ duo_admin:
     resource: '@DuoAdminBundle/Resources/config/routing.yml'
     prefix: /admin
 
+duo_url:
+    resource: .
+    type: url
+
 app:
     resource: '@AppBundle/Resources/config/routing.yml'
     prefix: /

@@ -4,11 +4,11 @@ namespace Duo\BehaviorBundle\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
+use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Event\SoftDeleteEvent;
+use Duo\BehaviorBundle\Event\DeleteEvent;
 
-class SoftDeleteListener
+class DeleteListener
 {
 	/**
 	 * @var EntityManager
@@ -16,7 +16,7 @@ class SoftDeleteListener
 	private $entityManager;
 
 	/**
-	 * SoftDeleteListener constructor
+	 * DeleteListener constructor
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
@@ -28,9 +28,9 @@ class SoftDeleteListener
 	/**
 	 * On delete event
 	 *
-	 * @param SoftDeleteEvent $event
+	 * @param DeleteEvent $event
 	 */
-	public function onDelete(SoftDeleteEvent $event)
+	public function onDelete(DeleteEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -43,9 +43,9 @@ class SoftDeleteListener
 	/**
 	 * On undelete event
 	 *
-	 * @param SoftDeleteEvent $event
+	 * @param DeleteEvent $event
 	 */
-	public function onUndelete(SoftDeleteEvent $event)
+	public function onUndelete(DeleteEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -65,7 +65,7 @@ class SoftDeleteListener
 		foreach ($entity->getChildren() as $child)
 		{
 			/**
-			 * @var SoftDeleteInterface|TreeInterface $child
+			 * @var DeleteInterface|TreeInterface $child
 			 */
 			$child->delete();
 
@@ -83,7 +83,7 @@ class SoftDeleteListener
 		foreach ($entity->getChildren() as $child)
 		{
 			/**
-			 * @var SoftDeleteInterface|TreeInterface $child
+			 * @var DeleteInterface|TreeInterface $child
 			 */
 			$child->undelete();
 

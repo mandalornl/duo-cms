@@ -6,10 +6,7 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
-            "Duo\\AdminBundle\\": "src/Duo/AdminBundle",
-            "Duo\\SecurityBundle\\": "src/Duo/SecurityBundle",
-            "Duo\\BehaviorBundle\\": "src/Duo/BehaviorBundle",
-            "Duo\\FormBundle\\": "src/Duo/FormBundle"
+            "Duo\\": "src/Duo"
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },

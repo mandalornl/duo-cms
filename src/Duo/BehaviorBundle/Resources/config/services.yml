@@ -10,7 +10,7 @@ services:
         resource: '../../*'
         exclude: '../../{Entity,Repository,Tests}'
 
-    Duo\BehaviorBundle\EventListener\SoftDeleteListener:
+    Duo\BehaviorBundle\EventListener\DeleteListener:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
         tags:
@@ -34,7 +34,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber, priority: 16 }
 
-    Duo\BehaviorBundle\EventSubscriber\SoftDeleteSubscriber:
+    Duo\BehaviorBundle\EventSubscriber\DeleteSubscriber:
         arguments:
             $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
         tags:

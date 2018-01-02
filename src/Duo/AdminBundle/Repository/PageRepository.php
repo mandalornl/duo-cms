@@ -2,54 +2,28 @@
 
 namespace Duo\AdminBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Entity\Page;
-use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
 use Duo\BehaviorBundle\Repository\SortTrait;
 
-class PageRepository extends EntityRepository
+class PageRepository extends AbstractEntityRepository
 {
 	use SortTrait;
-
-	/**
-	 * Get query builder
-	 *
-	 * @return QueryBuilder
-	 */
-	private function getQueryBuilder(): QueryBuilder
-	{
-		$builder = $this->createQueryBuilder('e');
-
-		$reflectionClass = $this->getClassMetadata()->getReflectionClass();
-		if ($reflectionClass->implementsInterface(VersionInterface::class))
-		{
-			$builder->andWhere('e.version = e.id');
-		}
-
-		if ($reflectionClass->implementsInterface(SoftDeleteInterface::class))
-		{
-			$builder->andWhere('e.deletedAt IS NULL');
-		}
-
-		return $builder;
-	}
 
 	/**
 	 * Find one by id
 	 *
 	 * @param int $id
+	 * @param string $locale [optional]
 	 *
 	 * @return Page
 	 */
-	public function findById(int $id): ?Page
+	public function findById(int $id, string $locale = null): ?Page
 	{
 		try
 		{
-			return $this->getQueryBuilder()
+			return $this->getQueryBuilder($locale)
 				->andWhere('e.id = :id')
 				->setParameter('id', $id)
 				->getQuery()
@@ -65,27 +39,25 @@ class PageRepository extends EntityRepository
 	 * Find one by url
 	 *
 	 * @param string $url
+	 * @param string $locale [optional]
 	 *
 	 * @return Page
 	 */
-	public function findOneByUrl(string $url): ?Page
+	public function findOneByUrl(string $url, string $locale = null): ?Page
 	{
-		$builder = $this->getQueryBuilder();
+		$builder = $this->getQueryBuilder($locale);
+
+		$alias = 'e';
 
 		$reflectionClass = $this->getClassMetadata()->getReflectionClass();
 		if ($reflectionClass->implementsInterface(TranslateInterface::class))
 		{
-			$builder
-				->join('e.translations', 't')
-				->andWhere('t.url = :url')
-				->setParameter('url', $url);
+			$alias = 't';
 		}
-		else
-		{
-			$builder
-				->andWhere('e.url = :url')
-				->setParameter('url', $url);
-		}
+
+		$builder
+			->andWhere("{$alias}.url = :url")
+			->setParameter('url', $url);
 
 		try
 		{
@@ -103,14 +75,15 @@ class PageRepository extends EntityRepository
 	 * Find one by name
 	 *
 	 * @param string $name
+	 * @param string $locale [optional]
 	 *
 	 * @return Page
 	 */
-	public function findOneByName(string $name): ?Page
+	public function findOneByName(string $name, string $locale = null): ?Page
 	{
 		try
 		{
-			return $this->getQueryBuilder()
+			return $this->getQueryBuilder($locale)
 				->andWhere('e.name = :name')
 				->setParameter('name', $name)
 				->getQuery()

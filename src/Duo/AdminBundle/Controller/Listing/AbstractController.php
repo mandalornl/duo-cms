@@ -4,12 +4,14 @@ namespace Duo\AdminBundle\Controller\Listing;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
 use Duo\AdminBundle\Entity\Behavior\ViewInterface;
+use Duo\AdminBundle\Event\TwigEvent;
+use Duo\AdminBundle\Event\TwigEvents;
+use Duo\AdminBundle\Helper\PaginatorHelper;
+use Duo\AdminBundle\Twig\TwigContext;
 use Duo\BehaviorBundle\Controller;
 use Duo\BehaviorBundle\Entity;
 use Duo\BehaviorBundle\Event\VersionEvent;
@@ -169,12 +171,15 @@ abstract class AbstractController extends FrameworkController
 	protected function doIndexAction(Request $request): Response
 	{
 		return $this->render($this->getListTemplate(), [
+			'paginator' => $this->getPaginator(
+				$request->get('page'),
+				$request->get('limit')
+			),
 			'list' => array_merge([
 				'type' => $this->getListType(),
 				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
-				'entities' => $this->getEntities()
 			], $this->getListBehaviors())
 		]);
 	}
@@ -190,16 +195,19 @@ abstract class AbstractController extends FrameworkController
 
 		return [
 			'isSortable' => $reflectionClass->implementsInterface(Controller\SortInterface::class),
-			'isSoftDeletable' => $reflectionClass->implementsInterface(Controller\SoftDeleteInterface::class)
+			'isDeletable' => $reflectionClass->implementsInterface(Controller\DeleteInterface::class)
 		];
 	}
 
 	/**
-	 * Get entities
+	 * Get paginator
 	 *
-	 * @return array
+	 * @param int $page
+	 * @param int $limit
+	 *
+	 * @return PaginatorHelper
 	 */
-	protected function getEntities(): array
+	protected function getPaginator(int $page = null, int $limit = null): PaginatorHelper
 	{
 		$reflectionClass = new \ReflectionClass($this->getEntityClassName());
 
@@ -210,49 +218,41 @@ abstract class AbstractController extends FrameworkController
 
 		$builder = $repository->createQueryBuilder('e');
 
-		// order by weight
-		if ($reflectionClass->implementsInterface(Entity\TreeInterface::class))
-		{
-			$builder
-				->addOrderBy('e.weight', 'ASC')
-				->addOrderBy('e.id', 'ASC');
-		}
-
 		// only fetch latest version of entities
 		if ($reflectionClass->implementsInterface(Entity\VersionInterface::class))
 		{
-			/**
-			 * @var EntityManager $em
-			 */
-			$em = $this->getDoctrine()->getManager();
-
-			$tableName = $em->getClassMetadata($this->getEntityClassName())->getTableName();
-
-			$rsm = new ResultSetMapping();
-			$rsm->addScalarResult('id', 'id', 'integer');
-
-			$sql = <<<SQL
-SELECT version_id id FROM {$tableName} GROUP BY version_id
-SQL;
-
-			$ids = array_column($em->createNativeQuery($sql, $rsm)->getScalarResult(), 'id');
-			if (!count($ids))
-			{
-				return [];
-			}
-
-			$builder
-				->andWhere('e.id IN(:ids)')
-				->setParameter('ids', $ids);
+			$builder->andWhere('e.version = e.id');
 		}
 
 		// don't fetch deleted entities
-		if ($reflectionClass->implementsInterface(Entity\SoftDeleteInterface::class))
+		if ($reflectionClass->implementsInterface(Entity\DeleteInterface::class))
 		{
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
-		return $builder->getQuery()->getResult();
+		// order by weight
+		if ($reflectionClass->implementsInterface(Entity\SortInterface::class))
+		{
+			$builder
+				->orderBy('e.weight', 'ASC')
+				->addOrderBy('e.id', 'ASC');
+		}
+		else
+		{
+			// order by last modified
+			if ($reflectionClass->implementsInterface(Entity\TimeStampInterface::class))
+			{
+				$builder
+					->orderBy('e.modifiedAt', 'DESC')
+					->addOrderBy('e.id', 'ASC');
+			}
+		}
+
+		return (new PaginatorHelper($builder))
+			->setPage($page)
+			->setLimit($limit)
+			->setAdjacent(2)
+			->create();
 	}
 
 	/**
@@ -307,12 +307,20 @@ SQL;
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->entityNotFound($id);
+			return $this->entityNotFound($request, $id);
 		}
 
 		// handle entity versioning
 		if ($entity instanceof Entity\VersionInterface)
 		{
+			// redirect to latest version
+			if ($entity->getVersion() !== $entity)
+			{
+				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_edit", [
+					'id' => $entity->getVersion()->getId()
+				]);
+			}
+
 			$clone = clone $entity;
 
 			// pre submit state
@@ -344,12 +352,17 @@ SQL;
 				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 			}
 
-			return $this->render($this->getEditTemplate(), array_merge([
+			$context = new TwigContext(array_merge([
 				'form' => $form->createView(),
 				'entity' => $clone,
 				'type' => $this->getListType(),
 				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($clone)));
+
+			// dispatch onTwigContext event
+			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
+
+			return $this->render($this->getEditTemplate(), (array)$context);
 		}
 		else
 		{
@@ -369,12 +382,17 @@ SQL;
 				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 			}
 
-			return $this->render($this->getEditTemplate(), array_merge([
+			$context = new TwigContext(array_merge([
 				'form' => $form->createView(),
 				'entity' => $entity,
 				'type' => $this->getListType(),
 				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
 			], $this->getEntityBehaviors($entity)));
+
+			// dispatch onTwigContext event
+			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
+
+			return $this->render($this->getEditTemplate(), (array)$context);
 		}
 	}
 
@@ -389,8 +407,21 @@ SQL;
 	{
 		return [
 			'isTranslatable' => $entity instanceof Entity\TranslateInterface,
-			'isPublishable' => $entity instanceof Entity\PublishInterface,
-			'isSoftDeletable' => $entity instanceof Entity\SoftDeleteInterface,
+			'isPublishable' => call_user_func(function() use ($entity)
+			{
+				if ($entity instanceof Entity\PublishInterface)
+				{
+					return true;
+				}
+
+				if ($entity instanceof Entity\TranslateInterface)
+				{
+					return $entity->getTranslations()->first() instanceof Entity\PublishInterface;
+				}
+
+				return false;
+			}),
+			'isDeletable' => $entity instanceof Entity\DeleteInterface,
 			'isViewable' => $entity instanceof ViewInterface,
 			'isCloneable' => $entity instanceof Entity\CloneInterface,
 			'isVersionable' => $entity instanceof Entity\VersionInterface
@@ -403,21 +434,22 @@ SQL;
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doDestroyAction(Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
 		$em = $this->getDoctrine()->getManager();
 		$em->remove($entity);
 		$em->flush();
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -434,23 +466,25 @@ SQL;
 	 *
 	 * @param Request $request
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
+	 *
+	 * TODO: implement
 	 */
 	protected function doDestroyMultipleAction(Request $request)
 	{
-		$ids = $request->get('ids');
-
-		/**
-		 * @var EntityManager $em
-		 */
-		$em = $this->getDoctrine()->getManager();
-
-		$em->createQueryBuilder()
-			->delete($this->getEntityClassName(), 'e')
-			->where('e.id IN(:ids)')
-			->setParameter('ids', $ids)
-			->getQuery()->execute();
-
+//		$ids = $request->get('ids');
+//
+//		/**
+//		 * @var EntityManager $em
+//		 */
+//		$em = $this->getDoctrine()->getManager();
+//
+//		$em->createQueryBuilder()
+//			->delete($this->getEntityClassName(), 'e')
+//			->where('e.id IN(:ids)')
+//			->setParameter('ids', $ids)
+//			->getQuery()->execute();
+//
 		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 	}
 
@@ -487,16 +521,17 @@ SQL;
 	/**
 	 * Entity not found
 	 *
+	 * @param Request $request
 	 * @param int $id
-	 * @param Request $request [optional]
 	 *
-	 * @return Response|JsonResponse
+	 * @return JsonResponse
 	 */
-	protected function entityNotFound(int $id, Request $request = null)
+	protected function entityNotFound(Request $request, int $id): JsonResponse
 	{
-		$error = "Entity of type '{$this->getEntityClassName()}' with id '{$id}' not found";
+		$error = "Entity '{$this->getEntityClassName()}::{$id}' not found";
 
-		if ($request !== null && $request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -506,7 +541,31 @@ SQL;
 			]);
 		}
 
-		return new Response($error, 404);
+		throw $this->createNotFoundException($error);
+	}
+
+	/**
+	 * Redirect to referer
+	 *
+	 * @param string $fallbackUrl [optional]
+	 * @param Request $request [optional]
+	 *
+	 * @return RedirectResponse
+	 */
+	protected function redirectToReferer(string $fallbackUrl, Request $request = null): RedirectResponse
+	{
+		if ($request === null)
+		{
+			$request = $this->get('request_stack')->getCurrentRequest();
+		}
+
+		// use fallback route if referer is missing
+		if ($request->headers->get('referer') === null)
+		{
+			return $this->redirect($fallbackUrl);
+		}
+
+		return $this->redirect($request->headers->get('referer'));
 	}
 
 	/**
@@ -574,7 +633,7 @@ SQL;
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	abstract public function destroyAction(Request $request, int $id);
 }

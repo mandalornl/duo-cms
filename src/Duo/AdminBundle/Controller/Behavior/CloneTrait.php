@@ -8,7 +8,6 @@ use Duo\BehaviorBundle\Entity\VersionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 trait CloneTrait
 {
@@ -18,7 +17,7 @@ trait CloneTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doDuplicateAction(Request $request, int $id)
 	{
@@ -28,7 +27,7 @@ trait CloneTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
 		$clone = clone $entity;
@@ -46,7 +45,8 @@ trait CloneTrait
 		$em->persist($clone);
 		$em->flush();
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [

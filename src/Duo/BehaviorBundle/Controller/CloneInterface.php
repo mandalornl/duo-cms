@@ -5,7 +5,6 @@ namespace Duo\BehaviorBundle\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 interface CloneInterface
 {
@@ -15,7 +14,7 @@ interface CloneInterface
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	public function duplicateAction(Request $request, int $id);
 }

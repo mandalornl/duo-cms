@@ -13,7 +13,6 @@ use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 trait SortTrait
 {
@@ -23,61 +22,38 @@ trait SortTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doMoveUpAction(Request $request, int $id)
 	{
-		/**
-		 * @var AbstractController $this
-		 */
-		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
-
-		if (($entity = $repository->find($id)) === null)
+		return $this->handleBasicMovementRequest($request, $id, function(SortInterface $entity)
 		{
-			return $this->entityNotFound($id, $request);
-		}
-
-		if (!$entity instanceof SortInterface)
-		{
-			return $this->sortableInterfaceNotImplemented($id, $request);
-		}
-
-		/**
-		 * @var SortInterface $previousEntity
-		 */
-		$previousEntity = $repository->findPreviousWeight($entity);
-
-		if ($previousEntity !== null)
-		{
-			$weight = $previousEntity->getWeight();
-			$previousEntity->setWeight($entity->getWeight());
-			$entity->setWeight($weight);
-
 			/**
-			 * @var TraceableEventDispatcher $dispatcher
+			 * @var SortInterface $previousEntity
 			 */
-			$dispatcher = $this->get('event_dispatcher');
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
+			$previousEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findPreviousWeight($entity);
 
-			/**
-			 * @var ObjectManager $em
-			 */
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($previousEntity);
-			$em->persist($entity);
-			$em->flush();
-		}
+			if ($previousEntity !== null)
+			{
+				$weight = $previousEntity->getWeight();
+				$previousEntity->setWeight($entity->getWeight());
+				$entity->setWeight($weight);
 
-		if ($request->getMethod() === 'post')
-		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true
-				]
-			]);
-		}
+				/**
+				 * @var TraceableEventDispatcher $dispatcher
+				 */
+				$dispatcher = $this->get('event_dispatcher');
+				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
 
-		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
+				/**
+				 * @var ObjectManager $em
+				 */
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($previousEntity);
+				$em->persist($entity);
+				$em->flush();
+			}
+		});
 	}
 
 	/**
@@ -86,52 +62,70 @@ trait SortTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doMoveDownAction(Request $request, int $id)
+	{
+		return $this->handleBasicMovementRequest($request, $id, function(SortInterface $entity)
+		{
+			/**
+			 * @var SortInterface $nextEntity
+			 */
+			$nextEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findNextWeight($entity);
+
+			if ($nextEntity !== null)
+			{
+				$weight = $nextEntity->getWeight();
+				$nextEntity->setWeight($entity->getWeight());
+				$entity->setWeight($weight);
+
+				/**
+				 * @var TraceableEventDispatcher $dispatcher
+				 */
+				$dispatcher = $this->get('event_dispatcher');
+				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
+
+				/**
+				 * @var ObjectManager $em
+				 */
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($nextEntity);
+				$em->persist($entity);
+				$em->flush();
+			}
+		});
+	}
+
+	/**
+	 * Handle basic movement request
+	 *
+	 * @param Request $request
+	 * @param int $id
+	 * @param \Closure $callback
+	 *
+	 * @return RedirectResponse|JsonResponse
+	 */
+	private function handleBasicMovementRequest(Request $request, int $id, \Closure $callback)
 	{
 		/**
 		 * @var AbstractController $this
 		 */
-		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName());
 
-		if (($entity = $repository->find($id)) === null)
+		if ($entity === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
 		if (!$entity instanceof SortInterface)
 		{
-			return $this->sortableInterfaceNotImplemented($id, $request);
+			return $this->sortInterfaceNotImplemented($request, $id);
 		}
 
-		/**
-		 * @var SortInterface $nextEntity
-		 */
-		$nextEntity = $repository->findNextWeight($entity);
+		call_user_func($callback, $entity);
 
-		if ($nextEntity !== null)
-		{
-			$weight = $nextEntity->getWeight();
-			$nextEntity->setWeight($entity->getWeight());
-			$entity->setWeight($weight);
-
-			/**
-			 * @var TraceableEventDispatcher $dispatcher
-			 */
-			$dispatcher = $this->get('event_dispatcher');
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
-
-			/**
-			 * @var ObjectManager $em
-			 */
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($nextEntity);
-			$em->persist($entity);
-			$em->flush();
-		}
-
-		if ($request->getMethod() === 'post')
+		/// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -140,7 +134,10 @@ trait SortTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
+		return $this->redirectToReferer(
+			$this->generateUrl("duo_admin_listing_{$this->getListType()}_index"),
+			$request
+		);
 	}
 
 	/**
@@ -151,7 +148,7 @@ trait SortTrait
 	 * @param int $weight
 	 * @param int $parentId [optional]
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doMoveToAction(Request $request, int $id, int $weight, int $parentId = null)
 	{
@@ -162,12 +159,12 @@ trait SortTrait
 
 		if ((!$entity = $repository->find($id)) === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
 		if (!$entity instanceof SortInterface)
 		{
-			return $this->sortableInterfaceNotImplemented($id, $request);
+			return $this->sortInterfaceNotImplemented($request, $id);
 		}
 
 		$criteria = [
@@ -246,7 +243,8 @@ trait SortTrait
 			$em->flush();
 		}
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -255,7 +253,10 @@ trait SortTrait
 			]);
 		}
 
-		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
+		return $this->redirectToReferer(
+			$this->generateUrl("duo_admin_listing_{$this->getListType()}_index"),
+			$request
+		);
 	}
 
 	/**
@@ -264,14 +265,15 @@ trait SortTrait
 	 * @param int $id
 	 * @param Request $request
 	 *
-	 * @return Response|JsonResponse
+	 * @return JsonResponse
 	 */
-	private function sortableInterfaceNotImplemented(int $id, Request $request)
+	private function sortInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = SortInterface::class;
-		$error = "Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -281,6 +283,6 @@ trait SortTrait
 			]);
 		}
 
-		return new Response($error, 500);
+		throw $this->createNotFoundException($error);
 	}
 }

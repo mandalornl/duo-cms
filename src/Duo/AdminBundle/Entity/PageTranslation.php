@@ -3,6 +3,8 @@
 namespace Duo\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\BehaviorBundle\Entity\PublishInterface;
+use Duo\BehaviorBundle\Entity\PublishTrait;
 use Duo\BehaviorBundle\Entity\SlugInterface;
 use Duo\BehaviorBundle\Entity\SlugTrait;
 use Duo\BehaviorBundle\Entity\UrlInterface;
@@ -12,10 +14,11 @@ use Duo\BehaviorBundle\Entity\UrlTrait;
  * @ORM\Table(name="page_translation")
  * @ORM\Entity()
  */
-class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface
+class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface, PublishInterface
 {
 	use SlugTrait;
 	use UrlTrait;
+	use PublishTrait;
 
 	/**
 	 * @var string

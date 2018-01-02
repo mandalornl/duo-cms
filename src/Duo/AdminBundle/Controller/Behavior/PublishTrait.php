@@ -5,10 +5,13 @@ namespace Duo\AdminBundle\Controller\Behavior;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\BehaviorBundle\Entity\PublishInterface;
+use Duo\BehaviorBundle\Entity\TranslateInterface;
+use Duo\BehaviorBundle\Event\PublishEvent;
+use Duo\BehaviorBundle\Event\PublishEvents;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 trait PublishTrait
 {
@@ -18,46 +21,14 @@ trait PublishTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doPublishAction(Request $request, int $id)
 	{
-		/**
-		 * @var AbstractController $this
-		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
-		if ($entity === null)
+		return $this->handlePublicationRequest($request, $id, function(PublishInterface $entity)
 		{
-			return $this->entityNotFound($id, $request);
-		}
-
-		if (!$entity instanceof PublishInterface)
-		{
-			return $this->publishableInterfaceNotImplemented($id, $request);
-		}
-
-		$entity->publish();
-
-		/**
-		 * @var ObjectManager $em
-		 */
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($entity);
-		$em->flush();
-
-		if ($request->getMethod() === 'post')
-		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true,
-					'id' => $id
-				]
-			]);
-		}
-
-		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_edit", [
-			'id' => $id
-		]);
+			$entity->publish();
+		}, PublishEvents::PUBLISH);
 	}
 
 	/**
@@ -66,9 +37,27 @@ trait PublishTrait
 	 * @param Request $request
 	 * @param int $id
 	 *
-	 * @return Response|RedirectResponse|JsonResponse
+	 * @return RedirectResponse|JsonResponse
 	 */
 	protected function doUnpublishAction(Request $request, int $id)
+	{
+		return $this->handlePublicationRequest($request, $id, function(PublishInterface $entity)
+		{
+			$entity->unpublish();
+		}, PublishEvents::UNPUBLISH);
+	}
+
+	/**
+	 * Handle publication request
+	 *
+	 * @param Request $request
+	 * @param int $id
+	 * @param \Closure $callback
+	 * @param string $eventName
+	 *
+	 * @return RedirectResponse|JsonResponse
+	 */
+	private function handlePublicationRequest(Request $request, int $id, \Closure $callback, string $eventName)
 	{
 		/**
 		 * @var AbstractController $this
@@ -76,15 +65,44 @@ trait PublishTrait
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
 		if ($entity === null)
 		{
-			return $this->entityNotFound($id, $request);
+			return $this->entityNotFound($request, $id);
 		}
 
-		if (!$entity instanceof PublishInterface)
+		/**
+		 * @var TraceableEventDispatcher $dispatcher
+		 */
+		$dispatcher = $this->get('event_dispatcher');
+
+		if ($entity instanceof PublishInterface)
 		{
-			return $this->publishableInterfaceNotImplemented($id, $request);
-		}
+			call_user_func($callback, $entity);
 
-		$entity->unpublish();
+			$dispatcher->dispatch($eventName, new PublishEvent($entity));
+		}
+		else
+		{
+			if ($entity instanceof TranslateInterface)
+			{
+				$translation = $entity->getTranslations()->first();
+				if ($translation instanceof PublishInterface)
+				{
+					foreach ($entity->getTranslations() as $translation)
+					{
+						call_user_func($callback, $translation);
+
+						$dispatcher->dispatch($eventName, new PublishEvent($translation));
+					}
+				}
+				else
+				{
+					return $this->publishInterfaceNotImplemented($request, $id);
+				}
+			}
+			else
+			{
+				return $this->publishInterfaceNotImplemented($request, $id);
+			}
+		}
 
 		/**
 		 * @var ObjectManager $em
@@ -93,18 +111,19 @@ trait PublishTrait
 		$em->persist($entity);
 		$em->flush();
 
-		if ($request->getMethod() === 'post')
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
 					'success' => true,
-					'id' => $id
+					'id' => $entity->getId()
 				]
 			]);
 		}
 
 		return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_edit", [
-			'id' => $id
+			'id' => $entity->getId()
 		]);
 	}
 
@@ -114,14 +133,15 @@ trait PublishTrait
 	 * @param int $id
 	 * @param Request $request
 	 *
-	 * @return Response|JsonResponse
+	 * @return JsonResponse
 	 */
-	private function publishableInterfaceNotImplemented(int $id, Request $request)
+	private function publishInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = PublishInterface::class;
-		$error = "Entity of type '{$this->getEntityClassName()}' with id '{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
 
-		if ($request->getMethod() === 'post')
+		/// reply with json response
+		if ($request->getRequestFormat() === 'json')
 		{
 			return new JsonResponse([
 				'result' => [
@@ -130,6 +150,7 @@ trait PublishTrait
 				]
 			]);
 		}
-		return new Response($error, 500);
+
+		throw $this->createNotFoundException($error);
 	}
 }

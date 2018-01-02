@@ -2,12 +2,12 @@
 
 namespace Duo\AdminBundle\Form\Listing;
 
-use Duo\AdminBundle\Form\ConfirmChoiceType;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\SecurityBundle\Entity\User;
 use Duo\SecurityBundle\Form\GroupChoiceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,7 +46,7 @@ class UserType extends AbstractType
 				$builder->create('properties', TabType::class, [
 					'label' => 'duo.admin.tab.properties'
 				])
-				->add('active', ConfirmChoiceType::class, [
+				->add('active', CheckboxType::class, [
 					'label' => 'duo.admin.form.user.active.label'
 				])
 				->add('groups', GroupChoiceType::class, [

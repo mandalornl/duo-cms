@@ -2,20 +2,20 @@
 
 namespace Duo\BehaviorBundle\Event;
 
-class SoftDeleteEvents
+class DeleteEvents
 {
 	/**
-	 * @Event("Duo\BehaviorBundle\Event\SoftDeleteEvent")
+	 * @Event("Duo\BehaviorBundle\Event\DeleteEvent")
 	 */
 	const DELETE = 'duo.behavior.event.onDelete';
 
 	/**
-	 * @Event("Duo\BehaviorBundle\Event\SoftDeleteEvent")
+	 * @Event("Duo\BehaviorBundle\Event\DeleteEvent")
 	 */
 	const UNDELETE = 'duo.behavior.event.onUndelete';
 
 	/**
-	 * SoftDeleteEvents constructor
+	 * DeleteEvents constructor
 	 */
 	private function __construct() {}
 }

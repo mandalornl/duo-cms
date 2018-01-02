@@ -1,8 +1,8 @@
-<div id="modal_{{ type }}_versions_{{ entity.id }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ type }}_versions_label">
+<div id="modal_versions_{{ type }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_versions_label_{{ type }}">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_{{ type }}_versions_label">
+				<h5 class="modal-title" id="modal_versions_label_{{ type }}">
 					{{- 'duo.admin.modal.versions.title' | trans -}}
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
@@ -11,37 +11,47 @@
 			</div>
 			<div class="modal-body">
 				<div class="table-responsive">
-					<table class="table table-hover table-striped">
+					<table class="table table-hover table-striped table-list">
 						<thead>
 							<tr>
 								<th>{{ 'duo.admin.modal.versions.name' | trans }}</th>
-								<th>{{ 'duo.admin.modal.versions.created_at' | trans }}</th>
-								<th>{{ 'duo.admin.modal.versions.modified_at' | trans }}</th>
+								<th>{{ 'duo.admin.modal.versions.last_modified' | trans }}</th>
+								<th>{{ 'duo.admin.modal.versions.created_by' | trans }}</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for version in entity.versions %}
-								{% if version.id != entity.id %}
-									<tr>
-										<td>
-											<a href="{{ path('duo_admin_listing_' ~ type ~ '_version', { id: version.id }) }}" target="_blank">
-												{{- version.name -}}
-											</a>
-										</td>
-										<td>
-											{{- version.createdAt | localizeddate('short', 'short', app.request.locale) -}}
-										</td>
-										<td>
-											{{- version.modifiedAt | localizeddate('short', 'short', app.request.locale) -}}
-										</td>
-										<td>
-											<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" data-action="revert" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans({ '%type%': localizedType }) }}">
-												{{- 'duo.admin.modal.versions.revert' | trans -}}
-											</a>
-										</td>
-									</tr>
-								{% endif %}
+							{% set versions = get_versions(entity) %}
+							{% for version in versions %}
+								<tr>
+									<td>
+										<a href="{{ path('duo_admin_listing_' ~ type ~ '_version', { id: version.id }) }}" target="_blank">
+											{{- version.name -}}
+										</a>
+									</td>
+									<td>
+										{{- version.modifiedAt | localizeddate('short', 'short', app.request.locale) -}}
+									</td>
+									<td>
+										{% set user = version.createdBy %}
+										{% if user %}
+											{{- user.name -}}
+										{% endif %}
+									</td>
+									<td>
+										<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" title="{{ 'duo.admin.modal.versions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans({ '%type%': localizedType }) }}">
+											<i class="icon-history"></i>
+										</a>
+										{% if isDeletable %}
+											{% set url = path('duo_admin_listing_' ~ type ~ '_delete', { id: version.id }) %}
+										{% else %}
+											{% set url = path('duo_admin_listing_' ~ type ~ '_destroy', { id: version.id }) %}
+										{% endif %}
+										<a href="{{ url }}" title="{{ 'duo.admin.modal.versions.delete' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans({'%type%': localizedType }) | trans }}">
+											<i class="icon-bin"></i>
+										</a>
+									</td>
+								</tr>
 							{% endfor %}
 						</tbody>
 					</table>

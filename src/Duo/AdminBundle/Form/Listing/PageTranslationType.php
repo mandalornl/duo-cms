@@ -4,11 +4,14 @@ namespace Duo\AdminBundle\Form\Listing;
 
 use Duo\AdminBundle\Entity\PageTranslation;
 use Duo\AdminBundle\Form\ConfirmChoiceType;
+use Duo\AdminBundle\Form\PublicationTabType;
 use Duo\AdminBundle\Form\Seo\SeoTabType;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
+use Duo\AdminBundle\Form\UrlType;
 use Duo\AdminBundle\Form\WYSIWYGType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,19 +41,19 @@ class PageTranslationType extends AbstractType
 				$builder->create('menu', TabType::class, [
 					'label' => 'duo.admin.tab.menu'
 				])
-				->add('visible', ConfirmChoiceType::class, [
+				->add('visible', CheckboxType::class, [
 					'label' => 'duo.admin.form.page.visible.label',
 					'required' => false
 				])
 				->add('slug', TextType::class, [
-					'required' => false,
-					'disabled' => true
+					'required' => false
 				])
-				->add('url', TextType::class, [
+				->add('url', UrlType::class, [
 					'required' => false,
 					'disabled' => true
 				])
 			)
+			->add($builder->create('publication', PublicationTabType::class))
 			->add($builder->create('seo', SeoTabType::class));
 
 		$builder->add($tabs);

@@ -4,16 +4,16 @@ namespace Duo\BehaviorBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-interface SoftDeleteInterface
+interface DeleteInterface
 {
 	/**
 	 * Set deletedAt
 	 *
 	 * @param \DateTime $deletedAt
 	 *
-	 * @return SoftDeleteInterface
+	 * @return DeleteInterface
 	 */
-	public function setDeletedAt(\DateTime $deletedAt): SoftDeleteInterface;
+	public function setDeletedAt(\DateTime $deletedAt): DeleteInterface;
 
 	/**
 	 * Get deletedAt
@@ -27,9 +27,9 @@ interface SoftDeleteInterface
 	 *
 	 * @param UserInterface $deletedBy
 	 *
-	 * @return SoftDeleteInterface
+	 * @return DeleteInterface
 	 */
-	public function setDeletedBy(UserInterface $deletedBy = null): SoftDeleteInterface;
+	public function setDeletedBy(UserInterface $deletedBy = null): DeleteInterface;
 
 	/**
 	 * Set deletedBy
@@ -41,16 +41,16 @@ interface SoftDeleteInterface
 	/**
 	 * Delete entity
 	 *
-	 * @return SoftDeleteInterface
+	 * @return DeleteInterface
 	 */
-	public function delete(): SoftDeleteInterface;
+	public function delete(): DeleteInterface;
 
 	/**
 	 * Undelete entity
 	 *
-	 * @return SoftDeleteInterface
+	 * @return DeleteInterface
 	 */
-	public function undelete(): SoftDeleteInterface;
+	public function undelete(): DeleteInterface;
 
 	/**
 	 * Check whether or not entity is deleted

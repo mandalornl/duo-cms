@@ -137,11 +137,14 @@ class TestFixtures extends Fixture
 		$user = (new User())
 			->setName('John Doe')
 			->setEmail('johndoe@duo.nl')
+			->setActive(true)
+			->addGroup($group);
+
+		$user
 			->setUsername('admin')
-			->setPlainPassword('admin')
-			->setActive(true);
+			->setPlainPassword('admin');
+
 		$user->setCreatedBy($user);
-		$user->addGroup($group);
 
 		$this->manager->persist($user);
 		$this->manager->flush();
@@ -185,17 +188,21 @@ class TestFixtures extends Fixture
 			$page = new Page();
 			$page->setName('home');
 			$page->setParent($parent);
-			$page->publish();
-			$page->setPublishedBy($user);
 			$page->setCreatedBy($user);
 
 			$page->translate('nl')
 				->setTitle('Home')
-				->setContent('<p>Dit is de homepagina.</p>');
+				->setContent('<p>Dit is de homepagina.</p>')
+				->publish()
+				->setPublishedBy($user)
+				->setSlug('');
 
 			$page->translate('en')
 				->setTitle('Home')
-				->setContent('<p>This is the home page.</p>');
+				->setContent('<p>This is the home page.</p>')
+				->publish()
+				->setPublishedBy($user)
+				->setSlug('');
 
 			$page->mergeNewTranslations();
 
@@ -215,17 +222,19 @@ class TestFixtures extends Fixture
 			$page = new Page();
 			$page->setName('news');
 			$page->setParent($parent);
-			$page->publish();
-			$page->setPublishedBy($user);
 			$page->setCreatedBy($user);
 
 			$page->translate('nl')
 				->setTitle('Nieuws')
-				->setContent('<p>Dit is nieuws.</p>');
+				->setContent('<p>Dit is nieuws.</p>')
+				->publish()
+				->setPublishedBy($user);
 
 			$page->translate('en')
 				->setTitle('News')
-				->setContent('<p>This is news.</p>');
+				->setContent('<p>This is news.</p>')
+				->publish()
+				->setPublishedBy($user);
 
 			$page->mergeNewTranslations();
 
@@ -245,17 +254,19 @@ class TestFixtures extends Fixture
 			$page = new Page();
 			$page->setName('article');
 			$page->setParent($parent);
-			$page->publish();
-			$page->setPublishedBy($user);
 			$page->setCreatedBy($user);
 
 			$page->translate('nl')
 				->setTitle('Artikel')
-				->setContent('<p>Dit is een artikel.</p>');
+				->setContent('<p>Dit is een artikel.</p>')
+				->publish()
+				->setPublishedBy($user);
 
 			$page->translate('en')
 				->setTitle('Article')
-				->setContent('<p>This is an article.</p>');
+				->setContent('<p>This is an article.</p>')
+				->publish()
+				->setPublishedBy($user);
 
 			$page->mergeNewTranslations();
 
@@ -267,5 +278,38 @@ class TestFixtures extends Fixture
 			$this->manager->persist($page);
 			$this->manager->flush();
 		}
+
+//		if (($page = $repository->findOneBy(['name' => 'foobar-1'])) === null)
+//		{
+//			for ($i = 1; $i <= 100; $i++)
+//			{
+//				$page = new Page();
+//				$page->setName("foobar-{$i}");
+//				$page->publish();
+//				$page->setCreatedBy($user);
+//				$page->setWeight($i);
+//
+//				$page->translate('nl')
+//					->setTitle("Foobar {$i}")
+//					->setContent("<p>Dit is foobar {$i}</p>");
+//
+//				$page->translate('en')
+//					->setTitle("Foobar {$i}")
+//					->setContent("<p>This is foobar {$i}</p>");
+//
+//				$page->mergeNewTranslations();
+//
+//				foreach ($taxonomies as $taxonomy)
+//				{
+//					$page->addTaxonomy($taxonomy);
+//				}
+//
+//				$this->manager->persist($page);
+//			}
+//
+//			$this->manager->flush();
+//		}
+
+		$this->manager->clear();
 	}
 }

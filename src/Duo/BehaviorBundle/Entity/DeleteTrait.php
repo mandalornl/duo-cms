@@ -5,7 +5,7 @@ namespace Duo\BehaviorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-trait SoftDeleteTrait
+trait DeleteTrait
 {
 	/**
 	 * @var \DateTime
@@ -27,7 +27,7 @@ trait SoftDeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDeletedAt(\DateTime $deletedAt): SoftDeleteInterface
+	public function setDeletedAt(\DateTime $deletedAt): DeleteInterface
 	{
 		$this->deletedAt = $deletedAt;
 
@@ -45,7 +45,7 @@ trait SoftDeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDeletedBy(UserInterface $deletedBy = null): SoftDeleteInterface
+	public function setDeletedBy(UserInterface $deletedBy = null): DeleteInterface
 	{
 		$this->deletedBy = $deletedBy;
 
@@ -63,7 +63,7 @@ trait SoftDeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function delete(): SoftDeleteInterface
+	public function delete(): DeleteInterface
 	{
 		$this->deletedAt = new \DateTime();
 
@@ -73,7 +73,7 @@ trait SoftDeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function undelete(): SoftDeleteInterface
+	public function undelete(): DeleteInterface
 	{
 		$this->deletedAt = null;
 

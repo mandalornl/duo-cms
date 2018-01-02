@@ -34,10 +34,7 @@ class ConfirmChoiceType extends AbstractType
 				'duo.admin.form.confirm_choice.choices.yes' => 1,
 				'duo.admin.form.confirm_choice.choices.no' => 0
 			],
-			'data' => 1,
-			'attr' => [
-				'data-placeholder' => $this->translator->trans('duo.admin.form.confirm_choice.placeholder')
-			]
+			'data' => 1
 		]);
 	}
 

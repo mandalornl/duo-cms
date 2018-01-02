@@ -5,7 +5,7 @@ namespace Duo\BehaviorBundle\EventListener;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Duo\BehaviorBundle\Entity\PublishInterface;
-use Duo\BehaviorBundle\Entity\SoftDeleteInterface;
+use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TimeStampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
@@ -95,7 +95,7 @@ class VersionListener
 				->setModifiedBy(null);
 		}
 
-		if ($entity instanceof SoftDeleteInterface)
+		if ($entity instanceof DeleteInterface)
 		{
 			$entity->setDeletedBy(null);
 		}
@@ -117,7 +117,7 @@ class VersionListener
 	{
 		$entity = $event->getEntity();
 
-		if (!$entity instanceof SoftDeleteInterface)
+		if (!$entity instanceof DeleteInterface)
 		{
 			return;
 		}

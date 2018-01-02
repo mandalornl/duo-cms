@@ -119,6 +119,7 @@ trait PublishTrait
 	public function publish(): PublishInterface
 	{
 		$this->publishAt = new \DateTime();
+		$this->unpublishAt = null;
 
 		return $this;
 	}
@@ -140,24 +141,8 @@ trait PublishTrait
 	 */
 	public function isPublished(): bool
 	{
-		if ($this->publishAt === null && $this->unpublishAt === null)
-		{
-			return true;
-		}
-
 		$dateTime = new \DateTime();
-		if ($this->publishAt !== null && $this->publishAt <= $dateTime &&
-			$this->unpublishAt !== null && $this->unpublishAt > $dateTime)
-		{
-			return true;
-		}
 
-		if ($this->publishAt !== null && $this->publishAt <= $dateTime &&
-			$this->unpublishAt === null)
-		{
-			return true;
-		}
-
-		return false;
+		return ($this->publishAt !== null && $this->publishAt <= $dateTime) && ($this->unpublishAt === null || $this->unpublishAt > $dateTime);
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Helper;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class LocaleHelper
@@ -15,6 +16,19 @@ class LocaleHelper
 	 * @var string
 	 */
 	private $defaultLocale = 'nl';
+
+	/**
+	 * @var string[]
+	 */
+	private $locales;
+
+	/**
+	 * LocaleHelper constructor
+	 */
+	public function __construct()
+	{
+		$this->locales = [$this->defaultLocale];
+	}
 
 	/**
 	 * Set requestStack
@@ -57,17 +71,71 @@ class LocaleHelper
 	}
 
 	/**
+	 * Set locales
+	 *
+	 * @param array $locales
+	 *
+	 * @return LocaleHelper
+	 */
+	public function setLocales(array $locales): LocaleHelper
+	{
+		$this->locales = $locales;
+
+		return $this;
+	}
+
+	/**
+	 * Get locales
+	 *
+	 * @return array
+	 */
+	public function getLocales(): array
+	{
+		return $this->locales;
+	}
+
+	/**
 	 * Get locale
 	 *
 	 * @return string
 	 */
 	public function getLocale(): string
 	{
-		if ($this->requestStack !== null && ($request = $this->requestStack->getCurrentRequest()) !== null)
+		if (($request = $this->getRequest()) === null)
 		{
-			return $request->getLocale();
+			return $this->defaultLocale;
 		}
 
-		return $this->defaultLocale;
+		return $request->getLocale();
+	}
+
+	/**
+	 * Get preferred language
+	 *
+	 * @return string
+	 */
+	public function getPreferredLanguage(): string
+	{
+		if (($request = $this->getRequest()) === null)
+		{
+			return $this->defaultLocale;
+		}
+
+		return $request->getPreferredLanguage($this->locales);
+	}
+
+	/**
+	 * Get request
+	 *
+	 * @return Request
+	 */
+	private function getRequest(): ?Request
+	{
+		if ($this->requestStack === null)
+		{
+			return null;
+		}
+
+		return $this->requestStack->getCurrentRequest();
 	}
 }

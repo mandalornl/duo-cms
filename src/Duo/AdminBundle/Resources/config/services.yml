@@ -19,6 +19,7 @@ services:
         public: true
         calls:
             - [ setDefaultLocale, [ '%locale%' ]]
+            - [ setLocales, [ '%locales%' ]]
 
     Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber:
         tags:
@@ -29,3 +30,9 @@ services:
             $locales: '%locales%'
         tags:
             - { name: twig.extension }
+
+    Duo\AdminBundle\Routing\UrlLoader:
+        arguments:
+            $locale: '%locale%'
+        tags:
+            - { name: routing.loader, priority: 0 }

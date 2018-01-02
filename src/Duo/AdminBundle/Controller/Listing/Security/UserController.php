@@ -87,7 +87,7 @@ class UserController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="duo_admin_listing_user_edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="duo_admin_listing_user_edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
