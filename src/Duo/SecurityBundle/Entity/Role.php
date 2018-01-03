@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @UniqueEntity(fields={ "role" }, message="duo.security.errors.role_used")
  */
-class Role implements TimeStampInterface
+class Role implements RoleInterface, TimeStampInterface
 {
 	use IdTrait;
 	use TimeStampTrait;
@@ -44,13 +44,9 @@ class Role implements TimeStampInterface
 	private $role;
 
 	/**
-	 * Set name
-	 *
-	 * @param string $name
-	 *
-	 * @return Role
+	 * {@inheritdoc}
 	 */
-	public function setName(string $name = null): Role
+	public function setName(string $name = null): RoleInterface
 	{
 		$this->name = $name;
 
@@ -58,9 +54,7 @@ class Role implements TimeStampInterface
 	}
 
 	/**
-	 * Get name
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getName(): ?string
 	{
@@ -68,13 +62,9 @@ class Role implements TimeStampInterface
 	}
 
 	/**
-	 * Set role
-	 *
-	 * @param string $role
-	 *
-	 * @return Role
+	 * {@inheritdoc}
 	 */
-	public function setRole(string $role = null): Role
+	public function setRole(string $role = null): RoleInterface
 	{
 		$this->role = $role;
 
@@ -82,12 +72,18 @@ class Role implements TimeStampInterface
 	}
 
 	/**
-	 * Get role
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getRole(): ?string
 	{
 		return $this->role;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->name;
 	}
 }

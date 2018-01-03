@@ -2,6 +2,7 @@
 
 namespace Duo\SecurityBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 interface UserInterface extends AdvancedUserInterface
@@ -46,4 +47,54 @@ interface UserInterface extends AdvancedUserInterface
 	 * @return string
 	 */
 	public function getPlainPassword(): ?string;
+
+	/**
+	 * Add group
+	 *
+	 * @param GroupInterface $group
+	 *
+	 * @return UserInterface
+	 */
+	public function addGroup(GroupInterface $group): UserInterface;
+
+	/**
+	 * Remove group
+	 *
+	 * @param GroupInterface $group
+	 *
+	 * @return UserInterface
+	 */
+	public function removeGroup(GroupInterface $group): UserInterface;
+
+	/**
+	 * Get groups
+	 *
+	 * @return ArrayCollection
+	 */
+	public function getGroups();
+
+	/**
+	 * Get roles
+	 *
+	 * @return array
+	 */
+	public function getRoles(): array;
+
+	/**
+	 * Has role
+	 *
+	 * @param string $roleName
+	 *
+	 * @return bool
+	 */
+	public function hasRole(string $roleName): bool;
+
+	/**
+	 * Has roles
+	 *
+	 * @param string[] $roleNames
+	 *
+	 * @return bool
+	 */
+	public function hasRoles(array $roleNames): bool;
 };

@@ -17,17 +17,18 @@ class UrlController extends Controller
 	 *
 	 * @return JsonResponse
 	 */
-	public function indexAction(Request $request, string $url)
+	public function indexAction(Request $request, string $url = '')
 	{
 		$page = $this->getDoctrine()->getRepository(Page::class)->findOneByUrl($url, $request->getLocale());
 		if ($page === null)
 		{
-			throw $this->createNotFoundException("Page with url '{$url}' not found");
+			throw $this->createNotFoundException("Page for '/{$url}' not found");
 		}
 
 		return $this->json([
-			'url' => $url,
-			'locale' => $request->getLocale()
+			'url' => "/{$url}",
+			'locale' => $request->getLocale(),
+			'page' => $page->getTitle()
 		]);
 	}
 }

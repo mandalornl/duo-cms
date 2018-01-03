@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route(name="duo_admin_listing_user_")
+ *
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
  */
 class UserController extends AbstractController
@@ -65,7 +67,7 @@ class UserController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_user_index")
+	 * @Route("/", name="index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -76,7 +78,7 @@ class UserController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_user_add")
+	 * @Route("/add", name="add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -87,7 +89,7 @@ class UserController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="duo_admin_listing_user_edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -98,7 +100,7 @@ class UserController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destory/{id}", name="duo_admin_listing_user_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)

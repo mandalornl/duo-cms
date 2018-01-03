@@ -8,9 +8,15 @@ use Duo\AdminBundle\Entity\Taxonomy;
 use Duo\AdminBundle\Form\Listing\TaxonomyType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route(name="duo_admin_listing_taxonomy_")
+ *
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
+ */
 class TaxonomyController extends AbstractController
 {
 	/**
@@ -59,7 +65,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_taxonomy_index")
+	 * @Route("/", name="index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -70,7 +76,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_taxonomy_add")
+	 * @Route("/add", name="add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -81,7 +87,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="duo_admin_listing_taxonomy_edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -92,7 +98,7 @@ class TaxonomyController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_listing_taxonomy_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)

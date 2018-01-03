@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * @Route(name="duo_admin_listing_page_")
+ *
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
 class PageController extends AbstractController implements CloneInterface, PublishInterface, DeleteInterface, SortInterface, VersionInterface
@@ -81,7 +83,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_page_index")
+	 * @Route("/", name="index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -92,7 +94,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_page_add")
+	 * @Route("/add", name="add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -103,7 +105,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="duo_admin_listing_page_edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -114,7 +116,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_listing_page_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)
@@ -125,7 +127,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/duplicate/{id}", name="duo_admin_listing_page_duplicate", requirements={ "id" = "\d+" })
+	 * @Route("/duplicate/{id}", name="duplicate", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function duplicateAction(Request $request, int $id)
@@ -136,7 +138,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
     /**
      * {@inheritdoc}
      *
-     * @Route("/version/{id}/", name="duo_admin_listing_page_version", requirements={ "id" = "\d+" })
+     * @Route("/version/{id}/", name="version", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
      */
     public function versionAction(Request $request, int $id)
@@ -147,7 +149,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/revert/{id}", name="duo_admin_listing_page_revert", requirements={ "id" = "\d+" })
+	 * @Route("/revert/{id}", name="revert", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 *
 	 * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
@@ -160,7 +162,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/delete/{id}", name="duo_admin_listing_page_delete", requirements={ "id" = "\d+" })
+	 * @Route("/delete/{id}", name="delete", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function deleteAction(Request $request, int $id)
@@ -171,7 +173,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/undelete/{id}", name="duo_admin_listing_page_undelete", requirements={ "id" = "\d+" })
+	 * @Route("/undelete/{id}", name="undelete", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 *
 	 * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
@@ -184,7 +186,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-up/{id}", name="duo_admin_listing_page_move_up", requirements={ "id" = "\d+" })
+	 * @Route("/move-up/{id}", name="move_up", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function moveUpAction(Request $request, int $id)
@@ -195,7 +197,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-down/{id}", name="duo_admin_listing_page_move_down", requirements={ "id" = "\d+" })
+	 * @Route("/move-down/{id}", name="move_down", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 *
 	 * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
@@ -210,7 +212,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	 *
 	 * @Route(
 	 *     "/move-to/{id}/{weight}/{parentId}",
-	 *     name="duo_admin_listing_page_move_to",
+	 *     name="move_to",
 	 *     requirements={ "id" = "\d+", "weight" = "\d+", "parentId" = "\d+" }
 	 * )
 	 * @Method({"POST", "GET"})
@@ -223,7 +225,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/publish/{id}", name="duo_admin_listing_page_publish", requirements={ "id" = "\d+" })
+	 * @Route("/publish/{id}", name="publish", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function publishAction(Request $request, int $id)
@@ -234,7 +236,7 @@ class PageController extends AbstractController implements CloneInterface, Publi
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/unpublish/{id}", name="duo_admin_listing_page_unpublish", requirements={ "id" = "\d+" })
+	 * @Route("/unpublish/{id}", name="unpublish", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function unpublishAction(Request $request, int $id)

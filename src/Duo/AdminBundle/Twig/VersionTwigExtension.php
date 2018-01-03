@@ -13,35 +13,32 @@ class VersionTwigExtension extends \Twig_Extension
 	public function getFunctions()
 	{
 		return [
-			new \Twig_SimpleFunction('get_versions', [$this, 'getVersions'])
+			new \Twig_SimpleFunction('get_revertable_versions', [$this, 'getRevertableVersions'])
 		];
 	}
 
 	/**
-	 * Get versions
+	 * Get revertable versions
 	 *
 	 * @param VersionInterface $entity
 	 *
 	 * @return array
 	 */
-	public function getVersions(VersionInterface $entity): array
+	public function getRevertableVersions(VersionInterface $entity): array
 	{
 		$entities = [];
 
 		foreach ($entity->getVersions() as $version)
 		{
 			/**
-			 * @var VersionInterface $version
+			 * @var VersionInterface|DeleteInterface $version
 			 */
-			if ($version !== $entity->getVersion())
+			if ($version === $entity->getVersion() || ($version instanceof DeleteInterface && $version->isDeleted()))
 			{
-				if ($version instanceof DeleteInterface && $version->isDeleted())
-				{
-					continue;
-				}
-
-				$entities[] = $version;
+				continue;
 			}
+
+			$entities[] = $version;
 		}
 
 		return $entities;

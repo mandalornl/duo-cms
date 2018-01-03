@@ -1,7 +1,7 @@
 {% extends '@DuoAdmin/Listing/add.html.twig' %}
 
 {% block modal %}
-	{% if isVersionable %}
+	{% if entity is versionable %}
 		{% include '@DuoAdmin/Listing/Modal/versions.html.twig' %}
 	{% endif %}
 	{{ parent() }}

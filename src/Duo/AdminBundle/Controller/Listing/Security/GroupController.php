@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route(name="duo_admin_listing_group_")
+ *
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
  */
 class GroupController extends AbstractController
@@ -65,7 +67,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="duo_admin_listing_group_index")
+	 * @Route("/", name="index")
 	 * @Method("GET")
 	 */
 	public function indexAction(Request $request): Response
@@ -76,7 +78,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/add", name="duo_admin_listing_group_add")
+	 * @Route("/add", name="add")
 	 * @Method({"POST", "GET"})
 	 */
 	public function addAction(Request $request)
@@ -87,7 +89,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="duo_admin_listing_group_edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function editAction(Request $request, int $id)
@@ -98,7 +100,7 @@ class GroupController extends AbstractController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="duo_admin_listing_group_destroy", requirements={ "id" = "\d+" })
+	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
 	 */
 	public function destroyAction(Request $request, int $id)

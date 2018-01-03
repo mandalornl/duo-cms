@@ -8,10 +8,16 @@
 	display: flex;
 }
 
-.datepicker ~ select,
-.datepicker ~ select + .select2
+.datepicker-with-time
 {
-	margin: 0 .5rem;
+	flex-wrap: nowrap;
+
+	.datepicker ~ select
+	{
+		margin: 0 .5rem;
+
+		width: auto;
+	}
 }
 
 .btn-white

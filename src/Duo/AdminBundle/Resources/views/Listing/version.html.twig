@@ -1,3 +1,17 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{% extends '@DuoAdmin/index.html.twig' %}
+
+{% block toolbar %}
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+		<a href="{{ path('duo_admin_listing_' ~ type ~ '_index') }}" class="navbar-brand">Duo</a>
+	</nav>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-10 col-lg-8">
+			{{ form_start(form)}}
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

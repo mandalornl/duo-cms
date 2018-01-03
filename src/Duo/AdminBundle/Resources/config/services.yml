@@ -33,6 +33,6 @@ services:
 
     Duo\AdminBundle\Routing\UrlLoader:
         arguments:
-            $locale: '%locale%'
+            $localeHelper: '@Duo\AdminBundle\Helper\LocaleHelper'
         tags:
             - { name: routing.loader, priority: 0 }

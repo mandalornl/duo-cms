@@ -21,7 +21,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% set versions = get_versions(entity) %}
+							{% set versions = get_revertable_versions(entity) %}
 							{% for version in versions %}
 								<tr>
 									<td>
@@ -42,7 +42,7 @@
 										<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" title="{{ 'duo.admin.modal.versions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans({ '%type%': localizedType }) }}">
 											<i class="icon-history"></i>
 										</a>
-										{% if isDeletable %}
+										{% if version is deletable %}
 											{% set url = path('duo_admin_listing_' ~ type ~ '_delete', { id: version.id }) %}
 										{% else %}
 											{% set url = path('duo_admin_listing_' ~ type ~ '_destroy', { id: version.id }) %}
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
 					{{- 'duo.admin.modal.global.close' | trans -}}
 				</button>
 			</div>

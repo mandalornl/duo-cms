@@ -1,13 +1,13 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
 {% block toolbar %}
-	<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
 		<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_index') }}" class="navbar-brand">Duo</a>
 		<form class="form-inline my-2 my-lg-0">
 			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
 					<div class="btn-group" role="group">
-						<button id="actions_{{ list.type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+						<button id="actions_{{ list.type }}" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
 							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 						</button>
 						<div class="dropdown-menu" aria-labelledby="actions_{{ list.type }}">

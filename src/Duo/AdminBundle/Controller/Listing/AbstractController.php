@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
-use Duo\AdminBundle\Entity\Behavior\ViewInterface;
 use Duo\AdminBundle\Event\TwigEvent;
 use Duo\AdminBundle\Event\TwigEvents;
 use Duo\AdminBundle\Helper\PaginatorHelper;
@@ -133,7 +132,13 @@ abstract class AbstractController extends FrameworkController
 	{
 		if ($entity instanceof Entity\TranslateInterface)
 		{
-			foreach ($this->getParameter('locales') as $locale)
+			$locales = $this->getParameter('locales');
+			if (empty($locales))
+			{
+				$locales = [$this->getParameter('locale')];
+			}
+
+			foreach ($locales as $locale)
 			{
 				$entity->translate($locale);
 			};
@@ -286,12 +291,12 @@ abstract class AbstractController extends FrameworkController
 			return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 		}
 
-		return $this->render($this->getAddTemplate(), array_merge([
+		return $this->render($this->getAddTemplate(), [
 			'form' => $form->createView(),
 			'entity' => $entity,
 			'type' => $this->getListType(),
 			'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
-		], $this->getEntityBehaviors($entity)));
+		]);
 	}
 
 	/**
@@ -352,12 +357,12 @@ abstract class AbstractController extends FrameworkController
 				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 			}
 
-			$context = new TwigContext(array_merge([
+			$context = new TwigContext([
 				'form' => $form->createView(),
 				'entity' => $clone,
 				'type' => $this->getListType(),
 				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
-			], $this->getEntityBehaviors($clone)));
+			]);
 
 			// dispatch onTwigContext event
 			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
@@ -382,50 +387,18 @@ abstract class AbstractController extends FrameworkController
 				return $this->redirectToRoute("duo_admin_listing_{$this->getListType()}_index");
 			}
 
-			$context = new TwigContext(array_merge([
+			$context = new TwigContext([
 				'form' => $form->createView(),
 				'entity' => $entity,
 				'type' => $this->getListType(),
-				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}"),
-			], $this->getEntityBehaviors($entity)));
+				'localizedType' => $this->get('translator')->trans("duo.admin.listing.type.{$this->getListType()}")
+			]);
 
 			// dispatch onTwigContext event
 			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
 
 			return $this->render($this->getEditTemplate(), (array)$context);
 		}
-	}
-
-	/**
-	 * Get entity behaviors
-	 *
-	 * @param object $entity
-	 *
-	 * @return array
-	 */
-	private function getEntityBehaviors($entity): array
-	{
-		return [
-			'isTranslatable' => $entity instanceof Entity\TranslateInterface,
-			'isPublishable' => call_user_func(function() use ($entity)
-			{
-				if ($entity instanceof Entity\PublishInterface)
-				{
-					return true;
-				}
-
-				if ($entity instanceof Entity\TranslateInterface)
-				{
-					return $entity->getTranslations()->first() instanceof Entity\PublishInterface;
-				}
-
-				return false;
-			}),
-			'isDeletable' => $entity instanceof Entity\DeleteInterface,
-			'isViewable' => $entity instanceof ViewInterface,
-			'isCloneable' => $entity instanceof Entity\CloneInterface,
-			'isVersionable' => $entity instanceof Entity\VersionInterface
-		];
 	}
 
 	/**

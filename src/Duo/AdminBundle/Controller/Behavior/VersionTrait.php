@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\TranslatorInterface;
 
 trait VersionTrait
 {
@@ -44,12 +45,20 @@ trait VersionTrait
 		 * @var FormInterface $form
 		 */
 		$form = $this->createForm($this->getFormClassName(), $entity, [
-			'action' => 'javascript:;'
+			'action' => 'javascript:;',
+			'disabled' => true
 		]);
+
+		/**
+		 * @var TranslatorInterface $translator
+		 */
+		$translator = $this->get('translator');
 
 		return $this->render($this->getVersionTemplate(), [
 			'entity' => $entity,
-			'form' => $form->createView()
+			'form' => $form->createView(),
+			'type' => $this->getListType(),
+			'localizedType' => $translator->trans("duo.admin.listing.type.{$this->getListType()}")
 		]);
 	}
 

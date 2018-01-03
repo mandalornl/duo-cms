@@ -254,13 +254,9 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	}
 
 	/**
-	 * Add group
-	 *
-	 * @param Group $group
-	 *
-	 * @return User
+	 * {@inheritdoc}
 	 */
-	public function addGroup(Group $group): User
+	public function addGroup(GroupInterface $group): UserInterface
 	{
 		$this->groups[] = $group;
 
@@ -268,13 +264,9 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	}
 
 	/**
-	 * Remove group
-	 *
-	 * @param Group $group
-	 *
-	 * @return User
+	 * {@inheritdoc}
 	 */
-	public function removeGroup(Group $group): User
+	public function removeGroup(GroupInterface $group): UserInterface
 	{
 		$this->groups->removeElement($group);
 
@@ -282,9 +274,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	}
 
 	/**
-	 * Get groups
-	 *
-	 * @return ArrayCollection
+	 * {@inheritdoc}
 	 */
 	public function getGroups()
 	{
@@ -301,23 +291,28 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 		foreach ($this->groups as $group)
 		{
 			/**
-			 * @var Group $group
+			 * @var GroupInterface $group
 			 */
-			foreach ($group->getRoles() as $role)
-			{
-				/**
-				 * @var Role $role
-				 */
-				if (in_array($role->getRole(), $roles))
-				{
-					continue;
-				}
-
-				$roles[] = $role->getRole();
-			}
+			$roles = array_merge($roles, $group->getRoles(true));
 		}
 
 		return $roles;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function hasRole(string $roleName): bool
+	{
+		return in_array($roleName, $this->getRoles());
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function hasRoles(array $roleNames): bool
+	{
+		return count(array_diff($roleNames, $this->getRoles())) === 0;
 	}
 
 	/**

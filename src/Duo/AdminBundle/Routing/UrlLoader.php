@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Routing;
 
+use Duo\AdminBundle\Helper\LocaleHelper;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -19,18 +20,18 @@ class UrlLoader extends Loader
 	private $routeName = 'url';
 
 	/**
-	 * @var string
+	 * @var LocaleHelper
 	 */
-	private $locale = 'nl';
+	private $localeHelper;
 
 	/**
 	 * UrlLoader constructor
 	 *
-	 * @param string $locale
+	 * @param LocaleHelper $localeHelper
 	 */
-	public function __construct(string $locale)
+	public function __construct(LocaleHelper $localeHelper)
 	{
-		$this->locale = $locale;
+		$this->localeHelper = $localeHelper;
 	}
 
 	/**
@@ -49,10 +50,11 @@ class UrlLoader extends Loader
 		$path = '/{_locale}/{url}';
 		$defaults = [
 			'_controller' => 'DuoAdminBundle:Url:index',
-			'_locale' => $this->locale
+			'_locale' => $this->localeHelper->getLocale()
 		];
 		$requirements = [
-			'url' => '.+'
+			'url' => '(.+)?',
+			'_locale' => implode('|', $this->localeHelper->getLocales())
 		];
 
 		$routes = new RouteCollection();

@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @UniqueEntity(fields={ "name" }, message="duo.security.errors.name_used")
  */
-class Group implements TimeStampInterface
+class Group implements GroupInterface, TimeStampInterface
 {
 	use IdTrait;
 	use TimeStampTrait;
@@ -49,6 +49,7 @@ class Group implements TimeStampInterface
 	 *		   @ORM\JoinColumn(name="role_id", referencedColumnName="id", onDelete="CASCADE")
 	 *	   }
 	 * )
+	 * @ORM\OrderBy({ "name" = "ASC" })
 	 * @Assert\NotBlank()
 	 */
 	private $roles;
@@ -62,13 +63,9 @@ class Group implements TimeStampInterface
 	}
 
 	/**
-	 * Set name
-	 *
-	 * @param string $name
-	 *
-	 * @return Group
+	 * {@inheritdoc}
 	 */
-	public function setName(string $name = null): Group
+	public function setName(string $name = null): GroupInterface
 	{
 		$this->name = $name;
 
@@ -76,9 +73,7 @@ class Group implements TimeStampInterface
 	}
 
 	/**
-	 * Get name
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getName(): ?string
 	{
@@ -86,13 +81,9 @@ class Group implements TimeStampInterface
 	}
 
 	/**
-	 * Add role
-	 *
-	 * @param Role $role
-	 *
-	 * @return Group
+	 * {@inheritdoc}
 	 */
-	public function addRole(Role $role): Group
+	public function addRole(RoleInterface $role): GroupInterface
 	{
 		$this->roles[] = $role;
 
@@ -100,13 +91,9 @@ class Group implements TimeStampInterface
 	}
 
 	/**
-	 * Remove role
-	 *
-	 * @param Role $role
-	 *
-	 * @return Group
+	 * {@inheritdoc}
 	 */
-	public function removeRole(Role $role): Group
+	public function removeRole(RoleInterface $role): GroupInterface
 	{
 		$this->roles->removeElement($role);
 
@@ -116,10 +103,28 @@ class Group implements TimeStampInterface
 	/**
 	 * Get roles
 	 *
-	 * @return ArrayCollection
+	 * @param bool $flatten [optional]
+	 *
+	 * @return ArrayCollection|array
 	 */
-	public function getRoles()
+	public function getRoles(bool $flatten = false)
 	{
+		if ($flatten)
+		{
+			return $this->roles->map(function(RoleInterface $role)
+			{
+				return $role->getRole();
+			})->toArray();
+		}
+
 		return $this->roles;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->name;
 	}
 }

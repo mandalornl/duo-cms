@@ -17,7 +17,10 @@ class DateTimeType extends AbstractType
 			'html5' => false,
 			'date_widget' => 'single_text',
 			'date_format' => 'dd-MM-yyyy',
-			'format' => 'dd-MM-yyyy HH:mm'
+			'format' => 'dd-MM-yyyy HH:mm',
+			'attr' => [
+				'class' => 'datepicker-with-time'
+			]
 		]);
 	}
 

@@ -19,13 +19,16 @@ const init = (options = {}, selector = '.wysiwyg') =>
 			return;
 		}
 
-		const options = $.extend({}, {
-			minHeight: 300
-		}, options);
+		const options = $.extend({}, options);
 
 		ClassicEditor.create(this, options)
 			.then(editor =>
 			{
+				if ($this.prop('disabled'))
+				{
+					editor.isReadOnly = true;
+				}
+
 				window.wysiwygEditors[this.id] = editor;
 			})
 			.catch(error =>

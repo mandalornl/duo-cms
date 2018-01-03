@@ -1,24 +1,24 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
 {% block toolbar %}
-	<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
 		<a href="{{ path('duo_admin_listing_' ~ type ~ '_index') }}" class="navbar-brand">Duo</a>
 		<form class="form-inline my-2 my-lg-0">
 			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
 					{% if entity.id > 0 %}
 						<div class="btn-group" role="group">
-							<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+							<button id="actions_{{ type }}" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
 								{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 							</button>
 							<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
-								{% if isVersionable %}
-									{% set versions = get_versions(entity) %}
+								{% if entity is versionable %}
+									{% set versions = get_revertable_versions(entity) %}
 									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_versions_{{ type }}"{% if versions | length < 1 %} disabled{% endif %}>
 										{{- 'duo.admin.toolbar.actions.versions' | trans -}}
 									</button>
 								{% endif %}
-								{% if isDeletable %}
+								{% if entity is deletable %}
 									{%- if entity.isDeleted() -%}
 										<a href="{{ path('duo_admin_listing_' ~ type ~ '_undelete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.undelete.title' | trans }}" data-body="{{ 'duo.admin.modal.undelete.body' | trans({ '%type%': localizedType }) }}">
 											{{- 'duo.admin.toolbar.actions.undelete' | trans -}}
@@ -33,7 +33,7 @@
 										{{- 'duo.admin.toolbar.actions.remove' | trans -}}
 									</a>
 								{% endif %}
-								{% if isPublishable %}
+								{% if entity is publishable %}
 									{% set published = entity is published %}
 									{%- if published is constant('Duo\\AdminBundle\\Status\\Publish::NONE') -%}
 										<a href="{{ path('duo_admin_listing_' ~ type ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.publish.title' | trans }}" data-body="{{ 'duo.admin.modal.publish.body' | trans({ '%type%': localizedType }) }}">
@@ -45,13 +45,12 @@
 										</a>
 									{%- endif -%}
 								{% endif %}
-								{% if isViewable %}
-									{# TODO: {{ path('slug', { url: entity.url }) }} #}
-									<a href="#" class="dropdown-item" data-action="preview">
+								{% if entity is viewable %}
+									<a href="{{ path('url', { url: entity.url }) }}" target="_blank" class="dropdown-item">
 										{{- 'duo.admin.toolbar.actions.preview' | trans -}}
 									</a>
 								{% endif %}
-								{% if isCloneable %}
+								{% if entity is cloneable %}
 									<a href="{{ path('duo_admin_listing_' ~ type ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.duplicate.title' | trans }}" data-body="{{ 'duo.admin.modal.duplicate.body' | trans({ '%type%': localizedType }) }}">
 										{{- 'duo.admin.toolbar.actions.duplicate' | trans -}}
 									</a>
@@ -59,7 +58,7 @@
 							</div>
 						</div>
 					{% endif %}
-					<a href="{{ path('duo_admin_listing_' ~ type ~ '_index') }}" class="btn btn-white">
+					<a href="{{ path('duo_admin_listing_' ~ type ~ '_index') }}" class="btn btn-light">
 						{{- 'duo.admin.toolbar.actions.cancel' | trans -}}
 					</a>
 					<button type="button" class="btn btn-success" data-action="save">
