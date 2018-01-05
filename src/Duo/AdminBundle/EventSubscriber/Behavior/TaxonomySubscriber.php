@@ -7,7 +7,7 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Duo\AdminBundle\Entity\Behavior\TaxonomyInterface;
-use Duo\AdminBundle\Entity\Taxonomy;
+use Duo\AdminBundle\Entity\Module\Taxonomy;
 
 class TaxonomySubscriber implements EventSubscriber
 {

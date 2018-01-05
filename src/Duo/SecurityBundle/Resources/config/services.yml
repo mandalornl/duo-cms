@@ -20,7 +20,8 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\SecurityBundle\Helper\TokenHelper:
+    duo.security.token_helper:
+        class: Duo\SecurityBundle\Helper\TokenHelper
         public: true
         arguments:
             $tokenStorage: '@security.token_storage'

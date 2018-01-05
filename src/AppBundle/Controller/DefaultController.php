@@ -8,12 +8,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route(name="app_")
+ */
 class DefaultController extends Controller
 {
 	/**
 	 * Index action
 	 *
-	 * @Route("/", name="app_index")
+	 * @Route("/", name="index")
 	 * @Method("GET")
 	 *
 	 * @param Request $request

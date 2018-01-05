@@ -1,14 +1,15 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
+{% block bodyClass %}listing-add{% endblock %}
+
 {% block toolbar %}
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-		<a href="{{ path('duo_admin_listing_' ~ type ~ '_index') }}" class="navbar-brand">Duo</a>
-		<form class="form-inline my-2 my-lg-0">
+	<nav class="navbar navbar-light bg-light justify-content-end">
+		<div class="form-inline">
 			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
 					{% if entity.id > 0 %}
 						<div class="btn-group" role="group">
-							<button id="actions_{{ type }}" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+							<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
 								{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 							</button>
 							<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
@@ -20,27 +21,27 @@
 								{% endif %}
 								{% if entity is deletable %}
 									{%- if entity.isDeleted() -%}
-										<a href="{{ path('duo_admin_listing_' ~ type ~ '_undelete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.undelete.title' | trans }}" data-body="{{ 'duo.admin.modal.undelete.body' | trans({ '%type%': localizedType }) }}">
+										<a href="{{ path(routePrefix ~ '_undelete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.undelete.title' | trans }}" data-body="{{ 'duo.admin.modal.undelete.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.undelete' | trans -}}
 										</a>
 									{%- else -%}
-										<a href="{{ path('duo_admin_listing_' ~ type ~ '_delete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans({ '%type%': localizedType }) }}">
+										<a href="{{ path(routePrefix ~ '_delete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.delete' | trans -}}
 										</a>
 									{%- endif -%}
 								{% else %}
-									<a href="{{ path('duo_admin_listing_' ~ type ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans({ '%type%': localizedType }) }}">
+									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
 										{{- 'duo.admin.toolbar.actions.remove' | trans -}}
 									</a>
 								{% endif %}
 								{% if entity is publishable %}
 									{% set published = entity is published %}
-									{%- if published is constant('Duo\\AdminBundle\\Status\\Publish::NONE') -%}
-										<a href="{{ path('duo_admin_listing_' ~ type ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.publish.title' | trans }}" data-body="{{ 'duo.admin.modal.publish.body' | trans({ '%type%': localizedType }) }}">
+									{%- if published is constant('Duo\\AdminBundle\\Status\\Published::NONE') -%}
+										<a href="{{ path(routePrefix ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.publish.title' | trans }}" data-body="{{ 'duo.admin.modal.publish.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.publish' | trans -}}
 										</a>
 									{%- else -%}
-										<a href="{{ path('duo_admin_listing_' ~ type ~ '_unpublish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.unpublish.title' | trans }}" data-body="{{ 'duo.admin.modal.unpublish.body' | trans({ '%type%': localizedType }) }}">
+										<a href="{{ path(routePrefix ~ '_unpublish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.unpublish.title' | trans }}" data-body="{{ 'duo.admin.modal.unpublish.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.unpublish' | trans -}}
 										</a>
 									{%- endif -%}
@@ -51,14 +52,14 @@
 									</a>
 								{% endif %}
 								{% if entity is cloneable %}
-									<a href="{{ path('duo_admin_listing_' ~ type ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.duplicate.title' | trans }}" data-body="{{ 'duo.admin.modal.duplicate.body' | trans({ '%type%': localizedType }) }}">
+									<a href="{{ path(routePrefix ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.duplicate.title' | trans }}" data-body="{{ 'duo.admin.modal.duplicate.body' | trans }}">
 										{{- 'duo.admin.toolbar.actions.duplicate' | trans -}}
 									</a>
 								{% endif %}
 							</div>
 						</div>
 					{% endif %}
-					<a href="{{ path('duo_admin_listing_' ~ type ~ '_index') }}" class="btn btn-light">
+					<a href="{{ path(routePrefix ~ '_index') }}" class="btn btn-white">
 						{{- 'duo.admin.toolbar.actions.cancel' | trans -}}
 					</a>
 					<button type="button" class="btn btn-success" data-action="save">
@@ -66,7 +67,7 @@
 					</button>
 				</div>
 			</div>
-		</form>
+		</div>
 	</nav>
 {% endblock %}
 

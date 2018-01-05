@@ -25,7 +25,7 @@
 							{% for version in versions %}
 								<tr>
 									<td>
-										<a href="{{ path('duo_admin_listing_' ~ type ~ '_version', { id: version.id }) }}" target="_blank">
+										<a href="{{ path(routePrefix ~ '_version', { id: version.id }) }}" target="_blank">
 											{{- version.name -}}
 										</a>
 									</td>
@@ -39,15 +39,15 @@
 										{% endif %}
 									</td>
 									<td>
-										<a href="{{ path('duo_admin_listing_' ~ type ~ '_revert', { id: version.id }) }}" title="{{ 'duo.admin.modal.versions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans({ '%type%': localizedType }) }}">
+										<a href="{{ path(routePrefix ~ '_revert', { id: version.id }) }}" title="{{ 'duo.admin.modal.versions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
 											<i class="icon-history"></i>
 										</a>
 										{% if version is deletable %}
-											{% set url = path('duo_admin_listing_' ~ type ~ '_delete', { id: version.id }) %}
+											{% set url = path(routePrefix ~ '_delete', { id: version.id }) %}
 										{% else %}
-											{% set url = path('duo_admin_listing_' ~ type ~ '_destroy', { id: version.id }) %}
+											{% set url = path(routePrefix ~ '_destroy', { id: version.id }) %}
 										{% endif %}
-										<a href="{{ url }}" title="{{ 'duo.admin.modal.versions.delete' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans({'%type%': localizedType }) | trans }}">
+										<a href="{{ url }}" title="{{ 'duo.admin.modal.versions.delete' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
 											<i class="icon-bin"></i>
 										</a>
 									</td>

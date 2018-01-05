@@ -1,18 +1,22 @@
 pages:
     label: Pages
     route: /admin/page
+
 media:
     label: Media
     route: /admin/media
+
 forms:
     label: Forms
     route: /admin/form
+
 modules:
     label: Modules
     children:
         taxonomies:
             label: Taxonomies
-            route: /admin/modules/taxonomy
+            route: /admin/module/taxonomy
+
 security:
     label: Security
     children:
@@ -25,15 +29,20 @@ security:
         roles:
             label: Roles
             route: /admin/security/role
+
+seo:
+    label: Seo
+    children:
+        redirects:
+            label: Redirects
+            route: /admin/seo/redirect
+        robots:
+            label: Robots
+            route: /admin/seo/robots
+
 settings:
     label: Settings
     children:
         translations:
             label: Translations
-            route: /admin/settings/translation
-        redirects:
-            label: Redirects
-            route: /admin/settings/redirect
-        robots:
-            label: Robots
-            route: /admin/settings/robots
+            route: /admin/setting/translation

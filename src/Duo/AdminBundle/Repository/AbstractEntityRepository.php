@@ -60,11 +60,11 @@ abstract class AbstractEntityRepository extends EntityRepository
 			// and is published
 			if ($translationReflectionClass->implementsInterface(PublishInterface::class))
 			{
-				$this->andWherePublication($builder, 't');
+				$this->andWherePublished($builder, 't');
 			}
 			else
 			{
-				$this->andWherePublication($builder);
+				$this->andWherePublished($builder);
 			}
 		}
 		else
@@ -72,7 +72,7 @@ abstract class AbstractEntityRepository extends EntityRepository
 			// and is published
 			if ($reflectionClass->implementsInterface(PublishInterface::class))
 			{
-				$this->andWherePublication($builder);
+				$this->andWherePublished($builder);
 			}
 		}
 
@@ -85,7 +85,7 @@ abstract class AbstractEntityRepository extends EntityRepository
 	 * @param QueryBuilder $builder
 	 * @param string $alias [optional]
 	 */
-	private function andWherePublication(QueryBuilder $builder, string $alias = 'e')
+	private function andWherePublished(QueryBuilder $builder, string $alias = 'e')
 	{
 		$builder
 			->andWhere("({$alias}.publishAt <= :dateTime AND ({$alias}.unpublishAt > :dateTime OR {$alias}.unpublishAt IS NULL))")

@@ -28,14 +28,14 @@ class SecurityControllerTest extends WebTestCase
 	 */
 	public function testLogin()
 	{
-		$crawler = $this->client->request('GET', '/admin/page/');
+		$crawler = $this->client->request('GET', '/admin/security/user/');
 
 		$this->assertEquals(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
 		$this->assertStringStartsWith('Redirecting to', trim($crawler->filter('body')->text()));
 		$this->assertContains('/admin/login', $crawler->filter('body > a')->text());
 
 		$this->login();
-		$crawler = $this->client->request('GET', '/admin/page/');
+		$crawler = $this->client->request('GET', '/admin/security/user/');
 
 		$this->assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 		$this->assertSame('Duo', $crawler->filter('body > nav > a')->text());

@@ -1,35 +1,39 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
+{% block bodyClass %}listing-index{% endblock %}
+
 {% block toolbar %}
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-		<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_index') }}" class="navbar-brand">Duo</a>
-		<form class="form-inline my-2 my-lg-0">
+	<nav class="navbar navbar-light bg-light justify-content-end">
+		<div class="form-inline">
 			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
 					<div class="btn-group" role="group">
-						<button id="actions_{{ list.type }}" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+						<button id="actions_{{ list.type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
 							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 						</button>
 						<div class="dropdown-menu" aria-labelledby="actions_{{ list.type }}">
-							<button type="button" class="dropdown-item" data-toggle="modal" data-target="">
+							{% if list.isDeletable %}
+								{% set url = path(routePrefix ~ '_delete') %}
+							{% else %}
+								{% set url = path(routePrefix ~ '_destroy') %}
+							{% endif %}
+							<a href="{{ url }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.admin.modal.multi_delete.title' | trans }}" data-body="{{ 'duo.admin.modal.multi_delete.body' | trans }}">
 								{{- 'duo.admin.listing.action.delete' | trans -}}
-							</button>
+							</a>
 						</div>
 					</div>
-					<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_add') }}" class="btn btn-primary">
-						{{- 'duo.admin.toolbar.actions.new' | trans({
-							'%type%': list.localizedType
-						}) -}}
+					<a href="{{ path(routePrefix ~ '_add') }}" class="btn btn-primary">
+						{{- 'duo.admin.toolbar.actions.new' | trans -}}
 					</a>
 				</div>
 			</div>
-		</form>
+		</div>
 	</nav>
 {% endblock %}
 
 {% block content %}
 	{% if paginator.canPaginate() %}
-		{{ paginator_widget(paginator, path('duo_admin_listing_' ~ list.type ~ '_index')) }}
+		{{ paginator_widget(paginator, path(routePrefix ~ '_index')) }}
 	{% endif %}
 
 	{% set uniqid = random() %}
@@ -54,10 +58,10 @@
 				</thead>
 				<tbody>
 					{% for entity in paginator.result %}
-						<tr data-url="{{ path('duo_admin_listing_' ~ list.type ~ '_edit', { id: entity.id }) }}">
+						<tr data-url="{{ path(routePrefix ~ '_edit', { id: entity.id }) }}">
 							<td>
 								<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control custom-checkbox">
-									<input type="checkbox" id="{{ uniqid }}_{{ entity.id }}" value="{{ entity.id }}" class="custom-control-input">
+									<input type="checkbox" id="{{ uniqid }}_{{ entity.id }}" name="ids[]" value="{{ entity.id }}" class="custom-control-input">
 									<span class="custom-control-indicator"></span>
 								</label>
 							</td>
@@ -71,20 +75,20 @@
 								</td>
 							{% endfor %}
 							<td>
-								{% if list.isSortable %}
-									<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_move_up', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
+								{% if list.isSortable and not entity is treeable %}
+									<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
 										<i class="icon-arrow-up"></i>
 									</a>
-									<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_move_down', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
+									<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
 										<i class="icon-arrow-down"></i>
 									</a>
 								{% endif %}
 								{% if list.isDeletable %}
-									<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_delete', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+									<a href="{{ path(routePrefix ~ '_delete', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
 										<i class="icon-bin"></i>
 									</a>
 								{% else %}
-									<a href="{{ path('duo_admin_listing_' ~ list.type ~ '_destroy', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
 										<i class="icon-bin"></i>
 									</a>
 								{% endif %}
@@ -101,6 +105,8 @@
 	{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' with {
 		id: 'delete',
 		title: 'duo.admin.modal.delete.title' | trans,
-		body: 'duo.admin.modal.delete.body' | trans({ '%type%': list.localizedType })
+		body: 'duo.admin.modal.delete.body' | trans
 	} %}
+
+	{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' %}
 {% endblock %}

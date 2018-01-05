@@ -71,7 +71,7 @@
 {% endblock %}
 
 {% block duo_tabs_row %}
-	<div id="{{ id }}">
+	<div id="{{ id }}" class="tabs-list">
 		<ul class="nav nav-tabs mb-3" role="tablist">
 			{% for tab in form %}
 				<li>{{ form_label(tab, null, { selected: loop.first }) }}</li>
@@ -87,7 +87,7 @@
 
 {% block duo_translation_row %}
 	{% set locales = get_locales(app.request.locale) %}
-	<div class="{{ id }}">
+	<div id="{{ id }}" class="translations-list">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="list-group mb-3" id="{{ id }}_tablist" role="tablist">

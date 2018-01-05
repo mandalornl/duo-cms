@@ -15,18 +15,18 @@ class SortEvent extends Event
 	/**
 	 * @var SortInterface
 	 */
-	private $adjacentEntity;
+	private $origin;
 
 	/**
 	 * SortEvent constructor
 	 *
 	 * @param SortInterface $entity
-	 * @param SortInterface $adjacentEntity [optional]
+	 * @param SortInterface $origin [optional]
 	 */
-	public function __construct(SortInterface $entity, SortInterface $adjacentEntity = null)
+	public function __construct(SortInterface $entity, SortInterface $origin = null)
 	{
 		$this->entity = $entity;
-		$this->adjacentEntity = $adjacentEntity;
+		$this->origin = $origin;
 	}
 
 	/**
@@ -54,26 +54,26 @@ class SortEvent extends Event
 	}
 
 	/**
-	 * Set adjacentEntity
+	 * Set origin
 	 *
-	 * @param SortInterface $adjacentEntity
+	 * @param SortInterface $origin
 	 *
 	 * @return SortEvent
 	 */
-	public function setAdjacentEntity(SortInterface $adjacentEntity): SortEvent
+	public function setOrigin(SortInterface $origin): SortEvent
 	{
-		$this->adjacentEntity = $adjacentEntity;
+		$this->origin = $origin;
 
 		return $this;
 	}
 
 	/**
-	 * Get adjacentEntity
+	 * Get origin
 	 *
 	 * @return SortInterface
 	 */
-	public function getAdjacentEntity(): ?SortInterface
+	public function getOrigin(): ?SortInterface
 	{
-		return $this->adjacentEntity;
+		return $this->origin;
 	}
 }

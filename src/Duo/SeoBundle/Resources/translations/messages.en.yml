@@ -1,0 +1,28 @@
+duo:
+    seo:
+        tab: Seo
+
+        listing:
+            field:
+                origin: Origin
+                target: Target
+                permanent: Permanent
+
+        form:
+            meta_title:
+                label: Meta title
+            meta_description:
+                label: Meta description
+            meta_keywords:
+                label: Meta keywords
+            meta_robots:
+                label: Meta robots
+                placeholder: Please choose
+
+            redirect:
+                origin:
+                    label: Origin
+                target:
+                    label: Target
+                permanent:
+                    label: Permanent

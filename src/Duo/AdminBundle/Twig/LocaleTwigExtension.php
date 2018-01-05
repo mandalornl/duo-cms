@@ -2,23 +2,24 @@
 
 namespace Duo\AdminBundle\Twig;
 
+use Duo\AdminBundle\Helper\LocaleHelper;
 use Symfony\Component\Intl\Intl;
 
 class LocaleTwigExtension extends \Twig_Extension
 {
 	/**
-	 * @var string[] $locales
+	 * @var LocaleHelper
 	 */
-	private $locales;
+	private $localeHelper;
 
 	/**
 	 * LocaleTwigExtension constructor
 	 *
-	 * @param array $locales
+	 * @param LocaleHelper $localeHelper
 	 */
-	public function __construct(array $locales)
+	public function __construct(LocaleHelper $localeHelper)
 	{
-		$this->locales = $locales;
+		$this->localeHelper = $localeHelper;
 	}
 
 	/**
@@ -41,15 +42,17 @@ class LocaleTwigExtension extends \Twig_Extension
 	 */
 	public function getCountries(string $displayLocale = null): array
 	{
-		$countries = array_map(function(string $locale) use ($displayLocale)
+		$locales = $this->localeHelper->getLocales();
+
+		$list = array_map(function(string $locale) use ($displayLocale)
 		{
 			$country = strtoupper($locale === 'en' ? 'gb' : $locale);
 			return Intl::getRegionBundle()->getCountryName($country, $displayLocale ?: $locale);
-		}, array_combine($this->locales, $this->locales));
+		}, array_combine($locales, $locales));
 
-		ksort($countries);
+		ksort($list);
 
-		return $countries;
+		return $list;
 	}
 
 	/**
@@ -61,13 +64,15 @@ class LocaleTwigExtension extends \Twig_Extension
 	 */
 	public function getLocales(string $displayLocale = null): array
 	{
-		$locales = array_map(function(string $locale) use ($displayLocale)
+		$locales = $this->localeHelper->getLocales();
+
+		$list = array_map(function(string $locale) use ($displayLocale)
 		{
 			return ucfirst(Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale ?: $locale));
-		}, array_combine($this->locales, $this->locales));
+		}, array_combine($locales, $locales));
 
-		ksort($locales);
+		ksort($list);
 
-		return $locales;
+		return $list;
 	}
 }

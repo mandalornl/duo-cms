@@ -19,8 +19,17 @@ const confirm = (callback, selector = '#modal_confirm') =>
 
 		$modal.on('show.bs.modal', () =>
 		{
-			$modal.find('.modal-title').text($this.data('title'));
-			$modal.find('.modal-body p').html($this.data('body').replace(/\r\n|\r|\n/g, '<br>'));
+			// add title
+			if ($this.data('title'))
+			{
+				$modal.find('.modal-title').text($this.data('title'));
+			}
+
+			// add body
+			if ($this.data('body'))
+			{
+				$modal.find('.modal-body p').html($this.data('body').replace(/\r\n|\r|\n/g, '<br>'));
+			}
 
 			$modal.on('click', '.btn:not([data-dismiss])', () =>
 			{

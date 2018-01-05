@@ -5,3 +5,18 @@ duo_security:
     resource: '@DuoSecurityBundle/Controller/SecurityController.php'
     type: annotation
     prefix: /
+
+duo_security_listing_user:
+    resource: '@DuoSecurityBundle/Controller/Listing/UserController.php'
+    type: annotation
+    prefix: /security/user
+
+duo_security_listing_group:
+    resource: '@DuoSecurityBundle/Controller/Listing/GroupController.php'
+    type: annotation
+    prefix: /security/group
+
+duo_security_listing_role:
+    resource: '@DuoSecurityBundle/Controller/Listing/RoleController.php'
+    type: annotation
+    prefix: /security/role

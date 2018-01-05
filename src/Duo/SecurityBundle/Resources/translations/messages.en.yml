@@ -1,11 +1,45 @@
 duo:
     security:
+        listing:
+            field:
+                name: Name
+                username: Username
+                active: Active
+                created_at: Created at
+                modified_at: Modified at
+
         form:
             login:
                 username: Username
                 password: Password
                 submit: Login
                 remember_me: Keep me logged in
+
+            role:
+                name:
+                    label: Name
+                role:
+                    label: Role
+
+            group:
+                name:
+                    label: Name
+                roles:
+                    label: Roles
+
+            user:
+                name:
+                    label: Name
+                email:
+                    label: Email
+                username:
+                    label: Username
+                password:
+                    label: Password
+                active:
+                    label: Active
+                groups:
+                    label: Groups
 
             group_choice:
                 label: Groups
@@ -14,3 +48,6 @@ duo:
             role_choice:
                 label: Roles
                 placeholder: Please choose
+
+        tab:
+            profile: Profile

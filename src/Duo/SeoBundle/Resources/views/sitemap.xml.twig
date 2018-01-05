@@ -1,0 +1,26 @@
+{% spaceless %}
+{% import _self as _ %}
+
+{% macro urlset(page, priority) %}
+	{% import _self as _ %}
+
+	<url>
+		<loc>{{ url('url', { url: page.translate(app.request.locale).url, _locale: app.request.locale }) }}</loc>
+		<lastmod>{{ page.modifiedAt | date('c') }}</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>{{ priority }}</priority>
+	</url>
+
+	{% if page.children | length %}
+		{% set priority = priority - 0.1 %}
+		{% for child in page.children %}
+			{{ _.urlset(child, priority) }}
+		{% endfor %}
+	{% endif %}
+{% endmacro %}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	{{ _.urlset(root, 1.0) }}
+</urlset>
+{% endspaceless %}

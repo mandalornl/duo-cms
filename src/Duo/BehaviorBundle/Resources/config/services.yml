@@ -26,7 +26,7 @@ services:
 
     Duo\BehaviorBundle\EventSubscriber\PublishSubscriber:
         arguments:
-            $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
+            $tokenHelper: '@duo.security.token_helper'
         tags:
             - { name: doctrine.event_subscriber }
 
@@ -36,7 +36,7 @@ services:
 
     Duo\BehaviorBundle\EventSubscriber\DeleteSubscriber:
         arguments:
-            $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
+            $tokenHelper: '@duo.security.token_helper'
         tags:
             - { name: doctrine.event_subscriber }
 
@@ -46,7 +46,7 @@ services:
 
     Duo\BehaviorBundle\EventSubscriber\TimeStampSubscriber:
         arguments:
-            $tokenHelper: '@Duo\SecurityBundle\Helper\TokenHelper'
+            $tokenHelper: '@duo.security.token_helper'
         tags:
             - { name: doctrine.event_subscriber }
 

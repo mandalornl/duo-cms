@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+	<a href="{{ path('duo_admin_dashboard_index') }}" class="navbar-brand">
+		{{- brand_name -}}
+	</a>
+	{% if app.user %}
+		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="{{ 'duo.admin.navbar.toggle' | trans }}">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="{{ path('duo_security_listing_user_edit', { id: app.user.id }) }}" class="nav-link">
+						{{- app.user.name -}}
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{ path('duo_security_logout') }}" class="nav-link">
+						{{- 'duo.admin.navbar.logout' | trans -}}
+					</a>
+				</li>
+			</ul>
+		{% endif %}
+	</div>
+</nav>

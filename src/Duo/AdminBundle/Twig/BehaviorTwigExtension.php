@@ -8,6 +8,7 @@ use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
+use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\VersionInterface;
 
 class BehaviorTwigExtension extends \Twig_Extension
@@ -22,6 +23,7 @@ class BehaviorTwigExtension extends \Twig_Extension
 			new \Twig_SimpleTest('publishable', [$this, 'isPublishable']),
 			new \Twig_SimpleTest('sortable', [$this, 'isSortable']),
 			new \Twig_SimpleTest('translatable', [$this, 'isTranslatable']),
+			new \Twig_SimpleTest('treeable', [$this, 'isTreeable']),
 			new \Twig_SimpleTest('versionable', [$this, 'isVersionable']),
 			new \Twig_SimpleTest('cloneable', [$this, 'isCloneable']),
 			new \Twig_SimpleTest('viewable', [$this, 'isViewable'])
@@ -84,6 +86,18 @@ class BehaviorTwigExtension extends \Twig_Extension
 	public function isTranslatable($entity): bool
 	{
 		return $entity instanceof TranslateInterface;
+	}
+
+	/**
+	 * Is treeable
+	 *
+	 * @param object $entity
+	 *
+	 * @return bool
+	 */
+	public function isTreeable($entity): bool
+	{
+		return $entity instanceof TreeInterface;
 	}
 
 	/**

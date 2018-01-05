@@ -1,0 +1,28 @@
+{% extends '@DuoAdmin/Listing/add.html.twig' %}
+
+{% block toolbar %}
+	<nav class="navbar navbar-light bg-light justify-content-end">
+		<div class="form-inline">
+			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
+				<div class="btn-group" role="group">
+					<a href="{{ path(routePrefix ~ '_index') }}" class="btn btn-white">
+						{{- 'duo.admin.toolbar.actions.cancel' | trans -}}
+					</a>
+					<button type="button" class="btn btn-success" data-action="save">
+						{{- 'duo.admin.toolbar.actions.save' | trans -}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</nav>
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-10 col-lg-8">
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

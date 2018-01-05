@@ -12,16 +12,6 @@ $(() =>
 {
 	const $form = $('.form-add, .form-edit');
 
-	$(document).on('click', 'button[data-action="save"]', function()
-	{
-		const $this = $(this);
-		$this.prop('disabled', true);
-
-		doNotLeave.disable();
-
-		$form.submit();
-	});
-
 	$form.on('change.donotleave', 'select', function()
 	{
 		doNotLeave.enable();
@@ -46,6 +36,16 @@ $(() =>
 			}
 		}
 	}, 'input, textarea');
+
+	$('.listing-add, .listing-edit').on('click', 'button[data-action="save"]', function()
+	{
+		const $this = $(this);
+		$this.prop('disabled', true);
+
+		doNotLeave.disable();
+
+		$form.submit();
+	});
 
 	datepicker.init();
 	select2.init();

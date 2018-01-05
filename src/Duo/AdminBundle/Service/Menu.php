@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeInterface;
+use Duo\BehaviorBundle\Entity\TreeInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class Menu

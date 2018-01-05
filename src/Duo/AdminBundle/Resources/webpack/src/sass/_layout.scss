@@ -1,0 +1,26 @@
+header
+{
+	> nav + nav
+	{
+		margin-bottom: 1rem;
+	}
+}
+
+main
+{
+	flex: 1 0 auto;
+}
+
+footer
+{
+	padding: 1rem 0;
+}
+
+body.login main
+{
+	display: flex;
+
+	flex-direction: column;
+
+	justify-content: center;
+}

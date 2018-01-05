@@ -1,3 +1,4 @@
+{% spaceless %}
 <!doctype html>
 {% set htmlLocale = app.request.locale | slice(0, 2) %}
 <html lang="{{ htmlLocale }}">
@@ -20,14 +21,28 @@
 	{# CSS #}
 	{% include '@DuoAdmin/Layout/_css.html.twig' %}
 </head>
-<body>
-	{# Toolbar #}
-	{% block toolbar %}{% endblock %}
+<body class="{% block bodyClass %}default{% endblock %}">
+	{# Header #}
+	<header role="banner">
+		{# Navbar #}
+		{% block navbar %}
+			{% include '@DuoAdmin/Navigation/navbar.html.twig' %}
+		{% endblock %}
 
-	<div class="{% block containerClass %}container-fluid{% endblock %}">
-		{# Content #}
+		{# Toolbar #}
+		{% block toolbar %}{% endblock %}
+	</header>
+
+	{# Main #}
+	<main class="container-fluid" role="main">
+		{% include '@DuoAdmin/Layout/_alerts.html.twig' %}
 		{% block content %}{% endblock %}
-	</div>
+	</main>
+
+	{# Footer #}
+	<footer class="container-fluid" role="contentinfo">
+		{{- brand_name }} &copy; {{ 'now' | date('Y') -}}
+	</footer>
 
 	{# Modals #}
 	{% block modal %}{% endblock %}
@@ -36,3 +51,4 @@
 	{% include '@DuoAdmin/Layout/_js_footer.html.twig' %}
 </body>
 </html>
+{% endspaceless %}

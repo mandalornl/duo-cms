@@ -20,6 +20,11 @@
 	}
 }
 
+.custom-select
+{
+	@include appearance(none);
+}
+
 .btn-white
 {
 	@include button-variant(

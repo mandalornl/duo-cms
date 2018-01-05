@@ -37,6 +37,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        brand_name: '%brand_name%'
 
 # Doctrine Configuration
 doctrine:

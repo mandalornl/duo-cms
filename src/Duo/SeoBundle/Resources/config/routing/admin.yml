@@ -1,0 +1,9 @@
+duo_seo_listing_redirect:
+    resource: '@DuoSeoBundle/Controller/Listing/RedirectController.php'
+    type: annotation
+    prefix: /seo/redirect
+
+duo_seo_listing_robot:
+    resource: '@DuoSeoBundle/Controller/Listing/RobotController.php'
+    type: annotation
+    prefix: /seo/robots

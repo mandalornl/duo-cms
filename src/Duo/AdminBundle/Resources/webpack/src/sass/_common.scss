@@ -59,24 +59,7 @@ a
 	cursor: pointer;
 }
 
-.custom-select
-{
-	@include appearance(none);
-}
-
 .icomoon
 {
 	vertical-align: middle;
-}
-
-.container-login
-{
-	display: flex;
-
-	flex-direction: column;
-	flex: 1 0 auto;
-
-	justify-content: center;
-
-	@extend .container-fluid;
 }

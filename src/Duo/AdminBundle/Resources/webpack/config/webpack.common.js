@@ -78,7 +78,8 @@ module.exports = {
 
 			Util: 'exports-loader?Util!bootstrap/js/dist/util',
 			Collapse: 'exports-loader?Collapse!bootstrap/js/dist/collapse',
-			Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown'
+			Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
+			Alert: 'exports-loader?Alert!bootstrap/js/dist/alert',
 		})
 	]
 };

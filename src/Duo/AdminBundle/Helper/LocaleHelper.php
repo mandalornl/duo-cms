@@ -95,6 +95,33 @@ class LocaleHelper
 	}
 
 	/**
+	 * Set locales from string
+	 *
+	 * @param string $locales
+	 * @param string $glue [optional]
+	 *
+	 * @return LocaleHelper
+	 */
+	public function setLocalesFromString(string $locales, string $glue = '|'): LocaleHelper
+	{
+		$this->locales = explode($glue, $locales);
+
+		return $this;
+	}
+
+	/**
+	 * Get locales as string
+	 *
+	 * @param string $glue [optional]
+	 *
+	 * @return string
+	 */
+	public function getLocalesAsString(string $glue = '|'): string
+	{
+		return implode($glue, $this->locales);
+	}
+
+	/**
 	 * Get locale
 	 *
 	 * @return string

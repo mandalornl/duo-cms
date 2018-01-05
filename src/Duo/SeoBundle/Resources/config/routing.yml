@@ -1,0 +1,7 @@
+duo_seo_listing:
+    resource: '@DuoSeoBundle/Resources/config/routing/admin.yml'
+    prefix: /admin
+
+duo_seo_site:
+    resource: '@DuoSeoBundle/Resources/config/routing/site.yml'
+    prefix: /

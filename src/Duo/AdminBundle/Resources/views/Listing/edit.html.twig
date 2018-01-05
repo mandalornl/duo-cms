@@ -1,5 +1,7 @@
 {% extends '@DuoAdmin/Listing/add.html.twig' %}
 
+{% block bodyClass %}listing-edit{% endblock %}
+
 {% block modal %}
 	{% if entity is versionable %}
 		{% include '@DuoAdmin/Listing/Modal/versions.html.twig' %}

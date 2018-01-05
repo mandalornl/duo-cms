@@ -12,19 +12,19 @@ interface DeleteInterface
 	 * Delete entity
 	 *
 	 * @param Request $request
-	 * @param int $id
+	 * @param int $id [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 */
-	public function deleteAction(Request $request, int $id);
+	public function deleteAction(Request $request, int $id = null);
 
 	/**
 	 * Undelete entity
 	 *
 	 * @param Request $request
-	 * @param int $id
+	 * @param int $id [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 */
-	public function undeleteAction(Request $request, int $id);
+	public function undeleteAction(Request $request, int $id = null);
 }

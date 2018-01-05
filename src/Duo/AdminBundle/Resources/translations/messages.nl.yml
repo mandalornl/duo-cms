@@ -8,11 +8,14 @@ duo:
             publish:
                 partially: Deels
 
+        navbar:
+            toggle: Toggle navigatie
+            logout: Uitloggen
+
         toolbar:
-            toggle: Toggle werkbalk
             actions:
                 label: Acties
-                new: Nieuwe %type%
+                new: Nieuw
                 save: Opslaan
                 cancel: Annuleren
                 publish: Online
@@ -29,19 +32,11 @@ duo:
                     more: Meer
 
         listing:
-            type:
-                page: pagina
-                taxonomy: taxonomie
-                user: gebruiker
-                group: groep
-                role: rol
-
             field:
                 name: Naam
                 title: Titel
                 url: Url
                 online: Online
-                username: Gebruikersnaam
                 active: Actief
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
@@ -50,6 +45,12 @@ duo:
                 move_up: Verplaats omhoog
                 move_down: Verplaats omlaag
                 delete: Verwijderen
+
+            alert:
+                no_items: Geen item(s) geselecteerd
+                delete_success: Item(s) succesvol verwijderd
+                undelete_success: Item(s) succesvol hersteld
+                save_success: Item succesvol opgeslagen
 
         paginator:
             label: Paginering
@@ -74,27 +75,31 @@ duo:
 
             revert:
                 title: Terugzetten
-                body: Weet u zeker dat u deze %type% wilt terugzetten?
+                body: Weet u zeker dat u dit item wilt terugzetten?
 
             duplicate:
                 title: Dupliceren
-                body: Weet u zeker dat u deze %type% wilt dupliceren?
+                body: Weet u zeker dat u dit item wilt dupliceren?
 
             delete:
                 title: Verwijderen
-                body: Weet u zeker dat u deze %type% wilt verwijderen?
+                body: Weet u zeker dat u dit item wilt verwijderen?
 
             undelete:
                 title: Herstellen
-                body: Weet u zeker dat u deze %type% wilt herstellen?
+                body: Weet u zeker dat u dit item wilt herstellen?
 
             publish:
                 title: Publiceren
-                body: Weet u zeker dat u deze %type% online wilt zetten?
+                body: Weet u zeker dat u dit item online wilt zetten?
 
             unpublish:
                 title: Depubliceren
-                body: Weet u zeker dat u deze %type% offline wilt halen?
+                body: Weet u zeker dat u dit item offline wilt halen?
+
+            multi_delete:
+                title: Verwijderen
+                body: Weet u zeker dat u deze items wilt verwijderen?
 
         form:
             confirm_choice:
@@ -110,32 +115,6 @@ duo:
             weight_choice:
                 label: Gewicht
                 placeholder: Maak een keuze
-
-            role:
-                name:
-                    label: Naam
-                role:
-                    label: Rol
-
-            group:
-                name:
-                    label: Naam
-                roles:
-                    label: Rollen
-
-            user:
-                name:
-                    label: Naam
-                email:
-                    label: E-mailadres
-                username:
-                    label: Gebruikersnaam
-                password:
-                    label: Wachtwoord
-                active:
-                    label: Actief
-                groups:
-                    label: Groepen
 
             taxonomy:
                 name:
@@ -153,25 +132,12 @@ duo:
                 visible:
                     label: Zichtbaar
 
-            seo:
-                meta_title:
-                    label: Meta titel
-                meta_description:
-                    label: Meta omschrijving
-                meta_keywords:
-                    label: Meta trefwoorden
-                meta_robots:
-                    label: Meta robotten
-                    placeholder: Maak een keuze
-
             publication:
                 publish_at: Publiceer op
                 unpublish_at: Depubliceer op
 
         tab:
             content: Content
-            seo: Seo
             menu: Menu
             properties: Eigenschappen
-            profile: Profiel
             publication: Publicatie

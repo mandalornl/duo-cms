@@ -1,0 +1,28 @@
+duo:
+    seo:
+        tab: Seo
+
+        listing:
+            field:
+                origin: Oorsprong
+                target: Doel
+                permanent: Permanent
+
+        form:
+            meta_title:
+                label: Meta titel
+            meta_description:
+                label: Meta omschrijving
+            meta_keywords:
+                label: Meta trefwoorden
+            meta_robots:
+                label: Meta robotten
+                placeholder: Maak een keuze
+
+            redirect:
+                origin:
+                    label: Oorsprong
+                target:
+                    label: Doel
+                permanent:
+                    label: Permanent

@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Entity\Behavior;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Duo\AdminBundle\Entity\Taxonomy;
+use Duo\AdminBundle\Entity\Module\Taxonomy;
 
 trait TaxonomyTrait
 {

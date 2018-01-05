@@ -2,31 +2,30 @@ import $ from 'jquery';
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/alert';
 
-import './sortable';
+import {confirm} from "./util/modal";
 
 $(() =>
 {
-	const $list = $('.table-list');
+	const $form = $('.form-list');
+	const $list = $form.find('.table-list');
 
 	$list.on('click', 'tr[data-url] td:not(:first-child):not(:last-child)', function()
 	{
 		location.href = $(this).closest('tr').data('url');
 	});
 
-	$list.on('click', '[data-modal="delete"]', function(e)
+	$list.on('click', '[data-modal="delete"]', confirm(function()
 	{
-		e.preventDefault();
+		location.href = $(this).attr('href');
+	}, '#modal_confirm_delete'));
 
+	$('.listing-index').on('click', '[data-modal="multi-delete"]', confirm(function()
+	{
 		const $this = $(this);
-		const $modal = $('#modal_confirm_delete');
+		$this.prop('disabled', true);
 
-		$modal.on('show.bs.modal', () =>
-		{
-			$modal.on('click', '.btn:not([data-dismiss])', () =>
-			{
-				location.href = $this.attr('href');
-			});
-		}).modal('show');
-	});
+		$form.attr('action', $this.attr('href')).submit();
+	}));
 });

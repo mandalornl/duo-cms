@@ -15,11 +15,12 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    Duo\AdminBundle\Helper\LocaleHelper:
+    duo.admin.locale_helper:
+        class: Duo\AdminBundle\Helper\LocaleHelper
         public: true
         calls:
             - [ setDefaultLocale, [ '%locale%' ]]
-            - [ setLocales, [ '%locales%' ]]
+            - [ setLocalesFromString, [ '%locales%' ]]
 
     Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber:
         tags:
@@ -27,12 +28,12 @@ services:
 
     Duo\AdminBundle\Twig\LocaleTwigExtension:
         arguments:
-            $locales: '%locales%'
+            $localeHelper: '@duo.admin.locale_helper'
         tags:
             - { name: twig.extension }
 
     Duo\AdminBundle\Routing\UrlLoader:
         arguments:
-            $localeHelper: '@Duo\AdminBundle\Helper\LocaleHelper'
+            $localeHelper: '@duo.admin.locale_helper'
         tags:
             - { name: routing.loader, priority: 0 }

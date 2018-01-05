@@ -4,8 +4,8 @@ namespace Duo\AdminBundle\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Entity\Page;
-use Duo\AdminBundle\Entity\Taxonomy;
+use Duo\AdminBundle\Entity\Node\Page;
+use Duo\AdminBundle\Entity\Module\Taxonomy;
 use Duo\SecurityBundle\Entity\Group;
 use Duo\SecurityBundle\Entity\Role;
 use Duo\SecurityBundle\Entity\User;
@@ -135,8 +135,8 @@ class TestFixtures extends Fixture
 		$group = $this->manager->getRepository(Group::class)->findOneBy(['name' => 'Super Administrators']);
 
 		$user = (new User())
-			->setName('John Doe')
-			->setEmail('johndoe@duo.nl')
+			->setName('Admin')
+			->setEmail('admin@duocms.nl')
 			->setActive(true)
 			->addGroup($group);
 

@@ -1,11 +1,45 @@
 duo:
     security:
+        listing:
+            field:
+                name: Naam
+                username: Gebruikersnaam
+                active: Actief
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
         form:
             login:
                 username: Gebruikersnaam
                 password: Wachtwoord
                 submit: Inloggen
                 remember_me: Houdt mij ingelogd
+
+            role:
+                name:
+                    label: Naam
+                role:
+                    label: Rol
+
+            group:
+                name:
+                    label: Naam
+                roles:
+                    label: Rollen
+
+            user:
+                name:
+                    label: Naam
+                email:
+                    label: E-mailadres
+                username:
+                    label: Gebruikersnaam
+                password:
+                    label: Wachtwoord
+                active:
+                    label: Actief
+                groups:
+                    label: Groepen
 
             group_choice:
                 label: Groepen
@@ -14,3 +48,6 @@ duo:
             role_choice:
                 label: Rollen
                 placeholder: Maak een keuze
+
+        tab:
+            profile: Profiel

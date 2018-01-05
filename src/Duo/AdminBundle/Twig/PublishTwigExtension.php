@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\AdminBundle\Status\Publish;
+use Duo\AdminBundle\Status\Published;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Entity\TranslationInterface;
@@ -28,37 +28,44 @@ class PublishTwigExtension extends \Twig_Extension
 	 */
 	public function isPublished($entity): int
 	{
-		if ($entity instanceof TranslateInterface)
+		if (!$entity instanceof PublishInterface)
 		{
-			// get published translations
-			$translations = $entity->getTranslations()->filter(function(TranslationInterface $translation)
+			// check translations
+			if ($entity instanceof TranslateInterface)
 			{
-				return $translation instanceof PublishInterface && $translation->isPublished();
-			});
-
-			// no published translations found
-			if (!$translations->count())
-			{
-				return Publish::NONE;
-			}
-			else
-			{
-				// some published translations found
-				if ($translations->count() !== $entity->getTranslations()->count())
+				// get published translations
+				$translations = $entity->getTranslations()->filter(function(TranslationInterface $translation)
 				{
-					return Publish::PARTIAL;
+					return $translation instanceof PublishInterface && $translation->isPublished();
+				});
+
+				// no published translations found
+				if (!$translations->count())
+				{
+					return Published::NONE;
 				}
+				else
+				{
+					// some published translations found
+					if ($translations->count() !== $entity->getTranslations()->count())
+					{
+						return Published::PARTIAL;
+					}
+				}
+
+				// all published
+				return Published::ALL;
 			}
-
-			// all published
-			return Publish::ALL;
 		}
-
-		if ($entity instanceof PublishInterface && $entity->isPublished())
+		else
 		{
-			return Publish::ALL;
+			// check entity instead
+			if ($entity->isPublished())
+			{
+				return Published::ALL;
+			}
 		}
 
-		return Publish::NONE;
+		return Published::NONE;
 	}
 }

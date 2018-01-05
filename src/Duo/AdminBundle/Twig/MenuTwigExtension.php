@@ -4,8 +4,8 @@ namespace Duo\AdminBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\AdminBundle\Entity\Behavior\TreeInterface;
 use Duo\AdminBundle\Service\Menu;
+use Duo\BehaviorBundle\Entity\TreeInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuTwigExtension extends \Twig_Extension
