@@ -3,9 +3,9 @@
 namespace Duo\SeoBundle\Controller\Listing;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Controller\AbstractController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\SeoBundle\Entity\Redirect;
-use Duo\SeoBundle\Form\RedirectType;
+use Duo\SeoBundle\Form\Listing\RedirectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

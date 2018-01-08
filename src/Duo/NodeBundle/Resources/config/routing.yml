@@ -1,0 +1,4 @@
+duo_node_listing_page:
+    resource: '@DuoNodeBundle/Controller/Listing/PageController.php'
+    type: annotation
+    prefix: /page

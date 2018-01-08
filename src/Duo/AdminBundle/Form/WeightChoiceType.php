@@ -32,7 +32,6 @@ class WeightChoiceType extends AbstractType
 		$choices = range(-100, 100);
 
 		$resolver->setDefaults([
-			'label' => 'duo.admin.form.page.weight.label',
 			'choices' => array_combine($choices, $choices),
 			'placeholder' => $this->translator->trans('duo.admin.form.weight_choice.placeholder')
 		]);

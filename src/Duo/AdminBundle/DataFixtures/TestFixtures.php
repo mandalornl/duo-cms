@@ -4,11 +4,11 @@ namespace Duo\AdminBundle\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Entity\Node\Page;
-use Duo\AdminBundle\Entity\Module\Taxonomy;
+use Duo\NodeBundle\Entity\Page;
 use Duo\SecurityBundle\Entity\Group;
 use Duo\SecurityBundle\Entity\Role;
 use Duo\SecurityBundle\Entity\User;
+use Duo\TaxonomyBundle\Entity\Taxonomy;
 
 class TestFixtures extends Fixture
 {

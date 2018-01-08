@@ -3,9 +3,9 @@
 namespace Duo\SecurityBundle\Controller\Listing;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Controller\AbstractController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\SecurityBundle\Entity\Group;
-use Duo\SecurityBundle\Form\GroupType;
+use Duo\SecurityBundle\Form\Listing\GroupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;

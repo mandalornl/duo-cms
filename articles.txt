@@ -1,3 +1,5 @@
 https://blog.martinhujer.cz/symfony-forms-with-request-objects/
 
 https://github.com/dbushell/Nestable
+
+https://stovepipe.systems/post/symfony-security-roles-vs-voters

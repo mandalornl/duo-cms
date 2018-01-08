@@ -22,10 +22,6 @@ services:
             - [ setDefaultLocale, [ '%locale%' ]]
             - [ setLocalesFromString, [ '%locales%' ]]
 
-    Duo\AdminBundle\EventSubscriber\Behavior\TaxonomySubscriber:
-        tags:
-            - { name: doctrine.event_subscriber }
-
     Duo\AdminBundle\Twig\LocaleTwigExtension:
         arguments:
             $localeHelper: '@duo.admin.locale_helper'

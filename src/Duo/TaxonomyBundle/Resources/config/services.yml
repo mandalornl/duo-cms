@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\TaxonomyBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\TaxonomyBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Duo\TaxonomyBundle\EventSubscriber\TaxonomySubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }

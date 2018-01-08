@@ -1,0 +1,4 @@
+duo:
+    taxonomy:
+        errors:
+            taxonomy_used: This name is already used for this locale

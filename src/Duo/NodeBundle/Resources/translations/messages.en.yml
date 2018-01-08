@@ -1,0 +1,28 @@
+duo:
+    node:
+        listing:
+            field:
+                name: Name
+                title: Title
+                url: Url
+                online: Online
+                created_at: Created at
+                modified_at: Modified at
+
+        form:
+            page:
+                name:
+                    label: Name
+                weight:
+                    label: Weight
+                title:
+                    label: Title
+                content:
+                    label: Content
+                visible:
+                    label: Visible
+
+        tab:
+            content: Content
+            menu: Menu
+            properties: Properties

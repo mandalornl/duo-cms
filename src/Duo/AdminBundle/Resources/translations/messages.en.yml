@@ -32,15 +32,6 @@ duo:
                     more: More
 
         listing:
-            field:
-                name: Name
-                title: Title
-                url: Url
-                online: Online
-                active: Active
-                created_at: Created at
-                modified_at: Modified at
-
             action:
                 move_up: Move up
                 move_down: Move down
@@ -102,42 +93,13 @@ duo:
                 body: Are you sure you want to delete these items?
 
         form:
-            confirm_choice:
-                placeholder: Please choose
-                choices:
-                    yes: Yes
-                    no: No
-
-            taxonomy_choice:
-                label: Taxonomies
-                placeholder: Please choose
-
             weight_choice:
                 label: Weight
                 placeholder: Please choose
-
-            taxonomy:
-                name:
-                    label: Name
-
-            page:
-                name:
-                    label: Name
-                weight:
-                    label: Weight
-                title:
-                    label: Title
-                content:
-                    label: Content
-                visible:
-                    label: Visible
 
             publication:
                 publish_at: Publish at
                 unpublish_at: Unpublish at
 
         tab:
-            content: Content
-            menu: Menu
-            properties: Properties
             publication: Publication

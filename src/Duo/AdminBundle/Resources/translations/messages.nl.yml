@@ -32,15 +32,6 @@ duo:
                     more: Meer
 
         listing:
-            field:
-                name: Naam
-                title: Titel
-                url: Url
-                online: Online
-                active: Actief
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
-
             action:
                 move_up: Verplaats omhoog
                 move_down: Verplaats omlaag
@@ -102,42 +93,13 @@ duo:
                 body: Weet u zeker dat u deze items wilt verwijderen?
 
         form:
-            confirm_choice:
-                placeholder: Maak een keuze
-                choices:
-                    yes: Ja
-                    no: Nee
-
-            taxonomy_choice:
-                label: Taxonomieën
-                placeholder: Maak een keuze
-
             weight_choice:
                 label: Gewicht
                 placeholder: Maak een keuze
-
-            taxonomy:
-                name:
-                    label: Naam
-
-            page:
-                name:
-                    label: Naam
-                weight:
-                    label: Gewicht
-                title:
-                    label: Titel
-                content:
-                    label: Content
-                visible:
-                    label: Zichtbaar
 
             publication:
                 publish_at: Publiceer op
                 unpublish_at: Depubliceer op
 
         tab:
-            content: Content
-            menu: Menu
-            properties: Eigenschappen
             publication: Publicatie

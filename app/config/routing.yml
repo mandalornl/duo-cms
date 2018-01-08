@@ -2,9 +2,17 @@ duo_admin:
     resource: '@DuoAdminBundle/Resources/config/routing.yml'
     prefix: /admin
 
+duo_node:
+    resource: '@DuoNodeBundle/Resources/config/routing.yml'
+    prefix: /admin
+
 duo_security:
     resource: '@DuoSecurityBundle/Resources/config/routing.yml'
     prefix: /admin
+
+duo_taxonomy:
+    resource: "@DuoTaxonomyBundle/Resources/config/routing.yml"
+    prefix:   /admin
 
 duo_seo:
     resource: "@DuoSeoBundle/Resources/config/routing.yml"

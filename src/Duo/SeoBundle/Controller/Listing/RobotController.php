@@ -5,7 +5,7 @@ namespace Duo\SeoBundle\Controller\Listing;
 use Doctrine\Common\Annotations\AnnotationException;
 use Duo\AdminBundle\Controller\RoutePrefixTrait;
 use Duo\SeoBundle\Entity\Robot;
-use Duo\SeoBundle\Form\RobotType;
+use Duo\SeoBundle\Form\Listing\RobotType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

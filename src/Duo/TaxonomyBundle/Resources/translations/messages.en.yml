@@ -1,0 +1,16 @@
+duo:
+    taxonomy:
+        listing:
+            field:
+                name: Name
+                created_at: Created at
+                modified_at: Modified at
+
+        form:
+            taxonomy:
+                name:
+                    label: Name
+
+            taxonomy_choice:
+                label: Taxonomies
+                placeholder: Please choose

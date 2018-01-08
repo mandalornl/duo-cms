@@ -1,0 +1,16 @@
+duo:
+    taxonomy:
+        listing:
+            field:
+                name: Naam
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
+        form:
+            taxonomy:
+                name:
+                    label: Naam
+
+            taxonomy_choice:
+                label: Taxonomieën
+                placeholder: Maak een keuze

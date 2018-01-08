@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new Duo\SeoBundle\DuoSeoBundle(),
             new Duo\SecurityBundle\DuoSecurityBundle(),
             new Duo\BehaviorBundle\DuoBehaviorBundle(),
+            new Duo\TaxonomyBundle\DuoTaxonomyBundle(),
+            new Duo\NodeBundle\DuoNodeBundle(),
 			new Duo\AdminBundle\DuoAdminBundle(),
 			new AppBundle\AppBundle(),
         ];

@@ -2,13 +2,3 @@ duo_admin_dashboard:
     resource: '@DuoAdminBundle/Controller/DashboardController.php'
     type: annotation
     prefix: /
-
-duo_admin_listing_node_page:
-    resource: '@DuoAdminBundle/Controller/Listing/Node/PageController.php'
-    type: annotation
-    prefix: /page
-
-duo_admin_listing_module_taxonomy:
-    resource: '@DuoAdminBundle/Controller/Listing/Module/TaxonomyController.php'
-    type: annotation
-    prefix: /module/taxonomy

@@ -39,7 +39,7 @@ abstract class AbstractForm implements FormInterface
 	/**
 	 * @var Collection
 	 *
-	 * // TODO: mapping using subscriber
+	 * TODO: mapping using subscriber
 	 */
 	protected $formTypes;
 

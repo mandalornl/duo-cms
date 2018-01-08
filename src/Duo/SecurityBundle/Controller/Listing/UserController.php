@@ -3,9 +3,9 @@
 namespace Duo\SecurityBundle\Controller\Listing;
 
 use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Controller\AbstractController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\SecurityBundle\Entity\User;
-use Duo\SecurityBundle\Form\UserType;
+use Duo\SecurityBundle\Form\Listing\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
