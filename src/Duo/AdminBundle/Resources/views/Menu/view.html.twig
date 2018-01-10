@@ -1,0 +1,32 @@
+{% spaceless %}
+{% import _self as _ %}
+
+{% macro render(parent) %}
+	{% import _self as _ %}
+
+	{% for child in parent.children %}
+		<li class="nav-item">
+			{% if child.url %}
+				<a href="{{ child.url }}" class="nav-link{% if child.active %} active{% endif %}">
+					{{- child.label -}}
+				</a>
+			{% else %}
+				<span class="nav-link">
+					{{- child.label -}}
+				</span>
+			{% endif %}
+			{% if child.children | length %}
+				<ul class="nav flex-column">
+					{{- _.render(child) -}}
+				</ul>
+			{% endif %}
+		</li>
+	{% endfor %}
+{% endmacro %}
+
+<nav role="navigation">
+	<ul class="nav flex-column">
+		{{ _.render(menu) }}
+	</ul>
+</nav>
+{% endspaceless %}

@@ -21,29 +21,40 @@
 	{# CSS #}
 	{% include '@DuoAdmin/Layout/_css.html.twig' %}
 </head>
-<body class="{% block bodyClass %}default{% endblock %}">
-	{# Header #}
-	<header role="banner">
-		{# Navbar #}
-		{% block navbar %}
-			{% include '@DuoAdmin/Navigation/navbar.html.twig' %}
-		{% endblock %}
+<body class="{% block bodyClass %}default{% endblock %} sidebar-open">
+	<div class="wrapper">
+		{% if menu is defined %}
+			<div class="sidebar">
+				{{ render_menu(menu) }}
+			</div>
+		{% endif %}
+		<div class="page">
+			{# Header #}
+			<header role="banner">
+				{# Navbar #}
+				{% block navbar %}
+					{% include '@DuoAdmin/Navigation/navbar.html.twig' %}
+				{% endblock %}
 
-		{# Toolbar #}
-		{% block toolbar %}{% endblock %}
-	</header>
+				{# Toolbar #}
+				{% block toolbar %}{% endblock %}
+			</header>
 
-	{# Main #}
-	<main class="container-fluid" role="main">
-		{% include '@DuoAdmin/Layout/_alerts.html.twig' %}
-		{% block content %}{% endblock %}
-	</main>
+			{# Main #}
+			<main class="container-fluid" role="main">
+				{# Alerts #}
+				{% include '@DuoAdmin/Layout/_alerts.html.twig' %}
 
-	{# Footer #}
-	<footer class="container-fluid" role="contentinfo">
-		{{- brand_name }} &copy; {{ 'now' | date('Y') -}}
-	</footer>
+				{# Content #}
+				{% block content %}{% endblock %}
+			</main>
 
+			{# Footer #}
+			<footer class="container-fluid" role="contentinfo">
+				{{- brand_name }} &copy; {{ 'now' | date('Y') -}}
+			</footer>
+		</div>
+	</div>
 	{# Modals #}
 	{% block modal %}{% endblock %}
 

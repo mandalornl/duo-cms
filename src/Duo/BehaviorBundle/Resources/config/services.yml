@@ -14,15 +14,15 @@ services:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
         tags:
-            - { name: kernel.event_listener, event: duo.behavior.event.onDelete, method: onDelete }
-            - { name: kernel.event_listener, event: duo.behavior.event.onUndelete, method: onUndelete }
+            - { name: kernel.event_listener, event: duo.event.behavior.delete, method: onDelete }
+            - { name: kernel.event_listener, event: duo.event.behavior.undelete, method: onUndelete }
 
     Duo\BehaviorBundle\EventListener\VersionListener:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
         tags:
-            - { name: kernel.event_listener, event: duo.behavior.event.onClone, method: onClone }
-            - { name: kernel.event_listener, event: duo.behavior.event.onRevert, method: onRevert }
+            - { name: kernel.event_listener, event: duo.event.behavior.clone, method: onClone }
+            - { name: kernel.event_listener, event: duo.event.behavior.revert, method: onRevert }
 
     Duo\BehaviorBundle\EventSubscriber\PublishSubscriber:
         arguments:

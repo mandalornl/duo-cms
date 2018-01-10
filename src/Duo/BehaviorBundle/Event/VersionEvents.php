@@ -7,12 +7,12 @@ class VersionEvents
 	/**
 	 * @Event("Duo\BehaviorBundle\Event\VersionEvent")
 	 */
-	const CLONE = 'duo.behavior.event.onClone';
+	const CLONE = 'duo.event.behavior.clone';
 
 	/**
 	 * @Event("Duo\BehaviorBundle\Event|VersionEvent")
 	 */
-	const REVERT = 'duo.behavior.event.onRevert';
+	const REVERT = 'duo.event.behavior.revert';
 
 	/**
 	 * VersionEvents constructor

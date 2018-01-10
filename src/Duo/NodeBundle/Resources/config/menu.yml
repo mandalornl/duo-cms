@@ -1,0 +1,3 @@
+pages:
+    label: Pages
+    route: duo_node_listing_page_index

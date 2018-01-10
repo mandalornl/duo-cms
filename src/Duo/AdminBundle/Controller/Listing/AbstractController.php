@@ -185,6 +185,7 @@ abstract class AbstractController extends FrameworkController
 	protected function doIndexAction(Request $request): Response
 	{
 		return $this->render($this->getListTemplate(), [
+			'menu' => $this->get('duo.admin.menu_builder')->createView(),
 			'paginator' => $this->getPaginator(
 				$request->get('page'),
 				$request->get('limit')
@@ -305,6 +306,7 @@ abstract class AbstractController extends FrameworkController
 		}
 
 		return $this->render($this->getAddTemplate(), [
+			'menu' => $this->get('duo.admin.menu_builder')->createView(),
 			'form' => $form->createView(),
 			'entity' => $entity,
 			'type' => $this->getType(),
@@ -329,6 +331,12 @@ abstract class AbstractController extends FrameworkController
 		{
 			return $this->entityNotFound($request, $id);
 		}
+
+		$context = new TwigContext([
+			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+			'type' => $this->getType(),
+			'routePrefix' => $this->getRoutePrefix()
+		]);
 
 		// handle entity versioning
 		if ($entity instanceof Entity\VersionInterface)
@@ -374,12 +382,8 @@ abstract class AbstractController extends FrameworkController
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 			}
 
-			$context = new TwigContext([
-				'form' => $form->createView(),
-				'entity' => $clone,
-				'type' => $this->getType(),
-				'routePrefix' => $this->getRoutePrefix()
-			]);
+			$context->offsetSet('form', $form->createView());
+			$context->offsetSet('entity', $clone);
 
 			// dispatch onTwigContext event
 			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
@@ -406,12 +410,8 @@ abstract class AbstractController extends FrameworkController
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 			}
 
-			$context = new TwigContext([
-				'form' => $form->createView(),
-				'entity' => $entity,
-				'type' => $this->getType(),
-				'routePrefix' => $this->getRoutePrefix()
-			]);
+			$context->offsetSet('form', $form->createView());
+			$context->offsetSet('entity', $entity);
 
 			// dispatch onTwigContext event
 			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));

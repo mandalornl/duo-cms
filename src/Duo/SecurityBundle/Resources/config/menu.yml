@@ -1,0 +1,12 @@
+security:
+    label: Security
+    children:
+        users:
+            label: Users
+            route: duo_security_listing_user_index
+        groups:
+            label: Groups
+            route: duo_security_listing_group_index
+        roles:
+            label: Roles
+            route: duo_security_listing_role_index

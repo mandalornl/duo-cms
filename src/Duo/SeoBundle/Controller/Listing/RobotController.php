@@ -56,6 +56,7 @@ class RobotController extends Controller
 		}
 
 		return $this->render('@DuoSeo/Listing/robots.html.twig', [
+			'menu' => $this->get('duo.admin.menu_builder')->createView(),
 			'form' => $form->createView(),
 			'routePrefix' => $this->getRoutePrefix()
 		]);

@@ -28,6 +28,8 @@ class DashboardController extends Controller
 	 */
 	public function indexAction(Request $request): Response
 	{
-		return $this->render('@DuoAdmin/index.html.twig');
+		return $this->render('@DuoAdmin/index.html.twig', [
+			'menu' => $this->get('duo.admin.menu_builder')->createView()
+		]);
 	}
 }

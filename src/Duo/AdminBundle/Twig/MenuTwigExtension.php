@@ -2,58 +2,41 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Duo\AdminBundle\Service\Menu;
-use Duo\BehaviorBundle\Entity\TreeInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Duo\AdminBundle\Menu\MenuInterface;
 
 class MenuTwigExtension extends \Twig_Extension
 {
 	/**
-	 * @var EntityManager
-	 */
-	private $entityManager;
-
-	/**
-	 * @var RequestStack
-	 */
-	private $requestStack;
-
-	/**
-	 * MenuTwigExtension constructor
-	 *
-	 * @param EntityManagerInterface $entityManager
-	 * @param RequestStack $requestStack
-	 */
-	public function __construct(EntityManagerInterface $entityManager, RequestStack $requestStack)
-	{
-		$this->entityManager = $entityManager;
-		$this->requestStack = $requestStack;
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
-	public function getFunctions()
+	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('get_menu', [$this, 'getMenu'])
+			new \Twig_SimpleFunction('render_menu', [$this, 'renderMenu'], [
+				'needs_environment' => true,
+				'is_safe' => ['html']
+			])
 		];
 	}
 
 	/**
-	 * Get menu
+	 * Render menu
 	 *
-	 * @param TreeInterface $root
+	 * @param \Twig_Environment $env
+	 * @param MenuInterface $menu
+	 * @param array $parameters
+	 * @return string
 	 *
-	 * @return Menu
+	 * @throws \Twig_Error_Loader
+	 * @throws \Twig_Error_Runtime
+	 * @throws \Twig_Error_Syntax
 	 */
-	public function getMenu(TreeInterface $root)
+	public function renderMenu(\Twig_Environment $env, MenuInterface $menu, array $parameters = []): string
 	{
-		return (new Menu())
-			->setRoot($root)
-			->setEntityManager($this->entityManager)
-			->setRequestStack($this->requestStack);
+		$template = $env->load('@DuoAdmin/Menu/view.html.twig');
+
+		return $template->render(array_merge([
+			'menu' => $menu
+		], $parameters));
 	}
 }

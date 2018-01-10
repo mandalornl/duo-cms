@@ -7,3 +7,12 @@ services:
     Duo\FormBundle\:
         resource: '../../*'
         exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\FormBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Duo\FormBundle\EventListener\MenuListener:
+        tags:
+            - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }
