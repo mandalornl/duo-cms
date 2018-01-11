@@ -26,6 +26,13 @@ services:
         class: Duo\AdminBundle\Menu\MenuBuilder
         public: true
 
+    Duo\AdminBundle\EventListener\Listing\TranslateListener:
+        arguments:
+            $localeHelper: '@duo.admin.locale_helper'
+        tags:
+            - { name: kernel.event_listener, event: duo.event.listing.preAdd, method: preAdd }
+            - { name: kernel.event_listener, event: duo.event.listing.preEdit, method: preEdit }
+
     Duo\AdminBundle\Twig\LocaleTwigExtension:
         arguments:
             $localeHelper: '@duo.admin.locale_helper'

@@ -31,6 +31,9 @@ duo:
                 global:
                     more: Meer
 
+        tab:
+            publication: Publicatie
+
         listing:
             action:
                 move_up: Verplaats omhoog
@@ -100,6 +103,3 @@ duo:
             publication:
                 publish_at: Publiceer op
                 unpublish_at: Depubliceer op
-
-        tab:
-            publication: Publicatie

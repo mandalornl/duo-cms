@@ -1,7 +1,12 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-	<a href="{{ path('duo_admin_dashboard_index') }}" class="navbar-brand">
-		{{- brand_name -}}
-	</a>
+	<div class="d-flex">
+		<button type="button" class="navbar-toggler d-flex d-md-none mr-3" id="menu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a href="{{ path('duo_admin_dashboard_index') }}" class="navbar-brand">
+			{{- brand_name -}}
+		</a>
+	</div>
 	{% if app.user %}
 		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="{{ 'duo.admin.navbar.toggle' | trans }}">
 			<span class="navbar-toggler-icon"></span>

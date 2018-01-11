@@ -33,7 +33,7 @@ class MenuTwigExtension extends \Twig_Extension
 	 */
 	public function renderMenu(\Twig_Environment $env, MenuInterface $menu, array $parameters = []): string
 	{
-		$template = $env->load('@DuoAdmin/Menu/view.html.twig');
+		$template = $env->load('@DuoAdmin/Navigation/menu.html.twig');
 
 		return $template->render(array_merge([
 			'menu' => $menu

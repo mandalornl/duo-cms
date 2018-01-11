@@ -31,6 +31,9 @@ duo:
                 global:
                     more: More
 
+        tab:
+            publication: Publication
+
         listing:
             action:
                 move_up: Move up
@@ -100,6 +103,3 @@ duo:
             publication:
                 publish_at: Publish at
                 unpublish_at: Unpublish at
-
-        tab:
-            publication: Publication

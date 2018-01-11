@@ -1,3 +1,4 @@
 forms:
-    label: Forms
-    url: duo_form_in
+    label: duo.form.menu.forms
+    url: javascript:;
+    #route: duo_form_index

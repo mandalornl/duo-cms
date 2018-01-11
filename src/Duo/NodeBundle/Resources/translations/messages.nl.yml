@@ -1,5 +1,13 @@
 duo:
     node:
+        tab:
+            content: Content
+            menu: Menu
+            properties: Eigenschappen
+
+        menu:
+            pages: Pagina's
+
         listing:
             field:
                 name: Naam
@@ -21,8 +29,3 @@ duo:
                     label: Content
                 visible:
                     label: Zichtbaar
-
-        tab:
-            content: Content
-            menu: Menu
-            properties: Eigenschappen

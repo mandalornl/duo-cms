@@ -1,5 +1,9 @@
 duo:
     taxonomy:
+        menu:
+            modules: Modulen
+            taxonomies: Taxonomieën
+
         listing:
             field:
                 name: Naam

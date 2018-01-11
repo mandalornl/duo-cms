@@ -1,5 +1,15 @@
 duo:
     security:
+        tab:
+            profile: Profile
+            properties: Properties
+
+        menu:
+            security: Security
+            users: Users
+            groups: Groups
+            roles: Roles
+
         listing:
             field:
                 name: Name
@@ -48,7 +58,3 @@ duo:
             role_choice:
                 label: Roles
                 placeholder: Please choose
-
-        tab:
-            profile: Profile
-            properties: Properties

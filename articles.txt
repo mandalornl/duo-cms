@@ -1,5 +1,11 @@
+# forms
 https://blog.martinhujer.cz/symfony-forms-with-request-objects/
 
+# nestable
 https://github.com/dbushell/Nestable
 
+# security
 https://stovepipe.systems/post/symfony-security-roles-vs-voters
+
+# drag & drop
+https://www.npmjs.com/package/html5sortable

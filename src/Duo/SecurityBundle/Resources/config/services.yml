@@ -17,6 +17,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }
 
+    Duo\SecurityBundle\EventListener\Listing\UserListener:
+        tags:
+            - { name: kernel.event_listener, event: duo.event.listing.postEdit, method: postEdit }
+
     Duo\SecurityBundle\EventSubscriber\UserSubscriber:
         arguments:
             $encoder: '@security.password_encoder'

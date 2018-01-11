@@ -4,4 +4,5 @@ import './js/checkable';
 import './js/list';
 import './js/add';
 import './js/edit';
-import './js/stickymenu';
+import './js/menu';
+import './js/sticky-navbar';

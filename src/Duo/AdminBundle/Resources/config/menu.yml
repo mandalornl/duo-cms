@@ -2,7 +2,7 @@ pages:
 
 media:
     label: Media
-    url: /admin/media
+    url: javascript:; #/admin/media
 
 forms:
 
@@ -17,4 +17,4 @@ settings:
     children:
         translations:
             label: Translations
-            url: /admin/setting/translation
+            url: javascript:; #/admin/setting/translation

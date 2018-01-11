@@ -2,6 +2,11 @@ duo:
     seo:
         tab: Seo
 
+        menu:
+            seo: Seo
+            redirects: Redirects
+            robots: Robots
+
         listing:
             field:
                 origin: Oorsprong

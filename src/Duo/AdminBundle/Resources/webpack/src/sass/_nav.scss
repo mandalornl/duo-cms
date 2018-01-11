@@ -7,13 +7,11 @@
 
 .sidebar
 {
+	$box-shadow: inset -10px 0px 20px -10px rgba(#000, .2);
+
 	overflow-x: hidden;
 
-	box-shadow: inset -10px 0px 20px -10px rgba(#000, .2);
-
-	background: #f2f2f2;
-
-	padding-top: 60px;
+	box-shadow: $box-shadow;
 
 	.nav
 	{
@@ -21,25 +19,35 @@
 		{
 			position: relative;
 
-			&:after
+			border-bottom: 1px solid #f2f2f2;
+		}
+
+		a.nav-link
+		{
+			transition: all .2s ease-out;
+
+			&:hover
 			{
-				content: '';
+				background-color: #fbfbfb;
 
-				position: absolute;
-				right: -1rem;
-				bottom: -1px;
-				left: -1rem;
+				box-shadow: $box-shadow;
+			}
 
-				display: block;
-
-				height: 1px;
-				background: #ddd;
+			&:not(.active)
+			{
+				color: #333;
 			}
 		}
 
-		.nav
+		span.nav-link
 		{
-			padding-left: 1rem;
+			background-color: #f0f0f0;
+
+			color: #333;
+
+			font-weight: 500;
+
+			box-shadow: $box-shadow;
 		}
 	}
 }
@@ -55,7 +63,7 @@
 	{
 		position: fixed;
 		top: 0;
-		right: 20%;
+		right: 23%;
 		bottom: 0;
 		left: 0;
 		z-index: 0;
@@ -75,7 +83,7 @@
 		position: relative;
 		z-index: 1;
 
-		transition: transform .2s ease-out;
+		transition: transform .3s ease-out;
 
 		transform: translate3d(0, 0, 0);
 
@@ -90,16 +98,26 @@
 		{
 			overflow-x: hidden;
 		}
+	}
 
-		.page
-		{
-			transform: translate3d(80%, 0, 0);
-		}
+	body.sidebar-slide .page
+	{
+		transform: translate3d(77%, 0, 0);
+	}
+
+	body:not(.sidebar-open) .sidebar
+	{
+		display: none;
 	}
 }
 
 @include media-breakpoint-up(md)
 {
+	.sidebar
+	{
+		min-width: 20%;
+	}
+
 	.page
 	{
 		overflow-x: hidden;
@@ -108,5 +126,12 @@
 
 		flex-direction: column;
 		flex: 1 1 auto;
+	}
+
+	.navbar.fixed-top
+	{
+		left: 20%;
+
+		box-shadow: 0 5px 10px -4px rgba(#000, .2);
 	}
 }

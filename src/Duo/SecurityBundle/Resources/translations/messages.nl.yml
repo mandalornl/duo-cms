@@ -1,5 +1,15 @@
 duo:
     security:
+        tab:
+            profile: Profiel
+            properties: Eigenschappen
+
+        menu:
+            security: Beveiliging
+            users: Gebruikers
+            groups: Groepen
+            roles: Rollen
+
         listing:
             field:
                 name: Naam
@@ -48,7 +58,3 @@ duo:
             role_choice:
                 label: Rollen
                 placeholder: Maak een keuze
-
-        tab:
-            profile: Profiel
-            properties: Eigenschappen

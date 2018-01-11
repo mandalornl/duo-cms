@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityRepository;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
 use Duo\AdminBundle\Controller\RoutePrefixTrait;
+use Duo\AdminBundle\Event\ListingEvent;
+use Duo\AdminBundle\Event\ListingEvents;
 use Duo\AdminBundle\Event\TwigEvent;
 use Duo\AdminBundle\Event\TwigEvents;
 use Duo\AdminBundle\Helper\PaginatorHelper;
@@ -19,6 +21,7 @@ use Duo\BehaviorBundle\Entity;
 use Duo\BehaviorBundle\Event\VersionEvent;
 use Duo\BehaviorBundle\Event\VersionEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as FrameworkController;
+use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -124,53 +127,6 @@ abstract class AbstractController extends FrameworkController
 	public function getFields()
 	{
 		return $this->fields;
-	}
-
-	/**
-	 * Pre decorate entity
-	 *
-	 * @param object $entity
-	 *
-	 * @return $this
-	 */
-	protected function preDecorateEntity($entity)
-	{
-		if ($entity instanceof Entity\TranslateInterface)
-		{
-			$localeHelper = $this->get('duo.admin.locale_helper');
-
-			$locales = $localeHelper->getLocales();
-			if (empty($locales))
-			{
-				$locales = [$localeHelper->getDefaultLocale()];
-			}
-
-			foreach ($locales as $locale)
-			{
-				$entity->translate($locale);
-			};
-
-			$entity->mergeNewTranslations();
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Post decorate entity
-	 *
-	 * @param object $entity
-	 *
-	 * @return $this
-	 */
-	protected function postDecorateEntity($entity)
-	{
-		if ($entity instanceof Entity\TranslateInterface)
-		{
-			$entity->mergeNewTranslations();
-		}
-
-		return $this;
 	}
 
 	/**
@@ -283,7 +239,14 @@ abstract class AbstractController extends FrameworkController
 	{
 		$class = $this->getEntityClassName();
 		$entity = new $class();
-		$this->preDecorateEntity($entity);
+
+		/**
+		 * @var TraceableEventDispatcher $eventDispatcher
+		 */
+		$eventDispatcher = $this->get('event_dispatcher');
+
+		// dispatch pre add event
+		$eventDispatcher->dispatch(ListingEvents::PRE_ADD, new ListingEvent($entity));
 
 		$form = $this->createForm($this->getFormClassName(), $entity, [
 			'attr' => [
@@ -294,7 +257,8 @@ abstract class AbstractController extends FrameworkController
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$this->postDecorateEntity($entity);
+			// dispatch post add event
+			$eventDispatcher->dispatch(ListingEvents::POST_ADD, new ListingEvent($entity));
 
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($entity);
@@ -338,6 +302,11 @@ abstract class AbstractController extends FrameworkController
 			'routePrefix' => $this->getRoutePrefix()
 		]);
 
+		/**
+		 * @var TraceableEventDispatcher $eventDispatcher
+		 */
+		$eventDispatcher = $this->get('event_dispatcher');
+
 		// handle entity versioning
 		if ($entity instanceof Entity\VersionInterface)
 		{
@@ -351,6 +320,9 @@ abstract class AbstractController extends FrameworkController
 
 			$clone = clone $entity;
 
+			// dispatch pre edit event
+			$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($clone));
+
 			// pre submit state
 			$preSubmitState = serialize($clone);
 
@@ -363,6 +335,9 @@ abstract class AbstractController extends FrameworkController
 
 			if ($form->isSubmitted() && $form->isValid())
 			{
+				// dispatch post edit event
+				$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($clone));
+
 				// post submit state
 				$postSubmitState = serialize($clone);
 
@@ -392,6 +367,9 @@ abstract class AbstractController extends FrameworkController
 		}
 		else
 		{
+			// dispatch pre edit event
+			$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($entity));
+
 			$form = $this->createForm($this->getFormClassName(), $entity, [
 				'attr' => [
 					'class' => 'form-edit'
@@ -401,6 +379,9 @@ abstract class AbstractController extends FrameworkController
 
 			if ($form->isSubmitted() && $form->isValid())
 			{
+				// dispatch post edit event
+				$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($entity));
+
 				$em = $this->getDoctrine()->getManager();
 				$em->persist($entity);
 				$em->flush();

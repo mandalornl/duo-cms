@@ -1,6 +1,6 @@
 modules:
-    label: Modules
+    label: duo.taxonomy.menu.modules
     children:
         taxonomies:
-            label: Taxonomies
+            label: duo.taxonomy.menu.taxonomies
             route: duo_taxonomy_listing_taxonomy_index

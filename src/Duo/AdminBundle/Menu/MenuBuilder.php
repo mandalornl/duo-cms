@@ -232,7 +232,8 @@ class MenuBuilder
 			}
 
 			// set active menu item
-			if (($url = $menu->getUrl()) && (strcmp($url, $this->requestUri) || strpos($url, $this->requestUri) === 0))
+			if (($url = $menu->getUrl()) &&
+				(strcmp($url, $this->requestUri) === 0 || strpos($this->requestUri, $url) === 0))
 			{
 				$menu->setActive(true);
 			}

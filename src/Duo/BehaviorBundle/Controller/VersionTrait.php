@@ -107,10 +107,13 @@ trait VersionTrait
 			return new JsonResponse([
 				'result' => [
 					'success' => true,
-					'id' => $entity->getId()
+					'id' => $entity->getId(),
+					'message' => $this->get('translator')->trans('duo.behavior.listing.alert.revert_success')
 				]
 			]);
 		}
+
+		$this->addFlash('success', $this->get('translator')->trans('duo.behavior.listing.alert.revert_success'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
 			'id' => $entity->getId()
