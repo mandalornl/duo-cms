@@ -3,8 +3,8 @@
 {% block bodyClass %}listing-edit{% endblock %}
 
 {% block modal %}
-	{% if entity is versionable %}
-		{% include '@DuoAdmin/Listing/Modal/versions.html.twig' %}
+	{% if entity is revisionable %}
+		{% include '@DuoAdmin/Listing/Modal/revisions.html.twig' %}
 	{% endif %}
 	{{ parent() }}
 {% endblock %}

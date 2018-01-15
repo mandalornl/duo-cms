@@ -8,6 +8,7 @@ use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\UrlType;
 use Duo\AdminBundle\Form\WYSIWYGType;
 use Duo\NodeBundle\Entity\PageTranslation;
+use Duo\PagePartBundle\Form\PagePartType;
 use Duo\SeoBundle\Form\SeoTabType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -35,6 +36,7 @@ class PageTranslationType extends AbstractType
 					'label' => 'duo.node.form.page.content.label',
 					'required' => false
 				])
+				->add('pageParts', PagePartType::class)
 			)
 			->add(
 				$builder->create('menu', TabType::class, [

@@ -4,6 +4,7 @@ namespace Duo\BehaviorBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Util\ClassUtils;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 trait TranslateTrait
@@ -201,7 +202,7 @@ trait TranslateTrait
 			}
 		}
 
-		$className = get_class($this) . 'Translation';
+		$className = ClassUtils::getClass($this) . 'Translation';
 
 		/**
 		 * @var TranslationInterface $translation

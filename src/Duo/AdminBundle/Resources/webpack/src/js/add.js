@@ -7,6 +7,7 @@ import * as datepicker from './assets/datepicker';
 import * as select2 from './assets/select2';
 import * as wysiwyg from './assets/wysiwyg';
 import * as doNotLeave from './util/donotleave';
+import * as pageparts from './util/pageparts';
 
 $(() =>
 {
@@ -50,4 +51,5 @@ $(() =>
 	datepicker.init();
 	select2.init();
 	wysiwyg.init();
+	pageparts.init();
 });

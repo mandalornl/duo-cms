@@ -9,7 +9,9 @@ import 'bootstrap-datepicker';
  */
 const init = (options = {}, selector = '.datepicker') =>
 {
-	$(selector).each(function()
+	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+
+	$selector.each(function()
 	{
 		const $this = $(this);
 		if ($this.data('initalized.datepicker'))

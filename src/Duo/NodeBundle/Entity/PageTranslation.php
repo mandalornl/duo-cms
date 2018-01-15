@@ -9,6 +9,8 @@ use Duo\BehaviorBundle\Entity\SlugInterface;
 use Duo\BehaviorBundle\Entity\SlugTrait;
 use Duo\BehaviorBundle\Entity\UrlInterface;
 use Duo\BehaviorBundle\Entity\UrlTrait;
+use Duo\PagePartBundle\Entity\NodePagePartInterface;
+use Duo\PagePartBundle\Entity\PagePartTrait;
 use Duo\SeoBundle\Entity\SeoInterface;
 use Duo\SeoBundle\Entity\SeoTrait;
 
@@ -16,12 +18,13 @@ use Duo\SeoBundle\Entity\SeoTrait;
  * @ORM\Table(name="page_translation")
  * @ORM\Entity()
  */
-class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface, PublishInterface, SeoInterface
+class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface, PublishInterface, SeoInterface, NodePagePartInterface
 {
 	use SlugTrait;
 	use UrlTrait;
 	use PublishTrait;
 	use SeoTrait;
+	use PagePartTrait;
 
 	/**
 	 * @var string

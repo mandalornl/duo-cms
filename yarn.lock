@@ -2343,6 +2343,10 @@ html-minifier@^3.0.1:
     relateurl "0.2.x"
     uglify-js "3.2.x"
 
+html5sortable@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/html5sortable/-/html5sortable-0.6.3.tgz#cac176e4eda242c741912b1eb4709841302fcb7b"
+
 http-deceiver@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/http-deceiver/-/http-deceiver-1.2.7.tgz#fa7168944ab9a519d337cb0bec7284dc3e723d87"

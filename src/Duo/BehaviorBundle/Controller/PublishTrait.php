@@ -4,12 +4,12 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Event\PublishEvent;
 use Duo\BehaviorBundle\Event\PublishEvents;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,7 +76,7 @@ trait PublishTrait
 		}
 
 		/**
-		 * @var TraceableEventDispatcher $dispatcher
+		 * @var EventDispatcherInterface $dispatcher
 		 */
 		$dispatcher = $this->get('event_dispatcher');
 

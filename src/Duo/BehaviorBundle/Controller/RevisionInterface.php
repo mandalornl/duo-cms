@@ -7,17 +7,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-interface VersionInterface
+interface RevisionInterface
 {
 	/**
-	 * Version action
+	 * Revision action
 	 *
 	 * @param Request $request
 	 * @param int $id
 	 *
 	 * @return Response|JsonResponse
 	 */
-	public function versionAction(Request $request, int $id);
+	public function revisionAction(Request $request, int $id);
 
 	/**
 	 * Revert action

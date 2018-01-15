@@ -25,7 +25,7 @@ duo:
                 undelete: Herstellen
                 remove: Verwijderen
                 duplicate: Dupliceren
-                versions: Versies
+                revisions: Revisies
 
             dropdown:
                 global:
@@ -59,11 +59,11 @@ duo:
                 ok: Ok
                 actions: Acties
 
-            versions:
-                title: Versies
+            revisions:
+                title: Revisies
                 name: Naam
+                created_at: Aangemaakt op
                 created_by: Aangemaakt door
-                last_modified: Laatst gewijzigd
                 revert: Terugzetten
                 delete: Verwijderen
 
@@ -103,3 +103,12 @@ duo:
             publication:
                 publish_at: Publiceer op
                 unpublish_at: Depubliceer op
+
+        elapsed_time:
+            seconds: '{0} %unit% seconden|{1} %unit% seconde|]1,Inf[ %unit% seconden'
+            minutes: '{0} %unit% minuten|{1} %unit% minuut|]1,Inf[ %unit% minuten'
+            hours: '{0} %unit% uur|{1} %unit% uur|]1,Inf[ %unit% uur'
+            days: '{0} %unit% dagen|{1} %unit% dag|]1,Inf[ %unit% dagen'
+            weeks: '{0} %unit% weken|{1} %unit% week|]1,Inf[ %unit% weken'
+            months: '{0} %unit% maanden|{1} %unit% maand|]1,Inf[ %unit% maanden'
+            years: '{0} %unit% jaar|{1} %unit% jaar|]1,Inf[ %unit% jaar'

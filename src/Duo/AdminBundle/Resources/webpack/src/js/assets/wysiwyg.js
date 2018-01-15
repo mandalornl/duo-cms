@@ -7,11 +7,13 @@ window.wysiwygEditors = window.wysiwygEditors || {};
  * Initialize wysiwyg editor
  *
  * @param {{}} [options = {}]
- * @param {string} [selector = '.wysiwyg']
+ * @param {string|jQuery|HTMLElement} [selector = '.wysiwyg']
  */
 const init = (options = {}, selector = '.wysiwyg') =>
 {
-	$(selector).each(function()
+	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+
+	$selector.each(function()
 	{
 		const $this = $(this);
 		if ($this.data('initialized.wysiwyg'))
@@ -38,4 +40,22 @@ const init = (options = {}, selector = '.wysiwyg') =>
 	});
 };
 
-export {init};
+/**
+ * Destroy editor
+ *
+ * @param {Number} id
+ */
+const destroy = (id) =>
+{
+	if (!window.wysiwygEditors[id])
+	{
+		return;
+	}
+
+	window.wysiwygEditors[id].destroy().catch(error =>
+	{
+		console.error(error);
+	});
+};
+
+export {init, destroy};

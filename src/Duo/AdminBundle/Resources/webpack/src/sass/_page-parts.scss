@@ -1,0 +1,45 @@
+.page-parts
+{
+	.page-part
+	{
+		.sortable-move
+		{
+			position: relative;
+
+			padding: .5rem;
+
+			background: #fafafa;
+
+			@include border-top-radius($input-border-radius);
+
+			&:after
+			{
+				content: '';
+
+				position: absolute;
+				right: 0;
+				bottom: -1px;
+				left: 0;
+
+				height: 1px;
+
+				background: $input-border-color;
+			}
+		}
+
+		> .form-group
+		{
+			margin-bottom: 0;
+
+			> div
+			{
+				padding: .5rem 1rem 0;
+
+				&:last-child
+				{
+					padding: .5rem 1rem 1rem;
+				}
+			}
+		}
+	}
+}

@@ -25,7 +25,7 @@ duo:
                 undelete: Undelete
                 remove: Remove
                 duplicate: Duplicate
-                versions: Versions
+                revisions: Revisions
 
             dropdown:
                 global:
@@ -59,11 +59,11 @@ duo:
                 ok: Ok
                 actions: Actions
 
-            versions:
-                title: Versions
+            revisions:
+                title: Revisions
                 name: Name
+                created_at: Created at
                 created_by: Created by
-                last_modified: Last modified
                 revert: Revert
                 delete: Delete
 
@@ -103,3 +103,12 @@ duo:
             publication:
                 publish_at: Publish at
                 unpublish_at: Unpublish at
+
+        elapsed_time:
+            seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'
+            minutes: '{0} %unit% minutes|{1} %unit% minute|]1,Inf[ %unit% minutes'
+            hours: '{0} %unit% hours|{1} %unit% hour|]1,Inf[ %unit% hours'
+            days: '{0} %unit% days|{1} %unit% day|]1,Inf[ %unit% days'
+            weeks: '{0} %unit% weeks|{1} %unit% week|]1,Inf[ %unit% weeks'
+            months: '{0} %unit% months|{1} %unit% month|]1,Inf[ %unit% months'
+            years: '{0} %unit% years|{1} %unit% year|]1,Inf[ %unit% years'

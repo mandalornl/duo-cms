@@ -9,12 +9,12 @@ class PublishEvents
 	/**
 	 * @Event("Duo\BehaviorBundle\Event\PublishEvent")
 	 */
-	const PUBLISH = 'duo.event.behavior.publish';
+	const PUBLISH = 'duo.event.publish';
 
 	/**
 	 * @Event("Duo\BehaviorBundle\Event\PublishEvent")
 	 */
-	const UNPUBLISH = 'duo.event.behavior.unpublish';
+	const UNPUBLISH = 'duo.event.unpublish';
 
 	/**
 	 * PublishEvents constructor

@@ -4,29 +4,30 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractController;
-use Duo\BehaviorBundle\Entity\VersionInterface;
-use Duo\BehaviorBundle\Event\VersionEvent;
-use Duo\BehaviorBundle\Event\VersionEvents;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
+use Duo\BehaviorBundle\Event\RevisionEvent;
+use Duo\BehaviorBundle\Event\RevisionEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Translation\TranslatorInterface;
 
-trait VersionTrait
+trait RevisionTrait
 {
 	/**
-	 * Version action
+	 * Revision action
 	 *
 	 * @param Request $request
 	 * @param int $id
 	 *
 	 * @return Response|JsonResponse
+	 *
+	 * @throws AnnotationException
 	 */
-	protected function doVersionAction(Request $request, int $id)
+	protected function doRevisionAction(Request $request, int $id)
 	{
 		/**
 		 * @var AbstractController $this
@@ -37,9 +38,9 @@ trait VersionTrait
 			return $this->entityNotFound($request, $id);
 		}
 
-		if (!$entity instanceof VersionInterface)
+		if (!$entity instanceof RevisionInterface)
 		{
-			return $this->versionInterfaceNotImplemented($request, $id);
+			return $this->revisionInterfaceNotImplemented($request, $id);
 		}
 
 		/**
@@ -50,15 +51,12 @@ trait VersionTrait
 			'disabled' => true
 		]);
 
-		/**
-		 * @var TranslatorInterface $translator
-		 */
-		$translator = $this->get('translator');
-
-		return $this->render($this->getVersionTemplate(), [
+		return $this->render($this->getRevisionTemplate(), [
+			'menu' => $this->get('duo.admin.menu_builder')->createView(),
 			'entity' => $entity,
 			'form' => $form->createView(),
-			'type' => $this->getListType()
+			'type' => $this->getType(),
+			'routePrefix' => $this->getRoutePrefix()
 		]);
 	}
 
@@ -83,16 +81,16 @@ trait VersionTrait
 			return $this->entityNotFound($request, $id);
 		}
 
-		if (!$entity instanceof VersionInterface)
+		if (!$entity instanceof RevisionInterface)
 		{
-			return $this->versionInterfaceNotImplemented($request, $id);
+			return $this->revisionInterfaceNotImplemented($request, $id);
 		}
 
 		/**
-		 * @var TraceableEventDispatcher $dispatcher
+		 * @var EventDispatcherInterface $dispatcher
 		 */
 		$dispatcher = $this->get('event_dispatcher');
-		$dispatcher->dispatch(VersionEvents::REVERT, new VersionEvent($entity, $entity->getVersion()));
+		$dispatcher->dispatch(RevisionEvents::REVERT, new RevisionEvent($entity, $entity->getRevision()));
 
 		/**
 		 * @var ObjectManager $em
@@ -121,16 +119,16 @@ trait VersionTrait
 	}
 
 	/**
-	 * Versionable interface not implemented
+	 * Revision interface not implemented
 	 *
 	 * @param int $id
 	 * @param Request $request
 	 *
 	 * @return JsonResponse
 	 */
-	private function versionInterfaceNotImplemented(Request $request, int $id): JsonResponse
+	private function revisionInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
-		$interface = VersionInterface::class;
+		$interface = RevisionInterface::class;
 		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
 
 		// reply with json response
@@ -148,12 +146,12 @@ trait VersionTrait
 	}
 
 	/**
-	 * Get version template
+	 * Get revision template
 	 *
 	 * @return string
 	 */
-	protected function getVersionTemplate(): string
+	protected function getRevisionTemplate(): string
 	{
-		return '@DuoAdmin/Listing/version.html.twig';
+		return '@DuoAdmin/Listing/revision.html.twig';
 	}
 }

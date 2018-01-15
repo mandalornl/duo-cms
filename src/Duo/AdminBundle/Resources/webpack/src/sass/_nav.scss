@@ -128,10 +128,15 @@
 		flex: 1 1 auto;
 	}
 
-	.navbar.fixed-top
+	.navbar
 	{
-		left: 20%;
+		transition: box-shadow .2s ease-out;
 
-		box-shadow: 0 5px 10px -4px rgba(#000, .2);
+		&.fixed-top
+		{
+			left: 20%;
+
+			box-shadow: 0 5px 10px -4px rgba(#000, .2);
+		}
 	}
 }

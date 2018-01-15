@@ -7,7 +7,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
 
 trait SortTrait
 {
@@ -38,10 +38,10 @@ trait SortTrait
 				->setParameter('parent', $parent);
 		}
 
-		// use latest version
-		if ($entity instanceof VersionInterface)
+		// use latest revision
+		if ($entity instanceof RevisionInterface)
 		{
-			$builder->andWhere('e.version = e.id');
+			$builder->andWhere('e.revision = e.id');
 		}
 
 		// ignore deleted
@@ -96,10 +96,10 @@ trait SortTrait
 				->setParameter('parent', $parent);
 		}
 
-		// use latest version
-		if ($entity instanceof VersionInterface)
+		// use latest revision
+		if ($entity instanceof RevisionInterface)
 		{
-			$builder->andWhere('e.version = e.id');
+			$builder->andWhere('e.revision = e.id');
 		}
 
 		// ignore deleted

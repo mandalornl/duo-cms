@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Routing;
 
+use Doctrine\Common\Util\ClassUtils;
 use Duo\AdminBundle\Helper\LocaleHelper;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
@@ -41,7 +42,7 @@ class UrlLoader extends Loader
 	{
 		if ($this->loaded === true)
 		{
-			$className = get_class($this);
+			$className = ClassUtils::getClass($this);
 			throw new \RuntimeException("Do not add the '{$className}' loader twice");
 		}
 

@@ -5,6 +5,8 @@ namespace Duo\AdminBundle\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\NodeBundle\Entity\Page;
+use Duo\PagePartBundle\Entity\HeadingPagePart;
+use Duo\PagePartBundle\Entity\WYSIWYGPagePart;
 use Duo\SecurityBundle\Entity\Group;
 use Duo\SecurityBundle\Entity\Role;
 use Duo\SecurityBundle\Entity\User;
@@ -191,18 +193,40 @@ class TestFixtures extends Fixture
 			$page->setCreatedBy($user);
 
 			$page->translate('nl')
-				->setTitle('Home')
+				->setTitle('Welkom')
 				->setContent('<p>Dit is de homepagina.</p>')
 				->publish()
 				->setPublishedBy($user)
-				->setSlug('');
+				->setSlug('')
+				->addPagePart(
+					(new HeadingPagePart())
+						->setType('h1')
+						->setValue('Welkom')
+						->setCreatedBy($user)
+				)
+				->addPagePart(
+					(new WYSIWYGPagePart())
+						->setValue('<p>Dit is de homepagina.</p>')
+						->setCreatedBy($user)
+				);
 
 			$page->translate('en')
-				->setTitle('Home')
+				->setTitle('Welcome')
 				->setContent('<p>This is the home page.</p>')
 				->publish()
 				->setPublishedBy($user)
-				->setSlug('');
+				->setSlug('')
+				->addPagePart(
+					(new HeadingPagePart())
+						->setType('h1')
+						->setValue('Welcome')
+						->setCreatedBy($user)
+				)
+				->addPagePart(
+					(new WYSIWYGPagePart())
+						->setValue('<p>This is the home page.</p>')
+						->setCreatedBy($user)
+				);
 
 			$page->mergeNewTranslations();
 
@@ -228,13 +252,35 @@ class TestFixtures extends Fixture
 				->setTitle('Nieuws')
 				->setContent('<p>Dit is nieuws.</p>')
 				->publish()
-				->setPublishedBy($user);
+				->setPublishedBy($user)
+				->addPagePart(
+					(new HeadingPagePart())
+						->setType('h1')
+						->setValue('Nieuws')
+						->setCreatedBy($user)
+				)
+				->addPagePart(
+					(new WYSIWYGPagePart())
+						->setValue('<p>Dit is nieuws.</p>')
+						->setCreatedBy($user)
+				);
 
 			$page->translate('en')
 				->setTitle('News')
 				->setContent('<p>This is news.</p>')
 				->publish()
-				->setPublishedBy($user);
+				->setPublishedBy($user)
+				->addPagePart(
+					(new HeadingPagePart())
+						->setType('h1')
+						->setValue('News')
+						->setCreatedBy($user)
+				)
+				->addPagePart(
+					(new WYSIWYGPagePart())
+						->setValue('<p>This is news.</p>')
+						->setCreatedBy($user)
+				);
 
 			$page->mergeNewTranslations();
 
@@ -260,13 +306,35 @@ class TestFixtures extends Fixture
 				->setTitle('Artikel')
 				->setContent('<p>Dit is een artikel.</p>')
 				->publish()
-				->setPublishedBy($user);
+				->setPublishedBy($user)
+				->addPagePart(
+					(new HeadingPagePart())
+						->setType('h1')
+						->setValue('Artikel')
+						->setCreatedBy($user)
+				)
+				->addPagePart(
+					(new WYSIWYGPagePart())
+						->setValue('<p>Dit is een artikel.</p>')
+						->setCreatedBy($user)
+				);
 
 			$page->translate('en')
 				->setTitle('Article')
 				->setContent('<p>This is an article.</p>')
 				->publish()
-				->setPublishedBy($user);
+				->setPublishedBy($user)
+				->addPagePart(
+					(new HeadingPagePart())
+						->setType('h1')
+						->setValue('Article')
+						->setCreatedBy($user)
+				)
+				->addPagePart(
+					(new WYSIWYGPagePart())
+						->setValue('<p>This is an article.</p>')
+						->setCreatedBy($user)
+				);
 
 			$page->mergeNewTranslations();
 

@@ -48,13 +48,13 @@ class PaginatorHelper
 	}
 
 	/**
-	 * Create
+	 * Create view
 	 *
 	 * @param bool $fetchJoinCollection [optional]
 	 *
 	 * @return PaginatorHelper
 	 */
-	public function create(bool $fetchJoinCollection = true): PaginatorHelper
+	public function createView(bool $fetchJoinCollection = true): PaginatorHelper
 	{
 		$offset = max(0, $this->page - 1) * $this->limit;
 

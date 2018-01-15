@@ -7,12 +7,12 @@ class DeleteEvents
 	/**
 	 * @Event("Duo\BehaviorBundle\Event\DeleteEvent")
 	 */
-	const DELETE = 'duo.event.behavior.delete';
+	const DELETE = 'duo.event.delete';
 
 	/**
 	 * @Event("Duo\BehaviorBundle\Event\DeleteEvent")
 	 */
-	const UNDELETE = 'duo.event.behavior.undelete';
+	const UNDELETE = 'duo.event.undelete';
 
 	/**
 	 * DeleteEvents constructor

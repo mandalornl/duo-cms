@@ -4,11 +4,11 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Event\DeleteEvent;
 use Duo\BehaviorBundle\Event\DeleteEvents;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,7 +99,7 @@ trait DeleteTrait
 		call_user_func($callback, $entity);
 
 		/**
-		 * @var TraceableEventDispatcher $dispatcher
+		 * @var EventDispatcherInterface $dispatcher
 		 */
 		$dispatcher = $this->get('event_dispatcher');
 		$dispatcher->dispatch($eventName, new DeleteEvent($entity));
@@ -164,7 +164,7 @@ trait DeleteTrait
 			$em = $this->getDoctrine()->getManager();
 
 			/**
-			 * @var TraceableEventDispatcher $dispatcher
+			 * @var EventDispatcherInterface $dispatcher
 			 */
 			$dispatcher = $this->get('event_dispatcher');
 

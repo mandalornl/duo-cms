@@ -8,10 +8,8 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Duo\AdminBundle\Helper\LocaleHelper;
-use Duo\AdminBundle\Helper\ReflectionClassHelper;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\TranslateTrait;
-use Duo\BehaviorBundle\Entity\TranslationTrait;
+use Duo\BehaviorBundle\Entity\TranslationInterface;
 
 class TranslateSubscriber implements EventSubscriber
 {
@@ -72,7 +70,7 @@ class TranslateSubscriber implements EventSubscriber
 	{
 		$reflectionClass = $classMetaData->getReflectionClass();
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, TranslateTrait::class))
+		if (!$reflectionClass->implementsInterface(TranslateInterface::class))
 		{
 			return;
 		}
@@ -100,7 +98,7 @@ class TranslateSubscriber implements EventSubscriber
 	{
 		$reflectionClass = $classMetadata->getReflectionClass();
 
-		if (!ReflectionClassHelper::hasTrait($reflectionClass, TranslationTrait::class))
+		if (!$reflectionClass->implementsInterface(TranslationInterface::class))
 		{
 			return;
 		}

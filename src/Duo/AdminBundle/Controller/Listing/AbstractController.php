@@ -18,10 +18,10 @@ use Duo\AdminBundle\Helper\PaginatorHelper;
 use Duo\AdminBundle\Twig\TwigContext;
 use Duo\BehaviorBundle\Controller;
 use Duo\BehaviorBundle\Entity;
-use Duo\BehaviorBundle\Event\VersionEvent;
-use Duo\BehaviorBundle\Event\VersionEvents;
+use Duo\BehaviorBundle\Event\RevisionEvent;
+use Duo\BehaviorBundle\Event\RevisionEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as FrameworkController;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -189,10 +189,10 @@ abstract class AbstractController extends FrameworkController
 
 		$builder = $repository->createQueryBuilder('e');
 
-		// only fetch latest version of entities
-		if ($reflectionClass->implementsInterface(Entity\VersionInterface::class))
+		// only fetch latest revision of entities
+		if ($reflectionClass->implementsInterface(Entity\RevisionInterface::class))
 		{
-			$builder->andWhere('e.version = e.id');
+			$builder->andWhere('e.revision = e.id');
 		}
 
 		// don't fetch deleted entities
@@ -223,7 +223,7 @@ abstract class AbstractController extends FrameworkController
 			->setPage($page)
 			->setLimit($limit)
 			->setAdjacent(2)
-			->create();
+			->createView();
 	}
 
 	/**
@@ -241,7 +241,7 @@ abstract class AbstractController extends FrameworkController
 		$entity = new $class();
 
 		/**
-		 * @var TraceableEventDispatcher $eventDispatcher
+		 * @var EventDispatcherInterface $eventDispatcher
 		 */
 		$eventDispatcher = $this->get('event_dispatcher');
 
@@ -303,18 +303,18 @@ abstract class AbstractController extends FrameworkController
 		]);
 
 		/**
-		 * @var TraceableEventDispatcher $eventDispatcher
+		 * @var EventDispatcherInterface $eventDispatcher
 		 */
 		$eventDispatcher = $this->get('event_dispatcher');
 
-		// handle entity versioning
-		if ($entity instanceof Entity\VersionInterface)
+		// handle entity revision
+		if ($entity instanceof Entity\RevisionInterface)
 		{
-			// redirect to latest version
-			if ($entity->getVersion() !== $entity)
+			// redirect to latest revision
+			if ($entity->getRevision() !== $entity)
 			{
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
-					'id' => $entity->getVersion()->getId()
+					'id' => $entity->getRevision()->getId()
 				]);
 			}
 
@@ -345,7 +345,7 @@ abstract class AbstractController extends FrameworkController
 				if (strcmp($preSubmitState, $postSubmitState) !== 0)
 				{
 					// dispatch onClone event
-					$this->get('event_dispatcher')->dispatch(VersionEvents::CLONE, new VersionEvent($clone, $entity));
+					$this->get('event_dispatcher')->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
 
 					$em = $this->getDoctrine()->getManager();
 					$em->persist($clone);

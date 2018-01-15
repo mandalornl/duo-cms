@@ -7,13 +7,13 @@ use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TimeStampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
 
 interface NodeInterface extends DeleteInterface,
 								TranslateInterface,
 								SortInterface,
 								CloneInterface,
-								VersionInterface,
+								RevisionInterface,
 								TimeStampInterface
 {
 	/**

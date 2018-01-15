@@ -4,13 +4,13 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractController;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Event\SortEvent;
 use Duo\BehaviorBundle\Event\SortEvents;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +46,7 @@ trait SortTrait
 				$entity->setWeight($weight);
 
 				/**
-				 * @var TraceableEventDispatcher $dispatcher
+				 * @var EventDispatcherInterface $dispatcher
 				 */
 				$dispatcher = $this->get('event_dispatcher');
 				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
@@ -91,7 +91,7 @@ trait SortTrait
 				$entity->setWeight($weight);
 
 				/**
-				 * @var TraceableEventDispatcher $dispatcher
+				 * @var EventDispatcherInterface $dispatcher
 				 */
 				$dispatcher = $this->get('event_dispatcher');
 				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
@@ -202,10 +202,10 @@ trait SortTrait
 			}
 		}
 
-		// use latest version
-		if ($entity instanceof VersionInterface)
+		// use latest revision
+		if ($entity instanceof RevisionInterface)
 		{
-			$criteria['version'] = $entity->getVersion();
+			$criteria['revision'] = $entity->getRevision();
 		}
 
 		/**
@@ -219,7 +219,7 @@ trait SortTrait
 		$em = $this->getDoctrine()->getManager();
 
 		/**
-		 * @var TraceableEventDispatcher $dispatcher
+		 * @var EventDispatcherInterface $dispatcher
 		 */
 		$dispatcher = $this->get('event_dispatcher');
 

@@ -1,0 +1,67 @@
+<div id="modal_revisions_{{ type }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_revisions_label_{{ type }}">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_revisions_label_{{ type }}">
+					{{- 'duo.admin.modal.revisions.title' | trans -}}
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped table-list">
+						<thead>
+							<tr>
+								<th>{{ 'duo.admin.modal.revisions.name' | trans }}</th>
+								<th>{{ 'duo.admin.modal.revisions.created_at' | trans }}</th>
+								<th>{{ 'duo.admin.modal.revisions.created_by' | trans }}</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% set revisions = get_revertable_revisions(entity) %}
+							{% for revision in revisions %}
+								<tr>
+									<td>
+										<a href="{{ path(routePrefix ~ '_revision', { id: revision.id }) }}" target="_blank">
+											{{- revision.name -}}
+										</a>
+									</td>
+									<td>
+										{{- revision.createdAt | localizeddate('short', 'short', app.request.locale) -}}
+									</td>
+									<td>
+										{% set user = revision.createdBy %}
+										{% if user %}
+											{{- user.name -}}
+										{% endif %}
+									</td>
+									<td>
+										<a href="{{ path(routePrefix ~ '_revert', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
+											<i class="icon-history"></i>
+										</a>
+										{% if revision is deletable %}
+											{% set url = path(routePrefix ~ '_delete', { id: revision.id }) %}
+										{% else %}
+											{% set url = path(routePrefix ~ '_destroy', { id: revision.id }) %}
+										{% endif %}
+										<a href="{{ url }}" title="{{ 'duo.admin.modal.revisions.delete' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
+											<i class="icon-bin"></i>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					{{- 'duo.admin.modal.global.close' | trans -}}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

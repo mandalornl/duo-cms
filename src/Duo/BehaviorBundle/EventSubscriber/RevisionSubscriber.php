@@ -7,9 +7,9 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
 
-class VersionSubscriber implements EventSubscriber
+class RevisionSubscriber implements EventSubscriber
 {
 	/**
 	 * {@inheritdoc}
@@ -35,33 +35,33 @@ class VersionSubscriber implements EventSubscriber
 		$classMetadata = $args->getClassMetadata();
 
 		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
-			!$reflectionClass->implementsInterface(VersionInterface::class))
+			!$reflectionClass->implementsInterface(RevisionInterface::class))
 		{
 			return;
 		}
 
-		$this->mapVersion($classMetadata, $reflectionClass);
-		$this->mapVersions($classMetadata, $reflectionClass);
+		$this->mapRevision($classMetadata, $reflectionClass);
+		$this->mapRevisions($classMetadata, $reflectionClass);
 	}
 
 	/**
-	 * Map version
+	 * Map revision
 	 *
 	 * @param ClassMetadata $classMetadata
 	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapVersion(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
+	private function mapRevision(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
 	{
-		if (!$classMetadata->hasAssociation('version'))
+		if (!$classMetadata->hasAssociation('revision'))
 		{
 			$classMetadata->mapManyToOne([
-				'fieldName' 	=> 'version',
-				'inversedBy'	=> 'versions',
+				'fieldName' 	=> 'revision',
+				'inversedBy'	=> 'revisions',
 				'cascade'		=> ['persist', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'joinColumns' 	=> [[
-					'name' 					=> 'version_id',
+					'name' 					=> 'revision_id',
 					'referencedColumnName'	=> 'id',
 					'onDelete'				=> 'CASCADE'
 				]]
@@ -70,18 +70,18 @@ class VersionSubscriber implements EventSubscriber
 	}
 
 	/**
-	 * Map versions
+	 * Map revision
 	 *
 	 * @param ClassMetadata $classMetadata
 	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapVersions(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
+	private function mapRevisions(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
 	{
-		if (!$classMetadata->hasAssociation('versions'))
+		if (!$classMetadata->hasAssociation('revisions'))
 		{
 			$classMetadata->mapOneToMany([
-				'fieldName' 	=> 'versions',
-				'mappedBy'		=> 'version',
+				'fieldName' 	=> 'revisions',
+				'mappedBy'		=> 'revision',
 				'cascade'		=> ['persist', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
@@ -102,11 +102,11 @@ class VersionSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof VersionInterface)
+		if (!$entity instanceof RevisionInterface)
 		{
 			return;
 		}
 
-		$entity->setVersion($entity);
+		$entity->setRevision($entity);
 	}
 }

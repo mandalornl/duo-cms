@@ -9,3 +9,6 @@ https://stovepipe.systems/post/symfony-security-roles-vs-voters
 
 # drag & drop
 https://www.npmjs.com/package/html5sortable
+
+# doctrine
+http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/transactions-and-concurrency.html#optimistic-locking

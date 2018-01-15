@@ -4,8 +4,8 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\AbstractController;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,10 +35,10 @@ trait CloneTrait
 
 		$clone = clone $entity;
 
-		// use clone as initial version
-		if ($clone instanceof VersionInterface)
+		// use clone as initial revision
+		if ($clone instanceof RevisionInterface)
 		{
-			$clone->setVersion($clone);
+			$clone->setRevision($clone);
 		}
 
 		/**

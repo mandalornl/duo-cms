@@ -9,7 +9,7 @@ use Duo\BehaviorBundle\Entity\DeleteTrait;
 use Duo\BehaviorBundle\Entity\SortTrait;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
 use Duo\BehaviorBundle\Entity\TranslateTrait;
-use Duo\BehaviorBundle\Entity\VersionTrait;
+use Duo\BehaviorBundle\Entity\RevisionTrait;
 use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -22,7 +22,7 @@ abstract class AbstractNode implements NodeInterface, TaxonomyInterface
 	use TranslateTrait;
 	use SortTrait;
 	use CloneTrait;
-	use VersionTrait;
+	use RevisionTrait;
 	use TimeStampTrait;
 
     /**

@@ -10,7 +10,7 @@ import {md} from '../util/mobiledetect';
  * Initialize select2
  *
  * @param {{}} [options = {}]
- * @param {string} [selector = '.select2']
+ * @param {string|jQuery|HTMLElement} [selector = '.select2']
  */
 const init = (options = {}, selector = '.select2') =>
 {
@@ -19,7 +19,9 @@ const init = (options = {}, selector = '.select2') =>
 		return;
 	}
 
-	$(selector).each(function()
+	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+
+	$selector.each(function()
 	{
 		const $this = $(this);
 		if ($this.data('initalized.select2'))

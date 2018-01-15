@@ -6,8 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Duo\AdminBundle\Helper\ReflectionClassHelper;
-use Duo\BehaviorBundle\Entity\TreeTrait;
+use Duo\BehaviorBundle\Entity\TreeInterface;
 
 class TreeSubscriber implements EventSubscriber
 {
@@ -39,7 +38,7 @@ class TreeSubscriber implements EventSubscriber
 		}
 
 		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
-			!ReflectionClassHelper::hasTrait($reflectionClass, TreeTrait::class))
+			!$reflectionClass->implementsInterface(TreeInterface::class))
 		{
 			return;
 		}

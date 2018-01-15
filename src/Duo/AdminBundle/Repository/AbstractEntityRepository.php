@@ -8,7 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
 
 abstract class AbstractEntityRepository extends EntityRepository
 {
@@ -25,10 +25,10 @@ abstract class AbstractEntityRepository extends EntityRepository
 
 		$reflectionClass = $this->getClassMetadata()->getReflectionClass();
 
-		// use latest version
-		if ($reflectionClass->implementsInterface(VersionInterface::class))
+		// use latest revision
+		if ($reflectionClass->implementsInterface(RevisionInterface::class))
 		{
-			$builder->andWhere('e.version = e.id');
+			$builder->andWhere('e.revision = e.id');
 		}
 
 		// which is not deleted

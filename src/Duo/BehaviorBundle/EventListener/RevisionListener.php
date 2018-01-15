@@ -11,10 +11,10 @@ use Duo\BehaviorBundle\Entity\TimeStampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\UrlInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
-use Duo\BehaviorBundle\Event\VersionEvent;
+use Duo\BehaviorBundle\Entity\RevisionInterface;
+use Duo\BehaviorBundle\Event\RevisionEvent;
 
-class VersionListener
+class RevisionListener
 {
 	/**
 	 * @var EntityManager
@@ -22,7 +22,7 @@ class VersionListener
 	private $entityManager;
 
 	/**
-	 * VersionableListener constructor
+	 * RevisionableListener constructor
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
@@ -34,11 +34,11 @@ class VersionListener
 	/**
 	 * On clone event
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	public function onClone(VersionEvent $event)
+	public function onClone(RevisionEvent $event)
 	{
-		$this->setVersion($event);
+		$this->setRevision($event);
 		$this->unsetBlame($event);
 		$this->undelete($event);
 		$this->setParentOnClone($event);
@@ -49,11 +49,11 @@ class VersionListener
 	/**
 	 * On revert event
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	public function onRevert(VersionEvent $event)
+	public function onRevert(RevisionEvent $event)
 	{
-		$this->setVersion($event);
+		$this->setRevision($event);
 		$this->setWeight($event);
 		$this->setParentOnRevert($event);
 		$this->unsetUrlOnRevert($event);
@@ -61,30 +61,30 @@ class VersionListener
 	}
 
 	/**
-	 * Set version
+	 * Set revision
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function setVersion(VersionEvent $event)
+	private function setRevision(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 		$origin = $event->getOrigin();
 
 		/**
-		 * @var VersionInterface $version
+		 * @var RevisionInterface $revision
 		 */
-		foreach ($origin->getVersions() as $version)
+		foreach ($origin->getRevisions() as $revision)
 		{
-			$version->setVersion($entity);
+			$revision->setRevision($entity);
 		}
 	}
 
 	/**
 	 * Unset blame
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function unsetBlame(VersionEvent $event)
+	private function unsetBlame(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -111,9 +111,9 @@ class VersionListener
 	/**
 	 * Undelete entity
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function undelete(VersionEvent $event)
+	private function undelete(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -128,9 +128,9 @@ class VersionListener
 	/**
 	 * Set weight
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function setWeight(VersionEvent $event)
+	private function setWeight(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -150,9 +150,9 @@ class VersionListener
 	/**
 	 * Set parent on clone
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function setParentOnClone(VersionEvent $event)
+	private function setParentOnClone(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -173,9 +173,9 @@ class VersionListener
 	/**
 	 * Set parent on revert
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function setParentOnRevert(VersionEvent $event)
+	private function setParentOnRevert(RevisionEvent $event)
 	{
 		$origin = $event->getOrigin();
 
@@ -196,9 +196,9 @@ class VersionListener
 	/**
 	 * Unset url on clone
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function unsetUrlOnClone(VersionEvent $event)
+	private function unsetUrlOnClone(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -213,9 +213,9 @@ class VersionListener
 	/**
 	 * Unset url on revert
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function unsetUrlOnRevert(VersionEvent $event)
+	private function unsetUrlOnRevert(RevisionEvent $event)
 	{
 		$origin = $event->getOrigin();
 
@@ -253,9 +253,9 @@ class VersionListener
 	/**
 	 * Unset translation url on clone
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function unsetTranslationUrlOnClone(VersionEvent $event)
+	private function unsetTranslationUrlOnClone(RevisionEvent $event)
 	{
 		$entity = $event->getEntity();
 
@@ -277,9 +277,9 @@ class VersionListener
 	/**
 	 * Unset translation url on revert
 	 *
-	 * @param VersionEvent $event
+	 * @param RevisionEvent $event
 	 */
-	private function unsetTranslationUrlOnRevert(VersionEvent $event)
+	private function unsetTranslationUrlOnRevert(RevisionEvent $event)
 	{
 		$origin = $event->getOrigin();
 

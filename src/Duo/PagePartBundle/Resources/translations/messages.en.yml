@@ -1,0 +1,14 @@
+duo:
+    pagepart:
+        modal:
+            title: Page parts
+
+        twig:
+            add_pagepart: Add page part
+            remove_pagepart: Remove
+
+        type:
+            heading: Heading
+            textarea: Plain text
+            wysiwyg: Text
+            video: Video

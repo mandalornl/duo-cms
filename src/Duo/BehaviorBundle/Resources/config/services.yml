@@ -1,5 +1,3 @@
-parameters:
-
 services:
     _defaults:
         autowire: true
@@ -14,15 +12,15 @@ services:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
         tags:
-            - { name: kernel.event_listener, event: duo.event.behavior.delete, method: onDelete }
-            - { name: kernel.event_listener, event: duo.event.behavior.undelete, method: onUndelete }
+            - { name: kernel.event_listener, event: duo.event.delete, method: onDelete }
+            - { name: kernel.event_listener, event: duo.event.undelete, method: onUndelete }
 
-    Duo\BehaviorBundle\EventListener\VersionListener:
+    Duo\BehaviorBundle\EventListener\RevisionListener:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
         tags:
-            - { name: kernel.event_listener, event: duo.event.behavior.clone, method: onClone }
-            - { name: kernel.event_listener, event: duo.event.behavior.revert, method: onRevert }
+            - { name: kernel.event_listener, event: duo.event.revision.clone, method: onClone }
+            - { name: kernel.event_listener, event: duo.event.revision.revert, method: onRevert }
 
     Duo\BehaviorBundle\EventSubscriber\PublishSubscriber:
         arguments:
@@ -62,6 +60,6 @@ services:
         tags:
             - { name: doctrine.event_subscriber, priority: 8 }
 
-    Duo\BehaviorBundle\EventSubscriber\VersionSubscriber:
+    Duo\BehaviorBundle\EventSubscriber\RevisionSubscriber:
         tags:
             - { name: doctrine.event_subscriber }

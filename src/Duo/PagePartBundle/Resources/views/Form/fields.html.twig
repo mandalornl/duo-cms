@@ -1,0 +1,76 @@
+{% block infinite_form_polycollection_row %}
+	<div class="page-parts">
+		{% if not disabled %}
+			{% set listCount = form | length %}
+			{% if allow_add is defined and allow_add %}
+				<div id="modal_{{ id }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ id }}_label">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modal_{{ id }}_label">
+									{{- 'duo.pagepart.modal.title' | trans -}}
+								</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									{% for form in prototypes %}
+										<div class="col-6">
+											<button type="button" class="btn btn-light btn-lg" data-dismiss="modal" data-prototype="{{ block('duo_page_part_row') | escape }}">
+												{{- form.vars.label | trans }} <i class="icon-file-text"></i>
+											</button>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">
+									{{- 'duo.admin.modal.global.close' | trans -}}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="my-3">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_{{ id }}">
+						{{- 'duo.pagepart.twig.add_pagepart' | trans -}}
+					</button>
+				</div>
+			{% endif %}
+		{% endif %}
+		<div class="sortable-list">
+			{% for child in form %}
+				{% set form = child %}
+				{{ block('duo_page_part_row') }}
+			{% endfor %}
+		</div>
+		{% if not disabled and allow_add is defined and allow_add %}
+			<div class="my-3{% if listCount <= 0 %} d-none{% endif %}">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_{{ id }}">
+					{{- 'duo.pagepart.twig.add_pagepart' | trans -}}
+				</button>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block duo_page_part_row %}
+{% spaceless %}
+	<div class="sortable-item page-part{% if disabled %} disabled{% endif %}">
+		<div class="form-group">
+			{{ form_label(form) }}
+			{{ form_widget(form) }}
+			{{ form_errors(form) }}
+			{%- if not disabled and allow_delete is defined and allow_delete -%}
+				<div class="d-flex justify-content-end">
+					<button type="button" class="btn btn-secondary" data-dismiss="page-part">
+						{{ 'duo.pagepart.twig.remove_pagepart' | trans }} <i class="icon-bin"></i>
+					</button>
+				</div>
+			{%- endif -%}
+		</div>
+	</div>
+{% endspaceless %}
+{% endblock %}

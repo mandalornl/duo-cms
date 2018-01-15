@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Duo\AdminBundle\Event\MenuEvent;
 use Duo\AdminBundle\Event\MenuEvents;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -24,7 +24,7 @@ class MenuBuilder
 	private $router;
 
 	/**
-	 * @var TraceableEventDispatcher
+	 * @var EventDispatcherInterface
 	 */
 	private $eventDispatcher;
 
@@ -42,11 +42,11 @@ class MenuBuilder
 	 * MenuBuilder constructor
 	 *
 	 * @param RouterInterface $router
-	 * @param TraceableEventDispatcher $eventDispatcher
+	 * @param EventDispatcherInterface $eventDispatcher
 	 * @param RequestStack $requestStack
 	 */
 	public function __construct(RouterInterface $router,
-								TraceableEventDispatcher $eventDispatcher,
+								EventDispatcherInterface $eventDispatcher,
 								RequestStack $requestStack)
 	{
 		$this->router = $router;

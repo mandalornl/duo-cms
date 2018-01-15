@@ -13,10 +13,10 @@
 								{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 							</button>
 							<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
-								{% if entity is versionable %}
-									{% set versions = get_revertable_versions(entity) %}
-									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_versions_{{ type }}"{% if versions | length < 1 %} disabled{% endif %}>
-										{{- 'duo.admin.toolbar.actions.versions' | trans -}}
+								{% if entity is revisionable %}
+									{% set revisions = get_revertable_revisions(entity) %}
+									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_revisions_{{ type }}"{% if revisions | length < 1 %} disabled{% endif %}>
+										{{- 'duo.admin.toolbar.actions.revisions' | trans -}}
 									</button>
 								{% endif %}
 								{% if entity is deletable %}

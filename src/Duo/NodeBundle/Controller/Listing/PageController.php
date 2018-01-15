@@ -12,8 +12,8 @@ use Duo\BehaviorBundle\Controller\DeleteInterface;
 use Duo\BehaviorBundle\Controller\PublishTrait;
 use Duo\BehaviorBundle\Controller\SortInterface;
 use Duo\BehaviorBundle\Controller\SortTrait;
-use Duo\BehaviorBundle\Controller\VersionInterface;
-use Duo\BehaviorBundle\Controller\VersionTrait;
+use Duo\BehaviorBundle\Controller\RevisionInterface;
+use Duo\BehaviorBundle\Controller\RevisionTrait;
 use Duo\NodeBundle\Entity\Page;
 use Duo\NodeBundle\Form\Listing\PageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,13 +27,13 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
-class PageController extends AbstractController implements CloneInterface, PublishInterface, DeleteInterface, SortInterface, VersionInterface
+class PageController extends AbstractController implements CloneInterface, PublishInterface, DeleteInterface, SortInterface, RevisionInterface
 {
 	use CloneTrait;
 	use PublishTrait;
 	use DeleteTrait;
 	use SortTrait;
-	use VersionTrait;
+	use RevisionTrait;
 
 	/**
 	 * {@inheritdoc}
@@ -139,12 +139,12 @@ class PageController extends AbstractController implements CloneInterface, Publi
     /**
      * {@inheritdoc}
      *
-     * @Route("/version/{id}/", name="version", requirements={ "id" = "\d+" })
+     * @Route("/revision/{id}/", name="revision", requirements={ "id" = "\d+" })
 	 * @Method({"POST", "GET"})
      */
-    public function versionAction(Request $request, int $id)
+    public function revisionAction(Request $request, int $id)
     {
-        return $this->doVersionAction($request, $id);
+        return $this->doRevisionAction($request, $id);
     }
 
 	/**
