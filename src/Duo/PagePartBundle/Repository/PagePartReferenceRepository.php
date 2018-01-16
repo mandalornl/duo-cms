@@ -58,8 +58,16 @@ class PagePartReferenceRepository extends EntityRepository
 		 */
 		$em = $this->getEntityManager();
 
-		foreach ($entity->getPageParts() as $pagePart)
+		foreach ($entity->getPageParts() as $weight => $pagePart)
 		{
+			/**
+			 * @var PagePartInterface $pagePart
+			 */
+			if ($pagePart->getWeight() === null)
+			{
+				$pagePart->setWeight($weight);
+			}
+
 			/**
 			 * @var PagePartInterface $pagePart
 			 */
@@ -247,7 +255,7 @@ class PagePartReferenceRepository extends EntityRepository
 		try
 		{
 			return (int)$this->createQueryBuilder('e')
-				->select('MAX(p.weight)')
+				->select('MAX(e.weight)')
 				->where('e.entityId = :entityId AND e.entityFqcn = :entityFqcn')
 				->setParameter('entityId', $entity->getId())
 				->setParameter('entityFqcn', ClassUtils::getClass($entity))
