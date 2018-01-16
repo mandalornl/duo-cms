@@ -1,7 +1,9 @@
 import $ from 'jquery';
 
+import {get} from '../api';
 import '../jquery/sortable';
 import * as wysiwyg from '../assets/wysiwyg';
+import * as loader from '../util/loader';
 
 /**
  * Initialize
@@ -24,12 +26,12 @@ const init = (selector = '.page-parts') =>
 
 		const $list = $this.find('.sortable-list');
 
-		let newWeight = $list.find('.sortable-item').length;
+		let newIndex = $list.find('.sortable-item').length;
 
 		/**
-		 * Update sorting
+		 * Update weight
 		 */
-		const updateSorting = () =>
+		const updateWeight = () =>
 		{
 			$list.find('.sortable-item [name$="[weight]"]').each(function(weight)
 			{
@@ -42,7 +44,7 @@ const init = (selector = '.page-parts') =>
 		 */
 		const toggleButton = () =>
 		{
-			$this.find('[data-toggle="modal"]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
+			$this.find('button[data-url]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
 		};
 
 		$list.on('click', '[data-dismiss="page-part"]', function(e)
@@ -59,44 +61,48 @@ const init = (selector = '.page-parts') =>
 
 			$item.remove();
 
-			updateSorting();
+			updateWeight();
 			toggleButton();
 		});
 
-		$list.sortable();
+		let $modal;
 
-		$list.on('sortupdate', updateSorting);
-
-		// move modal to body, this also fixes fixed positioning when using translate3d on parent
-		const $modal = $this.find('.modal');
-		if ($modal.length)
+		$this.on('click', 'button[data-url]', async function()
 		{
-			const $bodyModal = $('body > .modal:first');
-			if ($bodyModal.length)
+			// fetch modal
+			if (!$modal)
 			{
-				$modal.insertBefore($bodyModal);
-			}
-			else
-			{
+				loader.show();
+
+				const html = await get($(this).data('url'));
+
+				$modal = $(html);
 				$modal.appendTo('body');
+
+				loader.hide();
+
+				$modal.on('click', 'button[data-prototype]', function(e)
+				{
+					e.preventDefault();
+
+					const $item = $($(this).data('prototype').split('__name__').join(newIndex++));
+					$list.append($item);
+					$list.sortable();
+
+					const $wysiwyg = $item.find('.wysiwyg');
+					if ($wysiwyg.length)
+					{
+						wysiwyg.init({}, $wysiwyg);
+					}
+
+					toggleButton();
+				});
 			}
-		}
 
-		// add new item
-		$modal.on('click', 'button[data-prototype]', function()
-		{
-			const $item = $($(this).data('prototype').split('__name__').join(newWeight++));
-			$list.append($item);
-			$list.sortable();
-
-			const $wysiwyg = $item.find('.wysiwyg');
-			if ($wysiwyg.length)
-			{
-				wysiwyg.init({}, $wysiwyg);
-			}
-
-			toggleButton();
+			$modal.modal('show');
 		});
+
+		$list.sortable().on('sortupdate', updateWeight);
 	});
 };
 

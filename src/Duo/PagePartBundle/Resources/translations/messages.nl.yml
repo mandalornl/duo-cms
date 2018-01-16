@@ -1,11 +1,11 @@
 duo:
-    pagepart:
+    page_part:
         modal:
             title: Pagina onderdelen
 
         twig:
-            add_pagepart: Onderdeel toevoegen
-            remove_pagepart: Verwijderen
+            add_page_part: Onderdeel toevoegen
+            remove_page_part: Verwijderen
 
         type:
             heading: Kop

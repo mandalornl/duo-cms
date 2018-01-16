@@ -1,11 +1,11 @@
 duo:
-    pagepart:
+    page_part:
         modal:
             title: Page parts
 
         twig:
-            add_pagepart: Add page part
-            remove_pagepart: Remove
+            add_page_part: Add page part
+            remove_page_part: Remove
 
         type:
             heading: Heading

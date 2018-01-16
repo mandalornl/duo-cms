@@ -1,0 +1,4 @@
+duo_page_part_modal:
+    resource: '@DuoPagePartBundle/Controller/ModalController.php'
+    type: annotation
+    prefix: /pagepart/modal

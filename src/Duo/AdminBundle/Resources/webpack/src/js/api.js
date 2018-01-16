@@ -1,31 +1,57 @@
-import {stringify as queryStringify} from 'querystring';
-import {merge} from 'lodash';
+import $ from 'jquery';
+
+/**
+ * Handle response
+ *
+ * @param {Response} response
+ *
+ * @returns {Promise<null>}
+ */
+const handleResponse = async (response) =>
+{
+	if (response.status !== 200)
+	{
+		console.log('Fetch error, resulted with status code: %s', response.status);
+		return null;
+	}
+
+	const data = await response.json();
+
+	if (data.error)
+	{
+		console.error(data.error);
+		return null;
+	}
+
+	return data.result;
+};
 
 /**
  * Perform get request to json endpoint
  *
  * @param {string} uri
- * @param {{}} [parameters]
+ * @param {Object<null>} [parameters]
  *
- * @returns {Promise.<void>}
+ * @returns {Promise.<*>}
  */
-const get = async (uri, parameters) =>
+const get = async (uri, parameters = null) =>
 {
-	const response = await fetch(uri + (parameters ? `?${queryStringify(parameters)}` : ''), {
-		headers: {
-			'content-type': 'application/json'
-		},
-		credentials: 'same-origin'
-	});
-
-	const result = await response.json();
-
-	if (result.error)
+	try
 	{
-		throw result.error || 'An unknown error occurred';
-	}
+		const response = await fetch(uri + (parameters ? `?${$.param(parameters)}` : ''), {
+			headers: {
+				'content-type': 'application/json'
+			},
+			credentials: 'same-origin'
+		});
 
-	return result.result;
+		return handleResponse(response);
+	}
+	catch (err)
+	{
+		console.error(err);
+		return null;
+	}
 };
 
 /**
@@ -34,40 +60,41 @@ const get = async (uri, parameters) =>
  * @param {string} uri
  * @param {{}|FormData} [body = {}]
  *
- * @returns {Promise.<void>}
+ * @returns {Promise.<*>}
  */
 const post = async (uri, body = {}) =>
 {
-	const options = merge({
-		method: 'POST',
-		credentials: 'same-origin'
-	}, (() =>
+	try
 	{
-		if (body instanceof FormData)
+		const options = $.extend({
+			method: 'POST',
+			credentials: 'same-origin'
+		}, (() =>
 		{
+			if (body instanceof FormData)
+			{
+				return {
+					body: body
+				};
+			}
+
 			return {
-				body: body
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify(body)
 			};
-		}
+		})());
 
-		return {
-			headers: {
-				'content-type': 'application/json'
-			},
-			body: JSON.stringify(body)
-		};
-	})());
+		const response = await fetch(uri, options);
 
-	const response = await fetch(uri, options);
-
-	const result = await response.json();
-
-	if (result.error)
-	{
-		throw result.error || 'An unknown error occurred';
+		return handleResponse(response);
 	}
-
-	return result.result;
+	catch (err)
+	{
+		console.error(err);
+		return null;
+	}
 };
 
 export {get, post};

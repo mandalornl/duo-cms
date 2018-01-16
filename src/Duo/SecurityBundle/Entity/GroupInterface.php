@@ -45,7 +45,7 @@ interface GroupInterface
 	 *
 	 * @param bool $flatten [optional]
 	 *
-	 * @return ArrayCollection
+	 * @return ArrayCollection|array
 	 */
 	public function getRoles(bool $flatten = false);
 }

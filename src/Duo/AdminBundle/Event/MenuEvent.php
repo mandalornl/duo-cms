@@ -2,22 +2,22 @@
 
 namespace Duo\AdminBundle\Event;
 
-use Duo\AdminBundle\Menu\MenuBuilder;
+use Duo\AdminBundle\Menu\MenuBuilderInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class MenuEvent extends Event
 {
 	/**
-	 * @var MenuBuilder
+	 * @var MenuBuilderInterface
 	 */
 	private $builder;
 
 	/**
 	 * MenuEvent constructor
 	 *
-	 * @param MenuBuilder $builder
+	 * @param MenuBuilderInterface $builder
 	 */
-	public function __construct(MenuBuilder $builder)
+	public function __construct(MenuBuilderInterface $builder)
 	{
 		$this->builder = $builder;
 	}
@@ -25,11 +25,11 @@ class MenuEvent extends Event
 	/**
 	 * Set builder
 	 *
-	 * @param MenuBuilder $builder
+	 * @param MenuBuilderInterface $builder
 	 *
 	 * @return MenuEvent
 	 */
-	public function setBuilder(MenuBuilder $builder): MenuEvent
+	public function setBuilder(MenuBuilderInterface $builder): MenuEvent
 	{
 		$this->builder = $builder;
 
@@ -39,9 +39,9 @@ class MenuEvent extends Event
 	/**
 	 * Get builder
 	 *
-	 * @return MenuBuilder
+	 * @return MenuBuilderInterface
 	 */
-	public function getBuilder(): MenuBuilder
+	public function getBuilder(): MenuBuilderInterface
 	{
 		return $this->builder;
 	}

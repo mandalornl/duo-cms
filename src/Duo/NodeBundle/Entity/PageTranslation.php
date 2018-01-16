@@ -10,7 +10,7 @@ use Duo\BehaviorBundle\Entity\SlugTrait;
 use Duo\BehaviorBundle\Entity\UrlInterface;
 use Duo\BehaviorBundle\Entity\UrlTrait;
 use Duo\PagePartBundle\Entity\NodePagePartInterface;
-use Duo\PagePartBundle\Entity\PagePartTrait;
+use Duo\PagePartBundle\Entity\NodePagePartTrait;
 use Duo\SeoBundle\Entity\SeoInterface;
 use Duo\SeoBundle\Entity\SeoTrait;
 
@@ -24,7 +24,7 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	use UrlTrait;
 	use PublishTrait;
 	use SeoTrait;
-	use PagePartTrait;
+	use NodePagePartTrait;
 
 	/**
 	 * @var string

@@ -11,11 +11,15 @@ duo_security:
     prefix: /admin
 
 duo_taxonomy:
-    resource: "@DuoTaxonomyBundle/Resources/config/routing.yml"
+    resource: '@DuoTaxonomyBundle/Resources/config/routing.yml'
     prefix:   /admin
 
+duo_page_part:
+    resource: '@DuoPagePartBundle/Resources/config/routing.yml'
+    prefix: /admin
+
 duo_seo:
-    resource: "@DuoSeoBundle/Resources/config/routing.yml"
+    resource: '@DuoSeoBundle/Resources/config/routing.yml'
     prefix: /
 
 duo_url:

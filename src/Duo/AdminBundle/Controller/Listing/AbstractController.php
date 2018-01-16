@@ -140,19 +140,36 @@ abstract class AbstractController extends FrameworkController
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
-		return $this->render($this->getListTemplate(), [
-			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+		return $this->render($this->getListTemplate(), (array)$this->getDefaultContext([
 			'paginator' => $this->getPaginator(
 				$request->get('page'),
 				$request->get('limit')
 			),
-			'routePrefix' => $this->getRoutePrefix(),
 			'list' => array_merge([
-				'type' => $this->getType(),
 				'filters' => $this->filters,
 				'fields' => $this->fields,
 			], $this->getListBehaviors())
-		]);
+		]));
+	}
+
+	/**
+	 * Get default context
+	 *
+	 * @param array $context [optional]
+	 *
+	 * @return TwigContext
+	 *
+	 * @throws AnnotationException
+	 */
+	protected function getDefaultContext(array $context = []): TwigContext
+	{
+		$context = array_merge([
+			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+			'routePrefix' => $this->getRoutePrefix(),
+			'type' => $this->getType()
+		], $context);
+
+		return new TwigContext($context);
 	}
 
 	/**
@@ -269,13 +286,10 @@ abstract class AbstractController extends FrameworkController
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
 
-		return $this->render($this->getAddTemplate(), [
-			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+		return $this->render($this->getAddTemplate(), (array)$this->getDefaultContext([
 			'form' => $form->createView(),
-			'entity' => $entity,
-			'type' => $this->getType(),
-			'routePrefix' => $this->getRoutePrefix()
-		]);
+			'entity' => $entity
+		]));
 	}
 
 	/**
@@ -295,12 +309,6 @@ abstract class AbstractController extends FrameworkController
 		{
 			return $this->entityNotFound($request, $id);
 		}
-
-		$context = new TwigContext([
-			'menu' => $this->get('duo.admin.menu_builder')->createView(),
-			'type' => $this->getType(),
-			'routePrefix' => $this->getRoutePrefix()
-		]);
 
 		/**
 		 * @var EventDispatcherInterface $eventDispatcher
@@ -357,8 +365,10 @@ abstract class AbstractController extends FrameworkController
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 			}
 
-			$context->offsetSet('form', $form->createView());
-			$context->offsetSet('entity', $clone);
+			$context = $this->getDefaultContext([
+				'form' => $form->createView(),
+				'entity' => $clone
+			]);
 
 			// dispatch onTwigContext event
 			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
@@ -391,8 +401,10 @@ abstract class AbstractController extends FrameworkController
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 			}
 
-			$context->offsetSet('form', $form->createView());
-			$context->offsetSet('entity', $entity);
+			$context = $this->getDefaultContext([
+				'form' => $form->createView(),
+				'entity' => $entity
+			]);
 
 			// dispatch onTwigContext event
 			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));

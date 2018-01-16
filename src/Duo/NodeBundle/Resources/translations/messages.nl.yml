@@ -20,7 +20,7 @@ duo:
         form:
             page:
                 name:
-                    label: Naam
+                    label: Interne naam
                 weight:
                     label: Gewicht
                 title:

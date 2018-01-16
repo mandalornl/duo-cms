@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class MenuBuilder
+class MenuBuilder implements MenuBuilderInterface
 {
 	/**
 	 * @var Collection
 	 */
-	private $adapters;
+	private $configs;
 
 	/**
 	 * @var RouterInterface
@@ -52,8 +52,8 @@ class MenuBuilder
 		$this->router = $router;
 		$this->eventDispatcher = $eventDispatcher;
 
-		$this->adapters = new ArrayCollection();
-		$this->adapters[] = Yaml::parseFile(__DIR__ . '/../Resources/config/menu.yml');
+		$this->configs = new ArrayCollection();
+		$this->configs[] = Yaml::parseFile(__DIR__ . '/../Resources/config/menu.yml');
 
 		// cache request uri
 		if (($request = $requestStack->getCurrentRequest()))
@@ -66,51 +66,37 @@ class MenuBuilder
 	}
 
 	/**
-	 * Add adapter
-	 *
-	 * @param array $adapter
-	 *
-	 * @return MenuBuilder
+	 * {@inheritdoc}
 	 */
-	public function addAdapter(array $adapter): MenuBuilder
+	public function addConfig(array $config): MenuBuilderInterface
 	{
-		$this->adapters[] = $adapter;
+		$this->configs[] = $config;
 
 		return $this;
 	}
 
 	/**
-	 * Remove adapter
-	 *
-	 * @param array $adapter
-	 *
-	 * @return MenuBuilder
+	 * {@inheritdoc}
 	 */
-	public function removeAdapter(array $adapter): MenuBuilder
+	public function removeConfig(array $config): MenuBuilderInterface
 	{
-		$this->adapters->removeElement($adapter);
+		$this->configs->removeElement($config);
 
 		return $this;
 	}
 
 	/**
-	 * Get adapters
-	 *
-	 * @return ArrayCollection
+	 * {@inheritdoc}
 	 */
-	public function getAdapters()
+	public function getConfigs()
 	{
-		return $this->adapters;
+		return $this->configs;
 	}
 
 	/**
-	 * Set menu
-	 *
-	 * @param MenuInterface $menu
-	 *
-	 * @return MenuBuilder
+	 * {@inheritdoc}
 	 */
-	public function setMenu(MenuInterface $menu): MenuBuilder
+	public function setMenu(MenuInterface $menu): MenuBuilderInterface
 	{
 		$this->menu = $menu;
 
@@ -118,9 +104,7 @@ class MenuBuilder
 	}
 
 	/**
-	 * Get menu
-	 *
-	 * @return MenuInterface
+	 * {@inheritdoc}
 	 */
 	public function getMenu(): MenuInterface
 	{
@@ -130,11 +114,11 @@ class MenuBuilder
 	/**
 	 * Build
 	 *
-	 * @param bool $rebuild [optional]
+	 * @param bool $forceRebuild [optional]
 	 */
-	public function build(bool $rebuild = false): void
+	public function build(bool $forceRebuild = false): void
 	{
-		if ($this->menu !== null && !$rebuild)
+		if ($this->menu !== null && !$forceRebuild)
 		{
 			return;
 		}
@@ -146,7 +130,7 @@ class MenuBuilder
 			->setLabel('Root')
 			->setUniqid('root');
 
-		foreach ($this->adapters as $config)
+		foreach ($this->configs as $config)
 		{
 			$this->parseConfig($config, $menu);
 		}
@@ -166,9 +150,7 @@ class MenuBuilder
 	}
 
 	/**
-	 * Create view
-	 *
-	 * @return MenuInterface
+	 * {@inheritdoc}
 	 */
 	public function createView(): MenuInterface
 	{
@@ -186,18 +168,18 @@ class MenuBuilder
 	 */
 	private function parseConfig(array $config, MenuInterface $parent): void
 	{
-		foreach ($config as $uniqid => $item)
+		foreach ($config as $id => $item)
 		{
 			// check whether or not menu exists for parent's children
-			if ($parent->getChildren()->containsKey($uniqid))
+			if ($parent->getChildren()->containsKey($id))
 			{
-				$menu = $parent->getChildren()->get($uniqid);
+				$menu = $parent->getChildren()->get($id);
 			}
 			// create new item instead
 			else
 			{
 				$menu = (new Menu())
-					->setUniqid($uniqid);
+					->setUniqid($id);
 			}
 
 			if (isset($item['label']))

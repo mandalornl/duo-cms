@@ -13,6 +13,17 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    duo.page_part.configurator:
+        class: Duo\PagePartBundle\Configurator\PagePartConfigurator
+        public: true
+
+    duo.form.page_part:
+        class: Duo\PagePartBundle\Form\PagePartType
+        arguments:
+            $configurator: '@duo.page_part.configurator'
+        tags:
+            - { name: form.type }
+
     Duo\PagePartBundle\EventSubscriber\PagePartSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: 1024 }

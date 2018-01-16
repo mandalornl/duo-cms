@@ -17,6 +17,6 @@ class MenuListener
 		$config = Yaml::parseFile(__DIR__ . '/../Resources/config/menu.yml');
 
 		$builder = $event->getBuilder();
-		$builder->addAdapter($config);
+		$builder->addConfig($config);
 	}
 }

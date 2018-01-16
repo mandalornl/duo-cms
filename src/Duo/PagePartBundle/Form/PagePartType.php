@@ -2,23 +2,51 @@
 
 namespace Duo\PagePartBundle\Form;
 
+use Duo\PagePartBundle\Configurator\PagePartConfiguratorInterface;
 use Infinite\FormBundle\Form\Type\PolyCollectionType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PagePartType extends AbstractType
 {
 	/**
+	 * @var PagePartConfiguratorInterface
+	 */
+	private $configurator;
+
+	/**
+	 * PagePartType constructor
+	 *
+	 * @param PagePartConfiguratorInterface $configurator
+	 */
+	public function __construct(PagePartConfiguratorInterface $configurator)
+	{
+		$this->configurator = $configurator;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function buildView(FormView $view, FormInterface $form, array $options)
+	{
+		$icons = $this->configurator->getIcons();
+		foreach ($icons as $class => $icon)
+		{
+			$icons[md5($class)] = $icon;
+			unset($icons[$class]);
+		}
+
+		$view->vars['icons'] = $icons;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver)
 	{
-		$types = [
-			HeadingPagePartType::class => 'duo.pagepart.type.heading',
-			TextareaPagePartType::class => 'duo.pagepart.type.textarea',
-			WYSIWYGPagePartType::class => 'duo.pagepart.type.wysiwyg',
-			VideoPagePartType::class => 'duo.pagepart.type.video'
-		];
+		$types = $this->configurator->getTypes();
 
 		$typeOptions = array_map(function(string $label)
 		{

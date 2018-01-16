@@ -3,11 +3,11 @@ import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 
-import * as datepicker from './assets/datepicker';
+import * as datePicker from './assets/datepicker';
 import * as select2 from './assets/select2';
 import * as wysiwyg from './assets/wysiwyg';
 import * as doNotLeave from './util/donotleave';
-import * as pageparts from './util/pageparts';
+import * as pageParts from './util/pageparts';
 
 $(() =>
 {
@@ -48,8 +48,8 @@ $(() =>
 		$form.submit();
 	});
 
-	datepicker.init();
+	datePicker.init();
 	select2.init();
 	wysiwyg.init();
-	pageparts.init();
+	pageParts.init();
 });

@@ -8,10 +8,10 @@
 			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
 					<div class="btn-group" role="group">
-						<button id="actions_{{ list.type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+						<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
 							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 						</button>
-						<div class="dropdown-menu" aria-labelledby="actions_{{ list.type }}">
+						<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
 							{% if list.isDeletable %}
 								{% set url = path(routePrefix ~ '_delete') %}
 							{% else %}

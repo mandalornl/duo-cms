@@ -51,13 +51,10 @@ trait RevisionTrait
 			'disabled' => true
 		]);
 
-		return $this->render($this->getRevisionTemplate(), [
-			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+		return $this->render($this->getRevisionTemplate(), (array)$this->getDefaultContext([
 			'entity' => $entity,
-			'form' => $form->createView(),
-			'type' => $this->getType(),
-			'routePrefix' => $this->getRoutePrefix()
-		]);
+			'form' => $form->createView()
+		]));
 	}
 
 	/**

@@ -1,0 +1,4 @@
+- { label: duo.page_part.type.heading, class: Duo\PagePartBundle\Form\HeadingPagePartType, icon: icon-file-empty }
+- { label: duo.page_part.type.textarea, class: Duo\PagePartBundle\Form\TextareaPagePartType, icon: icon-file-text }
+- { label: duo.page_part.type.wysiwyg, class: Duo\PagePartBundle\Form\WYSIWYGPagePartType, icon: icon-file-text }
+- { label: duo.page_part.type.video, class: Duo\PagePartBundle\Form\VideoPagePartType, icon: icon-file-video }
