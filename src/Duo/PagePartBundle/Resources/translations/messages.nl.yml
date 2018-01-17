@@ -4,6 +4,7 @@ duo:
             title: Pagina onderdelen
 
         twig:
+            label: Pagina onderdelen
             add_page_part: Onderdeel toevoegen
             remove_page_part: Verwijderen
 

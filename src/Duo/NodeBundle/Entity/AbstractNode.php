@@ -10,6 +10,7 @@ use Duo\BehaviorBundle\Entity\SortTrait;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
 use Duo\BehaviorBundle\Entity\TranslateTrait;
 use Duo\BehaviorBundle\Entity\RevisionTrait;
+use Duo\BehaviorBundle\Entity\VersionTrait;
 use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,6 +25,7 @@ abstract class AbstractNode implements NodeInterface, TaxonomyInterface
 	use CloneTrait;
 	use RevisionTrait;
 	use TimeStampTrait;
+	use VersionTrait;
 
     /**
      * @var string
@@ -56,6 +58,6 @@ abstract class AbstractNode implements NodeInterface, TaxonomyInterface
 	 */
 	public function __toString(): string
 	{
-		return $this->name;
+		return "[{$this->id}]:{$this->name}";
 	}
 }

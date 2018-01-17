@@ -7,7 +7,7 @@
 			{% if paginator.page <= 1 %}
 				<li class="page-item disabled">
 					<span class="page-link" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
-						<span aria-hidden="true">&laquo;</span>
+						<span aria-hidden="true">&lsaquo;</span>
 						<span class="sr-only">
 							{{- 'duo.admin.paginator.previous' | trans -}}
 						</span>
@@ -16,7 +16,7 @@
 			{% else %}
 				<li class="page-item">
 					<a class="page-link" href="{{ url }}{% if previous > 1 %}?page={{ previous }}{% endif %}" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
-						<span aria-hidden="true">&laquo;</span>
+						<span aria-hidden="true">&lsaquo;</span>
 						<span class="sr-only">
 							{{- 'duo.admin.paginator.previous' | trans -}}
 						</span>
@@ -72,7 +72,7 @@
 			{% if paginator.page >= pageCount %}
 				<li class="page-item disabled">
 					<span class="page-link" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
-						<span aria-hidden="true">&raquo;</span>
+						<span aria-hidden="true">&rsaquo;</span>
 						<span class="sr-only">
 							{{- 'duo.admin.paginator.next' | trans -}}
 						</span>
@@ -81,7 +81,7 @@
 			{% else %}
 				<li class="page-item">
 					<a class="page-link" href="{{ url }}?page={{ next }}" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
-						<span aria-hidden="true">&raquo;</span>
+						<span aria-hidden="true">&rsaquo;</span>
 						<span class="sr-only">
 							{{- 'duo.admin.paginator.next' | trans -}}
 						</span>

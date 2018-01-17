@@ -25,7 +25,5 @@ duo:
                     label: Weight
                 title:
                     label: Title
-                content:
-                    label: Content
                 visible:
                     label: Visible

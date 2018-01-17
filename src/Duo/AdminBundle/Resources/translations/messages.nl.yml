@@ -45,6 +45,7 @@ duo:
                 delete_success: Item(s) succesvol verwijderd
                 undelete_success: Item(s) succesvol hersteld
                 save_success: Item succesvol opgeslagen
+                locked: Iemand anders heeft al enkele wijzigingen aangebracht. Probeer het nogmaals.
 
         paginator:
             label: Paginering

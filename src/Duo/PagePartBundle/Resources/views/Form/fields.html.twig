@@ -1,5 +1,9 @@
 {% block infinite_form_polycollection_row %}
 	<div class="page-parts">
+		<label class="mb-0">
+			{{- 'duo.page_part.twig.label' | trans -}}
+		</label>
+		<hr>
 		{% if not disabled and allow_add %}
 			<div class="my-3">
 				<button type="button" class="btn btn-primary" data-url="{{ path('duo_page_part_modal_prototypes') }}">

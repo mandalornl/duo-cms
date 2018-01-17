@@ -45,6 +45,7 @@ duo:
                 delete_success: Item(s) deleted succesfully
                 undelete_success: Item(s) undeleted succesfully
                 save_success: Item saved successfully
+                locked: Someone else has already applied some changes. Please try again.
 
         paginator:
             label: Pagination

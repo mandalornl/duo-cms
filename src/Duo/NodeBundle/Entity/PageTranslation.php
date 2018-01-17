@@ -34,13 +34,6 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	protected $title;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="content", type="text", nullable=true)
-	 */
-	protected $content;
-
-	/**
 	 * @var bool
 	 *
 	 * @ORM\Column(name="visible", type="boolean", options={ "default" = 1 })
@@ -69,30 +62,6 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	public function getTitle(): ?string
 	{
 		return $this->title;
-	}
-
-	/**
-	 * Set content
-	 *
-	 * @param string $content
-	 *
-	 * @return PageTranslation
-	 */
-	public function setContent(string $content = null): PageTranslation
-	{
-		$this->content = $content;
-
-		return $this;
-	}
-
-	/**
-	 * Get content
-	 *
-	 * @return string
-	 */
-	public function getContent(): ?string
-	{
-		return $this->content;
 	}
 
 	/**

@@ -43,10 +43,10 @@
 				<thead>
 					<tr>
 						<th>
-							<label for="{{ uniqid }}_all" class="custom-control custom-checkbox">
+							<div class="custom-control custom-checkbox">
 								<input type="checkbox" id="{{ uniqid }}_all" class="custom-control-input"{% if not paginator.count %} disabled{% endif %}>
-								<span class="custom-control-indicator"></span>
-							</label>
+								<label for="{{ uniqid }}_all" class="custom-control-label"></label>
+							</div>
 						</th>
 						{% for field in list.fields %}
 							<th{% if field.sortable %} class="sortable"{% endif %}>
@@ -60,10 +60,10 @@
 					{% for entity in paginator.result %}
 						<tr data-url="{{ path(routePrefix ~ '_edit', { id: entity.id }) }}">
 							<td>
-								<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control custom-checkbox">
+								<div class="custom-control custom-checkbox">
 									<input type="checkbox" id="{{ uniqid }}_{{ entity.id }}" name="ids[]" value="{{ entity.id }}" class="custom-control-input">
-									<span class="custom-control-indicator"></span>
-								</label>
+									<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control-label"></label>
+								</div>
 							</td>
 							{% for field in list.fields %}
 								<td>

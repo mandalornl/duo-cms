@@ -28,6 +28,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    Duo\BehaviorBundle\EventSubscriber\RevisionSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
     Duo\BehaviorBundle\EventSubscriber\SlugSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: 16 }
@@ -59,7 +63,3 @@ services:
     Duo\BehaviorBundle\EventSubscriber\UrlSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: 8 }
-
-    Duo\BehaviorBundle\EventSubscriber\RevisionSubscriber:
-        tags:
-            - { name: doctrine.event_subscriber }

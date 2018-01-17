@@ -194,7 +194,6 @@ class TestFixtures extends Fixture
 
 			$page->translate('nl')
 				->setTitle('Welkom')
-				->setContent('<p>Dit is de homepagina.</p>')
 				->publish()
 				->setPublishedBy($user)
 				->setSlug('')
@@ -212,7 +211,6 @@ class TestFixtures extends Fixture
 
 			$page->translate('en')
 				->setTitle('Welcome')
-				->setContent('<p>This is the home page.</p>')
 				->publish()
 				->setPublishedBy($user)
 				->setSlug('')
@@ -250,7 +248,6 @@ class TestFixtures extends Fixture
 
 			$page->translate('nl')
 				->setTitle('Nieuws')
-				->setContent('<p>Dit is nieuws.</p>')
 				->publish()
 				->setPublishedBy($user)
 				->addPagePart(
@@ -267,7 +264,6 @@ class TestFixtures extends Fixture
 
 			$page->translate('en')
 				->setTitle('News')
-				->setContent('<p>This is news.</p>')
 				->publish()
 				->setPublishedBy($user)
 				->addPagePart(
@@ -304,7 +300,6 @@ class TestFixtures extends Fixture
 
 			$page->translate('nl')
 				->setTitle('Artikel')
-				->setContent('<p>Dit is een artikel.</p>')
 				->publish()
 				->setPublishedBy($user)
 				->addPagePart(
@@ -321,7 +316,6 @@ class TestFixtures extends Fixture
 
 			$page->translate('en')
 				->setTitle('Article')
-				->setContent('<p>This is an article.</p>')
 				->publish()
 				->setPublishedBy($user)
 				->addPagePart(
@@ -353,17 +347,40 @@ class TestFixtures extends Fixture
 //			{
 //				$page = new Page();
 //				$page->setName("foobar-{$i}");
-//				$page->publish();
 //				$page->setCreatedBy($user);
 //				$page->setWeight($i);
 //
 //				$page->translate('nl')
 //					->setTitle("Foobar {$i}")
-//					->setContent("<p>Dit is foobar {$i}</p>");
+//					->publish()
+//					->setPublishedBy($user)
+//					->addPagePart(
+//						(new HeadingPagePart())
+//							->setType('h1')
+//							->setValue("Foobar {$i}")
+//							->setCreatedBy($user)
+//					)
+//					->addPagePart(
+//						(new WYSIWYGPagePart())
+//							->setValue("<p>Dit is foobar {$i}.</p>")
+//							->setCreatedBy($user)
+//					);
 //
 //				$page->translate('en')
 //					->setTitle("Foobar {$i}")
-//					->setContent("<p>This is foobar {$i}</p>");
+//					->publish()
+//					->setPublishedBy($user)
+//					->addPagePart(
+//						(new HeadingPagePart())
+//							->setType('h1')
+//							->setValue("Foobar {$i}")
+//							->setCreatedBy($user)
+//					)
+//					->addPagePart(
+//						(new WYSIWYGPagePart())
+//							->setValue("<p>This is foobar {$i}.</p>")
+//							->setCreatedBy($user)
+//					);
 //
 //				$page->mergeNewTranslations();
 //

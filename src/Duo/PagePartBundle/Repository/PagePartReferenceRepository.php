@@ -58,6 +58,8 @@ class PagePartReferenceRepository extends EntityRepository
 		 */
 		$em = $this->getEntityManager();
 
+		$weight = null;
+
 		foreach ($entity->getPageParts() as $weight => $pagePart)
 		{
 			/**
@@ -65,6 +67,28 @@ class PagePartReferenceRepository extends EntityRepository
 			 */
 			if ($pagePart->getWeight() === null)
 			{
+				// cached weight is unset
+				if ($weight === null)
+				{
+					// look for available max weight in collection
+					$weight = max(array_map(function(PagePartInterface $pagePart)
+					{
+						return $pagePart->getWeight();
+					}, $entity->getPageParts()->toArray()));
+
+					// weight is still unknown
+					if ($weight === null)
+					{
+						// consult database or default to zero
+						$weight = $this->getMaxWeight($entity);
+					}
+				}
+				else
+				{
+					// just increase cached weight instead
+					$weight++;
+				}
+
 				$pagePart->setWeight($weight);
 			}
 

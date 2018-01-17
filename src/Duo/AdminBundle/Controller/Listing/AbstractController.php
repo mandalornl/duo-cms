@@ -5,8 +5,10 @@ namespace Duo\AdminBundle\Controller\Listing;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\OptimisticLockException;
 use Duo\AdminBundle\Configuration\FieldInterface;
 use Duo\AdminBundle\Configuration\ORM\FilterInterface;
 use Duo\AdminBundle\Controller\RoutePrefixTrait;
@@ -310,107 +312,174 @@ abstract class AbstractController extends FrameworkController
 			return $this->entityNotFound($request, $id);
 		}
 
+		// handle entity revision
+		if ($entity instanceof Entity\RevisionInterface)
+		{
+			return $this->handleEditRevisionRequest($request, $entity);
+		}
+
+		return $this->handleEditEntityRequest($request, $entity);
+	}
+
+	/**
+	 * Handle edit entity request
+	 *
+	 * @param Request $request
+	 * @param object $entity
+	 *
+	 * @return Response|RedirectResponse
+	 *
+	 * @throws AnnotationException
+	 */
+	protected function handleEditEntityRequest(Request $request, $entity)
+	{
 		/**
 		 * @var EventDispatcherInterface $eventDispatcher
 		 */
 		$eventDispatcher = $this->get('event_dispatcher');
 
-		// handle entity revision
-		if ($entity instanceof Entity\RevisionInterface)
+		// dispatch pre edit event
+		$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($entity));
+
+		$form = $this->createForm($this->getFormClassName(), $entity, [
+			'attr' => [
+				'class' => 'form-edit'
+			]
+		]);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
 		{
-			// redirect to latest revision
-			if ($entity->getRevision() !== $entity)
+			// dispatch post edit event
+			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($entity));
+
+			try
 			{
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
-					'id' => $entity->getRevision()->getId()
-				]);
-			}
+				/**
+				 * @var EntityManager $em
+				 */
+				$em = $this->getDoctrine()->getManager();
 
-			$clone = clone $entity;
-
-			// dispatch pre edit event
-			$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($clone));
-
-			// pre submit state
-			$preSubmitState = serialize($clone);
-
-			$form = $this->createForm($this->getFormClassName(), $clone, [
-				'attr' => [
-					'class' => 'form-edit'
-				]
-			]);
-			$form->handleRequest($request);
-
-			if ($form->isSubmitted() && $form->isValid())
-			{
-				// dispatch post edit event
-				$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($clone));
-
-				// post submit state
-				$postSubmitState = serialize($clone);
-
-				// check whether or not entity was modified
-				if (strcmp($preSubmitState, $postSubmitState) !== 0)
+				// check whether or not entity is locked
+				if ($entity instanceof Entity\VersionInterface)
 				{
-					// dispatch onClone event
-					$this->get('event_dispatcher')->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
-
-					$em = $this->getDoctrine()->getManager();
-					$em->persist($clone);
-					$em->flush();
-
-					$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+					$em->lock($entity, LockMode::OPTIMISTIC, $entity->getVersion());
 				}
 
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
-			}
-
-			$context = $this->getDefaultContext([
-				'form' => $form->createView(),
-				'entity' => $clone
-			]);
-
-			// dispatch onTwigContext event
-			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
-
-			return $this->render($this->getEditTemplate(), (array)$context);
-		}
-		else
-		{
-			// dispatch pre edit event
-			$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($entity));
-
-			$form = $this->createForm($this->getFormClassName(), $entity, [
-				'attr' => [
-					'class' => 'form-edit'
-				]
-			]);
-			$form->handleRequest($request);
-
-			if ($form->isSubmitted() && $form->isValid())
-			{
-				// dispatch post edit event
-				$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($entity));
-
-				$em = $this->getDoctrine()->getManager();
 				$em->persist($entity);
 				$em->flush();
 
 				$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
-
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
+			}
+			catch (OptimisticLockException $e)
+			{
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.locked'));
 			}
 
-			$context = $this->getDefaultContext([
-				'form' => $form->createView(),
-				'entity' => $entity
-			]);
-
-			// dispatch onTwigContext event
-			$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
-
-			return $this->render($this->getEditTemplate(), (array)$context);
+			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
+
+		$context = $this->getDefaultContext([
+			'form' => $form->createView(),
+			'entity' => $entity
+		]);
+
+		// dispatch twig context event
+		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
+
+		return $this->render($this->getEditTemplate(), (array)$context);
+	}
+
+	/**
+	 * Handle edit revision request
+	 *
+	 * @param Request $request
+	 * @param Entity\RevisionInterface $entity
+	 *
+	 * @return Response|RedirectResponse
+	 *
+	 * @throws AnnotationException
+	 */
+	protected function handleEditRevisionRequest(Request $request, Entity\RevisionInterface $entity)
+	{
+		$clone = clone $entity;
+
+		/**
+		 * @var EventDispatcherInterface $eventDispatcher
+		 */
+		$eventDispatcher = $this->get('event_dispatcher');
+
+		// dispatch pre edit event
+		$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($clone));
+
+		// pre submit state
+		$preSubmitState = serialize($clone);
+
+		$form = $this->createForm($this->getFormClassName(), $clone, [
+			'attr' => [
+				'class' => 'form-edit'
+			]
+		]);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			// dispatch post edit event
+			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($clone));
+
+			// post submit state
+			$postSubmitState = serialize($clone);
+
+			// check whether or not entity was modified, don't force unchanged revision
+			if (strcmp($preSubmitState, $postSubmitState) !== 0)
+			{
+				// dispatch onClone event
+				$eventDispatcher->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
+
+				try
+				{
+					/**
+					 * @var EntityManager $em
+					 */
+					$em = $this->getDoctrine()->getManager();
+
+					// check whether or not entity is locked
+					if ($clone instanceof Entity\VersionInterface)
+					{
+						$em->lock($entity, LockMode::OPTIMISTIC, $clone->getVersion());
+					}
+
+					$em->persist($clone);
+					$em->flush();
+
+					$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+
+					return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
+				}
+				catch (OptimisticLockException $e)
+				{
+					$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.locked'));
+				}
+			}
+		}
+
+		// redirect to latest revision
+		if ($entity->getRevision() !== $entity)
+		{
+			return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
+				'id' => $entity->getRevision()->getId()
+			]);
+		}
+
+		$context = $this->getDefaultContext([
+			'form' => $form->createView(),
+			'entity' => $clone
+		]);
+
+		// dispatch twig context event
+		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
+
+		return $this->render($this->getEditTemplate(), (array)$context);
 	}
 
 	/**

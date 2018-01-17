@@ -9,6 +9,7 @@ use Duo\AdminBundle\Form\WeightChoiceType;
 use Duo\NodeBundle\Entity\Page;
 use Duo\TaxonomyBundle\Form\TaxonomyChoiceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,6 +28,9 @@ class PageType extends AbstractType
 				])
 				->add('translations', TranslationType::class, [
 					'entry_type' => PageTranslationType::class,
+					'entry_options' => [
+						'isNew' => is_object($options['data']) ? $options['data']->getId() === null : true
+					],
 					'allow_add' => false,
 					'allow_delete' => false,
 					'by_reference' => false
@@ -48,7 +52,9 @@ class PageType extends AbstractType
 				])
 			);
 
-		$builder->add($tabs);
+		$builder
+			->add($tabs)
+			->add('version', HiddenType::class);
 	}
 
 	/**

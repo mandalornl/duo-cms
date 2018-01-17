@@ -25,7 +25,5 @@ duo:
                     label: Gewicht
                 title:
                     label: Titel
-                content:
-                    label: Content
                 visible:
                     label: Zichtbaar

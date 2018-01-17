@@ -6,7 +6,6 @@ use Duo\AdminBundle\Form\PublicationTabType;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\UrlType;
-use Duo\AdminBundle\Form\WYSIWYGType;
 use Duo\NodeBundle\Entity\PageTranslation;
 use Duo\PagePartBundle\Form\PagePartType;
 use Duo\SeoBundle\Form\SeoTabType;
@@ -15,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PageTranslationType extends AbstractType
 {
@@ -30,11 +30,10 @@ class PageTranslationType extends AbstractType
 				])
 				->add('title', TextType::class, [
 					'label' => 'duo.node.form.page.title.label',
-					'required' => false
-				])
-				->add('content', WYSIWYGType::class, [
-					'label' => 'duo.node.form.page.content.label',
-					'required' => false
+					'required' => false,
+					'constraints' => [
+						new NotBlank()
+					]
 				])
 				->add('pageParts', PagePartType::class)
 			)
@@ -47,7 +46,9 @@ class PageTranslationType extends AbstractType
 					'required' => false
 				])
 				->add('slug', TextType::class, [
-					'required' => false
+					'required' => false,
+					// empty string is allowed for existing entities e.g. home
+					'empty_data' => !$options['isNew'] ? '' : null
 				])
 				->add('url', UrlType::class, [
 					'required' => false,
@@ -66,6 +67,7 @@ class PageTranslationType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
+			'isNew' => true,
 			'data_class' => PageTranslation::class
 		]);
 	}
