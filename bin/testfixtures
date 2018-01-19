@@ -2,5 +2,5 @@
 
 read -r -p "The database will be erased. Are you sure? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-	bin/console doctrine:schema:drop --force && bin/console doctrine:schema:create && bin/console doctrine:fixtures:load -n
+	bin/console doctrine:database:drop --force && bin/console doctrine:database:create && bin/console doctrine:schema:create && bin/console doctrine:fixtures:load -n
 fi

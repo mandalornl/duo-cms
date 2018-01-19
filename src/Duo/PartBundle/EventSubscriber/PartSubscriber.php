@@ -51,7 +51,7 @@ class PartSubscriber implements EventSubscriber
 			->getRepository(PartReference::class)
 			->getParts($entity);
 
-		foreach ($parts as $weight => $part)
+		foreach ($parts as $part)
 		{
 			$entity->getParts()->add($part);
 		}
