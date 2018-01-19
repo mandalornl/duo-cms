@@ -5,6 +5,7 @@ import 'bootstrap/js/dist/tab';
 
 import * as datePicker from './assets/datepicker';
 import * as select2 from './assets/select2';
+import * as autoComplete from './assets/autocomplete';
 import * as wysiwyg from './assets/wysiwyg';
 import * as doNotLeave from './util/donotleave';
 import * as pageParts from './util/pageparts';
@@ -12,6 +13,10 @@ import * as pageParts from './util/pageparts';
 $(() =>
 {
 	const $form = $('.form-add, .form-edit');
+	if (!$form.length)
+	{
+		return;
+	}
 
 	$form.on('change.donotleave', 'select', function()
 	{
@@ -50,6 +55,7 @@ $(() =>
 
 	datePicker.init();
 	select2.init();
+	autoComplete.init();
 	wysiwyg.init();
 	pageParts.init();
 });

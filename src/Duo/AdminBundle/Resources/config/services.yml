@@ -33,6 +33,12 @@ services:
             - { name: kernel.event_listener, event: duo.event.listing.preAdd, method: preAdd }
             - { name: kernel.event_listener, event: duo.event.listing.preEdit, method: preEdit }
 
+    Duo\AdminBundle\EventSubscriber\LocaleSubscriber:
+        arguments:
+            $defaultLocale: '%locale%'
+        tags:
+            - { name: kernel.event_subscriber }
+
     Duo\AdminBundle\Twig\LocaleTwigExtension:
         arguments:
             $localeHelper: '@duo.admin.locale_helper'

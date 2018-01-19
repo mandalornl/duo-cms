@@ -9,6 +9,11 @@ import {confirm} from "./util/modal";
 $(() =>
 {
 	const $form = $('.form-list');
+	if (!$form.length)
+	{
+		return;
+	}
+
 	const $list = $form.find('.table-list');
 
 	$list.on('click', 'tr[data-url] td:not(:first-child):not(:last-child)', function()

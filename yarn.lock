@@ -4849,9 +4849,9 @@ select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
 
-select2-bootstrap-theme@^0.1.0-beta.10:
+"select2-bootstrap-theme@https://github.com/angel-vladov/select2-bootstrap-theme":
   version "0.1.0-beta.10"
-  resolved "https://registry.yarnpkg.com/select2-bootstrap-theme/-/select2-bootstrap-theme-0.1.0-beta.10.tgz#b9426ecfc03bf4a235e76a132377574310469ac0"
+  resolved "https://github.com/angel-vladov/select2-bootstrap-theme#c8a5ffd657e6516723f2125ef2ab7122860863f8"
 
 select2@^4.0.6-rc.1:
   version "4.0.6-rc.1"

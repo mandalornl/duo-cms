@@ -220,23 +220,19 @@ abstract class AbstractController extends FrameworkController
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
+		// order by last modified
+		if ($reflectionClass->implementsInterface(Entity\TimeStampInterface::class))
+		{
+			$builder->addOrderBy('e.modifiedAt', 'DESC');
+		}
+
 		// order by weight
 		if ($reflectionClass->implementsInterface(Entity\SortInterface::class))
 		{
-			$builder
-				->orderBy('e.weight', 'ASC')
-				->addOrderBy('e.id', 'ASC');
+			$builder->addOrderBy('e.weight', 'ASC');
 		}
-		else
-		{
-			// order by last modified
-			if ($reflectionClass->implementsInterface(Entity\TimeStampInterface::class))
-			{
-				$builder
-					->orderBy('e.modifiedAt', 'DESC')
-					->addOrderBy('e.id', 'ASC');
-			}
-		}
+
+		$builder->addOrderBy('e.id', 'ASC');
 
 		return (new PaginatorHelper($builder))
 			->setPage($page)

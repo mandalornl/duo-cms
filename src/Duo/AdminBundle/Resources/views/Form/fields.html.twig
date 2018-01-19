@@ -110,3 +110,25 @@
 		</div>
 	</div>
 {% endblock %}
+
+{% block duo_autocomplete_widget %}
+	{% set remotePath = remotePath ~ ('?' in remotePath ? '&': '?') ~ 'locale=' ~ app.request.locale %}
+	{% set requestId = app.request.get('id') %}
+	{% if requestId %}
+		{% set remotePath = remotePath ~ '&id=' ~ requestId %}
+	{% endif %}
+	{% set attr = attr | merge({
+		'data-url': remotePath,
+		'data-placeholder': placeholder | trans,
+		'class': (attr.class | default('') ~ ' autocomplete') | trim
+	}) %}
+	<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
+		{% if value is iterable %}
+			{% for id, label in value %}
+				<option value="{{ id }}"{% if multiple and requestId == id %} selected{% endif %}>
+					{{- label | trans -}}
+				</option>
+			{% endfor %}
+		{% endif %}
+	</select>
+{% endblock %}

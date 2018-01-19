@@ -7,6 +7,7 @@ use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\TranslationType;
 use Duo\AdminBundle\Form\WeightChoiceType;
 use Duo\NodeBundle\Entity\Page;
+use Duo\NodeBundle\Form\PageAutoCompleteType;
 use Duo\TaxonomyBundle\Form\TaxonomyChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -50,6 +51,7 @@ class PageType extends AbstractType
 				->add('taxonomies', TaxonomyChoiceType::class, [
 					'required' => false
 				])
+				->add('parent', PageAutoCompleteType::class)
 			);
 
 		$builder

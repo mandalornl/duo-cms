@@ -27,3 +27,7 @@ duo:
                     label: Titel
                 visible:
                     label: Zichtbaar
+
+            page_autocomplete:
+                label: Parent
+                placeholder: Voer url or interne naam in

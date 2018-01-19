@@ -27,3 +27,7 @@ duo:
                     label: Title
                 visible:
                     label: Visible
+
+            page_autocomplete:
+                label: Parent
+                placeholder: Enter url or internal name

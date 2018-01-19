@@ -3,6 +3,7 @@ https://blog.martinhujer.cz/symfony-forms-with-request-objects/
 
 # nestable
 https://github.com/dbushell/Nestable
+https://github.com/RamonSmit/Nestable2
 
 # security
 https://stovepipe.systems/post/symfony-security-roles-vs-voters

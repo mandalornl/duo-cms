@@ -7,11 +7,13 @@ use Doctrine\ORM\Query;
 use Duo\AdminBundle\Repository\AbstractEntityRepository;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Repository\SortTrait;
+use Duo\BehaviorBundle\Repository\TreeTrait;
 use Duo\NodeBundle\Entity\Page;
 
 class PageRepository extends AbstractEntityRepository
 {
 	use SortTrait;
+	use TreeTrait;
 
 	/**
 	 * Find one by id
