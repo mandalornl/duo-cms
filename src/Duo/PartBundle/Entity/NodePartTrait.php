@@ -50,7 +50,7 @@ trait NodePartTrait
 
 		foreach ($parts as $part)
 		{
-			$this->$parts[] = clone $part;
+			$this->parts[] = clone $part;
 		}
 	}
 }

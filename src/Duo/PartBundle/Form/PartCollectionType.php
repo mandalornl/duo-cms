@@ -17,7 +17,7 @@ class PartCollectionType extends AbstractType
 	private $configurator;
 
 	/**
-	 * PartType constructor
+	 * PartCollectionType constructor
 	 *
 	 * @param PartConfiguratorInterface $configurator
 	 */
