@@ -1,4 +1,27 @@
 duo:
     form:
+        tab:
+            content: Content
+            properties: Eigenschappen
+
         menu:
             forms: Formulieren
+
+        listing:
+            field:
+                name: Naam
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
+        form:
+            form:
+                name:
+                    label: Interne naam
+                email_from:
+                    label: E-mail van
+                email_to:
+                    label: E-mail naar
+                subject:
+                    label: Onderwerp
+                message:
+                    label: Bericht

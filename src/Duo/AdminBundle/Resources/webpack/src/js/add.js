@@ -7,8 +7,8 @@ import * as datePicker from './assets/datepicker';
 import * as select2 from './assets/select2';
 import * as autoComplete from './assets/autocomplete';
 import * as wysiwyg from './assets/wysiwyg';
+import * as parts from './assets/parts';
 import * as doNotLeave from './util/donotleave';
-import * as pageParts from './util/pageparts';
 
 $(() =>
 {
@@ -57,5 +57,5 @@ $(() =>
 	select2.init();
 	autoComplete.init();
 	wysiwyg.init();
-	pageParts.init();
+	parts.init();
 });

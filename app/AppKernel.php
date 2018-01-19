@@ -18,11 +18,12 @@ class AppKernel extends Kernel
 			new Infinite\FormBundle\InfiniteFormBundle(),
             new Duo\BehaviorBundle\DuoBehaviorBundle(),
             new Duo\NodeBundle\DuoNodeBundle(),
+            new Duo\PageBundle\DuoPageBundle(),
             new Duo\FormBundle\DuoFormBundle(),
             new Duo\SecurityBundle\DuoSecurityBundle(),
             new Duo\SeoBundle\DuoSeoBundle(),
             new Duo\TaxonomyBundle\DuoTaxonomyBundle(),
-            new Duo\PagePartBundle\DuoPagePartBundle(),
+            new Duo\PartBundle\DuoPartBundle(),
 			new Duo\AdminBundle\DuoAdminBundle(),
 			new AppBundle\AppBundle(),
         ];

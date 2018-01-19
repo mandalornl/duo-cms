@@ -1,4 +1,3 @@
 forms:
     label: duo.form.menu.forms
-    url: javascript:;
-    #route: duo_form_index
+    route: duo_form_listing_form_index

@@ -2,20 +2,14 @@
 
 namespace Duo\NodeBundle\Entity;
 
-use Duo\BehaviorBundle\Entity\CloneInterface;
-use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\BehaviorBundle\Entity\SortInterface;
+use Duo\BehaviorBundle\Entity\DuplicateInterface;
 use Duo\BehaviorBundle\Entity\TimeStampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Entity\VersionInterface;
 
-interface NodeInterface extends DeleteInterface,
-								TranslateInterface,
-								SortInterface,
-								CloneInterface,
-								RevisionInterface,
+interface NodeInterface extends DuplicateInterface,
 								TimeStampInterface,
+								TranslateInterface,
 								VersionInterface
 {
 	/**

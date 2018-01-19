@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\PageBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\PageBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Duo\PageBundle\EventListener\MenuListener:
+        tags:
+            - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }

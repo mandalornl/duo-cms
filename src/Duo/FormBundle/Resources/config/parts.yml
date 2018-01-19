@@ -1,0 +1,1 @@
+- { label: Foo, class: Duo\PartBundle\Form\HeadingPartType, icon: icon-file-text }

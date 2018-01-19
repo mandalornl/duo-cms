@@ -4,9 +4,9 @@ namespace Duo\AdminBundle\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\NodeBundle\Entity\Page;
-use Duo\PagePartBundle\Entity\HeadingPagePart;
-use Duo\PagePartBundle\Entity\WYSIWYGPagePart;
+use Duo\PageBundle\Entity\Page;
+use Duo\PartBundle\Entity\HeadingPart;
+use Duo\PartBundle\Entity\WYSIWYGPart;
 use Duo\SecurityBundle\Entity\Group;
 use Duo\SecurityBundle\Entity\Role;
 use Duo\SecurityBundle\Entity\User;
@@ -197,14 +197,14 @@ class TestFixtures extends Fixture
 				->publish()
 				->setPublishedBy($user)
 				->setSlug('')
-				->addPagePart(
-					(new HeadingPagePart())
+				->addPart(
+					(new HeadingPart())
 						->setType('h1')
 						->setValue('Welkom')
 						->setCreatedBy($user)
 				)
-				->addPagePart(
-					(new WYSIWYGPagePart())
+				->addPart(
+					(new WYSIWYGPart())
 						->setValue('<p>Dit is de homepagina.</p>')
 						->setCreatedBy($user)
 				);
@@ -214,14 +214,14 @@ class TestFixtures extends Fixture
 				->publish()
 				->setPublishedBy($user)
 				->setSlug('')
-				->addPagePart(
-					(new HeadingPagePart())
+				->addPart(
+					(new HeadingPart())
 						->setType('h1')
 						->setValue('Welcome')
 						->setCreatedBy($user)
 				)
-				->addPagePart(
-					(new WYSIWYGPagePart())
+				->addPart(
+					(new WYSIWYGPart())
 						->setValue('<p>This is the home page.</p>')
 						->setCreatedBy($user)
 				);
@@ -250,14 +250,14 @@ class TestFixtures extends Fixture
 				->setTitle('Nieuws')
 				->publish()
 				->setPublishedBy($user)
-				->addPagePart(
-					(new HeadingPagePart())
+				->addPart(
+					(new HeadingPart())
 						->setType('h1')
 						->setValue('Nieuws')
 						->setCreatedBy($user)
 				)
-				->addPagePart(
-					(new WYSIWYGPagePart())
+				->addPart(
+					(new WYSIWYGPart())
 						->setValue('<p>Dit is nieuws.</p>')
 						->setCreatedBy($user)
 				);
@@ -266,14 +266,14 @@ class TestFixtures extends Fixture
 				->setTitle('News')
 				->publish()
 				->setPublishedBy($user)
-				->addPagePart(
-					(new HeadingPagePart())
+				->addPart(
+					(new HeadingPart())
 						->setType('h1')
 						->setValue('News')
 						->setCreatedBy($user)
 				)
-				->addPagePart(
-					(new WYSIWYGPagePart())
+				->addPart(
+					(new WYSIWYGPart())
 						->setValue('<p>This is news.</p>')
 						->setCreatedBy($user)
 				);
@@ -302,14 +302,14 @@ class TestFixtures extends Fixture
 				->setTitle('Artikel')
 				->publish()
 				->setPublishedBy($user)
-				->addPagePart(
-					(new HeadingPagePart())
+				->addPart(
+					(new HeadingPart())
 						->setType('h1')
 						->setValue('Artikel')
 						->setCreatedBy($user)
 				)
-				->addPagePart(
-					(new WYSIWYGPagePart())
+				->addPart(
+					(new WYSIWYGPart())
 						->setValue('<p>Dit is een artikel.</p>')
 						->setCreatedBy($user)
 				);
@@ -318,14 +318,14 @@ class TestFixtures extends Fixture
 				->setTitle('Article')
 				->publish()
 				->setPublishedBy($user)
-				->addPagePart(
-					(new HeadingPagePart())
+				->addPart(
+					(new HeadingPart())
 						->setType('h1')
 						->setValue('Article')
 						->setCreatedBy($user)
 				)
-				->addPagePart(
-					(new WYSIWYGPagePart())
+				->addPart(
+					(new WYSIWYGPart())
 						->setValue('<p>This is an article.</p>')
 						->setCreatedBy($user)
 				);
@@ -354,14 +354,14 @@ class TestFixtures extends Fixture
 //					->setTitle("Foobar {$i}")
 //					->publish()
 //					->setPublishedBy($user)
-//					->addPagePart(
-//						(new HeadingPagePart())
+//					->addPart(
+//						(new HeadingPart())
 //							->setType('h1')
 //							->setValue("Foobar {$i}")
 //							->setCreatedBy($user)
 //					)
-//					->addPagePart(
-//						(new WYSIWYGPagePart())
+//					->addPart(
+//						(new WYSIWYGPart())
 //							->setValue("<p>Dit is foobar {$i}.</p>")
 //							->setCreatedBy($user)
 //					);
@@ -370,14 +370,14 @@ class TestFixtures extends Fixture
 //					->setTitle("Foobar {$i}")
 //					->publish()
 //					->setPublishedBy($user)
-//					->addPagePart(
-//						(new HeadingPagePart())
+//					->addPart(
+//						(new HeadingPart())
 //							->setType('h1')
 //							->setValue("Foobar {$i}")
 //							->setCreatedBy($user)
 //					)
-//					->addPagePart(
-//						(new WYSIWYGPagePart())
+//					->addPart(
+//						(new WYSIWYGPart())
 //							->setValue("<p>This is foobar {$i}.</p>")
 //							->setCreatedBy($user)
 //					);

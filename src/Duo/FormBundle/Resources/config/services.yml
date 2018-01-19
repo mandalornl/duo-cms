@@ -16,3 +16,7 @@ services:
     Duo\FormBundle\EventListener\MenuListener:
         tags:
             - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }
+
+#    Duo\FormBundle\EventListener\PartConfiguratorListener:
+#        tags:
+#            - { name: kernel.event_listener, event: duo.event.part_configurator.preLoad, method: preLoad }

@@ -1,0 +1,33 @@
+duo:
+    page:
+        tab:
+            content: Content
+            menu: Menu
+            properties: Eigenschappen
+
+        menu:
+            pages: Pagina's
+
+        listing:
+            field:
+                name: Naam
+                title: Titel
+                url: Url
+                online: Online
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
+        form:
+            page:
+                name:
+                    label: Interne naam
+                weight:
+                    label: Gewicht
+                title:
+                    label: Titel
+                visible:
+                    label: Zichtbaar
+
+            page_autocomplete:
+                label: Parent
+                placeholder: Voer url or interne naam in

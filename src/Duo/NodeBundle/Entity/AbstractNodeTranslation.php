@@ -8,6 +8,6 @@ use Duo\BehaviorBundle\Entity\TranslationTrait;
 
 abstract class AbstractNodeTranslation implements TranslationInterface
 {
-	use TranslationTrait;
 	use CloneTrait;
+	use TranslationTrait;
 }

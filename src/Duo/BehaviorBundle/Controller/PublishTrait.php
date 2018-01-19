@@ -4,7 +4,7 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Event\PublishEvent;
@@ -67,9 +67,9 @@ trait PublishTrait
 	private function handlePublicationRequest(Request $request, int $id, \Closure $callback, string $eventName)
 	{
 		/**
-		 * @var AbstractController $this
+		 * @var AbstractListingController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn())->find($id);
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);

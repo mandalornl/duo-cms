@@ -1,9 +1,0 @@
-duo_node_listing_page:
-    resource: '@DuoNodeBundle/Controller/Listing/PageController.php'
-    type: annotation
-    prefix: /page
-
-duo_node_autocomplete_page:
-    resource: '@DuoNodeBundle/Controller/AutoComplete/PageController.php'
-    type: annotation
-    prefix: /autocomplete/page

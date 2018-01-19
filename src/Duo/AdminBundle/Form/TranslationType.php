@@ -14,7 +14,10 @@ class TranslationType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-			'label' => false
+			'label' => false,
+			'allow_add' => false,
+			'allow_delete' => false,
+			'by_reference' => false
 		]);
 	}
 

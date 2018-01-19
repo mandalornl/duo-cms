@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Tests\Controller;
 
-use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Controller\AbstractListingController;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
@@ -25,7 +25,7 @@ class ListingControllerTest extends WebTestCase
 	}
 
 	/**
-	 * @covers AbstractController::indexAction()
+	 * @covers AbstractListingController::indexAction()
 	 */
 	public function testListingSecurity()
 	{

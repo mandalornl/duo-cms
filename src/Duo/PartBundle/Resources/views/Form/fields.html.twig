@@ -1,0 +1,50 @@
+{% block infinite_form_polycollection_row %}
+	<div class="part-list">
+		<label class="mb-0">
+			{{- 'duo.part.twig.label' | trans -}}
+		</label>
+		<hr>
+		{% if not disabled and allow_add %}
+			<div class="my-3">
+				<button type="button" class="btn btn-primary" data-url="{{ path('duo_part_modal_prototypes') }}">
+					{{- 'duo.part.twig.add_part' | trans -}}
+				</button>
+			</div>
+		{% endif %}
+		<div class="sortable-list">
+			{% for child in form %}
+				{% with {
+					form: child
+				} %}
+					{{ block('duo_part_row') }}
+				{% endwith %}
+			{% endfor %}
+		</div>
+		{% if not disabled and allow_add %}
+			<div class="my-3{% if not form | length %} d-none{% endif %}">
+				<button type="button" class="btn btn-primary" data-url="{{ path('duo_part_modal_prototypes') }}">
+					{{- 'duo.part.twig.add_part' | trans -}}
+				</button>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block duo_part_row %}
+{% spaceless %}
+	<div class="sortable-item part-item{% if disabled is defined and disabled %} disabled{% endif %}">
+		<div class="form-group">
+			{{ form_label(form) }}
+			{{ form_widget(form) }}
+			{{ form_errors(form) }}
+			{%- if (disabled is not defined or not disabled) and allow_delete is defined and allow_delete -%}
+				<div class="d-flex justify-content-end">
+					<button type="button" class="btn btn-secondary" data-dismiss="part-item">
+						{{- 'duo.part.twig.remove_part' | trans }} <i class="icon-bin"></i>
+					</button>
+				</div>
+			{%- endif -%}
+		</div>
+	</div>
+{% endspaceless %}
+{% endblock %}

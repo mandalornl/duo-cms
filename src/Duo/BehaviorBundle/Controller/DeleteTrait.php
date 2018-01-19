@@ -4,7 +4,7 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Event\DeleteEvent;
 use Duo\BehaviorBundle\Event\DeleteEvents;
@@ -83,9 +83,9 @@ trait DeleteTrait
 	private function handleDeletionRequest(Request $request, int $id, \Closure $callback, string $eventName, string $message)
 	{
 		/**
-		 * @var AbstractController $this
+		 * @var AbstractListingController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn())->find($id);
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);

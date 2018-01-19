@@ -2,8 +2,12 @@ duo_admin:
     resource: '@DuoAdminBundle/Resources/config/routing.yml'
     prefix: /admin
 
-duo_node:
-    resource: '@DuoNodeBundle/Resources/config/routing.yml'
+duo_page:
+    resource: '@DuoPageBundle/Resources/config/routing.yml'
+    prefix: /admin
+
+duo_form:
+    resource: '@DuoFormBundle/Resources/config/routing.yml'
     prefix: /admin
 
 duo_security:
@@ -14,8 +18,8 @@ duo_taxonomy:
     resource: '@DuoTaxonomyBundle/Resources/config/routing.yml'
     prefix:   /admin
 
-duo_page_part:
-    resource: '@DuoPagePartBundle/Resources/config/routing.yml'
+duo_part:
+    resource: '@DuoPartBundle/Resources/config/routing.yml'
     prefix: /admin
 
 duo_seo:

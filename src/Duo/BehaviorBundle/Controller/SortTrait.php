@@ -4,7 +4,7 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
@@ -30,7 +30,7 @@ trait SortTrait
 	protected function doMoveUpAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractController|SortTrait $this
+		 * @var AbstractListingController|SortTrait $this
 		 */
 		return $this->handleBasicMovementRequest($request, $id, function(SortInterface $entity)
 		{
@@ -75,7 +75,7 @@ trait SortTrait
 	protected function doMoveDownAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractController|SortTrait $this
+		 * @var AbstractListingController|SortTrait $this
 		 */
 		return $this->handleBasicMovementRequest($request, $id, function(SortInterface $entity)
 		{
@@ -121,9 +121,9 @@ trait SortTrait
 	private function handleBasicMovementRequest(Request $request, int $id, \Closure $callback)
 	{
 		/**
-		 * @var AbstractController $this
+		 * @var AbstractListingController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName());
+		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn());
 
 		if ($entity === null)
 		{
@@ -168,9 +168,9 @@ trait SortTrait
 	protected function doMoveToAction(Request $request, int $id, int $weight, int $parentId = null)
 	{
 		/**
-		 * @var AbstractController $this
+		 * @var AbstractListingController $this
 		 */
-		$repository = $this->getDoctrine()->getRepository($this->getEntityClassName());
+		$repository = $this->getDoctrine()->getRepository($this->getEntityFqcn());
 
 		if ((!$entity = $repository->find($id)) === null)
 		{

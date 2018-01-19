@@ -4,7 +4,7 @@ namespace Duo\BehaviorBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Event\RevisionEvent;
 use Duo\BehaviorBundle\Event\RevisionEvents;
@@ -30,9 +30,9 @@ trait RevisionTrait
 	protected function doRevisionAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractController $this
+		 * @var AbstractListingController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn())->find($id);
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);
@@ -70,9 +70,9 @@ trait RevisionTrait
 	protected function doRevertAction(Request $request, int $id)
 	{
 		/**
-		 * @var AbstractController $this
+		 * @var AbstractListingController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClassName())->find($id);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn())->find($id);
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);

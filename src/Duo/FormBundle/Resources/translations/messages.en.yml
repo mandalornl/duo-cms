@@ -1,4 +1,27 @@
 duo:
     form:
+        tab:
+            content: Content
+            properties: Properties
+
         menu:
             forms: Forms
+
+        listing:
+            field:
+                name: Name
+                created_at: Created at
+                modified_at: Modified at
+
+        form:
+            form:
+                name:
+                    label: Internal name
+                email_from:
+                    label: Email from
+                email_to:
+                    label: Email to
+                subject:
+                    label: Subject
+                message:
+                    label: Message

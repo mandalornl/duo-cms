@@ -1,0 +1,4 @@
+duo_form_listing_form:
+    resource: '@DuoFormBundle/Controller/FormListingController.php'
+    type: annotation
+    prefix: /form

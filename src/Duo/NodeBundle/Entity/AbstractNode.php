@@ -5,11 +5,8 @@ namespace Duo\NodeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\CloneTrait;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\DeleteTrait;
-use Duo\BehaviorBundle\Entity\SortTrait;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
 use Duo\BehaviorBundle\Entity\TranslateTrait;
-use Duo\BehaviorBundle\Entity\RevisionTrait;
 use Duo\BehaviorBundle\Entity\VersionTrait;
 use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
@@ -19,11 +16,8 @@ abstract class AbstractNode implements NodeInterface, TaxonomyInterface
 {
 	use IdTrait;
 	use TaxonomyTrait;
-	use DeleteTrait;
 	use TranslateTrait;
-	use SortTrait;
 	use CloneTrait;
-	use RevisionTrait;
 	use TimeStampTrait;
 	use VersionTrait;
 

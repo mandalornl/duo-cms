@@ -1,4 +1,4 @@
 duo_taxonomy_listing_taxonomy:
-    resource: '@DuoTaxonomyBundle/Controller/Listing/TaxonomyController.php'
+    resource: '@DuoTaxonomyBundle/Controller/TaxonomyListingController.php'
     type: annotation
     prefix: /module/taxonomy

@@ -1,0 +1,9 @@
+duo_page_listing_page:
+    resource: '@DuoPageBundle/Controller/PageListingController.php'
+    type: annotation
+    prefix: /page
+
+duo_page_autocomplete:
+    resource: '@DuoPageBundle/Controller/PageAutoCompleteController.php'
+    type: annotation
+    prefix: /page/autocomplete

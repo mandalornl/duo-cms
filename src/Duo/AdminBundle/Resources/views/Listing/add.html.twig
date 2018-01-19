@@ -51,7 +51,7 @@
 										{{- 'duo.admin.toolbar.actions.preview' | trans -}}
 									</a>
 								{% endif %}
-								{% if entity is cloneable %}
+								{% if entity is duplicatable %}
 									<a href="{{ path(routePrefix ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.duplicate.title' | trans }}" data-body="{{ 'duo.admin.modal.duplicate.body' | trans }}">
 										{{- 'duo.admin.toolbar.actions.duplicate' | trans -}}
 									</a>

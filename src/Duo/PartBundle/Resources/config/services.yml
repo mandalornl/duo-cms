@@ -1,0 +1,29 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\PartBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\PartBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    duo.part.configurator:
+        class: Duo\PartBundle\Configurator\PartConfigurator
+        public: true
+
+    duo.form.part_collection:
+        class: Duo\PartBundle\Form\PartCollectionType
+        arguments:
+            $configurator: '@duo.part.configurator'
+        tags:
+            - { name: form.type }
+
+    Duo\PartBundle\EventSubscriber\PartSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: 1024 }

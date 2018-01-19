@@ -1,0 +1,15 @@
+duo:
+    part:
+        modal:
+            title: Parts
+
+        twig:
+            label: Parts
+            add_part: Add part
+            remove_part: Remove
+
+        type:
+            heading: Heading
+            textarea: Plain text
+            wysiwyg: Text
+            video: Video

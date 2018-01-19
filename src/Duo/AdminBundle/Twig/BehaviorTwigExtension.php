@@ -2,14 +2,14 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\BehaviorBundle\Entity\CloneInterface;
+use Duo\BehaviorBundle\Entity\DuplicateInterface;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
-use Duo\NodeBundle\Entity\ViewInterface;
+use Duo\PageBundle\Entity\ViewInterface;
 
 class BehaviorTwigExtension extends \Twig_Extension
 {
@@ -25,7 +25,7 @@ class BehaviorTwigExtension extends \Twig_Extension
 			new \Twig_SimpleTest('translatable', [$this, 'isTranslatable']),
 			new \Twig_SimpleTest('treeable', [$this, 'isTreeable']),
 			new \Twig_SimpleTest('revisionable', [$this, 'isRevisionable']),
-			new \Twig_SimpleTest('cloneable', [$this, 'isCloneable']),
+			new \Twig_SimpleTest('duplicatable', [$this, 'isDuplicatable']),
 			new \Twig_SimpleTest('viewable', [$this, 'isViewable'])
 		];
 	}
@@ -113,15 +113,15 @@ class BehaviorTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * Is cloneable
+	 * Is duplicatable
 	 *
 	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isCloneable($entity): bool
+	public function isDuplicatable($entity): bool
 	{
-		return $entity instanceof CloneInterface;
+		return $entity instanceof DuplicateInterface;
 	}
 
 	/**

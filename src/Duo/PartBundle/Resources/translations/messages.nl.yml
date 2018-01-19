@@ -1,0 +1,15 @@
+duo:
+    part:
+        modal:
+            title: Onderdelen
+
+        twig:
+            label: Onderdelen
+            add_part: Onderdeel toevoegen
+            remove_part: Verwijderen
+
+        type:
+            heading: Kop
+            textarea: Platte tekst
+            wysiwyg: Tekst
+            video: Video
