@@ -22,7 +22,7 @@ class RoleListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getEntityFqcn(): string
+	protected function getEntityClass(): string
 	{
 		return Role::class;
 	}
@@ -30,7 +30,7 @@ class RoleListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormFqcn(): string
+	protected function getFormType(): string
 	{
 		return RoleListingType::class;
 	}

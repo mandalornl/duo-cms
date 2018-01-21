@@ -59,18 +59,6 @@
 		flex: 0 0 50%;
 		max-width: 50%;
 
-		@include media-breakpoint-up(sm)
-		{
-			flex: 0 0 percentage(1 / 3);
-			max-width: percentage(1 / 3);
-		}
-
-		@include media-breakpoint-up(md)
-		{
-			flex: 0 0 25%;
-			max-width: 25%;
-		}
-
 		padding: 0 .5rem;
 		margin-bottom: 1rem;
 

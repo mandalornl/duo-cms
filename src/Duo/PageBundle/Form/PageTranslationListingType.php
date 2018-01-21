@@ -7,7 +7,6 @@ use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\UrlType;
 use Duo\PageBundle\Entity\PageTranslation;
-use Duo\PartBundle\Form\PartCollectionType;
 use Duo\SeoBundle\Form\SeoTabType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -35,7 +34,7 @@ class PageTranslationListingType extends AbstractType
 						new NotBlank()
 					]
 				])
-				->add('parts', PartCollectionType::class)
+				->add('parts', PagePartCollectionType::class)
 			)
 			->add(
 				$builder->create('menu', TabType::class, [

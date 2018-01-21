@@ -108,4 +108,12 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	{
 		return $this->slug;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPartReferenceClass(): string
+	{
+		return PagePartReference::class;
+	}
 }

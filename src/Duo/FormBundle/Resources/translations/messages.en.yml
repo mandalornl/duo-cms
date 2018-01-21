@@ -3,6 +3,8 @@ duo:
         tab:
             content: Content
             properties: Properties
+            message: Message
+            fields: Fields
 
         menu:
             forms: Forms
@@ -16,7 +18,7 @@ duo:
         form:
             form:
                 name:
-                    label: Internal name
+                    label: Name
                 email_from:
                     label: Email from
                 email_to:
@@ -25,3 +27,29 @@ duo:
                     label: Subject
                 message:
                     label: Message
+
+            form_autocomplete:
+                label: Form
+                placeholder: Enter name
+
+            form_part:
+                label:
+                    label: Label
+                required:
+                    label: Required
+                placeholder:
+                    label: Placeholder
+                error_message:
+                    label: Error message
+                choices:
+                    label: Choices
+                expanded:
+                    label: Radio or checkbox
+                multiple:
+                    label: Multiple
+
+        form_part:
+            text: Text (one line)
+            textarea: Text (multiple lines)
+            email: Email
+            choice: Choice (select, radio, checkbox)

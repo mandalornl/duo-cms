@@ -1,0 +1,5 @@
+- { label: app.page_part.heading, class: AppBundle\Form\PagePart\HeadingPagePartType }
+- { label: app.page_part.text, class: AppBundle\Form\PagePart\TextPagePartType, icon: icon-file-text }
+- { label: app.page_part.wysiwyg, class: AppBundle\Form\PagePart\WYSIWYGPagePartType, icon: icon-file-text }
+- { label: app.page_part.video, class: AppBundle\Form\PagePart\VideoPagePartType, icon: icon-file-video }
+- { label: app.page_part.form, class: AppBundle\Form\PagePart\FormPagePartType }

@@ -198,12 +198,12 @@ abstract class AbstractListingController extends FrameworkController
 	 */
 	protected function getPaginator(int $page = null, int $limit = null): PaginatorHelper
 	{
-		$reflectionClass = new \ReflectionClass($this->getEntityFqcn());
+		$reflectionClass = new \ReflectionClass($this->getEntityClass());
 
 		/**
 		 * @var EntityRepository $repository
 		 */
-		$repository = $this->getDoctrine()->getRepository($this->getEntityFqcn());
+		$repository = $this->getDoctrine()->getRepository($this->getEntityClass());
 
 		$builder = $repository->createQueryBuilder('e');
 
@@ -251,7 +251,7 @@ abstract class AbstractListingController extends FrameworkController
 	 */
 	protected function doAddAction(Request $request)
 	{
-		$class = $this->getEntityFqcn();
+		$class = $this->getEntityClass();
 		$entity = new $class();
 
 		/**
@@ -262,7 +262,7 @@ abstract class AbstractListingController extends FrameworkController
 		// dispatch pre add event
 		$eventDispatcher->dispatch(ListingEvents::PRE_ADD, new ListingEvent($entity));
 
-		$form = $this->createForm($this->getFormFqcn(), $entity, [
+		$form = $this->createForm($this->getFormType(), $entity, [
 			'attr' => [
 				'class' => 'form-add'
 			]
@@ -301,7 +301,7 @@ abstract class AbstractListingController extends FrameworkController
 	 */
 	protected function doEditAction(Request $request, int $id)
 	{
-		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn())->find($id);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);
@@ -336,7 +336,7 @@ abstract class AbstractListingController extends FrameworkController
 		// dispatch pre edit event
 		$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($entity));
 
-		$form = $this->createForm($this->getFormFqcn(), $entity, [
+		$form = $this->createForm($this->getFormType(), $entity, [
 			'attr' => [
 				'class' => 'form-edit'
 			]
@@ -410,7 +410,7 @@ abstract class AbstractListingController extends FrameworkController
 		// pre submit state
 		$preSubmitState = serialize($clone);
 
-		$form = $this->createForm($this->getFormFqcn(), $clone, [
+		$form = $this->createForm($this->getFormType(), $clone, [
 			'attr' => [
 				'class' => 'form-edit'
 			]
@@ -509,7 +509,7 @@ abstract class AbstractListingController extends FrameworkController
 	 */
 	private function handleDestroyRequest(Request $request, int $id)
 	{
-		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn())->find($id);
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);
@@ -569,7 +569,7 @@ abstract class AbstractListingController extends FrameworkController
 			$em = $this->getDoctrine()->getManager();
 
 			$em->createQueryBuilder()
-				->delete($this->getEntityFqcn(), 'e')
+				->delete($this->getEntityClass(), 'e')
 				->where('e.id IN(:ids)')
 				->setParameter('ids', $ids)
 				->getQuery()
@@ -632,7 +632,7 @@ abstract class AbstractListingController extends FrameworkController
 	 */
 	protected function entityNotFound(Request $request, int $id): JsonResponse
 	{
-		$error = "Entity '{$this->getEntityFqcn()}::{$id}' not found";
+		$error = "Entity '{$this->getEntityClass()}::{$id}' not found";
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
@@ -673,18 +673,18 @@ abstract class AbstractListingController extends FrameworkController
 	}
 
 	/**
-	 * Get entity fully-qualified class name
+	 * Get entity class
 	 *
 	 * @return string
 	 */
-	abstract protected function getEntityFqcn(): string;
+	abstract protected function getEntityClass(): string;
 
 	/**
-	 * Get form fully-qualified class name
+	 * Get form type
 	 *
 	 * @return string
 	 */
-	abstract protected function getFormFqcn(): string;
+	abstract protected function getFormType(): string;
 
 	/**
 	 * Get type

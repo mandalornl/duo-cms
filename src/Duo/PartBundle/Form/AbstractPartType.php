@@ -4,7 +4,6 @@ namespace Duo\PartBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class AbstractPartType extends AbstractType
@@ -18,10 +17,6 @@ abstract class AbstractPartType extends AbstractType
 			->add('_type', HiddenType::class, [
 				'mapped' => false,
 				'data' => md5(static::class)
-			])
-			->add('value', TextType::class, [
-				'label' => false,
-				'required' => false
 			])
 			->add('weight', HiddenType::class, [
 				'required' => false

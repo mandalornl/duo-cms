@@ -1,0 +1,7 @@
+app:
+    page_part:
+        heading: Heading
+        text: Plain text
+        video: Video
+        wysiwyg: Text
+        form: Form

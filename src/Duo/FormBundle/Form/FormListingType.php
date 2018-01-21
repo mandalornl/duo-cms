@@ -6,7 +6,6 @@ use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\TranslationType;
 use Duo\FormBundle\Entity\Form;
-use Duo\TaxonomyBundle\Form\TaxonomyChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,6 +21,14 @@ class FormListingType extends AbstractType
 	{
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
+				$builder->create('content', TabType::class, [
+					'label' => 'duo.form.tab.content'
+				])
+				->add('translations', TranslationType::class, [
+					'entry_type' => FormTranslationListingType::class
+				])
+			)
+			->add(
 				$builder->create('properties', TabType::class, [
 					'label' => 'duo.form.tab.properties'
 				])
@@ -33,17 +40,6 @@ class FormListingType extends AbstractType
 				])
 				->add('emailTo', EmailType::class, [
 					'label' => 'duo.form.form.form.email_to.label'
-				])
-				->add('taxonomies', TaxonomyChoiceType::class, [
-					'required' => false
-				])
-			)
-			->add(
-				$builder->create('content', TabType::class, [
-					'label' => 'duo.form.tab.content'
-				])
-				->add('translations', TranslationType::class, [
-					'entry_type' => FormTranslationListingType::class
 				])
 			);
 

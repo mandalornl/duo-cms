@@ -123,7 +123,7 @@ trait SortTrait
 		/**
 		 * @var AbstractListingController $this
 		 */
-		$entity = $this->getDoctrine()->getRepository($this->getEntityFqcn());
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClass());
 
 		if ($entity === null)
 		{
@@ -170,7 +170,7 @@ trait SortTrait
 		/**
 		 * @var AbstractListingController $this
 		 */
-		$repository = $this->getDoctrine()->getRepository($this->getEntityFqcn());
+		$repository = $this->getDoctrine()->getRepository($this->getEntityClass());
 
 		if ((!$entity = $repository->find($id)) === null)
 		{

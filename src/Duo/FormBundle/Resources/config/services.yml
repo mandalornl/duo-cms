@@ -13,10 +13,17 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    duo.form.form_part_configurator:
+        class: Duo\FormBundle\Configurator\FormPartConfigurator
+        public: true
+
+    duo.form.form.form_part_collection:
+        class: Duo\FormBundle\Form\FormPartCollectionType
+        arguments:
+            $configurator: '@duo.form.form_part_configurator'
+        tags:
+            - { name: form.type }
+
     Duo\FormBundle\EventListener\MenuListener:
         tags:
             - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }
-
-#    Duo\FormBundle\EventListener\PartConfiguratorListener:
-#        tags:
-#            - { name: kernel.event_listener, event: duo.event.part_configurator.preLoad, method: preLoad }

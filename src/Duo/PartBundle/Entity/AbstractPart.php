@@ -2,7 +2,6 @@
 
 namespace Duo\PartBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\IdTrait;
 use Duo\BehaviorBundle\Entity\TimeStampInterface;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
@@ -13,34 +12,9 @@ abstract class AbstractPart implements PartInterface, TimeStampInterface
 	use TimeStampTrait;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="value", type="string", nullable=true)
-	 */
-	protected $value;
-
-	/**
 	 * @var int
 	 */
 	protected $weight = null;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setValue(string $value = null): PartInterface
-	{
-		$this->value = $value;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getValue(): ?string
-	{
-		return $this->value;
-	}
 
 	/**
 	 * {@inheritdoc}
@@ -65,6 +39,6 @@ abstract class AbstractPart implements PartInterface, TimeStampInterface
 	 */
 	public function __toString(): string
 	{
-		return $this->value;
+		return "Part:{$this->id}";
 	}
 }

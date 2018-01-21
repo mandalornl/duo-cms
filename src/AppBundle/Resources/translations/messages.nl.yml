@@ -1,0 +1,7 @@
+app:
+    page_part:
+        heading: Kop
+        text: Platte tekst
+        video: Video
+        wysiwyg: Tekst
+        form: Formulier

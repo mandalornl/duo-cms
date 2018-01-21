@@ -38,7 +38,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getEntityFqcn(): string
+	protected function getEntityClass(): string
 	{
 		return Page::class;
 	}
@@ -46,7 +46,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormFqcn(): string
+	protected function getFormType(): string
 	{
 		return PageListingType::class;
 	}

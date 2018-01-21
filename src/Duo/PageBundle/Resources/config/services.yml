@@ -13,6 +13,17 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    duo.page.page_part_configurator:
+        class: Duo\PageBundle\Configurator\PagePartConfigurator
+        public: true
+
+    duo.page.form.page_part_collection:
+        class: Duo\PageBundle\Form\PagePartCollectionType
+        arguments:
+            $configurator: '@duo.page.page_part_configurator'
+        tags:
+            - { name: form.type }
+
     Duo\PageBundle\EventListener\MenuListener:
         tags:
             - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }

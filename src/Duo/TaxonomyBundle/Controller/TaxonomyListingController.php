@@ -22,7 +22,7 @@ class TaxonomyListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getEntityFqcn(): string
+	protected function getEntityClass(): string
 	{
 		return Taxonomy::class;
 	}
@@ -30,7 +30,7 @@ class TaxonomyListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormFqcn(): string
+	protected function getFormType(): string
 	{
 		return TaxonomyListingType::class;
 	}

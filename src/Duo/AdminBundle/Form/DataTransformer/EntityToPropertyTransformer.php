@@ -19,7 +19,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * @var string
 	 */
-	private $entityFqcn;
+	private $entityClass;
 
 	/**
 	 * @var string|\Closure
@@ -35,17 +35,17 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	 * EntityToPropertyTransformer constructor
 	 *
 	 * @param EntityManagerInterface $entityManager
-	 * @param string $entityFqcn
+	 * @param string $entityClass
 	 * @param string|\Closure $propertyName [optional]
 	 * @param bool $multiple [optional]
 	 */
 	public function __construct(EntityManagerInterface $entityManager,
-								string $entityFqcn,
+								string $entityClass,
 								$propertyName = null,
 								bool $multiple = false)
 	{
 		$this->entityManager = $entityManager;
-		$this->entityFqcn = $entityFqcn;
+		$this->entityClass = $entityClass;
 		$this->propertyName = $propertyName;
 		$this->multiple = $multiple;
 	}
@@ -130,7 +130,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 
 		return $this->entityManager->createQueryBuilder()
 			->select('e')
-			->from($this->entityFqcn, 'e')
+			->from($this->entityClass, 'e')
 			->where('e.id IN(:ids)')
 			->setParameter('ids', $ids)
 			->getQuery()
@@ -151,10 +151,10 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 			return null;
 		}
 
-		$entity = $this->entityManager->getRepository($this->entityFqcn)->find($id);
+		$entity = $this->entityManager->getRepository($this->entityClass)->find($id);
 		if ($entity === null)
 		{
-			throw new TransformationFailedException("Entity '{$this->entityFqcn}::{$id}' not found");
+			throw new TransformationFailedException("Entity '{$this->entityClass}::{$id}' not found");
 		}
 
 		return $entity;

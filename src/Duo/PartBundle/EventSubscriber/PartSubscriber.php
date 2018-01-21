@@ -9,8 +9,7 @@ use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\PartBundle\Entity\NodePartInterface;
 use Duo\PartBundle\Entity\PartInterface;
-use Duo\PartBundle\Entity\PartReference;
-use Duo\PartBundle\Repository\PartReferenceRepository;
+use Duo\PartBundle\Repository\PartReferenceRepositoryInterface;
 
 class PartSubscriber implements EventSubscriber
 {
@@ -29,7 +28,7 @@ class PartSubscriber implements EventSubscriber
 			Events::postPersist,
 			Events::preUpdate,
 			Events::postUpdate,
-			Events::postRemove
+			Events::preRemove
 		];
 	}
 
@@ -47,9 +46,12 @@ class PartSubscriber implements EventSubscriber
 			return;
 		}
 
-		$parts = $args->getObjectManager()
-			->getRepository(PartReference::class)
-			->getParts($entity);
+		/**
+		 * @var PartReferenceRepositoryInterface $repo
+		 */
+		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+
+		$parts = $repo->getParts($entity);
 
 		foreach ($parts as $part)
 		{
@@ -83,9 +85,12 @@ class PartSubscriber implements EventSubscriber
 
 		$em->flush();
 
-		$args->getObjectManager()
-			->getRepository(PartReference::class)
-			->addPartReferences($entity);
+		/**
+		 * @var PartReferenceRepositoryInterface $repo
+		 */
+		$repo = $em->getRepository($entity->getPartReferenceClass());
+
+		$repo->addPartReferences($entity);
 	}
 
 	/**
@@ -102,10 +107,13 @@ class PartSubscriber implements EventSubscriber
 			return;
 		}
 
+		/**
+		 * @var PartReferenceRepositoryInterface $repo
+		 */
+		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+
 		// store current part(s) for later reference
-		$this->parts = $args->getObjectManager()
-			->getRepository(PartReference::class)
-			->getParts($entity);
+		$this->parts = $repo->getParts($entity);
 	}
 
 	/**
@@ -133,9 +141,9 @@ class PartSubscriber implements EventSubscriber
 		$em = $args->getObjectManager();
 
 		/**
-		 * @var PartReferenceRepository $repo
+		 * @var PartReferenceRepositoryInterface $repo
 		 */
-		$repo = $em->getRepository(PartReference::class);
+		$repo = $em->getRepository($entity->getPartReferenceClass());
 
 		/**
 		 * @var PartInterface[] $removableParts
@@ -174,14 +182,16 @@ class PartSubscriber implements EventSubscriber
 
 			$em->flush();
 		}
+
+		$this->parts = [];
 	}
 
 	/**
-	 * On post remove event
+	 * On pre remove event
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function postRemove(LifecycleEventArgs $args)
+	public function preRemove(LifecycleEventArgs $args)
 	{
 		$entity = $args->getObject();
 
@@ -190,15 +200,18 @@ class PartSubscriber implements EventSubscriber
 			return;
 		}
 
-		// remove part reference(s)
-		$args->getObjectManager()
-			->getRepository(PartReference::class)
-			->removePartReferences($entity);
-
 		/**
 		 * @var ObjectManager $em
 		 */
 		$em = $args->getObjectManager();
+
+		/**
+		 * @var PartReferenceRepositoryInterface $repo
+		 */
+		$repo = $em->getRepository($entity->getPartReferenceClass());
+
+		// remove part reference(s)
+		$repo->removePartReferences($entity);
 
 		// remove part(s)
 		foreach ($entity->getParts() as $part)

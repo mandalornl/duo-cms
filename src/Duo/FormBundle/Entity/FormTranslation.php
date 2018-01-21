@@ -79,4 +79,12 @@ class FormTranslation extends AbstractNodeTranslation implements NodePartInterfa
 	{
 		return $this->message;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPartReferenceClass(): string
+	{
+		return FormPartReference::class;
+	}
 }

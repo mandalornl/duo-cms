@@ -5,22 +5,6 @@ namespace Duo\PartBundle\Entity;
 interface PartInterface
 {
 	/**
-	 * Set value
-	 *
-	 * @param string $value
-	 *
-	 * @return PartInterface
-	 */
-	public function setValue(string $value = null): PartInterface;
-
-	/**
-	 * Get value
-	 *
-	 * @return string
-	 */
-	public function getValue(): ?string;
-
-	/**
 	 * Set weight
 	 *
 	 * @param int $weight
@@ -37,11 +21,11 @@ interface PartInterface
 	public function getWeight(): ?int;
 
 	/**
-	 * Get form type
+	 * Get part form type
 	 *
 	 * @return string
 	 */
-	public function getFormType(): string;
+	public function getPartFormType(): string;
 
 	/**
 	 * Get view

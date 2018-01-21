@@ -3,6 +3,8 @@ duo:
         tab:
             content: Content
             properties: Eigenschappen
+            message: Bericht
+            fields: Velden
 
         menu:
             forms: Formulieren
@@ -16,7 +18,7 @@ duo:
         form:
             form:
                 name:
-                    label: Interne naam
+                    label: Naam
                 email_from:
                     label: E-mail van
                 email_to:
@@ -25,3 +27,29 @@ duo:
                     label: Onderwerp
                 message:
                     label: Bericht
+
+            form_autocomplete:
+                label: Formulier
+                placeholder: Voer naam in
+
+            form_part:
+                label:
+                    label: Label
+                required:
+                    label: Verplicht
+                placeholder:
+                    label: Placeholder
+                error_message:
+                    label: Foutmelding
+                choices:
+                    label: Keuzes
+                expanded:
+                    label: Radio of checkbox
+                multiple:
+                    label: Meerdere
+
+        form_part:
+            text: Tekst (één regel)
+            textarea: Tekst (meerdere regels)
+            email: E-mail
+            choice: Keuzeveld (menu, radio, checkbox)

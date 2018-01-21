@@ -30,4 +30,11 @@ interface NodePartInterface
 	 * @return ArrayCollection
 	 */
 	public function getParts();
+
+	/**
+	 * Get part reference class
+	 *
+	 * @return string
+	 */
+	public function getPartReferenceClass(): string;
 }

@@ -13,17 +13,25 @@ use Duo\BehaviorBundle\Entity\TranslationInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\TreeTrait;
 use Duo\NodeBundle\Entity\AbstractNode;
+use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
+use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
 
 /**
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="Duo\PageBundle\Repository\PageRepository")
  */
-class Page extends AbstractNode implements DeleteInterface, RevisionInterface, SortInterface, TreeInterface, ViewInterface
+class Page extends AbstractNode implements DeleteInterface,
+										   RevisionInterface,
+										   SortInterface,
+										   TreeInterface,
+										   ViewInterface,
+										   TaxonomyInterface
 {
 	use DeleteTrait;
 	use RevisionTrait;
 	use SortTrait;
 	use TreeTrait;
+	use TaxonomyTrait;
 
 	/**
 	 * {@inheritdoc}

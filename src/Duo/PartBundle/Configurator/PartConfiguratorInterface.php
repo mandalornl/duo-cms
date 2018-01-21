@@ -7,6 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface PartConfiguratorInterface
 {
 	/**
+	 * Dispatch pre load event
+	 */
+	public function dispatchPreLoadEvent(): void;
+
+	/**
 	 * Add config
 	 *
 	 * @param array $config

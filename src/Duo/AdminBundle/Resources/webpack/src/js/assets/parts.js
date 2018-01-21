@@ -1,9 +1,8 @@
 import $ from 'jquery';
 
-import {get} from '../api';
 import '../jquery/sortable';
 import * as wysiwyg from '../assets/wysiwyg';
-import * as loader from '../util/loader';
+import * as autoComplete from '../assets/autocomplete';
 
 /**
  * Initialize
@@ -65,42 +64,21 @@ const init = (selector = '.part-list') =>
 			toggleButton();
 		});
 
-		let $modal;
-
-		$this.on('click', 'button[data-url]', async function()
+		const $modal = $this.find('.modal').appendTo('body');
+		$modal.on('click', 'button[data-prototype]', function(e)
 		{
-			// fetch modal
-			if (!$modal)
-			{
-				loader.show();
+			e.preventDefault();
 
-				const html = await get($(this).data('url'));
+			const $item = $($(this).data('prototype').split('__name__').join(newIndex++));
+			$list.append($item);
+			$list.sortable();
 
-				$modal = $(html);
-				$modal.appendTo('body');
+			// init assets
+			wysiwyg.init({}, $item.find('.wysiwyg'));
+			autoComplete.init({}, $item.find('.autocomplete'));
 
-				loader.hide();
-
-				$modal.on('click', 'button[data-prototype]', function(e)
-				{
-					e.preventDefault();
-
-					const $item = $($(this).data('prototype').split('__name__').join(newIndex++));
-					$list.append($item);
-					$list.sortable();
-
-					const $wysiwyg = $item.find('.wysiwyg');
-					if ($wysiwyg.length)
-					{
-						wysiwyg.init({}, $wysiwyg);
-					}
-
-					updateWeight();
-					toggleButton();
-				});
-			}
-
-			$modal.modal('show');
+			updateWeight();
+			toggleButton();
 		});
 
 		$list.sortable().on('sortupdate', updateWeight);

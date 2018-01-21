@@ -22,7 +22,7 @@ class UserListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getEntityFqcn(): string
+	protected function getEntityClass(): string
 	{
 		return User::class;
 	}
@@ -30,7 +30,7 @@ class UserListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormFqcn(): string
+	protected function getFormType(): string
 	{
 		return UserListingType::class;
 	}

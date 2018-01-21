@@ -8,14 +8,11 @@ use Duo\BehaviorBundle\Entity\IdTrait;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
 use Duo\BehaviorBundle\Entity\TranslateTrait;
 use Duo\BehaviorBundle\Entity\VersionTrait;
-use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
-use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class AbstractNode implements NodeInterface, TaxonomyInterface
+abstract class AbstractNode implements NodeInterface
 {
 	use IdTrait;
-	use TaxonomyTrait;
 	use TranslateTrait;
 	use CloneTrait;
 	use TimeStampTrait;
