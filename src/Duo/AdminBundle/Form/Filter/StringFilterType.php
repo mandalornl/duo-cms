@@ -1,0 +1,31 @@
+<?php
+
+namespace Duo\AdminBundle\Form\Filter;
+
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+
+class StringFilterType extends AbstractFilterType
+{
+	/**
+	 * {@inheritdoc}
+	 */
+	public function buildForm(FormBuilderInterface $builder, array $options)
+	{
+		$builder
+			->add('operator', ChoiceType::class, [
+				'choices' => [
+					'duo.admin.listing.filter.contains' => 'contains',
+					'duo.admin.listing.filter.not_contains' => 'notContains',
+					'duo.admin.listing.filter.equals' => 'equals',
+					'duo.admin.listing.filter.not_equals' => 'notEquals',
+					'duo.admin.listing.filter.starts_with' => 'startsWith',
+					'duo.admin.listing.filter.ends_with' => 'endsWith'
+				]
+			])
+			->add('value', TextType::class, [
+				'required' => false
+			]);
+	}
+}

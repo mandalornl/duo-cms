@@ -5,6 +5,7 @@
 - SecurityBundle, password reset
 - FormBundle (wip, deferred)
 - MediaBundle
+- GenerateBundle
 
 - Remember me, auto log in?
 

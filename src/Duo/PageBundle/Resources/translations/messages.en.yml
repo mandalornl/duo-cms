@@ -17,6 +17,14 @@ duo:
                 created_at: Created at
                 modified_at: Modified at
 
+            filter:
+                name: Name
+                title: Title
+                url: Url
+                online: Online
+                created: Created
+                modified: Modified
+
         form:
             page:
                 name:
@@ -31,3 +39,9 @@ duo:
             page_autocomplete:
                 label: Parent
                 placeholder: Enter url or internal name
+
+            published_filter:
+                placeholder: Please choose
+                choices:
+                    yes: Yes
+                    no: No

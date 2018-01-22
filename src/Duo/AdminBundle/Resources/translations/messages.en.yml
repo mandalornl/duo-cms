@@ -40,6 +40,18 @@ duo:
                 move_down: Move down
                 delete: Delete
 
+            filter:
+                filter: Filter
+                clear: Clear
+                contains: Bevat
+                not_contains: Bevat niet
+                equals: Gelijk aan
+                not_equals: Niet gelijk aan
+                starts_with: Begint met
+                ends_with: Eindigt met
+                before: Voor
+                after: Na
+
             alert:
                 no_items: No item(s) selected
                 delete_success: Item(s) deleted succesfully
@@ -104,6 +116,12 @@ duo:
             publication:
                 publish_at: Publish at
                 unpublish_at: Unpublish at
+
+            boolean_filter:
+                placeholder: Please choose
+                choices:
+                    yes: Yes
+                    no: No
 
         elapsed_time:
             seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'

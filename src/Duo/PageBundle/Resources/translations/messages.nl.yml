@@ -17,6 +17,14 @@ duo:
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
+            filter:
+                name: Naam
+                title: Titel
+                url: Url
+                online: Online
+                created: Aangemaakt
+                modified: Gewijzigd
+
         form:
             page:
                 name:
@@ -31,3 +39,9 @@ duo:
             page_autocomplete:
                 label: Parent
                 placeholder: Voer url or interne naam in
+
+            published_filter:
+                placeholder: Maak een keuze
+                choices:
+                    yes: Ja
+                    no: Nee

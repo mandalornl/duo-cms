@@ -3,14 +3,11 @@
 namespace Duo\AdminBundle\Controller;
 
 use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
-use Duo\AdminBundle\Configuration\FieldInterface;
-use Duo\AdminBundle\Configuration\ORM\FilterInterface;
+use Doctrine\ORM\Query\Expr\Join;
 use Duo\AdminBundle\Event\ListingEvent;
 use Duo\AdminBundle\Event\ListingEvents;
 use Duo\AdminBundle\Event\TwigEvent;
@@ -31,103 +28,16 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class AbstractListingController extends FrameworkController
 {
 	use RoutePrefixTrait;
-
-	/**
-	 * @var Collection
-	 */
-	private $filters;
-
-	/**
-	 * @var Collection
-	 */
-	private $fields;
+	use FieldTrait;
+	use FilterTrait;
 
 	/**
 	 * AbstractController constructor
 	 */
 	public function __construct()
 	{
-		$this->filters = new ArrayCollection();
-		$this->fields = new ArrayCollection();
-
 		$this->defineFilters();
 		$this->defineFields();
-	}
-
-	/**
-	 * Add filter
-	 *
-	 * @param FilterInterface $filter
-	 *
-	 * @return $this
-	 */
-	public function addFilter(FilterInterface $filter)
-	{
-		$this->filters[] = $filter;
-
-		return $this;
-	}
-
-	/**
-	 * Remove filter
-	 *
-	 * @param FilterInterface $filter
-	 *
-	 * @return $this
-	 */
-	public function removeFilter(FilterInterface $filter)
-	{
-		$this->filters->removeElement($filter);
-
-		return $this;
-	}
-
-	/**
-	 * Get filters
-	 *
-	 * @return ArrayCollection
-	 */
-	public function getFilters()
-	{
-		return $this->filters;
-	}
-
-	/**
-	 * Add field
-	 *
-	 * @param FieldInterface $field
-	 *
-	 * @return $this
-	 */
-	public function addField(FieldInterface $field)
-	{
-		$this->fields[] = $field;
-
-		return $this;
-	}
-
-	/**
-	 * Remove field
-	 *
-	 * @param FieldInterface $field
-	 *
-	 * @return $this
-	 */
-	public function removeField(FieldInterface $field)
-	{
-		$this->fields->removeElement($field);
-
-		return $this;
-	}
-
-	/**
-	 * Get fields
-	 *
-	 * @return ArrayCollection
-	 */
-	public function getFields()
-	{
-		return $this->fields;
 	}
 
 	/**
@@ -142,12 +52,17 @@ abstract class AbstractListingController extends FrameworkController
 	protected function doIndexAction(Request $request): Response
 	{
 		return $this->render($this->getListTemplate(), (array)$this->getDefaultContext([
-			'paginator' => $this->getPaginator(
-				$request->get('page'),
-				$request->get('limit')
-			),
+			'paginator' => $this->getPaginator($request),
 			'list' => array_merge([
-				'filters' => $this->filters,
+				'filterForm' => call_user_func(function() use ($request)
+				{
+					if (($form = $this->getFilterForm($request)) === null)
+					{
+						return null;
+					}
+
+					return $form->createView();
+				}),
 				'fields' => $this->fields,
 			], $this->getListBehaviors())
 		]));
@@ -191,14 +106,16 @@ abstract class AbstractListingController extends FrameworkController
 	/**
 	 * Get paginator
 	 *
-	 * @param int $page
-	 * @param int $limit
+	 * @param Request $request
 	 *
 	 * @return PaginatorHelper
 	 */
-	protected function getPaginator(int $page = null, int $limit = null): PaginatorHelper
+	protected function getPaginator(Request $request): PaginatorHelper
 	{
 		$reflectionClass = new \ReflectionClass($this->getEntityClass());
+
+		$page = (int)$request->get('page') ?: null;
+		$limit = (int)$request->get('limit') ?: null;
 
 		/**
 		 * @var EntityRepository $repository
@@ -206,6 +123,14 @@ abstract class AbstractListingController extends FrameworkController
 		$repository = $this->getDoctrine()->getRepository($this->getEntityClass());
 
 		$builder = $repository->createQueryBuilder('e');
+
+		// join translations
+		if ($reflectionClass->implementsInterface(Entity\TranslateInterface::class))
+		{
+			$builder
+				->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
+				->setParameter('locale', $request->getLocale());
+		}
 
 		// only fetch latest revision of entities
 		if ($reflectionClass->implementsInterface(Entity\RevisionInterface::class))
@@ -218,6 +143,8 @@ abstract class AbstractListingController extends FrameworkController
 		{
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
+
+		$this->applyFilters($request, $builder);
 
 		// order by last modified
 		if ($reflectionClass->implementsInterface(Entity\TimeStampInterface::class))
@@ -692,16 +619,6 @@ abstract class AbstractListingController extends FrameworkController
 	 * @return string
 	 */
 	abstract protected function getType(): string;
-
-	/**
-	 * Define filters
-	 */
-	abstract protected function defineFilters(): void;
-
-	/**
-	 * Define fields
-	 */
-	abstract protected function defineFields(): void;
 
 	/**
 	 * Index view

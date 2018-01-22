@@ -3,6 +3,8 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Controller\DeleteInterface;
 use Duo\BehaviorBundle\Controller\DeleteTrait;
@@ -14,6 +16,7 @@ use Duo\BehaviorBundle\Controller\SortInterface;
 use Duo\BehaviorBundle\Controller\SortTrait;
 use Duo\BehaviorBundle\Controller\RevisionInterface;
 use Duo\BehaviorBundle\Controller\RevisionTrait;
+use Duo\PageBundle\Configuration\Filter\OnlineFilter;
 use Duo\PageBundle\Form\PageListingType;
 use Duo\PageBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -64,7 +67,13 @@ class PageListingController extends AbstractListingController implements Duplica
 	 */
 	protected function defineFilters(): void
 	{
-		// TODO: Implement defineFilters() method.
+		$this
+			->addFilter(new StringFilter('name', 'duo.page.listing.filter.name'))
+			->addFilter(new StringFilter('title', 'duo.page.listing.filter.title', 't'))
+			->addFilter(new StringFilter('url', 'duo.page.listing.filter.url', 't'))
+			->addFilter(new OnlineFilter('online', 'duo.page.listing.filter.online', 't'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.page.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.page.listing.filter.modified'));
 	}
 
 	/**

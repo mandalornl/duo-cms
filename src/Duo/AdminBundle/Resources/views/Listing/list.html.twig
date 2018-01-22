@@ -31,12 +31,40 @@
 	</nav>
 {% endblock %}
 
+{% block filter %}
+	{% if list.filterForm is defined and list.filterForm %}
+		<div class="listing-filter" id="listingFilter">
+			<button type="button" class="btn btn-secondary mb-3" data-toggle="collapse" data-target="#{{ list.filterForm.vars.id }}">
+				{{- 'duo.admin.listing.filter.filter' | trans -}}
+			</button>
+			{{ form_start(list.filterForm, {
+				'attr': {
+					'id': list.filterForm.vars.id,
+					'class': 'collapse'
+				}
+			}) }}
+			{{ form_widget(list.filterForm) }}
+			<div class="row">
+				<div class="col d-flex justify-content-end">
+					<a href="{{ path(routePrefix ~ '_filter') }}?clear" class="btn btn-secondary mr-2">
+						{{- 'duo.admin.listing.filter.clear' | trans -}}
+					</a>
+					<button type="submit" class="btn btn-primary">
+						{{- 'duo.admin.listing.filter.filter' | trans -}}
+					</button>
+				</div>
+			</div>
+			{{ form_end(list.filterForm) }}
+		</div>
+	{% endif %}
+{% endblock %}
+
 {% block content %}
 	{% if paginator.canPaginate() %}
 		{{ paginator_widget(paginator, path(routePrefix ~ '_index')) }}
 	{% endif %}
 
-	{% set uniqid = random() %}
+	{% set checkboxId = random() %}
 	<form action="javascript:;" method="post" class="form-list">
 		<div class="table-responsive">
 			<table class="table table-hover table-striped table-list checkable">
@@ -44,8 +72,8 @@
 					<tr>
 						<th>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" id="{{ uniqid }}_all" class="custom-control-input"{% if not paginator.count %} disabled{% endif %}>
-								<label for="{{ uniqid }}_all" class="custom-control-label"></label>
+								<input type="checkbox" id="{{ checkboxId }}_all" class="custom-control-input"{% if not paginator.count %} disabled{% endif %}>
+								<label for="{{ checkboxId }}_all" class="custom-control-label"></label>
 							</div>
 						</th>
 						{% for field in list.fields %}
@@ -61,8 +89,8 @@
 						<tr data-url="{{ path(routePrefix ~ '_edit', { id: entity.id }) }}">
 							<td>
 								<div class="custom-control custom-checkbox">
-									<input type="checkbox" id="{{ uniqid }}_{{ entity.id }}" name="ids[]" value="{{ entity.id }}" class="custom-control-input">
-									<label for="{{ uniqid }}_{{ entity.id }}" class="custom-control-label"></label>
+									<input type="checkbox" id="{{ checkboxId }}_{{ entity.id }}" name="ids[]" value="{{ entity.id }}" class="custom-control-input">
+									<label for="{{ checkboxId }}_{{ entity.id }}" class="custom-control-label"></label>
 								</div>
 							</td>
 							{% for field in list.fields %}

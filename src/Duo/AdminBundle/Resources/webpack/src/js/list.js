@@ -5,6 +5,7 @@ import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/alert';
 
 import {confirm} from "./util/modal";
+import * as datePicker from './assets/datepicker';
 
 $(() =>
 {
@@ -33,4 +34,6 @@ $(() =>
 
 		$form.attr('action', $this.attr('href')).submit();
 	}));
+
+	datePicker.init();
 });
