@@ -1,6 +1,0 @@
-modules:
-    label: duo.taxonomy.menu.modules
-    children:
-        taxonomies:
-            label: duo.taxonomy.menu.taxonomies
-            route: duo_taxonomy_listing_taxonomy_index

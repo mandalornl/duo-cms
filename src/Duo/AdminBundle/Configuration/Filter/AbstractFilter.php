@@ -24,7 +24,7 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * @var string
 	 */
-	protected $propertyName;
+	protected $property;
 
 	/**
 	 * @var array
@@ -34,13 +34,13 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * AbstractFilter constructor
 	 *
-	 * @param string $propertyName
+	 * @param string $property
 	 * @param string $label
 	 * @param string $alias [optional]
 	 */
-	public function __construct(string $propertyName, string $label, string $alias = 'e')
+	public function __construct(string $property, string $label, string $alias = 'e')
 	{
-		$this->propertyName = $propertyName;
+		$this->property = $property;
 		$this->alias = $alias;
 		$this->formOptions = [
 			'label' => $label
@@ -104,9 +104,9 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPropertyName(string $propertyName): FilterInterface
+	public function setProperty(string $property): FilterInterface
 	{
-		$this->propertyName = $propertyName;
+		$this->property = $property;
 
 		return $this;
 	}
@@ -114,9 +114,9 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPropertyName(): string
+	public function getProperty(): string
 	{
-		return $this->propertyName;
+		return $this->property;
 	}
 
 	/**

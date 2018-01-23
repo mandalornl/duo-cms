@@ -5,7 +5,7 @@ namespace Duo\PartBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-trait NodePartTrait
+trait EntityPartTrait
 {
 	/**
 	 * @var Collection
@@ -15,7 +15,7 @@ trait NodePartTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function addPart(PartInterface $part): NodePartInterface
+	public function addPart(PartInterface $part): EntityPartInterface
 	{
 		$this->getParts()->add($part);
 
@@ -25,7 +25,7 @@ trait NodePartTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function removePart(PartInterface $part): NodePartInterface
+	public function removePart(PartInterface $part): EntityPartInterface
 	{
 		$this->getParts()->removeElement($part);
 

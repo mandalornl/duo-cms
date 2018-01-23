@@ -3,6 +3,8 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\SecurityBundle\Entity\Role;
 use Duo\SecurityBundle\Form\RoleListingType;
@@ -48,7 +50,10 @@ class RoleListingController extends AbstractListingController
 	 */
 	protected function defineFilters(): void
 	{
-		// TODO: Implement defineFilters() method.
+		$this
+			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
 	}
 
 	/**

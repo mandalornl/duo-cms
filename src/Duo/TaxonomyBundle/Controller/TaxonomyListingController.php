@@ -3,6 +3,8 @@
 namespace Duo\TaxonomyBundle\Controller;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Duo\TaxonomyBundle\Form\TaxonomyListingType;
@@ -48,7 +50,10 @@ class TaxonomyListingController extends AbstractListingController
 	 */
 	protected function defineFilters(): void
 	{
-		// TODO: Implement defineFilters() method.
+		$this
+			->addFilter(new StringFilter('name', 'duo.taxonomy.listing.filter.name', 't'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.taxonomy.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.taxonomy.listing.filter.modified'));
 	}
 
 	/**

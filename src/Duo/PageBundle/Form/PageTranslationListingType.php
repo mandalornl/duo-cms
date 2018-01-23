@@ -40,8 +40,8 @@ class PageTranslationListingType extends AbstractType
 				$builder->create('menu', TabType::class, [
 					'label' => 'duo.page.tab.menu'
 				])
-				->add('visible', CheckboxType::class, [
-					'label' => 'duo.page.form.page.visible.label',
+				->add('visibleMenu', CheckboxType::class, [
+					'label' => 'duo.page.form.page.visible_menu.label',
 					'required' => false
 				])
 				->add('slug', TextType::class, [

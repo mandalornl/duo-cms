@@ -33,28 +33,26 @@
 
 {% block filter %}
 	{% if list.filterForm is defined and list.filterForm %}
-		<div class="listing-filter" id="listingFilter">
-			<button type="button" class="btn btn-secondary mb-3" data-toggle="collapse" data-target="#{{ list.filterForm.vars.id }}">
+		{% set filterId = random() %}
+		<div class="listing-filter">
+			<button type="button" class="btn btn-secondary mb-3" data-toggle="collapse" data-target="#{{ filterId }}">
 				{{- 'duo.admin.listing.filter.filter' | trans -}}
 			</button>
-			{{ form_start(list.filterForm, {
-				'attr': {
-					'id': list.filterForm.vars.id,
-					'class': 'collapse'
-				}
-			}) }}
-			{{ form_widget(list.filterForm) }}
-			<div class="row">
-				<div class="col d-flex justify-content-end">
-					<a href="{{ path(routePrefix ~ '_filter') }}?clear" class="btn btn-secondary mr-2">
-						{{- 'duo.admin.listing.filter.clear' | trans -}}
-					</a>
-					<button type="submit" class="btn btn-primary">
-						{{- 'duo.admin.listing.filter.filter' | trans -}}
-					</button>
+			<div id="{{ filterId }}" class="collapse">
+				{{ form_start(list.filterForm) }}
+				{{ form_widget(list.filterForm) }}
+				<div class="row">
+					<div class="col d-flex justify-content-end">
+						<a href="{{ path(routePrefix ~ '_filter') }}?clear" class="btn btn-secondary mr-2">
+							{{- 'duo.admin.listing.filter.clear' | trans -}}
+						</a>
+						<button type="submit" class="btn btn-primary">
+							{{- 'duo.admin.listing.filter.filter' | trans -}}
+						</button>
+					</div>
 				</div>
+				{{ form_end(list.filterForm) }}
 			</div>
-			{{ form_end(list.filterForm) }}
 		</div>
 	{% endif %}
 {% endblock %}
@@ -78,7 +76,7 @@
 						</th>
 						{% for field in list.fields %}
 							<th{% if field.sortable %} class="sortable"{% endif %}>
-								{{- field.title | trans -}}
+								{{- field.label | trans -}}
 							</th>
 						{% endfor %}
 						<th>&nbsp;</th>

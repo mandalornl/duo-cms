@@ -8,10 +8,16 @@
 		<li class="nav-item">
 			{% if child.url %}
 				<a href="{{ child.url }}" class="nav-link{% if child.active %} active{% endif %}">
+					{%- if child.icon -%}
+						<i class="{{ child.icon }}"></i>
+					{%- endif -%}
 					{{- child.label | trans -}}
 				</a>
 			{% else %}
 				<span class="nav-link">
+					{%- if child.icon -%}
+						<i class="{{ child.icon }}"></i>
+					{%- endif -%}
 					{{- child.label | trans -}}
 				</span>
 			{% endif %}

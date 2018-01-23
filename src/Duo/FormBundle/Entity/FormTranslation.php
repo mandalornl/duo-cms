@@ -4,17 +4,17 @@ namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\NodeBundle\Entity\AbstractNodeTranslation;
-use Duo\PartBundle\Entity\NodePartInterface;
-use Duo\PartBundle\Entity\NodePartTrait;
+use Duo\PartBundle\Entity\EntityPartInterface;
+use Duo\PartBundle\Entity\EntityPartTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="form_translation")
  * @ORM\Entity()
  */
-class FormTranslation extends AbstractNodeTranslation implements NodePartInterface
+class FormTranslation extends AbstractNodeTranslation implements EntityPartInterface
 {
-	use NodePartTrait;
+	use EntityPartTrait;
 
 	/**
 	 * @var string

@@ -7,7 +7,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Duo\PartBundle\Entity\NodePartInterface;
+use Duo\PartBundle\Entity\EntityPartInterface;
 use Duo\PartBundle\Entity\PartInterface;
 use Duo\PartBundle\Entity\PartReferenceInterface;
 
@@ -16,7 +16,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * {@inheritdoc}
 	 */
-	public function addPartReference(NodePartInterface $entity, PartInterface $part): PartReferenceInterface
+	public function addPartReference(EntityPartInterface $entity, PartInterface $part): PartReferenceInterface
 	{
 		// default behavior is to append part
 		if ($part->getWeight() === null)
@@ -44,7 +44,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * {@inheritdoc}
 	 */
-	public function addPartReferences(NodePartInterface $entity): void
+	public function addPartReferences(EntityPartInterface $entity): void
 	{
 		/**
 		 * @var ObjectManager $em
@@ -99,12 +99,12 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * Get part reference
 	 *
-	 * @param NodePartInterface $entity
+	 * @param EntityPartInterface $entity
 	 * @param PartInterface $part
 	 *
 	 * @return PartReferenceInterface
 	 */
-	protected function createPartReference(NodePartInterface $entity, PartInterface $part): PartReferenceInterface
+	protected function createPartReference(EntityPartInterface $entity, PartInterface $part): PartReferenceInterface
 	{
 		$class = $this->getClassName();
 
@@ -123,7 +123,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * {@inheritdoc}
 	 */
-	public function removePartReference(NodePartInterface $entity, PartInterface $part): bool
+	public function removePartReference(EntityPartInterface $entity, PartInterface $part): bool
 	{
 		if (($weight = $this->getWeight($entity, $part)) !== null)
 		{
@@ -146,7 +146,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * {@inheritdoc}
 	 */
-	public function removePartReferences(NodePartInterface $entity): bool
+	public function removePartReferences(EntityPartInterface $entity): bool
 	{
 		$result = $this->getEntityManager()
 			->createQueryBuilder()
@@ -162,7 +162,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPartReferences(NodePartInterface $entity): array
+	public function getPartReferences(EntityPartInterface $entity): array
 	{
 		return $this->findBy([
 			'entityId' => $entity->getId()
@@ -174,7 +174,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParts(NodePartInterface $entity): array
+	public function getParts(EntityPartInterface $entity): array
 	{
 		/**
 		 * @var PartReferenceInterface[] $references
@@ -223,12 +223,12 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * Get weight
 	 *
-	 * @param NodePartInterface $entity
+	 * @param EntityPartInterface $entity
 	 * @param PartInterface $part
 	 *
 	 * @return int
 	 */
-	protected function getWeight(NodePartInterface $entity, PartInterface $part): ?int
+	protected function getWeight(EntityPartInterface $entity, PartInterface $part): ?int
 	{
 		try
 		{
@@ -251,11 +251,11 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * Get max weight
 	 *
-	 * @param NodePartInterface $entity
+	 * @param EntityPartInterface $entity
 	 *
 	 * @return int
 	 */
-	protected function getMaxWeight(NodePartInterface $entity): int
+	protected function getMaxWeight(EntityPartInterface $entity): int
 	{
 		try
 		{
@@ -275,12 +275,12 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	/**
 	 * Update weight of siblings on add
 	 *
-	 * @param NodePartInterface $entity
+	 * @param EntityPartInterface $entity
 	 * @param int $weight
 	 *
 	 * @return bool
 	 */
-	protected function updateWeightOfSiblingsOnAdd(NodePartInterface $entity, int $weight): bool
+	protected function updateWeightOfSiblingsOnAdd(EntityPartInterface $entity, int $weight): bool
 	{
 		$className = $this->getClassName();
 
@@ -302,12 +302,12 @@ SQL;
 	/**
 	 * Update weight of siblings on remove
 	 *
-	 * @param NodePartInterface $entity
+	 * @param EntityPartInterface $entity
 	 * @param int $weight
 	 *
 	 * @return bool
 	 */
-	protected function updateWeightOfSiblingsOnRemove(NodePartInterface $entity, int $weight): bool
+	protected function updateWeightOfSiblingsOnRemove(EntityPartInterface $entity, int $weight): bool
 	{
 		$className = $this->getClassName();
 

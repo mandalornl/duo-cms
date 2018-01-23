@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\PartBundle\Entity\NodePartInterface;
+use Duo\PartBundle\Entity\EntityPartInterface;
 use Duo\PartBundle\Entity\PartInterface;
 use Duo\PartBundle\Repository\PartReferenceRepositoryInterface;
 
@@ -41,7 +41,7 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof NodePartInterface)
+		if (!$entity instanceof EntityPartInterface)
 		{
 			return;
 		}
@@ -68,7 +68,7 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof NodePartInterface || !count($entity->getParts()))
+		if (!$entity instanceof EntityPartInterface || !count($entity->getParts()))
 		{
 			return;
 		}
@@ -102,7 +102,7 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof NodePartInterface)
+		if (!$entity instanceof EntityPartInterface)
 		{
 			return;
 		}
@@ -125,7 +125,7 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof NodePartInterface)
+		if (!$entity instanceof EntityPartInterface)
 		{
 			return;
 		}
@@ -195,7 +195,7 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof NodePartInterface || !count($entity->getParts()))
+		if (!$entity instanceof EntityPartInterface || !count($entity->getParts()))
 		{
 			return;
 		}

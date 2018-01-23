@@ -12,6 +12,15 @@ duo:
                 origin: Origin
                 target: Target
                 permanent: Permanent
+                created_at: Created at
+                modified_at: Modified at
+
+            filter:
+                origin: Origin
+                target: Target
+                permanent: Permanent
+                created: Created
+                modified: Modified
 
         form:
             meta_title:

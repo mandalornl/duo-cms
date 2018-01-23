@@ -3,6 +3,9 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Configuration\Filter\BooleanFilter;
+use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\SecurityBundle\Entity\User;
 use Duo\SecurityBundle\Form\UserListingType;
@@ -48,7 +51,12 @@ class UserListingController extends AbstractListingController
 	 */
 	protected function defineFilters(): void
 	{
-		// TODO: Implement defineFilters() method.
+		$this
+			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
+			->addFilter(new StringFilter('username', 'duo.security.listing.filter.username'))
+			->addFilter(new BooleanFilter('active', 'duo.security.listing.filter.active'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
 	}
 
 	/**

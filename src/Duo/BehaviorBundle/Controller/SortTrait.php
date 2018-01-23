@@ -37,7 +37,7 @@ trait SortTrait
 			/**
 			 * @var SortInterface $previousEntity
 			 */
-			$previousEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findPreviousWeight($entity);
+			$previousEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findPreviousEntityUsingWeight($entity);
 
 			if ($previousEntity !== null)
 			{
@@ -82,7 +82,7 @@ trait SortTrait
 			/**
 			 * @var SortInterface $nextEntity
 			 */
-			$nextEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findNextWeight($entity);
+			$nextEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findNextEntityUsingWeight($entity);
 
 			if ($nextEntity !== null)
 			{

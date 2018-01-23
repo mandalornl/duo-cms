@@ -13,10 +13,6 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    Duo\SecurityBundle\EventListener\MenuListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }
-
     Duo\SecurityBundle\EventListener\UserListingListener:
         tags:
             - { name: kernel.event_listener, event: duo.event.listing.postEdit, method: postEdit }

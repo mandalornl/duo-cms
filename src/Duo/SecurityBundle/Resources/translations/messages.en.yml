@@ -18,6 +18,13 @@ duo:
                 created_at: Created at
                 modified_at: Modified at
 
+            filter:
+                name: Name
+                username: Username
+                active: Active
+                created: Created
+                modified: Modified
+
         form:
             login:
                 username: Username

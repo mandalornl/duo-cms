@@ -18,19 +18,19 @@ class DateTimeFilter extends AbstractFilter
 			return;
 		}
 
-		$id = 'date_' . md5("{$data['operator']}_{$this->propertyName}");
+		$id = 'date_' . md5("{$data['operator']}_{$this->property}");
 
 		switch ($data['operator'])
 		{
 			case 'before':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} < :{$id}")
+					->andWhere("{$this->alias}.{$this->property} < :{$id}")
 					->setParameter($id, $data['value']);
 				break;
 
 			case 'after':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} > :{$id}")
+					->andWhere("{$this->alias}.{$this->property} > :{$id}")
 					->setParameter($id, $data['value']);
 				break;
 

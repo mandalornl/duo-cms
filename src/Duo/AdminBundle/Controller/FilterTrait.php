@@ -29,7 +29,7 @@ trait FilterTrait
 	 */
 	public function addFilter(FilterInterface $filter)
 	{
-		$this->getFilters()->set($filter->getPropertyName(), $filter);
+		$this->getFilters()->set($filter->getProperty(), $filter);
 
 		return $this;
 	}
@@ -82,7 +82,7 @@ trait FilterTrait
 		// clear filter
 		if ($request->query->has('clear'))
 		{
-			$session->set($sessionName, []);
+			$session->remove($sessionName);
 
 			return $this->redirectToRoute($routeName);
 		}

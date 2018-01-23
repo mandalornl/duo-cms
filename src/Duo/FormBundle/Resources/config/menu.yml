@@ -1,3 +1,0 @@
-forms:
-    label: duo.form.menu.forms
-    route: duo_form_listing_form_index

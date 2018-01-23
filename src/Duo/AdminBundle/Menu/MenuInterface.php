@@ -23,6 +23,22 @@ interface MenuInterface
 	public function getLabel(): ?string;
 
 	/**
+	 * Set icon
+	 *
+	 * @param string $icon
+	 *
+	 * @return MenuInterface
+	 */
+	public function setIcon(string $icon = null): MenuInterface;
+
+	/**
+	 * Get icon
+	 *
+	 * @return string
+	 */
+	public function getIcon(): ?string;
+
+	/**
 	 * Set uniqid
 	 *
 	 * @param string $uniqid

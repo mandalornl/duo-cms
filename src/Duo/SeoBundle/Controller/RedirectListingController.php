@@ -3,6 +3,9 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Configuration\Filter\BooleanFilter;
+use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\SeoBundle\Entity\Redirect;
 use Duo\SeoBundle\Form\RedirectListingType;
@@ -48,7 +51,12 @@ class RedirectListingController extends AbstractListingController
 	 */
 	protected function defineFilters(): void
 	{
-		// TODO: Implement defineFilters() method.
+		$this
+			->addFilter(new StringFilter('origin', 'duo.seo.listing.filter.origin'))
+			->addFilter(new StringFilter('target', 'duo.seo.listing.filter.target'))
+			->addFilter(new BooleanFilter('permanent', 'duo.seo.listing.filter.permanent'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.seo.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.seo.listing.filter.modified'));
 	}
 
 	/**
@@ -59,7 +67,9 @@ class RedirectListingController extends AbstractListingController
 		$this
 			->addField(new Field('duo.seo.listing.field.origin', 'origin'))
 			->addField(new Field('duo.seo.listing.field.target', 'target'))
-			->addField(new Field('duo.seo.listing.field.permanent', 'permanent'));
+			->addField(new Field('duo.seo.listing.field.permanent', 'permanent'))
+			->addField(new Field('duo.seo.listing.field.created_at', 'createdAt'))
+			->addField(new Field('duo.seo.listing.field.modified_at', 'modifiedAt'));
 	}
 
 	/**

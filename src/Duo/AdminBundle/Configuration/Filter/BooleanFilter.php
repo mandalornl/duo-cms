@@ -18,10 +18,10 @@ class BooleanFilter extends AbstractFilter
 			return;
 		}
 
-		$id = 'bool_' . md5($this->propertyName);
+		$id = 'bool_' . md5($this->property);
 
 		$this->builder
-			->andWhere("{$this->alias}.{$this->propertyName} = :{$id}")
+			->andWhere("{$this->alias}.{$this->property} = :{$id}")
 			->setParameter($id, (int)$data['value']);
 	}
 

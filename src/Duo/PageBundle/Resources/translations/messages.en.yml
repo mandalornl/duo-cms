@@ -33,7 +33,7 @@ duo:
                     label: Weight
                 title:
                     label: Title
-                visible:
+                visible_menu:
                     label: Visible
 
             page_autocomplete:

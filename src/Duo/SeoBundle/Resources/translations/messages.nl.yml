@@ -12,6 +12,15 @@ duo:
                 origin: Oorsprong
                 target: Doel
                 permanent: Permanent
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
+            filter:
+                origin: Oorsprong
+                target: Doel
+                permanent: Permanent
+                created: Aangemaakt
+                modified: Gewijzigd
 
         form:
             meta_title:

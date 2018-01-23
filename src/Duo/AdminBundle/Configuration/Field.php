@@ -7,7 +7,7 @@ class Field implements FieldInterface
 	/**
 	 * @var string
 	 */
-	private $title;
+	private $label;
 
 	/**
 	 * @var string
@@ -27,14 +27,14 @@ class Field implements FieldInterface
 	/**
 	 * Field constructor
 	 *
-	 * @param string $title
+	 * @param string $label
 	 * @param string $property
 	 * @param bool $sortable [optional]
 	 * @param string $template [optional]
 	 */
-	public function __construct(string $title, string $property, bool $sortable = true, string $template = null)
+	public function __construct(string $label, string $property, bool $sortable = true, string $template = null)
 	{
-		$this->title = $title;
+		$this->label = $label;
 		$this->property = $property;
 		$this->sortable = $sortable;
 		$this->template = $template;
@@ -43,9 +43,9 @@ class Field implements FieldInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setTitle(string $title): FieldInterface
+	public function setLabel(string $label): FieldInterface
 	{
-		$this->title = $title;
+		$this->label = $label;
 
 		return $this;
 	}
@@ -53,9 +53,9 @@ class Field implements FieldInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTitle(): string
+	public function getLabel(): string
 	{
-		return $this->title;
+		return $this->label;
 	}
 
 	/**

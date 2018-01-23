@@ -10,8 +10,8 @@ use Duo\BehaviorBundle\Entity\SlugTrait;
 use Duo\BehaviorBundle\Entity\UrlInterface;
 use Duo\BehaviorBundle\Entity\UrlTrait;
 use Duo\NodeBundle\Entity\AbstractNodeTranslation;
-use Duo\PartBundle\Entity\NodePartInterface;
-use Duo\PartBundle\Entity\NodePartTrait;
+use Duo\PartBundle\Entity\EntityPartInterface;
+use Duo\PartBundle\Entity\EntityPartTrait;
 use Duo\SeoBundle\Entity\SeoInterface;
 use Duo\SeoBundle\Entity\SeoTrait;
 
@@ -19,13 +19,13 @@ use Duo\SeoBundle\Entity\SeoTrait;
  * @ORM\Table(name="page_translation")
  * @ORM\Entity()
  */
-class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface, PublishInterface, SeoInterface, NodePartInterface
+class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface, PublishInterface, SeoInterface, EntityPartInterface
 {
 	use SlugTrait;
 	use UrlTrait;
 	use PublishTrait;
 	use SeoTrait;
-	use NodePartTrait;
+	use EntityPartTrait;
 
 	/**
 	 * @var string
@@ -37,9 +37,9 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="visible", type="boolean", options={ "default" = 1 })
+	 * @ORM\Column(name="visible_menu", type="boolean", options={ "default" = 1 })
 	 */
-	protected $visible = true;
+	protected $visibleMenu = true;
 
 	/**
 	 * Set title
@@ -66,27 +66,27 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	}
 
 	/**
-	 * Set visible
+	 * Set visibleMenu
 	 *
-	 * @param bool $visible
+	 * @param bool $visibleMenu
 	 *
 	 * @return PageTranslation
 	 */
-	public function setVisible(bool $visible = true): PageTranslation
+	public function setVisibleMenu(bool $visibleMenu = true): PageTranslation
 	{
-		$this->visible = $visible;
+		$this->visibleMenu = $visibleMenu;
 
 		return $this;
 	}
 
 	/**
-	 * Get visible
+	 * Get visibleMenu
 	 *
 	 * @return bool
 	 */
-	public function getVisible(): bool
+	public function getVisibleMenu(): bool
 	{
-		return $this->visible;
+		return $this->visibleMenu;
 	}
 
 	/**

@@ -62,20 +62,20 @@ interface FilterInterface
 	public function apply(): void;
 
 	/**
-	 * Set propertyName
+	 * Set property
 	 *
-	 * @param string $propertyName
+	 * @param string $property
 	 *
 	 * @return FilterInterface
 	 */
-	public function setPropertyName(string $propertyName): FilterInterface;
+	public function setProperty(string $property): FilterInterface;
 
 	/**
-	 * Get propertyName
+	 * Get property
 	 *
 	 * @return string
 	 */
-	public function getPropertyName(): string;
+	public function getProperty(): string;
 
 	/**
 	 * Get form type

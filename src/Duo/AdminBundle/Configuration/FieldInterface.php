@@ -5,20 +5,20 @@ namespace Duo\AdminBundle\Configuration;
 interface FieldInterface
 {
 	/**
-	 * Set title
+	 * Set label
 	 *
-	 * @param string $title
+	 * @param string $label
 	 *
 	 * @return FieldInterface
 	 */
-	public function setTitle(string $title): FieldInterface;
+	public function setLabel(string $label): FieldInterface;
 
 	/**
-	 * Get title
+	 * Get label
 	 *
 	 * @return string
 	 */
-	public function getTitle(): string;
+	public function getLabel(): string;
 
 	/**
 	 * Set property

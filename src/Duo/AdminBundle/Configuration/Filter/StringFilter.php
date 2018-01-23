@@ -19,43 +19,43 @@ class StringFilter extends AbstractFilter
 			return;
 		}
 
-		$id = 'str_' . md5("{$data['operator']}_{$this->propertyName}");
+		$id = 'str_' . md5("{$data['operator']}_{$this->property}");
 		
 		switch ($data['operator'])
 		{
 			case 'contains':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} LIKE :{$id}")
+					->andWhere("{$this->alias}.{$this->property} LIKE :{$id}")
 					->setParameter($id, QueryHelper::escapeLike($data['value']));
 				break;
 
 			case 'notContains':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} NOT LIKE :{$id}")
+					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$id}")
 					->setParameter($id, QueryHelper::escapeLike($data['value']));
 				break;
 
 			case 'equals':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} = :{$id}")
+					->andWhere("{$this->alias}.{$this->property} = :{$id}")
 					->setParameter($id, $data['value']);
 				break;
 
 			case 'notEquals':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} <> :{$id}")
+					->andWhere("{$this->alias}.{$this->property} <> :{$id}")
 					->setParameter($id, $data['value']);
 				break;
 
 			case 'startsWith':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} LIKE :{$id}")
+					->andWhere("{$this->alias}.{$this->property} LIKE :{$id}")
 					->setParameter($id, QueryHelper::escapeLike($data['value'], '%%s%%'));
 				break;
 
 			case 'endsWith':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->propertyName} LIKE :{$id}")
+					->andWhere("{$this->alias}.{$this->property} LIKE :{$id}")
 					->setParameter($id, QueryHelper::escapeLike($data['value'], '%%%s'));
 				break;
 

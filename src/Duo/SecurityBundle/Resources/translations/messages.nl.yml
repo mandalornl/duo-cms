@@ -18,6 +18,13 @@ duo:
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
+            filter:
+                name: Naam
+                username: Gebruikersnaam
+                active: Actief
+                created: Aangemaakt
+                modified: Gewijzigd
+
         form:
             login:
                 username: Gebruikersnaam

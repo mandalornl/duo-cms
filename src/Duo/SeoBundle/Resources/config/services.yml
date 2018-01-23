@@ -12,7 +12,3 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
-
-    Duo\SeoBundle\EventListener\MenuListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }

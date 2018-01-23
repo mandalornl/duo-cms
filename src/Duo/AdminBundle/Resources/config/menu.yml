@@ -1,20 +1,62 @@
 pages:
+    label: duo.page.menu.pages
+    route: duo_page_listing_page_index
+    icon: icon-files-empty
 
 media:
     label: Media
     url: javascript:; #/admin/media
+    icon: icon-images
 
 forms:
+    label: duo.form.menu.forms
+    route: duo_form_listing_form_index
+    icon: icon-clipboard
 
 security:
+    label: duo.security.menu.security
+    icon: icon-shield
+    children:
+        users:
+            label: duo.security.menu.users
+            route: duo_security_listing_user_index
+            #icon: icon-user
+        groups:
+            label: duo.security.menu.groups
+            route: duo_security_listing_group_index
+            #icon: icon-users
+        roles:
+            label: duo.security.menu.roles
+            route: duo_security_listing_role_index
+            #icon: icon-tree
 
 modules:
+    label: duo.taxonomy.menu.modules
+    icon: icon-settings
+    children:
+        taxonomies:
+            label: duo.taxonomy.menu.taxonomies
+            route: duo_taxonomy_listing_taxonomy_index
+            #icon: icon-tags
 
 seo:
+    label: duo.seo.menu.seo
+    icon: icon-search
+    children:
+        redirects:
+            label: duo.seo.menu.redirects
+            route: duo_seo_listing_redirect_index
+            #icon: icon-shuffle
+        robots:
+            label: duo.seo.menu.robots
+            route: duo_seo_listing_robot_index
+            #icon: icon-bug
 
 settings:
     label: Settings
+    icon: icon-cogs
     children:
         translations:
             label: Translations
             url: javascript:; #/admin/setting/translation
+            #icon: icon-earth

@@ -3,6 +3,8 @@
 namespace Duo\FormBundle\Controller;
 
 use Duo\AdminBundle\Configuration\Field;
+use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Controller\DuplicateTrait;
 use Duo\BehaviorBundle\Entity\DuplicateInterface;
@@ -52,7 +54,10 @@ class FormListingController extends AbstractListingController implements Duplica
 	 */
 	protected function defineFilters(): void
 	{
-		// TODO: Implement defineFilters() method.
+		$this
+			->addFilter(new StringFilter('name', 'duo.form.listing.filter.name'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.form.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.form.listing.filter.modified'));
 	}
 
 	/**

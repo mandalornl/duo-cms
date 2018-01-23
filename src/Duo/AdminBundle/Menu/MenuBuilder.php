@@ -182,9 +182,16 @@ class MenuBuilder implements MenuBuilderInterface
 					->setUniqid($id);
 			}
 
+			// set label
 			if (isset($item['label']))
 			{
 				$menu->setLabel($item['label']);
+			}
+
+			// set icon
+			if (isset($item['icon']))
+			{
+				$menu->setIcon($item['icon']);
 			}
 
 			// generate url from route

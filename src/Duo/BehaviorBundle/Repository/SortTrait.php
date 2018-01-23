@@ -12,14 +12,14 @@ use Duo\BehaviorBundle\Entity\RevisionInterface;
 trait SortTrait
 {
 	/**
-	 * Find previous weight
+	 * Find previous entity using weight
 	 *
 	 * @param SortInterface $entity
 	 * @param int $limit [optional]
 	 *
 	 * @return SortInterface|SortInterface[]
 	 */
-	public function findPreviousWeight(SortInterface $entity, int $limit = 1)
+	public function findPreviousEntityUsingWeight(SortInterface $entity, int $limit = 1)
 	{
 		/**
 		 * @var EntityRepository $this
@@ -70,14 +70,14 @@ trait SortTrait
 	}
 
 	/**
-	 * Find next weight
+	 * Find next entity using weight
 	 *
 	 * @param SortInterface $entity
 	 * @param int $limit [optional]
 	 *
 	 * @return SortInterface|SortInterface[]
 	 */
-	public function findNextWeight(SortInterface $entity, int $limit = 1)
+	public function findNextEntityUsingWeight(SortInterface $entity, int $limit = 1)
 	{
 		/**
 		 * @var EntityRepository $this

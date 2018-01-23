@@ -23,7 +23,3 @@ services:
             $configurator: '@duo.form.form_part_configurator'
         tags:
             - { name: form.type }
-
-    Duo\FormBundle\EventListener\MenuListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.event.menu.preLoad, method: preLoad }

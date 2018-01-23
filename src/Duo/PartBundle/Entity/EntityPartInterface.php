@@ -4,25 +4,25 @@ namespace Duo\PartBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-interface NodePartInterface
+interface EntityPartInterface
 {
 	/**
 	 * Add part
 	 *
 	 * @param PartInterface $part
 	 *
-	 * @return NodePartInterface
+	 * @return EntityPartInterface
 	 */
-	public function addPart(PartInterface $part): NodePartInterface;
+	public function addPart(PartInterface $part): EntityPartInterface;
 
 	/**
 	 * Remove part
 	 *
 	 * @param PartInterface $part
 	 *
-	 * @return NodePartInterface
+	 * @return EntityPartInterface
 	 */
-	public function removePart(PartInterface $part): NodePartInterface;
+	public function removePart(PartInterface $part): EntityPartInterface;
 
 	/**
 	 * Get parts

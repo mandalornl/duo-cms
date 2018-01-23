@@ -19,7 +19,7 @@ class OnlineFilter extends AbstractFilter
 			return;
 		}
 
-		$id = 'online_' . md5($this->propertyName);
+		$id = 'online_' . md5($this->property);
 
 		if (!(int)$data['value'])
 		{

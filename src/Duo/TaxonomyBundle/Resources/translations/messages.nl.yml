@@ -10,6 +10,11 @@ duo:
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
+            filter:
+                name: Naam
+                created: Aangemaakt
+                modified: Gewijzigd
+
         form:
             taxonomy:
                 name:

@@ -1,9 +1,0 @@
-seo:
-    label: duo.seo.menu.seo
-    children:
-        redirects:
-            label: duo.seo.menu.redirects
-            route: duo_seo_listing_redirect_index
-        robots:
-            label: duo.seo.menu.robots
-            route: duo_seo_listing_robot_index

@@ -13,11 +13,17 @@
 
 	box-shadow: $box-shadow;
 
+	background: $gray-100;
+
+	padding-top: 2rem;
+
 	.nav
 	{
 		.nav-link
 		{
-			position: relative;
+			display: flex;
+
+			align-items: center;
 
 			border-bottom: 1px solid #f2f2f2;
 		}
@@ -28,7 +34,7 @@
 
 			&:hover
 			{
-				background-color: #fbfbfb;
+				background-color: #f6f6f6;
 
 				box-shadow: $box-shadow;
 			}
@@ -48,6 +54,11 @@
 			font-weight: 500;
 
 			box-shadow: $box-shadow;
+		}
+
+		i
+		{
+			margin-right: .5rem;
 		}
 	}
 }

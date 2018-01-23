@@ -27,6 +27,8 @@ class SortSubscriber implements EventSubscriber
 	 * On pre persist event
 	 *
 	 * @param LifecycleEventArgs $args
+	 *
+	 * @throws \ReflectionException
 	 */
 	public function prePersist(LifecycleEventArgs $args)
 	{
@@ -46,6 +48,8 @@ class SortSubscriber implements EventSubscriber
 	 * @param LifecycleEventArgs $args
 	 *
 	 * @return int
+	 *
+	 * @throws \ReflectionException
 	 */
 	private function getNextWeight(LifecycleEventArgs $args): int
 	{

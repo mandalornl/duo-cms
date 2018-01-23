@@ -15,6 +15,11 @@ class Menu implements MenuInterface
 	/**
 	 * @var string
 	 */
+	private $icon;
+
+	/**
+	 * @var string
+	 */
 	private $uniqid;
 
 	/**
@@ -61,6 +66,24 @@ class Menu implements MenuInterface
 	public function getLabel(): ?string
 	{
 		return $this->label;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setIcon(string $icon = null): MenuInterface
+	{
+		$this->icon = $icon;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getIcon(): ?string
+	{
+		return $this->icon;
 	}
 
 	/**

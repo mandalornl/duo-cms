@@ -19,7 +19,7 @@ class ListingFilterType extends AbstractType
 			/**
 			 * @var FilterInterface $filter
 			 */
-			$builder->add($filter->getPropertyName(), $filter->getFormType(), array_merge([
+			$builder->add($filter->getProperty(), $filter->getFormType(), array_merge([
 				'required' => false
 			], $filter->getFormOptions()));
 		}

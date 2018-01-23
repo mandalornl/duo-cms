@@ -10,6 +10,11 @@ duo:
                 created_at: Created at
                 modified_at: Modified at
 
+            filter:
+                name: Name
+                created: Created
+                modified: Modified
+
         form:
             taxonomy:
                 name:
