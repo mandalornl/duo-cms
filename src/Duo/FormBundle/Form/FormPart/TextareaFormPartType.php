@@ -3,10 +3,10 @@
 namespace Duo\FormBundle\Form\FormPart;
 
 use Duo\FormBundle\Entity\FormPart\TextareaFormPart;
-use Duo\FormBundle\Form\AbstractFormPartType;
+use Duo\FormBundle\Form\AbstractTextFormPartType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TextareaFormPartType extends AbstractFormPartType
+class TextareaFormPartType extends AbstractTextFormPartType
 {
 	/**
 	 * {@inheritdoc}

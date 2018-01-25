@@ -22,9 +22,11 @@
 							</a>
 						</div>
 					</div>
-					<a href="{{ path(routePrefix ~ '_add') }}" class="btn btn-primary">
-						{{- 'duo.admin.toolbar.actions.new' | trans -}}
-					</a>
+					{% if (routePrefix ~ '_add') is validroute %}
+						<a href="{{ path(routePrefix ~ '_add') }}" class="btn btn-primary">
+							{{- 'duo.admin.toolbar.actions.new' | trans -}}
+						</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>

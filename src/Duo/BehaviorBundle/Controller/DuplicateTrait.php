@@ -28,6 +28,7 @@ trait DuplicateTrait
 		 * @var AbstractListingController $this
 		 */
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
+
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);

@@ -12,11 +12,13 @@ duo:
         listing:
             field:
                 name: Naam
+                locale: Taal
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
             filter:
                 name: Naam
+                locale: Taal
                 created: Aangemaakt
                 modified: Gewijzigd
 
@@ -47,7 +49,7 @@ duo:
                 error_message:
                     label: Foutmelding
                 choices:
-                    label: Keuzes
+                    label: Keuzes (scheiden met een nieuwe regel)
                 expanded:
                     label: Radio of checkbox
                 multiple:
@@ -58,3 +60,4 @@ duo:
             textarea: Tekst (meerdere regels)
             email: E-mail
             choice: Keuzeveld (menu, radio, checkbox)
+            submit: Verzendknop

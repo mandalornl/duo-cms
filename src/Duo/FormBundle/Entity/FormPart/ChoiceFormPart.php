@@ -2,16 +2,19 @@
 
 namespace Duo\FormBundle\Entity\FormPart;
 
-use Duo\FormBundle\Entity\AbstractFormChoicePart;
+use Doctrine\ORM\Mapping as ORM;
+use Duo\FormBundle\Entity\AbstractChoiceFormPart;
 use Duo\FormBundle\Form\FormPart\ChoiceFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ChoiceFormPart extends AbstractFormChoicePart
+/**
+ * @ORM\Table(name="form_part_choice")
+ * @ORM\Entity()
+ */
+class ChoiceFormPart extends AbstractChoiceFormPart
 {
 	/**
-	 * Get form type
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getFormType(): string
 	{
@@ -19,23 +22,10 @@ class ChoiceFormPart extends AbstractFormChoicePart
 	}
 
 	/**
-	 * Get part form type
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getPartFormType(): string
 	{
 		return ChoiceFormPartType::class;
-	}
-
-	/**
-	 * Get view
-	 *
-	 * @return string
-	 */
-	public function getView(): string
-	{
-		// TODO: Implement getView() method.
-		return '';
 	}
 }

@@ -2,16 +2,16 @@
 
 namespace Duo\FormBundle\Entity;
 
-interface FormChoicePartInterface
+interface ChoiceFormPartInterface
 {
 	/**
 	 * Set expanded
 	 *
 	 * @param bool $expanded
 	 *
-	 * @return FormChoicePartInterface
+	 * @return ChoiceFormPartInterface
 	 */
-	public function setExpanded(bool $expanded = false): FormChoicePartInterface;
+	public function setExpanded(bool $expanded = false): ChoiceFormPartInterface;
 
 	/**
 	 * Get expanded
@@ -25,9 +25,9 @@ interface FormChoicePartInterface
 	 *
 	 * @param bool $multiple
 	 *
-	 * @return FormChoicePartInterface
+	 * @return ChoiceFormPartInterface
 	 */
-	public function setMultiple(bool $multiple = false): FormChoicePartInterface;
+	public function setMultiple(bool $multiple = false): ChoiceFormPartInterface;
 
 	/**
 	 * Get multiple
@@ -41,9 +41,9 @@ interface FormChoicePartInterface
 	 *
 	 * @param string $choices
 	 *
-	 * @return FormChoicePartInterface
+	 * @return ChoiceFormPartInterface
 	 */
-	public function setChoices(string $choices = null): FormChoicePartInterface;
+	public function setChoices(string $choices = null): ChoiceFormPartInterface;
 
 	/**
 	 * Get choices

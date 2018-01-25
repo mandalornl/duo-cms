@@ -12,11 +12,13 @@ duo:
         listing:
             field:
                 name: Name
+                locale: Locale
                 created_at: Created at
                 modified_at: Modified at
 
             filter:
                 name: Name
+                locale: Locale
                 created: Created
                 modified: Modified
 
@@ -47,7 +49,7 @@ duo:
                 error_message:
                     label: Error message
                 choices:
-                    label: Choices
+                    label: Choices (separate with a new line)
                 expanded:
                     label: Radio or checkbox
                 multiple:
@@ -58,3 +60,4 @@ duo:
             textarea: Text (multiple lines)
             email: Email
             choice: Choice (select, radio, checkbox)
+            submit: Send button

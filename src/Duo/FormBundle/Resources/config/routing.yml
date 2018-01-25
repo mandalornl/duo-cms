@@ -3,7 +3,17 @@ duo_form_listing_form:
     type: annotation
     prefix: /form
 
+duo_form_listing_submission:
+    resource: '@DuoFormBundle/Controller/FormSubmissionListingController.php'
+    type: annotation
+    prefix: /form/submission
+
 duo_form_autocomplete:
     resource: '@DuoFormBundle/Controller/FormAutoCompleteController.php'
     type: annotation
     prefix: /form/autocomplete
+
+duo_form_view:
+    resource: '@DuoFormBundle/Controller/FormViewController.php'
+    type: annotation
+    prefix: /form/view

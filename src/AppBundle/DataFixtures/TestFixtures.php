@@ -8,7 +8,9 @@ use AppBundle\Entity\PagePart\WYSIWYGPagePart;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\FormBundle\Entity\Form;
+use Duo\FormBundle\Entity\FormPart\ChoiceFormPart;
 use Duo\FormBundle\Entity\FormPart\EmailFormPart;
+use Duo\FormBundle\Entity\FormPart\SubmitFormPart;
 use Duo\FormBundle\Entity\FormPart\TextareaFormPart;
 use Duo\FormBundle\Entity\FormPart\TextFormPart;
 use Duo\PageBundle\Entity\Page;
@@ -428,13 +430,18 @@ class TestFixtures extends Fixture
 		{
 			$form = new Form();
 			$form->setName('Contact');
-			$form->setEmailFrom('noreply@duo.nl');
-			$form->setEmailTo('info@duo.nl');
+			$form->setEmailFrom('noreply@example.com');
+			$form->setEmailTo('info@example.com');
 			$form->setCreatedBy($user);
 
 			$form->translate('nl')
 				->setSubject('Bedankt!')
 				->setMessage('<p>Bedankt voor het invullen van het formulier.</p>')
+				->addPart(
+					(new ChoiceFormPart())
+						->setLabel('Aanhef')
+						->setChoices("Dhr\nMevr")
+				)
 				->addPart(
 					(new TextFormPart())
 						->setLabel('Naam')
@@ -449,11 +456,20 @@ class TestFixtures extends Fixture
 					(new TextareaFormPart())
 						->setLabel('Opmerking(en)')
 						->setRequired(true)
+				)
+				->addPart(
+					(new SubmitFormPart())
+						->setLabel('Versturen')
 				);
 
 			$form->translate('en')
 				->setSubject('Thanks!')
 				->setMessage('<p>Thank you for filling in the form.</p>')
+				->addPart(
+					(new ChoiceFormPart())
+						->setLabel('Salutation')
+						->setChoices("Mr\nMs\nMrs")
+				)
 				->addPart(
 					(new TextFormPart())
 						->setLabel('Name')
@@ -468,6 +484,10 @@ class TestFixtures extends Fixture
 					(new TextareaFormPart())
 						->setLabel('Remark(s)')
 						->setRequired(true)
+				)
+				->addPart(
+					(new SubmitFormPart())
+						->setLabel('Send')
 				);
 
 			$form->mergeNewTranslations();

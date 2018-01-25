@@ -3,7 +3,7 @@
 namespace Duo\FormBundle\Entity\FormPart;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\FormBundle\Entity\AbstractFormPart;
+use Duo\FormBundle\Entity\AbstractTextFormPart;
 use Duo\FormBundle\Form\FormPart\EmailFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
@@ -11,12 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
  * @ORM\Table(name="form_part_email")
  * @ORM\Entity()
  */
-class EmailFormPart extends AbstractFormPart
+class EmailFormPart extends AbstractTextFormPart
 {
 	/**
-	 * Get type
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getFormType(): string
 	{
@@ -29,16 +27,5 @@ class EmailFormPart extends AbstractFormPart
 	public function getPartFormType(): string
 	{
 		return EmailFormPartType::class;
-	}
-
-	/**
-	 * Get view
-	 *
-	 * @return string
-	 */
-	public function getView(): string
-	{
-		// TODO: Implement getView() method.
-		return '';
 	}
 }

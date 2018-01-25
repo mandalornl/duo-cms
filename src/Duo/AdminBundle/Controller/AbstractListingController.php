@@ -225,6 +225,7 @@ abstract class AbstractListingController extends FrameworkController
 	protected function doEditAction(Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
+
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);
@@ -425,6 +426,7 @@ abstract class AbstractListingController extends FrameworkController
 	private function handleDestroyRequest(Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
+
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);

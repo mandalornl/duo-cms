@@ -17,14 +17,11 @@ class FormSubmission implements TimeStampInterface
 	use TimeStampTrait;
 
 	/**
-	 * @var Form
+	 * @var string
 	 *
-	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")
-	 * @ORM\JoinColumns({
-	 * 	   @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\Column(name="name", type="string", nullable=true)
 	 */
-	private $form;
+	private $name;
 
 	/**
 	 * @var string
@@ -41,27 +38,37 @@ class FormSubmission implements TimeStampInterface
 	private $data;
 
 	/**
-	 * Set form
+	 * @var Form
 	 *
-	 * @param Form $form
+	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")
+	 * @ORM\JoinColumns({
+	 * 	   @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
+	 * })
+	 */
+	private $form;
+
+	/**
+	 * Set name
+	 *
+	 * @param string $name
 	 *
 	 * @return FormSubmission
 	 */
-	public function setForm(Form $form = null): FormSubmission
+	public function setName(string $name = null): FormSubmission
 	{
-		$this->form = $form;
+		$this->name = $name;
 
 		return $this;
 	}
 
 	/**
-	 * Get form
+	 * Get name
 	 *
-	 * @return Form
+	 * @return string
 	 */
-	public function getForm(): ?Form
+	public function getName(): ?string
 	{
-		return $this->form;
+		return $this->name;
 	}
 
 	/**
@@ -110,5 +117,29 @@ class FormSubmission implements TimeStampInterface
 	public function getData(): array
 	{
 		return $this->data;
+	}
+
+	/**
+	 * Set form
+	 *
+	 * @param Form $form
+	 *
+	 * @return FormSubmission
+	 */
+	public function setForm(Form $form = null): FormSubmission
+	{
+		$this->form = $form;
+
+		return $this;
+	}
+
+	/**
+	 * Get form
+	 *
+	 * @return Form
+	 */
+	public function getForm(): ?Form
+	{
+		return $this->form;
 	}
 }

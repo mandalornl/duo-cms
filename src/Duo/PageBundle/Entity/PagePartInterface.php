@@ -19,4 +19,11 @@ interface PagePartInterface
 	 * @return string
 	 */
 	public function getValue(): ?string;
+
+	/**
+	 * Get view
+	 *
+	 * @return string
+	 */
+	public function getView(): string;
 }

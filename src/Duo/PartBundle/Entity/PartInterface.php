@@ -26,11 +26,4 @@ interface PartInterface
 	 * @return string
 	 */
 	public function getPartFormType(): string;
-
-	/**
-	 * Get view
-	 *
-	 * @return string
-	 */
-	public function getView(): string;
 }

@@ -5,7 +5,7 @@ namespace Duo\FormBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class AbstractFormChoicePart extends AbstractFormPart implements FormChoicePartInterface
+abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements ChoiceFormPartInterface
 {
 	/**
 	 * @var bool
@@ -32,7 +32,7 @@ abstract class AbstractFormChoicePart extends AbstractFormPart implements FormCh
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setExpanded(bool $expanded = false): FormChoicePartInterface
+	public function setExpanded(bool $expanded = false): ChoiceFormPartInterface
 	{
 		$this->expanded = $expanded;
 
@@ -50,7 +50,7 @@ abstract class AbstractFormChoicePart extends AbstractFormPart implements FormCh
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMultiple(bool $multiple = false): FormChoicePartInterface
+	public function setMultiple(bool $multiple = false): ChoiceFormPartInterface
 	{
 		$this->multiple = $multiple;
 
@@ -68,7 +68,7 @@ abstract class AbstractFormChoicePart extends AbstractFormPart implements FormCh
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setChoices(string $choices = null): FormChoicePartInterface
+	public function setChoices(string $choices = null): ChoiceFormPartInterface
 	{
 		$this->choices = $choices;
 

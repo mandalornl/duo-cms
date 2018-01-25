@@ -3,10 +3,10 @@
 namespace Duo\FormBundle\Form\FormPart;
 
 use Duo\FormBundle\Entity\FormPart\EmailFormPart;
-use Duo\FormBundle\Form\AbstractFormPartType;
+use Duo\FormBundle\Form\AbstractTextFormPartType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EmailFormPartType extends AbstractFormPartType
+class EmailFormPartType extends AbstractTextFormPartType
 {
 	/**
 	 * {@inheritdoc}

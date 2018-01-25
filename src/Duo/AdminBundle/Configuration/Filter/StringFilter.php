@@ -50,7 +50,7 @@ class StringFilter extends AbstractFilter
 			case 'startsWith':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} LIKE :{$id}")
-					->setParameter($id, QueryHelper::escapeLike($data['value'], '%%s%%'));
+					->setParameter($id, QueryHelper::escapeLike($data['value'], '%s%%'));
 				break;
 
 			case 'endsWith':

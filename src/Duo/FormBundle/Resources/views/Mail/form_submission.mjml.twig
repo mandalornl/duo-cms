@@ -1,0 +1,42 @@
+{% extends '@DuoAdmin/Mail/layout.mjml.twig' %}
+
+{% block subject %}
+	{{- brand_name }} - {{ 'duo.form.mail.form_submission.subject' | trans({ '%form_name%': submission.name }, 'emails') -}}
+{% endblock %}
+
+{% block body_text %}
+	{% autoescape false %}
+		{{ 'duo.form.mail.form_submission.body_text' | trans({
+			'%url%': url('duo_form_listing_submission_edit', { id: submission.id })
+		}, 'emails') }}
+
+		{{ parent() }}
+	{% endautoescape %}
+{% endblock %}
+
+{% block content %}
+	<mj-text font-family="Helvetica Neue" color="#333">
+		<h3>{{ 'duo.form.mail.form_submission.body_html.title' | trans({}, 'emails') }}</h3>
+	</mj-text>
+
+	<mj-table>
+		<tr style="text-align: left;border-bottom: 2px solid #dee2e6;">
+			<th colspan="2" style="padding: 5px 0;">{{ submission.name }}</th>
+		</tr>
+		{% for label, value in submission.data %}
+			<tr style="text-align: left;{% if not loop.last %} border-bottom: 1px solid #dee2e6;{% endif %}">
+				{% set rowColor = loop.index is divisible by(2) ? '#f2f2f2' : null %}
+				<td style="padding: 5px 15px 5px 0;{% if rowColor %}background-color: {{ rowColor }};{% endif %}">
+					{{- label -}}
+				</td>
+				<td style="padding: 5px 0 5px 15px;{% if rowColor %}background-color: {{ rowColor }};{% endif %}">
+					{{- value | nl2br -}}
+				</td>
+			</tr>
+		{% endfor %}
+	</mj-table>
+
+	<mj-button font-family="Helvetica Neue" background-color="#007bff" color="#fff" href="{{ url('duo_form_listing_submission_edit', { id: submission.id }) }}" border-radius="3px">
+		{{- 'duo.form.mail.form_submission.body_html.button' | trans({}, 'emails') -}}
+	</mj-button>
+{% endblock %}
