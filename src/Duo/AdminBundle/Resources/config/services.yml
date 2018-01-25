@@ -22,6 +22,14 @@ services:
             - [ setDefaultLocale, [ '%locale%' ]]
             - [ setLocalesFromString, [ '%locales%' ]]
 
+    duo.admin.mailer_helper:
+        class: Duo\AdminBundle\Helper\MailerHelper
+        arguments:
+            $twig: '@twig'
+            $emailFrom: '%mailer_from%'
+            $dkimConfig: { keyFile: '%dkim_key_file%', domain: '%dkim_domain%', selector: '%dkim_selector%' }
+        public: true
+
     duo.admin.menu_builder:
         class: Duo\AdminBundle\Menu\MenuBuilder
         public: true

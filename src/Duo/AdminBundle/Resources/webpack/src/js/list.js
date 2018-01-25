@@ -9,13 +9,13 @@ import * as datePicker from './assets/datepicker';
 
 $(() =>
 {
-	const $form = $('.form-list');
+	const $form = $('.listing-form');
 	if (!$form.length)
 	{
 		return;
 	}
 
-	const $list = $form.find('.table-list');
+	const $list = $form.find('.listing-table');
 
 	$list.on('click', 'tr[data-url] td:not(:first-child):not(:last-child)', function()
 	{

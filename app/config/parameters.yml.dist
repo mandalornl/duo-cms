@@ -16,6 +16,7 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: ~
     mailer_password: ~
+    mailer_from: info@example.com
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
@@ -23,4 +24,8 @@ parameters:
     locale: en
     locales: nl|en
 
-    webpack.devserver.host: localhost
+    webpack_dev_host: localhost
+
+    dkim_key_file: '%kernel.project_dir%/app/config/dkim.key'
+    dkim_domain: 'example.com'
+    dkim_selector: 'default'

@@ -7,12 +7,12 @@ class Field implements FieldInterface
 	/**
 	 * @var string
 	 */
-	private $label;
+	private $property;
 
 	/**
 	 * @var string
 	 */
-	private $property;
+	private $label;
 
 	/**
 	 * @var bool
@@ -27,35 +27,17 @@ class Field implements FieldInterface
 	/**
 	 * Field constructor
 	 *
-	 * @param string $label
 	 * @param string $property
+	 * @param string $label
 	 * @param bool $sortable [optional]
 	 * @param string $template [optional]
 	 */
-	public function __construct(string $label, string $property, bool $sortable = true, string $template = null)
+	public function __construct(string $property, string $label, bool $sortable = true, string $template = null)
 	{
-		$this->label = $label;
 		$this->property = $property;
+		$this->label = $label;
 		$this->sortable = $sortable;
 		$this->template = $template;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setLabel(string $label): FieldInterface
-	{
-		$this->label = $label;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getLabel(): string
-	{
-		return $this->label;
 	}
 
 	/**
@@ -74,6 +56,24 @@ class Field implements FieldInterface
 	public function getProperty(): string
 	{
 		return $this->property;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setLabel(string $label): FieldInterface
+	{
+		$this->label = $label;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getLabel(): string
+	{
+		return $this->label;
 	}
 
 	/**

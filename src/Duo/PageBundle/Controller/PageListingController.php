@@ -82,12 +82,12 @@ class PageListingController extends AbstractListingController implements Duplica
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('duo.page.listing.field.name', 'name'))
-			->addField(new Field('duo.page.listing.field.title', 'title'))
-			->addField(new Field('duo.page.listing.field.url', 'url', true, '@DuoAdmin/Listing/Field/url.html.twig'))
-			->addField(new Field('duo.page.listing.field.online', 'published', true, '@DuoAdmin/Listing/Field/published.html.twig'))
-			->addField(new Field('duo.page.listing.field.created_at', 'createdAt'))
-			->addField(new Field('duo.page.listing.field.modified_at', 'modifiedAt'));
+			->addField(new Field('name', 'duo.page.listing.field.name'))
+			->addField(new Field('title', 'duo.page.listing.field.title'))
+			->addField(new Field('url', 'duo.page.listing.field.url', true, '@DuoAdmin/Listing/Field/url.html.twig'))
+			->addField(new Field('published', 'duo.page.listing.field.online', true, '@DuoAdmin/Listing/Field/published.html.twig'))
+			->addField(new Field('createdAt', 'duo.page.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo.page.listing.field.modified_at'));
 	}
 
 	/**

@@ -5,3 +5,4 @@ duo:
             name_used: This name is already used
             email_user: This email is already used
             username_used: This username is already used
+            password_mismatch: The password fields do not match

@@ -43,7 +43,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email", type="string", length=60, nullable=false)
+	 * @ORM\Column(name="email", type="string", length=64, nullable=false)
 	 * @Assert\Email()
 	 */
     private $email;
@@ -59,7 +59,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="password", type="string", length=60, nullable=false)
+	 * @ORM\Column(name="password", type="string", length=64, nullable=false)
 	 */
     private $password;
 
@@ -67,6 +67,20 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	 * @var string
 	 */
     private $plainPassword;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="password_token", type="string", length=32, nullable=true)
+	 */
+    private $passwordToken;
+
+	/**
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+	 */
+    private $passwordRequestedAt;
 
 	/**
 	 * @var string
@@ -130,13 +144,9 @@ class User implements UserInterface, TimeStampInterface, \Serializable
     }
 
 	/**
-	 * Set email
-	 *
-	 * @param string $email
-	 *
-	 * @return User
+	 * {@inheritdoc}
 	 */
-    public function setEmail(string $email): User
+    public function setEmail(string $email): UserInterface
 	{
 		$this->email = $email;
 
@@ -144,9 +154,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	}
 
 	/**
-	 * Get email
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function getEmail(): ?string
 	{
@@ -205,6 +213,42 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	public function getPlainPassword(): ?string
 	{
 		return $this->plainPassword;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setPasswordToken(string $passwordToken = null): UserInterface
+	{
+		$this->passwordToken = $passwordToken;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPasswordToken(): ?string
+	{
+		return $this->passwordToken;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null): UserInterface
+	{
+		$this->passwordRequestedAt = $passwordRequestedAt;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getPasswordRequestedAt(): ?\DateTime
+	{
+		return $this->passwordRequestedAt;
 	}
 
 	/**

@@ -43,7 +43,7 @@ const init = (selector = '.part-list') =>
 		 */
 		const toggleButton = () =>
 		{
-			$this.find('button[data-url]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
+			$this.find('button[data-toggle="modal"]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
 		};
 
 		$list.on('click', '[data-dismiss="part-item"]', function(e)

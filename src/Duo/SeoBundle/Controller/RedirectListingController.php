@@ -65,11 +65,11 @@ class RedirectListingController extends AbstractListingController
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('duo.seo.listing.field.origin', 'origin'))
-			->addField(new Field('duo.seo.listing.field.target', 'target'))
-			->addField(new Field('duo.seo.listing.field.permanent', 'permanent'))
-			->addField(new Field('duo.seo.listing.field.created_at', 'createdAt'))
-			->addField(new Field('duo.seo.listing.field.modified_at', 'modifiedAt'));
+			->addField(new Field('origin', 'duo.seo.listing.field.origin'))
+			->addField(new Field('target', 'duo.seo.listing.field.target'))
+			->addField(new Field('permanent', 'duo.seo.listing.field.permanent'))
+			->addField(new Field('createdAt', 'duo.seo.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo.seo.listing.field.modified_at'));
 	}
 
 	/**

@@ -20,4 +20,26 @@ body.login main
 	flex-direction: column;
 
 	justify-content: center;
+
+	@include media-breakpoint-up(sm)
+	{
+		form
+		{
+			padding: 1rem;
+
+			background: #fff;
+
+			border-radius: .25rem;
+		}
+	}
+}
+
+@include media-breakpoint-up(sm)
+{
+	.listing-form, .form-edit
+	{
+		padding: 1rem;
+
+		background: #fff;
+	}
 }

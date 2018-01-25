@@ -4,7 +4,7 @@ namespace Duo\SecurityBundle\Form;
 
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
-use Duo\SecurityBundle\Entity\User;
+use Duo\SecurityBundle\Entity\UserInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -71,7 +71,7 @@ class UserListingType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
-			'data_class' => User::class
+			'data_class' => UserInterface::class
 		]);
 	}
 }

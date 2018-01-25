@@ -63,6 +63,16 @@
 	}
 }
 
+.page
+{
+	background: #fff;
+
+	@include media-breakpoint-up(sm)
+	{
+		background: $gray-200;
+	}
+}
+
 @include media-breakpoint-down(sm)
 {
 	.wrapper
@@ -97,8 +107,6 @@
 		transition: transform .3s ease-out;
 
 		transform: translate3d(0, 0, 0);
-
-		background: #fff;
 	}
 
 	body.sidebar-open

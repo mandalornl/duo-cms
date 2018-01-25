@@ -8,6 +8,22 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 interface UserInterface extends AdvancedUserInterface
 {
 	/**
+	 * Set email
+	 *
+	 * @param string $email
+	 *
+	 * @return UserInterface
+	 */
+	public function setEmail(string $email): UserInterface;
+
+	/***
+	 * Get email
+	 *
+	 * @return string
+	 */
+	public function getEmail(): ?string;
+
+	/**
 	 * Set username
 	 *
 	 * @param string $username
@@ -47,6 +63,38 @@ interface UserInterface extends AdvancedUserInterface
 	 * @return string
 	 */
 	public function getPlainPassword(): ?string;
+
+	/**
+	 * Set passwordToken
+	 *
+	 * @param string $passwordToken
+	 *
+	 * @return UserInterface
+	 */
+	public function setPasswordToken(string $passwordToken = null): UserInterface;
+
+	/**
+	 * Get passwordToken
+	 *
+	 * @return string
+	 */
+	public function getPasswordToken(): ?string;
+
+	/**
+	 * Set passwordRequestedAt
+	 *
+	 * @param \DateTime $passwordRequestedAt
+	 *
+	 * @return UserInterface
+	 */
+	public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null): UserInterface;
+
+	/**
+	 * Get passwordRequestAt
+	 *
+	 * @return \DateTime
+	 */
+	public function getPasswordRequestedAt(): ?\DateTime;
 
 	/**
 	 * Add group

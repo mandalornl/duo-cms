@@ -6,11 +6,11 @@ security:
     providers:
         admin:
             entity:
-                class: Duo\SecurityBundle\Entity\User
+                class: Duo\SecurityBundle\Entity\UserInterface
 
     encoders:
         admin:
-            class: Duo\SecurityBundle\Entity\User
+            class: Duo\SecurityBundle\Entity\UserInterface
             algorithm: bcrypt
 
     firewalls:
@@ -59,7 +59,7 @@ security:
             logout_on_user_change: true
 
     access_control:
-        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/(login|forgot-password|reset-password), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
 

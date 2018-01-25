@@ -74,7 +74,7 @@
 {% block content %}
 	<div class="row">
 		<div class="col-xl-10">
-			{{ form_start(form) }}
+			{{ form_start(form, { 'attr': { 'class': 'form-edit' } }) }}
 			{{ form_widget(form) }}
 			{{ form_end(form) }}
 		</div>

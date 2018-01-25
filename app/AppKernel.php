@@ -16,6 +16,7 @@ class AppKernel extends Kernel
 			new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 			new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			new Infinite\FormBundle\InfiniteFormBundle(),
+			new NotFloran\MjmlBundle\MjmlBundle(),
             new Duo\BehaviorBundle\DuoBehaviorBundle(),
             new Duo\PartBundle\DuoPartBundle(),
             new Duo\NodeBundle\DuoNodeBundle(),

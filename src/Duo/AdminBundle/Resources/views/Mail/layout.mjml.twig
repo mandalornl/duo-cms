@@ -1,0 +1,42 @@
+{% block body_text %}
+{{ brand_name }} &copy; {{ 'now' | date('Y') }}
+{% endblock %}
+
+{% block body_html %}
+	{% mjml %}
+		<mjml>
+			<mj-head>
+				<mj-title>{% block subject %}{{ brand_name }}{% endblock %}</mj-title>
+			</mj-head>
+			<mj-body background-color="#f2f2f2">
+				<mj-container>
+
+					<!-- Header -->
+					<mj-section padding-bottom="0" background-color="#343a40" text-align="left">
+						<mj-column width="100%">
+							<mj-text font-family="Helvetica Neue" font-size="20px" color="#fff">{{ brand_name }}</mj-text>
+
+							<mj-divider padding-top="0" padding-bottom="0" padding-left="0" padding-right="0" border-width="5px" border-color="#adb5bd"/>
+						</mj-column>
+					</mj-section>
+
+					<!-- Content -->
+					<mj-section padding-bottom="0" background-color="#fff">
+						<mj-column width="100%">
+							{% block content %}{% endblock %}
+						</mj-column>
+					</mj-section>
+
+					<!-- Footer -->
+					<mj-section padding-bottom="0" background-color="#fff">
+						<mj-column width="100%">
+							<mj-divider padding-top="20" padding-bottom="0" padding-left="0" padding-right="0" border-width="5px" border-color="#6c757d"/>
+
+							<mj-text font-family="Helvetica Neue" color="grey">{{ brand_name }} &copy; {{ 'now' | date('Y') }}</mj-text>
+						</mj-column>
+					</mj-section>
+				</mj-container>
+			</mj-body>
+		</mjml>
+	{% endmjml %}
+{% endblock %}

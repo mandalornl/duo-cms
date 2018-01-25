@@ -65,11 +65,11 @@ class UserListingController extends AbstractListingController
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('duo.security.listing.field.name', 'name'))
-			->addField(new Field('duo.security.listing.field.username', 'username'))
-			->addField(new Field('duo.security.listing.field.active', 'active'))
-			->addField(new Field('duo.security.listing.field.created_at', 'createdAt'))
-			->addField(new Field('duo.security.listing.field.modified_at', 'modifiedAt'));
+			->addField(new Field('name', 'duo.security.listing.field.name'))
+			->addField(new Field('username', 'duo.security.listing.field.username'))
+			->addField(new Field('active', 'duo.security.listing.field.active'))
+			->addField(new Field('createdAt', 'duo.security.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo.security.listing.field.modified_at'));
 	}
 
 	/**

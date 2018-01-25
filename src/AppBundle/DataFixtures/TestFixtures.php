@@ -144,7 +144,7 @@ class TestFixtures extends Fixture
 
 		$user = (new User())
 			->setName('Admin')
-			->setEmail('admin@duocms.nl')
+			->setEmail('admin@example.com')
 			->setActive(true)
 			->addGroup($group);
 

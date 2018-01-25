@@ -50,7 +50,7 @@ const WebpackDevServer = require('webpack-dev-server');
 	});
 
 	config.entry['admin.min'].unshift(
-		`webpack-dev-server/client?http://${parameters['webpack.devserver.host']}:8080`,
+		`webpack-dev-server/client?http://${parameters['webpack_dev_host']}:8080`,
 		'webpack/hot/dev-server'
 	);
 
@@ -62,7 +62,7 @@ const WebpackDevServer = require('webpack-dev-server');
 			return phpServer.kill('SIGINT');
 		}
 
-		console.info(`Webpack dev server running on http://${parameters['webpack.devserver.host']}:8080/`);
+		console.info(`Webpack dev server running on http://${parameters['webpack_dev_host']}:8080/`);
 	});
 
 	/**

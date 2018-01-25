@@ -24,7 +24,7 @@ trait TimeStampTrait
 	/**
 	 * @var UserInterface
 	 *
-	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\User")
+	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
 	 * @ORM\JoinColumns({
 	 *     @ORM\JoinColumn(name="created_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 * })
@@ -34,7 +34,7 @@ trait TimeStampTrait
 	/**
 	 * @var UserInterface
 	 *
-	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\User")
+	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
 	 * @ORM\JoinColumns({
 	 *     @ORM\JoinColumn(name="modified_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 * })

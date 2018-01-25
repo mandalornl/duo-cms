@@ -43,7 +43,9 @@
 			{# Main #}
 			<main class="container-fluid" role="main">
 				{# Alerts #}
-				{% include '@DuoAdmin/Layout/_alerts.html.twig' %}
+				{% block alert %}
+					{%- include '@DuoAdmin/Layout/_alerts.html.twig' -%}
+				{% endblock %}
 
 				{# Filters #}
 				{% block filter %}{% endblock %}

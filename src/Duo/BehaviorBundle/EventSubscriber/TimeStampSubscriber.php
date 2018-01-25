@@ -7,23 +7,23 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\SecurityBundle\Helper\TokenHelper;
+use Symfony\Component\Security\Core\Security;
 
 class TimeStampSubscriber implements EventSubscriber
 {
 	/**
-	 * @var TokenHelper
+	 * @var Security
 	 */
-	private $tokenHelper;
+	private $security;
 
 	/**
 	 * TimeStampSubscriber constructor
 	 *
-	 * @param TokenHelper $tokenHelper
+	 * @param Security $security
 	 */
-	public function __construct(TokenHelper $tokenHelper)
+	public function __construct(Security $security)
 	{
-		$this->tokenHelper = $tokenHelper;
+		$this->security = $security;
 	}
 
 	/**
@@ -51,7 +51,7 @@ class TimeStampSubscriber implements EventSubscriber
 			return;
 		}
 
-		$user = $this->tokenHelper->getUser();
+		$user = $this->security->getUser();
 
 		if ($entity->getCreatedAt() === null)
 		{
@@ -87,7 +87,7 @@ class TimeStampSubscriber implements EventSubscriber
 
 		$entity->setModifiedAt(new \DateTime());
 
-		if (($user = $this->tokenHelper->getUser()) !== null)
+		if (($user = $this->security->getUser()) !== null)
 		{
 			$entity->setModifiedBy($user);
 		}

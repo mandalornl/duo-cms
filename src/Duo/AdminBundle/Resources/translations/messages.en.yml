@@ -1,5 +1,7 @@
 duo:
     admin:
+        choose_language: Choose language
+
         type:
             bool:
                 yes: Yes

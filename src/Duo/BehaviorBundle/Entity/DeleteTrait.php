@@ -17,7 +17,7 @@ trait DeleteTrait
 	/**
 	 * @var UserInterface
 	 *
-	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\User")
+	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
 	 * @ORM\JoinColumns({
 	 *     @ORM\JoinColumn(name="deleted_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 * })

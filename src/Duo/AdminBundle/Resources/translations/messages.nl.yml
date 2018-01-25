@@ -1,5 +1,7 @@
 duo:
     admin:
+        choose_language: Kies taal
+
         type:
             bool:
                 yes: Ja

@@ -1,0 +1,52 @@
+.tab-content > .tab-pane
+{
+	padding-top: 1rem;
+}
+
+.translation-list > .tab-list
+{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+@include media-breakpoint-up(sm)
+{
+	.nav-tabs
+	{
+		padding: 0 1rem;
+
+		.nav-tabs
+		{
+			padding: 0;
+		}
+	}
+
+	.tab-content > .tab-pane
+	{
+		padding: 1rem;
+
+		border: solid #dee2e6;
+		border-width: 0 1px 1px;
+
+		@include border-bottom-radius(.25rem);
+
+		.tab-content > .tab-pane
+		{
+			padding: 1rem 0;
+
+			border: none;
+
+			border-radius: 0;
+		}
+	}
+
+	.translation-list > .tab-content > .tab-pane
+	{
+		padding: 0;
+
+		border: none;
+
+		border-radius: 0;
+	}
+}

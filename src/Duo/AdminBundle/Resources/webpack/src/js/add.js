@@ -12,7 +12,7 @@ import * as doNotLeave from './util/donotleave';
 
 $(() =>
 {
-	const $form = $('.form-add, .form-edit');
+	const $form = $('.form-edit');
 	if (!$form.length)
 	{
 		return;
@@ -43,7 +43,12 @@ $(() =>
 		}
 	}, 'input, textarea');
 
-	$('.listing-add, .listing-edit').on('click', 'button[data-action="save"]', function()
+	$form.on('change', '.translation-list .tab-list > select', function()
+	{
+		$(this.value).tab('show');
+	});
+
+	$('.listing-edit').on('click', 'button[data-action="save"]', function()
 	{
 		const $this = $(this);
 		$this.prop('disabled', true);

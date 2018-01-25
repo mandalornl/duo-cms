@@ -7,23 +7,23 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\SecurityBundle\Helper\TokenHelper;
+use Symfony\Component\Security\Core\Security;
 
 class DeleteSubscriber implements EventSubscriber
 {
 	/**
-	 * @var TokenHelper
+	 * @var Security
 	 */
-	private $tokenHelper;
+	private $security;
 
 	/**
 	 * DeleteSubscriber constructor
 	 *
-	 * @param TokenHelper $tokenHelper
+	 * @param Security $security
 	 */
-	public function __construct(TokenHelper $tokenHelper)
+	public function __construct(Security $security)
 	{
-		$this->tokenHelper = $tokenHelper;
+		$this->security = $security;
 	}
 
 	/**
@@ -69,7 +69,7 @@ class DeleteSubscriber implements EventSubscriber
 			return;
 		}
 
-		if (($user = $this->tokenHelper->getUser()) === null)
+		if (($user = $this->security->getUser()) === null)
 		{
 			return;
 		}

@@ -189,11 +189,7 @@ abstract class AbstractListingController extends FrameworkController
 		// dispatch pre add event
 		$eventDispatcher->dispatch(ListingEvents::PRE_ADD, new ListingEvent($entity));
 
-		$form = $this->createForm($this->getFormType(), $entity, [
-			'attr' => [
-				'class' => 'form-add'
-			]
-		]);
+		$form = $this->createForm($this->getFormType(), $entity);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
@@ -263,11 +259,7 @@ abstract class AbstractListingController extends FrameworkController
 		// dispatch pre edit event
 		$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($entity));
 
-		$form = $this->createForm($this->getFormType(), $entity, [
-			'attr' => [
-				'class' => 'form-edit'
-			]
-		]);
+		$form = $this->createForm($this->getFormType(), $entity);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
@@ -337,11 +329,7 @@ abstract class AbstractListingController extends FrameworkController
 		// pre submit state
 		$preSubmitState = serialize($clone);
 
-		$form = $this->createForm($this->getFormType(), $clone, [
-			'attr' => [
-				'class' => 'form-edit'
-			]
-		]);
+		$form = $this->createForm($this->getFormType(), $clone);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())

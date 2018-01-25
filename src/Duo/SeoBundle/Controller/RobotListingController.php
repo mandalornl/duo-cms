@@ -39,11 +39,7 @@ class RobotListingController extends Controller
 	{
 		$entity = $this->getEntity();
 
-		$form = $this->createForm(RobotListingType::class, $entity, [
-			'attr' => [
-				'class' => 'form-edit'
-			]
-		]);
+		$form = $this->createForm(RobotListingType::class, $entity);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())

@@ -5,22 +5,6 @@ namespace Duo\AdminBundle\Configuration;
 interface FieldInterface
 {
 	/**
-	 * Set label
-	 *
-	 * @param string $label
-	 *
-	 * @return FieldInterface
-	 */
-	public function setLabel(string $label): FieldInterface;
-
-	/**
-	 * Get label
-	 *
-	 * @return string
-	 */
-	public function getLabel(): string;
-
-	/**
 	 * Set property
 	 *
 	 * @param string $property
@@ -35,6 +19,22 @@ interface FieldInterface
 	 * @return string
 	 */
 	public function getProperty(): string;
+
+	/**
+	 * Set label
+	 *
+	 * @param string $label
+	 *
+	 * @return FieldInterface
+	 */
+	public function setLabel(string $label): FieldInterface;
+
+	/**
+	 * Get label
+	 *
+	 * @return string
+	 */
+	public function getLabel(): string;
 
 	/**
 	 * Set sortable

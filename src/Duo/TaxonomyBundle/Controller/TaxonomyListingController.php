@@ -62,9 +62,9 @@ class TaxonomyListingController extends AbstractListingController
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('duo.taxonomy.listing.field.name', 'name'))
-			->addField(new Field('duo.taxonomy.listing.field.created_at', 'createdAt'))
-			->addField(new Field('duo.taxonomy.listing.field.modified_at', 'modifiedAt'));
+			->addField(new Field('name', 'duo.taxonomy.listing.field.name'))
+			->addField(new Field('createdAt', 'duo.taxonomy.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo.taxonomy.listing.field.modified_at'));
 	}
 
 	/**

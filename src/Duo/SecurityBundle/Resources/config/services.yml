@@ -1,3 +1,6 @@
+parameters:
+    duo.security.user_class: Duo\SecurityBundle\Entity\User
+
 services:
     _defaults:
         autowire: true
@@ -24,8 +27,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    duo.security.token_helper:
-        class: Duo\SecurityBundle\Helper\TokenHelper
-        public: true
-        arguments:
-            $tokenStorage: '@security.token_storage'
+    duo.security.user:
+        class: '%duo.security.user_class%'
+
+    Duo\SecurityBundle\Entity\UserInterface: '@duo.security.user'

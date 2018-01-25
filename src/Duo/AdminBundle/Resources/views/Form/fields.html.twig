@@ -35,10 +35,9 @@
 
 {# Widgets #}
 {% block choice_widget_collapsed -%}
+	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-select')|trim}) -%}
 	{% if multiple %}
 		{%- set attr = attr|merge({class: (attr.class|default('') ~ ' select2')|trim}) -%}
-	{% else %}
-		{%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-select')|trim}) -%}
 	{% endif %}
 	{{- parent() -}}
 {%- endblock choice_widget_collapsed %}
@@ -58,7 +57,7 @@
 {# Custom #}
 {% block duo_tab_label %}
 	{% set selected = selected | default(false) %}
-	<a href="#{{ id }}_tab" id="{{ id }}_nav" class="nav-item nav-link{% if selected %} active{% endif %}" data-toggle="tab" role="tab" aria-controls="{{ id }}_tab" aria-selected="{{ selected }}">
+	<a href="#{{ id }}_tab" id="{{ id }}_nav" class="nav-link{% if selected %} active{% endif %}" data-toggle="tab" role="tab" aria-controls="{{ id }}_tab" aria-selected="{{ selected }}">
 		{{- label | trans({}, translation_domain) -}}
 	</a>
 {% endblock %}
@@ -71,10 +70,12 @@
 {% endblock %}
 
 {% block duo_tabs_row %}
-	<div id="{{ id }}" class="tabs-list">
-		<ul class="nav nav-tabs mb-3" role="tablist">
+	<div id="{{ id }}" class="tab-list">
+		<ul class="nav nav-tabs" role="tablist">
 			{% for tab in form %}
-				<li>{{ form_label(tab, null, { selected: loop.first }) }}</li>
+				<li class="nav-item">
+					{{- form_label(tab, null, { selected: loop.first }) -}}
+				</li>
 			{% endfor %}
 		</ul>
 		<div class="tab-content">
@@ -87,26 +88,32 @@
 
 {% block duo_translation_row %}
 	{% set locales = get_locales(app.request.locale) %}
-	<div id="{{ id }}" class="translations-list">
-		<div class="row">
-			<div class="col-md-3">
-				<div class="list-group mb-3" id="{{ id }}_tablist" role="tablist">
-					{% for locale, child in form %}
-						<a class="list-group-item list-group-item-action{% if locale == app.request.locale %} active{% endif %}" id="{{ child.vars.id }}_list" data-toggle="list" href="#{{ child.vars.id }}" role="tab" aria-controls="{{ child.vars.id }}">
+	<div id="{{ id }}" class="translation-list">
+		<nav class="tab-list">
+			<label for="{{ id }}_tablist" class="sr-only">{{ 'duo.admin.choose_language' | trans }}</label>
+			<select id="{{ id }}_tablist" class="custom-select" style="width: auto;">
+				{% for locale, child in form %}
+					<option value="#{{ child.vars.id }}_list"{% if locale == app.request.locale %} selected{% endif %}>
+						{{- attribute(locales, locale) | default(locale | upper) -}}
+					</option>
+				{% endfor %}
+			</select>
+			<ul class="nav nav-tabs d-none" role="tablist">
+				{% for locale, child in form %}
+					<li class="nav-item">
+						<a href="#{{ child.vars.id }}" id="{{ child.vars.id }}_list" class="nav-link{% if locale == app.request.locale %} active{% endif %}" data-toggle="tab" role="tab" aria-hidden="true" aria-controls="{{ child.vars.id }}" aria-selected="{% if locale == app.request.locale %}true{% else %}false{% endif %}">
 							{{- attribute(locales, locale) | default(locale | upper) -}}
 						</a>
-					{% endfor %}
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+		<div class="tab-content" id="{{ id }}_content">
+			{% for locale, child in form %}
+				<div class="tab-pane fade{% if locale == app.request.locale %} show active{% endif %}" id="{{ child.vars.id }}" role="tabpanel" aria-labelledby="{{ child.vars.id }}_list">
+					{{- form_widget(child) -}}
 				</div>
-			</div>
-			<div class="col-md-9">
-				<div class="tab-content" id="{{ id }}_content">
-					{% for locale, child in form %}
-						<div class="tab-pane fade show{% if locale == app.request.locale %} active{% endif %}" id="{{ child.vars.id }}" role="tabpanel" aria-labelledby="{{ child.vars.id }}_list">
-							{{- form_widget(child) -}}
-						</div>
-					{% endfor %}
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}
@@ -120,7 +127,7 @@
 	{% set attr = attr | merge({
 		'data-url': remotePath,
 		'data-placeholder': placeholder | trans,
-		'class': (attr.class | default('') ~ ' autocomplete') | trim
+		'class': (attr.class | default('') ~ ' custom-select autocomplete') | trim
 	}) %}
 	<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
 		{% if value is iterable %}

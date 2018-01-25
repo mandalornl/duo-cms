@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "df2cb7508ef2332c19ce7612b71a96e1",
+    "content-hash": "9835f56d7905ab367ef1f520081b01ae",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1129,6 +1129,51 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
+        },
+        {
+            "name": "notfloran/mjml-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/notFloran/mjml-bundle.git",
+                "reference": "69250aebc04f446f7222ae3e592ebf9e6102b983"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/notFloran/mjml-bundle/zipball/69250aebc04f446f7222ae3e592ebf9e6102b983",
+                "reference": "69250aebc04f446f7222ae3e592ebf9e6102b983",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.0",
+                "symfony/process": "^2.8|^3.0",
+                "twig/twig": "^1.0||^2.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.8.5"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NotFloran\\MjmlBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Floran Brutel",
+                    "email": "me@floran.fr"
+                }
+            ],
+            "description": "Symfony bundle for MJML",
+            "keywords": [
+                "email",
+                "mjml"
+            ],
+            "time": "2017-11-07T20:00:20+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4019,7 +4064,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "notfloran/mjml-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

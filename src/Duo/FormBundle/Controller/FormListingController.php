@@ -66,9 +66,9 @@ class FormListingController extends AbstractListingController implements Duplica
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('duo.form.listing.field.name', 'name'))
-			->addField(new Field('duo.form.listing.field.created_at', 'createdAt'))
-			->addField(new Field('duo.form.listing.field.modified_at', 'modifiedAt'));
+			->addField(new Field('name', 'duo.form.listing.field.name'))
+			->addField(new Field('createdAt', 'duo.form.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo.form.listing.field.modified_at'));
 	}
 
 	/**
