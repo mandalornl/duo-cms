@@ -115,11 +115,9 @@ trait DeleteTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true,
-					'message' => $this->get('translator')->trans($message)
-				]
+			return $this->json([
+				'success' => true,
+				'message' => $this->get('translator')->trans($message)
 			]);
 		}
 
@@ -147,11 +145,9 @@ trait DeleteTrait
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')
 			{
-				return new JsonResponse([
-					'result' => [
-						'success' => false,
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.no_items')
-					]
+				return $this->json([
+					'success' => false,
+					'message' => $this->get('translator')->trans('duo.admin.listing.alert.no_items')
 				]);
 			}
 
@@ -187,11 +183,9 @@ trait DeleteTrait
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')
 			{
-				return new JsonResponse([
-					'result' => [
-						'success' => true,
-						'message' => $this->get('translator')->trans($message)
-					]
+				return $this->json([
+					'success' => true,
+					'message' => $this->get('translator')->trans($message)
 				]);
 			}
 
@@ -217,11 +211,8 @@ trait DeleteTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => false,
-					'error' => $error
-				]
+			return $this->json([
+				'error' => $error
 			]);
 		}
 

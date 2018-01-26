@@ -61,7 +61,9 @@
 
 {% block content %}
 	{% if paginator.canPaginate() %}
-		{{ paginator_widget(paginator, path(routePrefix ~ '_index')) }}
+		<div class="listing-pagination">
+			{{ paginator_widget(paginator, path(routePrefix ~ '_index')) }}
+		</div>
 	{% endif %}
 
 	{% set checkboxId = random() %}
@@ -78,7 +80,18 @@
 						</th>
 						{% for field in list.fields %}
 							<th{% if field.sortable %} class="sortable"{% endif %}>
-								{{- field.label | trans -}}
+								{% if field.sortable %}
+									{% if list.sorting and list.sorting.sort == field.property %}
+										{% set sortingUrl = path(routePrefix ~ '_sorting', { 'sort': field.property, 'order': list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
+									{% else %}
+										{% set sortingUrl = path(routePrefix ~ '_sorting', { 'sort': field.property }) %}
+									{% endif %}
+									<a href="{{ sortingUrl }}">
+										{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.property %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}
+									</a>
+								{% else %}
+									{{- field.label | trans -}}
+								{% endif %}
 							</th>
 						{% endfor %}
 						<th>&nbsp;</th>
@@ -127,6 +140,12 @@
 			</table>
 		</div>
 	</form>
+
+	{% if paginator.canPaginate() and paginator.result | length >= paginator.limit %}
+		<div class="listing-pagination">
+			{{ paginator_widget(paginator, path(routePrefix ~ '_index')) }}
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block modal %}

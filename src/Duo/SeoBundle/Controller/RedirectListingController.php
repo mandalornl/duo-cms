@@ -33,7 +33,7 @@ class RedirectListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return RedirectListingType::class;
 	}

@@ -67,4 +67,20 @@ interface FieldInterface
 	 * @return string
 	 */
 	public function getTemplate(): ?string;
+
+	/**
+	 * Set alias
+	 *
+	 * @param string $alias
+	 *
+	 * @return FieldInterface
+	 */
+	public function setAlias(string $alias): FieldInterface;
+
+	/**
+	 * Get alias
+	 *
+	 * @return string
+	 */
+	public function getAlias(): string;
 };

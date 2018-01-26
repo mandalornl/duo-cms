@@ -64,6 +64,7 @@ abstract class AbstractListingController extends FrameworkController
 					return $form->createView();
 				}),
 				'fields' => $this->fields,
+				'sorting' => $this->getSorting($request)
 			], $this->getListBehaviors())
 		]));
 	}
@@ -144,21 +145,26 @@ abstract class AbstractListingController extends FrameworkController
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
+		// apply filters
 		$this->applyFilters($request, $builder);
 
-		// order by last modified
-		if ($reflectionClass->implementsInterface(Entity\TimeStampInterface::class))
+		// apply sorting or revert to defaults
+		if (!$this->applySorting($request, $builder))
 		{
-			$builder->addOrderBy('e.modifiedAt', 'DESC');
-		}
+			// order by last modified
+			if ($reflectionClass->implementsInterface(Entity\TimeStampInterface::class))
+			{
+				$builder->addOrderBy('e.modifiedAt', 'DESC');
+			}
 
-		// order by weight
-		if ($reflectionClass->implementsInterface(Entity\SortInterface::class))
-		{
-			$builder->addOrderBy('e.weight', 'ASC');
-		}
+			// order by weight
+			if ($reflectionClass->implementsInterface(Entity\SortInterface::class))
+			{
+				$builder->addOrderBy('e.weight', 'ASC');
+			}
 
-		$builder->addOrderBy('e.id', 'ASC');
+			$builder->addOrderBy('e.id', 'ASC');
+		}
 
 		return (new PaginatorHelper($builder))
 			->setPage($page)
@@ -439,11 +445,9 @@ abstract class AbstractListingController extends FrameworkController
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true,
-					'message' => $this->get('translator')->trans('duo.admin.listing.alert.delete_success')
-				]
+			return $this->json([
+				'success' => true,
+				'message' => $this->get('translator')->trans('duo.admin.listing.alert.delete_success')
 			]);
 		}
 
@@ -468,11 +472,9 @@ abstract class AbstractListingController extends FrameworkController
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')
 			{
-				return new JsonResponse([
-					'result' => [
-						'success' => false,
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.no_items')
-					]
+				return $this->json([
+					'success' => false,
+					'message' => $this->get('translator')->trans('duo.admin.listing.alert.no_items')
 				]);
 			}
 
@@ -495,11 +497,9 @@ abstract class AbstractListingController extends FrameworkController
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')
 			{
-				return new JsonResponse([
-					'result' => [
-						'success' => true,
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.delete_success')
-					]
+				return $this->json([
+					'success' => true,
+					'message' => $this->get('translator')->trans('duo.admin.listing.alert.delete_success')
 				]);
 			}
 
@@ -554,11 +554,8 @@ abstract class AbstractListingController extends FrameworkController
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => false,
-					'error' => $error
-				]
+			return $this->json([
+				'error' => $error
 			]);
 		}
 
@@ -601,7 +598,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return string
 	 */
-	abstract protected function getFormType(): string;
+	abstract protected function getFormType(): ?string;
 
 	/**
 	 * Get type

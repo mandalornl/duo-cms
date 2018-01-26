@@ -1,0 +1,43 @@
+{% use '@DuoPart/Form/fields.html.twig' %}
+
+{% spaceless %}
+{% set modalId = random() %}
+<div id="modal_{{ modalId }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ modalId }}">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_{{ modalId }}">
+					{{- 'duo.part.modal.title' | trans -}}
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="part-chooser">
+					{% for hash, prototype in form.vars.prototypes %}
+						{% set icon = attribute(form.vars.icons, hash) | default('icon-file-empty') %}
+						<div class="button">
+							{% with {
+								form: prototype,
+								allow_add: form.vars.allow_add,
+								allow_delete: form.vars.allow_delete,
+								disabled: form.vars.disabled
+							} %}
+								<button type="button" data-dismiss="modal" data-prototype="{{ block('duo_part_row') | escape }}">
+									<i class="{{ icon }}"></i> {{ prototype.vars.label | trans -}}
+								</button>
+							{% endwith %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					{{- 'duo.admin.modal.global.close' | trans -}}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endspaceless %}

@@ -1,5 +1,7 @@
 duo:
     form:
+        open_form: Bekijk formulier
+
         tab:
             content: Content
             properties: Eigenschappen
@@ -8,6 +10,7 @@ duo:
 
         menu:
             forms: Formulieren
+            results: Resultaten
 
         listing:
             field:

@@ -49,7 +49,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return PageListingType::class;
 	}
@@ -83,9 +83,9 @@ class PageListingController extends AbstractListingController implements Duplica
 	{
 		$this
 			->addField(new Field('name', 'duo.page.listing.field.name'))
-			->addField(new Field('title', 'duo.page.listing.field.title'))
-			->addField(new Field('url', 'duo.page.listing.field.url', true, '@DuoAdmin/Listing/Field/url.html.twig'))
-			->addField(new Field('published', 'duo.page.listing.field.online', true, '@DuoAdmin/Listing/Field/published.html.twig'))
+			->addField(new Field('title', 'duo.page.listing.field.title', true, null, 't'))
+			->addField(new Field('url', 'duo.page.listing.field.url', true, '@DuoAdmin/Listing/Field/url.html.twig', 't'))
+			->addField(new Field('published', 'duo.page.listing.field.online', false, '@DuoAdmin/Listing/Field/published.html.twig'))
 			->addField(new Field('createdAt', 'duo.page.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.page.listing.field.modified_at'));
 	}

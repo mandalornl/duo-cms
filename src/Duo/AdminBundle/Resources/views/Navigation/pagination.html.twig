@@ -1,93 +1,91 @@
-{% if paginator.canPaginate() %}
-	{% set pageCount = paginator.getPageCount() %}
-	<nav aria-label="{{ 'duo.admin.paginator.label' | trans }}">
-		<ul class="pagination justify-content-end">
+{% set pageCount = paginator.getPageCount() %}
+<nav aria-label="{{ 'duo.admin.paginator.label' | trans }}">
+	<ul class="pagination justify-content-end">
 
-			{% set previous = paginator.getPreviousPage() %}
-			{% if paginator.page <= 1 %}
-				<li class="page-item disabled">
-					<span class="page-link" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
-						<span aria-hidden="true">&lsaquo;</span>
-						<span class="sr-only">
-							{{- 'duo.admin.paginator.previous' | trans -}}
-						</span>
+		{% set previous = paginator.getPreviousPage() %}
+		{% if paginator.page <= 1 %}
+			<li class="page-item disabled">
+				<span class="page-link" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
+					<span aria-hidden="true">&lsaquo;</span>
+					<span class="sr-only">
+						{{- 'duo.admin.paginator.previous' | trans -}}
 					</span>
-				</li>
-			{% else %}
-				<li class="page-item">
-					<a class="page-link" href="{{ url }}{% if previous > 1 %}?page={{ previous }}{% endif %}" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
-						<span aria-hidden="true">&lsaquo;</span>
-						<span class="sr-only">
-							{{- 'duo.admin.paginator.previous' | trans -}}
-						</span>
-					</a>
-				</li>
-			{% endif %}
-
-			{% set hideBegin = paginator.getHideBegin() %}
-			{% if hideBegin >= 1 %}
-				<li class="page-item d-none d-sm-block">
-					<a href="{{ url }}" class="page-link">1</a>
-				</li>
-				{% if hideBegin >= 2 %}
-					<li class="page-item d-none d-sm-block">
-						<span class="page-link">...</span>
-					</li>
-				{% endif %}
-			{% endif %}
-
-			{% set begin = paginator.getBegin() %}
-			{% set end = paginator.getEnd() %}
-
-			{% for page in begin..end %}
-				<li class="page-item{% if paginator.page == page %} active{% endif %}">
-					{%- if paginator.page == page %}
-						<span class="page-link">
-							{{- page -}}
-							<span class="sr-only"> ({{ 'duo.admin.paginator.current' | trans }})</span>
-						</span>
-					{% else %}
-						<a href="{{ url }}{% if page > 1 %}?page={{ page }}{% endif %}" class="page-link">
-							{{- page -}}
-						</a>
-					{% endif -%}
-				</li>
-			{% endfor %}
-
-			{% set hideEnd = paginator.getHideEnd() %}
-			{% if hideEnd >= 1 %}
-				{% if hideEnd >= 2 %}
-					<li class="page-item d-none d-sm-block">
-						<span class="page-link">...</span>
-					</li>
-				{% endif %}
-				<li class="page-item d-none d-sm-block">
-					<a href="{{ url }}?page={{ pageCount }}" class="page-link">
-						{{- pageCount -}}
-					</a>
-				</li>
-			{% endif %}
-
-			{% set next = paginator.getNextPage() %}
-			{% if paginator.page >= pageCount %}
-				<li class="page-item disabled">
-					<span class="page-link" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
-						<span aria-hidden="true">&rsaquo;</span>
-						<span class="sr-only">
-							{{- 'duo.admin.paginator.next' | trans -}}
-						</span>
+				</span>
+			</li>
+		{% else %}
+			<li class="page-item">
+				<a class="page-link" href="{{ url }}{% if previous > 1 %}?page={{ previous }}{% endif %}" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
+					<span aria-hidden="true">&lsaquo;</span>
+					<span class="sr-only">
+						{{- 'duo.admin.paginator.previous' | trans -}}
 					</span>
-				</li>
-			{% else %}
-				<li class="page-item">
-					<a class="page-link" href="{{ url }}?page={{ next }}" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
-						<span aria-hidden="true">&rsaquo;</span>
-						<span class="sr-only">
-							{{- 'duo.admin.paginator.next' | trans -}}
-						</span>
-					</a>
+				</a>
+			</li>
+		{% endif %}
+
+		{% set hideBegin = paginator.getHideBegin() %}
+		{% if hideBegin >= 1 %}
+			<li class="page-item d-none d-sm-block">
+				<a href="{{ url }}" class="page-link">1</a>
+			</li>
+			{% if hideBegin >= 2 %}
+				<li class="page-item d-none d-sm-block">
+					<span class="page-link">...</span>
 				</li>
 			{% endif %}
-		</ul>
-	</nav>
-{% endif %}
+		{% endif %}
+
+		{% set begin = paginator.getBegin() %}
+		{% set end = paginator.getEnd() %}
+
+		{% for page in begin..end %}
+			<li class="page-item{% if paginator.page == page %} active{% endif %}">
+				{%- if paginator.page == page %}
+					<span class="page-link">
+						{{- page -}}
+						<span class="sr-only"> ({{ 'duo.admin.paginator.current' | trans }})</span>
+					</span>
+				{% else %}
+					<a href="{{ url }}{% if page > 1 %}?page={{ page }}{% endif %}" class="page-link">
+						{{- page -}}
+					</a>
+				{% endif -%}
+			</li>
+		{% endfor %}
+
+		{% set hideEnd = paginator.getHideEnd() %}
+		{% if hideEnd >= 1 %}
+			{% if hideEnd >= 2 %}
+				<li class="page-item d-none d-sm-block">
+					<span class="page-link">...</span>
+				</li>
+			{% endif %}
+			<li class="page-item d-none d-sm-block">
+				<a href="{{ url }}?page={{ pageCount }}" class="page-link">
+					{{- pageCount -}}
+				</a>
+			</li>
+		{% endif %}
+
+		{% set next = paginator.getNextPage() %}
+		{% if paginator.page >= pageCount %}
+			<li class="page-item disabled">
+				<span class="page-link" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
+					<span aria-hidden="true">&rsaquo;</span>
+					<span class="sr-only">
+						{{- 'duo.admin.paginator.next' | trans -}}
+					</span>
+				</span>
+			</li>
+		{% else %}
+			<li class="page-item">
+				<a class="page-link" href="{{ url }}?page={{ next }}" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
+					<span aria-hidden="true">&rsaquo;</span>
+					<span class="sr-only">
+						{{- 'duo.admin.paginator.next' | trans -}}
+					</span>
+				</a>
+			</li>
+		{% endif %}
+	</ul>
+</nav>

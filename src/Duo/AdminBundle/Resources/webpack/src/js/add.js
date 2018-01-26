@@ -58,6 +58,46 @@ $(() =>
 		$form.submit();
 	});
 
+	const $invalid = $form.find('.is-invalid');
+	if ($invalid.length)
+	{
+		// open any tabs with first invalid field
+		let $tabPane = $invalid.first().closest('.tab-pane:not(:visible)');
+
+		do
+		{
+			const $anchor = $(`[href="#${$tabPane.attr('id')}"]`);
+			$anchor.tab('show');
+
+			const $option = $(`option[value="#${$anchor.attr('id')}"]`);
+			$option.closest('select').find('option').not($option).prop('selected', false);
+			$option.prop('selected', true);
+
+			$tabPane = $tabPane.closest('.tab-content').closest('.tab-pane');
+		} while ($tabPane.length);
+
+		// focus first invalid field
+		window.setTimeout(() =>
+		{
+			$invalid.first().focus();
+		}, 250);
+
+		// add badge to tab
+		$form.find('.tab-pane').each(function()
+		{
+			const $this = $(this);
+
+			const $invalid = $this.find('.is-invalid');
+			if (!$invalid.length)
+			{
+				return;
+			}
+
+			const $anchor = $(`[href="#${$this.attr('id')}"]`);
+			$anchor.append(`<span class="badge badge-danger">${$invalid.length}</span>`);
+		});
+	}
+
 	datePicker.init();
 	select2.init();
 	autoComplete.init();

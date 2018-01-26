@@ -3,6 +3,7 @@ import $ from 'jquery';
 import '../jquery/sortable';
 import * as wysiwyg from '../assets/wysiwyg';
 import * as autoComplete from '../assets/autocomplete';
+import {get} from '../api';
 
 /**
  * Initialize
@@ -43,7 +44,7 @@ const init = (selector = '.part-list') =>
 		 */
 		const toggleButton = () =>
 		{
-			$this.find('button[data-toggle="modal"]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
+			$this.find('button[data-url]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
 		};
 
 		$list.on('click', '[data-dismiss="part-item"]', function(e)
@@ -64,21 +65,38 @@ const init = (selector = '.part-list') =>
 			toggleButton();
 		});
 
-		const $modal = $this.find('.modal').appendTo('body');
-		$modal.on('click', 'button[data-prototype]', function(e)
+		let $modal;
+
+		$this.on('click', 'button[data-url]', async function()
 		{
-			e.preventDefault();
+			const $this = $(this);
 
-			const $item = $($(this).data('prototype').split('__name__').join(newIndex++));
-			$list.append($item);
-			$list.sortable();
+			if (!$modal)
+			{
+				const html = await get($this.data('url'));
 
-			// init assets
-			wysiwyg.init({}, $item.find('.wysiwyg'));
-			autoComplete.init({}, $item.find('.autocomplete'));
+				$modal = $(html);
+				$modal.appendTo('body');
+				$modal.on('click', 'button[data-prototype]', function()
+				{
+					let prototype = $(this).data('prototype').split('__name__').join(newIndex++);
+					prototype = prototype.replace(/\w+_part_collection_/g, `${$this.data('prototype-id')}_`);
+					prototype = prototype.replace(/\w+_part_collection\[/g, `${$this.data('prototype-name')}[`);
 
-			updateWeight();
-			toggleButton();
+					const $item = $(prototype);
+					$list.append($item);
+					$list.sortable();
+
+					// init assets
+					wysiwyg.init({}, $item.find('.wysiwyg'));
+					autoComplete.init({}, $item.find('.autocomplete'));
+
+					updateWeight();
+					toggleButton();
+				});
+			}
+
+			$modal.modal('show');
 		});
 
 		$list.sortable().on('sortupdate', updateWeight);

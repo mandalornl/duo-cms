@@ -39,6 +39,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 		}
 
 		$view->vars['icons'] = $icons;
+		$view->vars['modal_route'] = $this->getModalRoute();
 	}
 
 	/**
@@ -54,8 +55,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 				'label' => $label,
 				'label_attr' => [
 					'class' => 'sortable-move'
-				],
-				'required' => false
+				]
 			];
 		}, $types);
 
@@ -76,4 +76,11 @@ abstract class AbstractPartCollectionType extends AbstractType
 	{
 		return PolyCollectionType::class;
 	}
+
+	/**
+	 * Get modal route
+	 *
+	 * @return string
+	 */
+	abstract protected function getModalRoute(): string;
 }

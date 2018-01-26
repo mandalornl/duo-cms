@@ -7,6 +7,7 @@ use Duo\FormBundle\Form\FormAutoCompleteType;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class FormPagePartType extends AbstractPartType
 {
@@ -19,7 +20,9 @@ class FormPagePartType extends AbstractPartType
 
 		$builder->add('form', FormAutoCompleteType::class, [
 			'label' => false,
-			'required' => false
+			'constraints' => [
+				new NotBlank()
+			]
 		]);
 	}
 

@@ -32,7 +32,7 @@ class RoleListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return RoleListingType::class;
 	}

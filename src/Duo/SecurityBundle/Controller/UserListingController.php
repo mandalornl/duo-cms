@@ -33,7 +33,7 @@ class UserListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return UserListingType::class;
 	}

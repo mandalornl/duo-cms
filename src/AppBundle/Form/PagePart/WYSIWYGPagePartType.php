@@ -3,10 +3,11 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\WYSIWYGPagePart;
+use Duo\AdminBundle\Form\WYSIWYGType;
 use Duo\PageBundle\Form\AbstractPagePartType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class WYSIWYGPagePartType extends AbstractPagePartType
 {
@@ -17,12 +18,10 @@ class WYSIWYGPagePartType extends AbstractPagePartType
 	{
 		parent::buildForm($builder, $options);
 
-		$builder->add('value', TextareaType::class, [
+		$builder->add('value', WYSIWYGType::class, [
 			'label' => false,
-			'required' => false,
-			'attr' => [
-				'class' => 'wysiwyg',
-				'rows' => 6
+			'constraints' => [
+				new NotBlank()
 			]
 		]);
 	}

@@ -10,6 +10,18 @@
 	align-items: center;
 }
 
+.nav-tabs .nav-link
+{
+	display: flex;
+
+	align-items: center;
+
+	.badge
+	{
+		margin-left: .25rem;
+	}
+}
+
 @include media-breakpoint-up(sm)
 {
 	.nav-tabs

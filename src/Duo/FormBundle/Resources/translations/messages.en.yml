@@ -1,5 +1,7 @@
 duo:
     form:
+        open_form: View form
+
         tab:
             content: Content
             properties: Properties
@@ -8,6 +10,7 @@ duo:
 
         menu:
             forms: Forms
+            results: Results
 
         listing:
             field:

@@ -7,3 +7,8 @@ duo_page_autocomplete:
     resource: '@DuoPageBundle/Controller/PageAutoCompleteController.php'
     type: annotation
     prefix: /page/autocomplete
+
+duo_page_part_modal:
+    resource: '@DuoPageBundle/Controller/PagePartModalController.php'
+    type: annotation
+    prefix: /page-part/modal

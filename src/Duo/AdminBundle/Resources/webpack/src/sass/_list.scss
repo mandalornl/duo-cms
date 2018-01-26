@@ -40,6 +40,20 @@
 			margin-right: 0;
 		}
 	}
+
+	.sortable a
+	{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		text-decoration: none;
+
+		i
+		{
+			margin-left: .5rem;
+		}
+	}
 }
 
 .listing-filter
@@ -64,6 +78,29 @@
 			background: #fafafa;
 
 			box-shadow: inset 0 0 10px 0 rgba(#000, .1);
+		}
+	}
+}
+
+.listing-pagination
+{
+	background: #fff;
+
+	@include media-breakpoint-up(sm)
+	{
+		nav
+		{
+			padding: 1rem;
+
+			ul
+			{
+				margin: 0;
+			}
+		}
+
+		&:last-child nav
+		{
+			padding-top: 0;
 		}
 	}
 }

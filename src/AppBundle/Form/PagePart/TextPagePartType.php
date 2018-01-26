@@ -7,6 +7,7 @@ use Duo\PageBundle\Form\AbstractPagePartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TextPagePartType extends AbstractPagePartType
 {
@@ -19,9 +20,11 @@ class TextPagePartType extends AbstractPagePartType
 
 		$builder->add('value', TextareaType::class, [
 			'label' => false,
-			'required' => false,
 			'attr' => [
 				'rows' => 6
+			],
+			'constraints' => [
+				new NotBlank()
 			]
 		]);
 	}

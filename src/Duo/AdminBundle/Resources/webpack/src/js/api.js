@@ -12,6 +12,7 @@ const handleResponse = async (response) =>
 	if (response.status !== 200)
 	{
 		console.log('Fetch error, resulted with status code: %s', response.status);
+
 		return null;
 	}
 
@@ -20,10 +21,11 @@ const handleResponse = async (response) =>
 	if (data.error)
 	{
 		console.error(data.error);
+
 		return null;
 	}
 
-	return data.result;
+	return data;
 };
 
 /**
@@ -50,6 +52,7 @@ const get = async (uri, parameters = null) =>
 	catch (err)
 	{
 		console.error(err);
+
 		return null;
 	}
 };
@@ -93,6 +96,7 @@ const post = async (uri, body = {}) =>
 	catch (err)
 	{
 		console.error(err);
+
 		return null;
 	}
 };

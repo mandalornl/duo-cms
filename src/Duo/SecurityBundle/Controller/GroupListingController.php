@@ -32,7 +32,7 @@ class GroupListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return GroupListingType::class;
 	}

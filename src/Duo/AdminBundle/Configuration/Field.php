@@ -17,12 +17,17 @@ class Field implements FieldInterface
 	/**
 	 * @var bool
 	 */
-	private $sortable = true;
+	private $sortable;
 
 	/**
 	 * @var string
 	 */
 	private $template;
+
+	/**
+	 * @var string
+	 */
+	private $alias;
 
 	/**
 	 * Field constructor
@@ -31,13 +36,19 @@ class Field implements FieldInterface
 	 * @param string $label
 	 * @param bool $sortable [optional]
 	 * @param string $template [optional]
+	 * @param string $alias [optional]
 	 */
-	public function __construct(string $property, string $label, bool $sortable = true, string $template = null)
+	public function __construct(string $property,
+								string $label,
+								bool $sortable = true,
+								string $template = null,
+								string $alias = 'e')
 	{
 		$this->property = $property;
 		$this->label = $label;
 		$this->sortable = $sortable;
 		$this->template = $template;
+		$this->alias = $alias;
 	}
 
 	/**
@@ -110,5 +121,23 @@ class Field implements FieldInterface
 	public function getTemplate(): ?string
 	{
 		return $this->template;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setAlias(string $alias): FieldInterface
+	{
+		$this->alias = $alias;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getAlias(): string
+	{
+		return $this->alias;
 	}
 }

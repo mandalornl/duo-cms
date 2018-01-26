@@ -5,6 +5,7 @@ namespace Duo\PageBundle\Form;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 abstract class AbstractPagePartType extends AbstractPartType
 {
@@ -17,7 +18,9 @@ abstract class AbstractPagePartType extends AbstractPartType
 
 		$builder->add('value', TextType::class, [
 			'label' => false,
-			'required' => false
+			'constraints' => [
+				new NotBlank()
+			]
 		]);
 	}
 }

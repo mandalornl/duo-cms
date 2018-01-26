@@ -32,7 +32,7 @@ class TaxonomyListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return TaxonomyListingType::class;
 	}
@@ -62,7 +62,7 @@ class TaxonomyListingController extends AbstractListingController
 	protected function defineFields(): void
 	{
 		$this
-			->addField(new Field('name', 'duo.taxonomy.listing.field.name'))
+			->addField(new Field('name', 'duo.taxonomy.listing.field.name', true, null, 't'))
 			->addField(new Field('createdAt', 'duo.taxonomy.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.taxonomy.listing.field.modified_at'));
 	}

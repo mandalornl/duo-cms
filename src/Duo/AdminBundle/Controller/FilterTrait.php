@@ -65,6 +65,7 @@ trait FilterTrait
 	 * @Method({"POST", "GET"})
 	 *
 	 * @param Request $request
+	 *
 	 * @return RedirectResponse
 	 *
 	 * @throws AnnotationException
@@ -144,7 +145,7 @@ trait FilterTrait
 	 * @param Request $request
 	 * @param QueryBuilder $builder
 	 */
-	protected function applyFilters(Request $request, QueryBuilder $builder)
+	protected function applyFilters(Request $request, QueryBuilder $builder): void
 	{
 		/**
 		 * @var AbstractListingController $this

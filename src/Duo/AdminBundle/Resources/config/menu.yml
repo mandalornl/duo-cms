@@ -10,8 +10,14 @@ media:
 
 forms:
     label: duo.form.menu.forms
-    route: duo_form_listing_form_index
     icon: icon-clipboard
+    children:
+        forms:
+            label: duo.form.menu.forms
+            route: duo_form_listing_form_index
+        submission:
+            label: duo.form.menu.results
+            route: duo_form_listing_submission_index
 
 security:
     label: duo.security.menu.security

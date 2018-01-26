@@ -101,12 +101,10 @@ trait RevisionTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true,
-					'id' => $entity->getId(),
-					'message' => $this->get('translator')->trans('duo.behavior.listing.alert.revert_success')
-				]
+			return $this->json([
+				'success' => true,
+				'id' => $entity->getId(),
+				'message' => $this->get('translator')->trans('duo.behavior.listing.alert.revert_success')
 			]);
 		}
 
@@ -133,11 +131,8 @@ trait RevisionTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => false,
-					'error' => $error
-				]
+			return $this->json([
+				'error' => $error
 			]);
 		}
 

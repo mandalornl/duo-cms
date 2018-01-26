@@ -140,10 +140,8 @@ trait SortTrait
 		/// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true
-				]
+			return $this->json([
+				'success' => true
 			]);
 		}
 
@@ -261,10 +259,8 @@ trait SortTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true
-				]
+			return $this->json([
+				'success' => true
 			]);
 		}
 
@@ -290,11 +286,8 @@ trait SortTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => false,
-					'error' => $error
-				]
+			return $this->json([
+				'error' => $error
 			]);
 		}
 

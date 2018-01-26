@@ -6,7 +6,7 @@ duo_form_listing_form:
 duo_form_listing_submission:
     resource: '@DuoFormBundle/Controller/FormSubmissionListingController.php'
     type: annotation
-    prefix: /form/submission
+    prefix: /form-submission
 
 duo_form_autocomplete:
     resource: '@DuoFormBundle/Controller/FormAutoCompleteController.php'
@@ -17,3 +17,8 @@ duo_form_view:
     resource: '@DuoFormBundle/Controller/FormViewController.php'
     type: annotation
     prefix: /form/view
+
+duo_form_part_modal:
+    resource: '@DuoFormBundle/Controller/FormPartModalController.php'
+    type: annotation
+    prefix: /form-part/modal

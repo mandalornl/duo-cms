@@ -28,9 +28,9 @@ class FormSubmissionListingController extends AbstractListingController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
-		return '';
+		return null;
 	}
 
 	/**

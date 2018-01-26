@@ -36,7 +36,7 @@ class FormListingController extends AbstractListingController implements Duplica
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getFormType(): string
+	protected function getFormType(): ?string
 	{
 		return FormListingType::class;
 	}

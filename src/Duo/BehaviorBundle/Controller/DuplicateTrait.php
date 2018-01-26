@@ -52,11 +52,9 @@ trait DuplicateTrait
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
-			return new JsonResponse([
-				'result' => [
-					'success' => true,
-					'id' => $clone->getId()
-				]
+			return $this->json([
+				'success' => true,
+				'id' => $clone->getId()
 			]);
 		}
 

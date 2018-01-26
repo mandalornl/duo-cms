@@ -39,21 +39,31 @@ class FormViewController extends Controller
 	 */
 	public function viewAction(Request $request, int $id): JsonResponse
 	{
-		$entity = $this->getDoctrine()->getRepository(Form::class)->find($id);
+		$class = Form::class;
+
+		/**
+		 * @var Form $entity
+		 */
+		$entity = $this->getDoctrine()->getRepository($class)->find($id);
 
 		if ($entity === null)
 		{
-			$class = Form::class;
-
 			return $this->json([
-				'result' => [
-					'success' => false,
-					'error' => "Entity '{$class}:{$id}' not found"
-				]
+				'error' => "Entity '{$class}::{$id}' not found"
 			]);
 		}
 
 		$formParts = $this->getFormParts($request, $entity);
+
+		if ($formParts === null)
+		{
+			$interface = EntityPartInterface::class;
+			$error = "Entity '{$class}::{$id}' doesn't implement '{$interface}'";
+
+			return $this->json([
+				'error' => $error
+			]);
+		}
 
 		$form = $this->createForm(FormViewType::class, null, [
 			'action' => $this->generateUrl('duo_form_view_form', [
@@ -105,20 +115,16 @@ class FormViewController extends Controller
 			$this->get('mailer')->send($message);
 
 			return $this->json([
-				'result' => [
-					'success' => true,
-					'message' => $translation->getMessage()
-				]
+				'success' => true,
+				'message' => $translation->getMessage()
 			]);
 		}
 
-		return $this->json([
-			'result' => [
-				'html' => $this->renderView('@DuoForm/Form/view.html.twig', [
-					'form' => $form->createView()
-				])
-			]
-		]);
+		return $this->json(
+			$this->renderView('@DuoForm/Form/view.html.twig', [
+				'form' => $form->createView()
+			])
+		);
 	}
 
 	/**
@@ -131,13 +137,18 @@ class FormViewController extends Controller
 	 */
 	private function getFormParts(Request $request, Form $entity): ArrayCollection
 	{
-		if ($entity instanceof TranslateInterface)
+		if (!$entity instanceof EntityPartInterface)
 		{
-			$translation = $entity->translate($request->getLocale());
-			if ($translation instanceof EntityPartInterface)
+			if ($entity instanceof TranslateInterface)
 			{
-				return $translation->getParts();
+				$translation = $entity->translate($request->getLocale());
+				if ($translation instanceof EntityPartInterface)
+				{
+					return $translation->getParts();
+				}
 			}
+
+			return null;
 		}
 
 		/**
