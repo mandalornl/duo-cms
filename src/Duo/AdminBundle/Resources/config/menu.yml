@@ -1,12 +1,18 @@
-pages:
-    label: duo.page.menu.pages
-    route: duo_page_listing_page_index
-    icon: icon-files-empty
-
-media:
-    label: Media
-    url: javascript:; #/admin/media
-    icon: icon-images
+content:
+    label: Content
+    children:
+        pages:
+            label: duo.page.menu.pages
+            route: duo_page_listing_page_index
+            icon: icon-files-empty
+        menu:
+            label: Menu
+            route: duo_page_tree_menu
+            icon: icon-tree
+        media:
+            label: Media
+            url: javascript:; #/admin/media
+            icon: icon-images
 
 forms:
     label: duo.form.menu.forms

@@ -12,3 +12,8 @@ duo_page_part_modal:
     resource: '@DuoPageBundle/Controller/PagePartModalController.php'
     type: annotation
     prefix: /page-part/modal
+
+duo_page_tree:
+    resource: '@DuoPageBundle/Controller/PageTreeController.php'
+    type: annotation
+    prefix: /page

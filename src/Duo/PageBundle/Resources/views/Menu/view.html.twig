@@ -1,0 +1,13 @@
+{% extends '@DuoAdmin/index.html.twig' %}
+
+{% block bodyClass %}page-tree{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-xl-10">
+			<div class="dd nestable-tree">
+				{% include '@DuoPage/Menu/tree.html.twig' with { pages: pages } %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

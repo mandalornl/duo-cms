@@ -360,59 +360,59 @@ class TestFixtures extends Fixture
 			$this->manager->flush();
 		}
 
-//		if (($page = $repository->findOneBy(['name' => 'foobar-1'])) === null)
-//		{
-//			for ($i = 1; $i <= 100; $i++)
-//			{
-//				$page = new Page();
-//				$page->setName("foobar-{$i}");
-//				$page->setCreatedBy($user);
-//				$page->setWeight($i);
-//
-//				$page->translate('nl')
-//					->setTitle("Foobar {$i}")
-//					->publish()
-//					->setPublishedBy($user)
-//					->addPart(
-//						(new HeadingPagePart())
-//							->setType('h1')
-//							->setValue("Foobar {$i}")
-//							->setCreatedBy($user)
-//					)
-//					->addPart(
-//						(new WYSIWYGPagePart())
-//							->setValue("<p>Dit is foobar {$i}.</p>")
-//							->setCreatedBy($user)
-//					);
-//
-//				$page->translate('en')
-//					->setTitle("Foobar {$i}")
-//					->publish()
-//					->setPublishedBy($user)
-//					->addPart(
-//						(new HeadingPagePart())
-//							->setType('h1')
-//							->setValue("Foobar {$i}")
-//							->setCreatedBy($user)
-//					)
-//					->addPart(
-//						(new WYSIWYGPagePart())
-//							->setValue("<p>This is foobar {$i}.</p>")
-//							->setCreatedBy($user)
-//					);
-//
-//				$page->mergeNewTranslations();
-//
-//				foreach ($taxonomies as $taxonomy)
-//				{
-//					$page->addTaxonomy($taxonomy);
-//				}
-//
-//				$this->manager->persist($page);
-//			}
-//
-//			$this->manager->flush();
-//		}
+		if (($page = $repository->findOneBy(['name' => 'foobar-1'])) === null)
+		{
+			for ($i = 1; $i <= 100; $i++)
+			{
+				$page = new Page();
+				$page->setName("foobar-{$i}");
+				$page->setCreatedBy($user);
+				$page->setWeight($i);
+
+				$page->translate('nl')
+					->setTitle("Foobar {$i}")
+					->publish()
+					->setPublishedBy($user)
+					->addPart(
+						(new HeadingPagePart())
+							->setType('h1')
+							->setValue("Foobar {$i}")
+							->setCreatedBy($user)
+					)
+					->addPart(
+						(new WYSIWYGPagePart())
+							->setValue("<p>Dit is foobar {$i}.</p>")
+							->setCreatedBy($user)
+					);
+
+				$page->translate('en')
+					->setTitle("Foobar {$i}")
+					->publish()
+					->setPublishedBy($user)
+					->addPart(
+						(new HeadingPagePart())
+							->setType('h1')
+							->setValue("Foobar {$i}")
+							->setCreatedBy($user)
+					)
+					->addPart(
+						(new WYSIWYGPagePart())
+							->setValue("<p>This is foobar {$i}.</p>")
+							->setCreatedBy($user)
+					);
+
+				$page->mergeNewTranslations();
+
+				foreach ($taxonomies as $taxonomy)
+				{
+					$page->addTaxonomy($taxonomy);
+				}
+
+				$this->manager->persist($page);
+			}
+
+			$this->manager->flush();
+		}
 
 		$this->manager->clear();
 	}

@@ -1,0 +1,12 @@
+{% if pages is iterable and pages | length %}
+	<ol class="dd-list">
+		{% for page in pages %}
+			<li class="dd-item" data-id="{{ page.id }}"{% if page.parent %} data-parent="{{ page.parent.id }}{% endif %}">
+				<div class="dd-handle">
+					{{- page.title -}}
+				</div>
+				{% include '@DuoPage/Menu/tree.html.twig' with { pages: page.children } %}
+			</li>
+		{% endfor %}
+	</ol>
+{% endif %}

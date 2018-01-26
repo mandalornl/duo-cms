@@ -28,6 +28,7 @@
 		"lodash": "^4.17.4",
 		"mjml": "^3.3.5",
 		"mobile-detect": "^1.4.1",
+		"nestable2": "^1.6.0",
 		"node-sass": "^4.5.3",
 		"popper.js": "^1.12.9",
 		"postcss-loader": "^2.0.6",
