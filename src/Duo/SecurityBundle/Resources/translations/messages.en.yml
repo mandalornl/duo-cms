@@ -31,7 +31,7 @@ duo:
                 username:
                     label: Username
                 password:
-                    labeL: Password
+                    label: Password
                 submit:
                     label: Login
                 remember_me:
