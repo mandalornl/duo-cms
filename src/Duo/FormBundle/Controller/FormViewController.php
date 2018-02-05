@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormPartInterface;
-use Duo\FormBundle\Entity\FormSubmission;
+use Duo\FormBundle\Entity\FormResult;
 use Duo\FormBundle\Entity\FormTranslation;
 use Duo\FormBundle\Form\FormViewType;
 use Duo\PartBundle\Entity\EntityPartInterface;
@@ -25,7 +25,7 @@ class FormViewController extends Controller
 	 * View action
 	 *
 	 * @Route("/{id}", name="form")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 * @param int $id
@@ -33,9 +33,6 @@ class FormViewController extends Controller
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
-	 * @throws \Twig_Error_Loader
-	 * @throws \Twig_Error_Runtime
-	 * @throws \Twig_Error_Syntax
 	 */
 	public function viewAction(Request $request, int $id): JsonResponse
 	{
@@ -91,7 +88,7 @@ class FormViewController extends Controller
 				$submissionData[$formPart->getLabel()] = trim($data[$index]);
 			}
 
-			$submission = (new FormSubmission())
+			$submission = (new FormResult())
 				->setName($entity->getName())
 				->setLocale($request->getLocale())
 				->setData($submissionData)
@@ -107,7 +104,7 @@ class FormViewController extends Controller
 			$translation = $entity->translate($request->getLocale());
 
 			$message = $this->get('duo.admin.mailer_helper')
-				->prepare('@DuoForm/Mail/form_submission.mjml.twig', [
+				->prepare('@DuoForm/Mail/form_result.mjml.twig', [
 					'submission' => $submission
 				])
 				->setTo($entity->getEmailTo());

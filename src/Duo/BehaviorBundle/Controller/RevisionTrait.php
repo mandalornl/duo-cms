@@ -2,7 +2,6 @@
 
 namespace Duo\BehaviorBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
@@ -25,7 +24,7 @@ trait RevisionTrait
 	 *
 	 * @return Response|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doRevisionAction(Request $request, int $id)
 	{
@@ -66,7 +65,7 @@ trait RevisionTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doRevertAction(Request $request, int $id)
 	{

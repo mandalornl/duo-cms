@@ -7,6 +7,7 @@ duo:
 
         menu:
             pages: Pagina's
+            page_tree: Paginaboom
 
         listing:
             field:

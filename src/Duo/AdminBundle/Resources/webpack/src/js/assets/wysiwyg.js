@@ -6,10 +6,10 @@ window.wysiwygEditors = window.wysiwygEditors || {};
 /**
  * Initialize wysiwyg editor
  *
- * @param {{}} [options = {}]
  * @param {string|jQuery|HTMLElement} [selector = '.wysiwyg']
+ * @param {{}} [options = {}]
  */
-const init = (options = {}, selector = '.wysiwyg') =>
+const init = (selector = '.wysiwyg', options = {}) =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 

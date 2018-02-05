@@ -3,11 +3,11 @@ import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 
-import * as datePicker from './assets/datepicker';
-import * as select2 from './assets/select2';
-import * as autoComplete from './assets/autocomplete';
+import datePicker from './assets/datepicker';
+import select2 from './assets/select2';
+import autoComplete from './assets/autocomplete';
+import partList from './assets/partlist';
 import * as wysiwyg from './assets/wysiwyg';
-import * as parts from './assets/parts';
 import * as doNotLeave from './util/donotleave';
 
 $(() =>
@@ -98,9 +98,9 @@ $(() =>
 		});
 	}
 
-	datePicker.init();
-	select2.init();
-	autoComplete.init();
+	datePicker();
+	select2();
+	autoComplete();
+	partList();
 	wysiwyg.init();
-	parts.init();
 });

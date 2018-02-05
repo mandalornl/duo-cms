@@ -1,0 +1,14 @@
+duo_media_folder:
+    resource: '@DuoMediaBundle/Controller/FolderController.php'
+    type: annotation
+    prefix: /media/folder
+
+duo_media_file:
+    resource: '@DuoMediaBundle/Controller/FileController.php'
+    type: annotation
+    prefix: /media/file
+
+duo_media_autocomplete:
+    resource: '@DuoMediaBundle/Controller/FolderAutoCompleteController.php'
+    type: annotation
+    prefix: /media/folder/autocomplete

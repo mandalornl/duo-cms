@@ -19,7 +19,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	 * Search url action
 	 *
 	 * @Route("/url", name="url")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 *

@@ -30,7 +30,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
 	 *
 	 * @return UserInterface
 	 *
-	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	public function findOneByPasswordToken(string $token): ?UserInterface
 	{

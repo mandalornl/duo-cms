@@ -62,6 +62,7 @@ class UserSubscriber implements EventSubscriber
 
 		$this->setUsername($entity);
 		$this->setPassword($entity);
+		$this->setEmail($entity);
 	}
 
 	/**
@@ -80,6 +81,7 @@ class UserSubscriber implements EventSubscriber
 
 		$this->setUsername($entity);
 		$this->setPassword($entity);
+		$this->setEmail($entity);
 	}
 
 	/**
@@ -87,13 +89,15 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param UserInterface $entity
 	 */
-	public function setPassword(UserInterface $entity)
+	private function setPassword(UserInterface $entity)
 	{
-		if (($plainPassword = $entity->getPlainPassword()) !== null)
+		if (($plainPassword = $entity->getPlainPassword()) === null)
 		{
-			$password = $this->encoder->encodePassword($entity, $plainPassword);
-			$entity->setPassword($password);
+			return;
 		}
+
+		$password = $this->encoder->encodePassword($entity, $plainPassword);
+		$entity->setPassword($password);
 	}
 
 	/**
@@ -101,7 +105,7 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param UserInterface $entity
 	 */
-	public function setUsername(UserInterface $entity)
+	private function setUsername(UserInterface $entity)
 	{
 		$errors = $this->validator->validate(
 			$entity->getUsername(),
@@ -113,5 +117,20 @@ class UserSubscriber implements EventSubscriber
 			$username = mb_strtolower($entity->getUsername(), 'UTF-8');
 			$entity->setUsername($username);
 		}
+	}
+
+	/**
+	 * Set email
+	 *
+	 * @param UserInterface $entity
+	 */
+	private function setEmail(UserInterface $entity)
+	{
+		if (($email = $entity->getEmail()) === null)
+		{
+			return;
+		}
+
+		$entity->setEmail(mb_strtolower($email, 'UTF-8'));
 	}
 }

@@ -1,0 +1,28 @@
+duo:
+    media:
+        menu:
+            media: Media
+
+        listing:
+            field:
+                name: Naam
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
+            filter:
+                name: Naam
+                created: Aangemaakt
+                modified: Gewijzigd
+
+        form:
+            file:
+                name:
+                    label: Naam
+                folder:
+                    label: Map
+                file:
+                    label: Bestand
+
+            folder_autocomplete:
+                label: Map
+                placeholder: Voer url of naam in

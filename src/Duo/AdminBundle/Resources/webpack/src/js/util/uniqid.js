@@ -1,11 +1,11 @@
 /**
- * Generate
+ * Generate uniqid
  *
  * @returns {string}
  */
-const generate = () =>
+const uniqid = () =>
 {
 	return Math.random().toString(36).substr(2, 10);
 };
 
-export {generate};
+export default uniqid;

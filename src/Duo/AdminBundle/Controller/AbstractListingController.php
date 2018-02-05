@@ -2,7 +2,6 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -47,7 +46,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return Response
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
@@ -76,7 +75,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return TwigContext
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function getDefaultContext(array $context = []): TwigContext
 	{
@@ -93,6 +92,8 @@ abstract class AbstractListingController extends FrameworkController
 	 * Get list behaviors
 	 *
 	 * @return array
+	 *
+	 * @throws \Throwable
 	 */
 	private function getListBehaviors()
 	{
@@ -110,6 +111,8 @@ abstract class AbstractListingController extends FrameworkController
 	 * @param Request $request
 	 *
 	 * @return PaginatorHelper
+	 *
+	 * @throws \Throwable
 	 */
 	protected function getPaginator(Request $request): PaginatorHelper
 	{
@@ -169,7 +172,6 @@ abstract class AbstractListingController extends FrameworkController
 		return (new PaginatorHelper($builder))
 			->setPage($page)
 			->setLimit($limit)
-			->setAdjacent(2)
 			->createView();
 	}
 
@@ -180,7 +182,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return Response|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doAddAction(Request $request)
 	{
@@ -226,7 +228,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return Response|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doEditAction(Request $request, int $id)
 	{
@@ -254,7 +256,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return Response|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function handleEditEntityRequest(Request $request, $entity)
 	{
@@ -319,7 +321,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return Response|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function handleEditRevisionRequest(Request $request, Entity\RevisionInterface $entity)
 	{
@@ -407,7 +409,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doDestroyAction(Request $request, int $id = null)
 	{
@@ -427,7 +429,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return JsonResponse|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	private function handleDestroyRequest(Request $request, int $id)
 	{
@@ -463,7 +465,7 @@ abstract class AbstractListingController extends FrameworkController
 	 *
 	 * @return JsonResponse|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	private function handleMultiDestroyRequest(Request $request)
 	{

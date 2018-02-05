@@ -1,0 +1,28 @@
+duo:
+    media:
+        menu:
+            media: Media
+
+        listing:
+            field:
+                name: Name
+                created_at: Created at
+                modified_at: Modified at
+
+            filter:
+                name: Name
+                created: Created
+                modified: Modified
+
+        form:
+            file:
+                name:
+                    label: Name
+                folder:
+                    label: Folder
+                file:
+                    label: File
+
+            folder_autocomplete:
+                label: Folder
+                placeholder: Enter url or name

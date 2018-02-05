@@ -22,7 +22,10 @@ class ForgotPasswordType extends AbstractType
 				]
 			])
 			->add('submit', SubmitType::class, [
-				'label' => 'duo.security.form.forgot_password.submit.label'
+				'label' => 'duo.security.form.forgot_password.submit.label',
+				'attr' => [
+					'class' => 'btn-primary btn-block'
+				]
 			]);
 	}
 }

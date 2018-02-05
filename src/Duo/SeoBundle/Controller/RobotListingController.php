@@ -2,7 +2,6 @@
 
 namespace Duo\SeoBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Duo\AdminBundle\Controller\RoutePrefixTrait;
 use Duo\SeoBundle\Entity\Robot;
 use Duo\SeoBundle\Form\RobotListingType;
@@ -33,7 +32,7 @@ class RobotListingController extends Controller
 	 *
 	 * @return Response|RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	public function indexAction(Request $request)
 	{

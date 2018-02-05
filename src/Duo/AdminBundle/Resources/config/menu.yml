@@ -6,12 +6,12 @@ content:
             route: duo_page_listing_page_index
             icon: icon-files-empty
         menu:
-            label: Menu
-            route: duo_page_tree_menu
+            label: duo.page.menu.page_tree
+            route: duo_page_tree_index
             icon: icon-tree
         media:
-            label: Media
-            url: javascript:; #/admin/media
+            label: duo.media.menu.media
+            route: duo_media_folder_index
             icon: icon-images
 
 forms:
@@ -23,7 +23,7 @@ forms:
             route: duo_form_listing_form_index
         submission:
             label: duo.form.menu.results
-            route: duo_form_listing_submission_index
+            route: duo_form_listing_result_index
 
 security:
     label: duo.security.menu.security

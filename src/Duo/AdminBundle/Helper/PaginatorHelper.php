@@ -25,7 +25,7 @@ class PaginatorHelper
 	/**
 	 * @var int
 	 */
-	private $adjacent = 3;
+	private $adjacent = 2;
 
 	/**
 	 * @var int

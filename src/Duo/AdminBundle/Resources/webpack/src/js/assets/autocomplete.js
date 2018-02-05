@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import 'select2';
 
-import {md} from '../util/mobiledetect';
+import md from '../util/mobiledetect';
 
 /**
  * Initialize autocomplete
  *
- * @param {{}} [options = {}]
  * @param {string|jQuery|HTMLElement} [selector = '.autocomplete']
+ * @param {{}} [options = {}]
  */
-const init = (options = {}, selector = '.autocomplete') =>
+const init = (selector = '.autocomplete', options = {}) =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -44,7 +44,6 @@ const init = (options = {}, selector = '.autocomplete') =>
 
 				processResults: (data, params) =>
 				{
-					console.log(data, params);
 					params.page = params.page || 1;
 
 					return {
@@ -61,4 +60,4 @@ const init = (options = {}, selector = '.autocomplete') =>
 	});
 };
 
-export {init};
+export default init;

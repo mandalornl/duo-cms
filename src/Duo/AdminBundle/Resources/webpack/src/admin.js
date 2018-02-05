@@ -5,5 +5,5 @@ import './js/list';
 import './js/add';
 import './js/edit';
 import './js/menu';
-import './js/tree';
+import './js/page-tree';
 import './js/sticky-navbar';

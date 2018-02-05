@@ -2,7 +2,6 @@
 
 namespace Duo\BehaviorBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
@@ -23,7 +22,7 @@ trait DeleteTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doDeleteAction(Request $request, int $id = null)
 	{
@@ -49,7 +48,7 @@ trait DeleteTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doUndeleteAction(Request $request, int $id = null)
 	{
@@ -78,7 +77,7 @@ trait DeleteTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	private function handleDeletionRequest(Request $request, int $id, \Closure $callback, string $eventName, string $message)
 	{
@@ -136,7 +135,7 @@ trait DeleteTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	private function handleMultiDeletionRequest(Request $request, \Closure $callback, string $eventName, string $message)
 	{

@@ -22,6 +22,8 @@ class TestTwigExtension extends \Twig_Extension
 	 * @param string $className
 	 *
 	 * @return bool
+	 *
+	 * @throws \Throwable
 	 */
 	public function isInstanceOf($object, string $className): bool
 	{

@@ -2,7 +2,6 @@
 
 namespace Duo\BehaviorBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
@@ -20,7 +19,7 @@ trait DuplicateTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doDuplicateAction(Request $request, int $id)
 	{

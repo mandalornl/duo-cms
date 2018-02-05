@@ -5,9 +5,9 @@
 {% block content %}
 	<div class="row">
 		<div class="col-xl-10">
-			<div class="dd nestable-tree">
+			<nav class="nestable">
 				{% include '@DuoPage/Menu/tree.html.twig' with { pages: pages } %}
-			</div>
+			</nav>
 		</div>
 	</div>
 {% endblock %}

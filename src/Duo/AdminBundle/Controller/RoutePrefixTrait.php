@@ -18,7 +18,7 @@ trait RoutePrefixTrait
 	 *
 	 * @return string
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function getRoutePrefix(): string
 	{

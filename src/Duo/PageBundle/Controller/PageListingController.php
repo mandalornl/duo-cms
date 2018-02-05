@@ -105,7 +105,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/add", name="add")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function addAction(Request $request)
 	{
@@ -116,7 +116,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function editAction(Request $request, int $id)
 	{
@@ -127,7 +127,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function destroyAction(Request $request, int $id = null)
 	{
@@ -138,7 +138,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/duplicate/{id}", name="duplicate", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function duplicateAction(Request $request, int $id)
 	{
@@ -149,7 +149,7 @@ class PageListingController extends AbstractListingController implements Duplica
      * {@inheritdoc}
      *
      * @Route("/revision/{id}/", name="revision", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
      */
     public function revisionAction(Request $request, int $id)
     {
@@ -160,7 +160,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/revert/{id}", name="revert", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
     public function revertAction(Request $request, int $id)
 	{
@@ -171,7 +171,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/delete/{id}", name="delete", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function deleteAction(Request $request, int $id = null)
 	{
@@ -182,7 +182,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/undelete/{id}", name="undelete", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function undeleteAction(Request $request, int $id = null)
 	{
@@ -193,7 +193,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/move-up/{id}", name="move_up", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function moveUpAction(Request $request, int $id)
 	{
@@ -204,7 +204,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/move-down/{id}", name="move_down", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function moveDownAction(Request $request, int $id)
 	{
@@ -219,7 +219,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 *     name="move_to",
 	 *     requirements={ "id" = "\d+", "weight" = "\d+", "parentId" = "\d+" }
 	 * )
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function moveToAction(Request $request, int $id, int $weight, int $parentId = null)
 	{
@@ -230,7 +230,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/publish/{id}", name="publish", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function publishAction(Request $request, int $id)
 	{
@@ -241,7 +241,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/unpublish/{id}", name="unpublish", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function unpublishAction(Request $request, int $id)
 	{

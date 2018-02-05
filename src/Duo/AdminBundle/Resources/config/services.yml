@@ -15,6 +15,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    duo.admin.breadcrumb_helper:
+        class: Duo\AdminBundle\Helper\BreadcrumbHelper
+        public: true
+
     duo.admin.locale_helper:
         class: Duo\AdminBundle\Helper\LocaleHelper
         public: true

@@ -3,6 +3,6 @@ duo:
         errors:
             role_used: Deze rol is al in gebruik
             name_used: Deze naam is al in gebruik
-            email_user: This email is already used
             username_used: Deze gebruikersnaam is al in gebruik
+            email_user: This email is already used
             password_mismatch: De wachtwoordvelden komen niet overeen

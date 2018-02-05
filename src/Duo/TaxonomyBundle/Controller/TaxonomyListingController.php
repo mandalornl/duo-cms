@@ -82,7 +82,7 @@ class TaxonomyListingController extends AbstractListingController
 	 * {@inheritdoc}
 	 *
 	 * @Route("/add", name="add")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function addAction(Request $request)
 	{
@@ -93,7 +93,7 @@ class TaxonomyListingController extends AbstractListingController
 	 * {@inheritdoc}
 	 *
 	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function editAction(Request $request, int $id)
 	{
@@ -104,7 +104,7 @@ class TaxonomyListingController extends AbstractListingController
 	 * {@inheritdoc}
 	 *
 	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function destroyAction(Request $request, int $id = null)
 	{

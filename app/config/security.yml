@@ -26,20 +26,20 @@ security:
             anonymous: ~
 
             form_login:
-                login_path: /admin/login
-                check_path: /admin/login
+                login_path: duo_security_login
+                check_path: duo_security_login
                 csrf_token_generator: security.csrf.token_manager
                 use_referer: true
                 remember_me: true
 
             logout:
-                path: /admin/logout
+                path: duo_security_logout
                 target: /admin
 
             remember_me:
                 secret: '%secret%'
                 lifetime: 604800 # 1 week
-                name: ADMIN_REMEMBERME
+                name: ADMIN_REMEMBER_ME
                 path: /admin
                 domain: ~
                 #secure: true

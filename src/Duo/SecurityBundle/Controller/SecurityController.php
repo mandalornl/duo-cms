@@ -12,7 +12,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * @Route(name="duo_security_")
@@ -23,7 +25,7 @@ class SecurityController extends Controller
 	 * Login
 	 *
 	 * @Route("/login", name="login")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 * @param AuthenticationUtils $utils
@@ -42,16 +44,13 @@ class SecurityController extends Controller
 	 * Forgot password
 	 *
 	 * @Route("/forgot-password", name="forgot_password")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 *
 	 * @return Response|RedirectResponse
 	 *
 	 * @throws \Throwable
-	 * @throws \Twig_Error_Loader
-	 * @throws \Twig_Error_Runtime
-	 * @throws \Twig_Error_Syntax
 	 */
 	public function forgotPasswordAction(Request $request)
 	{
@@ -80,7 +79,7 @@ class SecurityController extends Controller
 				}
 				else
 				{
-					$token = bin2hex(random_bytes(12));
+					$token = bin2hex(random_bytes(32));
 
 					$user
 						->setPasswordToken($token)
@@ -92,7 +91,7 @@ class SecurityController extends Controller
 
 					$message = $this->get('duo.admin.mailer_helper')
 						->prepare('@DuoSecurity/Mail/forgot_password.mjml.twig', [
-							'token' => $user->getPasswordToken()
+							'token' => $token
 						])
 						->setTo($user->getEmail());
 
@@ -118,7 +117,7 @@ class SecurityController extends Controller
 	 * Reset password
 	 *
 	 * @Route("/reset-password/{token}", name="reset_password")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 * @param string $token
@@ -126,9 +125,6 @@ class SecurityController extends Controller
 	 * @return Response|RedirectResponse
 	 *
 	 * @throws \Throwable
-	 * @throws \Twig_Error_Loader
-	 * @throws \Twig_Error_Runtime
-	 * @throws \Twig_Error_Syntax
 	 */
 	public function resetPasswordAction(Request $request, string $token)
 	{
@@ -140,6 +136,8 @@ class SecurityController extends Controller
 		// redirect to password forgot form on invalid token
 		if (!$repository->passwordTokenExists($token))
 		{
+			$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.reset_password.error_message'));
+
 			return $this->redirectToRoute('duo_security_forgot_password');
 		}
 
@@ -171,7 +169,13 @@ class SecurityController extends Controller
 
 				$this->addFlash('success', $this->get('translator')->trans('duo.security.form.reset_password.success_message'));
 
-				return $this->redirectToRoute('duo_security_login');
+				// log in automatically
+				$token = new UsernamePasswordToken($user, null, 'admin', $user->getRoles());
+				$this->get('security.token_storage')->setToken($token);
+
+				$this->get('event_dispatcher')->dispatch('security.interactive_login', new InteractiveLoginEvent($request, $token));
+
+				return $this->redirectToRoute('duo_admin_dashboard_index');
 			}
 
 			$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.reset_password.error_message'));

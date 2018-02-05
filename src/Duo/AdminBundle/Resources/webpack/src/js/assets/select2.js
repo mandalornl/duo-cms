@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import 'select2';
 
-import {md} from '../util/mobiledetect';
+import md from '../util/mobiledetect';
 
 // TODO: import proper i18n
 //import 'select2/dist/js/i18n/nl';
@@ -9,10 +9,10 @@ import {md} from '../util/mobiledetect';
 /**
  * Initialize select2
  *
- * @param {{}} [options = {}]
  * @param {string|jQuery|HTMLElement} [selector = '.select2']
+ * @param {{}} [options = {}]
  */
-const init = (options = {}, selector = '.select2') =>
+const init = (selector = '.select2', options = {}) =>
 {
 	if (md.mobile() || md.tablet())
 	{
@@ -42,4 +42,4 @@ const init = (options = {}, selector = '.select2') =>
 	});
 };
 
-export {init};
+export default init;

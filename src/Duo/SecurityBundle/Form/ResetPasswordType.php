@@ -32,7 +32,10 @@ class ResetPasswordType extends AbstractType
 				]
 			])
 			->add('submit', SubmitType::class, [
-				'label' => 'duo.security.form.reset_password.submit.label'
+				'label' => 'duo.security.form.reset_password.submit.label',
+				'attr' => [
+					'class' => 'btn-primary btn-block'
+				]
 			]);
 	}
 }

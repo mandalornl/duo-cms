@@ -16,4 +16,4 @@ duo_page_part_modal:
 duo_page_tree:
     resource: '@DuoPageBundle/Controller/PageTreeController.php'
     type: annotation
-    prefix: /page
+    prefix: /page-tree

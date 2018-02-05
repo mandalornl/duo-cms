@@ -42,9 +42,6 @@ class MailerHelper
 	 * @return \Swift_Message
 	 *
 	 * @throws \Throwable
-	 * @throws \Twig_Error_Loader
-	 * @throws \Twig_Error_Runtime
-	 * @throws \Twig_Error_Syntax
 	 */
 	public function prepare(string $template, array $parameters = []): \Swift_Message
 	{

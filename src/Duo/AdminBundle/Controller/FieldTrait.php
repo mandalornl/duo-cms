@@ -2,7 +2,6 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\FieldInterface;
@@ -60,7 +59,7 @@ trait FieldTrait
 	 * Sorting action
 	 *
 	 * @Route("/sorting/{sort}/{order}", name="sorting", requirements={ "order" = "asc|desc" }, defaults={ "order" = "asc" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 * @param string $sort [optional]
@@ -68,7 +67,7 @@ trait FieldTrait
 	 *
 	 * @return RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	public function sortingAction(Request $request, string $sort, string $order = 'asc'): RedirectResponse
 	{

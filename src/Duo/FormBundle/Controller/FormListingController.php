@@ -86,7 +86,7 @@ class FormListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/add", name="add")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function addAction(Request $request)
 	{
@@ -97,7 +97,7 @@ class FormListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function editAction(Request $request, int $id)
 	{
@@ -108,7 +108,7 @@ class FormListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function destroyAction(Request $request, int $id = null)
 	{
@@ -119,7 +119,7 @@ class FormListingController extends AbstractListingController implements Duplica
 	 * {@inheritdoc}
 	 *
 	 * @Route("/duplicate/{id}", name="duplicate", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function duplicateAction(Request $request, int $id)
 	{

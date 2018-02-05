@@ -1,155 +1,97 @@
-.dd
+.nestable
 {
-	position: relative;
-}
-
-.dd-list
-{
-	display: block;
-
-	position: relative;
-
-	list-style: none;
-
-	padding: 0;
-	margin: 0;
-
-	.dd-list
+	.nestable-list
 	{
-		padding-left: 2rem;
+		list-style: none;
+
+		margin: 0;
+		padding: 0;
+
+		.nestable-list
+		{
+			margin-left: 1.5rem;
+		}
 	}
-}
 
-.dd-item
-{
-	display: block;
-
-	position: relative;
-
-	> button
+	.nestable-text
 	{
-		@include appearance(none);
+		display: flex;
+		align-items: center;
+
+		padding: .5rem .75rem;
+
+		margin: .25rem 0;
+
+		color: $body-color;
+
+		border: 1px solid $gray-400;
+
+		background-color: $gray-100;
+
+		border-radius: .25rem;
+
+		transition: .2s ease-out;
+		transition-property: color, background-color, border-color, box-shadow;
+
+		&:hover
+		{
+			color: theme-color('primary');
+
+			background-color: #fff;
+		}
+
+		&.over
+		{
+			$color: theme-color('success');
+
+			background-color: lighten($color, 50%);
+
+			border-color: rgba($color, .2);
+
+			box-shadow: inset 0 0 10px 0 rgba($color, .2);
+		}
+	}
+
+	.nestable-btn
+	{
+		text-decoration: none;
+
+		color: $body-color;
+
+		margin-right: .5rem;
 
 		cursor: pointer;
-
-		float: left;
-
-		position: relative;
-		top: 0.5rem;
-		left: .5rem;
-
-		border: 0;
-		background: transparent;
-
-		width: 16px;
-
-		padding: 0;
-		margin: 0;
-
-		overflow: hidden;
-
-		white-space: nowrap;
-
-		&:before
-		{
-			margin-right: .25rem;
-		}
-
-		&.dd-expand:before
-		{
-			@include icomoon($icon-folder);
-		}
-
-		&.dd-collapse:before
-		{
-			@include icomoon($icon-folder-open);
-		}
-
-		& + .dd-handle
-		{
-			padding-left: 1.75rem;
-		}
-	}
-}
-
-.dd-handle
-{
-	padding: .5rem .75rem;
-
-	margin: .25rem 0;
-
-	color: $body-color;
-
-	border: 1px solid $gray-400;
-
-	background-color: $gray-100;
-
-	border-radius: .25rem;
-
-	transition: .2s ease-out;
-	transition-property: color, background-color;
-
-	&:hover
-	{
-		color: theme-color('primary');
-
-		background-color: #fff;
-	}
-}
-
-.dd-expand,
-.dd-collapsed .dd-list,
-.dd-collapsed .dd-collapse,
-.dd-nochildren .dd-placeholder
-{
-	display: none;
-}
-
-.dd-collapsed .dd-expand
-{
-	display: block;
-}
-
-.dd-empty,
-.dd-placeholder
-{
-	display: block;
-
-	margin: .25rem 0;
-
-	position: relative;
-
-	background-color: $gray-100;
-
-	border: 1px dashed theme-color('primary');
-
-	border-radius: .25rem;
-}
-
-.dd-empty
-{
-	min-height: 100px;
-
-	border: 1px dashed theme-color('primary');
-
-	background: green 0 0, 30px 30px;
-	background-size: 60px 60px;
-}
-
-.dd-dragel
-{
-	position: absolute;
-	z-index: 9999;
-
-	pointer-events: none;
-
-	> .dd-item .dd-handle
-	{
-		margin-top: 0;
 	}
 
-	.dd-handle
+	.nestable-dropzone
 	{
-		box-shadow: 2px 4px 6px 0 rgba(#000, .2);
+		min-height: 3rem;
+
+		margin: .25rem 0;
+
+		background-color: #fafafa;
+
+		box-shadow: inset 0 0 10px 0 rgba(#000, .1);
+
+		border-radius: .25rem;
+
+		transition: .2s ease-out;
+		transition-property: background-color, box-shadow;
+
+		&.over
+		{
+			$color: theme-color('success');
+
+			background-color: lighten($color, 50%);
+
+			box-shadow: inset 0 0 10px 0 rgba($color, .2);
+		}
+	}
+
+	[draggable]
+	{
+		cursor: move;
+
+		@include user-select(none);
 	}
 }

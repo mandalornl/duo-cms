@@ -1,7 +1,7 @@
 duo:
     form:
         mail:
-            form_submission:
+            form_result:
                 subject: Form results - %form_name%
                 body_text: |
                     New form results.

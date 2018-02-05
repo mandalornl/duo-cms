@@ -18,6 +18,10 @@ duo_taxonomy:
     resource: '@DuoTaxonomyBundle/Resources/config/routing.yml'
     prefix:   /admin
 
+duo_media:
+    resource: '@DuoMediaBundle/Resources/config/routing.yml'
+    prefix: /admin
+
 duo_seo:
     resource: '@DuoSeoBundle/Resources/config/routing.yml'
     prefix: /

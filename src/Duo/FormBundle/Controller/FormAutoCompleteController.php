@@ -19,7 +19,7 @@ class FormAutoCompleteController extends AbstractAutoCompleteController
 	 * Search name action
 	 *
 	 * @Route("/name", name="name")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 *
@@ -40,7 +40,7 @@ class FormAutoCompleteController extends AbstractAutoCompleteController
 		$this->setFirstResultAndMaxResults($request, $builder);
 
 		$result = $builder
-			->select("DISTINCT e.id, e.name text")
+			->select('DISTINCT e.id, e.name text')
 			->getQuery()
 			->getScalarResult();
 

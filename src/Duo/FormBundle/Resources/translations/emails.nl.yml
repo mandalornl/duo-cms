@@ -1,7 +1,7 @@
 duo:
     form:
         mail:
-            form_submission:
+            form_result:
                 subject: Resultaten formulier - %form_name%
                 body_text: |
                     Nieuwe resultaten formulier.

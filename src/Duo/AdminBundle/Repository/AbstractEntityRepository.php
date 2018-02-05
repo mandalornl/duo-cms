@@ -18,6 +18,8 @@ abstract class AbstractEntityRepository extends EntityRepository
 	 * @param string $locale [optional]
 	 *
 	 * @return QueryBuilder
+	 *
+	 * @throws \Throwable
 	 */
 	protected function getQueryBuilder(string $locale = null): QueryBuilder
 	{

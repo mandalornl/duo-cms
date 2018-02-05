@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 import '../jquery/sortable';
 import * as wysiwyg from '../assets/wysiwyg';
-import * as autoComplete from '../assets/autocomplete';
+import autoComplete from '../assets/autocomplete';
 import {get} from '../api';
 
 /**
@@ -88,8 +88,8 @@ const init = (selector = '.part-list') =>
 					$list.sortable();
 
 					// init assets
-					wysiwyg.init({}, $item.find('.wysiwyg'));
-					autoComplete.init({}, $item.find('.autocomplete'));
+					wysiwyg.init($item.find('.wysiwyg'));
+					autoComplete($item.find('.autocomplete'));
 
 					updateWeight();
 					toggleButton();
@@ -103,4 +103,4 @@ const init = (selector = '.part-list') =>
 	});
 };
 
-export {init};
+export default init;

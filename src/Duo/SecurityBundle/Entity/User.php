@@ -15,12 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="user",
  *     uniqueConstraints={
- *	       @ORM\UniqueConstraint(name="username", columns={ "username" }),
- *     	   @ORM\UniqueConstraint(name="email", columns={ "email" })
+ *	       @ORM\UniqueConstraint(name="username_uniq", columns={ "username" }),
+ *     	   @ORM\UniqueConstraint(name="email_uniq", columns={ "email" })
  *	   },
  *     indexes={
+ *		   @ORM\Index(name="username_idx", columns={ "username" }),
  *     	   @ORM\Index(name="email_idx", columns={ "email" }),
- *		   @ORM\Index(name="username_idx", columns={ "username" })
+ *     	   @ORM\Index(name="password_token_idx", columns={ "password_token" })
  *	   }
  * )
  * @ORM\Entity(repositoryClass="Duo\SecurityBundle\Repository\UserRepository")
@@ -51,7 +52,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
     /**
      * @var string
 	 *
-	 * @ORM\Column(name="username", length=25, type="string", nullable=false)
+	 * @ORM\Column(name="username", type="string", length=64, nullable=false)
 	 * @Assert\NotBlank()
      */
     private $username;
@@ -71,7 +72,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="password_token", type="string", length=32, nullable=true)
+	 * @ORM\Column(name="password_token", type="string", length=64, nullable=true)
 	 */
     private $passwordToken;
 
@@ -83,16 +84,11 @@ class User implements UserInterface, TimeStampInterface, \Serializable
     private $passwordRequestedAt;
 
 	/**
-	 * @var string
-	 */
-	private $salt;
-
-	/**
 	 * @var int
 	 *
 	 * @ORM\Column(name="active", type="boolean", options={ "default" = 0 })
 	 */
-	private $active = 0;
+	private $active = false;
 
 	/**
 	 * @var Collection
@@ -203,6 +199,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	public function setPlainPassword(string $plainPassword): UserInterface
 	{
 		$this->plainPassword = $plainPassword;
+		$this->password = null;
 
 		return $this;
 	}
@@ -252,25 +249,11 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	}
 
 	/**
-	 * Set salt
-	 *
-	 * @param string $salt
-	 *
-	 * @return User
-	 */
-	public function setSalt(string $salt): User
-	{
-		$this->salt = $salt;
-
-		return $this;
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function getSalt(): ?string
 	{
-		return $this->salt;
+		return null;
 	}
 
 	/**
@@ -280,7 +263,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	 *
 	 * @return User
 	 */
-	public function setActive(bool $active = false): User
+	public function setActive(bool $active): User
 	{
 		$this->active = $active;
 

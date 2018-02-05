@@ -16,10 +16,6 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    Duo\SecurityBundle\EventListener\UserListingListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.event.listing.postEdit, method: postEdit }
-
     Duo\SecurityBundle\EventSubscriber\UserSubscriber:
         arguments:
             $encoder: '@security.password_encoder'

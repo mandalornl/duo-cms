@@ -1,13 +1,13 @@
 {% extends '@DuoAdmin/Mail/layout.mjml.twig' %}
 
 {% block subject %}
-	{{- brand_name }} - {{ 'duo.form.mail.form_submission.subject' | trans({ '%form_name%': submission.name }, 'emails') -}}
+	{{- brand_name }} - {{ 'duo.form.mail.form_result.subject' | trans({ '%form_name%': submission.name }, 'emails') -}}
 {% endblock %}
 
 {% block body_text %}
 	{% autoescape false %}
-		{{ 'duo.form.mail.form_submission.body_text' | trans({
-			'%url%': url('duo_form_listing_submission_edit', { id: submission.id })
+		{{ 'duo.form.mail.form_result.body_text' | trans({
+			'%url%': url('duo_form_listing_result_edit', { id: submission.id })
 		}, 'emails') }}
 
 		{{ parent() }}
@@ -16,7 +16,7 @@
 
 {% block content %}
 	<mj-text font-family="Helvetica Neue" color="#333">
-		<h3>{{ 'duo.form.mail.form_submission.body_html.title' | trans({}, 'emails') }}</h3>
+		<h3>{{ 'duo.form.mail.form_result.body_html.title' | trans({}, 'emails') }}</h3>
 	</mj-text>
 
 	<mj-table>
@@ -36,7 +36,7 @@
 		{% endfor %}
 	</mj-table>
 
-	<mj-button font-family="Helvetica Neue" background-color="#007bff" color="#fff" href="{{ url('duo_form_listing_submission_edit', { id: submission.id }) }}" border-radius="3px">
-		{{- 'duo.form.mail.form_submission.body_html.button' | trans({}, 'emails') -}}
+	<mj-button font-family="Helvetica Neue" background-color="#007bff" color="#fff" href="{{ url('duo_form_listing_result_edit', { id: submission.id }) }}" border-radius="3px">
+		{{- 'duo.form.mail.form_result.body_html.button' | trans({}, 'emails') -}}
 	</mj-button>
 {% endblock %}

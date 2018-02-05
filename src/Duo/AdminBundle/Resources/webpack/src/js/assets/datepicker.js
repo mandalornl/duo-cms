@@ -4,10 +4,10 @@ import 'bootstrap-datepicker';
 /**
  * Initialize datepicker
  *
+ * @param {string|jQuery|HTMLElement} [selector = '.datepicker']
  * @param {{}} [options = {}]
- * @param {string} [selector = '.datepicker']
  */
-const init = (options = {}, selector = '.datepicker') =>
+const init = (selector = '.datepicker', options = {}) =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -29,4 +29,4 @@ const init = (options = {}, selector = '.datepicker') =>
 	});
 };
 
-export {init};
+export default init;

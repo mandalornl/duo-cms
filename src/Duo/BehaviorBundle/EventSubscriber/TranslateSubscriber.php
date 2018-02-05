@@ -45,31 +45,30 @@ class TranslateSubscriber implements EventSubscriber
 	 *
 	 * @param LoadClassMetadataEventArgs $args
 	 */
-	public function loadClassMetadata(LoadClassMetadataEventArgs $args)
+	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
 		/**
 		 * @var ClassMetadata $classMetadata
 		 */
 		$classMetadata = $args->getClassMetadata();
 
-		if (!$classMetadata->getReflectionClass())
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null)
 		{
 			return;
 		}
 
-		$this->mapTranslatable($classMetadata);
-		$this->mapTranslation($classMetadata);
+		$this->mapTranslatable($classMetadata, $reflectionClass);
+		$this->mapTranslation($classMetadata, $reflectionClass);
 	}
 
 	/**
 	 * Map translatable
 	 *
 	 * @param ClassMetadata $classMetaData
+	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapTranslatable(ClassMetadata $classMetaData)
+	private function mapTranslatable(ClassMetadata $classMetaData, \ReflectionClass $reflectionClass): void
 	{
-		$reflectionClass = $classMetaData->getReflectionClass();
-
 		if (!$reflectionClass->implementsInterface(TranslateInterface::class))
 		{
 			return;
@@ -93,11 +92,10 @@ class TranslateSubscriber implements EventSubscriber
 	 * Map translation
 	 *
 	 * @param ClassMetadata $classMetadata
+	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapTranslation(ClassMetadata $classMetadata)
+	private function mapTranslation(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass): void
 	{
-		$reflectionClass = $classMetadata->getReflectionClass();
-
 		if (!$reflectionClass->implementsInterface(TranslationInterface::class))
 		{
 			return;
@@ -110,7 +108,7 @@ class TranslateSubscriber implements EventSubscriber
 			$classMetadata->mapManyToOne([
 				'fieldName' 	=> 'translatable',
 				'inversedBy' 	=> 'translations',
-				'cascade' 		=> ['persist', 'merge'],
+				'cascade' 		=> ['persist', 'remove'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
 				'targetEntity' 	=> $targetEntity,
 				'joinColumns' 	=> [[
@@ -138,7 +136,7 @@ class TranslateSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function postLoad(LifecycleEventArgs $args)
+	public function postLoad(LifecycleEventArgs $args): void
 	{
 		$this->setLocale($args);
 	}
@@ -148,7 +146,7 @@ class TranslateSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$this->setLocale($args);
 	}
@@ -158,7 +156,7 @@ class TranslateSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	private function setLocale(LifecycleEventArgs $args)
+	private function setLocale(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 

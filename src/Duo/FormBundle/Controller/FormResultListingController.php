@@ -6,23 +6,23 @@ use Duo\AdminBundle\Configuration\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
-use Duo\FormBundle\Entity\FormSubmission;
+use Duo\FormBundle\Entity\FormResult;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route(name="duo_form_listing_submission_")
+ * @Route(name="duo_form_listing_result_")
  */
-class FormSubmissionListingController extends AbstractListingController
+class FormResultListingController extends AbstractListingController
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function getEntityClass(): string
 	{
-		return FormSubmission::class;
+		return FormResult::class;
 	}
 
 	/**
@@ -38,7 +38,7 @@ class FormSubmissionListingController extends AbstractListingController
 	 */
 	protected function getType(): string
 	{
-		return 'form_submission';
+		return 'form_result';
 	}
 
 	/**
@@ -113,7 +113,7 @@ class FormSubmissionListingController extends AbstractListingController
 	 * {@inheritdoc}
 	 *
 	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 */
 	public function destroyAction(Request $request, int $id = null)
 	{

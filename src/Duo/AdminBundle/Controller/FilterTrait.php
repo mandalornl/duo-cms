@@ -2,7 +2,6 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Filter\FilterInterface;
@@ -62,13 +61,13 @@ trait FilterTrait
 	 * Filter action
 	 *
 	 * @Route("/filter", name="filter")
-	 * @Method({"POST", "GET"})
+	 * @Method({"GET", "POST"})
 	 *
 	 * @param Request $request
 	 *
 	 * @return RedirectResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	public function filterAction(Request $request): RedirectResponse
 	{
@@ -113,7 +112,7 @@ trait FilterTrait
 	 *
 	 * @return FormInterface
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function getFilterForm(Request $request): ?FormInterface
 	{

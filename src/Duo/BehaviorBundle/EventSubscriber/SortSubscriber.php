@@ -49,7 +49,7 @@ class SortSubscriber implements EventSubscriber
 	 *
 	 * @return int
 	 *
-	 * @throws \ReflectionException
+	 * @throws \Throwable
 	 */
 	private function getNextWeight(LifecycleEventArgs $args): int
 	{

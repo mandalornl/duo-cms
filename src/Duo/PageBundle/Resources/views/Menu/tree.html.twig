@@ -1,12 +1,15 @@
-{% if pages is iterable and pages | length %}
-	<ol class="dd-list">
-		{% for page in pages %}
-			<li class="dd-item" data-id="{{ page.id }}"{% if page.parent %} data-parent="{{ page.parent.id }}{% endif %}">
-				<div class="dd-handle">
-					{{- page.title -}}
-				</div>
-				{% include '@DuoPage/Menu/tree.html.twig' with { pages: page.children } %}
-			</li>
-		{% endfor %}
-	</ol>
-{% endif %}
+{% spaceless %}
+<ul class="nestable-list" role="tree"{% if parent is defined and parent %} data-id="{{ parent.id }}"{% endif %}>
+	{% for page in pages %}
+		{% set itemId = random() %}
+		<li class="nestable-item" role="treeitem" draggable="true" id="{{ itemId }}" data-id="{{ page.id }}" data-weight="{{ page.weight }}"{% if page.children | length %} data-children="true"{% endif %}>
+			<div class="nestable-text">
+				<a href="javascript:;" class="nestable-btn{% if not page.children | length %} d-none{% endif %}" data-url="{{ path('duo_page_tree_children', { parent: page.id }) }}">
+					<i class="icon-folder"></i>
+				</a>
+				{{- page.title -}}
+			</div>
+		</li>
+	{% endfor %}
+</ul>
+{% endspaceless %}

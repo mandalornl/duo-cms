@@ -2,7 +2,6 @@
 
 namespace Duo\BehaviorBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\SortInterface;
@@ -25,7 +24,7 @@ trait SortTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doMoveUpAction(Request $request, int $id)
 	{
@@ -70,7 +69,7 @@ trait SortTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doMoveDownAction(Request $request, int $id)
 	{
@@ -116,7 +115,7 @@ trait SortTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	private function handleBasicMovementRequest(Request $request, int $id, \Closure $callback)
 	{
@@ -161,7 +160,7 @@ trait SortTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doMoveToAction(Request $request, int $id, int $weight, int $parentId = null)
 	{

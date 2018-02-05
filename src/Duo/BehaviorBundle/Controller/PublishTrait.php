@@ -2,7 +2,6 @@
 
 namespace Duo\BehaviorBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\PublishInterface;
@@ -24,7 +23,7 @@ trait PublishTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doPublishAction(Request $request, int $id)
 	{
@@ -42,7 +41,7 @@ trait PublishTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	protected function doUnpublishAction(Request $request, int $id)
 	{
@@ -62,7 +61,7 @@ trait PublishTrait
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
-	 * @throws AnnotationException
+	 * @throws \Throwable
 	 */
 	private function handlePublicationRequest(Request $request, int $id, \Closure $callback, string $eventName)
 	{
@@ -92,6 +91,7 @@ trait PublishTrait
 			if ($entity instanceof TranslateInterface)
 			{
 				$translation = $entity->getTranslations()->first();
+
 				if ($translation instanceof PublishInterface)
 				{
 					foreach ($entity->getTranslations() as $translation)

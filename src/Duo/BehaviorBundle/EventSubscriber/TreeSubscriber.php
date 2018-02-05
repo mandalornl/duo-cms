@@ -32,13 +32,12 @@ class TreeSubscriber implements EventSubscriber
 		 */
 		$classMetadata = $args->getClassMetadata();
 
-		if ($classMetadata->getReflectionClass() === null)
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null)
 		{
 			return;
 		}
 
-		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
-			!$reflectionClass->implementsInterface(TreeInterface::class))
+		if (!$reflectionClass->implementsInterface(TreeInterface::class))
 		{
 			return;
 		}

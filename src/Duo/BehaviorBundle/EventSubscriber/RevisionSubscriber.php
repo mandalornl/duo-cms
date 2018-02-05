@@ -82,7 +82,7 @@ class RevisionSubscriber implements EventSubscriber
 			$classMetadata->mapOneToMany([
 				'fieldName' 	=> 'revisions',
 				'mappedBy'		=> 'revision',
-				'cascade'		=> ['persist', 'remove'],
+				'cascade'		=> ['persist', 'merge', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'orphanRemoval'	=> true,
