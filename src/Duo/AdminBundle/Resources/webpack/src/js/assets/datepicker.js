@@ -14,7 +14,8 @@ const init = (selector = '.datepicker', options = {}) =>
 	$selector.each(function()
 	{
 		const $this = $(this);
-		if ($this.data('initalized.datepicker'))
+
+		if ($this.data('initialized.datepicker'))
 		{
 			return;
 		}
@@ -25,7 +26,7 @@ const init = (selector = '.datepicker', options = {}) =>
 			format: 'dd-mm-yyyy'
 		}, options);
 
-		$this.attr('placeholder', options.format).datepicker(options).data('initalized.datepicker', true);
+		$this.attr('placeholder', options.format).datepicker(options).data('initialized.datepicker', true);
 	});
 };
 

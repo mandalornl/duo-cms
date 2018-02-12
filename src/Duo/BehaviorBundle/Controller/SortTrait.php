@@ -2,13 +2,13 @@
 
 namespace Duo\BehaviorBundle\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
 use Duo\AdminBundle\Controller\AbstractListingController;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Event\SortEvent;
 use Duo\BehaviorBundle\Event\SortEvents;
+use Duo\BehaviorBundle\Repository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,15 +28,19 @@ trait SortTrait
 	 */
 	protected function doMoveUpAction(Request $request, int $id)
 	{
-		/**
-		 * @var AbstractListingController|SortTrait $this
-		 */
-		return $this->handleBasicMovementRequest($request, $id, function(SortInterface $entity)
+		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
 		{
 			/**
-			 * @var SortInterface $previousEntity
+			 * @var AbstractListingController $this
 			 */
-			$previousEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findPreviousEntityUsingWeight($entity);
+			$em = $this->getDoctrine()->getManager();
+
+			/**
+			 * @var Repository\SortTrait $repository
+			 */
+			$repository = $em->getRepository($this->getEntityClassName());
+
+			$previousEntity = $repository->findPrevToSort($entity);
 
 			if ($previousEntity !== null)
 			{
@@ -50,10 +54,6 @@ trait SortTrait
 				$dispatcher = $this->get('event_dispatcher');
 				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
 
-				/**
-				 * @var ObjectManager $em
-				 */
-				$em = $this->getDoctrine()->getManager();
 				$em->persist($previousEntity);
 				$em->persist($entity);
 				$em->flush();
@@ -73,15 +73,19 @@ trait SortTrait
 	 */
 	protected function doMoveDownAction(Request $request, int $id)
 	{
-		/**
-		 * @var AbstractListingController|SortTrait $this
-		 */
-		return $this->handleBasicMovementRequest($request, $id, function(SortInterface $entity)
+		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
 		{
 			/**
-			 * @var SortInterface $nextEntity
+			 * @var AbstractListingController $this
 			 */
-			$nextEntity = $this->getDoctrine()->getRepository($this->getEntityClassName())->findNextEntityUsingWeight($entity);
+			$em = $this->getDoctrine()->getManager();
+
+			/**
+			 * @var Repository\SortTrait $repository
+			 */
+			$repository = $em->getRepository($this->getEntityClassName());
+
+			$nextEntity = $repository->findNextToSort($entity);
 
 			if ($nextEntity !== null)
 			{
@@ -95,10 +99,6 @@ trait SortTrait
 				$dispatcher = $this->get('event_dispatcher');
 				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
 
-				/**
-				 * @var ObjectManager $em
-				 */
-				$em = $this->getDoctrine()->getManager();
 				$em->persist($nextEntity);
 				$em->persist($entity);
 				$em->flush();
@@ -107,7 +107,7 @@ trait SortTrait
 	}
 
 	/**
-	 * Handle basic movement request
+	 * Handle move up or down request
 	 *
 	 * @param Request $request
 	 * @param int $id
@@ -117,7 +117,7 @@ trait SortTrait
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleBasicMovementRequest(Request $request, int $id, \Closure $callback)
+	private function handleMoveUpOrDownRequest(Request $request, int $id, \Closure $callback)
 	{
 		/**
 		 * @var AbstractListingController $this
@@ -154,22 +154,21 @@ trait SortTrait
 	 * Move entity to
 	 *
 	 * @param Request $request
-	 * @param int $id
-	 * @param int $weight
-	 * @param int $parentId [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doMoveToAction(Request $request, int $id, int $weight, int $parentId = null)
+	protected function doMoveToAction(Request $request)
 	{
+		$id = (int)$request->get('id') ?: null;
+
 		/**
 		 * @var AbstractListingController $this
 		 */
-		$repository = $this->getDoctrine()->getRepository($this->getEntityClass());
+		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
-		if ((!$entity = $repository->find($id)) === null)
+		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);
 		}
@@ -179,83 +178,150 @@ trait SortTrait
 			return $this->sortInterfaceNotImplemented($request, $id);
 		}
 
-		$criteria = [
-			'weight' => $weight
-		];
+		$parentId = (int)$request->get('parentId') ?: null;
+		$siblingId = (int)$request->get('siblingId') ?: null;
 
-		// use parent entity
 		if ($entity instanceof TreeInterface)
 		{
-			if ($parentId !== null && ($parent = $repository->find($parentId)) !== null)
+			if ($parentId && $siblingId)
 			{
-				$criteria['parent'] = $parent;
+				return $this->handleMoveToParentAndSiblingRequest($request, $entity, $parentId, $siblingId);
 			}
 			else
 			{
-				if (($parent = $entity->getParent()) !== null)
+				if ($parentId)
 				{
-					$criteria['parent'] = $parent;
+					return $this->handleMoveToParentRequest($request, $entity, $parentId);
 				}
 			}
 		}
 
-		// use latest revision
-		if ($entity instanceof RevisionInterface)
-		{
-			$criteria['revision'] = $entity->getRevision();
-		}
+		return $this->handleMoveToSiblingRequest($request, $entity, $siblingId);
+	}
 
+	/**
+	 * Handle move to parent and sibling request
+	 *
+	 * @param Request $request
+	 * @param SortInterface $entity
+	 * @param int $parentId
+	 * @param int $siblingId
+	 *
+	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
+	 */
+	private function handleMoveToParentAndSiblingRequest(Request $request, SortInterface $entity, int $parentId, int $siblingId)
+	{
 		/**
-		 * @var SortInterface $currentEntity
-		 */
-		$currentEntity = $repository->findOneBy($criteria);
-
-		/**
-		 * @var ObjectManager $em
+		 * @var AbstractListingController $this
 		 */
 		$em = $this->getDoctrine()->getManager();
 
 		/**
-		 * @var EventDispatcherInterface $dispatcher
+		 * @var EntityRepository|Repository\SortTrait $repository
 		 */
-		$dispatcher = $this->get('event_dispatcher');
+		$repository = $em->getRepository($this->getEntityClass());
 
-		if ($currentEntity !== null)
+		/**
+		 * @var TreeInterface $parent
+		 */
+		if (($parent = $repository->find($parentId)) === null)
 		{
-			$entity->setWeight($currentEntity->getWeight());
-			$em->persist($entity);
+			return $this->createMoveToException($request, "Parent '{$this->getEntityClass()}::{$parentId}' not found");
+		}
 
-			$weight = $currentEntity->getWeight();
-			$currentEntity->setWeight($weight++);
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $currentEntity));
+		/**
+		 * @var SortInterface $sibling
+		 */
+		if (($sibling = $repository->find($siblingId)) === null)
+		{
+			return $this->createMoveToException($request, "Sibling '{$this->getEntityClass()}::{$siblingId}' not found");
+		}
 
-			$em->persist($currentEntity);
+		/**
+		 * @var TreeInterface $entity
+		 */
+		$previousParent = $entity->getParent();
 
-			/**
-			 * @var SortInterface[] $entities
-			 */
-			$entities = $repository->findNextWeight($currentEntity, null);
+		// check whether or not the parent changed
+		if ($previousParent !== $parent)
+		{
+			$weight = 0;
 
-			foreach ($entities as $entity)
+			if ($previousParent !== null)
 			{
-				$entity->setWeight($weight++);
-				$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity, $currentEntity));
+				// remove entity from previous parent
+				$previousParent->removeChild($entity);
 
-				$em->persist($entity);
+				// update weight of children in previous parent
+				foreach ($previousParent->getChildren() as $child)
+				{
+					/**
+					 * @var SortInterface $child
+					 */
+					$child->setWeight($weight++);
+
+					$em->persist($child);
+				}
+
+				$em->persist($previousParent);
+			}
+			else
+			{
+				// update weight of previous siblings
+				foreach ($repository->findSiblingsToSort($entity) as $child)
+				{
+					// ignore if child is entity
+					if ($child === $entity)
+					{
+						continue;
+					}
+
+					$child->setWeight($weight++);
+
+					$em->persist($child);
+				}
+			}
+		}
+
+		// parent doesn't contain sibling
+		if (!$parent->getChildren()->contains($sibling))
+		{
+			return $this->createMoveToException(
+				$request,
+				"Parent '{$this->getEntityClass()}::{$parentId}'doesn't contain sibling '{$this->getEntityClass()}::{$siblingId}'"
+			);
+		}
+
+		$weight = 0;
+
+		// update weight of children
+		foreach ($parent->getChildren() as $child)
+		{
+			// ignore if child is entity
+			if ($child === $entity)
+			{
+				continue;
 			}
 
-			$em->flush();
-		}
-		else
-		{
-			$entity->setWeight($weight);
-			$dispatcher->dispatch(SortEvents::SORT, new SortEvent($entity));
+			$child->setWeight($weight++);
 
-			$em->persist($entity);
-			$em->flush();
+			$em->persist($child);
+
+			// insert after sibling
+			if ($child === $sibling)
+			{
+				$entity->setWeight($weight++);
+			}
 		}
 
-		// reply with json response
+		$parent->addChild($entity);
+
+		$em->persist($parent);
+		$em->persist($entity);
+		$em->flush();
+
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
@@ -270,6 +336,232 @@ trait SortTrait
 	}
 
 	/**
+	 * Handle move to parent request
+	 *
+	 * @param Request $request
+	 * @param SortInterface $entity
+	 * @param int $parentId
+	 *
+	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
+	 */
+	private function handleMoveToParentRequest(Request $request, SortInterface $entity, int $parentId)
+	{
+		/**
+		 * @var AbstractListingController $this
+		 */
+		$em = $this->getDoctrine()->getManager();
+
+		/**
+		 * @var EntityRepository|Repository\SortTrait $repository
+		 */
+		$repository = $em->getRepository($this->getEntityClass());
+
+		/**
+		 * @var TreeInterface $parent
+		 */
+		if (($parent = $repository->find($parentId)) === null)
+		{
+			return $this->createMoveToException($request, "Parent '{$this->getEntityClass()}::{$parentId}' not found");
+		}
+
+		/**
+		 * @var TreeInterface $entity
+		 */
+		$previousParent = $entity->getParent();
+
+		// check whether or not the parent changed
+		if ($previousParent !== $parent)
+		{
+			$weight = 0;
+
+			if ($previousParent !== null)
+			{
+				// remove entity from previous parent
+				$previousParent->removeChild($entity);
+
+				// update weight of children in previous parent
+				foreach ($previousParent->getChildren() as $child)
+				{
+					/**
+					 * @var SortInterface $child
+					 */
+					$child->setWeight($weight++);
+
+					$em->persist($child);
+				}
+
+				$em->persist($previousParent);
+			}
+			else
+			{
+				// update weight of previous siblings
+				foreach ($repository->findSiblingsToSort($entity) as $child)
+				{
+					// ignore if child is entity
+					if ($child === $entity)
+					{
+						continue;
+					}
+
+					$child->setWeight($weight++);
+
+					$em->persist($child);
+				}
+			}
+		}
+
+		// use weight of last child
+		if (($child = $parent->getChildren()->last()))
+		{
+			$entity->setWeight($child->getWeight() + 1);
+		}
+		// or default to first
+		else
+		{
+			$entity->setWeight(0);
+		}
+
+		$parent->addChild($entity);
+
+		$em->persist($parent);
+		$em->flush();
+
+		if ($request->getRequestFormat() === 'json')
+		{
+			return $this->json([
+				'success' => true
+			]);
+		}
+
+		return $this->redirectToReferer(
+			$this->generateUrl("{$this->getRoutePrefix()}_index"),
+			$request
+		);
+	}
+
+	/**
+	 * Handle move to sibling request
+	 *
+	 * @param Request $request
+	 * @param SortInterface $entity
+	 * @param int $siblingId
+	 *
+	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
+	 */
+	private function handleMoveToSiblingRequest(Request $request, SortInterface $entity, int $siblingId)
+	{
+		/**
+		 * @var AbstractListingController $this
+		 */
+		$em = $this->getDoctrine()->getManager();
+
+		/**
+		 * @var EntityRepository|Repository\SortTrait $repository
+		 */
+		$repository = $em->getRepository($this->getEntityClass());
+
+		/**
+		 * @var SortInterface $sibling
+		 */
+		if (($sibling = $repository->find($siblingId)) === null)
+		{
+			return $this->createMoveToException($request, "Sibling '{$this->getEntityClass()}::{$siblingId}' not found");
+		}
+
+		// check whether or not the parent changed
+		if ($entity instanceof TreeInterface)
+		{
+			$previousParent = $entity->getParent();
+
+			if ($previousParent !== null)
+			{
+				// remove entity from previous parent
+				$previousParent->removeChild($entity);
+
+				$weight = 0;
+
+				// update weight of children in previous parent
+				foreach ($previousParent->getChildren() as $child)
+				{
+					/**
+					 * @var SortInterface $child
+					 */
+					$child->setWeight($weight++);
+
+					$em->persist($child);
+				}
+
+				$em->persist($previousParent);
+			}
+
+			$entity->setParent(null);
+		}
+
+		$weight = 0;
+
+		foreach ($repository->findSiblingsToSort($sibling) as $child)
+		{
+			// ignore if child is entity
+			if ($child === $entity)
+			{
+				continue;
+			}
+
+			$child->setWeight($weight++);
+
+			$em->persist($child);
+
+			// insert after sibling
+			if ($child === $sibling)
+			{
+				$entity->setWeight($weight++);
+			}
+		}
+
+		$em->persist($entity);
+		$em->flush();
+
+		if ($request->getRequestFormat() === 'json')
+		{
+			return $this->json([
+				'success' => true
+			]);
+		}
+
+		return $this->redirectToReferer(
+			$this->generateUrl("{$this->getRoutePrefix()}_index"),
+			$request
+		);
+	}
+
+	/**
+	 * Create move to exception
+	 *
+	 * @param Request $request
+	 * @param string $error
+	 *
+	 * @return JsonResponse
+	 *
+	 * @throws \Throwable
+	 */
+	private function createMoveToException(Request $request, string $error)
+	{
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
+		{
+			return $this->json([
+				'error' => $error
+			]);
+		}
+
+		throw $this->createNotFoundException($error);
+	}
+
+	/**
 	 * Sortable interface not implemented
 	 *
 	 * @param int $id
@@ -280,6 +572,7 @@ trait SortTrait
 	private function sortInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = SortInterface::class;
+
 		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
 
 		// reply with json response

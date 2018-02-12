@@ -1,35 +1,34 @@
 import $ from 'jquery';
-import {debounce} from 'lodash';
 
 import './jquery/nestable';
-import {get} from './api';
+import {post} from './util/api';
 import * as loader from './util/loader';
 
-$(() =>
+$(async () =>
 {
-	$('.nestable').nestable({
-		onDrop: function(e, data)
-		{
-			console.log(data);
-		},
+	const $nestable = $('.nestable');
 
-		onExpand: debounce(async function()
+	$nestable.nestable({
+		onDrop: async function(e, data)
 		{
-			const $this = $(this);
-			const $li = $this.closest('li');
+			const formData = new FormData();
+			formData.append('id', data.$item.data('id'));
 
-			if ($li.find('> ul').length)
+			if (data.$newList)
 			{
-				return;
+				formData.append('parentId', data.$newList.data('id') || null);
 			}
 
-			loader.show();
+			if (data.$sibling)
+			{
+				formData.append('siblingId', data.$sibling.data('id') || null);
+			}
 
-			const html = await get($this.data('url'));
+			loader.show(true);
 
-			$li.append(html);
+			await post(`${$nestable.data('url')}/json`, formData);
 
 			loader.hide();
-		}, 250)
+		}
 	});
 });

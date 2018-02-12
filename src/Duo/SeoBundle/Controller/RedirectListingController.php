@@ -2,11 +2,11 @@
 
 namespace Duo\SeoBundle\Controller;
 
-use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Configuration\Filter\BooleanFilter;
-use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
-use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
+use Duo\AdminBundle\Listing\Field\Field;
+use Duo\AdminBundle\Listing\Filter\BooleanFilter;
+use Duo\AdminBundle\Listing\Filter\DateTimeFilter;
+use Duo\AdminBundle\Listing\Filter\StringFilter;
 use Duo\SeoBundle\Entity\Redirect;
 use Duo\SeoBundle\Form\RedirectListingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,20 +47,7 @@ class RedirectListingController extends AbstractListingController
 	}
 
 	/**
-	 * Define filters
-	 */
-	protected function defineFilters(): void
-	{
-		$this
-			->addFilter(new StringFilter('origin', 'duo.seo.listing.filter.origin'))
-			->addFilter(new StringFilter('target', 'duo.seo.listing.filter.target'))
-			->addFilter(new BooleanFilter('permanent', 'duo.seo.listing.filter.permanent'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.seo.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.seo.listing.filter.modified'));
-	}
-
-	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -70,6 +57,19 @@ class RedirectListingController extends AbstractListingController
 			->addField(new Field('permanent', 'duo.seo.listing.field.permanent'))
 			->addField(new Field('createdAt', 'duo.seo.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.seo.listing.field.modified_at'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		$this
+			->addFilter(new StringFilter('origin', 'duo.seo.listing.filter.origin'))
+			->addFilter(new StringFilter('target', 'duo.seo.listing.filter.target'))
+			->addFilter(new BooleanFilter('permanent', 'duo.seo.listing.filter.permanent'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.seo.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.seo.listing.filter.modified'));
 	}
 
 	/**

@@ -4,8 +4,8 @@ namespace Duo\AdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Duo\AdminBundle\Configuration\Filter\FilterInterface;
 use Duo\AdminBundle\Form\ListingFilterType;
+use Duo\AdminBundle\Listing\Filter\FilterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormInterface;

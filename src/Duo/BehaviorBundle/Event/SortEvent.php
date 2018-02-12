@@ -21,9 +21,9 @@ class SortEvent extends Event
 	 * SortEvent constructor
 	 *
 	 * @param SortInterface $entity
-	 * @param SortInterface $origin [optional]
+	 * @param SortInterface $origin
 	 */
-	public function __construct(SortInterface $entity, SortInterface $origin = null)
+	public function __construct(SortInterface $entity, SortInterface $origin)
 	{
 		$this->entity = $entity;
 		$this->origin = $origin;

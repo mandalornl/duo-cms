@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Configuration\Filter;
+namespace Duo\AdminBundle\Listing\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 
@@ -136,4 +136,23 @@ abstract class AbstractFilter implements FilterInterface
 	{
 		return $this->formOptions;
 	}
+
+	/**
+	 * Get logic exception
+	 *
+	 * @return \LogicException
+	 */
+	protected function getOperatorException(): \LogicException
+	{
+		$data = $this->getData();
+
+		return new \LogicException("Illegal operator '{$data['operator']}'");
+	}
+
+	/**
+	 * Get param
+	 *
+	 * @return string
+	 */
+	abstract protected function getParam(): string;
 }

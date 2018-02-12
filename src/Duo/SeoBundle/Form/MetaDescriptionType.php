@@ -16,7 +16,8 @@ class MetaDescriptionType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'attr' => [
-				'rows' => 3
+				'rows' => 3,
+				'maxlength' => 155
 			],
 			'constraints' => [
 				new Length([

@@ -2,10 +2,10 @@
 
 namespace Duo\FormBundle\Controller;
 
-use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
-use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
+use Duo\AdminBundle\Listing\Field\Field;
+use Duo\AdminBundle\Listing\Filter\DateTimeFilter;
+use Duo\AdminBundle\Listing\Filter\StringFilter;
 use Duo\BehaviorBundle\Controller\DuplicateTrait;
 use Duo\BehaviorBundle\Entity\DuplicateInterface;
 use Duo\FormBundle\Entity\Form;
@@ -50,18 +50,7 @@ class FormListingController extends AbstractListingController implements Duplica
 	}
 
 	/**
-	 * Define filters
-	 */
-	protected function defineFilters(): void
-	{
-		$this
-			->addFilter(new StringFilter('name', 'duo.form.listing.filter.name'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.form.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.form.listing.filter.modified'));
-	}
-
-	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -69,6 +58,17 @@ class FormListingController extends AbstractListingController implements Duplica
 			->addField(new Field('name', 'duo.form.listing.field.name'))
 			->addField(new Field('createdAt', 'duo.form.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.form.listing.field.modified_at'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		$this
+			->addFilter(new StringFilter('name', 'duo.form.listing.filter.name'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.form.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.form.listing.filter.modified'));
 	}
 
 	/**

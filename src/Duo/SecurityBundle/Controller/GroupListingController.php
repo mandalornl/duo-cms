@@ -2,10 +2,10 @@
 
 namespace Duo\SecurityBundle\Controller;
 
-use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
-use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
+use Duo\AdminBundle\Listing\Field\Field;
+use Duo\AdminBundle\Listing\Filter\DateTimeFilter;
+use Duo\AdminBundle\Listing\Filter\StringFilter;
 use Duo\SecurityBundle\Entity\Group;
 use Duo\SecurityBundle\Form\GroupListingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -46,18 +46,7 @@ class GroupListingController extends AbstractListingController
 	}
 
 	/**
-	 * Define filters
-	 */
-	protected function defineFilters(): void
-	{
-		$this
-			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
-	}
-
-	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -65,6 +54,17 @@ class GroupListingController extends AbstractListingController
 			->addField(new Field('name', 'duo.security.listing.field.name'))
 			->addField(new Field('createdAt', 'duo.security.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.security.listing.field.modified_at'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		$this
+			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
 	}
 
 	/**

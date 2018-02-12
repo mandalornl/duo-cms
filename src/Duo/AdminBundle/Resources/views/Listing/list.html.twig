@@ -12,6 +12,17 @@
 							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
 						</button>
 						<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
+							{% if list.actions is defined %}
+								{% for action in list.actions %}
+									{% if action.template %}
+										{% include action.template %}
+									{% else %}
+										<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item">
+											{{- action.label | trans -}}
+										</a>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
 							{% if list.isDeletable %}
 								{% set url = path(routePrefix ~ '_delete') %}
 							{% else %}

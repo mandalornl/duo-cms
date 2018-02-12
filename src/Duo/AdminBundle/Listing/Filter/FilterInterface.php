@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Configuration\Filter;
+namespace Duo\AdminBundle\Listing\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 

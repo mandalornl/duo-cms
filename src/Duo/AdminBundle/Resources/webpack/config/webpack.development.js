@@ -4,15 +4,19 @@ const merge = require('webpack-merge');
 const sassLoader = require('./sass-loader.config');
 const config = require('./webpack.common');
 
+const readYmlSync = require('read-yaml').sync;
+
 const WebpackNotifierPlugin = require('webpack-notifier');
+
+const parameters = (readYmlSync(`${process.cwd()}/app/config/parameters.yml`, null)).parameters;
 
 module.exports = merge(config, {
 	devServer: {
-		port: 8080,
-		host: '0.0.0.0',
+		host: parameters['webpack_dev_host'],
+		port: parameters['webpack_dev_port'],
 		proxy: {
 			'/': {
-				target: 'http://127.0.0.1:8000'
+				target: `http://${parameters['php_dev_host']}:${parameters['php_dev_port']}`
 			}
 		},
 		compress: true,

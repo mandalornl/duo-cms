@@ -2,11 +2,11 @@
 
 namespace Duo\SecurityBundle\Controller;
 
-use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Configuration\Filter\BooleanFilter;
-use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
-use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
+use Duo\AdminBundle\Listing\Field\Field;
+use Duo\AdminBundle\Listing\Filter\BooleanFilter;
+use Duo\AdminBundle\Listing\Filter\DateTimeFilter;
+use Duo\AdminBundle\Listing\Filter\StringFilter;
 use Duo\SecurityBundle\Entity\User;
 use Duo\SecurityBundle\Form\UserListingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,20 +47,7 @@ class UserListingController extends AbstractListingController
 	}
 
 	/**
-	 * Define filters
-	 */
-	protected function defineFilters(): void
-	{
-		$this
-			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
-			->addFilter(new StringFilter('username', 'duo.security.listing.filter.username'))
-			->addFilter(new BooleanFilter('active', 'duo.security.listing.filter.active'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
-	}
-
-	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -70,6 +57,19 @@ class UserListingController extends AbstractListingController
 			->addField(new Field('active', 'duo.security.listing.field.active'))
 			->addField(new Field('createdAt', 'duo.security.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.security.listing.field.modified_at'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		$this
+			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
+			->addFilter(new StringFilter('username', 'duo.security.listing.filter.username'))
+			->addFilter(new BooleanFilter('active', 'duo.security.listing.filter.active'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
 	}
 
 	/**

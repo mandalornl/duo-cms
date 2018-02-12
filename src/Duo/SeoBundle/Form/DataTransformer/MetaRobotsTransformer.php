@@ -24,7 +24,7 @@ class MetaRobotsTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($values): ?string
 	{
-		if ($values === null)
+		if ($values === null || !count($values))
 		{
 			return null;
 		}

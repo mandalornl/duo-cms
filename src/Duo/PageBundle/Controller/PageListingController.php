@@ -2,10 +2,12 @@
 
 namespace Duo\PageBundle\Controller;
 
-use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
-use Duo\AdminBundle\Configuration\Filter\StringFilter;
+
 use Duo\AdminBundle\Controller\AbstractListingController;
+
+use Duo\AdminBundle\Listing\Field\Field;
+use Duo\AdminBundle\Listing\Filter\DateTimeFilter;
+use Duo\AdminBundle\Listing\Filter\StringFilter;
 use Duo\BehaviorBundle\Controller\DeleteInterface;
 use Duo\BehaviorBundle\Controller\DeleteTrait;
 use Duo\BehaviorBundle\Controller\DuplicateInterface;
@@ -16,9 +18,9 @@ use Duo\BehaviorBundle\Controller\SortInterface;
 use Duo\BehaviorBundle\Controller\SortTrait;
 use Duo\BehaviorBundle\Controller\RevisionInterface;
 use Duo\BehaviorBundle\Controller\RevisionTrait;
-use Duo\PageBundle\Configuration\Filter\OnlineFilter;
 use Duo\PageBundle\Form\PageListingType;
 use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Listing\Filter\OnlineFilter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -63,21 +65,7 @@ class PageListingController extends AbstractListingController implements Duplica
 	}
 
 	/**
-	 * Define filters
-	 */
-	protected function defineFilters(): void
-	{
-		$this
-			->addFilter(new StringFilter('name', 'duo.page.listing.filter.name'))
-			->addFilter(new StringFilter('title', 'duo.page.listing.filter.title', 't'))
-			->addFilter(new StringFilter('url', 'duo.page.listing.filter.url', 't'))
-			->addFilter(new OnlineFilter('online', 'duo.page.listing.filter.online', 't'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.page.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.page.listing.filter.modified'));
-	}
-
-	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -88,6 +76,20 @@ class PageListingController extends AbstractListingController implements Duplica
 			->addField(new Field('published', 'duo.page.listing.field.online', false, '@DuoAdmin/Listing/Field/published.html.twig'))
 			->addField(new Field('createdAt', 'duo.page.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.page.listing.field.modified_at'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		$this
+			->addFilter(new StringFilter('name', 'duo.page.listing.filter.name'))
+			->addFilter(new StringFilter('title', 'duo.page.listing.filter.title', 't'))
+			->addFilter(new StringFilter('url', 'duo.page.listing.filter.url', 't'))
+			->addFilter(new OnlineFilter('online', 'duo.page.listing.filter.online', 't'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.page.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.page.listing.filter.modified'));
 	}
 
 	/**
@@ -214,16 +216,12 @@ class PageListingController extends AbstractListingController implements Duplica
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route(
-	 *     "/move-to/{id}/{weight}/{parentId}",
-	 *     name="move_to",
-	 *     requirements={ "id" = "\d+", "weight" = "\d+", "parentId" = "\d+" }
-	 * )
+	 * @Route("/move-to/{_format}", name="move_to", defaults={ "_format" = "html" }, requirements={ "_format" = "html|json" })
 	 * @Method({"GET", "POST"})
 	 */
-	public function moveToAction(Request $request, int $id, int $weight, int $parentId = null)
+	public function moveToAction(Request $request)
 	{
-		return $this->doMoveToAction($request, $id, $weight, $parentId);
+		return $this->doMoveToAction($request);
 	}
 
 	/**

@@ -362,7 +362,7 @@ class TestFixtures extends Fixture
 
 		if (($page = $repository->findOneBy(['name' => 'foobar-1'])) === null)
 		{
-			for ($i = 1; $i <= 100; $i++)
+			for ($i = 1; $i <= 10; $i++)
 			{
 				$page = new Page();
 				$page->setName("foobar-{$i}");

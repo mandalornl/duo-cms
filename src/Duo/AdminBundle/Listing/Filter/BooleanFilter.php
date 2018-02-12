@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Configuration\Filter;
+namespace Duo\AdminBundle\Listing\Filter;
 
 use Duo\AdminBundle\Form\Filter\BooleanFilterType;
 
@@ -18,11 +18,11 @@ class BooleanFilter extends AbstractFilter
 			return;
 		}
 
-		$id = 'bool_' . md5($this->property);
+		$param = $this->getParam();
 
 		$this->builder
-			->andWhere("{$this->alias}.{$this->property} = :{$id}")
-			->setParameter($id, (int)$data['value']);
+			->andWhere("{$this->alias}.{$this->property} = :{$param}")
+			->setParameter($param, (int)$data['value']);
 	}
 
 	/**
@@ -31,5 +31,13 @@ class BooleanFilter extends AbstractFilter
 	public function getFormType(): string
 	{
 		return BooleanFilterType::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getParam(): string
+	{
+		return 'bool_' . md5($this->property);
 	}
 }

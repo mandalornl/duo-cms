@@ -3,6 +3,7 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\BehaviorBundle\Entity\RevisionInterface;
+use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\PageBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -35,28 +36,41 @@ class PageTreeController extends Controller
 	{
 		return $this->render('@DuoPage/Menu/view.html.twig', [
 			'menu' => $this->get('duo.admin.menu_builder')->createView(),
-			'pages' => $this->getPages()
+			'pages' => $this->getPages(),
+			'moveToRoute' => $this->generateUrl('duo_page_listing_page_move_to')
 		]);
 	}
 
 	/**
 	 * Children action
 	 *
-	 * @Route("/children/{parent}", name="children", requirements={ "parent" = "\d+" })
+	 * @Route("/{id}/children", name="children", requirements={ "id" = "\d+" })
 	 * @Method("GET")
 	 *
 	 * @param Request $request
-	 * @param int $parent
+	 * @param int $id
 	 *
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function childrenAction(Request $request, int $parent): JsonResponse
+	public function childrenAction(Request $request, int $id): JsonResponse
 	{
+		$entity = $this->getDoctrine()->getRepository(Page::class)->find($id);
+
+		if ($entity === null)
+		{
+			$className = Page::class;
+
+			return $this->json([
+				'error' => "Entity '{$className}::{$id}' not found"
+			]);
+		}
+
 		return $this->json(
 			$this->renderView('@DuoPage/Menu/tree.html.twig', [
-				'pages' => $this->getPages($parent)
+				'pages' => $entity->getChildren(),
+				'parent' => $entity
 			])
 		);
 	}
@@ -64,22 +78,22 @@ class PageTreeController extends Controller
 	/**
 	 * Get pages
 	 *
-	 * @param int $parent
+	 * @param int $parentId [optional]
 	 *
 	 * @return array
 	 *
 	 * @throws \Throwable
 	 */
-	private function getPages(int $parent = null): array
+	private function getPages(int $parentId = null): array
 	{
 		$builder = $this->getDoctrine()->getRepository(Page::class)
 			->createQueryBuilder('e');
 
-		if ($parent !== null)
+		if ($parentId !== null)
 		{
 			$builder
 				->where('e.parent = :parent')
-				->setParameter('parent', $parent);
+				->setParameter('parent', $parentId);
 		}
 		else
 		{
@@ -92,6 +106,12 @@ class PageTreeController extends Controller
 		if ($reflectionClass->implementsInterface(RevisionInterface::class))
 		{
 			$builder->andWhere('e.revision = e.id');
+		}
+
+		// sort on weight
+		if ($reflectionClass->implementsInterface(SortInterface::class))
+		{
+			$builder->orderBy('e.weight', 'ASC');
 		}
 
 		return $builder

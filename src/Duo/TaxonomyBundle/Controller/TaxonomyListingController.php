@@ -2,10 +2,10 @@
 
 namespace Duo\TaxonomyBundle\Controller;
 
-use Duo\AdminBundle\Configuration\Field;
-use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
-use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListingController;
+use Duo\AdminBundle\Listing\Field\Field;
+use Duo\AdminBundle\Listing\Filter\DateTimeFilter;
+use Duo\AdminBundle\Listing\Filter\StringFilter;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Duo\TaxonomyBundle\Form\TaxonomyListingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -46,18 +46,7 @@ class TaxonomyListingController extends AbstractListingController
 	}
 
 	/**
-	 * Define filters
-	 */
-	protected function defineFilters(): void
-	{
-		$this
-			->addFilter(new StringFilter('name', 'duo.taxonomy.listing.filter.name', 't'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.taxonomy.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.taxonomy.listing.filter.modified'));
-	}
-
-	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -65,6 +54,17 @@ class TaxonomyListingController extends AbstractListingController
 			->addField(new Field('name', 'duo.taxonomy.listing.field.name', true, null, 't'))
 			->addField(new Field('createdAt', 'duo.taxonomy.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.taxonomy.listing.field.modified_at'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineFilters(): void
+	{
+		$this
+			->addFilter(new StringFilter('name', 'duo.taxonomy.listing.filter.name', 't'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo.taxonomy.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo.taxonomy.listing.filter.modified'));
 	}
 
 	/**

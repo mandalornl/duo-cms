@@ -132,7 +132,7 @@
 	<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
 		{% if value is iterable %}
 			{% for id, label in value %}
-				<option value="{{ id }}"{% if multiple and requestId == id %} selected{% endif %}>
+				<option value="{{ id }}" selected>
 					{{- label | trans -}}
 				</option>
 			{% endfor %}

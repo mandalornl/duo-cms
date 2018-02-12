@@ -32,11 +32,8 @@ interface SortInterface
 	 * Move entity to
 	 *
 	 * @param Request $request
-	 * @param int $id
-	 * @param int $weight
-	 * @param int $parentId [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 */
-	public function moveToAction(Request $request, int $id, int $weight, int $parentId = null);
+	public function moveToAction(Request $request);
 }

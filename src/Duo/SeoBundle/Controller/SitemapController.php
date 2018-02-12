@@ -2,7 +2,7 @@
 
 namespace Duo\SeoBundle\Controller;
 
-use Duo\AdminBundle\Entity\Node\Page;
+use Duo\PageBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +20,8 @@ class SitemapController extends Controller
 	 * @param Request $request
 	 *
 	 * @return Response
+	 *
+	 * @throws \Throwable
 	 */
 	public function indexAction(Request $request): Response
 	{
@@ -42,6 +44,8 @@ class SitemapController extends Controller
 	 * @param string $locale
 	 *
 	 * @return Response
+	 *
+	 * @throws \Throwable
 	 */
 	public function sitemapAction(Request $request, string $locale): Response
 	{

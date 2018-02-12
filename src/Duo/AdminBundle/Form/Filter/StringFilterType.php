@@ -11,7 +11,7 @@ class StringFilterType extends AbstractFilterType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder
 			->add('operator', ChoiceType::class, [

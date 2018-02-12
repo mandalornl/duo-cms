@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Configuration\Filter;
+namespace Duo\AdminBundle\Listing\Filter;
 
 use Duo\AdminBundle\Form\Filter\DateTimeFilterType;
 
@@ -18,24 +18,24 @@ class DateTimeFilter extends AbstractFilter
 			return;
 		}
 
-		$id = 'date_' . md5("{$data['operator']}_{$this->property}");
+		$param = $this->getParam();
 
 		switch ($data['operator'])
 		{
 			case 'before':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->property} < :{$id}")
-					->setParameter($id, $data['value']);
+					->andWhere("{$this->alias}.{$this->property} < :{$param}")
+					->setParameter($param, $data['value']);
 				break;
 
 			case 'after':
 				$this->builder
-					->andWhere("{$this->alias}.{$this->property} > :{$id}")
-					->setParameter($id, $data['value']);
+					->andWhere("{$this->alias}.{$this->property} > :{$param}")
+					->setParameter($param, $data['value']);
 				break;
 
 			default:
-				throw new \LogicException("Illegal operator '{$data['operator']}'");
+				throw $this->getOperatorException();
 		}
 	}
 
@@ -45,5 +45,15 @@ class DateTimeFilter extends AbstractFilter
 	public function getFormType(): string
 	{
 		return DateTimeFilterType::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getParam(): string
+	{
+		$data = $this->getData();
+
+		return 'date_' . md5("{$data['operator']}_{$this->property}");
 	}
 }

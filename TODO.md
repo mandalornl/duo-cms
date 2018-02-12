@@ -2,11 +2,11 @@
 - Preview
 - PHPUnit (wip)
 
-- MediaBundle
+- MediaBundle (wip)
 - GenerateBundle
 
 - Remember me, auto log in?
 
 - Upgrade to Symfony 4.x
 
-- Listing export (xlsx)
+- Listing export (xlsx): https://github.com/box/spout

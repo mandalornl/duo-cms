@@ -125,6 +125,9 @@ duo:
                     yes: Yes
                     no: No
 
+            enum_filter:
+                placeholder: Maak een keuze
+
         elapsed_time:
             seconds: '{0} %unit% seconden|{1} %unit% seconde|]1,Inf[ %unit% seconden'
             minutes: '{0} %unit% minuten|{1} %unit% minuut|]1,Inf[ %unit% minuten'

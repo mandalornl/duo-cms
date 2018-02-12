@@ -24,7 +24,11 @@ parameters:
     locale: en
     locales: nl|en
 
-    webpack_dev_host: localhost
+    php_dev_host: 127.0.0.1
+    php_dev_port: 3000
+
+    webpack_dev_host: 0.0.0.0
+    webpack_dev_port: 3030
 
     dkim_key_file: '%kernel.project_dir%/app/config/dkim.key'
     dkim_domain: 'example.com'

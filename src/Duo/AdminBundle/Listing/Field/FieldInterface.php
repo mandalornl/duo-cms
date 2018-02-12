@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Configuration;
+namespace Duo\AdminBundle\Listing\Field;
 
 interface FieldInterface
 {

@@ -7,6 +7,7 @@ import datePicker from './assets/datepicker';
 import select2 from './assets/select2';
 import autoComplete from './assets/autocomplete';
 import partList from './assets/partlist';
+import maxLength from './assets/maxlength';
 import * as wysiwyg from './assets/wysiwyg';
 import * as doNotLeave from './util/donotleave';
 
@@ -102,5 +103,7 @@ $(() =>
 	select2();
 	autoComplete();
 	partList();
+	maxLength();
+
 	wysiwyg.init();
 });

@@ -3,7 +3,7 @@ import $ from 'jquery';
 import '../jquery/sortable';
 import * as wysiwyg from '../assets/wysiwyg';
 import autoComplete from '../assets/autocomplete';
-import {get} from '../api';
+import {get} from '../util/api';
 
 /**
  * Initialize

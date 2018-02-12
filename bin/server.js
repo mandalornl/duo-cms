@@ -5,84 +5,82 @@ const path = require('path');
 
 const _ = require('lodash');
 const chokidar = require('chokidar');
-const readYaml = require('util').promisify(require('read-yaml'));
+const readYmlSync = require('read-yaml').sync;
 
 const bundleRoot = path.resolve(process.cwd(), 'src/Duo/AdminBundle');
 
 const WebpackDevServer = require('webpack-dev-server');
 
-(async () =>
+let webpackDevServer = null;
+
+const root = path.dirname(__dirname);
+const env = _.extend({}, process.env, {
+	PATH: `${process.env.PATH}:${root}/node_modules/.bin`
+});
+
+const parameters = (readYmlSync(`${process.cwd()}/app/config/parameters.yml`, null)).parameters;
+
+const phpServer = childProcess.spawn(`${root}/bin/console`, [
+	'server:run',
+	`${parameters['php_dev_host']}:${parameters['php_dev_port']}`
+], {
+	stdio: ['ignore', 'inherit', 'inherit'],
+	env: env
+});
+
+phpServer.on('close', (code) =>
 {
-	let webpackDevServer = null;
-
-	const root = path.dirname(__dirname);
-	const env = _.extend({}, process.env, {
-		PATH: `${process.env.PATH}:${root}/node_modules/.bin`
-	});
-
-	const parameters = (await readYaml(`${process.cwd()}/app/config/parameters.yml`)).parameters;
-
-	const phpServer = childProcess.spawn(`${root}/bin/console`, [
-		'server:run'
-	], {
-		stdio: ['ignore', 'inherit', 'inherit'],
-		env: env
-	});
-
-	phpServer.on('close', (code) =>
+	if (code !== 0)
 	{
-		if (code !== 0)
-		{
-			console.error('Symfony console server:run failed');
-		}
+		console.error('Symfony console server:run failed');
+	}
 
-		if (webpackDevServer)
-		{
-			webpackDevServer.close();
-		}
-	});
-
-	const config = require(`${bundleRoot}/Resources/webpack/webpack.config`);
-	const compiler = require('webpack')(config);
-
-	const options = _.merge({}, config.devServer, {
-		publicPath: config.output.publicPath
-	});
-
-	config.entry['admin.min'].unshift(
-		`webpack-dev-server/client?http://${parameters['webpack_dev_host']}:8080`,
-		'webpack/hot/dev-server'
-	);
-
-	webpackDevServer = new WebpackDevServer(compiler, options);
-	webpackDevServer.listen(8080, (err) =>
+	if (webpackDevServer)
 	{
-		if (err)
-		{
-			return phpServer.kill('SIGINT');
-		}
+		webpackDevServer.close();
+	}
+});
 
-		console.info(`Webpack dev server running on http://${parameters['webpack_dev_host']}:8080/`);
-	});
+const config = require(`${bundleRoot}/Resources/webpack/webpack.config`);
+const compiler = require('webpack')(config);
 
-	/**
-	 * On change
-	 *
-	 * @param {string} path
-	 */
-	const onChange = (path) =>
+const options = _.merge({}, config.devServer, {
+	publicPath: config.output.publicPath
+});
+
+config.entry['admin.min'].unshift(
+	`webpack-dev-server/client?http://${parameters['webpack_dev_host']}:${parameters['webpack_dev_port']}`,
+	'webpack/hot/dev-server'
+);
+
+webpackDevServer = new WebpackDevServer(compiler, options);
+webpackDevServer.listen(parameters['webpack_dev_port'], (err) =>
+{
+	if (err)
 	{
-		console.info(`Template ${path} changed`);
+		return phpServer.kill('SIGINT');
+	}
 
-		webpackDevServer.sockWrite(webpackDevServer.sockets, 'content-changed');
-	};
+	console.info(`Webpack dev server running on http://${parameters['webpack_dev_host']}:${parameters['webpack_dev_port']}/`);
+});
 
-	const watcher = chokidar.watch(`${bundleRoot}/Resources/views`, {
-		persistent: true,
-		ignoreInitial: true
-	});
+/**
+ * On change
+ *
+ * @param {string} path
+ */
+const onChange = (path) =>
+{
+	console.info(`Template ${path} changed`);
 
-	watcher.on('add', onChange);
-	watcher.on('change', onChange);
-	watcher.on('unlink', onChange);
-})();
+	webpackDevServer.sockWrite(webpackDevServer.sockets, 'content-changed');
+};
+
+const watcher = chokidar.watch(`${bundleRoot}/Resources/views`, {
+	persistent: true,
+	ignoreInitial: true
+});
+
+watcher.on('add', onChange);
+watcher.on('change', onChange);
+watcher.on('unlink', onChange);

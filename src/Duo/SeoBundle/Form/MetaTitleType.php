@@ -15,6 +15,9 @@ class MetaTitleType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
+			'attr' => [
+				'maxlength' => 55
+			],
 			'constraints' => [
 				new Length([
 					'max' => 55

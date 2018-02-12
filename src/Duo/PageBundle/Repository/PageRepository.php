@@ -22,6 +22,8 @@ class PageRepository extends AbstractEntityRepository
 	 * @param string $locale [optional]
 	 *
 	 * @return Page
+	 *
+	 * @throws \Throwable
 	 */
 	public function findById(int $id, string $locale = null): ?Page
 	{
@@ -46,6 +48,8 @@ class PageRepository extends AbstractEntityRepository
 	 * @param string $locale [optional]
 	 *
 	 * @return Page
+	 *
+	 * @throws \Throwable
 	 */
 	public function findOneByUrl(string $url, string $locale = null): ?Page
 	{
@@ -82,6 +86,8 @@ class PageRepository extends AbstractEntityRepository
 	 * @param string $locale [optional]
 	 *
 	 * @return Page
+	 *
+	 * @throws \Throwable
 	 */
 	public function findOneByName(string $name, string $locale = null): ?Page
 	{
@@ -103,6 +109,8 @@ class PageRepository extends AbstractEntityRepository
 	 * Find latest modified at
 	 *
 	 * @return \DateTime
+	 *
+	 * @throws \Throwable
 	 */
 	public function findLastModifiedAt(): \DateTime
 	{

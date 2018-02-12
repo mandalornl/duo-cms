@@ -29,14 +29,18 @@ abstract class AbstractListingController extends FrameworkController
 	use RoutePrefixTrait;
 	use FieldTrait;
 	use FilterTrait;
+	use ItemActionTrait;
+	use ListActionTrait;
 
 	/**
 	 * AbstractController constructor
 	 */
 	public function __construct()
 	{
-		$this->defineFilters();
 		$this->defineFields();
+		$this->defineFilters();
+		$this->defineItemActions();
+		$this->defineListActions();
 	}
 
 	/**
@@ -63,7 +67,8 @@ abstract class AbstractListingController extends FrameworkController
 					return $form->createView();
 				}),
 				'fields' => $this->fields,
-				'sorting' => $this->getSorting($request)
+				'sorting' => $this->getSorting($request),
+				'actions' => $this->getListActions()
 			], $this->getListBehaviors())
 		]));
 	}
@@ -304,7 +309,8 @@ abstract class AbstractListingController extends FrameworkController
 
 		$context = $this->getDefaultContext([
 			'form' => $form->createView(),
-			'entity' => $entity
+			'entity' => $entity,
+			'actions' => $this->getItemActions()
 		]);
 
 		// dispatch twig context event
@@ -392,7 +398,8 @@ abstract class AbstractListingController extends FrameworkController
 
 		$context = $this->getDefaultContext([
 			'form' => $form->createView(),
-			'entity' => $clone
+			'entity' => $clone,
+			'actions' => $this->getItemActions()
 		]);
 
 		// dispatch twig context event

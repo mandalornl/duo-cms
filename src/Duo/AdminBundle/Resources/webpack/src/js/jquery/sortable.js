@@ -66,6 +66,6 @@ $.fn.sortable = function(method, options)
 	}
 	else
 	{
-		$.error(`Method ${method} does not exist on jQuery.sortable`);
+		$.error(`Method ${method} doesn't exist on jQuery.sortable`);
 	}
 };

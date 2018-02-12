@@ -40,6 +40,8 @@ trait TreeTrait
 	 */
 	public function addChild(TreeInterface $child): TreeInterface
 	{
+		$child->setParent($this);
+
 		$this->getChildren()->add($child);
 
 		return $this;

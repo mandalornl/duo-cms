@@ -59,7 +59,7 @@ class TreeSubscriber implements EventSubscriber
 			$classMetadata->mapManyToOne([
 				'fieldName'		=> 'parent',
 				'inversedBy'	=> 'children',
-				'cascade'		=> ['persist', 'remove'],
+				'cascade'		=> ['persist'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'joinColumns'	=> [[
@@ -84,10 +84,9 @@ class TreeSubscriber implements EventSubscriber
 			$mapping = [
 				'fieldName'		=> 'children',
 				'mappedBy'		=> 'parent',
-				'cascade'		=> ['persist', 'merge', 'remove'],
+				'cascade'		=> ['persist'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
-				'targetEntity'	=> $reflectionClass->getName(),
-				'orphanRemoval'	=> true
+				'targetEntity'	=> $reflectionClass->getName()
 			];
 
 			// order by weight

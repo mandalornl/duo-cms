@@ -6,6 +6,7 @@ import 'bootstrap/js/dist/alert';
 
 import {confirm} from "./util/modal";
 import datePicker from './assets/datepicker';
+import select2 from './assets/select2';
 
 $(() =>
 {
@@ -36,4 +37,5 @@ $(() =>
 	}));
 
 	datePicker();
+	select2();
 });

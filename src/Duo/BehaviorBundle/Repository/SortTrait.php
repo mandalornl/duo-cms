@@ -4,6 +4,7 @@ namespace Duo\BehaviorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
@@ -12,88 +13,152 @@ use Duo\BehaviorBundle\Entity\RevisionInterface;
 trait SortTrait
 {
 	/**
-	 * Find previous entity using weight
+	 * Find previous to sort
 	 *
 	 * @param SortInterface $entity
-	 * @param int $limit [optional]
 	 *
-	 * @return SortInterface|SortInterface[]
+	 * @return SortInterface
 	 */
-	public function findPreviousEntityUsingWeight(SortInterface $entity, int $limit = 1)
+	public function findPrevToSort(SortInterface $entity): ?SortInterface
 	{
-		/**
-		 * @var EntityRepository $this
-		 */
-		$builder = $this->createQueryBuilder('e')
-			->where('e.weight < :weight')
-			->setParameter('weight', $entity->getWeight())
-			->addOrderBy('e.weight', 'DESC')
-			->setMaxResults($limit);
-
-		// use parent of entity
-		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)
+		try
 		{
-			$builder
-				->andWhere('e.parent = :parent')
-				->setParameter('parent', $parent);
+			return $this->getPrevQueryBuilder($entity)
+				->orderBy('e.weight', 'DESC')
+				->setMaxResults(1)
+				->getQuery()
+				->getOneOrNullResult();
 		}
-
-		// use latest revision
-		if ($entity instanceof RevisionInterface)
+		catch (NonUniqueResultException $e)
 		{
-			$builder->andWhere('e.revision = e.id');
+			return null;
 		}
+	}
 
-		// ignore deleted
-		if ($entity instanceof DeleteInterface)
-		{
-			$builder->andWhere('e.deletedAt IS NULL');
-		}
-
-		if ($limit === 1)
-		{
-			try
-			{
-				return $builder
-					->getQuery()
-					->getOneOrNullResult();
-			}
-			catch (NonUniqueResultException $e)
-			{
-				return null;
-			}
-		}
-
-		return $builder
+	/**
+	 * Find previous all to sort
+	 *
+	 * @param SortInterface $entity
+	 *
+	 * @return SortInterface[]
+	 */
+	public function findPrevAllToSort(SortInterface $entity): array
+	{
+		return $this->getPrevQueryBuilder($entity)
+			->orderBy('e.weight', 'ASC')
 			->getQuery()
 			->getResult();
 	}
 
 	/**
-	 * Find next entity using weight
+	 * Get previous query builder
 	 *
 	 * @param SortInterface $entity
-	 * @param int $limit [optional]
 	 *
-	 * @return SortInterface|SortInterface[]
+	 * @return QueryBuilder
 	 */
-	public function findNextEntityUsingWeight(SortInterface $entity, int $limit = 1)
+	private function getPrevQueryBuilder(SortInterface $entity): QueryBuilder
+	{
+		return $this->getSortQueryBuilder($entity)
+			->andWhere('e.weight < :weight')
+			->setParameter('weight', $entity->getWeight());
+	}
+
+	/**
+	 * Find next all to sort
+	 *
+	 * @param SortInterface $entity
+	 *
+	 * @return SortInterface[]
+	 */
+	public function findNextAllToSort(SortInterface $entity): array
+	{
+		return $this->getNextQueryBuilder($entity)
+			->orderBy('e.weight', 'ASC')
+			->getQuery()
+			->getResult();
+	}
+
+	/**
+	 * Find next entity to sort
+	 *
+	 * @param SortInterface $entity
+	 *
+	 * @return SortInterface
+	 */
+	public function findNextToSort(SortInterface $entity): ?SortInterface
+	{
+		try
+		{
+			return $this->getNextQueryBuilder($entity)
+				->orderBy('e.weight', 'ASC')
+				->setMaxResults(1)
+				->getQuery()
+				->getOneOrNullResult();
+		}
+		catch (NonUniqueResultException $e)
+		{
+			return null;
+		}
+
+	}
+
+	/**
+	 * Get next query builder
+	 *
+	 * @param SortInterface $entity
+	 *
+	 * @return QueryBuilder
+	 */
+	private function getNextQueryBuilder(SortInterface $entity): QueryBuilder
+	{
+		return $this->getSortQueryBuilder($entity)
+			->andWhere('e.weight > :weight')
+			->setParameter('weight', $entity->getWeight());
+	}
+
+	/**
+	 * Find siblings to sort
+	 *
+	 * @param SortInterface $entity
+	 *
+	 * @return SortInterface[]
+	 */
+	public function findSiblingsToSort(SortInterface $entity): array
+	{
+		return $this->getSortQueryBuilder($entity)
+			->orderBy('e.weight', 'ASC')
+			->getQuery()
+			->getResult();
+	}
+
+	/**
+	 * Get sort query builder
+	 *
+	 * @param SortInterface $entity
+	 *
+	 * @return QueryBuilder
+	 */
+	private function getSortQueryBuilder(SortInterface $entity): QueryBuilder
 	{
 		/**
 		 * @var EntityRepository $this
 		 */
-		$builder = $this->createQueryBuilder('e')
-			->where('e.weight > :weight')
-			->setParameter('weight', $entity->getWeight())
-			->addOrderBy('e.weight', 'ASC')
-			->setMaxResults($limit);
+		$builder = $this->createQueryBuilder('e');
 
 		// use parent of entity
-		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)
+		if ($entity instanceof TreeInterface)
 		{
-			$builder
-				->andWhere('e.parent = :parent')
-				->setParameter('parent', $parent);
+			if (($parent = $entity->getParent()) !== null)
+			{
+				$builder
+					->andWhere('e.parent = :parent')
+					->setParameter('parent', $parent);
+			}
+			else
+			{
+				$builder->andWhere('e.parent IS NULL');
+			}
 		}
 
 		// use latest revision
@@ -108,22 +173,6 @@ trait SortTrait
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
-		if ($limit === 1)
-		{
-			try
-			{
-				return $builder
-					->getQuery()
-					->getOneOrNullResult();
-			}
-			catch (NonUniqueResultException $e)
-			{
-				return null;
-			}
-		}
-
-		return $builder
-			->getQuery()
-			->getResult();
+		return $builder;
 	}
 }

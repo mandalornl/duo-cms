@@ -1,5 +1,8 @@
 import $ from 'jquery';
 
+import {get} from '../util/api';
+import * as loader from '../util/loader';
+
 const pluginName = 'nestable';
 
 const defaults = {
@@ -19,9 +22,7 @@ const defaults = {
 	onDragOver			: function(e) {},
 	onDrop				: function(e, data) {},
 	onDrag				: function(e) {},
-	onDragEnd			: function(e) {},
-	onExpand			: function(e) {},
-	onCollapse			: function(e) {}
+	onDragEnd			: function(e) {}
 };
 
 const methods = {
@@ -48,17 +49,22 @@ const methods = {
 			/**
 			 * @type {jQuery}
 			 */
-			let $draggedOver;
+			let $dragEnter;
 
 			/**
 			 * @type {jQuery}
 			 */
-			let $prevList;
+			let $previousList;
 
 			/**
 			 * @type {jQuery}
 			 */
 			let $newList;
+
+			/**
+			 * @type {jQuery}
+			 */
+			let $sibling;
 
 			/**
 			 * @type {jQuery|HTMLElement}
@@ -75,8 +81,9 @@ const methods = {
 			const getData = (data = {}) =>
 			{
 				return $.extend({
-					$prevList: $prevList,
+					$previousList: $previousList,
 					$newList: $newList,
+					$sibling: $sibling,
 					$item: $draggable
 				}, data);
 			};
@@ -84,11 +91,17 @@ const methods = {
 			/**
 			 * Update button after drop
 			 *
-			 * @param {jQuery} $item
+			 * @param {jQuery} $list
 			 */
-			const updateButtonAfterDrop = ($item) =>
+			const updateCollapsibleButtonAfterDrop = ($list) =>
 			{
-				if (!$item)
+				if (!$list)
+				{
+					return;
+				}
+
+				const $item = $list.closest(options.itemSelector);
+				if (!$item.length)
 				{
 					return;
 				}
@@ -113,14 +126,14 @@ const methods = {
 					const $target = $(e.target);
 					if (!$target.is(options.draggableSelector))
 					{
-						return;
+						return false;
 					}
 
 					$target.css('opacity', .5);
 
 					$draggable = $target;
 
-					$prevList = $target.closest(options.listSelector);
+					$previousList = $target.closest(options.listSelector);
 
 					e.originalEvent.dataTransfer.effectAllowed = 'move';
 
@@ -140,12 +153,13 @@ const methods = {
 
 					$dropZone.detach();
 
-					$draggedOver = null;
+					$dragEnter = null;
 
 					options.onDragEnd(e);
 				}
 			}, options.draggableSelector);
 
+			// dragEnter
 			$this.on({
 				dragenter: function(e)
 				{
@@ -154,23 +168,31 @@ const methods = {
 					const $this = $(this);
 					const $item = $this.closest(options.itemSelector);
 
+					// ignore dragged element
 					if ($draggable.is($item) || $draggable.find(options.draggableSelector).is($item))
 					{
-						return;
+						return false;
 					}
 
-					$dropZone.insertAfter($item);
-
-					$draggedOver = $item;
-
-					options.onDragEnter(e, getData());
-
-					if ($item.data('children') && !$item.find(`> ${options.listSelector} > ${options.itemSelector}`).length)
+					// don't insert dropzone before dragged element
+					if (!$item.next(options.itemSelector).is($draggable))
 					{
-						return;
+						$dropZone.insertAfter($item);
 					}
+
+					const $btn = $this.find(options.btnSelector);
+
+					// cannot enter element when children aren't loaded yet
+					if (!$btn.hasClass('d-none') && !$item.find(`> ${options.listSelector} > ${options.itemSelector}`).length)
+					{
+						return false;
+					}
+
+					$dragEnter = $item;
 
 					$this.addClass('over');
+
+					options.onDragEnter(e);
 				},
 
 				dragleave: function(e)
@@ -178,6 +200,8 @@ const methods = {
 					const $this = $(this);
 
 					$this.removeClass('over');
+
+					$dragEnter = null;
 
 					options.onDragLeave(e);
 				},
@@ -189,47 +213,66 @@ const methods = {
 					e.originalEvent.dataTransfer.dropEffect = 'move';
 
 					options.onDragOver(e);
+
+					return false;
 				},
 
 				drop: function(e)
 				{
-					if ($draggedOver.data('children') && !$draggedOver.find(`> ${options.listSelector} > ${options.itemSelector}`).length)
-					{
-						return;
-					}
-
-					let $list = $draggedOver.find(`> ${options.listSelector}`);
-					if (!$list.length)
-					{
-						$list = $(`<ul class="${options.listSelector.replace('.', '')}"/>`);
-
-						$draggedOver.append($list);
-					}
-
 					e.stopPropagation();
 
-					$list.removeClass('d-none');
+					if (!$dragEnter)
+					{
+						return false;
+					}
 
-					$draggable.appendTo($list);
+					const $btn = $dragEnter.find(`> ${options.dragEnterSelector} ${options.btnSelector}`);
+
+					// cannot enter element when children aren't loaded yet
+					if (!$btn.hasClass('d-none') && !$dragEnter.find(`> ${options.listSelector} > ${options.itemSelector}`).length)
+					{
+						return false;
+					}
+
+					let $list = $dragEnter.find(`> ${options.listSelector}`);
+					if (!$list.length)
+					{
+						$list = $(`<ul class="${options.listSelector.replace('.', '')}" />`);
+						$list.data('id', $dragEnter.data('id'));
+
+						$dragEnter.append($list);
+					}
+
+					$list.removeClass('d-none').append($draggable);
 
 					$newList = $list;
+					$sibling = $draggable.prev(options.itemSelector);
 
-					updateButtonAfterDrop($prevList.closest(options.itemSelector));
-					updateButtonAfterDrop($newList.closest(options.itemSelector));
+					updateCollapsibleButtonAfterDrop($previousList);
+					updateCollapsibleButtonAfterDrop($newList);
 
 					options.onDrop(e, getData());
+
+					return false;
 				}
 			}, options.dragEnterSelector);
 
+			// dropzone
 			$this.on({
-				dragenter: function()
+				dragenter: function(e)
 				{
+					e.preventDefault();
+
 					$dropZone.addClass('over');
+
+					options.onDragEnter(e);
 				},
 
-				dragleave: function()
+				dragleave: function(e)
 				{
 					$dropZone.removeClass('over');
+
+					options.onDragLeave(e);
 				},
 
 				dragover: function(e)
@@ -239,20 +282,30 @@ const methods = {
 					e.originalEvent.dataTransfer.dropEffect = 'move';
 
 					options.onDragOver(e);
+
+					return false;
 				},
 
 				drop: function(e)
 				{
 					e.stopPropagation();
 
-					$draggable.insertAfter($dropZone);
+					if (!$dropZone.hasClass('over'))
+					{
+						return false;
+					}
+
+					$draggable.insertBefore($dropZone);
 
 					$newList = $draggable.closest(options.listSelector);
+					$sibling = $draggable.prev(options.itemSelector);
 
-					updateButtonAfterDrop($prevList.closest(options.itemSelector));
-					updateButtonAfterDrop($newList.closest(options.itemSelector));
+					updateCollapsibleButtonAfterDrop($previousList);
+					updateCollapsibleButtonAfterDrop($newList);
 
 					options.onDrop(e, getData());
+
+					return false;
 				}
 			}, options.dropZoneSelector);
 
@@ -261,21 +314,36 @@ const methods = {
 				e.preventDefault();
 
 				const $btn = $(this);
-				const $item = $btn.closest(options.itemSelector);
-				const $list = $item.find(`> ${options.listSelector}`);
+				const $list = $btn.closest(options.itemSelector).find(`> ${options.listSelector}`);
 
-				if (!$list.length || $list.hasClass('d-none'))
+				if ($list.hasClass('d-none'))
 				{
-					await options.onExpand.call(this, e);
+					if (!$list.find(`> ${options.itemSelector}`).length && $btn.data('url'))
+					{
+						if ($list.data('loading'))
+						{
+							return;
+						}
 
-					$item.removeAttr('data-children');
+						$list.data('loading', true);
+
+						loader.show();
+
+						const html = await get($btn.data('url'));
+						if (!html)
+						{
+							return;
+						}
+
+						$list.replaceWith(html).removeData('loading');
+
+						loader.hide();
+					}
 
 					$list.removeClass('d-none');
 					$btn.find('i').removeClass(options.iconCloseClass).addClass(options.iconOpenClass);
 					return;
 				}
-
-				await options.onCollapse.call(this, e);
 
 				$list.addClass('d-none');
 				$btn.find('i').removeClass(options.iconOpenClass).addClass(options.iconCloseClass);
@@ -296,207 +364,6 @@ $.fn[pluginName] = function(method, options)
 	}
 	else
 	{
-		$.error(`Method ${method} does not exist on jQuery.${pluginName}`);
+		$.error(`Method ${method} doesn't exist on jQuery.${pluginName}`);
 	}
 };
-
-// $this.on({
-// 	dragstart: function(e)
-// 	{
-// 		const $target = $(e.target);
-// 		if (!$target.is(options.draggableSelector))
-// 		{
-// 			return false;
-// 		}
-//
-// 		$target.css('opacity', .5);
-//
-// 		$draggable = $target;
-//
-// 		$prevList = $target.closest(options.listSelector);
-//
-// 		e.originalEvent.dataTransfer.effectAllowed = 'move';
-//
-// 		options.onDragStart(e);
-// 	},
-//
-// 	drag: function(e)
-// 	{
-// 		if (!$draggedOver)
-// 		{
-// 			return;
-// 		}
-//
-// 		// if ($draggedOver.data('hasList') && (e.pageX - pageX) > options.xThreshold)
-// 		// {
-// 		// 	$draggedOver.find(`> ${options.listSelector}`).append($dropZone);
-// 		// }
-// 		// else
-// 		// {
-// 		// 	$dropZone.insertAfter($draggedOver);
-// 		// }
-//
-// 		// const y = $draggedOver.offset().top;
-// 		// const height = $draggedOver.outerHeight();
-// 		//
-// 		// if (!$draggedOver.data('hasPrevSibling') && !$draggedOver.data('hasNextSibling'))
-// 		// {
-// 		// 	if (e.pageY > y && e.pageY < (y + (height / 2)))
-// 		// 	{
-// 		// 		$dropZone.insertBefore($draggedOver);
-// 		// 	}
-// 		// 	else
-// 		// 	{
-// 		// 		if (e.pageY > (y + (height / 2)) && e.pageY < (y + height))
-// 		// 		{
-// 		// 			$dropZone.insertAfter($draggedOver);
-// 		// 		}
-// 		//
-// 		// 		if ($draggedOver.data('hasList'))
-// 		// 		{
-// 		// 			if ((e.pageX - pageX) > options.xThreshold)
-// 		// 			{
-// 		// 				$draggedOver.find(`> ${options.listSelector}`).append($dropZone);
-// 		// 			}
-// 		// 		}
-// 		// 	}
-// 		// }
-// 		// else
-// 		// {
-// 		// 	if (e.pageY > y && e.pageY < (y + height))
-// 		// 	{
-// 		// 		$dropZone.insertAfter($draggedOver);
-// 		// 	}
-// 		//
-// 		// 	if ($draggedOver.data('hasList'))
-// 		// 	{
-// 		// 		if ((e.pageX - pageX) > options.xThreshold)
-// 		// 		{
-// 		// 			$draggedOver.find(`> ${options.listSelector}`).append($dropZone);
-// 		// 		}
-// 		// 	}
-// 		// }
-//
-// 		options.onDrag(e);
-// 	},
-//
-// 	dragend: function(e)
-// 	{
-// 		$(e.target).css('opacity', '');
-//
-// 		$dropZone.detach();
-//
-// 		$draggedOver = null;
-//
-// 		options.onDragEnd(e, getData());
-// 	}
-// }, options.draggableSelector);
-//
-// $this.on({
-// 	dragenter: function(e)
-// 	{
-// 		e.preventDefault();
-//
-// 		const $this = $(this).closest(options.itemSelector);
-//
-// 		if ($draggable.is($this) || $draggable.find(options.draggableSelector).is($this))
-// 		{
-// 			return;
-// 		}
-//
-// 		const $list = $this.find(`> ${options.listSelector}`);
-//
-// 		$this.data({
-// 			hasPrevSibling: $this.prev(options.itemSelector).length !== 0,
-// 			hasNextSibling: $this.next(options.itemSelector).length !== 0,
-// 			hasList: $list.length !== 0
-// 		});
-//
-// 		$this.find(`> ${options.dragEnterSelector}`).addClass('over');
-//
-// 		$dropZone.insertAfter($this);
-//
-// 		$draggedOver = $this;
-//
-// 		pageX = e.pageX;
-//
-// 		options.onDragEnter(e);
-// 	},
-//
-// 	dragleave: function(e)
-// 	{
-// 		if ($draggedOver)
-// 		{
-// 			$draggedOver.find(`> ${options.dragEnterSelector}`).removeClass('over');
-// 		}
-//
-// 		options.onDragLeave(e);
-// 	},
-//
-// 	dragover: function(e)
-// 	{
-// 		e.preventDefault();
-//
-// 		e.originalEvent.dataTransfer.dropEffect = 'move';
-//
-// 		options.onDragOver(e);
-// 	},
-//
-// 	drop: function(e)
-// 	{
-// 		const $list = $draggedOver.find(`> ${options.listSelector}`);
-// 		console.log($list);
-// 		if (!$list.length)
-// 		{
-// 			return;
-// 		}
-//
-// 		e.stopPropagation();
-//
-// 		$draggable.appendTo($list);
-//
-// 		$newList = $list;
-//
-// 		updateButtons($prevList.closest(options.itemSelector));
-// 		updateButtons($newList.closest(options.itemSelector));
-//
-// 		options.onDrop(e, getData());
-// 	}
-// }, options.dragEnterSelector);
-//
-// $this.on({
-// 	dragenter: function(e)
-// 	{
-// 		$dropZone.addClass('over');
-//
-// 		pageX = e.pageX;
-// 	},
-//
-// 	dragleave: function()
-// 	{
-// 		$dropZone.removeClass('over');
-// 	},
-//
-// 	dragover: function(e)
-// 	{
-// 		e.preventDefault();
-//
-// 		e.originalEvent.dataTransfer.dropEffect = 'move';
-//
-// 		options.onDragOver(e);
-// 	},
-//
-// 	drop: function(e)
-// 	{
-// 		e.stopPropagation();
-//
-// 		$draggable.insertAfter($dropZone);
-//
-// 		$newList = $draggable.closest(options.listSelector);
-//
-// 		updateButtons($prevList.closest(options.itemSelector));
-// 		updateButtons($newList.closest(options.itemSelector));
-//
-// 		options.onDrop(e, getData());
-// 	}
-// }, options.dropZoneSelector);
