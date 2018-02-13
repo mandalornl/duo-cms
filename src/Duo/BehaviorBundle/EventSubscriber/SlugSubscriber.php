@@ -48,7 +48,7 @@ class SlugSubscriber implements EventSubscriber
 
 	/**
 	 * Set slug
-	 * 
+	 *
 	 * @param object $entity
 	 *
 	 * @throws \IntlException
@@ -61,13 +61,13 @@ class SlugSubscriber implements EventSubscriber
 		}
 
 		// make sure slug is slugified
-		if (!empty($entity->getSlug()) && preg_match('#[^a-z0-9-]+#', $entity->getSlug()))
+		if (!empty($entity->getSlug()))
 		{
 			$entity->setSlug(SlugifyHelper::slugify($entity->getSlug()));
 			return;
 		}
 
-		if ($entity->getSlug() !== '')
+		if ($entity->getSlug() === null)
 		{
 			$entity->setSlug(SlugifyHelper::slugify($entity->getValueToSlugify()));
 		}

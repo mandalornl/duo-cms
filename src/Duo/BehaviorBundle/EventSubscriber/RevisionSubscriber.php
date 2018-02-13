@@ -57,13 +57,13 @@ class RevisionSubscriber implements EventSubscriber
 			$classMetadata->mapManyToOne([
 				'fieldName' 	=> 'revision',
 				'inversedBy'	=> 'revisions',
-				'cascade'		=> ['persist', 'remove'],
+				'cascade'		=> ['persist'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'joinColumns' 	=> [[
 					'name' 					=> 'revision_id',
 					'referencedColumnName'	=> 'id',
-					'onDelete'				=> 'CASCADE'
+					'onDelete'				=> 'SET NULL'
 				]]
 			]);
 		}
@@ -82,10 +82,9 @@ class RevisionSubscriber implements EventSubscriber
 			$classMetadata->mapOneToMany([
 				'fieldName' 	=> 'revisions',
 				'mappedBy'		=> 'revision',
-				'cascade'		=> ['persist', 'merge', 'remove'],
+				'cascade'		=> ['persist'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
-				'orphanRemoval'	=> true,
 				'orderBy' => [
 					'id' => 'DESC'
 				]

@@ -2,8 +2,7 @@
 
 namespace Duo\PageBundle\Controller;
 
-use Duo\BehaviorBundle\Entity\RevisionInterface;
-use Duo\BehaviorBundle\Entity\SortInterface;
+use Doctrine\ORM\Query\Expr\Join;
 use Duo\PageBundle\Entity\Page;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -36,7 +35,7 @@ class PageTreeController extends Controller
 	{
 		return $this->render('@DuoPage/Menu/view.html.twig', [
 			'menu' => $this->get('duo.admin.menu_builder')->createView(),
-			'pages' => $this->getPages(),
+			'pages' => $this->getPages($request),
 			'moveToRoute' => $this->generateUrl('duo_page_listing_page_move_to')
 		]);
 	}
@@ -69,7 +68,7 @@ class PageTreeController extends Controller
 
 		return $this->json(
 			$this->renderView('@DuoPage/Menu/tree.html.twig', [
-				'pages' => $entity->getChildren(),
+				'pages' => $this->getPages($request, $entity),
 				'parent' => $entity
 			])
 		);
@@ -78,40 +77,30 @@ class PageTreeController extends Controller
 	/**
 	 * Get pages
 	 *
-	 * @param int $parentId [optional]
+	 * @param Request $request
+	 * @param Page $parent [optional]
 	 *
 	 * @return array
-	 *
-	 * @throws \Throwable
 	 */
-	private function getPages(int $parentId = null): array
+	private function getPages(Request $request, Page $parent = null): array
 	{
 		$builder = $this->getDoctrine()->getRepository(Page::class)
-			->createQueryBuilder('e');
+			->createQueryBuilder('e')
+			->join('e.translations', 't', Join::WITH, 't.locale = :locale')
+			->setParameter('locale', $request->getLocale())
+			->where('e.revision = e.id')
+			->orderBy('e.weight', 'ASC')
+			->addOrderBy('t.title', 'ASC');
 
-		if ($parentId !== null)
+		if ($parent !== null)
 		{
 			$builder
-				->where('e.parent = :parent')
-				->setParameter('parent', $parentId);
+				->andWhere('e.parent = :parent')
+				->setParameter('parent', $parent);
 		}
 		else
 		{
-			$builder->where('e.parent IS NULL');
-		}
-
-		$reflectionClass = new \ReflectionClass(Page::class);
-
-		// using latest revision
-		if ($reflectionClass->implementsInterface(RevisionInterface::class))
-		{
-			$builder->andWhere('e.revision = e.id');
-		}
-
-		// sort on weight
-		if ($reflectionClass->implementsInterface(SortInterface::class))
-		{
-			$builder->orderBy('e.weight', 'ASC');
+			$builder->andWhere('e.parent IS NULL');
 		}
 
 		return $builder
