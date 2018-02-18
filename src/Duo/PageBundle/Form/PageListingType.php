@@ -47,7 +47,9 @@ class PageListingType extends AbstractType
 				->add('taxonomies', TaxonomyChoiceType::class, [
 					'required' => false
 				])
-				->add('parent', PageAutoCompleteType::class)
+				->add('parent', PageAutoCompleteType::class, [
+					'required' => false
+				])
 			);
 
 		$builder

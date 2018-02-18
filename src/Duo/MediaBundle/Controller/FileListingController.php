@@ -2,8 +2,6 @@
 
 namespace Duo\MediaBundle\Controller;
 
-use Duo\AdminBundle\Controller\FieldTrait;
-use Duo\AdminBundle\Controller\FilterTrait;
 use Duo\AdminBundle\Controller\RoutePrefixTrait;
 use Duo\MediaBundle\Entity\File;
 use Duo\MediaBundle\Form\FileListingType;
@@ -17,38 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route(name="duo_media_file_")
+ * @Route(name="duo_media_listing_file_")
  */
-class FileController extends Controller
+class FileListingController extends Controller
 {
 	use RoutePrefixTrait;
-	use FieldTrait;
-	use FilterTrait;
-
-	/**
-	 * FileController constructor
-	 */
-	public function __construct()
-	{
-		$this->defineFields();
-		$this->defineFilters();
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function defineFields(): void
-	{
-		// TODO: Implement defineFields() method.
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function defineFilters(): void
-	{
-		// TODO: Implement defineFilters() method.
-	}
 
 	/**
 	 * Add or edit entity
@@ -112,8 +83,7 @@ class FileController extends Controller
 				->setSize($file->getSize())
 				->setMimeType($file->getMimeType())
 				->setMetadata($metadata)
-				// TODO: get upload folder from config
-				->setUrl("/uploads/media/{$uuid}/{$file->getBasename()}");
+				->setUrl("{$this->getParameter('duo.media.relative_upload_path')}/{$uuid}/{$file->getBasename()}");
 
 			if ($entity->getName() === null)
 			{
@@ -124,8 +94,7 @@ class FileController extends Controller
 			$em->persist($entity);
 			$em->flush();
 
-			// TODO: move file
-			//$file->move('', $file->getBasename());
+			$file->move("{$this->getParameter('duo.media.absolute_upload_path')}/{$uuid}", $file->getBasename());
 
 			$folderId = null;
 			if (($folder = $entity->getFolder()) !== null)

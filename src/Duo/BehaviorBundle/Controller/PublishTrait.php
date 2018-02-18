@@ -144,7 +144,7 @@ trait PublishTrait
 	private function publishInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = PublishInterface::class;
-		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
 
 		/// reply with json response
 		if ($request->getRequestFormat() === 'json')

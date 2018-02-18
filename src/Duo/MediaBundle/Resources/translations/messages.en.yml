@@ -6,11 +6,15 @@ duo:
         listing:
             field:
                 name: Name
+                type: Type
+                size: Size
                 created_at: Created at
                 modified_at: Modified at
 
             filter:
                 name: Name
+                type: Type
+                byte_size: Size (bytes)
                 created: Created
                 modified: Modified
 

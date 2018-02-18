@@ -46,7 +46,7 @@ trait RevisionTrait
 		/**
 		 * @var FormInterface $form
 		 */
-		$form = $this->createForm($this->getFormClassName(), $entity, [
+		$form = $this->createForm($this->getFormType(), $entity, [
 			'action' => 'javascript:;',
 			'disabled' => true
 		]);
@@ -125,7 +125,7 @@ trait RevisionTrait
 	private function revisionInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = RevisionInterface::class;
-		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

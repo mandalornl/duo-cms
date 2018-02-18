@@ -208,7 +208,7 @@ abstract class AbstractListingController extends FrameworkController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post add event
-			$eventDispatcher->dispatch(ListingEvents::POST_ADD, new ListingEvent($entity));
+			$eventDispatcher->dispatch(ListingEvents::POST_ADD, new ListingEvent($entity, $form));
 
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($entity);
@@ -279,7 +279,7 @@ abstract class AbstractListingController extends FrameworkController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post edit event
-			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($entity));
+			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($entity, $form));
 
 			try
 			{
@@ -350,7 +350,7 @@ abstract class AbstractListingController extends FrameworkController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post edit event
-			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($clone));
+			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($clone, $form));
 
 			// post submit state
 			$postSubmitState = serialize($clone);

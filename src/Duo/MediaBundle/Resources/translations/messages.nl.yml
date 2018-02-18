@@ -6,11 +6,15 @@ duo:
         listing:
             field:
                 name: Naam
+                type: Type
+                size: Grootte
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
             filter:
                 name: Naam
+                type: Type
+                byte_size: Grootte (bytes)
                 created: Aangemaakt
                 modified: Gewijzigd
 

@@ -38,7 +38,7 @@ trait SortTrait
 			/**
 			 * @var Repository\SortTrait $repository
 			 */
-			$repository = $em->getRepository($this->getEntityClassName());
+			$repository = $em->getRepository($this->getEntityClass());
 
 			$previousEntity = $repository->findPrevToSort($entity);
 
@@ -83,7 +83,7 @@ trait SortTrait
 			/**
 			 * @var Repository\SortTrait $repository
 			 */
-			$repository = $em->getRepository($this->getEntityClassName());
+			$repository = $em->getRepository($this->getEntityClass());
 
 			$nextEntity = $repository->findNextToSort($entity);
 
@@ -573,7 +573,7 @@ trait SortTrait
 	{
 		$interface = SortInterface::class;
 
-		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

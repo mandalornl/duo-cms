@@ -164,7 +164,7 @@ trait DeleteTrait
 			 */
 			$dispatcher = $this->get('event_dispatcher');
 
-			$entities = $this->getDoctrine()->getRepository($this->getEntityClassName())->findBy([
+			$entities = $this->getDoctrine()->getRepository($this->getEntityClass())->findBy([
 				'id' => $ids
 			]);
 
@@ -205,7 +205,7 @@ trait DeleteTrait
 	private function deleteInterfaceNotImplemented(Request $request, int $id): JsonResponse
 	{
 		$interface = DeleteInterface::class;
-		$error = "Entity '{$this->getEntityClassName()}::{$id}' doesn't implement '{$interface}'";
+		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

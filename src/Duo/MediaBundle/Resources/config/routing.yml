@@ -1,10 +1,10 @@
-duo_media_folder:
-    resource: '@DuoMediaBundle/Controller/FolderController.php'
+duo_media_listing_folder:
+    resource: '@DuoMediaBundle/Controller/FolderListingController.php'
     type: annotation
     prefix: /media/folder
 
-duo_media_file:
-    resource: '@DuoMediaBundle/Controller/FileController.php'
+duo_media_listing_file:
+    resource: '@DuoMediaBundle/Controller/FileListingController.php'
     type: annotation
     prefix: /media/file
 

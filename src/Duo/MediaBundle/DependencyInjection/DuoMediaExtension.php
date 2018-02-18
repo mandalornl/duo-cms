@@ -24,5 +24,8 @@ class DuoMediaExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('duo.media.relative_upload_path', $config['upload_path']);
+        $container->setParameter('duo.media.absolute_upload_path', "%kernel.project_dir%/web{$config['upload_path']}");
     }
 }
