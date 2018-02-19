@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route(name="duo_page_autocomplete_page_")
+ * @Route("/page/autocomplete", name="duo_page_autocomplete_page_")
  */
 class PageAutoCompleteController extends AbstractAutoCompleteController
 {

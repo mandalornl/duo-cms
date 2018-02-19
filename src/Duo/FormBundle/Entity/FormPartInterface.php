@@ -2,7 +2,9 @@
 
 namespace Duo\FormBundle\Entity;
 
-interface FormPartInterface
+use Duo\PartBundle\Entity\PartInterface;
+
+interface FormPartInterface extends PartInterface
 {
 	/**
 	 * Get form type

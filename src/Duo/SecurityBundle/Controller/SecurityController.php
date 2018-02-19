@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
- * @Route(name="duo_security_")
+ * @Route("/", name="duo_security_")
  */
 class SecurityController extends Controller
 {

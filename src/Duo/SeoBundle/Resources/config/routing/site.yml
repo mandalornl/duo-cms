@@ -1,9 +1,0 @@
-duo_seo_site_robot:
-    resource: '@DuoSeoBundle/Controller/RobotController.php'
-    type: annotation
-    prefix: /
-
-duo_seo_site_sitemap:
-    resource: '@DuoSeoBundle/Controller/SitemapController.php'
-    type: annotation
-    prefix: /

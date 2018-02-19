@@ -9,12 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/", name="duo_seo_sitemap_")
+ */
 class SitemapController extends Controller
 {
 	/**
 	 * Index
 	 *
-	 * @Route("/sitemap.xml")
+	 * @Route("/sitemap.xml", name="index")
 	 * @Method("GET")
 	 *
 	 * @param Request $request
@@ -36,9 +39,9 @@ class SitemapController extends Controller
 	}
 
 	/**
-	 * Sitemap
+	 * Feed
 	 *
-	 * @Route("/sitemap-{locale}.xml", requirements={ "locale" = "%locales%" })
+	 * @Route("/sitemap-{locale}.xml", requirements={ "locale" = "%locales%" }, name="feed")
 	 *
 	 * @param Request $request
 	 * @param string $locale
@@ -47,7 +50,7 @@ class SitemapController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	public function sitemapAction(Request $request, string $locale): Response
+	public function feedAction(Request $request, string $locale): Response
 	{
 		$request->setLocale($locale);
 

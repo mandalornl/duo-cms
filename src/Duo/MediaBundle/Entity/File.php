@@ -29,7 +29,7 @@ class File implements TimeStampInterface, DeleteInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="uuid", type="string", length=16, nullable=true)
+	 * @ORM\Column(name="uuid", type="string", length=32, nullable=true)
 	 */
 	private $uuid;
 

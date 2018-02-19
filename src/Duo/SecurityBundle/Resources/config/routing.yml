@@ -1,22 +1,6 @@
+duo_security:
+    resource: '@DuoSecurityBundle/Controller/'
+    type: annotation
+
 duo_security_logout:
     path: /logout
-
-duo_security:
-    resource: '@DuoSecurityBundle/Controller/SecurityController.php'
-    type: annotation
-    prefix: /
-
-duo_security_listing_user:
-    resource: '@DuoSecurityBundle/Controller/UserListingController.php'
-    type: annotation
-    prefix: /security/user
-
-duo_security_listing_group:
-    resource: '@DuoSecurityBundle/Controller/GroupListingController.php'
-    type: annotation
-    prefix: /security/group
-
-duo_security_listing_role:
-    resource: '@DuoSecurityBundle/Controller/RoleListingController.php'
-    type: annotation
-    prefix: /security/role

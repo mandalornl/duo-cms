@@ -93,11 +93,11 @@
 							<th{% if field.sortable %} class="sortable"{% endif %}>
 								{% if field.sortable %}
 									{% if list.sorting and list.sorting.sort == field.property %}
-										{% set sortingUrl = path(routePrefix ~ '_sorting', { 'sort': field.property, 'order': list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
+										{% set url = path(routePrefix ~ '_sorting', { 'sort': field.property, 'order': list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
 									{% else %}
-										{% set sortingUrl = path(routePrefix ~ '_sorting', { 'sort': field.property }) %}
+										{% set url = path(routePrefix ~ '_sorting', { 'sort': field.property }) %}
 									{% endif %}
-									<a href="{{ sortingUrl }}">
+									<a href="{{ url }}">
 										{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.property %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}
 									</a>
 								{% else %}
@@ -136,14 +136,13 @@
 									</a>
 								{% endif %}
 								{% if list.isDeletable | default(false) %}
-									<a href="{{ path(routePrefix ~ '_delete', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
-										<i class="icon-bin"></i>
-									</a>
+									{% set url = path(routePrefix ~ '_delete', { id: entity.id }) %}
 								{% else %}
-									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
-										<i class="icon-bin"></i>
-									</a>
+									{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
 								{% endif %}
+								<a href="{{ url }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+									<i class="icon-bin"></i>
+								</a>
 							</td>
 						</tr>
 					{% endfor %}

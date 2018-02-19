@@ -2,7 +2,9 @@
 
 namespace Duo\PageBundle\Entity;
 
-interface PagePartInterface
+use Duo\PartBundle\Entity\PartInterface;
+
+interface PagePartInterface extends PartInterface
 {
 	/**
 	 * Set value

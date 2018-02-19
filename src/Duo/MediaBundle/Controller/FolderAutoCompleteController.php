@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route(name="duo_media_autocomplete_folder_")
+ * @Route("/media/folder/autocomplete", name="duo_media_autocomplete_folder_")
  */
 class FolderAutoCompleteController extends AbstractAutoCompleteController
 {

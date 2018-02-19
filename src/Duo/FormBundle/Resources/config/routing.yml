@@ -1,24 +1,3 @@
-duo_form_listing_form:
-    resource: '@DuoFormBundle/Controller/FormListingController.php'
+duo_form:
+    resource: '@DuoFormBundle/Controller/'
     type: annotation
-    prefix: /form
-
-duo_form_listing_result:
-    resource: '@DuoFormBundle/Controller/FormResultListingController.php'
-    type: annotation
-    prefix: /form-result
-
-duo_form_autocomplete:
-    resource: '@DuoFormBundle/Controller/FormAutoCompleteController.php'
-    type: annotation
-    prefix: /form/autocomplete
-
-duo_form_view:
-    resource: '@DuoFormBundle/Controller/FormViewController.php'
-    type: annotation
-    prefix: /form/view
-
-duo_form_part_modal:
-    resource: '@DuoFormBundle/Controller/FormPartModalController.php'
-    type: annotation
-    prefix: /form-part/modal

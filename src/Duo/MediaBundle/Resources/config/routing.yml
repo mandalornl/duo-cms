@@ -1,14 +1,3 @@
-duo_media_listing_folder:
-    resource: '@DuoMediaBundle/Controller/FolderListingController.php'
+duo_media:
+    resource: '@DuoMediaBundle/Controller/'
     type: annotation
-    prefix: /media/folder
-
-duo_media_listing_file:
-    resource: '@DuoMediaBundle/Controller/FileListingController.php'
-    type: annotation
-    prefix: /media/file
-
-duo_media_autocomplete:
-    resource: '@DuoMediaBundle/Controller/FolderAutoCompleteController.php'
-    type: annotation
-    prefix: /media/folder/autocomplete

@@ -49,6 +49,6 @@ abstract class AbstractNode implements NodeInterface
 	 */
 	public function __toString(): string
 	{
-		return "[{$this->id}]:{$this->name}";
+		return "{$this->id}::{$this->name}";
 	}
 }

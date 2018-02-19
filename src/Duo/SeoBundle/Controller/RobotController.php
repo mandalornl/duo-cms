@@ -9,12 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/", name="duo_seo_robot_")
+ */
 class RobotController extends Controller
 {
 	/**
 	 * Index
 	 *
-	 * @Route("/robots.txt")
+	 * @Route("/robots.txt", name="index")
 	 * @Method("GET")
 	 *
 	 * @param Request $request
@@ -24,6 +27,7 @@ class RobotController extends Controller
 	public function indexAction(Request $request): Response
 	{
 		$entity = $this->getDoctrine()->getRepository(Robot::class)->findLatest();
+
 		if ($entity === null)
 		{
 			throw $this->createNotFoundException();

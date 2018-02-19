@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route(name="duo_form_view_")
+ * @Route("/form-view", name="duo_form_view_")
  */
 class FormViewController extends Controller
 {

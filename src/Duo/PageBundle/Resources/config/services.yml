@@ -6,7 +6,7 @@ services:
 
     Duo\PageBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests,Listing}'
+        exclude: '../../{Entity,Repository,Tests,Configuration}'
 
     Duo\PageBundle\Controller\:
         resource: '../../Controller'
