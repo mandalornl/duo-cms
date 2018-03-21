@@ -42,7 +42,7 @@ class DeleteSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$this->setDeletedBy($args->getObject());
 	}
@@ -52,7 +52,7 @@ class DeleteSubscriber implements EventSubscriber
 	 *
 	 * @param PreUpdateEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$this->setDeletedBy($args->getObject());
 	}
@@ -62,7 +62,7 @@ class DeleteSubscriber implements EventSubscriber
 	 *
 	 * @param object $entity
 	 */
-	public function setDeletedBy($entity)
+	public function setDeletedBy($entity): void
 	{
 		if (!$entity instanceof DeleteInterface || !$entity->isDeleted())
 		{

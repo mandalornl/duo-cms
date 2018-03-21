@@ -17,7 +17,7 @@ class RedirectEditController extends AbstractEditController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/edit/{id}", name="edit", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
 	 * @Method({"GET", "POST"})
 	 */
 	public function editAction(Request $request, int $id)

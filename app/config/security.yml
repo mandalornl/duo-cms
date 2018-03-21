@@ -65,7 +65,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
 
     role_hierarchy:
-        ROLE_CAN_VIEW:
+        ROLE_CAN_VIEW:       ROLE_USER
         ROLE_CAN_EDIT:       ROLE_CAN_VIEW
         ROLE_CAN_DELETE:     ROLE_CAN_EDIT
         ROLE_CAN_PUBLISH:    ROLE_CAN_EDIT

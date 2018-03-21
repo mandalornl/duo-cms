@@ -16,7 +16,7 @@ class UrlSubscriber implements EventSubscriber
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSubscribedEvents()
+	public function getSubscribedEvents(): array
 	{
 		return [
 			Events::prePersist,
@@ -29,7 +29,7 @@ class UrlSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -47,7 +47,7 @@ class UrlSubscriber implements EventSubscriber
 	 *
 	 * @param PreUpdateEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -65,7 +65,7 @@ class UrlSubscriber implements EventSubscriber
 	 *
 	 * @param UrlInterface $entity
 	 */
-	private function setUrl(UrlInterface $entity)
+	private function setUrl(UrlInterface $entity): void
 	{
 		if (!$entity instanceof TreeInterface)
 		{
@@ -106,7 +106,7 @@ class UrlSubscriber implements EventSubscriber
 	 *
 	 * @param UrlInterface $entity
 	 */
-	private function setTranslationUrl(UrlInterface $entity)
+	private function setTranslationUrl(UrlInterface $entity): void
 	{
 		if (!$entity instanceof TranslationInterface)
 		{

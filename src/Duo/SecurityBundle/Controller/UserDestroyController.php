@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserDestroyController extends AbstractDestroyController
 {
-	use RoleConfigurationTrait;
+	use UserConfigurationTrait;
 
 	/**
 	 * {@inheritdoc}

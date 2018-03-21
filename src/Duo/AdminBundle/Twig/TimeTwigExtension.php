@@ -42,6 +42,7 @@ class TimeTwigExtension extends \Twig_Extension
 	public function getElapsedTime(\DateTime $start, \DateTime $end): string
 	{
 		$interval = $end->diff($start);
+
 		if ($interval !== false)
 		{
 			$time = $interval->format('%s');
@@ -64,6 +65,7 @@ class TimeTwigExtension extends \Twig_Extension
 				}
 
 				$numberOfUnits = floor($time / $unit);
+
 				return $this->translator->transChoice($label, $numberOfUnits, [
 					'%unit%' => $numberOfUnits
 				]);

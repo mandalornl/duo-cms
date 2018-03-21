@@ -54,47 +54,16 @@ class FileAddOrEditController extends AbstractController
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			/**
-			 * @var UploadedFile $file
-			 */
-			$file = $form->get('file');
-
-			$uuid = md5(uniqid());
-
-			$metadata = [
-				'basename' => $file->getBasename(),
-				'extension' => $file->getExtension(),
-				'filename' => $file->getFilename()
-			];
-
-			// get image width/height
-			if (strpos($file->getMimeType(), 'image/') === 0)
-			{
-				list($width, $height) = @getimagesize($file);
-
-				$metadata = array_merge($metadata, [
-					'width' => $width,
-					'height' => $height
-				]);
-			}
-
-			$entity
-				->setUuid($uuid)
-				->setSize($file->getSize())
-				->setMimeType($file->getMimeType())
-				->setMetadata($metadata)
-				->setUrl("{$this->getParameter('duo.media.relative_upload_path')}/{$uuid}/{$file->getBasename()}");
-
-			if ($entity->getName() === null)
-			{
-				$entity->setName($file->getBasename());
-			}
-
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($entity);
-			$em->flush();
-
-			$file->move("{$this->getParameter('duo.media.absolute_upload_path')}/{$uuid}", $file->getBasename());
+			$this->get('duo.media.upload_helper')->upload(
+				$form->get('file')->getData(),
+				$entity,
+				function(File $entity)
+				{
+					$em = $this->getDoctrine()->getManager();
+					$em->persist($entity);
+					$em->flush();
+				}
+			);
 
 			$folderId = null;
 			if (($folder = $entity->getFolder()) !== null)

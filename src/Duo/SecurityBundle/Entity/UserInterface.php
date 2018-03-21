@@ -4,8 +4,9 @@ namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
-interface UserInterface extends AdvancedUserInterface
+interface UserInterface extends AdvancedUserInterface, EquatableInterface
 {
 	/**
 	 * Set email

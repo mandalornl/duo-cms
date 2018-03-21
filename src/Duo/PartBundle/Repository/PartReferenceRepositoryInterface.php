@@ -45,6 +45,15 @@ interface PartReferenceRepositoryInterface
 	public function removePartReferences(EntityPartInterface $entity): bool;
 
 	/**
+	 * Remove part references by entity id
+	 *
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+	public function removePartReferencesByEntityId(int $id): bool;
+
+	/**
 	 * Get part references
 	 *
 	 * @param EntityPartInterface $entity

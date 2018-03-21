@@ -12,10 +12,10 @@
 {# Labels #}
 {%- block form_label -%}
 	{% if label is not same as(false) -%}
-		{% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-control-label')|trim}) %}
-		{% set label_attr = label_attr|merge({'for': id}) %}
+		{% set label_attr = label_attr | merge({ class: (label_attr.class | default('') ~ ' form-control-label') | trim }) %}
+		{% set label_attr = label_attr | merge({ for: id }) %}
 		{% if required -%}
-			{% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+			{% set label_attr = label_attr | merge({ class: (label_attr.class | default('') ~ ' required') | trim }) %}
 		{%- endif -%}
 		{% if label is empty -%}
 			{%- if label_format is not empty -%}
@@ -28,31 +28,42 @@
 			{%- endif -%}
 		{%- endif -%}
 		<label{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
-			{{- translation_domain is same as(false) ? label : label|trans({}, translation_domain) -}}
+			{{- translation_domain is same as(false) ? label : label | trans({}, translation_domain) -}}
 		</label>
 	{%- endif -%}
 {%- endblock form_label -%}
 
 {# Widgets #}
 {% block choice_widget_collapsed -%}
-	{%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-select')|trim}) -%}
+	{%- set attr = attr | merge({ class: (attr.class | default('') ~ ' custom-select') | trim }) -%}
 	{% if multiple %}
-		{%- set attr = attr|merge({class: (attr.class|default('') ~ ' select2')|trim}) -%}
+		{%- set attr = attr | merge({class: (attr.class | default('') ~ ' select2') | trim }) -%}
 	{% endif %}
 	{{- parent() -}}
 {%- endblock choice_widget_collapsed %}
 
 {% block date_widget -%}
 	{%- if widget == 'single_text' %}
-		{% set attr = attr|merge({class: (attr.class|default('') ~ ' datepicker')|trim}) %}
+		{% set attr = attr | merge({ class: (attr.class | default('') ~ ' datepicker') | trim }) %}
 	{%- else -%}
 		{%- if not valid -%}
-			{% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+			{% set attr = attr | merge({ class: (attr.class | default('') ~ ' form-control is-invalid') | trim }) -%}
 			{% set valid = true %}
 		{%- endif -%}
 	{%- endif -%}
 	{{- parent() -}}
 {%- endblock date_widget %}
+
+{% block file_widget %}
+	{%- set attr = attr | merge({ lang: app.request.locale, class: (attr.class | default('') ~ ' custom-file-input') | trim }) -%}
+	{%- set label_attr = label_attr | merge({ class: (label_attr.class | default('') ~ ' custom-file-label') | trim }) -%}
+	<div class="custom-file">
+		<input type="{{ type }}" {{ block('widget_attributes') }}{% if value is not empty %} value="{{ value }}"{% endif %}>
+		<label{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+			{{- 'duo.admin.form.file.placeholder' | trans({}, translation_domain) -}}
+		</label>
+	</div>
+{% endblock %}
 
 {# Custom #}
 {% block duo_tab_label %}

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserEditController extends AbstractEditController
 {
-	use RoleConfigurationTrait;
+	use UserConfigurationTrait;
 
 	/**
 	 * {@inheritdoc}

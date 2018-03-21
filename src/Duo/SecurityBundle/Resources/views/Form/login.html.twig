@@ -19,7 +19,7 @@
 					<label for="security_username" class="form-control-label required">
 						{{- 'duo.security.form.login.username.label' | trans -}}
 					</label>
-					<input type="text" name="_username" id="security_username" class="form-control" autocomplete="off" required>
+					<input type="text" name="_username" id="security_username"{% if lastUsername %} value="{{ lastUsername }}"{% endif %} class="form-control" autocomplete="off" required>
 				</div>
 				<div class="form-group">
 					<label for="security_password" class="form-control-label required">

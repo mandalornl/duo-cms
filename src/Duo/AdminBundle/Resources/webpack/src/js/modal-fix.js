@@ -2,24 +2,42 @@ import $ from 'jquery';
 
 $(() =>
 {
-	const $document = $(document);
-	const $body = $(document.body);
-
-	// fix for multiple modals
-	$document.on('show.bs.modal', '.modal', function ()
+	/**
+	 * Update backdrop z-index
+	 *
+	 * @param {jQuery} $item
+	 */
+	const updateBackdrop = ($item) => setTimeout(() =>
 	{
-		const zIndex = 1040 + (10 * $('.modal:visible').length);
+		$('.modal-backdrop:not(.modal-stack)').css('z-index', Number($item.css('z-index')) - 1).addClass('modal-stack');
+	}, 0);
 
-		$(this).css('z-index', zIndex);
-
-		setTimeout(() =>
+	$(document).on({
+		'show.bs.modal': function()
 		{
-			$('.modal-backdrop:not(.modal-stack)').css('z-index', zIndex - 1).addClass('modal-stack');
-		}, 0);
-	});
+			const $this = $(this);
 
-	$document.on('hidden.bs.modal', '.modal', () => setTimeout(() =>
-	{
-		$body.toggleClass('modal-open', $('.modal:visible').length !== 0)
-	}, 0));
+			// add to body
+			if (!$this.parent().is(document.body))
+			{
+				$this.appendTo(document.body);
+			}
+
+			// only update backdrop z-index
+			if (($this.attr('style') || '').indexOf('z-index') !== -1)
+			{
+				updateBackdrop($this);
+				return;
+			}
+
+			$this.css('z-index', 1040 + (10 * $('.modal:visible').length));
+
+			updateBackdrop($this);
+		},
+
+		'hidden.bs.modal': () => setTimeout(() =>
+		{
+			$(document.body).toggleClass('modal-open', $('.modal:visible').length !== 0);
+		}, 0)
+	}, '.modal');
 });

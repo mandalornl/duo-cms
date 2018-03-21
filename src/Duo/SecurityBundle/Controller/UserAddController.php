@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserAddController extends AbstractAddController
 {
-	use RoleConfigurationTrait;
+	use UserConfigurationTrait;
 
 	/**
 	 * {@inheritdoc}

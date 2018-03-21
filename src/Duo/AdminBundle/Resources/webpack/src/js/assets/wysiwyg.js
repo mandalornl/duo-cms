@@ -7,9 +7,9 @@ window.wysiwygEditors = window.wysiwygEditors || {};
  * Initialize wysiwyg editor
  *
  * @param {string|jQuery|HTMLElement} [selector = '.wysiwyg']
- * @param {{}} [options = {}]
+ * @param {{}} [globalOptions = {}]
  */
-const init = (selector = '.wysiwyg', options = {}) =>
+const init = (selector = '.wysiwyg', globalOptions = {}) =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -21,7 +21,7 @@ const init = (selector = '.wysiwyg', options = {}) =>
 			return;
 		}
 
-		const options = $.extend({}, options);
+		const options = $.extend({}, globalOptions);
 
 		ClassicEditor.create(this, options)
 			.then(editor =>

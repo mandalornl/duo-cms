@@ -5,6 +5,7 @@ namespace Duo\SecurityBundle\Controller;
 use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\SecurityBundle\Form\ForgotPasswordType;
 use Duo\SecurityBundle\Form\ResetPasswordType;
+use Duo\SecurityBundle\Helper\LoginHelper;
 use Duo\SecurityBundle\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,9 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * @Route("/", name="duo_security_")
@@ -170,12 +169,12 @@ class SecurityController extends Controller
 				$this->addFlash('success', $this->get('translator')->trans('duo.security.form.reset_password.success_message'));
 
 				// log in automatically
-				$token = new UsernamePasswordToken($user, null, 'admin', $user->getRoles());
-				$this->get('security.token_storage')->setToken($token);
+				if ($this->get(LoginHelper::class)->manualLogin($user, 'admin'))
+				{
+					return $this->redirectToRoute('duo_admin_dashboard_index');
+				}
 
-				$this->get('event_dispatcher')->dispatch('security.interactive_login', new InteractiveLoginEvent($request, $token));
-
-				return $this->redirectToRoute('duo_admin_dashboard_index');
+				return $this->redirectToRoute('duo_security_login');
 			}
 
 			$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.reset_password.error_message'));

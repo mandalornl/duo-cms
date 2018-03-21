@@ -42,7 +42,7 @@ class TimeStampSubscriber implements EventSubscriber
 	 *
 	 * @param $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -76,7 +76,7 @@ class TimeStampSubscriber implements EventSubscriber
 	 *
 	 * @param PreUpdateEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$entity = $args->getObject();
 

@@ -2,8 +2,10 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\AdminBundle\Event\ListingEvent;
-use Duo\AdminBundle\Event\ListingEvents;
+use Duo\AdminBundle\Event\ListingFormEvent;
+use Duo\AdminBundle\Event\ListingFormEvents;
+use Duo\AdminBundle\Event\ListingORMEvent;
+use Duo\AdminBundle\Event\ListingORMEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +30,7 @@ abstract class AbstractAddController extends AbstractController
 		$eventDispatcher = $this->get('event_dispatcher');
 
 		// dispatch pre add event
-		$eventDispatcher->dispatch(ListingEvents::PRE_ADD, new ListingEvent($entity));
+		$eventDispatcher->dispatch(ListingFormEvents::PRE_ADD, new ListingFormEvent($entity));
 
 		$form = $this->createForm($this->getFormType(), $entity);
 		$form->handleRequest($request);
@@ -36,11 +38,14 @@ abstract class AbstractAddController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post add event
-			$eventDispatcher->dispatch(ListingEvents::POST_ADD, new ListingEvent($entity, $form));
+			$eventDispatcher->dispatch(ListingFormEvents::POST_ADD, new ListingFormEvent($entity, $form));
 
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($entity);
 			$em->flush();
+
+			// dispatch post flush event
+			$eventDispatcher->dispatch(ListingORMEvents::POST_FLUSH, new ListingORMEvent($entity));
 
 			$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
 

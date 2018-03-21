@@ -30,7 +30,7 @@ class SortSubscriber implements EventSubscriber
 	 *
 	 * @throws \Throwable
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 

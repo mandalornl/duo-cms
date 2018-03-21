@@ -1,5 +1,3 @@
-parameters:
-
 services:
     _defaults:
         autowire: true
@@ -42,8 +40,8 @@ services:
         arguments:
             $localeHelper: '@duo.admin.locale_helper'
         tags:
-            - { name: kernel.event_listener, event: duo.event.listing.preAdd, method: preAdd }
-            - { name: kernel.event_listener, event: duo.event.listing.preEdit, method: preEdit }
+            - { name: kernel.event_listener, event: duo.event.listing.form.preAdd, method: preAdd }
+            - { name: kernel.event_listener, event: duo.event.listing.form.preEdit, method: preEdit }
 
     Duo\AdminBundle\EventSubscriber\LocaleSubscriber:
         arguments:

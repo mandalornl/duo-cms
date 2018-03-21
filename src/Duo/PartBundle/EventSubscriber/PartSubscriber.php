@@ -5,10 +5,12 @@ namespace Duo\PartBundle\EventSubscriber;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\PartBundle\Entity\EntityPartInterface;
 use Duo\PartBundle\Entity\PartInterface;
+use Duo\PartBundle\Entity\PartReferenceInterface;
 use Duo\PartBundle\Repository\PartReferenceRepositoryInterface;
 
 class PartSubscriber implements EventSubscriber
@@ -17,6 +19,20 @@ class PartSubscriber implements EventSubscriber
 	 * @var PartInterface[]
 	 */
 	private $parts;
+
+	/**
+	 * @var PartReferenceInterface[]
+	 */
+	private $references;
+
+	/**
+	 * PartSubscriber constructor
+	 */
+	public function __construct()
+	{
+		$this->parts = [];
+		$this->references = [];
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -28,7 +44,8 @@ class PartSubscriber implements EventSubscriber
 			Events::postPersist,
 			Events::preUpdate,
 			Events::postUpdate,
-			Events::preRemove
+			Events::preRemove,
+			Events::onFlush
 		];
 	}
 
@@ -37,7 +54,7 @@ class PartSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function postLoad(LifecycleEventArgs $args)
+	public function postLoad(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -51,9 +68,7 @@ class PartSubscriber implements EventSubscriber
 		 */
 		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
 
-		$parts = $repo->getParts($entity);
-
-		foreach ($parts as $part)
+		foreach ($repo->getParts($entity) as $part)
 		{
 			$entity->getParts()->add($part);
 		}
@@ -64,7 +79,7 @@ class PartSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function postPersist(LifecycleEventArgs $args)
+	public function postPersist(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -98,7 +113,7 @@ class PartSubscriber implements EventSubscriber
 	 *
 	 * @param PreUpdateEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -106,6 +121,8 @@ class PartSubscriber implements EventSubscriber
 		{
 			return;
 		}
+
+		$hash = spl_object_hash($entity);
 
 		/**
 		 * @var PartReferenceRepositoryInterface $repo
@@ -113,7 +130,7 @@ class PartSubscriber implements EventSubscriber
 		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
 
 		// store current part(s) for later reference
-		$this->parts = $repo->getParts($entity);
+		$this->parts[$hash] = $repo->getParts($entity);
 	}
 
 	/**
@@ -121,7 +138,7 @@ class PartSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function postUpdate(LifecycleEventArgs $args)
+	public function postUpdate(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -129,6 +146,8 @@ class PartSubscriber implements EventSubscriber
 		{
 			return;
 		}
+
+		$hash = spl_object_hash($entity);
 
 		/**
 		 * @var PartInterface[] $parts
@@ -148,7 +167,7 @@ class PartSubscriber implements EventSubscriber
 		/**
 		 * @var PartInterface[] $removableParts
 		 */
-		$removableParts = array_diff($this->parts, $parts);
+		$removableParts = array_diff($this->parts[$hash], $parts);
 
 		if (count($removableParts))
 		{
@@ -167,7 +186,7 @@ class PartSubscriber implements EventSubscriber
 		/**
 		 * @var PartInterface[] $addableParts
 		 */
-		$addableParts = array_diff($parts, $this->parts);
+		$addableParts = array_diff($parts, $this->parts[$hash]);
 
 		if (count($addableParts))
 		{
@@ -183,7 +202,7 @@ class PartSubscriber implements EventSubscriber
 			$em->flush();
 		}
 
-		$this->parts = [];
+		unset($this->parts[$hash]);
 	}
 
 	/**
@@ -191,7 +210,7 @@ class PartSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function preRemove(LifecycleEventArgs $args)
+	public function preRemove(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -200,25 +219,49 @@ class PartSubscriber implements EventSubscriber
 			return;
 		}
 
-		/**
-		 * @var ObjectManager $em
-		 */
-		$em = $args->getObjectManager();
+		$hash = spl_object_hash($entity);
 
 		/**
 		 * @var PartReferenceRepositoryInterface $repo
 		 */
-		$repo = $em->getRepository($entity->getPartReferenceClass());
+		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
 
-		// remove part reference(s)
-		$repo->removePartReferences($entity);
+		$this->parts[$hash] = $entity->getParts()->toArray();
+		$this->references[$hash] = $repo->getPartReferences($entity);
+	}
 
-		// remove part(s)
-		foreach ($entity->getParts() as $part)
+	/**
+	 * On flush event
+	 *
+	 * @param OnFlushEventArgs $args
+	 */
+	public function onFlush(OnFlushEventArgs $args): void
+	{
+		if (!count($this->parts) && !count($this->references))
 		{
-			$em->remove($part);
+			return;
 		}
 
-		$em->flush();
+		$uow = $args->getEntityManager()->getUnitOfWork();
+
+		foreach ($this->parts as $hash => $parts)
+		{
+			foreach ($parts as $part)
+			{
+				$uow->remove($part);
+			}
+
+			unset($this->parts[$hash]);
+		}
+
+		foreach ($this->references as $hash => $references)
+		{
+			foreach ($references as $reference)
+			{
+				$uow->remove($reference);
+			}
+
+			unset($this->references[$hash]);
+		}
 	}
 }

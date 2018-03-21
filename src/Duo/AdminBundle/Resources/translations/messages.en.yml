@@ -115,6 +115,9 @@ duo:
                 body: Are you sure you want to delete these items?
 
         form:
+            file:
+                placeholder: Choose file
+
             weight_choice:
                 label: Weight
                 placeholder: Please choose

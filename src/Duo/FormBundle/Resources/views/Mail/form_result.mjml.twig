@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-	<mj-text font-family="Helvetica Neue" color="#333">
+	<mj-text>
 		<h3>{{ 'duo.form.mail.form_result.body_html.title' | trans({}, 'emails') }}</h3>
 	</mj-text>
 
@@ -36,7 +36,7 @@
 		{% endfor %}
 	</mj-table>
 
-	<mj-button font-family="Helvetica Neue" background-color="#007bff" color="#fff" href="{{ url('duo_form_listing_result_edit', { id: submission.id }) }}" border-radius="3px">
+	<mj-button background-color="#007bff" color="#fff" href="{{ url('duo_form_listing_result_edit', { id: submission.id }) }}" border-radius="3px">
 		{{- 'duo.form.mail.form_result.body_html.button' | trans({}, 'emails') -}}
 	</mj-button>
 {% endblock %}

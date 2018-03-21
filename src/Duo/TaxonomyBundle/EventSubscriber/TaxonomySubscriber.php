@@ -26,7 +26,7 @@ class TaxonomySubscriber implements EventSubscriber
 	 *
 	 * @param LoadClassMetadataEventArgs $args
 	 */
-	public function loadClassMetadata(LoadClassMetadataEventArgs $args)
+	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
 		/**
 		 * @var ClassMetadata $classMetadata
@@ -46,7 +46,7 @@ class TaxonomySubscriber implements EventSubscriber
 	 *
 	 * @param ClassMetadata $classMetadata
 	 */
-	private function mapField(ClassMetadata $classMetadata)
+	private function mapField(ClassMetadata $classMetadata): void
 	{
 		$reflectionClass = $classMetadata->getReflectionClass();
 

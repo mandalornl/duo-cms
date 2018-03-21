@@ -115,6 +115,9 @@ duo:
                 body: Weet u zeker dat u deze items wilt verwijderen?
 
         form:
+            file:
+                placeholder: Kies bestand
+
             weight_choice:
                 label: Gewicht
                 placeholder: Maak een keuze

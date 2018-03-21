@@ -1,11 +1,5 @@
-{% extends '@DuoAdmin/index.html.twig' %}
+{% extends '@DuoAdmin/Listing/add.html.twig' %}
 
-{% block content %}
-	<div class="row">
-		<div class="col-xl-10">
-			{{ form_start(form) }}
-			{{ form_widget(form) }}
-			{{ form_end(form) }}
-		</div>
-	</div>
+{% block toolbar %}
+toolbar
 {% endblock %}

@@ -5,7 +5,7 @@ namespace Duo\AdminBundle\Event;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Form\FormInterface;
 
-class ListingEvent extends Event
+class ListingFormEvent extends Event
 {
 	/**
 	 * @var object
@@ -34,9 +34,9 @@ class ListingEvent extends Event
 	 *
 	 * @param object $entity
 	 *
-	 * @return ListingEvent
+	 * @return ListingFormEvent
 	 */
-	public function setEntity($entity): ListingEvent
+	public function setEntity($entity): ListingFormEvent
 	{
 		$this->entity = $entity;
 
@@ -58,9 +58,9 @@ class ListingEvent extends Event
 	 *
 	 * @param FormInterface $form
 	 *
-	 * @return ListingEvent
+	 * @return ListingFormEvent
 	 */
-	public function setForm(FormInterface $form): ListingEvent
+	public function setForm(FormInterface $form): ListingFormEvent
 	{
 		$this->form = $form;
 

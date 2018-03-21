@@ -7,8 +7,10 @@ use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Duo\AdminBundle\Configuration\Action\ItemActionInterface;
-use Duo\AdminBundle\Event\ListingEvent;
-use Duo\AdminBundle\Event\ListingEvents;
+use Duo\AdminBundle\Event\ListingORMEvent;
+use Duo\AdminBundle\Event\ListingORMEvents;
+use Duo\AdminBundle\Event\ListingFormEvent;
+use Duo\AdminBundle\Event\ListingFormEvents;
 use Duo\AdminBundle\Event\TwigEvent;
 use Duo\AdminBundle\Event\TwigEvents;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
@@ -82,16 +84,17 @@ abstract class AbstractEditController extends AbstractController
 		 */
 		$eventDispatcher = $this->get('event_dispatcher');
 
-		// dispatch pre edit event
-		$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($entity));
-
 		$form = $this->createForm($this->getFormType(), $entity);
+
+		// dispatch pre edit event
+		$eventDispatcher->dispatch(ListingFormEvents::PRE_EDIT, new ListingFormEvent($entity, $form));
+
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post edit event
-			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($entity, $form));
+			$eventDispatcher->dispatch(ListingFormEvents::POST_EDIT, new ListingFormEvent($entity, $form));
 
 			try
 			{
@@ -108,6 +111,9 @@ abstract class AbstractEditController extends AbstractController
 
 				$em->persist($entity);
 				$em->flush();
+
+				// dispatch pre flush event
+				$eventDispatcher->dispatch(ListingORMEvents::POST_FLUSH, new ListingORMEvent($entity));
 
 				$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
 			}
@@ -150,19 +156,20 @@ abstract class AbstractEditController extends AbstractController
 		 */
 		$eventDispatcher = $this->get('event_dispatcher');
 
+		$form = $this->createForm($this->getFormType(), $clone);
+
 		// dispatch pre edit event
-		$eventDispatcher->dispatch(ListingEvents::PRE_EDIT, new ListingEvent($clone));
+		$eventDispatcher->dispatch(ListingFormEvents::PRE_EDIT, new ListingFormEvent($clone, $form));
 
 		// pre submit state
 		$preSubmitState = serialize($clone);
 
-		$form = $this->createForm($this->getFormType(), $clone);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post edit event
-			$eventDispatcher->dispatch(ListingEvents::POST_EDIT, new ListingEvent($clone, $form));
+			$eventDispatcher->dispatch(ListingFormEvents::POST_EDIT, new ListingFormEvent($clone, $form));
 
 			// post submit state
 			$postSubmitState = serialize($clone);
@@ -188,6 +195,9 @@ abstract class AbstractEditController extends AbstractController
 
 					$em->persist($clone);
 					$em->flush();
+
+					// dispatch post flush event
+					$eventDispatcher->dispatch(ListingORMEvents::POST_FLUSH, new ListingORMEvent($clone));
 
 					$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
 

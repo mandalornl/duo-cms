@@ -1,1 +1,21 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\MediaBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\MediaBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    duo.media.upload_helper:
+        class: Duo\MediaBundle\Helper\UploadHelper
+        public: true
+        arguments:
+            $relativeUploadPath: '%duo.media.relative_upload_path%'
+            $absoluteUploadPath: '%duo.media.absolute_upload_path%'

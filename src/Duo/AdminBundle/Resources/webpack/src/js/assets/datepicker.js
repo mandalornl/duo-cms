@@ -5,9 +5,9 @@ import 'bootstrap-datepicker';
  * Initialize datepicker
  *
  * @param {string|jQuery|HTMLElement} [selector = '.datepicker']
- * @param {{}} [options = {}]
+ * @param {{}} [globalOptions = {}]
  */
-const init = (selector = '.datepicker', options = {}) =>
+export default (selector = '.datepicker', globalOptions = {}) =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -24,10 +24,8 @@ const init = (selector = '.datepicker', options = {}) =>
 			calendarWeeks: true,
 			clearBtn: true,
 			format: 'dd-mm-yyyy'
-		}, options);
+		}, globalOptions);
 
 		$this.attr('placeholder', options.format).datepicker(options).data('initialized.datepicker', true);
 	});
 };
-
-export default init;

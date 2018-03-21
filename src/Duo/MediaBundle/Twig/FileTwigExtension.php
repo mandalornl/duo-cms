@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\Media\Twig;
+namespace Duo\MediaBundle\Twig;
 
 class FileTwigExtension extends \Twig_Extension
 {
@@ -10,7 +10,7 @@ class FileTwigExtension extends \Twig_Extension
 	public function getFilters(): array
 	{
 		return [
-			new \Twig_SimpleFilter('humanizedbytes', 'Duo\Media\Helper\FileHelper::humanizeBytes')
+			new \Twig_SimpleFilter('humanizedbytes', 'Duo\MediaBundle\Helper\FileHelper::humanizeBytes')
 		];
 	}
 }

@@ -17,7 +17,7 @@ class FolderEditController extends AbstractEditController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
+	 * @Route("/edit/{id}", name="edit", requirements={ "id" = "\d+" })
 	 * @Method({"GET", "POST"})
 	 */
 	public function editAction(Request $request, int $id)

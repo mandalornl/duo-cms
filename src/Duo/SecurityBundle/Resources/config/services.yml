@@ -23,6 +23,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    duo.security.login_helper:
+        class: Duo\SecurityBundle\Helper\LoginHelper
+        public: true
+
     duo.security.user:
         class: '%duo.security.user_class%'
 

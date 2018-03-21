@@ -13,7 +13,7 @@ duo:
                     title: Wachtwoord opnieuw instellen.
                     use_button: Gebruik de onderstaande knop om het wachtwoord opnieuw in te stellen.
                     button: Opnieuw instellen
-                    copy_to_browser: Of kopieër en plak de onderstaande url in een browser
+                    copy_to_browser: Of kopieër en plak de onderstaande url in uw browser
 
             reset_password:
                 subject: Wachtwoord opnieuw ingesteld

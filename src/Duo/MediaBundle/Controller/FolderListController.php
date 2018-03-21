@@ -51,8 +51,7 @@ class FolderListController extends AbstractListController
 	/**
 	 * Index
 	 *
-	 * @Route("/", name="index", defaults={ "id" = null })
-	 * @Route("/{id}", requirements={ "id" = "\d+" })
+	 * @Route("/{id}", name="index", requirements={ "id" = "\d+" })
 	 * @Method("GET")
 	 *
 	 * @param Request $request

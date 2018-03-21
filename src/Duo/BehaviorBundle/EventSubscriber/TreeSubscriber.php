@@ -13,7 +13,7 @@ class TreeSubscriber implements EventSubscriber
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSubscribedEvents()
+	public function getSubscribedEvents(): array
 	{
 		return [
 			Events::loadClassMetadata
@@ -25,7 +25,7 @@ class TreeSubscriber implements EventSubscriber
      *
      * @param LoadClassMetadataEventArgs $args
      */
-	public function loadClassMetadata(LoadClassMetadataEventArgs $args)
+	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
 		/**
 		 * @var ClassMetadata $classMetadata
@@ -52,14 +52,14 @@ class TreeSubscriber implements EventSubscriber
 	 * @param ClassMetadata $classMetadata
 	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapParent(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
+	private function mapParent(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass): void
 	{
 		if (!$classMetadata->hasAssociation('parent'))
 		{
 			$classMetadata->mapManyToOne([
 				'fieldName'		=> 'parent',
 				'inversedBy'	=> 'children',
-				'cascade'		=> ['persist'],
+				'cascade'		=> ['persist', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName(),
 				'joinColumns'	=> [[
@@ -77,14 +77,14 @@ class TreeSubscriber implements EventSubscriber
 	 * @param ClassMetadata $classMetadata
 	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapChildren(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
+	private function mapChildren(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass): void
 	{
 		if (!$classMetadata->hasAssociation('children'))
 		{
 			$mapping = [
 				'fieldName'		=> 'children',
 				'mappedBy'		=> 'parent',
-				'cascade'		=> ['persist'],
+				'cascade'		=> ['persist', 'remove'],
 				'fetch'			=> ClassMetadata::FETCH_LAZY,
 				'targetEntity'	=> $reflectionClass->getName()
 			];

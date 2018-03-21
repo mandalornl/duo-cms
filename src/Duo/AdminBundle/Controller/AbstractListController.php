@@ -146,25 +146,16 @@ abstract class AbstractListController extends AbstractController
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
-		// apply filters
-		$this->applyFilters($request, $builder);
+		// apply filters or revert to defaults
+		if (!$this->applyFilters($request, $builder))
+		{
+			$this->applyDefaultSorting($builder, $reflectionClass);
+		}
 
 		// apply sorting or revert to defaults
 		if (!$this->applySorting($request, $builder))
 		{
-			// order by last modified
-			if ($reflectionClass->implementsInterface(TimeStampInterface::class))
-			{
-				$builder->addOrderBy('e.modifiedAt', 'DESC');
-			}
-
-			// order by weight
-			if ($reflectionClass->implementsInterface(SortInterface::class))
-			{
-				$builder->addOrderBy('e.weight', 'ASC');
-			}
-
-			$builder->addOrderBy('e.id', 'ASC');
+			$this->applyDefaultSorting($builder, $reflectionClass);
 		}
 
 		return (new PaginatorHelper($builder))
@@ -301,6 +292,29 @@ abstract class AbstractListController extends AbstractController
 	}
 
 	/**
+	 * Apply default sorting
+	 *
+	 * @param QueryBuilder $builder
+	 * @param \ReflectionClass $reflectionClass
+	 */
+	protected function applyDefaultSorting(QueryBuilder $builder, \ReflectionClass $reflectionClass): void
+	{
+		// order by last modified
+		if ($reflectionClass->implementsInterface(TimeStampInterface::class))
+		{
+			$builder->addOrderBy('e.modifiedAt', 'DESC');
+		}
+
+		// order by weight
+		if ($reflectionClass->implementsInterface(SortInterface::class))
+		{
+			$builder->addOrderBy('e.weight', 'ASC');
+		}
+
+		$builder->addOrderBy('e.id', 'ASC');
+	}
+
+	/**
 	 * Define fields
 	 */
 	abstract protected function defineFields(): void;
@@ -423,8 +437,10 @@ abstract class AbstractListController extends AbstractController
 	 *
 	 * @param Request $request
 	 * @param QueryBuilder $builder
+	 *
+	 * @return bool
 	 */
-	protected function applyFilters(Request $request, QueryBuilder $builder): void
+	protected function applyFilters(Request $request, QueryBuilder $builder): bool
 	{
 		$session = $request->getSession();
 		$sessionName = "filter_{$this->getType()}";
@@ -432,7 +448,7 @@ abstract class AbstractListController extends AbstractController
 		$filterData = $session->get($sessionName, []);
 		if (!count($filterData))
 		{
-			return;
+			return false;
 		}
 
 		foreach ($filterData as $key => $data)
@@ -451,6 +467,19 @@ abstract class AbstractListController extends AbstractController
 				->setData($data)
 				->apply();
 		}
+
+		return true;
+	}
+
+	/**
+	 * Apply default filters
+	 *
+	 * @param QueryBuilder $builder
+	 * @param \ReflectionClass $reflectionClass
+	 */
+	protected function applyDefaultFilters(QueryBuilder $builder, \ReflectionClass $reflectionClass): void
+	{
+
 	}
 
 	/**

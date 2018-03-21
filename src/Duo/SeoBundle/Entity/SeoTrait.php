@@ -9,14 +9,14 @@ trait SeoTrait
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="meta_title", type="string", length=55, nullable=true)
+	 * @ORM\Column(name="meta_title", type="string", length=60, nullable=true)
 	 */
 	protected $metaTitle;
 
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="meta_keywords", type="string", length=155, nullable=true)
+	 * @ORM\Column(name="meta_keywords", type="text", nullable=true)
 	 */
 	protected $metaKeywords;
 

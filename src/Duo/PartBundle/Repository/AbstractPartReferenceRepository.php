@@ -140,7 +140,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 			->getQuery()
 			->execute();
 
-		return count($result) !== 0;
+		return $result !== 0;
 	}
 
 	/**
@@ -148,15 +148,23 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	 */
 	public function removePartReferences(EntityPartInterface $entity): bool
 	{
+		return $this->removePartReferencesByEntityId($entity->getId());
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function removePartReferencesByEntityId(int $id): bool
+	{
 		$result = $this->getEntityManager()
 			->createQueryBuilder()
 			->delete($this->getClassName(), 'e')
 			->where('e.entityId = :entityId')
-			->setParameter('entityId', $entity->getId())
+			->setParameter('entityId', $id)
 			->getQuery()
 			->execute();
 
-		return count($result) !== 0;
+		return $result !== 0;
 	}
 
 	/**

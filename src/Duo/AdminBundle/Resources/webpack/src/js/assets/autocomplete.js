@@ -7,9 +7,9 @@ import md from '../util/mobiledetect';
  * Initialize autocomplete
  *
  * @param {string|jQuery|HTMLElement} [selector = '.autocomplete']
- * @param {{}} [options = {}]
+ * @param {{}} [globalOptions = {}]
  */
-const init = (selector = '.autocomplete', options = {}) =>
+export default (selector = '.autocomplete', globalOptions = {}) =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -54,10 +54,8 @@ const init = (selector = '.autocomplete', options = {}) =>
 					};
 				}
 			}
-		}, options);
+		}, globalOptions);
 
 		$this.select2(options).data('initialized.autocomplete', true);
 	});
 };
-
-export default init;

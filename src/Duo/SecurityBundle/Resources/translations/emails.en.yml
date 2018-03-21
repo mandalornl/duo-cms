@@ -13,7 +13,7 @@ duo:
                     title: Reset password.
                     use_button: Use the following button to reset your password.
                     button: Reset
-                    copy_to_browser: Or copy and paste the following url to any browser
+                    copy_to_browser: Or copy and paste the following url to your browser
 
             reset_password:
                 subject: Password reset

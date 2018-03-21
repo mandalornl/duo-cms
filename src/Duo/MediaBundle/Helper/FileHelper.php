@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\Media\Helper;
+namespace Duo\MediaBundle\Helper;
 
 class FileHelper
 {
@@ -12,7 +12,7 @@ class FileHelper
 	 *
 	 * @return string
 	 */
-	public static function humanizeBytes(int $bytes, int $base = 1000): string
+	public static function humanizeBytes(int $bytes, int $base = 1024): string
 	{
 		$i = (int)floor(log($bytes, $base));
 

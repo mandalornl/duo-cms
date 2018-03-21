@@ -16,11 +16,11 @@ class MetaTitleType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'attr' => [
-				'maxlength' => 55
+				'maxlength' => 60
 			],
 			'constraints' => [
 				new Length([
-					'max' => 55
+					'max' => 60
 				])
 			]
 		]);

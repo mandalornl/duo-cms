@@ -9,6 +9,7 @@ use Duo\BehaviorBundle\Entity\IdTrait;
 use Duo\BehaviorBundle\Entity\TimeStampInterface;
 use Duo\BehaviorBundle\Entity\TimeStampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -414,5 +415,14 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	public function isEnabled(): bool
 	{
 		return $this->active;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function isEqualTo(CoreUserInterface $user): bool
+	{
+		// NOTE: be sure these properties are also present in the (un)serialize methods
+		return $this->password === $user->getPassword() && $this->username === $user->getUsername();
 	}
 }

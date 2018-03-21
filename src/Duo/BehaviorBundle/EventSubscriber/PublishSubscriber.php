@@ -34,7 +34,7 @@ class PublishSubscriber implements EventSubscriber
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSubscribedEvents()
+	public function getSubscribedEvents(): array
 	{
 		return [
 			Events::postLoad,
@@ -48,7 +48,7 @@ class PublishSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function postLoad(LifecycleEventArgs $args)
+	public function postLoad(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -65,7 +65,7 @@ class PublishSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$this->setBlame($args->getObject());
 	}
@@ -75,7 +75,7 @@ class PublishSubscriber implements EventSubscriber
 	 *
 	 * @param PreUpdateEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$this->setBlame($args->getObject());
 	}
@@ -85,7 +85,7 @@ class PublishSubscriber implements EventSubscriber
 	 *
 	 * @param object $entity
 	 */
-	private function setBlame($entity)
+	private function setBlame($entity): void
 	{
 		if (!$entity instanceof PublishInterface)
 		{

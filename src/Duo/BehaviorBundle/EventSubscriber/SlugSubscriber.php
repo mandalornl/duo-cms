@@ -29,7 +29,7 @@ class SlugSubscriber implements EventSubscriber
 	 *
      * @throws \IntlException
      */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$this->setSlug($args->getObject());
 	}
@@ -41,7 +41,7 @@ class SlugSubscriber implements EventSubscriber
 	 *
      * @throws \IntlException
      */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$this->setSlug($args->getObject());
 	}
@@ -53,7 +53,7 @@ class SlugSubscriber implements EventSubscriber
 	 *
 	 * @throws \IntlException
 	 */
-	private function setSlug($entity)
+	private function setSlug($entity): void
 	{
 		if (!$entity instanceof SlugInterface)
 		{

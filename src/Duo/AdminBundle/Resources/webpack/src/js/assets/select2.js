@@ -10,9 +10,9 @@ import md from '../util/mobiledetect';
  * Initialize select2
  *
  * @param {string|jQuery|HTMLElement} [selector = '.select2']
- * @param {{}} [options = {}]
+ * @param {{}} [globalOptions = {}]
  */
-const init = (selector = '.select2', options = {}) =>
+export default (selector = '.select2', globalOptions = {}) =>
 {
 	if (md.mobile() || md.tablet())
 	{
@@ -29,17 +29,15 @@ const init = (selector = '.select2', options = {}) =>
 			return;
 		}
 
-		const options = $.extend({}, {
+		const options = $.extend(true, {}, {
 			theme: 'bootstrap',
 			width: '100%',
 			dropdownAutoWidth: true,
 			allowClear: true,
 			placeholder: $this.data('placeholder') || 'Please choose',
 			minimumResultsForSearch: $this.find('option').length <= 10 ? Infinity : 10
-		}, options);
+		}, globalOptions);
 
 		$this.select2(options).data('initalized.select2', true);
 	});
 };
-
-export default init;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Twig;
+namespace Duo\BehaviorBundle\Twig;
 
 use Duo\BehaviorBundle\Entity\DuplicateInterface;
 use Duo\BehaviorBundle\Entity\DeleteInterface;

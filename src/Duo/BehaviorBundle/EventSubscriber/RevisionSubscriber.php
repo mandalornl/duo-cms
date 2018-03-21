@@ -27,7 +27,7 @@ class RevisionSubscriber implements EventSubscriber
 	 *
 	 * @param LoadClassMetadataEventArgs $args
 	 */
-	public function loadClassMetadata(LoadClassMetadataEventArgs $args)
+	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
 		/**
 		 * @var ClassMetadata $classMetadata
@@ -50,7 +50,7 @@ class RevisionSubscriber implements EventSubscriber
 	 * @param ClassMetadata $classMetadata
 	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapRevision(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
+	private function mapRevision(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass): void
 	{
 		if (!$classMetadata->hasAssociation('revision'))
 		{
@@ -75,7 +75,7 @@ class RevisionSubscriber implements EventSubscriber
 	 * @param ClassMetadata $classMetadata
 	 * @param \ReflectionClass $reflectionClass
 	 */
-	private function mapRevisions(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass)
+	private function mapRevisions(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass): void
 	{
 		if (!$classMetadata->hasAssociation('revisions'))
 		{
@@ -97,7 +97,7 @@ class RevisionSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 

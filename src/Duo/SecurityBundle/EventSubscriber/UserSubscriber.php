@@ -38,7 +38,7 @@ class UserSubscriber implements EventSubscriber
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSubscribedEvents()
+	public function getSubscribedEvents(): array
 	{
 		return [
 			Events::prePersist,
@@ -51,7 +51,7 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param LifecycleEventArgs $args
 	 */
-	public function prePersist(LifecycleEventArgs $args)
+	public function prePersist(LifecycleEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -70,7 +70,7 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param PreUpdateEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args)
+	public function preUpdate(PreUpdateEventArgs $args): void
 	{
 		$entity = $args->getObject();
 
@@ -89,7 +89,7 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param UserInterface $entity
 	 */
-	private function setPassword(UserInterface $entity)
+	private function setPassword(UserInterface $entity): void
 	{
 		if (($plainPassword = $entity->getPlainPassword()) === null)
 		{
@@ -105,7 +105,7 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param UserInterface $entity
 	 */
-	private function setUsername(UserInterface $entity)
+	private function setUsername(UserInterface $entity): void
 	{
 		$errors = $this->validator->validate(
 			$entity->getUsername(),
@@ -124,7 +124,7 @@ class UserSubscriber implements EventSubscriber
 	 *
 	 * @param UserInterface $entity
 	 */
-	private function setEmail(UserInterface $entity)
+	private function setEmail(UserInterface $entity): void
 	{
 		if (($email = $entity->getEmail()) === null)
 		{
