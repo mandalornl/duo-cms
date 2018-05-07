@@ -1,12 +1,12 @@
 <?php
 
-namespace Duo\AdminBundle\EventListener;
+namespace Duo\AdminBundle\EventListener\Listing;
 
-use Duo\AdminBundle\Event\ListingFormEvent;
+use Duo\AdminBundle\Event\Listing\EntityEvent;
 use Duo\AdminBundle\Helper\LocaleHelper;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 
-class TranslateListingListener
+class TranslateEntityListener
 {
 	/**
 	 * @var LocaleHelper
@@ -14,7 +14,7 @@ class TranslateListingListener
 	private $localeHelper;
 
 	/**
-	 * TranslateListingListener constructor
+	 * TranslateEntityListener constructor
 	 *
 	 * @param LocaleHelper $localeHelper
 	 */
@@ -26,21 +26,21 @@ class TranslateListingListener
 	/**
 	 * On pre add event
 	 *
-	 * @param ListingFormEvent $event
+	 * @param EntityEvent $args
 	 */
-	public function preAdd(ListingFormEvent $event)
+	public function preAdd(EntityEvent $args)
 	{
-		$this->setLocales($event->getEntity());
+		$this->setLocales($args->getEntity());
 	}
 
 	/**
 	 * On pre edit event
 	 *
-	 * @param ListingFormEvent $event
+	 * @param EntityEvent $args
 	 */
-	public function preEdit(ListingFormEvent $event)
+	public function preEdit(EntityEvent $args)
 	{
-		$this->setLocales($event->getEntity());
+		$this->setLocales($args->getEntity());
 	}
 
 	/**

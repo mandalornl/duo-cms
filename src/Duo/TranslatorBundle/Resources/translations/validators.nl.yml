@@ -1,0 +1,4 @@
+duo:
+    validator:
+        errors:
+            keyword_used: Dit keyword is al in gebruik voor dit domein

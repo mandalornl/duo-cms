@@ -8,7 +8,7 @@ use Duo\FormBundle\Form\FormPart\SubmitFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
- * @ORM\Table(name="form_part_submit")
+ * @ORM\Table(name="duo_form_part_submit")
  * @ORM\Entity()
  */
 class SubmitFormPart extends AbstractFormPart

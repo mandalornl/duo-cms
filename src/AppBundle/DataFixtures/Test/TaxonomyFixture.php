@@ -34,7 +34,7 @@ class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	function getDependencies(): array
+	public function getDependencies(): array
 	{
 		return [
 			UserFixture::class

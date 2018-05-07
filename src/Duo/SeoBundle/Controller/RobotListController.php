@@ -4,7 +4,6 @@ namespace Duo\SeoBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractController;
 use Duo\SeoBundle\Entity\Robot;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,8 +19,7 @@ class RobotListController extends AbstractController
 	/**
 	 * Index action
 	 *
-	 * @Route("/", name="index")
-	 * @Method({"GET", "POST"})
+	 * @Route("/", name="index", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 *
@@ -29,7 +27,7 @@ class RobotListController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	public function indexAction(Request $request)
+	public function indexAction(Request $request): Response
 	{
 		$entity = $this->getEntity();
 
@@ -67,7 +65,7 @@ class RobotListController extends AbstractController
 		$content = <<<EOD
 User-agent: *
 Disallow: /admin/
-Sitemap: {protocol}://{host}/sitemap.xml
+Sitemap: {scheme}://{host}/sitemap.xml
 EOD;
 
 		return (new Robot())

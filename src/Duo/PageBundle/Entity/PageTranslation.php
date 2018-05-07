@@ -16,7 +16,7 @@ use Duo\SeoBundle\Entity\SeoInterface;
 use Duo\SeoBundle\Entity\SeoTrait;
 
 /**
- * @ORM\Table(name="page_translation")
+ * @ORM\Table(name="duo_page_translation")
  * @ORM\Entity()
  */
 class PageTranslation extends AbstractNodeTranslation implements SlugInterface, UrlInterface, PublishInterface, SeoInterface, EntityPartInterface
@@ -32,14 +32,14 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	 *
 	 * @ORM\Column(name="title", type="string", nullable=true)
 	 */
-	protected $title;
+	private $title;
 
 	/**
 	 * @var bool
 	 *
 	 * @ORM\Column(name="visible_menu", type="boolean", options={ "default" = 1 })
 	 */
-	protected $visibleMenu = true;
+	private $visibleMenu = true;
 
 	/**
 	 * Set title

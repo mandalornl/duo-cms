@@ -3,8 +3,8 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractSortController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,10 +17,9 @@ class PageSortController extends AbstractSortController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-up/{id}", name="move_up", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/move-up/{id}", name="move_up", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function moveUpAction(Request $request, int $id)
+	public function moveUpAction(Request $request, int $id): Response
 	{
 		return $this->doMoveUpAction($request, $id);
 	}
@@ -28,10 +27,9 @@ class PageSortController extends AbstractSortController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-down/{id}", name="move_down", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/move-down/{id}", name="move_down", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function moveDownAction(Request $request, int $id)
+	public function moveDownAction(Request $request, int $id): Response
 	{
 		return $this->doMoveDownAction($request, $id);
 	}
@@ -39,10 +37,9 @@ class PageSortController extends AbstractSortController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-to/{_format}", name="move_to", defaults={ "_format" = "html" }, requirements={ "_format" = "html|json" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/move-to/{_format}", name="move_to", defaults={ "_format" = "html" }, requirements={ "_format" = "html|json" }, methods={ "GET", "POST" })
 	 */
-	public function moveToAction(Request $request)
+	public function moveToAction(Request $request): Response
 	{
 		return $this->doMoveToAction($request);
 	}

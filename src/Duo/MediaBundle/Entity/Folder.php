@@ -7,28 +7,34 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\DeleteTrait;
+use Duo\BehaviorBundle\Entity\IdInterface;
 use Duo\BehaviorBundle\Entity\IdTrait;
 use Duo\BehaviorBundle\Entity\SlugInterface;
 use Duo\BehaviorBundle\Entity\SlugTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\TreeTrait;
 use Duo\BehaviorBundle\Entity\UrlInterface;
 use Duo\BehaviorBundle\Entity\UrlTrait;
 
 /**
- * @ORM\Table(name="folder")
+ * @ORM\Table(name="duo_folder")
  * @ORM\Entity(repositoryClass="Duo\MediaBundle\Repository\FolderRepository")
  */
-class Folder implements TimeStampInterface, DeleteInterface, TreeInterface, SlugInterface, UrlInterface
+class Folder implements IdInterface,
+						TimestampInterface,
+						DeleteInterface,
+						TreeInterface,
+						SlugInterface,
+						UrlInterface
 {
 	use IdTrait;
 	use SlugTrait;
 	use UrlTrait;
 	use DeleteTrait;
 	use TreeTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var string

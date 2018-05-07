@@ -3,8 +3,8 @@
 namespace Duo\FormBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractEditController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,10 +17,9 @@ class FormResultEditController extends AbstractEditController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
-	 * @Method("GET")
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" }, methods={ "GET" })
 	 */
-	public function editAction(Request $request, int $id)
+	public function editAction(Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 

@@ -5,7 +5,7 @@ namespace Duo\BehaviorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-trait TimeStampTrait
+trait TimestampTrait
 {
 	/**
 	 * @var \DateTime
@@ -25,9 +25,7 @@ trait TimeStampTrait
 	 * @var UserInterface
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
-	 * @ORM\JoinColumns({
-	 *     @ORM\JoinColumn(name="created_by_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\JoinColumn(name="created_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	protected $createdBy;
 
@@ -35,16 +33,14 @@ trait TimeStampTrait
 	 * @var UserInterface
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
-	 * @ORM\JoinColumns({
-	 *     @ORM\JoinColumn(name="modified_by_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\JoinColumn(name="modified_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	protected $modifiedBy;
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCreatedAt(\DateTime $createdAt = null): TimeStampInterface
+	public function setCreatedAt(\DateTime $createdAt = null): TimestampInterface
 	{
 		$this->createdAt = $createdAt;
 
@@ -62,7 +58,7 @@ trait TimeStampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setModifiedAt(\DateTime $modifiedAt = null): TimeStampInterface
+	public function setModifiedAt(\DateTime $modifiedAt = null): TimestampInterface
 	{
 		$this->modifiedAt = $modifiedAt;
 
@@ -80,7 +76,7 @@ trait TimeStampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCreatedBy(UserInterface $createdBy = null): TimeStampInterface
+	public function setCreatedBy(UserInterface $createdBy = null): TimestampInterface
 	{
 		$this->createdBy = $createdBy;
 
@@ -98,7 +94,7 @@ trait TimeStampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setModifiedBy(UserInterface $modifiedBy = null): TimeStampInterface
+	public function setModifiedBy(UserInterface $modifiedBy = null): TimestampInterface
 	{
 		$this->modifiedBy = $modifiedBy;
 

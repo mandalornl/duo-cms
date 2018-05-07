@@ -46,7 +46,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\BehaviorBundle\EventSubscriber\TimeStampSubscriber:
+    Duo\BehaviorBundle\EventSubscriber\TimestampSubscriber:
         arguments:
             $security: '@security.helper'
         tags:

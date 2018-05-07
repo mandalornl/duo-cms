@@ -11,6 +11,7 @@ use Duo\BehaviorBundle\Repository\SortTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractSortController extends AbstractController
 {
@@ -24,7 +25,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doMoveUpAction(Request $request, int $id)
+	protected function doMoveUpAction(Request $request, int $id): Response
 	{
 		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
 		{
@@ -60,8 +61,10 @@ abstract class AbstractSortController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function moveUpAction(Request $request, int $id);
+	abstract public function moveUpAction(Request $request, int $id): Response;
 
 	/**
 	 * Move entity down
@@ -73,7 +76,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doMoveDownAction(Request $request, int $id)
+	protected function doMoveDownAction(Request $request, int $id): Response
 	{
 		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
 		{
@@ -109,8 +112,10 @@ abstract class AbstractSortController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function moveDownAction(Request $request, int $id);
+	abstract public function moveDownAction(Request $request, int $id): Response;
 
 	/**
 	 * Handle move up or down request
@@ -123,7 +128,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleMoveUpOrDownRequest(Request $request, int $id, \Closure $callback)
+	private function handleMoveUpOrDownRequest(Request $request, int $id, \Closure $callback): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass());
 
@@ -137,7 +142,7 @@ abstract class AbstractSortController extends AbstractController
 			return $this->sortInterfaceNotImplemented($request, $id);
 		}
 
-		call_user_func($callback, $entity);
+		call_user_func_array($callback, [ $entity ]);
 
 		/// reply with json response
 		if ($request->getRequestFormat() === 'json')
@@ -162,7 +167,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doMoveToAction(Request $request)
+	protected function doMoveToAction(Request $request): Response
 	{
 		$id = (int)$request->get('id') ?: null;
 
@@ -205,8 +210,10 @@ abstract class AbstractSortController extends AbstractController
 	 * @param Request $request
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function moveToAction(Request $request);
+	abstract public function moveToAction(Request $request): Response;
 
 	/**
 	 * Handle move to parent and sibling request
@@ -220,7 +227,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleMoveToParentAndSiblingRequest(Request $request, SortInterface $entity, int $parentId, int $siblingId)
+	private function handleMoveToParentAndSiblingRequest(Request $request, SortInterface $entity, int $parentId, int $siblingId): Response
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -455,7 +462,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleMoveToSiblingRequest(Request $request, SortInterface $entity, int $siblingId)
+	private function handleMoveToSiblingRequest(Request $request, SortInterface $entity, int $siblingId): Response
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -548,7 +555,7 @@ abstract class AbstractSortController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function createMoveToException(Request $request, string $error)
+	private function createMoveToException(Request $request, string $error): JsonResponse
 	{
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

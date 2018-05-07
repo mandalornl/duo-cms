@@ -7,17 +7,18 @@ use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Duo\AdminBundle\Configuration\Action\ItemActionInterface;
-use Duo\AdminBundle\Event\ListingORMEvent;
-use Duo\AdminBundle\Event\ListingORMEvents;
-use Duo\AdminBundle\Event\ListingFormEvent;
-use Duo\AdminBundle\Event\ListingFormEvents;
+use Duo\AdminBundle\Event\Listing\EntityEvent;
+use Duo\AdminBundle\Event\Listing\EntityEvents;
+use Duo\AdminBundle\Event\Listing\FormEvent;
+use Duo\AdminBundle\Event\Listing\FormEvents;
+use Duo\AdminBundle\Event\Listing\ORMEvent;
+use Duo\AdminBundle\Event\Listing\ORMEvents;
 use Duo\AdminBundle\Event\TwigEvent;
 use Duo\AdminBundle\Event\TwigEvents;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Entity\VersionInterface;
 use Duo\BehaviorBundle\Event\RevisionEvent;
 use Duo\BehaviorBundle\Event\RevisionEvents;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,7 +50,7 @@ abstract class AbstractEditController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doEditAction(Request $request, int $id)
+	protected function doEditAction(Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -77,24 +78,24 @@ abstract class AbstractEditController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function handleEditEntityRequest(Request $request, $entity)
+	protected function handleEditEntityRequest(Request $request, $entity): Response
 	{
-		/**
-		 * @var EventDispatcherInterface $eventDispatcher
-		 */
 		$eventDispatcher = $this->get('event_dispatcher');
+
+		// dispatch pre edit event
+		$eventDispatcher->dispatch(EntityEvents::PRE_EDIT, new EntityEvent($entity));
 
 		$form = $this->createForm($this->getFormType(), $entity);
 
 		// dispatch pre edit event
-		$eventDispatcher->dispatch(ListingFormEvents::PRE_EDIT, new ListingFormEvent($entity, $form));
+		$eventDispatcher->dispatch(FormEvents::PRE_EDIT, new FormEvent($form));
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post edit event
-			$eventDispatcher->dispatch(ListingFormEvents::POST_EDIT, new ListingFormEvent($entity, $form));
+			$eventDispatcher->dispatch(EntityEvents::POST_EDIT, new EntityEvent($entity));
 
 			try
 			{
@@ -112,8 +113,8 @@ abstract class AbstractEditController extends AbstractController
 				$em->persist($entity);
 				$em->flush();
 
-				// dispatch pre flush event
-				$eventDispatcher->dispatch(ListingORMEvents::POST_FLUSH, new ListingORMEvent($entity));
+				// dispatch post flush event
+				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
 
 				$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
 			}
@@ -147,29 +148,29 @@ abstract class AbstractEditController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function handleEditRevisionRequest(Request $request, RevisionInterface $entity)
+	protected function handleEditRevisionRequest(Request $request, RevisionInterface $entity): Response
 	{
 		$clone = clone $entity;
 
-		/**
-		 * @var EventDispatcherInterface $eventDispatcher
-		 */
 		$eventDispatcher = $this->get('event_dispatcher');
+
+		// dispatch pre edit event
+		$eventDispatcher->dispatch(EntityEvents::PRE_EDIT, new EntityEvent($clone));
+
+		// pre submit state
+		$preSubmitState = serialize($clone);
 
 		$form = $this->createForm($this->getFormType(), $clone);
 
 		// dispatch pre edit event
-		$eventDispatcher->dispatch(ListingFormEvents::PRE_EDIT, new ListingFormEvent($clone, $form));
-
-		// pre submit state
-		$preSubmitState = serialize($clone);
+		$eventDispatcher->dispatch(FormEvents::PRE_EDIT, new FormEvent($form));
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post edit event
-			$eventDispatcher->dispatch(ListingFormEvents::POST_EDIT, new ListingFormEvent($clone, $form));
+			$eventDispatcher->dispatch(EntityEvents::POST_EDIT, new EntityEvent($clone));
 
 			// post submit state
 			$postSubmitState = serialize($clone);
@@ -197,7 +198,7 @@ abstract class AbstractEditController extends AbstractController
 					$em->flush();
 
 					// dispatch post flush event
-					$eventDispatcher->dispatch(ListingORMEvents::POST_FLUSH, new ListingORMEvent($clone));
+					$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($clone));
 
 					$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
 
@@ -237,8 +238,10 @@ abstract class AbstractEditController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return Response|RedirectResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function editAction(Request $request, int $id);
+	abstract public function editAction(Request $request, int $id): Response;
 
 	/**
 	 * Get edit template

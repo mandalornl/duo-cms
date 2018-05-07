@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\PageBundle\Entity\AbstractPagePart;
 
 /**
- * @ORM\Table("page_part_heading")
+ * @ORM\Table(name="duo_page_part_heading")
  * @ORM\Entity()
  */
 class HeadingPagePart extends AbstractPagePart

@@ -5,7 +5,7 @@ namespace Duo\NodeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\CloneTrait;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 use Duo\BehaviorBundle\Entity\TranslateTrait;
 use Duo\BehaviorBundle\Entity\VersionTrait;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,7 +15,7 @@ abstract class AbstractNode implements NodeInterface
 	use IdTrait;
 	use TranslateTrait;
 	use CloneTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 	use VersionTrait;
 
     /**

@@ -3,9 +3,9 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractDestroyController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,10 +20,9 @@ class UserDestroyController extends AbstractDestroyController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function destroyAction(Request $request, int $id = null)
+	public function destroyAction(Request $request, int $id = null): Response
 	{
 		return $this->doDestroyAction($request, $id);
 	}

@@ -5,7 +5,6 @@ namespace Duo\PageBundle\Controller;
 use Duo\AdminBundle\Controller\AbstractAutoCompleteController;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
 use Duo\PageBundle\Entity\Page;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +17,13 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	/**
 	 * Search url action
 	 *
-	 * @Route("/url", name="url")
-	 * @Method({"GET", "POST"})
+	 * @Route("/url", name="url", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 *
 	 * @return JsonResponse
 	 */
-	public function searchUrlAction(Request $request)
+	public function searchUrlAction(Request $request): JsonResponse
 	{
 		$repository = $this->getDoctrine()->getRepository(Page::class);
 

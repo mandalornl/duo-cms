@@ -17,7 +17,7 @@ use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
 
 /**
- * @ORM\Table(name="page")
+ * @ORM\Table(name="duo_page")
  * @ORM\Entity(repositoryClass="Duo\PageBundle\Repository\PageRepository")
  */
 class Page extends AbstractNode implements DeleteInterface,

@@ -8,7 +8,7 @@ use Duo\FormBundle\Entity\Form;
 use Duo\PartBundle\Entity\AbstractPart;
 
 /**
- * @ORM\Table(name="page_part_form")
+ * @ORM\Table(name="duo_page_part_form")
  * @ORM\Entity()
  */
 class FormPagePart extends AbstractPart
@@ -24,9 +24,7 @@ class FormPagePart extends AbstractPart
 	 * @var Form
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")
-	 * @ORM\JoinColumns({
-	 *	   @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	private $form;
 

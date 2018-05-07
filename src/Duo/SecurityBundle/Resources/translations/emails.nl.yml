@@ -2,7 +2,7 @@ duo:
     security:
         mail:
             forgot_password:
-                subject: Wacthwoord vergeten
+                subject: Wachtwoord vergeten
                 body_text: |
                     Wachtwoord opnieuw instellen.
 
@@ -13,14 +13,14 @@ duo:
                     title: Wachtwoord opnieuw instellen.
                     use_button: Gebruik de onderstaande knop om het wachtwoord opnieuw in te stellen.
                     button: Opnieuw instellen
-                    copy_to_browser: Of kopieër en plak de onderstaande url in uw browser
+                    copy_to_browser: Of kopieër en plak de onderstaande url in je browser
 
             reset_password:
                 subject: Wachtwoord opnieuw ingesteld
                 body_text: |
                     Wachtwoord opnieuw ingesteld.
 
-                    Onlangs is uw wachtwoord opnieuw ingesteld. Neem contact met ons op indien u dit niet zelf heeft gedaan.
+                    Onlangs is je wachtwoord opnieuw ingesteld. Neem contact met ons op indien je dit niet zelf hebt gedaan.
                 body_html:
                     title: Wachtwoord opnieuw ingesteld
-                    message: Onlangs is uw wachtwoord opnieuw ingesteld. Neem contact met ons op indien u dit niet zelf heeft gedaan.
+                    message: Onlangs is je wachtwoord opnieuw ingesteld. Neem contact met ons op indien je dit niet zelf hebt gedaan.

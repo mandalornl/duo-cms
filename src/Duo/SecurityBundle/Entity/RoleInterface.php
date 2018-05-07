@@ -2,7 +2,10 @@
 
 namespace Duo\SecurityBundle\Entity;
 
-interface RoleInterface
+use Duo\BehaviorBundle\Entity\IdInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+
+interface RoleInterface extends IdInterface, TimestampInterface
 {
 	/**
 	 * Set name

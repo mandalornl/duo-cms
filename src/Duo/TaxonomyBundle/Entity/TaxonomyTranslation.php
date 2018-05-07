@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(
- *     name="taxonomy_translation",
+ *     name="duo_taxonomy_translation",
  *	   uniqueConstraints={
  *	       @ORM\UniqueConstraint(name="name_uniq", columns={ "name", "locale" })
  *	   },

@@ -16,9 +16,7 @@ trait IdTrait
 	protected $id;
 
 	/**
-	 * Get id
-	 *
-	 * @return int
+	 * {@inheritdoc}
 	 */
 	public function getId(): ?int
 	{

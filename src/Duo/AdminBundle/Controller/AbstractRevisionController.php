@@ -2,7 +2,6 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Event\RevisionEvent;
 use Duo\BehaviorBundle\Event\RevisionEvents;
@@ -24,7 +23,7 @@ abstract class AbstractRevisionController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doRevisionAction(Request $request, int $id)
+	protected function doRevisionAction(Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -59,8 +58,10 @@ abstract class AbstractRevisionController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return Response|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function revisionAction(Request $request, int $id);
+	abstract public function revisionAction(Request $request, int $id): Response;
 
 	/**
 	 * Revert action
@@ -72,7 +73,7 @@ abstract class AbstractRevisionController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doRevertAction(Request $request, int $id)
+	protected function doRevertAction(Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -89,9 +90,6 @@ abstract class AbstractRevisionController extends AbstractController
 		// dispatch revert event
 		$this->get('event_dispatcher')->dispatch(RevisionEvents::REVERT, new RevisionEvent($entity, $entity->getRevision()));
 
-		/**
-		 * @var ObjectManager $em
-		 */
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($entity);
 		$em->flush();
@@ -120,8 +118,10 @@ abstract class AbstractRevisionController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function revertAction(Request $request, int $id);
+	abstract public function revertAction(Request $request, int $id): Response;
 
 	/**
 	 * Revision interface not implemented

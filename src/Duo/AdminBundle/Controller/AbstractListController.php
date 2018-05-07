@@ -14,9 +14,8 @@ use Duo\AdminBundle\Helper\PaginatorHelper;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,6 +89,8 @@ abstract class AbstractListController extends AbstractController
 	 * @param Request $request
 	 *
 	 * @return Response
+	 *
+	 * @throws \Throwable
 	 */
 	abstract public function indexAction(Request $request): Response;
 
@@ -220,8 +221,7 @@ abstract class AbstractListController extends AbstractController
 	/**
 	 * Sorting action
 	 *
-	 * @Route("/sorting/{sort}/{order}", name="sorting", requirements={ "order" = "asc|desc" }, defaults={ "order" = "asc" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/sorting/{sort}/{order}", name="sorting", requirements={ "order" = "asc|desc" }, defaults={ "order" = "asc" }, methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 * @param string $sort [optional]
@@ -300,7 +300,7 @@ abstract class AbstractListController extends AbstractController
 	protected function applyDefaultSorting(QueryBuilder $builder, \ReflectionClass $reflectionClass): void
 	{
 		// order by last modified
-		if ($reflectionClass->implementsInterface(TimeStampInterface::class))
+		if ($reflectionClass->implementsInterface(TimestampInterface::class))
 		{
 			$builder->addOrderBy('e.modifiedAt', 'DESC');
 		}
@@ -360,8 +360,7 @@ abstract class AbstractListController extends AbstractController
 	/**
 	 * Filter action
 	 *
-	 * @Route("/filter", name="filter")
-	 * @Method({"GET", "POST"})
+	 * @Route("/filter", name="filter", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 *

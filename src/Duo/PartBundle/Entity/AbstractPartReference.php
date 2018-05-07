@@ -4,13 +4,12 @@ namespace Duo\PartBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 
-abstract class AbstractPartReference implements PartReferenceInterface, TimeStampInterface
+abstract class AbstractPartReference implements PartReferenceInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var int

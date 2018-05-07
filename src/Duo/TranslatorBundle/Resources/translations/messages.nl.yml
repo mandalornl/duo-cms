@@ -1,0 +1,32 @@
+duo:
+    translator:
+        tab:
+            content: Content
+            properties: Eigenschappen
+
+        menu:
+            translations: Vertalingen
+
+        listing:
+            field:
+                keyword: Keyword
+                domain: Domein
+                created_at: Aangemaakt op
+                modified_at: Gewijzigd op
+
+            filter:
+                keyword: Keyword
+                domain: Domein
+                created: Aangemaakt
+                modified: Gewijzigd
+
+        form:
+            entry:
+                keyword:
+                    label: Keyword
+                domain:
+                    label: Domein
+
+            entry_translation:
+                text:
+                    label: Tekst

@@ -69,6 +69,6 @@ settings:
     icon: icon-cogs
     children:
         translations:
-            label: Translations
-            url: javascript:; #/admin/setting/translation
+            label: duo.translator.menu.translations
+            route: duo_translator_listing_entry_index
             #icon: icon-earth

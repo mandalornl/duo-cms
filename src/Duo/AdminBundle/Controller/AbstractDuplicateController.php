@@ -2,11 +2,11 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Duo\BehaviorBundle\Entity\RevisionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractDuplicateController extends AbstractController
 {
@@ -20,7 +20,7 @@ abstract class AbstractDuplicateController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doDuplicateAction(Request $request, int $id)
+	protected function doDuplicateAction(Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -37,9 +37,6 @@ abstract class AbstractDuplicateController extends AbstractController
 			$clone->setRevision($clone);
 		}
 
-		/**
-		 * @var ObjectManager $em
-		 */
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($clone);
 		$em->flush();
@@ -65,6 +62,8 @@ abstract class AbstractDuplicateController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function duplicateAction(Request $request, int $id);
+	abstract public function duplicateAction(Request $request, int $id): Response;
 }

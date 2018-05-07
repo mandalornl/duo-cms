@@ -8,7 +8,7 @@ use Duo\FormBundle\Form\FormPart\ChoiceFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * @ORM\Table(name="form_part_choice")
+ * @ORM\Table(name="duo_form_part_choice")
  * @ORM\Entity()
  */
 class ChoiceFormPart extends AbstractChoiceFormPart

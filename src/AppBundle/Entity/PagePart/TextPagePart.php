@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\PageBundle\Entity\AbstractPagePart;
 
 /**
- * @ORM\Table(name="page_part_text")
+ * @ORM\Table(name="duo_page_part_text")
  * @ORM\Entity()
  */
 class TextPagePart extends AbstractPagePart

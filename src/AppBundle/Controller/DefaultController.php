@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +15,7 @@ class DefaultController extends Controller
 	/**
 	 * Index action
 	 *
-	 * @Route("/", name="index")
-	 * @Method("GET")
+	 * @Route("/", name="index", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 *

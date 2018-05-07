@@ -8,7 +8,7 @@ use Duo\FormBundle\Form\FormPart\TextareaFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
- * @ORM\Table(name="form_part_textarea")
+ * @ORM\Table(name="duo_form_part_textarea")
  * @ORM\Entity()
  */
 class TextareaFormPart extends AbstractTextFormPart

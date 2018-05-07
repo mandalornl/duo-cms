@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\SortInterface;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Entity\TreeInterface;
 use Duo\BehaviorBundle\Entity\UrlInterface;
@@ -22,7 +22,7 @@ class RevisionListener
 	private $entityManager;
 
 	/**
-	 * RevisionableListener constructor
+	 * RevisionListener constructor
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
@@ -88,7 +88,7 @@ class RevisionListener
 	{
 		$entity = $event->getEntity();
 
-		if ($entity instanceof TimeStampInterface)
+		if ($entity instanceof TimestampInterface)
 		{
 			$entity
 				->setCreatedBy(null)

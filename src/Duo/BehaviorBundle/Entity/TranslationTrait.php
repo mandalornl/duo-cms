@@ -6,14 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait TranslationTrait
 {
-	/**
-	 * @var int
-	 *
-	 * @ORM\Id()
-	 * @ORM\Column(name="id", type="bigint")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	protected $id;
+	use IdTrait;
 
 	/**
 	 * @var TranslateInterface
@@ -26,14 +19,6 @@ trait TranslationTrait
 	 * @ORM\Column(name="locale", type="string", length=5, nullable=true)
 	 */
 	protected $locale;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getId(): int
-	{
-		return $this->id;
-	}
 
 	/**
 	 * {@inheritdoc}

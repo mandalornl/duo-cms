@@ -5,7 +5,6 @@ namespace Duo\MediaBundle\Controller;
 use Duo\AdminBundle\Controller\AbstractController;
 use Duo\MediaBundle\Entity\File;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +32,7 @@ class FileAddOrEditController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	public function addOrEditAction(Request $request, int $id = null)
+	public function addOrEditAction(Request $request, int $id = null): Response
 	{
 		if ($id !== null)
 		{

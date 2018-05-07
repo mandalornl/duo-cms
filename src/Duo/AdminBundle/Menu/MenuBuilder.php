@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Duo\AdminBundle\Event\MenuEvent;
 use Duo\AdminBundle\Event\MenuEvents;
+use Duo\SecurityBundle\Entity\UserInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Yaml\Yaml;
 
 class MenuBuilder implements MenuBuilderInterface
@@ -22,6 +24,11 @@ class MenuBuilder implements MenuBuilderInterface
 	 * @var RouterInterface
 	 */
 	private $router;
+
+	/**
+	 * @var UserInterface
+	 */
+	private $user;
 
 	/**
 	 * @var EventDispatcherInterface
@@ -39,18 +46,28 @@ class MenuBuilder implements MenuBuilderInterface
 	private $menu;
 
 	/**
+	 * @var MenuInterface
+	 */
+	private $activeMenu;
+
+	/**
 	 * MenuBuilder constructor
 	 *
 	 * @param RouterInterface $router
 	 * @param EventDispatcherInterface $eventDispatcher
 	 * @param RequestStack $requestStack
+	 * @param Security $security
 	 */
 	public function __construct(RouterInterface $router,
 								EventDispatcherInterface $eventDispatcher,
-								RequestStack $requestStack)
+								RequestStack $requestStack,
+								Security $security
+	)
 	{
 		$this->router = $router;
 		$this->eventDispatcher = $eventDispatcher;
+
+		$this->user = $security->getUser();
 
 		$this->configs = new ArrayCollection();
 		$this->configs[] = Yaml::parseFile(__DIR__ . '/../Resources/config/menu.yml');
@@ -114,25 +131,27 @@ class MenuBuilder implements MenuBuilderInterface
 	/**
 	 * Build
 	 *
-	 * @param bool $forceRebuild [optional]
+	 * @param bool $rebuild [optional]
 	 */
-	public function build(bool $forceRebuild = false): void
+	public function build(bool $rebuild = false): void
 	{
-		if ($this->menu !== null && !$forceRebuild)
+		if ($this->menu !== null && !$rebuild)
 		{
 			return;
 		}
+
+		$this->activeMenu = null;
 
 		// dispatch pre build event
 		$this->eventDispatcher->dispatch(MenuEvents::PRE_BUILD, new MenuEvent($this));
 
 		$menu = (new Menu())
 			->setLabel('Root')
-			->setUniqid('root');
+			->setId('root');
 
 		foreach ($this->configs as $config)
 		{
-			$this->parseConfig($config, $menu);
+			$this->parse($config, $menu);
 		}
 
 		foreach ($menu->getChildren() as $child)
@@ -144,6 +163,8 @@ class MenuBuilder implements MenuBuilderInterface
 		}
 
 		$this->menu = $menu;
+
+		$this->buildBreadcrumbs();
 
 		// dispatch post build event
 		$this->eventDispatcher->dispatch(MenuEvents::POST_BUILD, new MenuEvent($this));
@@ -166,10 +187,16 @@ class MenuBuilder implements MenuBuilderInterface
 	 *
 	 * @param MenuInterface $parent
 	 */
-	private function parseConfig(array $config, MenuInterface $parent): void
+	private function parse(array $config, MenuInterface $parent): void
 	{
 		foreach ($config as $id => $item)
 		{
+			// check whether or not route is accessible by user
+			if (isset($item['roles']) && ($this->user === null || !$this->user->hasRoles((array)$item['roles'])))
+			{
+				continue;
+			}
+
 			// check whether or not menu exists for parent's children
 			if ($parent->getChildren()->containsKey($id))
 			{
@@ -178,8 +205,7 @@ class MenuBuilder implements MenuBuilderInterface
 			// create new item instead
 			else
 			{
-				$menu = (new Menu())
-					->setUniqid($id);
+				$menu = (new Menu())->setId($id);
 			}
 
 			// set label
@@ -214,20 +240,46 @@ class MenuBuilder implements MenuBuilderInterface
 				}
 			}
 
+			// set active menu item
+			if (($url = $menu->getUrl()) && strcmp($url, $this->requestUri) === 0)
+			{
+				$menu->setActive(true);
+
+				$this->activeMenu = $menu;
+			}
+
 			// contains children
 			if (isset($item['children']))
 			{
-				$this->parseConfig($item['children'], $menu);
-			}
-
-			// set active menu item
-			if (($url = $menu->getUrl()) &&
-				(strcmp($url, $this->requestUri) === 0 || strpos($this->requestUri, $url) === 0))
-			{
-				$menu->setActive(true);
+				$this->parse($item['children'], $menu);
 			}
 
 			$parent->addChild($menu);
 		}
+	}
+
+	/**
+	 * Build breadcrumbs
+	 */
+	private function buildBreadcrumbs(): void
+	{
+		if ($this->activeMenu === null)
+		{
+			return;
+		}
+
+		$breadcrumbs = [];
+
+		$parent = $this->activeMenu;
+
+		do
+		{
+			$breadcrumbs[] = $parent;
+
+			$parent = $parent->getParent();
+		}
+		while ($parent !== null);
+
+		$this->menu->setBreadcrumbs(array_reverse($breadcrumbs));
 	}
 }

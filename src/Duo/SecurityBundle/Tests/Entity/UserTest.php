@@ -53,8 +53,8 @@ class UserTest extends TestCase
 
 		$this->assertEquals($collection, $this->entity->getGroups());
 
-		$this->assertEquals(1, $this->entity->getGroups()->count());
-		$this->assertNotEquals(10, $this->entity->getGroups()->count());
+		$this->assertCount(1, $this->entity->getGroups()->toArray());
+		$this->assertNotCount(10, $this->entity->getGroups()->toArray());
 	}
 
 	/**

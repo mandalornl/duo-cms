@@ -6,7 +6,6 @@ use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractListController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,8 +42,7 @@ class TaxonomyListController extends AbstractListController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="index")
-	 * @Method("GET")
+	 * @Route("/", name="index", methods={ "GET" })
 	 */
 	public function indexAction(Request $request): Response
 	{

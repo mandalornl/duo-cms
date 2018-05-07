@@ -6,10 +6,10 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
 use Symfony\Component\Security\Core\Security;
 
-class TimeStampSubscriber implements EventSubscriber
+class TimestampSubscriber implements EventSubscriber
 {
 	/**
 	 * @var Security
@@ -17,7 +17,7 @@ class TimeStampSubscriber implements EventSubscriber
 	private $security;
 
 	/**
-	 * TimeStampSubscriber constructor
+	 * TimestampSubscriber constructor
 	 *
 	 * @param Security $security
 	 */
@@ -46,7 +46,7 @@ class TimeStampSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof TimeStampInterface)
+		if (!$entity instanceof TimestampInterface)
 		{
 			return;
 		}
@@ -80,7 +80,7 @@ class TimeStampSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof TimeStampInterface)
+		if (!$entity instanceof TimestampInterface)
 		{
 			return;
 		}

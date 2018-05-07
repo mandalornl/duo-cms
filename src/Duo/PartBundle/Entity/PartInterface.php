@@ -2,7 +2,10 @@
 
 namespace Duo\PartBundle\Entity;
 
-interface PartInterface
+use Duo\BehaviorBundle\Entity\IdInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+
+interface PartInterface extends IdInterface, TimestampInterface
 {
 	/**
 	 * Set weight

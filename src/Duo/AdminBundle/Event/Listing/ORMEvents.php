@@ -1,18 +1,18 @@
 <?php
 
-namespace Duo\AdminBundle\Event;
+namespace Duo\AdminBundle\Event\Listing;
 
-class ListingORMEvents
+class ORMEvents
 {
 	/**
 	 * Called right after flush
 	 *
-	 * @Event("Duo\AdminBundle\Event\ListingORMEvent")
+	 * @Event("Duo\AdminBundle\Event\Listing\ORMEvent")
 	 */
 	const POST_FLUSH = 'duo.event.listing.orm.postFlush';
 
 	/**
-	 * ListingEvents constructor
+	 * ORMEvents constructor
 	 */
 	private function __construct() {}
 }

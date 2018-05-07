@@ -5,7 +5,6 @@ namespace Duo\FormBundle\Controller;
 use Duo\AdminBundle\Controller\AbstractAutoCompleteController;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
 use Duo\FormBundle\Entity\Form;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +17,13 @@ class FormAutoCompleteController extends AbstractAutoCompleteController
 	/**
 	 * Search name action
 	 *
-	 * @Route("/name", name="name")
-	 * @Method({"GET", "POST"})
+	 * @Route("/name", name="name", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 *
 	 * @return JsonResponse
 	 */
-	public function searchNameAction(Request $request)
+	public function searchNameAction(Request $request): JsonResponse
 	{
 		$repository = $this->getDoctrine()->getRepository(Form::class);
 

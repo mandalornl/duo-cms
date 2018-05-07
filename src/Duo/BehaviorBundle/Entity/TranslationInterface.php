@@ -2,15 +2,8 @@
 
 namespace Duo\BehaviorBundle\Entity;
 
-interface TranslationInterface
+interface TranslationInterface extends IdInterface
 {
-	/**
-	 * Get id
-	 *
-	 * @return int
-	 */
-	public function getId(): int;
-
 	/**
 	 * Set translatable
 	 *

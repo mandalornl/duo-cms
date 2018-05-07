@@ -8,7 +8,7 @@ use Duo\NodeBundle\Entity\AbstractNode;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="form")
+ * @ORM\Table(name="duo_form")
  * @ORM\Entity(repositoryClass="Duo\FormBundle\Repository\FormRepository")
  */
 class Form extends AbstractNode

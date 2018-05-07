@@ -4,14 +4,13 @@ namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
- *     name="role",
+ *     name="duo_role",
  *     uniqueConstraints={
  *		   @ORM\UniqueConstraint(name="role_uniq", columns={ "role" })
  *	   },
@@ -22,10 +21,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @UniqueEntity(fields={ "role" }, message="duo.security.errors.role_used")
  */
-class Role implements RoleInterface, TimeStampInterface
+class Role implements RoleInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var string

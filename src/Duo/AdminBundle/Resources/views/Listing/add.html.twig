@@ -36,7 +36,7 @@
 								{% endif %}
 								{% if entity is publishable %}
 									{% set published = entity is published %}
-									{%- if published is constant('Duo\\AdminBundle\\Status\\Published::NONE') -%}
+									{%- if published is constant('Duo\\BehaviorBundle\\Entity\\PublishInterface::NONE') -%}
 										<a href="{{ path(routePrefix ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.publish.title' | trans }}" data-body="{{ 'duo.admin.modal.publish.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.publish' | trans -}}
 										</a>

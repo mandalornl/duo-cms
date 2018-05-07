@@ -3,15 +3,16 @@
 namespace Duo\SeoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\BehaviorBundle\Entity\IdInterface;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
- *     name="redirect",
+ *     name="duo_redirect",
  *     uniqueConstraints={
  *		   @ORM\UniqueConstraint(name="origin_uniq", columns={ "origin" })
  *	   },
@@ -22,10 +23,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @UniqueEntity(fields={ "origin" }, message="duo.seo.errors.origin_used")
  */
-class Redirect implements TimeStampInterface
+class Redirect implements IdInterface, TimestampInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var string

@@ -1,9 +1,9 @@
 {
-	"name": "DuoAdminBundle",
+	"name": "duo-cms",
 	"version": "0.0.1",
 	"license": "UNLICENSED",
 	"dependencies": {
-		"@ckeditor/ckeditor5-build-classic": "^1.0.0-alpha.2",
+		"@ckeditor/ckeditor5-build-classic": "^1.0.0-beta.1",
 		"babel-core": "^6.25.0",
 		"babel-loader": "^7.1.1",
 		"babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -31,6 +31,7 @@
 		"node-sass": "^4.5.3",
 		"popper.js": "^1.12.9",
 		"postcss-loader": "^2.0.6",
+		"querystring": "^0.2.0",
 		"read-yaml": "^1.1.0",
 		"resolve-url-loader": "^2.0.2",
 		"sass-libs": "https://gitlab.softmedia.nl/common/sass-libs.git",

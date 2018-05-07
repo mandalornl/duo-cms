@@ -3,7 +3,6 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\SeoBundle\Entity\Robot;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +16,7 @@ class RobotController extends Controller
 	/**
 	 * Index
 	 *
-	 * @Route("/robots.txt", name="index")
-	 * @Method("GET")
+	 * @Route("/robots.txt", name="index", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 *

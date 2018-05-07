@@ -10,7 +10,6 @@ use Duo\AdminBundle\Controller\AbstractListController;
 use Duo\AdminBundle\Helper\PaginatorHelper;
 use Duo\MediaBundle\Entity\File;
 use Duo\MediaBundle\Entity\Folder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,8 +50,7 @@ class FolderListController extends AbstractListController
 	/**
 	 * Index
 	 *
-	 * @Route("/{id}", name="index", requirements={ "id" = "\d+" })
-	 * @Method("GET")
+	 * @Route("/{id}", name="index", requirements={ "id" = "\d+" }, methods={ "GET" })
 	 *
 	 * @param Request $request
 	 * @param int $id

@@ -16,10 +16,14 @@ duo_security:
 
 duo_taxonomy:
     resource: '@DuoTaxonomyBundle/Resources/config/routing.yml'
-    prefix:   /admin
+    prefix: /admin
 
 duo_media:
     resource: '@DuoMediaBundle/Resources/config/routing.yml'
+    prefix: /admin
+
+duo_translator:
+    resource: '@DuoTranslatorBundle/Resources/config/routing.yml'
     prefix: /admin
 
 duo_seo:

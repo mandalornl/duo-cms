@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ForgotPasswordType extends AbstractType
 {
@@ -19,6 +21,10 @@ class ForgotPasswordType extends AbstractType
 				'label' => 'duo.security.form.forgot_password.email.label',
 				'attr' => [
 					'autocomplete' => 'off'
+				],
+				'constraints' => [
+					new NotBlank(),
+					new Email()
 				]
 			])
 			->add('submit', SubmitType::class, [

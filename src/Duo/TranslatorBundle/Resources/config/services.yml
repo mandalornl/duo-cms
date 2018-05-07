@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\TranslatorBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    Duo\TranslatorBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']

@@ -3,8 +3,8 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractDuplicateController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,10 +17,9 @@ class PageDuplicateController extends AbstractDuplicateController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/duplicate/{id}", name="duplicate", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/duplicate/{id}", name="duplicate", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function duplicateAction(Request $request, int $id)
+	public function duplicateAction(Request $request, int $id): Response
 	{
 		return $this->doDuplicateAction($request, $id);
 	}

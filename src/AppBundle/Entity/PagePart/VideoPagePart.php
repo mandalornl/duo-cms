@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\PageBundle\Entity\AbstractPagePart;
 
 /**
- * @ORM\Table(name="page_part_video")
+ * @ORM\Table(name="duo_page_part_video")
  * @ORM\Entity()
  */
 class VideoPagePart extends AbstractPagePart

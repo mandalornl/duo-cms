@@ -41,9 +41,9 @@ class FileFixture extends Fixture implements DependentFixtureInterface, Containe
 			->setMetadata([
 				'width' => 1920,
 				'height' => 1080,
-				'basename' => 'foobar.jpg',
+				'basename' => 'foobar',
 				'extension' => 'jpg',
-				'filename' => 'foobar'
+				'filename' => 'foobar.jpg'
 			])
 			->setFolder($folder)
 			->setCreatedBy($user);
@@ -55,7 +55,7 @@ class FileFixture extends Fixture implements DependentFixtureInterface, Containe
 	/**
 	 * {@inheritdoc}
 	 */
-	function getDependencies(): array
+	public function getDependencies(): array
 	{
 		return [
 			FolderFixture::class

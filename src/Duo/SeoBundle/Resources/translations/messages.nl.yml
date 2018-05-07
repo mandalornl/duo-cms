@@ -30,7 +30,7 @@ duo:
             meta_keywords:
                 label: Meta trefwoorden
             meta_robots:
-                label: Meta robotten
+                label: Meta robots
                 placeholder: Maak een keuze
 
             redirect:

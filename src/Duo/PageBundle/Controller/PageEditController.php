@@ -3,8 +3,8 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractEditController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,10 +17,9 @@ class PageEditController extends AbstractEditController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/{id}", name="edit", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function editAction(Request $request, int $id)
+	public function editAction(Request $request, int $id): Response
 	{
 		return $this->doEditAction($request, $id);
 	}

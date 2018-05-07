@@ -220,7 +220,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 		}
 
 		// sort parts using weight
-		usort($parts, function(PartInterface $a, PartInterface $b) use ($sorting)
+		usort($parts, function(PartInterface $a, PartInterface $b)
 		{
 			return $a->getWeight() - $b->getWeight();
 		});

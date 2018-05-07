@@ -4,7 +4,6 @@ namespace Duo\PageBundle\Controller;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Duo\PageBundle\Entity\Page;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,8 +21,7 @@ class PageTreeController extends Controller
 	/**
 	 * Index action
 	 *
-	 * @Route("/", name="index")
-	 * @Method("GET")
+	 * @Route("/", name="index", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 *
@@ -43,8 +41,7 @@ class PageTreeController extends Controller
 	/**
 	 * Children action
 	 *
-	 * @Route("/{id}/children", name="children", requirements={ "id" = "\d+" })
-	 * @Method("GET")
+	 * @Route("/{id}/children", name="children", requirements={ "id" = "\d+" }, methods={ "GET" })
 	 *
 	 * @param Request $request
 	 * @param int $id

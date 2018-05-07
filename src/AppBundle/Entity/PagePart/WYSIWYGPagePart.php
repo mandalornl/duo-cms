@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\PageBundle\Entity\AbstractPagePart;
 
 /**
- * @ORM\Table(name="page_part_wysiwyg")
+ * @ORM\Table(name="duo_page_part_wysiwyg")
  * @ORM\Entity()
  */
 class WYSIWYGPagePart extends AbstractPagePart

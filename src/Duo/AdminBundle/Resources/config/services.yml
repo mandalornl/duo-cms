@@ -36,12 +36,12 @@ services:
         class: Duo\AdminBundle\Menu\MenuBuilder
         public: true
 
-    Duo\AdminBundle\EventListener\TranslateListingListener:
+    Duo\AdminBundle\EventListener\Listing\TranslateEntityListener:
         arguments:
             $localeHelper: '@duo.admin.locale_helper'
         tags:
-            - { name: kernel.event_listener, event: duo.event.listing.form.preAdd, method: preAdd }
-            - { name: kernel.event_listener, event: duo.event.listing.form.preEdit, method: preEdit }
+            - { name: kernel.event_listener, event: duo.event.listing.entity.preAdd, method: preAdd }
+            - { name: kernel.event_listener, event: duo.event.listing.entity.preEdit, method: preEdit }
 
     Duo\AdminBundle\EventSubscriber\LocaleSubscriber:
         arguments:

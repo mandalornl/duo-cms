@@ -35,16 +35,16 @@ duo:
                 submit:
                     label: Inloggen
                 remember_me:
-                    label: Houdt mij ingelogd
+                    label: Houd mij ingelogd
 
             forgot_password:
                 title: Wachtwoord vergeten
                 error_message: Onbekend e-mailadres
-                wait_message: U dient minstens één uur te wachten, voordat u een nieuw verzoek kunt indienen
+                wait_message: Je dient minstens één uur te wachten, voordat je een nieuw verzoek kunt indienen
                 success_message: |
-                    Er is een e-mail naar u verzonden waarmee u uw wachtwoord opnieuw kunt instellen.
+                    Er is een e-mail naar je verzonden waarmee je jouw wachtwoord opnieuw kunt instellen.
 
-                    Vergeet niet om ook uw SPAM te controlleren, indien u deze e-mail nog niet hebt ontvangen.
+                    Vergeet niet om ook je SPAM te controlleren, indien je deze e-mail nog niet hebt ontvangen.
                 email:
                     label: E-mailadres
                 submit:
@@ -53,7 +53,7 @@ duo:
             reset_password:
                 title: Wachtwoord opnieuw instellen
                 error_message: Er is een fout opgetreden, probeer het nogmaals
-                success_message: Uw wachtwoord is succesvol gewijzigd
+                success_message: Je wachtwoord is succesvol gewijzigd
                 password:
                     label: Wachtwoord
                 repeat_password:

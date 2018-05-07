@@ -6,14 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
- *     name="`group`",
+ *     name="duo_group",
  *     uniqueConstraints={
  *		   @ORM\UniqueConstraint(name="group_uniq", columns={ "name" })
  *	   },
@@ -24,10 +23,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @UniqueEntity(fields={ "name" }, message="duo.security.errors.name_used")
  */
-class Group implements GroupInterface, TimeStampInterface
+class Group implements GroupInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var string
@@ -41,7 +40,7 @@ class Group implements GroupInterface, TimeStampInterface
 	 * @var Collection
 	 *
 	 * @ORM\ManyToMany(targetEntity="Duo\SecurityBundle\Entity\Role", cascade={ "persist" })
-	 * @ORM\JoinTable(name="group_to_role",
+	 * @ORM\JoinTable(name="duo_group_to_role",
 	 * 	   joinColumns={
 	 *		   @ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="CASCADE")
 	 *	   },

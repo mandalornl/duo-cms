@@ -120,6 +120,7 @@ class TranslateSubscriber implements EventSubscriber
 		}
 
 		$name = 'translation_uniq';
+
 		if (!isset($classMetadata->table['uniqueConstraints'][$name]))
 		{
 			$classMetadata->table['uniqueConstraints'][$name] = [

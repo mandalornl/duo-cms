@@ -25,9 +25,7 @@ trait PublishTrait
 	 * @var UserInterface
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
-	 * @ORM\JoinColumns({
-	 *     @ORM\JoinColumn(name="published_by_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\JoinColumn(name="published_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	protected $publishedBy;
 
@@ -35,9 +33,7 @@ trait PublishTrait
 	 * @var UserInterface
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\SecurityBundle\Entity\UserInterface")
-	 * @ORM\JoinColumns({
-	 *     @ORM\JoinColumn(name="unpublished_by_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\JoinColumn(name="unpublished_by_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	protected $unpublishedBy;
 

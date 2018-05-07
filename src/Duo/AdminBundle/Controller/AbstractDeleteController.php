@@ -2,14 +2,15 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
+use Duo\BehaviorBundle\Entity\IdInterface;
 use Duo\BehaviorBundle\Event\DeleteEvent;
 use Duo\BehaviorBundle\Event\DeleteEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractDeleteController extends AbstractController
 {
@@ -23,20 +24,14 @@ abstract class AbstractDeleteController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doDeleteAction(Request $request, int $id = null)
+	protected function doDeleteAction(Request $request, int $id = null): Response
 	{
-		if ($id === null)
-		{
-			return $this->handleMultiDeletionRequest($request, function(DeleteInterface $entity)
-			{
-				$entity->delete();
-			}, DeleteEvents::DELETE, 'duo.admin.listing.alert.delete_success');
-		}
-
-		return $this->handleDeletionRequest($request, $id, function(DeleteInterface $entity)
+		return $this->handleDeletionRequest(function(DeleteInterface $entity, EventDispatcherInterface $dispatcher)
 		{
 			$entity->delete();
-		}, DeleteEvents::DELETE, 'duo.admin.listing.alert.delete_success');
+
+			$dispatcher->dispatch(DeleteEvents::DELETE, new DeleteEvent($entity));
+		}, 'duo.admin.listing.alert.delete_success', $request, $id);
 	}
 
 	/**
@@ -46,8 +41,10 @@ abstract class AbstractDeleteController extends AbstractController
 	 * @param int $id [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function deleteAction(Request $request, int $id = null);
+	abstract public function deleteAction(Request $request, int $id = null): Response;
 
 	/**
 	 * Undelete entity
@@ -59,20 +56,14 @@ abstract class AbstractDeleteController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doUndeleteAction(Request $request, int $id = null)
+	protected function doUndeleteAction(Request $request, int $id = null): Response
 	{
-		if ($id === null)
-		{
-			return $this->handleMultiDeletionRequest($request, function(DeleteInterface $entity)
-			{
-				$entity->undelete();
-			}, DeleteEvents::UNDELETE, 'duo.admin.listing.alert.undelete_success');
-		}
-
-		return $this->handleDeletionRequest($request, $id, function(DeleteInterface $entity)
+		return $this->handleDeletionRequest(function(DeleteInterface $entity, EventDispatcherInterface $dispatcher)
 		{
 			$entity->undelete();
-		}, DeleteEvents::UNDELETE, 'duo.admin.listing.alert.undelete_success');
+
+			$dispatcher->dispatch(DeleteEvents::UNDELETE, new DeleteEvent($entity));
+		}, 'duo.admin.listing.alert.undelete_success', $request, $id);
 	}
 
 	/**
@@ -82,80 +73,28 @@ abstract class AbstractDeleteController extends AbstractController
 	 * @param int $id [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function undeleteAction(Request $request, int $id = null);
+	abstract public function undeleteAction(Request $request, int $id = null): Response;
 
 	/**
 	 * Handle deletion request
 	 *
-	 * @param Request $request
-	 * @param int $id
 	 * @param \Closure $callback
-	 * @param string $eventName
 	 * @param string $message
+	 * @param Request $request
+	 * @param int $id [optional]
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleDeletionRequest(Request $request, int $id, \Closure $callback, string $eventName, string $message)
+	private function handleDeletionRequest(\Closure $callback, string $message, Request $request, int $id = null): Response
 	{
-		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
+		$selection = (array)$id ?: $request->get('ids');
 
-		if ($entity === null)
-		{
-			return $this->entityNotFound($request, $id);
-		}
-
-		if (!$entity instanceof DeleteInterface)
-		{
-			return $this->deleteInterfaceNotImplemented($request, $id);
-		}
-
-		call_user_func($callback, $entity);
-
-		/**
-		 * @var EventDispatcherInterface $dispatcher
-		 */
-		$dispatcher = $this->get('event_dispatcher');
-		$dispatcher->dispatch($eventName, new DeleteEvent($entity));
-
-		/**
-		 * @var ObjectManager $em
-		 */
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($entity);
-		$em->flush();
-
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'success' => true,
-				'message' => $this->get('translator')->trans($message)
-			]);
-		}
-
-		$this->addFlash('success', $this->get('translator')->trans($message));
-
-		return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
-	}
-
-	/**
-	 * Handle multi deletion request
-	 *
-	 * @param Request $request
-	 * @param \Closure $callback
-	 * @param string $eventName
-	 * @param string $message
-	 *
-	 * @return RedirectResponse|JsonResponse
-	 *
-	 * @throws \Throwable
-	 */
-	private function handleMultiDeletionRequest(Request $request, \Closure $callback, string $eventName, string $message)
-	{
-		if (!count($ids = $request->get('ids')))
+		if (!count($selection))
 		{
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')
@@ -170,27 +109,33 @@ abstract class AbstractDeleteController extends AbstractController
 		}
 		else
 		{
-			/**
-			 * @var ObjectManager $em
-			 */
 			$em = $this->getDoctrine()->getManager();
 
-			/**
-			 * @var EventDispatcherInterface $dispatcher
-			 */
 			$dispatcher = $this->get('event_dispatcher');
 
-			$entities = $this->getDoctrine()->getRepository($this->getEntityClass())->findBy([
-				'id' => $ids
-			]);
-
-			foreach ($entities as $entity)
+			foreach (array_chunk($selection, 100) as $ids)
 			{
-				call_user_func($callback, $entity);
+				$entities = $this->getDoctrine()->getRepository($this->getEntityClass())->findBy([
+					'id' => $ids
+				]);
 
-				$dispatcher->dispatch($eventName, new DeleteEvent($entity));
+				foreach ($entities as $entity)
+				{
+					/**
+					 * @var IdInterface|DeleteInterface $entity
+					 */
+					if (!$entity instanceof DeleteInterface)
+					{
+						return $this->deleteInterfaceNotImplemented($request, $entity->getId());
+					}
 
-				$em->persist($entity);
+					call_user_func_array($callback, [ $entity, $dispatcher ]);
+
+					$em->persist($entity);
+				}
+
+				$em->flush();
+				$em->clear();
 			}
 
 			$em->flush();

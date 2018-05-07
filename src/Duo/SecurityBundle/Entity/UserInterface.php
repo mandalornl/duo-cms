@@ -3,10 +3,12 @@
 namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Duo\BehaviorBundle\Entity\IdInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 
-interface UserInterface extends AdvancedUserInterface, EquatableInterface
+interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInterface, EquatableInterface
 {
 	/**
 	 * Set email

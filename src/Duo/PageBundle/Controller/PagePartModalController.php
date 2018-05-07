@@ -4,7 +4,6 @@ namespace Duo\PageBundle\Controller;
 
 use Duo\PageBundle\Form\PagePartCollectionType;
 use Duo\PartBundle\Controller\AbstractPartModalController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,8 +27,7 @@ class PagePartModalController extends AbstractPartModalController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/prototype", name="prototype")
-	 * @Method("GET")
+	 * @Route("/prototype", name="prototype", methods={ "GET" })
 	 */
 	public function modelAction(Request $request): JsonResponse
 	{

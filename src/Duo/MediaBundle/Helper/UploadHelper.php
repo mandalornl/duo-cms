@@ -73,7 +73,7 @@ class UploadHelper
 
 		if (is_callable($callback))
 		{
-			call_user_func($callback, $entity);
+			call_user_func_array($callback, [ $entity ]);
 		}
 
 		$file->move("{$this->absoluteUploadPath}/{$uuid}", $file->getClientOriginalName());

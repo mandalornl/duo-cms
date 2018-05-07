@@ -3,7 +3,6 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\PageBundle\Entity\Page;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +16,7 @@ class SitemapController extends Controller
 	/**
 	 * Index
 	 *
-	 * @Route("/sitemap.xml", name="index")
-	 * @Method("GET")
+	 * @Route("/sitemap.xml", name="index", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 *

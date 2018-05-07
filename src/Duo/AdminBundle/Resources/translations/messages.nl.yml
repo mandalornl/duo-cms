@@ -14,6 +14,9 @@ duo:
             toggle: Toggle navigatie
             logout: Uitloggen
 
+        breadcrumbs:
+            label: Broodkruimelpad
+
         toolbar:
             actions:
                 label: Acties
@@ -88,31 +91,31 @@ duo:
 
             revert:
                 title: Terugzetten
-                body: Weet u zeker dat u dit item wilt terugzetten?
+                body: Weet je zeker dat je dit item wilt terugzetten?
 
             duplicate:
                 title: Dupliceren
-                body: Weet u zeker dat u dit item wilt dupliceren?
+                body: Weet je zeker dat je dit item wilt dupliceren?
 
             delete:
                 title: Verwijderen
-                body: Weet u zeker dat u dit item wilt verwijderen?
+                body: Weet je zeker dat je dit item wilt verwijderen?
 
             undelete:
                 title: Herstellen
-                body: Weet u zeker dat u dit item wilt herstellen?
+                body: Weet je zeker dat je dit item wilt herstellen?
 
             publish:
                 title: Publiceren
-                body: Weet u zeker dat u dit item online wilt zetten?
+                body: Weet je zeker dat je dit item online wilt zetten?
 
             unpublish:
                 title: Depubliceren
-                body: Weet u zeker dat u dit item offline wilt halen?
+                body: Weet je zeker dat je dit item offline wilt halen?
 
             multi_delete:
                 title: Verwijderen
-                body: Weet u zeker dat u deze items wilt verwijderen?
+                body: Weet je zeker dat je deze items wilt verwijderen?
 
         form:
             file:

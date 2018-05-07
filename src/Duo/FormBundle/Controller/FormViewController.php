@@ -10,7 +10,6 @@ use Duo\FormBundle\Entity\FormResult;
 use Duo\FormBundle\Entity\FormTranslation;
 use Duo\FormBundle\Form\FormViewType;
 use Duo\PartBundle\Entity\EntityPartInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,8 +23,7 @@ class FormViewController extends Controller
 	/**
 	 * View action
 	 *
-	 * @Route("/{id}", name="form")
-	 * @Method({"GET", "POST"})
+	 * @Route("/{id}", name="form", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 * @param int $id

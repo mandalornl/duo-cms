@@ -1,0 +1,4 @@
+duo:
+    validator:
+        errors:
+            keyword_used: This keyword is already used for this domain

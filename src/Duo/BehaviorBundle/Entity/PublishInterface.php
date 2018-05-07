@@ -7,6 +7,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 interface PublishInterface
 {
 	/**
+	 * @var int
+	 */
+	const NONE = 0;
+
+	/**
+	 * @var int
+	 */
+	const ALL = 1;
+
+	/**
+	 * @var int
+	 */
+	const PARTIAL = 2;
+
+	/**
 	 * Set publishAt
 	 *
 	 * @param \DateTime $publishAt

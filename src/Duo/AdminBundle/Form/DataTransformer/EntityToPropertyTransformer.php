@@ -172,7 +172,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	{
 		if (is_callable($this->propertyName))
 		{
-			return call_user_func($this->propertyName, $entity);
+			return call_user_func_array($this->propertyName, [ $entity ]);
 		}
 
 		if ($accessor === null && $this->propertyName !== null)

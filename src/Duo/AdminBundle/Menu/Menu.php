@@ -20,7 +20,7 @@ class Menu implements MenuInterface
 	/**
 	 * @var string
 	 */
-	private $uniqid;
+	private $id;
 
 	/**
 	 * @var string
@@ -41,6 +41,11 @@ class Menu implements MenuInterface
 	 * @var Collection
 	 */
 	private $children;
+
+	/**
+	 * @var MenuInterface[]
+	 */
+	private $breadcrumbs = [];
 
 	/**
 	 * Item constructor
@@ -89,9 +94,9 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUniqid(string $uniqid): MenuInterface
+	public function setId(string $id): MenuInterface
 	{
-		$this->uniqid = $uniqid;
+		$this->id = $id;
 
 		return $this;
 	}
@@ -99,9 +104,9 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getUniqid(): ?string
+	public function getId(): ?string
 	{
-		return $this->uniqid;
+		return $this->id;
 	}
 
 	/**
@@ -163,7 +168,7 @@ class Menu implements MenuInterface
 	 */
 	public function addChild(MenuInterface $menuItem): MenuInterface
 	{
-		$this->children[$menuItem->getUniqid()] = $menuItem;
+		$this->children[$menuItem->getId()] = $menuItem;
 
 		$menuItem->setParent($this);
 
@@ -183,8 +188,26 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getChildren()
+	public function getChildren(): ArrayCollection
 	{
 		return $this->children;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setBreadcrumbs(array $breadcrumbs): MenuInterface
+	{
+		$this->breadcrumbs = $breadcrumbs;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getBreadcrumbs(): array
+	{
+		return $this->breadcrumbs;
 	}
 }

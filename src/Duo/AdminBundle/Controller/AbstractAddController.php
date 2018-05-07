@@ -2,10 +2,12 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\AdminBundle\Event\ListingFormEvent;
-use Duo\AdminBundle\Event\ListingFormEvents;
-use Duo\AdminBundle\Event\ListingORMEvent;
-use Duo\AdminBundle\Event\ListingORMEvents;
+use Duo\AdminBundle\Event\Listing\EntityEvent;
+use Duo\AdminBundle\Event\Listing\EntityEvents;
+use Duo\AdminBundle\Event\Listing\FormEvent;
+use Duo\AdminBundle\Event\Listing\FormEvents;
+use Duo\AdminBundle\Event\Listing\ORMEvent;
+use Duo\AdminBundle\Event\Listing\ORMEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,7 @@ abstract class AbstractAddController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doAddAction(Request $request)
+	protected function doAddAction(Request $request): Response
 	{
 		$class = $this->getEntityClass();
 
@@ -30,22 +32,26 @@ abstract class AbstractAddController extends AbstractController
 		$eventDispatcher = $this->get('event_dispatcher');
 
 		// dispatch pre add event
-		$eventDispatcher->dispatch(ListingFormEvents::PRE_ADD, new ListingFormEvent($entity));
+		$eventDispatcher->dispatch(EntityEvents::PRE_ADD, new EntityEvent($entity));
 
 		$form = $this->createForm($this->getFormType(), $entity);
+
+		// dispatch pre add event
+		$eventDispatcher->dispatch(FormEvents::PRE_ADD, new FormEvent($form));
+
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post add event
-			$eventDispatcher->dispatch(ListingFormEvents::POST_ADD, new ListingFormEvent($entity, $form));
+			$eventDispatcher->dispatch(EntityEvents::POST_ADD, new EntityEvent($entity));
 
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($entity);
 			$em->flush();
 
 			// dispatch post flush event
-			$eventDispatcher->dispatch(ListingORMEvents::POST_FLUSH, new ListingORMEvent($entity));
+			$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
 
 			$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
 
@@ -64,8 +70,10 @@ abstract class AbstractAddController extends AbstractController
 	 * @param Request $request
 	 *
 	 * @return Response|RedirectResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function addAction(Request $request);
+	abstract public function addAction(Request $request): Response;
 
 	/**
 	 * Get add template

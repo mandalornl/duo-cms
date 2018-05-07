@@ -3,13 +3,12 @@
 namespace Duo\PartBundle\Entity;
 
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 
-abstract class AbstractPart implements PartInterface, TimeStampInterface
+abstract class AbstractPart implements PartInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var int

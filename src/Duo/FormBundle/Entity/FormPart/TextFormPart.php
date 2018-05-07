@@ -8,7 +8,7 @@ use Duo\FormBundle\Form\FormPart\TextFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
- * @ORM\Table(name="form_part_text")
+ * @ORM\Table(name="duo_form_part_text")
  * @ORM\Entity()
  */
 class TextFormPart extends AbstractTextFormPart

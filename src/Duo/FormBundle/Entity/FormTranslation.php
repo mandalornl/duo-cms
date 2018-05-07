@@ -9,7 +9,7 @@ use Duo\PartBundle\Entity\EntityPartTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="form_translation")
+ * @ORM\Table(name="duo_form_translation")
  * @ORM\Entity()
  */
 class FormTranslation extends AbstractNodeTranslation implements EntityPartInterface

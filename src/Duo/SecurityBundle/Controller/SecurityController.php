@@ -7,7 +7,6 @@ use Duo\SecurityBundle\Form\ForgotPasswordType;
 use Duo\SecurityBundle\Form\ResetPasswordType;
 use Duo\SecurityBundle\Helper\LoginHelper;
 use Duo\SecurityBundle\Repository\UserRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,8 +22,7 @@ class SecurityController extends Controller
 	/**
 	 * Login
 	 *
-	 * @Route("/login", name="login")
-	 * @Method({"GET", "POST"})
+	 * @Route("/login", name="login", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 * @param AuthenticationUtils $utils
@@ -42,8 +40,7 @@ class SecurityController extends Controller
 	/**
 	 * Forgot password
 	 *
-	 * @Route("/forgot-password", name="forgot_password")
-	 * @Method({"GET", "POST"})
+	 * @Route("/forgot-password", name="forgot_password", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 *
@@ -51,7 +48,7 @@ class SecurityController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	public function forgotPasswordAction(Request $request)
+	public function forgotPasswordAction(Request $request): Response
 	{
 		$form = $this->createForm(ForgotPasswordType::class);
 		$form->handleRequest($request);
@@ -115,8 +112,7 @@ class SecurityController extends Controller
 	/**
 	 * Reset password
 	 *
-	 * @Route("/reset-password/{token}", name="reset_password")
-	 * @Method({"GET", "POST"})
+	 * @Route("/reset-password/{token}", name="reset_password", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 * @param string $token
@@ -125,7 +121,7 @@ class SecurityController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	public function resetPasswordAction(Request $request, string $token)
+	public function resetPasswordAction(Request $request, string $token): Response
 	{
 		/**
 		 * @var UserRepository $repository

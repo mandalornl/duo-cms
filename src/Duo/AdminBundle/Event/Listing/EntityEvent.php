@@ -1,10 +1,10 @@
 <?php
 
-namespace Duo\AdminBundle\Event;
+namespace Duo\AdminBundle\Event\Listing;
 
 use Symfony\Component\EventDispatcher\Event;
 
-class ListingORMEvent extends Event
+class EntityEvent extends Event
 {
 	/**
 	 * @var object
@@ -12,7 +12,7 @@ class ListingORMEvent extends Event
 	private $entity;
 
 	/**
-	 * ListingEvent constructor
+	 * EntityEvent constructor
 	 *
 	 * @param object $entity
 	 */
@@ -26,9 +26,9 @@ class ListingORMEvent extends Event
 	 *
 	 * @param object $entity
 	 *
-	 * @return ListingORMEvent
+	 * @return EntityEvent
 	 */
-	public function setEntity($entity): ListingORMEvent
+	public function setEntity($entity): EntityEvent
 	{
 		$this->entity = $entity;
 

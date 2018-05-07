@@ -7,7 +7,7 @@ use Duo\PartBundle\Entity\AbstractPartReference;
 
 /**
  * @ORM\Table(
- *     name="form_part_reference",
+ *     name="duo_form_part_reference",
  *     indexes={
  *		   @ORM\Index(name="entity_idx", columns={ "entity_id" }),
  *		   @ORM\Index(name="part_idx", columns={ "part_id", "part_class" })

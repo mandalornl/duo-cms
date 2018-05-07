@@ -1,0 +1,32 @@
+duo:
+    translator:
+        tab:
+            content: Content
+            properties: Properties
+
+        menu:
+            translations: Translations
+
+        listing:
+            field:
+                keyword: Keyword
+                domain: Domain
+                created_at: Created at
+                modified_at: Modified at
+
+            filter:
+                keyword: Keyword
+                domain: Domain
+                created: Created
+                modified: Modified
+
+        form:
+            entry:
+                keyword:
+                    label: Keyword
+                domain:
+                    label: Domain
+
+            entry_translation:
+                text:
+                    label: Text

@@ -6,15 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
- *     name="user",
+ *     name="duo_user",
  *     uniqueConstraints={
  *	       @ORM\UniqueConstraint(name="username_uniq", columns={ "username" }),
  *     	   @ORM\UniqueConstraint(name="email_uniq", columns={ "email" })
@@ -29,10 +28,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={ "username" }, message="duo.security.errors.username_used")
  * @UniqueEntity(fields={ "email" }, message="duo.security.errors.email_used")
  */
-class User implements UserInterface, TimeStampInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
      * @var string
@@ -95,7 +94,7 @@ class User implements UserInterface, TimeStampInterface, \Serializable
 	 * @var Collection
 	 *
 	 * @ORM\ManyToMany(targetEntity="Duo\SecurityBundle\Entity\Group", cascade={ "persist" })
-	 * @ORM\JoinTable(name="user_to_group",
+	 * @ORM\JoinTable(name="duo_user_to_group",
 	 *     joinColumns={
 	 *		   @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
 	 * 	   },

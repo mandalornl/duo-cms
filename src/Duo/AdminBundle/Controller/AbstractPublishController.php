@@ -2,7 +2,6 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Event\PublishEvent;
@@ -11,6 +10,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractPublishController extends AbstractController
 {
@@ -24,12 +24,14 @@ abstract class AbstractPublishController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doPublishAction(Request $request, int $id)
+	protected function doPublishAction(Request $request, int $id): Response
 	{
-		return $this->handlePublicationRequest($request, $id, function(PublishInterface $entity)
+		return $this->handlePublicationRequest(function(PublishInterface $entity, EventDispatcherInterface $dispatcher)
 		{
 			$entity->publish();
-		}, PublishEvents::PUBLISH);
+
+			$dispatcher->dispatch(PublishEvents::PUBLISH, new PublishEvent($entity));
+		}, $request, $id);
 	}
 
 	/**
@@ -39,8 +41,10 @@ abstract class AbstractPublishController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function publishAction(Request $request, int $id);
+	abstract public function publishAction(Request $request, int $id): Response;
 
 	/**
 	 * Unpublish action
@@ -52,12 +56,14 @@ abstract class AbstractPublishController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doUnpublishAction(Request $request, int $id)
+	protected function doUnpublishAction(Request $request, int $id): Response
 	{
-		return $this->handlePublicationRequest($request, $id, function(PublishInterface $entity)
+		return $this->handlePublicationRequest(function(PublishInterface $entity, EventDispatcherInterface $dispatcher)
 		{
 			$entity->unpublish();
-		}, PublishEvents::UNPUBLISH);
+
+			$dispatcher->dispatch(PublishEvents::UNPUBLISH, new PublishEvent($entity));
+		}, $request, $id);
 	}
 
 	/**
@@ -67,22 +73,23 @@ abstract class AbstractPublishController extends AbstractController
 	 * @param int $id
 	 *
 	 * @return RedirectResponse|JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
-	abstract public function unpublishAction(Request $request, int $id);
+	abstract public function unpublishAction(Request $request, int $id): Response;
 
 	/**
 	 * Handle publication request
 	 *
+	 * @param \Closure $callback
 	 * @param Request $request
 	 * @param int $id
-	 * @param \Closure $callback
-	 * @param string $eventName
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	private function handlePublicationRequest(Request $request, int $id, \Closure $callback, string $eventName)
+	private function handlePublicationRequest(\Closure $callback, Request $request, int $id)
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -91,16 +98,11 @@ abstract class AbstractPublishController extends AbstractController
 			return $this->entityNotFound($request, $id);
 		}
 
-		/**
-		 * @var EventDispatcherInterface $dispatcher
-		 */
 		$dispatcher = $this->get('event_dispatcher');
 
 		if ($entity instanceof PublishInterface)
 		{
-			call_user_func($callback, $entity);
-
-			$dispatcher->dispatch($eventName, new PublishEvent($entity));
+			call_user_func_array($callback, [ $entity, $dispatcher ]);
 		}
 		else
 		{
@@ -112,9 +114,7 @@ abstract class AbstractPublishController extends AbstractController
 				{
 					foreach ($entity->getTranslations() as $translation)
 					{
-						call_user_func($callback, $translation);
-
-						$dispatcher->dispatch($eventName, new PublishEvent($translation));
+						call_user_func_array($callback, [ $translation, $dispatcher ]);
 					}
 				}
 				else
@@ -128,9 +128,6 @@ abstract class AbstractPublishController extends AbstractController
 			}
 		}
 
-		/**
-		 * @var ObjectManager $em
-		 */
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($entity);
 		$em->flush();

@@ -2,7 +2,6 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\AdminBundle\Status\Published;
 use Duo\BehaviorBundle\Entity\PublishInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Entity\TranslationInterface;
@@ -42,19 +41,19 @@ class PublishTwigExtension extends \Twig_Extension
 				// no published translations found
 				if (!$translations->count())
 				{
-					return Published::NONE;
+					return PublishInterface::NONE;
 				}
 				else
 				{
 					// some published translations found
 					if ($translations->count() !== $entity->getTranslations()->count())
 					{
-						return Published::PARTIAL;
+						return PublishInterface::PARTIAL;
 					}
 				}
 
 				// all published
-				return Published::ALL;
+				return PublishInterface::ALL;
 			}
 		}
 		else
@@ -62,10 +61,10 @@ class PublishTwigExtension extends \Twig_Extension
 			// check entity instead
 			if ($entity->isPublished())
 			{
-				return Published::ALL;
+				return PublishInterface::ALL;
 			}
 		}
 
-		return Published::NONE;
+		return PublishInterface::NONE;
 	}
 }

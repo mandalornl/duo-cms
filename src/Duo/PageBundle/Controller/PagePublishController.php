@@ -3,8 +3,8 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractPublishController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,10 +17,9 @@ class PagePublishController extends AbstractPublishController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/publish/{id}", name="publish", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/publish/{id}", name="publish", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function publishAction(Request $request, int $id)
+	public function publishAction(Request $request, int $id): Response
 	{
 		return $this->doPublishAction($request, $id);
 	}
@@ -28,10 +27,9 @@ class PagePublishController extends AbstractPublishController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/unpublish/{id}", name="unpublish", requirements={ "id" = "\d+" })
-	 * @Method({"GET", "POST"})
+	 * @Route("/unpublish/{id}", name="unpublish", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
 	 */
-	public function unpublishAction(Request $request, int $id)
+	public function unpublishAction(Request $request, int $id): Response
 	{
 		return $this->doUnpublishAction($request, $id);
 	}

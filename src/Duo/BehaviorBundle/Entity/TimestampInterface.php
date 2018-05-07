@@ -4,16 +4,16 @@ namespace Duo\BehaviorBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-interface TimeStampInterface
+interface TimestampInterface
 {
 	/**
 	 * Set created at
 	 *
 	 * @param \DateTime $createdAt
 	 *
-	 * @return TimeStampInterface
+	 * @return TimestampInterface
 	 */
-	public function setCreatedAt(\DateTime $createdAt = null): TimeStampInterface;
+	public function setCreatedAt(\DateTime $createdAt = null): TimestampInterface;
 
 	/**
 	 * Get created at
@@ -27,9 +27,9 @@ interface TimeStampInterface
 	 *
 	 * @param \DateTime $modifiedAt
 	 *
-	 * @return TimeStampInterface
+	 * @return TimestampInterface
 	 */
-	public function setModifiedAt(\DateTime $modifiedAt = null): TimeStampInterface;
+	public function setModifiedAt(\DateTime $modifiedAt = null): TimestampInterface;
 
 	/**
 	 * Get modified at
@@ -43,9 +43,9 @@ interface TimeStampInterface
 	 *
 	 * @param UserInterface $createdBy
 	 *
-	 * @return TimeStampInterface
+	 * @return TimestampInterface
 	 */
-	public function setCreatedBy(UserInterface $createdBy = null): TimeStampInterface;
+	public function setCreatedBy(UserInterface $createdBy = null): TimestampInterface;
 
 	/**
 	 * Get createdBy
@@ -59,9 +59,9 @@ interface TimeStampInterface
 	 *
 	 * @param UserInterface $modifiedBy
 	 *
-	 * @return TimeStampInterface
+	 * @return TimestampInterface
 	 */
-	public function setModifiedBy(UserInterface $modifiedBy = null): TimeStampInterface;
+	public function setModifiedBy(UserInterface $modifiedBy = null): TimestampInterface;
 
 	/**
 	 * Get modifiedBy

@@ -8,7 +8,7 @@ use Duo\FormBundle\Form\FormPart\EmailFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 /**
- * @ORM\Table(name="form_part_email")
+ * @ORM\Table(name="duo_form_part_email")
  * @ORM\Entity()
  */
 class EmailFormPart extends AbstractTextFormPart

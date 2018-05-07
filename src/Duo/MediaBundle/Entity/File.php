@@ -5,18 +5,19 @@ namespace Duo\MediaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\BehaviorBundle\Entity\DeleteInterface;
 use Duo\BehaviorBundle\Entity\DeleteTrait;
+use Duo\BehaviorBundle\Entity\IdInterface;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 
 /**
- * @ORM\Table(name="file")
+ * @ORM\Table(name="duo_file")
  * @ORM\Entity(repositoryClass="Duo\MediaBundle\Repository\FileRepository")
  */
-class File implements TimeStampInterface, DeleteInterface
+class File implements IdInterface, TimestampInterface, DeleteInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 	use DeleteTrait;
 
 	/**
@@ -194,9 +195,9 @@ class File implements TimeStampInterface, DeleteInterface
 	 *
 	 * @param array $metadata
 	 *
-	 * @return $this
+	 * @return File
 	 */
-	public function setMetadata(array $metadata = null)
+	public function setMetadata(array $metadata = null): File
 	{
 		$this->metadata = $metadata;
 

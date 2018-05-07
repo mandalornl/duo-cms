@@ -39,20 +39,20 @@ interface MenuInterface
 	public function getIcon(): ?string;
 
 	/**
-	 * Set uniqid
+	 * Set id
 	 *
-	 * @param string $uniqid
+	 * @param string $id
 	 *
 	 * @return MenuInterface
 	 */
-	public function setUniqid(string $uniqid): MenuInterface;
+	public function setId(string $id): MenuInterface;
 
 	/**
-	 * Get uniqid
+	 * Get id
 	 *
 	 * @return string
 	 */
-	public function getUniqid(): ?string;
+	public function getId(): ?string;
 
 	/**
 	 * Set url
@@ -125,5 +125,21 @@ interface MenuInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getChildren();
+	public function getChildren(): ArrayCollection;
+
+	/**
+	 * Set breadcrumbs
+	 *
+	 * @param MenuInterface[] $breadcrumbs
+	 *
+	 * @return MenuInterface
+	 */
+	public function setBreadcrumbs(array $breadcrumbs): MenuInterface;
+
+	/**
+	 * Get breadcrumbs
+	 *
+	 * @return MenuInterface[]
+	 */
+	public function getBreadcrumbs(): array;
 }

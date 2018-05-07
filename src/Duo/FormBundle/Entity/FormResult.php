@@ -3,18 +3,19 @@
 namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\BehaviorBundle\Entity\IdInterface;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 
 /**
- * @ORM\Table(name="form_result")
+ * @ORM\Table(name="duo_form_result")
  * @ORM\Entity()
  */
-class FormResult implements TimeStampInterface
+class FormResult implements IdInterface, TimestampInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var string
@@ -41,9 +42,7 @@ class FormResult implements TimeStampInterface
 	 * @var Form
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")
-	 * @ORM\JoinColumns({
-	 * 	   @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
-	 * })
+	 * @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	private $form;
 

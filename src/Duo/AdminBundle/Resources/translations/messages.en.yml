@@ -14,6 +14,9 @@ duo:
             toggle: Toggle navigation
             logout: Logout
 
+        breadcrumbs:
+            label: Breadcrumbs
+
         toolbar:
             actions:
                 label: Actions

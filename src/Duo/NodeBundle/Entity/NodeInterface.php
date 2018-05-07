@@ -3,12 +3,14 @@
 namespace Duo\NodeBundle\Entity;
 
 use Duo\BehaviorBundle\Entity\DuplicateInterface;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
+use Duo\BehaviorBundle\Entity\IdInterface;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
 use Duo\BehaviorBundle\Entity\TranslateInterface;
 use Duo\BehaviorBundle\Entity\VersionInterface;
 
-interface NodeInterface extends DuplicateInterface,
-								TimeStampInterface,
+interface NodeInterface extends IdInterface,
+								DuplicateInterface,
+								TimestampInterface,
 								TranslateInterface,
 								VersionInterface
 {

@@ -3,18 +3,19 @@
 namespace Duo\SeoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\BehaviorBundle\Entity\IdInterface;
 use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimeStampInterface;
-use Duo\BehaviorBundle\Entity\TimeStampTrait;
+use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\BehaviorBundle\Entity\TimestampTrait;
 
 /**
- * @ORM\Table(name="robot")
+ * @ORM\Table(name="duo_robot")
  * @ORM\Entity(repositoryClass="Duo\SeoBundle\Repository\RobotRepository")
  */
-class Robot implements TimeStampInterface
+class Robot implements IdInterface, TimestampInterface
 {
 	use IdTrait;
-	use TimeStampTrait;
+	use TimestampTrait;
 
 	/**
 	 * @var string
