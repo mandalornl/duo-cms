@@ -3,13 +3,13 @@
 namespace Duo\TaxonomyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimestampInterface;
-use Duo\BehaviorBundle\Entity\TimestampTrait;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\TranslateTrait;
-use Duo\BehaviorBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\IdTrait;
+use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\TranslateTrait;
+use Duo\CoreBundle\Entity\TranslationInterface;
 
 /**
  * @ORM\Table(name="duo_taxonomy")

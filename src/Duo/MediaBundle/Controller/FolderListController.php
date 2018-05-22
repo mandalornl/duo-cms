@@ -171,6 +171,6 @@ class FolderListController extends AbstractListController
 	public function indexAction(Request $request): Response
 	{
 		// dummy
-		return new Response('', 404);
+		return new Response('Page not found', 404);
 	}
 }

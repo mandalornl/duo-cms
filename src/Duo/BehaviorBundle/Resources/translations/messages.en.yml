@@ -1,5 +1,0 @@
-duo:
-    behavior:
-        listing:
-            alert:
-                revert_success: Item successfully reverted

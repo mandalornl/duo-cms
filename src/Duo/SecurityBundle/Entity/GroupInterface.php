@@ -3,8 +3,8 @@
 namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\TimestampInterface;
 
 interface GroupInterface extends IdInterface, TimestampInterface
 {

@@ -2,8 +2,8 @@
 
 namespace Duo\PartBundle\Entity;
 
-use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\IdTrait;
+use Duo\CoreBundle\Entity\TimestampTrait;
 
 abstract class AbstractPart implements PartInterface
 {

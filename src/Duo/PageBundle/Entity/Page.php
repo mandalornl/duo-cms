@@ -3,15 +3,15 @@
 namespace Duo\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\BehaviorBundle\Entity\DeleteTrait;
-use Duo\BehaviorBundle\Entity\RevisionInterface;
-use Duo\BehaviorBundle\Entity\RevisionTrait;
-use Duo\BehaviorBundle\Entity\SortInterface;
-use Duo\BehaviorBundle\Entity\SortTrait;
-use Duo\BehaviorBundle\Entity\TranslationInterface;
-use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\TreeTrait;
+use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\DeleteTrait;
+use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\RevisionTrait;
+use Duo\CoreBundle\Entity\SortInterface;
+use Duo\CoreBundle\Entity\SortTrait;
+use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\TreeTrait;
 use Duo\NodeBundle\Entity\AbstractNode;
 use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\TaxonomyTrait;

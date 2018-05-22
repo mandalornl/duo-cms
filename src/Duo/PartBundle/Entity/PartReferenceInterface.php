@@ -2,8 +2,8 @@
 
 namespace Duo\PartBundle\Entity;
 
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\TimestampInterface;
 
 interface PartReferenceInterface extends IdInterface, TimestampInterface
 {

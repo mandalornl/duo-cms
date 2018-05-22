@@ -3,12 +3,12 @@
 namespace Duo\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\BehaviorBundle\Entity\DeleteTrait;
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimestampInterface;
-use Duo\BehaviorBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\DeleteTrait;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\IdTrait;
+use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\TimestampTrait;
 
 /**
  * @ORM\Table(name="duo_file")

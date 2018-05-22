@@ -2,9 +2,9 @@
 
 namespace Duo\AdminBundle\Helper;
 
-use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\UrlInterface;
+use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\UrlInterface;
 
 class BreadcrumbHelper
 {

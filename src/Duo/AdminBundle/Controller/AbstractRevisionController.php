@@ -2,9 +2,9 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\BehaviorBundle\Entity\RevisionInterface;
-use Duo\BehaviorBundle\Event\RevisionEvent;
-use Duo\BehaviorBundle\Event\RevisionEvents;
+use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Event\RevisionEvent;
+use Duo\CoreBundle\Event\RevisionEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -100,11 +100,11 @@ abstract class AbstractRevisionController extends AbstractController
 			return $this->json([
 				'success' => true,
 				'id' => $entity->getId(),
-				'message' => $this->get('translator')->trans('duo.behavior.listing.alert.revert_success')
+				'message' => $this->get('translator')->trans('duo.core.listing.alert.revert_success')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.behavior.listing.alert.revert_success'));
+		$this->addFlash('success', $this->get('translator')->trans('duo.core.listing.alert.revert_success'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
 			'id' => $entity->getId()

@@ -2,8 +2,8 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\BehaviorBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\RevisionInterface;
 
 class RevisionTwigExtension extends \Twig_Extension
 {

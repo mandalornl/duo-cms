@@ -2,11 +2,11 @@
 
 namespace Duo\NodeBundle\Entity;
 
-use Duo\BehaviorBundle\Entity\DuplicateInterface;
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Entity\TimestampInterface;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Entity\VersionInterface;
+use Duo\CoreBundle\Entity\DuplicateInterface;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\VersionInterface;
 
 interface NodeInterface extends IdInterface,
 								DuplicateInterface,

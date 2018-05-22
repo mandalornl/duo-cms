@@ -5,18 +5,18 @@ namespace Duo\MediaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\BehaviorBundle\Entity\DeleteTrait;
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\SlugInterface;
-use Duo\BehaviorBundle\Entity\SlugTrait;
-use Duo\BehaviorBundle\Entity\TimestampInterface;
-use Duo\BehaviorBundle\Entity\TimestampTrait;
-use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Entity\TreeTrait;
-use Duo\BehaviorBundle\Entity\UrlInterface;
-use Duo\BehaviorBundle\Entity\UrlTrait;
+use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\DeleteTrait;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\IdTrait;
+use Duo\CoreBundle\Entity\SlugInterface;
+use Duo\CoreBundle\Entity\SlugTrait;
+use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\TreeTrait;
+use Duo\CoreBundle\Entity\UrlInterface;
+use Duo\CoreBundle\Entity\UrlTrait;
 
 /**
  * @ORM\Table(name="duo_folder")

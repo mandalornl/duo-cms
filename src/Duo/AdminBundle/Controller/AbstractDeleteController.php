@@ -2,10 +2,10 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\BehaviorBundle\Entity\DeleteInterface;
-use Duo\BehaviorBundle\Entity\IdInterface;
-use Duo\BehaviorBundle\Event\DeleteEvent;
-use Duo\BehaviorBundle\Event\DeleteEvents;
+use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Event\DeleteEvent;
+use Duo\CoreBundle\Event\DeleteEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;

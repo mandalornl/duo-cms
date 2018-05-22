@@ -3,7 +3,7 @@
 namespace Duo\TaxonomyBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

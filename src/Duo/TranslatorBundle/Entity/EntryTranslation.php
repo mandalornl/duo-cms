@@ -3,8 +3,8 @@
 namespace Duo\TranslatorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\TranslationInterface;
-use Duo\BehaviorBundle\Entity\TranslationTrait;
+use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\TranslationTrait;
 
 /**
  * @ORM\Table(name="duo_translator_entry_translation")

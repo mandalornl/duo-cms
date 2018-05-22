@@ -5,9 +5,9 @@ namespace Duo\PageBundle\Repository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Duo\AdminBundle\Repository\AbstractEntityRepository;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Repository\SortTrait;
-use Duo\BehaviorBundle\Repository\TreeTrait;
+use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Repository\SortTrait;
+use Duo\CoreBundle\Repository\TreeTrait;
 use Duo\PageBundle\Entity\Page;
 
 class PageRepository extends AbstractEntityRepository

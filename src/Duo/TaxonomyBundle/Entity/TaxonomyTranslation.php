@@ -3,8 +3,8 @@
 namespace Duo\TaxonomyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\TranslationInterface;
-use Duo\BehaviorBundle\Entity\TranslationTrait;
+use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\TranslationTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**

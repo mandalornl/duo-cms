@@ -3,8 +3,8 @@
 namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\IdTrait;
+use Duo\CoreBundle\Entity\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 

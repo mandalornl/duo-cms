@@ -3,7 +3,7 @@
 namespace Duo\MediaBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Duo\BehaviorBundle\Repository\TreeTrait;
+use Duo\CoreBundle\Repository\TreeTrait;
 
 class FolderRepository extends EntityRepository
 {

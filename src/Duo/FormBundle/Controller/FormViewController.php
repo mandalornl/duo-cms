@@ -3,7 +3,7 @@
 namespace Duo\FormBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormPartInterface;
 use Duo\FormBundle\Entity\FormResult;

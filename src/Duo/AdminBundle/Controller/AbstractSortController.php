@@ -3,11 +3,11 @@
 namespace Duo\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
-use Duo\BehaviorBundle\Entity\SortInterface;
-use Duo\BehaviorBundle\Entity\TreeInterface;
-use Duo\BehaviorBundle\Event\SortEvent;
-use Duo\BehaviorBundle\Event\SortEvents;
-use Duo\BehaviorBundle\Repository\SortTrait;
+use Duo\CoreBundle\Entity\SortInterface;
+use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Event\SortEvent;
+use Duo\CoreBundle\Event\SortEvents;
+use Duo\CoreBundle\Repository\SortTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,10 +2,10 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\BehaviorBundle\Entity\PublishInterface;
-use Duo\BehaviorBundle\Entity\TranslateInterface;
-use Duo\BehaviorBundle\Event\PublishEvent;
-use Duo\BehaviorBundle\Event\PublishEvents;
+use Duo\CoreBundle\Entity\PublishInterface;
+use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Event\PublishEvent;
+use Duo\CoreBundle\Event\PublishEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;

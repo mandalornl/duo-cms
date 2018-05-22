@@ -3,7 +3,7 @@
 namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\TranslationInterface;
 use Duo\NodeBundle\Entity\AbstractNode;
 use Symfony\Component\Validator\Constraints as Assert;
 

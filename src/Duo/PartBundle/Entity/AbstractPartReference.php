@@ -3,8 +3,8 @@
 namespace Duo\PartBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\IdTrait;
-use Duo\BehaviorBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\IdTrait;
+use Duo\CoreBundle\Entity\TimestampTrait;
 
 abstract class AbstractPartReference implements PartReferenceInterface
 {

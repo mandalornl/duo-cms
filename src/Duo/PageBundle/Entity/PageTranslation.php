@@ -3,12 +3,12 @@
 namespace Duo\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\BehaviorBundle\Entity\PublishInterface;
-use Duo\BehaviorBundle\Entity\PublishTrait;
-use Duo\BehaviorBundle\Entity\SlugInterface;
-use Duo\BehaviorBundle\Entity\SlugTrait;
-use Duo\BehaviorBundle\Entity\UrlInterface;
-use Duo\BehaviorBundle\Entity\UrlTrait;
+use Duo\CoreBundle\Entity\PublishInterface;
+use Duo\CoreBundle\Entity\PublishTrait;
+use Duo\CoreBundle\Entity\SlugInterface;
+use Duo\CoreBundle\Entity\SlugTrait;
+use Duo\CoreBundle\Entity\UrlInterface;
+use Duo\CoreBundle\Entity\UrlTrait;
 use Duo\NodeBundle\Entity\AbstractNodeTranslation;
 use Duo\PartBundle\Entity\EntityPartInterface;
 use Duo\PartBundle\Entity\EntityPartTrait;
