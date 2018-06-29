@@ -4,6 +4,7 @@ namespace Duo\CoreBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NonUniqueResultException;
@@ -27,8 +28,6 @@ class SortSubscriber implements EventSubscriber
 	 * On pre persist event
 	 *
 	 * @param LifecycleEventArgs $args
-	 *
-	 * @throws \Throwable
 	 */
 	public function prePersist(LifecycleEventArgs $args): void
 	{
@@ -48,14 +47,10 @@ class SortSubscriber implements EventSubscriber
 	 * @param LifecycleEventArgs $args
 	 *
 	 * @return int
-	 *
-	 * @throws \Throwable
 	 */
 	private function getNextWeight(LifecycleEventArgs $args): int
 	{
 		$entity = $args->getObject();
-
-		$reflectionClass = new \ReflectionClass($entity);
 
 		/**
 		 * @var EntityManager $entityManager
@@ -64,7 +59,7 @@ class SortSubscriber implements EventSubscriber
 
 		$builder = $entityManager->createQueryBuilder()
 			->select('COALESCE(MAX(e.weight) + 1, 0)')
-			->from($reflectionClass->getName(), 'e');
+			->from(ClassUtils::getClass($entity), 'e');
 
 		// use parent of entity
 		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)

@@ -48,18 +48,22 @@ duo:
             filter:
                 filter: Filter
                 clear: Clear
-                contains: Bevat
-                not_contains: Bevat niet
-                equals: Gelijk aan
-                not_equals: Niet gelijk aan
-                starts_with: Begint met
-                ends_with: Eindigt met
-                before: Voor
-                after: Na
+                contains: Contains
+                not_contains: Does not contain
+                equals: Equals
+                not_equals: Not equal to
+                starts_with: Starts with
+                ends_with: Ends with
+                before: Before
+                after: After
                 greater_or_equals: Greater of equals
                 greater: Greater than
                 less: Less than
                 less_or_equals: Less or equals
+
+            search:
+                search: Search
+                clear: Clear
 
             alert:
                 no_items: No item(s) selected
@@ -137,6 +141,9 @@ duo:
 
             enum_filter:
                 placeholder: Please choose
+
+            listing_search:
+                placeholder: Enter keyword
 
         elapsed_time:
             seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'

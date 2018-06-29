@@ -27,7 +27,7 @@ class LocaleHelper
 	 */
 	public function __construct()
 	{
-		$this->locales = [$this->defaultLocale];
+		$this->locales = [ $this->defaultLocale ];
 	}
 
 	/**

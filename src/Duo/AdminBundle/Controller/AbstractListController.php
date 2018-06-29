@@ -9,7 +9,10 @@ use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Action\ListActionInterface;
 use Duo\AdminBundle\Configuration\Field\FieldInterface;
 use Duo\AdminBundle\Configuration\Filter\FilterInterface;
+use Duo\AdminBundle\Configuration\Filter\StringFilterInterface;
 use Duo\AdminBundle\Form\ListingFilterType;
+use Duo\AdminBundle\Form\ListingSearchType;
+use Duo\AdminBundle\Helper\ORM\QueryHelper;
 use Duo\AdminBundle\Helper\PaginatorHelper;
 use Duo\CoreBundle\Entity\DeleteInterface;
 use Duo\CoreBundle\Entity\RevisionInterface;
@@ -17,6 +20,7 @@ use Duo\CoreBundle\Entity\SortInterface;
 use Duo\CoreBundle\Entity\TimestampInterface;
 use Duo\CoreBundle\Entity\TranslateInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,15 +71,8 @@ abstract class AbstractListController extends AbstractController
 		return $this->render($this->getListTemplate(), (array)$this->getDefaultContext([
 			'paginator' => $this->getPaginator($request),
 			'list' => array_merge([
-				'filterForm' => call_user_func(function() use ($request)
-				{
-					if (($form = $this->getFilterForm($request)) === null)
-					{
-						return null;
-					}
-
-					return $form->createView();
-				}),
+				'filterForm' => $this->getFilterFormView($request),
+				'searchForm' => $this->getSearchFormView($request),
 				'fields' => $this->fields,
 				'sorting' => $this->getSorting($request),
 				'actions' => $this->getListActions()
@@ -147,10 +144,14 @@ abstract class AbstractListController extends AbstractController
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
-		// apply filters or revert to defaults
-		if (!$this->applyFilters($request, $builder))
+		// apply search or revert to filters
+		if (!$this->applySearch($request, $builder))
 		{
-			$this->applyDefaultSorting($builder, $reflectionClass);
+			// apply filters or revert to defaults
+			if (!$this->applyFilters($request, $builder))
+			{
+				$this->applyDefaultFilters($builder, $reflectionClass);
+			}
 		}
 
 		// apply sorting or revert to defaults
@@ -276,6 +277,7 @@ abstract class AbstractListController extends AbstractController
 		$sessionName = "sorting_{$this->getType()}";
 
 		$sortingData = $session->get($sessionName, []);
+
 		if (!count($sortingData))
 		{
 			return false;
@@ -358,6 +360,147 @@ abstract class AbstractListController extends AbstractController
 	}
 
 	/**
+	 * Search action
+	 *
+	 * @Route("/search", name="search", methods={ "GET", "POST" })
+	 *
+	 * @param Request $request
+	 *
+	 * @return RedirectResponse
+	 *
+	 * @throws \Throwable
+	 */
+	public function searchAction(Request $request): RedirectResponse
+	{
+		$routeName = "{$this->getRoutePrefix()}_index";
+
+		$session = $request->getSession();
+		$sessionName = "search_{$this->getType()}";
+
+		// clear search
+		if ($request->query->has('clear'))
+		{
+			$session->remove($sessionName);
+
+			return $this->redirectToRoute($routeName);
+		}
+
+		/**
+		 * @var FormInterface $form
+		 */
+		$form = $this->createForm(ListingSearchType::class);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$session->set($sessionName, $form->getData()['q']);
+
+			// clear filter(s)
+			$session->remove("filter_{$this->getType()}");
+		}
+
+		return $this->redirectToRoute($routeName);
+	}
+
+	/**
+	 * Get search form
+	 *
+	 * @param Request $request
+	 *
+	 * @return FormInterface
+	 *
+	 * @throws \Throwable
+	 */
+	protected function getSearchForm(Request $request): ?FormInterface
+	{
+		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
+		{
+			return $filter instanceof StringFilterInterface;
+		});
+
+		if (!count($filters))
+		{
+			return null;
+		}
+
+		$session = $request->getSession();
+		$sessionName = "search_{$this->getType()}";
+
+		return $this->createForm(ListingSearchType::class, [
+			'q' => $session->get($sessionName, $request->query->get('q'))
+		], [
+			'action' => $this->generateUrl("{$this->getRoutePrefix()}_search")
+		]);
+	}
+
+	/**
+	 * Get search form view
+	 *
+	 * @param Request $request
+	 *
+	 * @return FormView
+	 *
+	 * @throws \Throwable
+	 */
+	protected function getSearchFormView(Request $request): ?FormView
+	{
+		if (($form = $this->getSearchForm($request)) === null)
+		{
+			return null;
+		}
+
+		return $form->createView();
+	}
+
+	/**
+	 * Apply search
+	 *
+	 * @param Request $request
+	 * @param QueryBuilder $builder
+	 *
+	 * @return bool
+	 */
+	protected function applySearch(Request $request, QueryBuilder $builder): bool
+	{
+		$session = $request->getSession();
+		$sessionName = "search_{$this->getType()}";
+
+		if (!($keyword = $session->get($sessionName, $request->query->get('q'))))
+		{
+			return false;
+		}
+
+		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
+		{
+			return $filter instanceof StringFilterInterface;
+		});
+
+		if (!count($filters))
+		{
+			return false;
+		}
+
+		$orX = $builder->expr()->orX();
+
+		foreach ($filters as $filter)
+		{
+			/**
+			 * @var FilterInterface $filter
+			 */
+			$orX->add("{$filter->getAlias()}.{$filter->getProperty()} LIKE :keyword");
+		}
+
+		$builder
+			->andWhere($orX)
+			->setParameter('keyword', QueryHelper::escapeLike($keyword));
+
+		// clear filter(s)
+		$session->remove("filter_{$this->getType()}");
+
+		return true;
+	}
+
+	/**
 	 * Filter action
 	 *
 	 * @Route("/filter", name="filter", methods={ "GET", "POST" })
@@ -396,6 +539,9 @@ abstract class AbstractListController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			$session->set($sessionName, $form->getData());
+
+			// clear search
+			$session->remove("search_{$this->getType()}");
 		}
 
 		return $this->redirectToRoute($routeName);
@@ -432,6 +578,25 @@ abstract class AbstractListController extends AbstractController
 	}
 
 	/**
+	 * Get filter form view
+	 *
+	 * @param Request $request
+	 *
+	 * @return FormView
+	 *
+	 * @throws \Throwable
+	 */
+	protected function getFilterFormView(Request $request): ?FormView
+	{
+		if (($form = $this->getFilterForm($request)) === null)
+		{
+			return null;
+		}
+
+		return $form->createView();
+	}
+
+	/**
 	 * Apply filters
 	 *
 	 * @param Request $request
@@ -445,6 +610,7 @@ abstract class AbstractListController extends AbstractController
 		$sessionName = "filter_{$this->getType()}";
 
 		$filterData = $session->get($sessionName, []);
+
 		if (!count($filterData))
 		{
 			return false;
@@ -467,6 +633,9 @@ abstract class AbstractListController extends AbstractController
 				->apply();
 		}
 
+		// clear search
+		$session->remove("search_{$this->getType()}");
+
 		return true;
 	}
 
@@ -478,7 +647,7 @@ abstract class AbstractListController extends AbstractController
 	 */
 	protected function applyDefaultFilters(QueryBuilder $builder, \ReflectionClass $reflectionClass): void
 	{
-
+		// Implement applyDefaultFilters() method
 	}
 
 	/**

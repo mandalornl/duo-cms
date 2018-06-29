@@ -2,8 +2,6 @@
 
 namespace Duo\CoreBundle\EventListener;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Duo\CoreBundle\Entity\PublishInterface;
 use Duo\CoreBundle\Entity\DeleteInterface;
 use Duo\CoreBundle\Entity\SortInterface;
@@ -17,26 +15,11 @@ use Duo\CoreBundle\Event\RevisionEvent;
 class RevisionListener
 {
 	/**
-	 * @var EntityManager
-	 */
-	private $entityManager;
-
-	/**
-	 * RevisionListener constructor
-	 *
-	 * @param EntityManagerInterface $entityManager
-	 */
-	public function __construct(EntityManagerInterface $entityManager)
-	{
-		$this->entityManager = $entityManager;
-	}
-
-	/**
 	 * On clone event
 	 *
 	 * @param RevisionEvent $event
 	 */
-	public function onClone(RevisionEvent $event)
+	public function onClone(RevisionEvent $event): void
 	{
 		$this->setRevision($event);
 		$this->unsetBlame($event);
@@ -51,7 +34,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	public function onRevert(RevisionEvent $event)
+	public function onRevert(RevisionEvent $event): void
 	{
 		$this->setRevision($event);
 		$this->setWeight($event);
@@ -65,7 +48,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function setRevision(RevisionEvent $event)
+	private function setRevision(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 		$origin = $event->getOrigin();
@@ -84,7 +67,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function unsetBlame(RevisionEvent $event)
+	private function unsetBlame(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 
@@ -113,7 +96,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function undelete(RevisionEvent $event)
+	private function undelete(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 
@@ -130,7 +113,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function setWeight(RevisionEvent $event)
+	private function setWeight(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 
@@ -152,7 +135,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function setParentOnClone(RevisionEvent $event)
+	private function setParentOnClone(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 
@@ -175,7 +158,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function setParentOnRevert(RevisionEvent $event)
+	private function setParentOnRevert(RevisionEvent $event): void
 	{
 		$origin = $event->getOrigin();
 
@@ -198,7 +181,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function unsetUrlOnClone(RevisionEvent $event)
+	private function unsetUrlOnClone(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 
@@ -215,7 +198,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function unsetUrlOnRevert(RevisionEvent $event)
+	private function unsetUrlOnRevert(RevisionEvent $event): void
 	{
 		$origin = $event->getOrigin();
 
@@ -232,7 +215,7 @@ class RevisionListener
 	 *
 	 * @param TreeInterface $entity
 	 */
-	private function unsetChildrenUrl(TreeInterface $entity)
+	private function unsetChildrenUrl(TreeInterface $entity): void
 	{
 		if (!$entity instanceof UrlInterface)
 		{
@@ -255,7 +238,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function unsetTranslationUrlOnClone(RevisionEvent $event)
+	private function unsetTranslationUrlOnClone(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
 
@@ -279,7 +262,7 @@ class RevisionListener
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function unsetTranslationUrlOnRevert(RevisionEvent $event)
+	private function unsetTranslationUrlOnRevert(RevisionEvent $event): void
 	{
 		$origin = $event->getOrigin();
 
@@ -303,7 +286,7 @@ class RevisionListener
 	 *
 	 * @param TreeInterface $entity
 	 */
-	private function unsetTranslationChildrenUrl(TreeInterface $entity)
+	private function unsetTranslationChildrenUrl(TreeInterface $entity): void
 	{
 		foreach ($entity->getChildren() as $child)
 		{

@@ -5,7 +5,7 @@ namespace Duo\PartBundle\Event;
 use Duo\PartBundle\Configurator\PartConfiguratorInterface;
 use Symfony\Component\EventDispatcher\Event;
 
-abstract class AbstractPartConfiguratorEvent extends Event
+abstract class AbstractPartConfiguratorEvent extends Event implements PartConfigurationEventInterface
 {
 	/**
 	 * @var PartConfiguratorInterface
@@ -23,13 +23,9 @@ abstract class AbstractPartConfiguratorEvent extends Event
 	}
 
 	/**
-	 * Set configurator
-	 *
-	 * @param PartConfiguratorInterface $configurator
-	 *
-	 * @return AbstractPartConfiguratorEvent
+	 * {@inheritdoc}
 	 */
-	public function setConfigurator(PartConfiguratorInterface $configurator): AbstractPartConfiguratorEvent
+	public function setConfigurator(PartConfiguratorInterface $configurator): PartConfigurationEventInterface
 	{
 		$this->configurator = $configurator;
 
@@ -37,9 +33,7 @@ abstract class AbstractPartConfiguratorEvent extends Event
 	}
 
 	/**
-	 * Get configurator
-	 *
-	 * @return PartConfiguratorInterface
+	 * {@inheritdoc}
 	 */
 	public function getConfigurator(): PartConfiguratorInterface
 	{

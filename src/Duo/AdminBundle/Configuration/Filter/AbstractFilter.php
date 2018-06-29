@@ -36,7 +36,7 @@ abstract class AbstractFilter implements FilterInterface
 	 *
 	 * @param string $property
 	 * @param string $label
-	 * @param string $alias [optional]
+	 * @param string $alias [optional] e = entity, t = translation
 	 */
 	public function __construct(string $property, string $label, string $alias = 'e')
 	{
@@ -138,11 +138,11 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * Get logic exception
+	 * Create illegal operator exception
 	 *
 	 * @return \LogicException
 	 */
-	protected function getOperatorException(): \LogicException
+	protected function createIllegalOperatorException(): \LogicException
 	{
 		$data = $this->getData();
 

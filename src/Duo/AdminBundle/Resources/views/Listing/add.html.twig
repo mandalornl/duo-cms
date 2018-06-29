@@ -61,7 +61,7 @@
 										{% if action.template %}
 											{% include action.template %}
 										{% else %}
-											<a href="{{ path(action.route, action.routeParameters | merge({ 'id': entity.id })) }}" class="dropdown-item">
+											<a href="{{ path(action.route, action.routeParameters | merge({ id: entity.id })) }}" class="dropdown-item">
 												{{- action.label | trans -}}
 											</a>
 										{% endif %}
@@ -85,7 +85,8 @@
 {% block content %}
 	<div class="row">
 		<div class="col-xl-10">
-			{{ form_start(form, { 'attr': { 'class': 'form-edit' } }) }}
+			{% form_theme form with ['@DuoAdmin/Form/fields.html.twig', '@DuoPart/Form/fields.html.twig'] only %}
+			{{ form_start(form, { attr: { class: 'form-edit' } }) }}
 			{{ form_widget(form) }}
 			{{ form_end(form) }}
 		</div>

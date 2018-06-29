@@ -1,4 +1,5 @@
 {% spaceless %}
+{% form_theme form with ['@DuoAdmin/Form/fields.html.twig'] only %}
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}

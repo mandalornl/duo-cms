@@ -17,7 +17,12 @@ class PageSortController extends AbstractSortController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-up/{id}", name="move_up", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/move-up/{id}",
+	 *     name="move_up",
+	 *     requirements={ "id" = "\d+" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function moveUpAction(Request $request, int $id): Response
 	{
@@ -27,7 +32,12 @@ class PageSortController extends AbstractSortController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-down/{id}", name="move_down", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/move-down/{id}",
+	 *     name="move_down",
+	 *     requirements={ "id" = "\d+" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function moveDownAction(Request $request, int $id): Response
 	{
@@ -37,7 +47,13 @@ class PageSortController extends AbstractSortController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/move-to/{_format}", name="move_to", defaults={ "_format" = "html" }, requirements={ "_format" = "html|json" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/move-to/{_format}",
+	 *     name="move_to",
+	 *     defaults={ "_format" = "html" },
+	 *     requirements={ "_format" = "html|json" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function moveToAction(Request $request): Response
 	{

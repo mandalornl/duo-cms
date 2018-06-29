@@ -1,3 +1,4 @@
 duo_page:
     resource: '@DuoPageBundle/Controller/'
     type: annotation
+    prefix: /admin

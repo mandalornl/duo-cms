@@ -1,0 +1,66 @@
+*
+{
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+html
+{
+	@include fluidify(font-size, (
+		min-size: 14px,
+		max-size: 16px
+	));
+
+	&.no-scroll,
+	&.no-scroll body
+	{
+		overflow-y: hidden;
+
+		height: 100%;
+	}
+}
+
+body
+{
+	min-height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+
+	&.loading
+	{
+		&:before,
+		&:after
+		{
+			position: fixed;
+		}
+	}
+}
+
+a
+{
+	transition: color .2s ease-out;
+}
+
+.loading
+{
+	@include loading((
+		color: theme-color('primary'),
+		'z-index': 2000
+	));
+}
+
+.table-responsive
+{
+	-webkit-overflow-scrolling: touch;
+}
+
+.clickable
+{
+	cursor: pointer;
+}
+
+.icomoon
+{
+	vertical-align: middle;
+}

@@ -23,7 +23,7 @@ trait SortTrait
 	{
 		try
 		{
-			return $this->getPrevQueryBuilder($entity)
+			return $this->getPrevToSortQueryBuilder($entity)
 				->orderBy('e.weight', 'DESC')
 				->setMaxResults(1)
 				->getQuery()
@@ -44,7 +44,7 @@ trait SortTrait
 	 */
 	public function findPrevAllToSort(SortInterface $entity): array
 	{
-		return $this->getPrevQueryBuilder($entity)
+		return $this->getPrevToSortQueryBuilder($entity)
 			->orderBy('e.weight', 'ASC')
 			->getQuery()
 			->getResult();
@@ -57,7 +57,7 @@ trait SortTrait
 	 *
 	 * @return QueryBuilder
 	 */
-	private function getPrevQueryBuilder(SortInterface $entity): QueryBuilder
+	private function getPrevToSortQueryBuilder(SortInterface $entity): QueryBuilder
 	{
 		return $this->getSortQueryBuilder($entity)
 			->andWhere('e.weight < :weight')
@@ -73,7 +73,7 @@ trait SortTrait
 	 */
 	public function findNextAllToSort(SortInterface $entity): array
 	{
-		return $this->getNextQueryBuilder($entity)
+		return $this->getNextToSortQueryBuilder($entity)
 			->orderBy('e.weight', 'ASC')
 			->getQuery()
 			->getResult();
@@ -90,7 +90,7 @@ trait SortTrait
 	{
 		try
 		{
-			return $this->getNextQueryBuilder($entity)
+			return $this->getNextToSortQueryBuilder($entity)
 				->orderBy('e.weight', 'ASC')
 				->setMaxResults(1)
 				->getQuery()
@@ -110,7 +110,7 @@ trait SortTrait
 	 *
 	 * @return QueryBuilder
 	 */
-	private function getNextQueryBuilder(SortInterface $entity): QueryBuilder
+	private function getNextToSortQueryBuilder(SortInterface $entity): QueryBuilder
 	{
 		return $this->getSortQueryBuilder($entity)
 			->andWhere('e.weight > :weight')

@@ -67,38 +67,24 @@ class UrlSubscriber implements EventSubscriber
 	 */
 	private function setUrl(UrlInterface $entity): void
 	{
-		if (!$entity instanceof TreeInterface)
+		$urls = [ $entity->getValueToUrlize() ];
+
+		if ($entity instanceof TreeInterface)
 		{
-			return;
-		}
+			/**
+			 * @var UrlInterface|TreeInterface $parent
+			 */
+			$parent = $entity->getParent();
 
-		$urls = [$entity->getValueToUrlize()];
+			while ($parent !== null)
+			{
+				$urls[] = $parent->getValueToUrlize();
 
-		/**
-		 * @var UrlInterface|TreeInterface $parent
-		 */
-		$parent = $entity->getParent();
-
-		while ($parent !== null)
-		{
-			$urls[] = $parent->getValueToUrlize();
-
-			$parent = $parent->getParent();
+				$parent = $parent->getParent();
+			}
 		}
 
 		$entity->setUrl($this->generateUrl($urls));
-	}
-
-	/**
-	 * Generate url
-	 *
-	 * @param array $urls
-	 *
-	 * @return string
-	 */
-	private function generateUrl(array $urls): string
-	{
-		return implode('/', array_reverse(array_filter($urls)));
 	}
 
 	/**
@@ -118,30 +104,40 @@ class UrlSubscriber implements EventSubscriber
 		 */
 		$translatable = $entity->getTranslatable();
 
-		if (!$translatable instanceof TreeInterface)
-		{
-			return;
-		}
+		$urls = [ $entity->getValueToUrlize() ];
 
-		$urls = [$entity->getValueToUrlize()];
-
-		/**
-		 * @var TranslateInterface|TreeInterface $parent
-		 */
-		$parent = $translatable->getParent();
-
-		while ($parent !== null)
+		if ($translatable instanceof TreeInterface)
 		{
 			/**
-			 * @var UrlInterface $translation
+			 * @var TranslateInterface|TreeInterface $parent
 			 */
-			$translation = $parent->translate($entity->getLocale());
+			$parent = $translatable->getParent();
 
-			$urls[] = $translation->getValueToUrlize();
+			while ($parent !== null)
+			{
+				/**
+				 * @var UrlInterface $translation
+				 */
+				$translation = $parent->translate($entity->getLocale());
 
-			$parent = $parent->getParent();
+				$urls[] = $translation->getValueToUrlize();
+
+				$parent = $parent->getParent();
+			}
 		}
 
 		$entity->setUrl($this->generateUrl($urls));
+	}
+
+	/**
+	 * Generate url
+	 *
+	 * @param array $urls
+	 *
+	 * @return string
+	 */
+	private function generateUrl(array $urls): string
+	{
+		return implode('/', array_reverse(array_filter($urls)));
 	}
 }

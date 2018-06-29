@@ -52,6 +52,7 @@
 				{{- 'duo.admin.listing.filter.filter' | trans -}}
 			</button>
 			<div id="{{ filterId }}" class="collapse">
+				{% form_theme list.filterForm with ['@DuoAdmin/Form/fields.html.twig'] only %}
 				{{ form_start(list.filterForm) }}
 				{{ form_widget(list.filterForm) }}
 				<div class="row">
@@ -66,6 +67,33 @@
 				</div>
 				{{ form_end(list.filterForm) }}
 			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block search %}
+	{% if list.searchForm is defined and list.searchForm %}
+		<div class="listing-search">
+			{% form_theme list.searchForm with ['@DuoAdmin/Form/fields.html.twig'] only %}
+			{{ form_start(list.searchForm) }}
+			<div class="form-group">
+				<div class="input-group">
+					{{ form_widget(list.searchForm.q) }}
+					<div class="input-group-append">
+						<button type="submit" class="btn btn-primary">
+							<span>
+								{{- 'duo.admin.listing.search.search' | trans -}}
+							</span> <i class="icon-search"></i>
+						</button>
+						<a href="{{ path(routePrefix ~ '_search') }}?clear" class="btn btn-secondary">
+							<span>
+								{{- 'duo.admin.listing.search.clear' | trans -}}
+							</span> <i class="icon-cross"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			{{ form_end(list.searchForm) }}
 		</div>
 	{% endif %}
 {% endblock %}
@@ -93,9 +121,9 @@
 							<th{% if field.sortable %} class="sortable"{% endif %}>
 								{% if field.sortable %}
 									{% if list.sorting and list.sorting.sort == field.property %}
-										{% set url = path(routePrefix ~ '_sorting', { 'sort': field.property, 'order': list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
+										{% set url = path(routePrefix ~ '_sorting', { sort: field.property, order: list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
 									{% else %}
-										{% set url = path(routePrefix ~ '_sorting', { 'sort': field.property }) %}
+										{% set url = path(routePrefix ~ '_sorting', { sort: field.property }) %}
 									{% endif %}
 									<a href="{{ url }}">
 										{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.property %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}

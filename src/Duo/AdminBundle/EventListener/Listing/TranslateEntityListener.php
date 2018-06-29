@@ -59,7 +59,7 @@ class TranslateEntityListener
 
 		if (empty($locales))
 		{
-			$locales = [$this->localeHelper->getDefaultLocale()];
+			$locales = [ $this->localeHelper->getDefaultLocale() ];
 		}
 
 		foreach ($locales as $locale)

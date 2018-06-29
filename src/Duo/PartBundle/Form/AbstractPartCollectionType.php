@@ -54,7 +54,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 			return [
 				'label' => $label,
 				'label_attr' => [
-					'class' => 'sortable-move'
+					'class' => 'sortable-handle'
 				]
 			];
 		}, $types);

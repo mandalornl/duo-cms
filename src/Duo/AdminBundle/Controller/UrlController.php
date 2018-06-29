@@ -6,6 +6,7 @@ use Duo\PageBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UrlController extends Controller
 {
@@ -19,7 +20,7 @@ class UrlController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	public function indexAction(Request $request, string $url = '')
+	public function indexAction(Request $request, string $url = ''): Response
 	{
 		$page = $this->getDoctrine()->getRepository(Page::class)->findOneByUrl($url, $request->getLocale());
 

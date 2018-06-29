@@ -1,0 +1,61 @@
+.sortable-list
+{
+	.sortable-item
+	{
+		border: 1px solid $input-border-color;
+		border-radius: $input-border-radius;
+
+		background: #fff;
+
+		margin-bottom: 1rem;
+
+		&:not(.disabled)
+		{
+			.sortable-handle
+			{
+				cursor: move;
+				cursor: -webkit-grab;
+
+				@include user-select(none);
+
+				&:before
+				{
+					@include icomoon($icon-move);
+
+					margin-right: .5rem;
+
+					opacity: .5;
+
+					transition: .2s ease-out;
+					transition-property: opacity, color;
+				}
+
+				&:hover:before
+				{
+					color: $link-hover-color;
+
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.sortable-handle
+	{
+		display: flex;
+		align-items: center;
+	}
+
+	.sortable-placeholder
+	{
+		padding: 1.25rem 1rem;
+
+		margin: 1rem 0;
+
+		background: #fafafa;
+
+		box-shadow: inset 0 0 10px 0 rgba(#000, .1);
+
+		border-radius: $input-border-radius;
+	}
+}

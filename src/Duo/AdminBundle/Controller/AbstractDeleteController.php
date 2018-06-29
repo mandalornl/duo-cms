@@ -92,7 +92,7 @@ abstract class AbstractDeleteController extends AbstractController
 	 */
 	private function handleDeletionRequest(\Closure $callback, string $message, Request $request, int $id = null): Response
 	{
-		$selection = (array)$id ?: $request->get('ids');
+		$selection = (array)$id ?: $request->get('ids', []);
 
 		if (!count($selection))
 		{

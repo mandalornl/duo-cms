@@ -144,7 +144,7 @@ abstract class AbstractSortController extends AbstractController
 
 		call_user_func_array($callback, [ $entity ]);
 
-		/// reply with json response
+		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
@@ -184,24 +184,166 @@ abstract class AbstractSortController extends AbstractController
 		}
 
 		$parentId = (int)$request->get('parentId') ?: null;
-		$siblingId = (int)$request->get('siblingId') ?: null;
+		$prevSiblingId = (int)$request->get('prevSiblingId') ?: null;
+		$nextSiblingId = (int)$request->get('nextSiblingId') ?: null;
+
+		if (!$parentId && !$prevSiblingId && !$nextSiblingId)
+		{
+			return $this->createMoveToException($request, 'Missing parent and/or prev/next sibling id\'s');
+		}
+
+		$em = $this->getDoctrine()->getManager();
+
+		/**
+		 * @var EntityRepository|SortTrait $repository
+		 */
+		$repository = $em->getRepository($this->getEntityClass());
 
 		if ($entity instanceof TreeInterface)
 		{
-			if ($parentId && $siblingId)
+			$prevParent = $entity->getParent();
+
+			/**
+			 * @var TreeInterface $parent
+			 */
+			$parent = $parentId ? $repository->find($parentId) : null;
+
+			// update parent
+			if ($parent !== null)
 			{
-				return $this->handleMoveToParentAndSiblingRequest($request, $entity, $parentId, $siblingId);
+				// check whether or not the parent changed
+				if ($prevParent !== $parent)
+				{
+					$weight = 0;
+
+					// update previous parent
+					if ($prevParent !== null)
+					{
+						// remove entity from previous parent
+						$prevParent->removeChild($entity);
+
+						// update weight of children in previous parent
+						foreach ($prevParent->getChildren() as $child)
+						{
+							/**
+							 * @var SortInterface $child
+							 */
+							$child->setWeight($weight++);
+
+							$em->persist($child);
+						}
+
+						$em->persist($prevParent);
+					}
+					else
+					{
+						// update weight of previous siblings
+						foreach ($repository->findSiblingsToSort($entity) as $child)
+						{
+							// ignore if child is entity
+							if ($child === $entity)
+							{
+								continue;
+							}
+
+							$child->setWeight($weight++);
+
+							$em->persist($child);
+						}
+					}
+				}
+
+				$parent->addChild($entity);
+
+				$em->persist($parent);
 			}
 			else
 			{
-				if ($parentId)
+				// update previous parent
+				if ($prevParent !== null)
 				{
-					return $this->handleMoveToParentRequest($request, $entity, $parentId);
+					$weight = 0;
+
+					// remove entity from previous parent
+					$prevParent->removeChild($entity);
+
+					// update weight of children in previous parent
+					foreach ($prevParent->getChildren() as $child)
+					{
+						/**
+						 * @var SortInterface $child
+						 */
+						$child->setWeight($weight++);
+
+						$em->persist($child);
+					}
+
+					$em->persist($prevParent);
 				}
+
+				$entity->setParent(null);
 			}
 		}
 
-		return $this->handleMoveToSiblingRequest($request, $entity, $siblingId);
+		$children = [];
+
+		/**
+		 * @var SortInterface $prevSibling
+		 */
+		if ($prevSiblingId && ($prevSibling = $repository->find($prevSiblingId)) !== null)
+		{
+			$siblings = $repository->findPrevAllToSort($prevSibling);
+
+			if (($index = array_search($entity, $siblings)) !== false)
+			{
+				unset($siblings[$index]);
+			}
+
+			$children = array_merge($children, $siblings);
+			$children[] = $prevSibling;
+		}
+
+		$children[] = $entity;
+
+		/**
+		 * @var SortInterface $nextSibling
+		 */
+		if ($nextSiblingId && ($nextSibling = $repository->find($nextSiblingId)) !== null)
+		{
+			$siblings = $repository->findNextAllToSort($nextSibling);
+
+			if (($index = array_search($entity, $siblings)) !== false)
+			{
+				unset($siblings[$index]);
+			}
+
+			$children[] = $nextSibling;
+			$children = array_merge($children, $siblings);
+		}
+
+		$weight = 0;
+
+		// update weight of children
+		foreach ($children as $child)
+		{
+			$child->setWeight($weight++);
+
+			$em->persist($child);
+		}
+
+		$em->flush();
+
+		if ($request->getRequestFormat() === 'json')
+		{
+			return $this->json([
+				'success' => true
+			]);
+		}
+
+		return $this->redirectToReferer(
+			$this->generateUrl("{$this->getRoutePrefix()}_index"),
+			$request
+		);
 	}
 
 	/**
@@ -214,336 +356,6 @@ abstract class AbstractSortController extends AbstractController
 	 * @throws \Throwable
 	 */
 	abstract public function moveToAction(Request $request): Response;
-
-	/**
-	 * Handle move to parent and sibling request
-	 *
-	 * @param Request $request
-	 * @param SortInterface $entity
-	 * @param int $parentId
-	 * @param int $siblingId
-	 *
-	 * @return RedirectResponse|JsonResponse
-	 *
-	 * @throws \Throwable
-	 */
-	private function handleMoveToParentAndSiblingRequest(Request $request, SortInterface $entity, int $parentId, int $siblingId): Response
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		/**
-		 * @var EntityRepository|SortTrait $repository
-		 */
-		$repository = $em->getRepository($this->getEntityClass());
-
-		/**
-		 * @var TreeInterface $parent
-		 */
-		if (($parent = $repository->find($parentId)) === null)
-		{
-			return $this->createMoveToException($request, "Parent '{$this->getEntityClass()}::{$parentId}' not found");
-		}
-
-		/**
-		 * @var SortInterface $sibling
-		 */
-		if (($sibling = $repository->find($siblingId)) === null)
-		{
-			return $this->createMoveToException($request, "Sibling '{$this->getEntityClass()}::{$siblingId}' not found");
-		}
-
-		/**
-		 * @var TreeInterface $entity
-		 */
-		$previousParent = $entity->getParent();
-
-		// check whether or not the parent changed
-		if ($previousParent !== $parent)
-		{
-			$weight = 0;
-
-			if ($previousParent !== null)
-			{
-				// remove entity from previous parent
-				$previousParent->removeChild($entity);
-
-				// update weight of children in previous parent
-				foreach ($previousParent->getChildren() as $child)
-				{
-					/**
-					 * @var SortInterface $child
-					 */
-					$child->setWeight($weight++);
-
-					$em->persist($child);
-				}
-
-				$em->persist($previousParent);
-			}
-			else
-			{
-				// update weight of previous siblings
-				foreach ($repository->findSiblingsToSort($entity) as $child)
-				{
-					// ignore if child is entity
-					if ($child === $entity)
-					{
-						continue;
-					}
-
-					$child->setWeight($weight++);
-
-					$em->persist($child);
-				}
-			}
-		}
-
-		// parent doesn't contain sibling
-		if (!$parent->getChildren()->contains($sibling))
-		{
-			return $this->createMoveToException(
-				$request,
-				"Parent '{$this->getEntityClass()}::{$parentId}'doesn't contain sibling '{$this->getEntityClass()}::{$siblingId}'"
-			);
-		}
-
-		$weight = 0;
-
-		// update weight of children
-		foreach ($parent->getChildren() as $child)
-		{
-			// ignore if child is entity
-			if ($child === $entity)
-			{
-				continue;
-			}
-
-			$child->setWeight($weight++);
-
-			$em->persist($child);
-
-			// insert after sibling
-			if ($child === $sibling)
-			{
-				$entity->setWeight($weight++);
-			}
-		}
-
-		$parent->addChild($entity);
-
-		$em->persist($parent);
-		$em->persist($entity);
-		$em->flush();
-
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'success' => true
-			]);
-		}
-
-		return $this->redirectToReferer(
-			$this->generateUrl("{$this->getRoutePrefix()}_index"),
-			$request
-		);
-	}
-
-	/**
-	 * Handle move to parent request
-	 *
-	 * @param Request $request
-	 * @param SortInterface $entity
-	 * @param int $parentId
-	 *
-	 * @return RedirectResponse|JsonResponse
-	 *
-	 * @throws \Throwable
-	 */
-	private function handleMoveToParentRequest(Request $request, SortInterface $entity, int $parentId)
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		/**
-		 * @var EntityRepository|SortTrait $repository
-		 */
-		$repository = $em->getRepository($this->getEntityClass());
-
-		/**
-		 * @var TreeInterface $parent
-		 */
-		if (($parent = $repository->find($parentId)) === null)
-		{
-			return $this->createMoveToException($request, "Parent '{$this->getEntityClass()}::{$parentId}' not found");
-		}
-
-		/**
-		 * @var TreeInterface $entity
-		 */
-		$previousParent = $entity->getParent();
-
-		// check whether or not the parent changed
-		if ($previousParent !== $parent)
-		{
-			$weight = 0;
-
-			if ($previousParent !== null)
-			{
-				// remove entity from previous parent
-				$previousParent->removeChild($entity);
-
-				// update weight of children in previous parent
-				foreach ($previousParent->getChildren() as $child)
-				{
-					/**
-					 * @var SortInterface $child
-					 */
-					$child->setWeight($weight++);
-
-					$em->persist($child);
-				}
-
-				$em->persist($previousParent);
-			}
-			else
-			{
-				// update weight of previous siblings
-				foreach ($repository->findSiblingsToSort($entity) as $child)
-				{
-					// ignore if child is entity
-					if ($child === $entity)
-					{
-						continue;
-					}
-
-					$child->setWeight($weight++);
-
-					$em->persist($child);
-				}
-			}
-		}
-
-		// use weight of last child
-		if (($child = $parent->getChildren()->last()))
-		{
-			$entity->setWeight($child->getWeight() + 1);
-		}
-		// or default to first
-		else
-		{
-			$entity->setWeight(0);
-		}
-
-		$parent->addChild($entity);
-
-		$em->persist($parent);
-		$em->flush();
-
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'success' => true
-			]);
-		}
-
-		return $this->redirectToReferer(
-			$this->generateUrl("{$this->getRoutePrefix()}_index"),
-			$request
-		);
-	}
-
-	/**
-	 * Handle move to sibling request
-	 *
-	 * @param Request $request
-	 * @param SortInterface $entity
-	 * @param int $siblingId
-	 *
-	 * @return RedirectResponse|JsonResponse
-	 *
-	 * @throws \Throwable
-	 */
-	private function handleMoveToSiblingRequest(Request $request, SortInterface $entity, int $siblingId): Response
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		/**
-		 * @var EntityRepository|SortTrait $repository
-		 */
-		$repository = $em->getRepository($this->getEntityClass());
-
-		/**
-		 * @var SortInterface $sibling
-		 */
-		if (($sibling = $repository->find($siblingId)) === null)
-		{
-			return $this->createMoveToException($request, "Sibling '{$this->getEntityClass()}::{$siblingId}' not found");
-		}
-
-		// check whether or not the parent changed
-		if ($entity instanceof TreeInterface)
-		{
-			$previousParent = $entity->getParent();
-
-			if ($previousParent !== null)
-			{
-				// remove entity from previous parent
-				$previousParent->removeChild($entity);
-
-				$weight = 0;
-
-				// update weight of children in previous parent
-				foreach ($previousParent->getChildren() as $child)
-				{
-					/**
-					 * @var SortInterface $child
-					 */
-					$child->setWeight($weight++);
-
-					$em->persist($child);
-				}
-
-				$em->persist($previousParent);
-			}
-
-			$entity->setParent(null);
-		}
-
-		$weight = 0;
-
-		foreach ($repository->findSiblingsToSort($sibling) as $child)
-		{
-			// ignore if child is entity
-			if ($child === $entity)
-			{
-				continue;
-			}
-
-			$child->setWeight($weight++);
-
-			$em->persist($child);
-
-			// insert after sibling
-			if ($child === $sibling)
-			{
-				$entity->setWeight($weight++);
-			}
-		}
-
-		$em->persist($entity);
-		$em->flush();
-
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'success' => true
-			]);
-		}
-
-		return $this->redirectToReferer(
-			$this->generateUrl("{$this->getRoutePrefix()}_index"),
-			$request
-		);
-	}
 
 	/**
 	 * Create move to exception

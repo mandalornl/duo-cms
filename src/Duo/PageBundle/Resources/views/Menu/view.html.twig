@@ -5,9 +5,9 @@
 {% block content %}
 	<div class="row">
 		<div class="col-xl-10">
-			<nav class="nestable" data-url="{{ moveToRoute }}">
+			<div class="nestable page-tree" data-url="{{ moveToRoute }}">
 				{% include '@DuoPage/Menu/tree.html.twig' with { pages: pages } %}
-			</nav>
+			</div>
 		</div>
 	</div>
 {% endblock %}

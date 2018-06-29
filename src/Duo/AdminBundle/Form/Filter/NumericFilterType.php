@@ -17,6 +17,7 @@ class NumericFilterType extends AbstractFilterType
 			->add('operator', ChoiceType::class, [
 				'choices' => [
 					'duo.admin.listing.filter.equals' => 'equals',
+					'duo.admin.listing.filter.not_equals' => 'notEquals',
 					'duo.admin.listing.filter.greater_or_equals' => 'greaterOrEquals',
 					'duo.admin.listing.filter.greater' => 'greater',
 					'duo.admin.listing.filter.less' => 'less',

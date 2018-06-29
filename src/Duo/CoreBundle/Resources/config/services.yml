@@ -9,15 +9,11 @@ services:
         exclude: '../../{Entity,Repository,Tests}'
 
     Duo\CoreBundle\EventListener\DeleteListener:
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
         tags:
             - { name: kernel.event_listener, event: duo.core.event.delete, method: onDelete }
             - { name: kernel.event_listener, event: duo.core.event.undelete, method: onUndelete }
 
     Duo\CoreBundle\EventListener\RevisionListener:
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
         tags:
             - { name: kernel.event_listener, event: duo.core.event.revision.clone, method: onClone }
             - { name: kernel.event_listener, event: duo.core.event.revision.revert, method: onRevert }
@@ -31,10 +27,6 @@ services:
     Duo\CoreBundle\EventSubscriber\RevisionSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
-
-    Duo\CoreBundle\EventSubscriber\SlugSubscriber:
-        tags:
-            - { name: doctrine.event_subscriber, priority: 16 }
 
     Duo\CoreBundle\EventSubscriber\DeleteSubscriber:
         arguments:
@@ -60,6 +52,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    Duo\CoreBundle\EventSubscriber\SlugSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: -8 }
+
     Duo\CoreBundle\EventSubscriber\UrlSubscriber:
         tags:
-            - { name: doctrine.event_subscriber, priority: 8 }
+            - { name: doctrine.event_subscriber, priority: -16 }

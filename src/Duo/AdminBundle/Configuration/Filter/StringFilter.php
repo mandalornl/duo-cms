@@ -5,7 +5,7 @@ namespace Duo\AdminBundle\Configuration\Filter;
 use Duo\AdminBundle\Form\Filter\StringFilterType;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
 
-class StringFilter extends AbstractFilter
+class StringFilter extends AbstractFilter implements StringFilterInterface
 {
 	/**
 	 * {@inheritdoc}
@@ -60,7 +60,7 @@ class StringFilter extends AbstractFilter
 				break;
 
 			default:
-				throw $this->getOperatorException();
+				throw $this->createIllegalOperatorException();
 		}
 	}
 

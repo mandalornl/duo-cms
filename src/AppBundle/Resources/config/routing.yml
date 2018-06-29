@@ -1,4 +1,4 @@
 app:
-    resource: '@AppBundle/Controller/DefaultController.php'
+    resource: '@AppBundle/Controller/'
     type: annotation
     prefix: /

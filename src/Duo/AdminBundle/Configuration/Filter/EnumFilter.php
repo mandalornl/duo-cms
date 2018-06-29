@@ -35,7 +35,7 @@ class EnumFilter extends AbstractFilter
 				break;
 
 			default:
-				throw $this->getOperatorException();
+				throw $this->createIllegalOperatorException();
 		}
 	}
 

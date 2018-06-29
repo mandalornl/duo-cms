@@ -1,6 +1,7 @@
 duo_security:
     resource: '@DuoSecurityBundle/Controller/'
     type: annotation
+    prefix: /admin
 
 duo_security_logout:
-    path: /logout
+    path: /admin/logout

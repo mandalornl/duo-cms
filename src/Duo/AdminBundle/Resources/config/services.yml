@@ -36,18 +36,20 @@ services:
         class: Duo\AdminBundle\Menu\MenuBuilder
         public: true
 
-    Duo\AdminBundle\EventListener\Listing\TranslateEntityListener:
+    duo.admin.event_listener.locale_listener:
+        class: Duo\AdminBundle\EventListener\LocaleListener
+        arguments:
+            $defaultLocale: '%locale%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -8 }
+
+    duo.admin.event_listener.listing.translate_entity_listener:
+        class: Duo\AdminBundle\EventListener\Listing\TranslateEntityListener
         arguments:
             $localeHelper: '@duo.admin.locale_helper'
         tags:
             - { name: kernel.event_listener, event: duo.event.listing.entity.preAdd, method: preAdd }
             - { name: kernel.event_listener, event: duo.event.listing.entity.preEdit, method: preEdit }
-
-    Duo\AdminBundle\EventSubscriber\LocaleSubscriber:
-        arguments:
-            $defaultLocale: '%locale%'
-        tags:
-            - { name: kernel.event_subscriber }
 
     Duo\AdminBundle\Twig\LocaleTwigExtension:
         arguments:
@@ -55,7 +57,8 @@ services:
         tags:
             - { name: twig.extension }
 
-    Duo\AdminBundle\Routing\UrlLoader:
+    duo.admin.routing.url_loader:
+        class: Duo\AdminBundle\Routing\UrlLoader
         arguments:
             $localeHelper: '@duo.admin.locale_helper'
         tags:

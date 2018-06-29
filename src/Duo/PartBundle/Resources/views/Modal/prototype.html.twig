@@ -15,6 +15,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="part-chooser">
+					{% form_theme form with ['@DuoAdmin/Form/fields.html.twig'] only %}
 					{% for hash, prototype in form.vars.prototypes %}
 						{% set icon = attribute(form.vars.icons, hash) | default('icon-file-empty') %}
 						<div class="button">

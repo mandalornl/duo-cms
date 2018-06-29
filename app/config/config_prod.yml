@@ -3,7 +3,7 @@ imports:
 
 framework:
     assets:
-        json_manifest_path: '%kernel.project_dir%/web/backend/manifest.json'
+        json_manifest_path: '%kernel.project_dir%/web/build/manifest.json'
 
 #doctrine:
 #    orm:

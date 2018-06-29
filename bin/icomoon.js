@@ -1,22 +1,32 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const path = require('path');
 
 const glob = require('glob');
-const minimist = require('minimist');
 const _ = require('lodash');
+const yargs = require('yargs')
+	.usage('$0 [args]')
+	.options({
+		src: {
+			type: 'string',
+			describe: 'Directory where \'selection.json\' file(s) are located',
+			demandOption: true,
+			requiresArg: true
+		},
 
-const args = _.extend({
-	root: path.resolve(process.cwd(), 'src/Duo/AdminBundle/Resources/webpack/src')
-}, minimist(process.argv.slice(2)));
-
-const source = path.resolve(args.root, 'fonts');
-const destination = path.resolve(args.root, 'sass/_icomoon.scss');
+		dest: {
+			type: 'string',
+			describe: 'Destination of scss file',
+			demandOption: true,
+			requiresArg: true
+		}
+	})
+	.help()
+	.argv;
 
 const output = [];
 
-glob(`${source}/**/selection.json`, (err, files) =>
+glob(`${yargs.src}/**/selection.json`, (err, files) =>
 {
 	if (err)
 	{
@@ -47,7 +57,7 @@ glob(`${source}/**/selection.json`, (err, files) =>
 		}
 	});
 
-	fs.writeFile(destination, output.join('\n'), err =>
+	fs.writeFile(yargs.dest, output.join('\n'), err =>
 	{
 		if (err)
 		{

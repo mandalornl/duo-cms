@@ -4,9 +4,13 @@ namespace Duo\CoreBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\UnitOfWork;
+use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\UrlInterface;
 
 class TreeSubscriber implements EventSubscriber
 {
@@ -16,7 +20,8 @@ class TreeSubscriber implements EventSubscriber
 	public function getSubscribedEvents(): array
 	{
 		return [
-			Events::loadClassMetadata
+			Events::loadClassMetadata,
+			Events::onFlush
 		];
 	}
 
@@ -44,6 +49,46 @@ class TreeSubscriber implements EventSubscriber
 
 		$this->mapParent($classMetadata, $reflectionClass);
 		$this->mapChildren($classMetadata, $reflectionClass);
+	}
+
+	/**
+	 * On flush event
+	 *
+	 * @param OnFlushEventArgs $args
+	 */
+	public function onFlush(OnFlushEventArgs $args): void
+	{
+		$uow = $args->getEntityManager()->getUnitOfWork();
+
+		foreach ($uow->getScheduledEntityUpdates() as $entity)
+		{
+			if (!$entity instanceof TreeInterface)
+			{
+				continue;
+			}
+
+			$changeSet = $uow->getEntityChangeSet($entity);
+
+			if (!isset($changeSet['parent']))
+			{
+				continue;
+			}
+
+			// unset to recompute url's
+			if ($entity instanceof UrlInterface)
+			{
+				$this->unsetUrl($entity, $uow);
+			}
+			else
+			{
+				if ($entity instanceof TranslateInterface)
+				{
+					$this->unsetTranslationUrl($entity, $uow);
+				}
+			}
+		}
+
+		$uow->computeChangeSets();
 	}
 
 	/**
@@ -98,6 +143,91 @@ class TreeSubscriber implements EventSubscriber
 			}
 
 			$classMetadata->mapOneToMany($mapping);
+		}
+	}
+
+	/**
+	 * Unset url
+	 *
+	 * @param TreeInterface|UrlInterface $entity
+	 * @param UnitOfWork $uow
+	 */
+	private function unsetUrl(UrlInterface $entity, UnitOfWork $uow): void
+	{
+		$entity->setUrl(null);
+
+		$uow->persist($entity);
+
+		$this->unsetChildrenUrl($entity, $uow);
+	}
+
+	/**
+	 * Unset children url
+	 *
+	 * @param TreeInterface $entity
+	 * @param UnitOfWork $uow
+	 */
+	private function unsetChildrenUrl(TreeInterface $entity, UnitOfWork $uow): void
+	{
+		/**
+		 * @var TreeInterface|UrlInterface $child
+		 */
+		foreach ($entity->getChildren() as $child)
+		{
+			$child->setUrl(null);
+
+			$uow->persist($child);
+
+			$this->unsetChildrenUrl($child, $uow);
+		}
+	}
+
+	/**
+	 * Unset translation url
+	 *
+	 * @param TranslateInterface $entity
+	 * @param UnitOfWork $uow
+	 */
+	private function unsetTranslationUrl(TranslateInterface $entity, UnitOfWork $uow): void
+	{
+		foreach ($entity->getTranslations() as $translation)
+		{
+			if (!$translation instanceof UrlInterface)
+			{
+				return;
+			}
+
+			$translation->setUrl(null);
+
+			$uow->persist($translation);
+		}
+
+		$this->unsetTranslationChildrenUrl($entity, $uow);
+	}
+
+	/**
+	 * Unset translation children url
+	 *
+	 * @param TreeInterface|TranslateInterface $entity
+	 * @param UnitOfWork $uow
+	 */
+	private function unsetTranslationChildrenUrl(TreeInterface $entity, UnitOfWork $uow): void
+	{
+		foreach ($entity->getChildren() as $child)
+		{
+			foreach ($child->getTranslations() as $translation)
+			{
+				if (!$translation instanceof UrlInterface)
+				{
+					return;
+				}
+
+				$translation->setUrl(null);
+
+				$uow->persist($translation);
+			}
+
+			$this->unsetTranslationChildrenUrl($child, $uow);
 		}
 	}
 }

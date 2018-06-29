@@ -16,4 +16,5 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/webpack/config.json
 !**/.gitkeep

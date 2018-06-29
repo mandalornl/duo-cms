@@ -28,6 +28,12 @@ class NumericFilter extends AbstractFilter
 					->setParameter($param, $data['value']);
 				break;
 
+			case 'notEquals':
+				$this->builder
+					->andWhere("{$this->alias}.{$this->property} <> :{$param}")
+					->setParameter($param, $data['value']);
+				break;
+
 			case 'greaterOrEquals':
 				$this->builder
 					->andWherE("{$this->alias}.{$this->property} >= :{$param}")
@@ -53,7 +59,7 @@ class NumericFilter extends AbstractFilter
 				break;
 
 			default:
-				throw $this->getOperatorException();
+				throw $this->createIllegalOperatorException();
 		}
 	}
 

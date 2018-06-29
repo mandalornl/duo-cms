@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route(name="app_")
+ * @Route("/", name="app_")
  */
 class DefaultController extends Controller
 {

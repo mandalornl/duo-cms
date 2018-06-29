@@ -1,0 +1,1 @@
+require('src/Duo/AdminBundle/Resources/webpack/admin');

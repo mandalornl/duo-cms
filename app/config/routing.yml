@@ -1,34 +1,26 @@
 duo_admin:
     resource: '@DuoAdminBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_page:
     resource: '@DuoPageBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_form:
     resource: '@DuoFormBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_security:
     resource: '@DuoSecurityBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_taxonomy:
     resource: '@DuoTaxonomyBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_media:
     resource: '@DuoMediaBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_translator:
     resource: '@DuoTranslatorBundle/Resources/config/routing.yml'
-    prefix: /admin
 
 duo_seo:
     resource: '@DuoSeoBundle/Resources/config/routing.yml'
-    prefix: /
 
 duo_url:
     resource: .
@@ -36,4 +28,3 @@ duo_url:
 
 app:
     resource: '@AppBundle/Resources/config/routing.yml'
-    prefix: /

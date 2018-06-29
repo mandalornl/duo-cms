@@ -62,7 +62,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 
 		$form->translate('en')
 			->setSubject('Thanks!')
-			->setMessage('<p>Thank you for filling in the form.</p>')
+			->setMessage('<p>Thank you for filling out the form.</p>')
 			->addPart(
 				(new ChoiceFormPart())
 					->setLabel('Salutation')

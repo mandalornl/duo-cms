@@ -5,7 +5,7 @@ namespace Duo\AdminBundle\Helper;
 class SlugifyHelper
 {
 	/**
-	 * SlugifyHelper constructor.
+	 * SlugifyHelper constructor
 	 */
 	private function __construct() {}
 
@@ -13,14 +13,14 @@ class SlugifyHelper
 	 * Slugify
 	 *
 	 * @param string $input
-	 * @param string $rule [optional]
 	 * @param string $delimiter [optional]
+	 * @param string $rule [optional]
 	 *
 	 * @return string
 	 *
 	 * @throws \IntlException
 	 */
-	public static function slugify(string $input, string $rule = null, string $delimiter = '-'): string
+	public static function slugify(string $input, string $delimiter = '-', string $rule = null): string
 	{
 		if (!$input)
 		{
@@ -28,7 +28,7 @@ class SlugifyHelper
 		}
 
 		$transliterator = \Transliterator::create(
-			$rule ?: 'Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();'
+			$rule ?: 'Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC; Lower();'
 		);
 
 		if (!($slug = $transliterator->transliterate($input)))
@@ -39,6 +39,9 @@ class SlugifyHelper
 			);
 		}
 
-		return trim(preg_replace("#[{$delimiter}\s]+#", $delimiter, $slug), $delimiter);
+		$slug = preg_replace("#[\\{$delimiter}]+#", $delimiter, $slug);
+		$slug = preg_replace("#[^0-9a-z\\{$delimiter}]+#", $delimiter, $slug);
+
+		return trim($slug, $delimiter);
 	}
 }

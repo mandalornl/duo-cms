@@ -4,32 +4,50 @@
 parameters:
     brand_name: Duo
 
-    database_host: 127.0.0.1
-    database_port: ~
-    database_name: symfony
-    database_user: root
-    database_password: ~
+    database_host: '%env(DATABASE_HOST)%'
+    database_port: '%env(DATABASE_PORT)%'
+    database_name: '%env(DATABASE_NAME)%'
+    database_user: '%env(DATABASE_USER)%'
+    database_password: '%env(DATABASE_PASSWORD)%'
     # You should uncomment this if you want to use pdo_sqlite
     #database_path: '%kernel.project_dir%/var/data/data.sqlite'
 
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_password: ~
-    mailer_from: info@example.com
+    mailer_transport: '%env(MAILER_TRANSPORT)%'
+    mailer_host: '%env(MAILER_HOST)%'
+    mailer_port: '%env(MAILER_PORT)%'
+    mailer_user: '%env(MAILER_USER)%'
+    mailer_password: '%env(MAILER_PASSWORD)%'
+    mailer_encryption: '%env(MAILER_ENCRYPTION)%'
+    mailer_from: '%env(MAILER_FROM)%'
 
     # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: '%env(SECRET)%'
 
-    locale: en
-    locales: nl|en
-
-    php_dev_host: 127.0.0.1
-    php_dev_port: 3000
-
-    webpack_dev_host: 0.0.0.0
-    webpack_dev_port: 3030
+    locale: '%env(LOCALE)%'
+    locales: '%env(LOCALES)%'
 
     dkim_key_file: '%kernel.project_dir%/app/config/dkim.key'
-    dkim_domain: 'example.com'
-    dkim_selector: 'default'
+    dkim_domain: '%env(DKIM_DOMAIN)%'
+    dkim_selector: '%env(DKIM_SELECTOR)%'
+
+    env(DATABASE_HOST): 127.0.0.1
+    env(DATABASE_PORT): ~
+    env(DATABASE_NAME): duo
+    env(DATABASE_USER): root
+    env(DATABASE_PASSWORD): ~
+
+    env(MAILER_TRANSPORT): smtp
+    env(MAILER_HOST): 127.0.0.1
+    env(MAILER_PORT): 25
+    env(MAILER_USER): ~
+    env(MAILER_PASSWORD): ~
+    env(MAILER_ENCRYPTION): ~
+    env(MAILER_FROM): info@example.com
+
+    env(SECRET): ThisTokenIsNotSoSecretChangeIt
+
+    env(LOCALE): en
+    env(LOCALES): nl|en
+
+    env(DKIM_DOMAIN): example.com
+    env(DKIM_SELECTOR): default

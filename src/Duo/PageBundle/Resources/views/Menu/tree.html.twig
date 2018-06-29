@@ -1,14 +1,12 @@
 {% spaceless %}
-<ul class="nestable-list{% if not pages | length %} d-none{% endif %}" role="tree"{% if parent is defined and parent %} data-id="{{ parent.id }}"{% endif %}>
+<ul class="nestable-list{% if not pages | length %} d-none{% endif %}{% if async is defined and async %} nestable-async{% endif %}"{% if parent is defined and parent %} data-id="{{ parent.id }}"{% endif %}>
 	{% for page in pages %}
-		<li class="nestable-item" role="treeitem" draggable="true" data-id="{{ page.id }}">
-			<div class="nestable-text">
-				<a href="javascript:;" class="nestable-btn{% if not page.children | length %} d-none{% endif %}" data-url="{{ path('duo_page_tree_children', { id: page.id }) }}">
-					<i class="icon-folder"></i>
-				</a>
-				{{- page.title }}
+		<li class="nestable-item" data-id="{{ page.id }}">
+			<div class="nestable-handle">
+				<a href="javascript:;" class="nestable-folder{% if not page.children | length %} d-none{% endif %}" data-url="{{ path('duo_page_tree_children', { id: page.id }) }}"></a>
+				{{- page.title -}}
 			</div>
-			{% include '@DuoPage/Menu/tree.html.twig' with { parent: page, pages: [] } %}
+			{% include '@DuoPage/Menu/tree.html.twig' with { parent: page, pages: [], async: page.children | length } %}
 		</li>
 	{% endfor %}
 </ul>

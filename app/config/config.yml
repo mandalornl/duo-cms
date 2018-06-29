@@ -1,5 +1,6 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: env_vars.php }
     - { resource: security.yml }
     - { resource: services.yml }
 
@@ -69,8 +70,10 @@ doctrine:
 swiftmailer:
     transport: '%mailer_transport%'
     host: '%mailer_host%'
+    port: '%mailer_port%'
     username: '%mailer_user%'
     password: '%mailer_password%'
+    encryption: '%mailer_encryption%'
     spool: { type: memory }
 
 mjml:
