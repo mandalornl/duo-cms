@@ -44,15 +44,10 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-            "yarn build"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
-		"deploy-scripts": [
-			"yarn build"
-		],
         "post-install-cmd": [
-            "@symfony-scripts",
-			"@deploy-scripts"
+            "@symfony-scripts"
         ],
         "post-update-cmd": [
             "@symfony-scripts"
