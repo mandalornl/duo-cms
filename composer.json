@@ -18,6 +18,7 @@
         "ext-intl": "^1.1",
         "ext-memcached": "^3.0",
         "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
         "infinite-networks/form-bundle": "^1.0",
@@ -32,7 +33,6 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "phpunit/phpunit": "^6.5",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
