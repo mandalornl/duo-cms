@@ -5563,9 +5563,9 @@ sass-graph@^2.2.4:
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
 
-"sass-libs@https://gitlab.softmedia.nl/common/sass-libs.git":
+"sass-libs@https://github.com/mandalornl/sass-libs.git":
   version "0.0.0"
-  resolved "https://gitlab.softmedia.nl/common/sass-libs.git#a3c03f94526640c32bcaa5ff2dc738b2d76e05bb"
+  resolved "https://github.com/mandalornl/sass-libs.git#472f8d143babb8598748e2bd0344b8e9c894e09b"
 
 sass-loader@^7.0.3:
   version "7.0.3"

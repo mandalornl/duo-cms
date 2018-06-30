@@ -80,16 +80,16 @@
 				<div class="input-group">
 					{{ form_widget(list.searchForm.q) }}
 					<div class="input-group-append">
-						<button type="submit" class="btn btn-primary">
-							<span>
-								{{- 'duo.admin.listing.search.search' | trans -}}
-							</span> <i class="icon-search"></i>
-						</button>
 						<a href="{{ path(routePrefix ~ '_search') }}?clear" class="btn btn-secondary">
 							<span>
 								{{- 'duo.admin.listing.search.clear' | trans -}}
 							</span> <i class="icon-cross"></i>
 						</a>
+						<button type="submit" class="btn btn-primary">
+							<span>
+								{{- 'duo.admin.listing.search.search' | trans -}}
+							</span> <i class="icon-search"></i>
+						</button>
 					</div>
 				</div>
 			</div>
