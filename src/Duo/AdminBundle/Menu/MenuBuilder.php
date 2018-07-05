@@ -241,7 +241,7 @@ class MenuBuilder implements MenuBuilderInterface
 			}
 
 			// set active menu item
-			if (($url = $menu->getUrl()) && strcmp($url, $this->requestUri) === 0)
+			if (($url = $menu->getUrl()) && $url === $this->requestUri)
 			{
 				$menu->setActive(true);
 

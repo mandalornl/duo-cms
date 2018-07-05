@@ -23,10 +23,10 @@ class RoleFixture extends Fixture
 			 'Administrator' => 'ROLE_ADMIN',
 			 'User' => 'ROLE_USER',
 			 'Anonymous' => 'IS_AUTHENTICATED_ANONYMOUSLY',
-			 'Can view' => 'ROLE_CAN_VIEW',
-			 'Can edit' => 'ROLE_CAN_EDIT',
-			 'Can delete' => 'ROLE_CAN_DELETE',
-			 'Can publish' => 'ROLE_CAN_PUBLISH'
+			 'Can create' => 'ROLE_CAN_CREATE',
+			 'Can read' => 'ROLE_CAN_READ',
+			 'Can update' => 'ROLE_CAN_UPDATE',
+			 'Can delete' => 'ROLE_CAN_DELETE'
 		 ] as $name => $roleName)
 		{
 			$role = (new Role())

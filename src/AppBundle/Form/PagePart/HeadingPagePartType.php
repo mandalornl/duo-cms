@@ -13,13 +13,14 @@ class HeadingPagePartType extends AbstractPagePartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		parent::buildForm($builder, $options);
 
 		$builder->add('type', ChoiceType::class, [
 			'required' => false,
 			'placeholder' => false,
+			'label' => 'app.form.heading_page_part.type.label',
 			'choices' => [
 				'Heading 1' => 'h1',
 				'Heading 2' => 'h2',
@@ -34,7 +35,7 @@ class HeadingPagePartType extends AbstractPagePartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => HeadingPagePart::class,

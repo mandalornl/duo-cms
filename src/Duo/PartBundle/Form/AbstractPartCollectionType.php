@@ -29,7 +29,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildView(FormView $view, FormInterface $form, array $options)
+	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
 		$icons = $this->configurator->getIcons();
 		foreach ($icons as $class => $icon)
@@ -45,7 +45,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$types = $this->configurator->getTypes();
 

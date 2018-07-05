@@ -19,3 +19,11 @@ services:
         arguments:
             $relativeUploadPath: '%duo.media.relative_upload_path%'
             $absoluteUploadPath: '%duo.media.absolute_upload_path%'
+
+    duo.media.listing.form.file_listener:
+        class: Duo\MediaBundle\EventListener\Listing\Form\FileListener
+        arguments:
+            $uploadHelper: '@duo.media.upload_helper'
+        tags:
+            - { name: kernel.event_listener, event: duo.event.listing.form.postCreate, method: postCreate }
+            - { name: kernel.event_listener, event: duo.event.listing.form.postUpdate, method: postUpdate }

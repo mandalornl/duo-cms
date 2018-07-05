@@ -34,22 +34,22 @@ class GroupFixture extends Fixture implements DependentFixtureInterface
 				 'ROLE_SUPER_ADMIN',
 				 'ROLE_ADMIN',
 				 'ROLE_USER',
-				 'ROLE_CAN_VIEW',
-				 'ROLE_CAN_EDIT',
-				 'ROLE_CAN_DELETE',
-				 'ROLE_CAN_PUBLISH'
+				 'ROLE_CAN_CREATE',
+				 'ROLE_CAN_READ',
+				 'ROLE_CAN_UPDATE',
+				 'ROLE_CAN_DELETE'
 			 ],
 			 'Administrators' => [
 				 'ROLE_ADMIN',
 				 'ROLE_USER',
-				 'ROLE_CAN_VIEW',
-				 'ROLE_CAN_EDIT',
-				 'ROLE_CAN_DELETE',
-				 'ROLE_CAN_PUBLISH'
+				 'ROLE_CAN_CREATE',
+				 'ROLE_CAN_READ',
+				 'ROLE_CAN_UPDATE',
+				 'ROLE_CAN_DELETE'
 			 ],
 			 'Users' => [
 				 'ROLE_USER',
-				 'ROLE_CAN_VIEW'
+				 'ROLE_CAN_READ'
 			 ],
 			 'Guests' => [
 				 'IS_AUTHENTICATED_ANONYMOUSLY'

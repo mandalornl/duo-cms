@@ -32,10 +32,18 @@ duo:
                     label: Interne naam
                 weight:
                     label: Gewicht
+                taxonomies:
+                    label: Taxonomieën
+                parent:
+                    label: Bovenliggend
                 title:
                     label: Titel
                 visible_menu:
                     label: Zichtbaar
+                slug:
+                    label: Slug
+                url:
+                    label: Url
 
             page_autocomplete:
                 label: Parent

@@ -12,7 +12,7 @@ class PagePartConfiguratorListener
 	 *
 	 * @param PagePartConfiguratorEvent $event
 	 */
-	public function preLoad(PagePartConfiguratorEvent $event)
+	public function preLoad(PagePartConfiguratorEvent $event): void
 	{
 		$config = Yaml::parseFile(__DIR__ . '/../Resources/config/pageparts.yml');
 

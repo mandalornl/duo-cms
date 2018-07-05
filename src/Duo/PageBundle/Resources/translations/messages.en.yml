@@ -32,10 +32,18 @@ duo:
                     label: Internal name
                 weight:
                     label: Weight
+                taxonomies:
+                    label: Taxonomies
+                parent:
+                    label: Parent
                 title:
                     label: Title
                 visible_menu:
                     label: Visible
+                slug:
+                    label: Slug
+                url:
+                    label: Url
 
             page_autocomplete:
                 label: Parent

@@ -27,6 +27,12 @@ duo:
                 file:
                     label: Bestand
 
+            folder:
+                name:
+                    label: Naam
+                parent:
+                    label: Bovenliggend
+
             folder_autocomplete:
                 label: Map
                 placeholder: Voer url of naam in

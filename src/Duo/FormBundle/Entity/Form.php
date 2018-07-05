@@ -32,6 +32,15 @@ class Form extends AbstractNode
 	protected $emailTo;
 
 	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="send_result_to", type="string", nullable=true)
+	 * @Assert\Length(min="0")
+	 * @Assert\Email()
+	 */
+	protected $sendResultTo;
+
+	/**
 	 * Set emailFrom
 	 *
 	 * @param string $emailFrom
@@ -77,6 +86,30 @@ class Form extends AbstractNode
 	public function getEmailTo(): ?string
 	{
 		return $this->emailTo;
+	}
+
+	/**
+	 * Set sendResultTo
+	 *
+	 * @param string $sendResultTo
+	 *
+	 * @return Form
+	 */
+	public function setSendResultTo(string $sendResultTo = null): Form
+	{
+		$this->sendResultTo = $sendResultTo;
+
+		return $this;
+	}
+
+	/**
+	 * Get sendResultTo
+	 *
+	 * @return string
+	 */
+	public function getSendResultTo(): ?string
+	{
+		return $this->sendResultTo;
 	}
 
 	/**

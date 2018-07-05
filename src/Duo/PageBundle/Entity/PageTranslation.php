@@ -14,6 +14,7 @@ use Duo\PartBundle\Entity\EntityPartInterface;
 use Duo\PartBundle\Entity\EntityPartTrait;
 use Duo\SeoBundle\Entity\SeoInterface;
 use Duo\SeoBundle\Entity\SeoTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_page_translation")
@@ -31,6 +32,7 @@ class PageTranslation extends AbstractNodeTranslation implements SlugInterface, 
 	 * @var string
 	 *
 	 * @ORM\Column(name="title", type="string", nullable=true)
+	 * @Assert\NotBlank()
 	 */
 	private $title;
 

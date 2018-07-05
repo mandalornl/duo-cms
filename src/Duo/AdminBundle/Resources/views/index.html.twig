@@ -3,14 +3,14 @@
 {% set htmlLocale = app.request.locale | slice(0, 2) %}
 <html lang="{{ htmlLocale }}">
 <head>
-	{# Google Analytics #}
-	{% include '@DuoAdmin/Layout/_googleanalytics.html.twig' %}
-
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 	<title>{% block title %}Admin{% endblock %}</title>
+
+	{# Google Analytics #}
+	{% include '@DuoAdmin/Layout/_googleanalytics.html.twig' %}
 
 	{# Webfonts #}
 	{% include '@DuoAdmin/Layout/_webfonts.html.twig' %}

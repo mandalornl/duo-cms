@@ -5,3 +5,8 @@ app:
         video: Video
         wysiwyg: Tekst
         form: Formulier
+
+    form:
+        heading_page_part:
+            type:
+                label: Type

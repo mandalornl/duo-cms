@@ -87,7 +87,7 @@ abstract class AbstractEntityRepository extends EntityRepository
 	 * @param QueryBuilder $builder
 	 * @param string $alias [optional]
 	 */
-	private function andWherePublished(QueryBuilder $builder, string $alias = 'e')
+	private function andWherePublished(QueryBuilder $builder, string $alias = 'e'): void
 	{
 		$builder
 			->andWhere("({$alias}.publishAt <= :dateTime AND ({$alias}.unpublishAt > :dateTime OR {$alias}.unpublishAt IS NULL))")

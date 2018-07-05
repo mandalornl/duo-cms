@@ -62,7 +62,8 @@ class FormViewController extends Controller
 
 		$form = $this->createForm(FormViewType::class, null, [
 			'action' => $this->generateUrl('duo_form_view_form', [
-				'id' => $id
+				'id' => $id,
+				'locale' => $request->getLocale()
 			]),
 			'formParts' => $formParts
 		]);
@@ -101,13 +102,17 @@ class FormViewController extends Controller
 			 */
 			$translation = $entity->translate($request->getLocale());
 
-			$message = $this->get('duo.admin.mailer_helper')
-				->prepare('@DuoForm/Mail/form_result.mjml.twig', [
-					'submission' => $submission
-				])
-				->setTo($entity->getEmailTo());
+			// send result to
+			if ($entity->getSendResultTo() && !count($this->get('validator')->validateProperty($entity, 'sendResultTo')))
+			{
+				$message = $this->get('duo.admin.mailer_helper')
+					->prepare('@DuoForm/Mail/form_result.mjml.twig', [
+						'submission' => $submission
+					])
+					->setTo($entity->getSendResultTo());
 
-			$this->get('mailer')->send($message);
+				$this->get('mailer')->send($message);
+			}
 
 			return $this->json([
 				'success' => true,

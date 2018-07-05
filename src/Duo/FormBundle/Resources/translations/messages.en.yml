@@ -33,6 +33,8 @@ duo:
                     label: Email from
                 email_to:
                     label: Email to
+                send_result_to:
+                    label: Send result to
                 subject:
                     label: Subject
                 message:

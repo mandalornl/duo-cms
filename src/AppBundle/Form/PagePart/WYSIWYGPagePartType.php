@@ -7,29 +7,25 @@ use Duo\AdminBundle\Form\WYSIWYGType;
 use Duo\PageBundle\Form\AbstractPagePartType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class WYSIWYGPagePartType extends AbstractPagePartType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		parent::buildForm($builder, $options);
 
 		$builder->add('value', WYSIWYGType::class, [
-			'label' => false,
-			'constraints' => [
-				new NotBlank()
-			]
+			'label' => false
 		]);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => WYSIWYGPagePart::class,

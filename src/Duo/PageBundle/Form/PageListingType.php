@@ -13,13 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class PageListingType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
@@ -30,6 +31,9 @@ class PageListingType extends AbstractType
 					'entry_type' => PageTranslationListingType::class,
 					'entry_options' => [
 						'isNew' => is_object($options['data']) ? $options['data']->getId() === null : true
+					],
+					'constraints' => [
+						new Valid()
 					]
 				])
 			)
@@ -45,9 +49,11 @@ class PageListingType extends AbstractType
 					'required' => false
 				])
 				->add('taxonomies', TaxonomyChoiceType::class, [
+					'label' => 'duo.page.form.page.taxonomies.label',
 					'required' => false
 				])
 				->add('parent', PageAutoCompleteType::class, [
+					'label' => 'duo.page.form.page.parent.label',
 					'required' => false
 				])
 			);
@@ -60,7 +66,7 @@ class PageListingType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => Page::class

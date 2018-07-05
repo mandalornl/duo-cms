@@ -11,7 +11,7 @@ abstract class AbstractTextFormPartType extends AbstractFormPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		parent::buildForm($builder, $options);
 

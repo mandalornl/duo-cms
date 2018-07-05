@@ -15,7 +15,7 @@ class BreadcrumbHelper
 	 *
 	 * @return array
 	 */
-	public function getBreadcrumbs($entity)
+	public function getBreadcrumbs($entity): ?array
 	{
 		if (!$entity instanceof UrlInterface)
 		{
@@ -34,6 +34,7 @@ class BreadcrumbHelper
 
 		$breadcrumbs = [];
 
+		// limit iterations to prevent infinite loop
 		$iterations = 100;
 
 		do

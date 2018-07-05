@@ -10,14 +10,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class EntryListingType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
@@ -25,16 +25,10 @@ class EntryListingType extends AbstractType
 					'label' => 'duo.translator.tab.properties'
 				])
 				->add('keyword', TextType::class, [
-					'label' => 'duo.translator.form.entry.keyword.label',
-					'constraints' => [
-						new NotBlank()
-					]
+					'label' => 'duo.translator.form.entry.keyword.label'
 				])
 				->add('domain', TextType::class, [
-					'label' => 'duo.translator.form.entry.domain.label',
-					'constraints' => [
-						new NotBlank()
-					]
+					'label' => 'duo.translator.form.entry.domain.label'
 				])
 			)
 			->add(
@@ -42,7 +36,10 @@ class EntryListingType extends AbstractType
 					'label' => 'duo.translator.tab.content'
 				])
 				->add('translations', TranslationType::class, [
-					'entry_type' => EntryTranslationListingType::class
+					'entry_type' => EntryTranslationListingType::class,
+					'constraints' => [
+						new Valid()
+					]
 				])
 			);
 
@@ -52,7 +49,7 @@ class EntryListingType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => Entry::class

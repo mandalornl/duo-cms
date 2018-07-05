@@ -29,7 +29,7 @@ class GroupChoiceType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'label' => 'duo.security.form.group_choice.label',

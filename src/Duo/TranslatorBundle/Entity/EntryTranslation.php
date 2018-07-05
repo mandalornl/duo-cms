@@ -5,6 +5,7 @@ namespace Duo\TranslatorBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\TranslationInterface;
 use Duo\CoreBundle\Entity\TranslationTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_translator_entry_translation")
@@ -18,6 +19,7 @@ class EntryTranslation implements TranslationInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="text", type="text", nullable=true)
+	 * @Assert\NotBlank()
 	 */
 	private $text;
 

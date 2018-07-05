@@ -21,6 +21,6 @@ class FolderDestroyController extends AbstractDestroyController
 	 */
 	public function destroyAction(Request $request, int $id = null): Response
 	{
-
+		return $this->doDestroyAction($request, $id);
 	}
 }

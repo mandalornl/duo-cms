@@ -10,7 +10,7 @@ class BooleanFilterType extends AbstractFilterType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder->add('value', ChoiceType::class, [
 			'required' => false,

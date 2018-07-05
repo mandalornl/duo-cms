@@ -29,7 +29,7 @@ class PageListController extends AbstractListController
 	}
 
 	/**
-	 * Define fields
+	 * {@inheritdoc}
 	 */
 	protected function defineFields(): void
 	{
@@ -43,7 +43,7 @@ class PageListController extends AbstractListController
 	}
 
 	/**
-	 * Define filters
+	 * {@inheritdoc}
 	 */
 	protected function defineFilters(): void
 	{

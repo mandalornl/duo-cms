@@ -3,12 +3,9 @@ duo:
         mail:
             form_result:
                 subject: Form results - %form_name%
-                body_text: |
+                message: |
                     New form results.
 
                     Use the following url to view the results:
 
                     %url%
-                body_html:
-                    title: Form results
-                    button: Bekijken

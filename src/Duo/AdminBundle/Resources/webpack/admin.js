@@ -1,7 +1,7 @@
 import './js/checkable';
 import './js/list';
-import './js/list-add';
-import './js/list-edit';
+import './js/list-create';
+import './js/list-update';
 import './js/menu';
 import './js/page-tree';
 import './js/sticky-navbar';

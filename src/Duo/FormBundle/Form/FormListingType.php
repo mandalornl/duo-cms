@@ -11,13 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class FormListingType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
@@ -25,7 +26,10 @@ class FormListingType extends AbstractType
 					'label' => 'duo.form.tab.content'
 				])
 				->add('translations', TranslationType::class, [
-					'entry_type' => FormTranslationListingType::class
+					'entry_type' => FormTranslationListingType::class,
+					'constraints' => [
+						new Valid()
+					]
 				])
 			)
 			->add(
@@ -41,6 +45,10 @@ class FormListingType extends AbstractType
 				->add('emailTo', EmailType::class, [
 					'label' => 'duo.form.form.form.email_to.label'
 				])
+				->add('sendResultTo', EmailType::class, [
+					'required' => false,
+					'label' => 'duo.form.form.form.send_result_to.label'
+				])
 			);
 
 		$builder->add($tabs);
@@ -49,7 +57,7 @@ class FormListingType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => Form::class

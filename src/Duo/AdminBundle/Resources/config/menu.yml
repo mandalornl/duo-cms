@@ -11,7 +11,8 @@ content:
             icon: icon-tree
         media:
             label: duo.media.menu.media
-            route: duo_media_listing_folder_index
+            url: javascript:;
+#            route: duo_media_listing_folder_index
             icon: icon-images
 
 forms:

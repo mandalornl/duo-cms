@@ -12,23 +12,23 @@ class ListingFilterType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		foreach ($options['filters'] as $filter)
 		{
 			/**
 			 * @var FilterInterface $filter
 			 */
-			$builder->add($filter->getProperty(), $filter->getFormType(), array_merge([
+			$builder->add($filter->getProperty(), $filter->getFormType(), array_merge($filter->getFormOptions(), [
 				'required' => false
-			], $filter->getFormOptions()));
+			]));
 		}
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'filters' => []

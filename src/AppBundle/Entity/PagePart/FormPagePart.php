@@ -5,18 +5,19 @@ namespace AppBundle\Entity\PagePart;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Form\PagePart\FormPagePartType;
 use Duo\FormBundle\Entity\Form;
-use Duo\PartBundle\Entity\AbstractPart;
+use Duo\PageBundle\Entity\AbstractPagePart;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_page_part_form")
  * @ORM\Entity()
  */
-class FormPagePart extends AbstractPart
+class FormPagePart extends AbstractPagePart
 {
 	/**
 	 * @var string
 	 *
-	 * Overwrite ORM mapping
+	 * Override ORM mapping
 	 */
 	protected $value;
 
@@ -25,6 +26,7 @@ class FormPagePart extends AbstractPart
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")
 	 * @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
+	 * @Assert\NotBlank()
 	 */
 	private $form;
 

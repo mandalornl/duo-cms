@@ -1,0 +1,8 @@
+{% extends '@DuoAdmin/Listing/create.html.twig' %}
+
+{% block modal %}
+	{% if entity is revisionable %}
+		{% include '@DuoAdmin/Listing/Modal/revisions.html.twig' %}
+	{% endif %}
+	{{ parent() }}
+{% endblock %}

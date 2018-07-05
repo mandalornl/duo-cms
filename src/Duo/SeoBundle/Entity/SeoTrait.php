@@ -3,6 +3,7 @@
 namespace Duo\SeoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait SeoTrait
 {
@@ -10,6 +11,7 @@ trait SeoTrait
 	 * @var string
 	 *
 	 * @ORM\Column(name="meta_title", type="string", length=60, nullable=true)
+	 * @Assert\Length(max="60")
 	 */
 	protected $metaTitle;
 
@@ -24,6 +26,7 @@ trait SeoTrait
 	 * @var string
 	 *
 	 * @ORM\Column(name="meta_description", type="text", nullable=true)
+	 * @Assert\Length(max="300")
 	 */
 	protected $metaDescription;
 

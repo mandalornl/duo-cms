@@ -3,12 +3,9 @@ duo:
         mail:
             form_result:
                 subject: Resultaten formulier - %form_name%
-                body_text: |
+                message: |
                     Nieuwe resultaten formulier.
 
                     Gebruik de onderstaande url om de resultaten te bekijken:
 
                     %url%
-                body_html:
-                    title: Resultaten formulier
-                    button: Bekijken

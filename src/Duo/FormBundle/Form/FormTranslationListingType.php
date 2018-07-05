@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class FormTranslationListingType extends AbstractType
 {
@@ -25,23 +25,21 @@ class FormTranslationListingType extends AbstractType
 					'label' => 'duo.form.tab.message'
 				])
 				->add('subject', TextType::class, [
-					'label' => 'duo.form.form.form.subject.label',
-					'constraints' => [
-						new NotBlank()
-					]
+					'label' => 'duo.form.form.form.subject.label'
 				])
 				->add('message', WYSIWYGType::class, [
-					'label' => 'duo.form.form.form.message.label',
-					'constraints' => [
-						new NotBlank()
-					]
+					'label' => 'duo.form.form.form.message.label'
 				])
 			)
 			->add(
 				$builder->create('fields', TabType::class, [
 					'label' => 'duo.form.tab.fields'
 				])
-				->add('parts', FormPartCollectionType::class)
+				->add('parts', FormPartCollectionType::class, [
+					'constraints' => [
+						new Valid()
+					]
+				])
 			);
 
 		$builder->add($tabs);

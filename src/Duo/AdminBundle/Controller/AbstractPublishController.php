@@ -89,7 +89,7 @@ abstract class AbstractPublishController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function handlePublicationRequest(\Closure $callback, Request $request, int $id)
+	private function handlePublicationRequest(\Closure $callback, Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -141,7 +141,7 @@ abstract class AbstractPublishController extends AbstractController
 			]);
 		}
 
-		return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
+		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $entity->getId()
 		]);
 	}

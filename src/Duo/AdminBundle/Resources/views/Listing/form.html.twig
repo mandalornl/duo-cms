@@ -1,0 +1,10 @@
+{% spaceless %}
+{% form_theme form with [
+	'@DuoAdmin/Form/fields.html.twig',
+	'@DuoPart/Form/fields.html.twig',
+	'@DuoMedia/Form/fields.html.twig'
+] only %}
+{{ form_start(form, { attr: { class: 'form-entity' } }) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+{% endspaceless %}

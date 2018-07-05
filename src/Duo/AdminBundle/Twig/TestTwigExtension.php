@@ -42,7 +42,7 @@ class TestTwigExtension extends \Twig_Extension
 	 *
 	 * @return bool
 	 */
-	public function isBool($value)
+	public function isBool($value): bool
 	{
 		return in_array($value, [1, 0, true, false, '1', '0', 'true', 'false'], true);
 	}

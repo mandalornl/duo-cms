@@ -25,6 +25,7 @@ class FileListingType extends AbstractType
 				'required' => false,
 				'label' => 'duo.media.form.file.folder.label'
 			])
+			->add('url', PreviewType::class)
 			->add('file', FileType::class, [
 				'mapped' => false,
 				'label' => 'duo.media.form.file.file.label'

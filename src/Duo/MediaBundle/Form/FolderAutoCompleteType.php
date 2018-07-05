@@ -12,7 +12,7 @@ class FolderAutoCompleteType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'label' => 'duo.media.form.folder_autocomplete.label',

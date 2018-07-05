@@ -11,6 +11,7 @@ use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\CoreBundle\Entity\TranslateTrait;
 use Duo\CoreBundle\Entity\TranslationInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
@@ -35,6 +36,7 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="keyword", type="string", nullable=true)
+	 * @Assert\NotBlank()
 	 */
 	private $keyword;
 
@@ -42,6 +44,7 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="domain", type="string", nullable=true)
+	 * @Assert\NotBlank()
 	 */
 	private $domain;
 

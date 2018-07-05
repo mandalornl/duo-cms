@@ -6,7 +6,7 @@ import {extend} from 'lodash';
  *
  * @param {string} method
  *
- * @returns {function(*=, *=)}
+ * @returns {Function}
  */
 const call = (method) => async (url, data = null) =>
 {
@@ -84,12 +84,12 @@ const call = (method) => async (url, data = null) =>
  *
  * @param {string} url
  * @param {File} file
- * @param {Object} [params]
+ * @param {{}} [params]
  * @param {Function} [onProgress]
  *
  * @returns {Promise<*>}
  */
-const uploadFile = (url, file, params = {}, onProgress = (() => {})) => new Promise((accept, reject) =>
+const uploadFile = (url, file, params = {}, onProgress = (() => {})) => new Promise((resolve, reject) =>
 {
 	const xhr = new XMLHttpRequest();
 
@@ -114,7 +114,7 @@ const uploadFile = (url, file, params = {}, onProgress = (() => {})) => new Prom
 				return;
 			}
 
-			accept(parsed);
+			resolve(parsed);
 		}
 		catch (err)
 		{

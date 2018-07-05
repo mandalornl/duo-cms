@@ -27,6 +27,12 @@ duo:
                 file:
                     label: File
 
+            folder:
+                name:
+                    label: Name
+                parent:
+                    label: Parent
+
             folder_autocomplete:
                 label: Folder
                 placeholder: Enter url or name

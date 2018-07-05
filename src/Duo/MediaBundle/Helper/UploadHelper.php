@@ -34,9 +34,8 @@ class UploadHelper
 	 *
 	 * @param UploadedFile $file
 	 * @param File $entity
-	 * @param \Closure $callback [optional]
 	 */
-	public function upload(UploadedFile $file, File $entity, \Closure $callback = null): void
+	public function upload(UploadedFile $file, File $entity): void
 	{
 		$uuid = $this->getUuid();
 		$extension = $file->guessExtension();
@@ -69,11 +68,6 @@ class UploadHelper
 		if ($entity->getName() === null)
 		{
 			$entity->setName($file->getClientOriginalName());
-		}
-
-		if (is_callable($callback))
-		{
-			call_user_func_array($callback, [ $entity ]);
 		}
 
 		$file->move("{$this->absoluteUploadPath}/{$uuid}", $file->getClientOriginalName());

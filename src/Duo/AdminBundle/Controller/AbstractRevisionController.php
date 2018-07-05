@@ -106,7 +106,7 @@ abstract class AbstractRevisionController extends AbstractController
 
 		$this->addFlash('success', $this->get('translator')->trans('duo.core.listing.alert.revert_success'));
 
-		return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
+		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $entity->getId()
 		]);
 	}

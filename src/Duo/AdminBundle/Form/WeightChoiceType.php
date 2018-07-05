@@ -27,7 +27,7 @@ class WeightChoiceType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$choices = range(-100, 100);
 

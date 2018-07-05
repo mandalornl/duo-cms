@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class PageTranslationListingType extends AbstractType
 {
@@ -28,13 +28,13 @@ class PageTranslationListingType extends AbstractType
 					'label' => 'duo.page.tab.content'
 				])
 				->add('title', TextType::class, [
-					'label' => 'duo.page.form.page.title.label',
-					'required' => true,
+					'label' => 'duo.page.form.page.title.label'
+				])
+				->add('parts', PagePartCollectionType::class, [
 					'constraints' => [
-						new NotBlank()
+						new Valid()
 					]
 				])
-				->add('parts', PagePartCollectionType::class)
 			)
 			->add(
 				$builder->create('menu', TabType::class, [
@@ -45,11 +45,13 @@ class PageTranslationListingType extends AbstractType
 					'required' => false
 				])
 				->add('slug', TextType::class, [
+					'label' => 'duo.page.form.page.slug.label',
 					'required' => false,
 					// empty string is allowed for existing entities e.g. home
 					'empty_data' => !$options['isNew'] ? '' : null
 				])
 				->add('url', UrlType::class, [
+					'label' => 'duo.page.form.page.url.label',
 					'required' => false,
 					'disabled' => true
 				])

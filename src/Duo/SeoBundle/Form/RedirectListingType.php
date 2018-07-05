@@ -14,7 +14,7 @@ class RedirectListingType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder
 			->add('origin', TextType::class, [
@@ -24,15 +24,14 @@ class RedirectListingType extends AbstractType
 				'label' => 'duo.seo.form.redirect.target.label'
 			])
 			->add('permanent', CheckboxType::class, [
-				'label' => 'duo.seo.form.redirect.permanent.label',
-				'data' => true
+				'label' => 'duo.seo.form.redirect.permanent.label'
 			]);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => Redirect::class

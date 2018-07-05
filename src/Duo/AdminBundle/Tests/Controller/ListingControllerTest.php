@@ -65,7 +65,7 @@ class ListingControllerTest extends WebTestCase
 	 *
 	 * @param array $roles
 	 */
-	private function login(array $roles = null)
+	private function login(array $roles = null): void
 	{
 		$roles = $roles ?: ['ROLE_SUPER_ADMIN'];
 

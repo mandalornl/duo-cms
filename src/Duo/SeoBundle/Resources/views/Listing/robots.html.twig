@@ -1,4 +1,4 @@
-{% extends '@DuoAdmin/Listing/add.html.twig' %}
+{% extends '@DuoAdmin/Listing/create.html.twig' %}
 
 {% block toolbar %}
 	<nav class="navbar navbar-light bg-light justify-content-end">
@@ -21,7 +21,7 @@
 	<div class="row">
 		<div class="col-md-10 col-lg-8">
 			{% form_theme form with ['@DuoAdmin/Form/fields.html.twig'] only %}
-			{{ form_start(form, { attr: { class: 'form-edit' } }) }}
+			{{ form_start(form, { attr: { class: 'form-entity' } }) }}
 			{{ form_widget(form) }}
 			{{ form_end(form) }}
 		</div>

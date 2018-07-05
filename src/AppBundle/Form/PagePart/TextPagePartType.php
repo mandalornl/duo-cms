@@ -7,14 +7,13 @@ use Duo\PageBundle\Form\AbstractPagePartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TextPagePartType extends AbstractPagePartType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		parent::buildForm($builder, $options);
 
@@ -22,9 +21,6 @@ class TextPagePartType extends AbstractPagePartType
 			'label' => false,
 			'attr' => [
 				'rows' => 6
-			],
-			'constraints' => [
-				new NotBlank()
 			]
 		]);
 	}
@@ -32,7 +28,7 @@ class TextPagePartType extends AbstractPagePartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'data_class' => TextPagePart::class,

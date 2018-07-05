@@ -38,7 +38,7 @@ class UrlLoader extends Loader
 	/**
 	 * {@inheritdoc}
 	 */
-	public function load($resource, $type = null)
+	public function load($resource, $type = null): RouteCollection
 	{
 		if ($this->loaded === true)
 		{
@@ -48,18 +48,8 @@ class UrlLoader extends Loader
 
 		$this->loaded = true;
 
-		$path = '/{_locale}/{url}';
-		$defaults = [
-			'_controller' => 'DuoAdminBundle:Url:index',
-			'_locale' => $this->localeHelper->getLocale()
-		];
-		$requirements = [
-			'url' => '(.+)?',
-			'_locale' => implode('|', $this->localeHelper->getLocales())
-		];
-
 		$routes = new RouteCollection();
-		$routes->add($this->routeName, new Route($path, $defaults, $requirements));
+		$routes->add($this->routeName, $this->getRoute());
 
 		return $routes;
 	}
@@ -70,5 +60,30 @@ class UrlLoader extends Loader
 	public function supports($resource, $type = null): bool
 	{
 		return $type === $this->routeName;
+	}
+
+	/**
+	 * Get route
+	 *
+	 * @return Route
+	 */
+	private function getRoute(): Route
+	{
+		if (count($this->localeHelper->getLocales()) > 1)
+		{
+			return new Route('/{_locale}/{url}', [
+				'_controller' => 'DuoAdminBundle:Url:index',
+				'_locale' => $this->localeHelper->getLocale()
+			], [
+				'url' => '(.+)?',
+				'_locale' => $this->localeHelper->getLocalesAsString()
+			]);
+		}
+
+		return new Route('/{url}', [
+			'_controller' => 'DuoAdminBundle:Url:index'
+		], [
+			'url' => '(.+)?'
+		]);
 	}
 }

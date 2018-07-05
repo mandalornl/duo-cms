@@ -33,6 +33,8 @@ duo:
                     label: E-mail van
                 email_to:
                     label: E-mail naar
+                send_result_to:
+                    label: Resultaat versturen naar
                 subject:
                     label: Onderwerp
                 message:

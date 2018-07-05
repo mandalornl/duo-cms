@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\TranslationInterface;
 use Duo\CoreBundle\Entity\TranslationTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
@@ -28,6 +29,7 @@ class TaxonomyTranslation implements TranslationInterface
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", nullable=true)
+	 * @Assert\NotBlank()
 	 */
 	private $name;
 
@@ -48,7 +50,7 @@ class TaxonomyTranslation implements TranslationInterface
 	/**
 	 * Get name
 	 *
-	 * @Return string
+	 * @return string
 	 */
 	public function getName(): ?string
 	{

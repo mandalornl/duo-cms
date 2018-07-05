@@ -3,24 +3,15 @@ duo:
         mail:
             forgot_password:
                 subject: Forgot password
-                body_text: |
+                message: |
                     Reset password.
 
                     Use the following url to reset your password:
 
                     %url%
-                body_html:
-                    title: Reset password.
-                    use_button: Use the following button to reset your password.
-                    button: Reset
-                    copy_to_browser: Or copy and paste the following url to your browser
-
             reset_password:
                 subject: Password reset
-                body_text: |
+                message: |
                     Password reset.
 
                     Recently your password was reset. Please contact us if you have not done this yourself.
-                body_html:
-                    title: Password reset
-                    message: Recently your password was reset. Please contact us if you have not done this yourself.

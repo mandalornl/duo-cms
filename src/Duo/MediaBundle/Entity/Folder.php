@@ -17,6 +17,7 @@ use Duo\CoreBundle\Entity\TreeInterface;
 use Duo\CoreBundle\Entity\TreeTrait;
 use Duo\CoreBundle\Entity\UrlInterface;
 use Duo\CoreBundle\Entity\UrlTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_folder")
@@ -40,6 +41,7 @@ class Folder implements IdInterface,
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", nullable=true)
+	 * @Assert\NotBlank()
 	 */
 	private $name;
 

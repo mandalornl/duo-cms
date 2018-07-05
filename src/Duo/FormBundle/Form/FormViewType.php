@@ -8,13 +8,15 @@ use Duo\FormBundle\Entity\TextFormPartInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class FormViewType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		foreach ($options['formParts'] as $index => $formPart)
 		{
@@ -31,7 +33,11 @@ class FormViewType extends AbstractType
 			{
 				$formOptions = array_merge($formOptions, [
 					'required' => $formPart->getRequired(),
-					'invalid_message' => $formPart->getErrorMessage(),
+					'constraints' => $formPart->getRequired() ? [
+						$formPart->getErrorMessage() ? new NotBlank([
+							'message' => $formPart->getErrorMessage()
+						]) : new NotBlank()
+					] : null,
 					'attr' => [
 						'placeholder' => $formPart->getPlaceholder()
 					]
@@ -41,10 +47,19 @@ class FormViewType extends AbstractType
 			if ($formPart instanceof ChoiceFormPartInterface)
 			{
 				$choices = explode(PHP_EOL, $formPart->getChoices());
+				$choices = array_combine($choices, $choices);
 
 				$formOptions = array_merge($formOptions, [
 					'placeholder' => $formPart->getPlaceholder(),
-					'choices' => array_combine($choices, $choices),
+					'choices' => $choices,
+					'constraints' => $formPart->getRequired() ? [
+						$formPart->getErrorMessage() ? new Choice([
+							'choices' => $choices,
+							'message' => $formPart->getErrorMessage()
+						]) : new Choice([
+							'choices' => $choices
+						])
+					] : null,
 					'expanded' => $formPart->getExpanded(),
 					'multiple' => $formPart->getMultiple()
 				]);
@@ -57,7 +72,7 @@ class FormViewType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
 			'formParts' => []

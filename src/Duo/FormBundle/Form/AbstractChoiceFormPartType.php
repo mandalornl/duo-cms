@@ -5,23 +5,19 @@ namespace Duo\FormBundle\Form;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 abstract class AbstractChoiceFormPartType extends AbstractTextFormPartType
 {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		parent::buildForm($builder, $options);
 
 		$builder
 			->add('choices', TextareaType::class, [
-				'label' => 'duo.form.form.form_part.choices.label',
-				'constraints' => [
-					new NotBlank()
-				]
+				'label' => 'duo.form.form.form_part.choices.label'
 			])
 			->add('expanded', CheckboxType::class, [
 				'label' => 'duo.form.form.form_part.expanded.label',

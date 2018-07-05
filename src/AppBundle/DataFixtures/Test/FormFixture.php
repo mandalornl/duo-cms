@@ -30,6 +30,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 		$form->setName('Contact');
 		$form->setEmailFrom('noreply@example.com');
 		$form->setEmailTo('info@example.com');
+		$form->setSendResultTo('result@example.com');
 		$form->setCreatedBy($user);
 
 		$form->translate('nl')
@@ -52,7 +53,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 			)
 			->addPart(
 				(new TextareaFormPart())
-					->setLabel('Opmerking(en)')
+					->setLabel('Opmerkingen')
 					->setRequired(true)
 			)
 			->addPart(
@@ -80,7 +81,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 			)
 			->addPart(
 				(new TextareaFormPart())
-					->setLabel('Remark(s)')
+					->setLabel('Remarks')
 					->setRequired(true)
 			)
 			->addPart(

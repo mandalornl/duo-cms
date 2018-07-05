@@ -5,3 +5,8 @@ app:
         video: Video
         wysiwyg: Text
         form: Form
+
+    form:
+        heading_page_part:
+            type:
+                label: Type

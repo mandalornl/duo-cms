@@ -2,55 +2,19 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Duo\AdminBundle\Twig\TwigContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
 abstract class AbstractController extends Controller
 {
-	/**
-	 * @var string
-	 */
-	protected $routePrefix;
-
-	/**
-	 * Set route prefix
-	 *
-	 * @return string
-	 *
-	 * @throws \Throwable
-	 */
-	protected function getRoutePrefix(): string
-	{
-		if ($this->routePrefix !== null)
-		{
-			return $this->routePrefix;
-		}
-
-		$annotationName = Route::class;
-		$reflectionClass = new \ReflectionClass($this);
-
-		$reader = new AnnotationReader();
-		$annotation = $reader->getClassAnnotation($reflectionClass, $annotationName);
-
-		if ($annotation === null)
-		{
-			$class = get_class($this);
-
-			throw new AnnotationException("Class '{$class}' is missing annotation '{$annotationName}'");
-		}
-
-		return $this->routePrefix = rtrim($annotation->getName(), '_');
-	}
+	use RoutePrefixTrait;
 
 	/**
 	 * Entity not found

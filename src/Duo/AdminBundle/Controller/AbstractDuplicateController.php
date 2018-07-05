@@ -50,7 +50,7 @@ abstract class AbstractDuplicateController extends AbstractController
 			]);
 		}
 
-		return $this->redirectToRoute("{$this->getRoutePrefix()}_edit", [
+		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $clone->getId()
 		]);
 	}
