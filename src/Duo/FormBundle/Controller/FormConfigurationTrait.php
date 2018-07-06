@@ -3,7 +3,7 @@
 namespace Duo\FormBundle\Controller;
 
 use Duo\FormBundle\Entity\Form;
-use Duo\FormBundle\Form\FormListingType;
+use Duo\FormBundle\Form\FormType;
 
 trait FormConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait FormConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return FormListingType::class;
+		return FormType::class;
 	}
 
 	/**

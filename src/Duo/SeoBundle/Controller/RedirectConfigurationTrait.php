@@ -3,7 +3,7 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\SeoBundle\Entity\Redirect;
-use Duo\SeoBundle\Form\RedirectListingType;
+use Duo\SeoBundle\Form\RedirectType;
 
 trait RedirectConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait RedirectConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return RedirectListingType::class;
+		return RedirectType::class;
 	}
 
 	/**

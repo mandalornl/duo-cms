@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\EventListener\Listing\Entity;
+namespace Duo\AdminBundle\EventListener;
 
 use Duo\AdminBundle\Event\Listing\EntityEvent;
 use Duo\AdminBundle\Helper\LocaleHelper;

@@ -3,7 +3,7 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\SeoBundle\Entity\Robot;
-use Duo\SeoBundle\Form\RobotListingType;
+use Duo\SeoBundle\Form\RobotType;
 
 trait RobotConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait RobotConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return RobotListingType::class;
+		return RobotType::class;
 	}
 
 	/**

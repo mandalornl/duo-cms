@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class PageListingType extends AbstractType
+class PageType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -28,7 +28,7 @@ class PageListingType extends AbstractType
 					'label' => 'duo.page.tab.content'
 				])
 				->add('translations', TranslationType::class, [
-					'entry_type' => PageTranslationListingType::class,
+					'entry_type' => PageTranslationType::class,
 					'entry_options' => [
 						'isNew' => is_object($options['data']) ? $options['data']->getId() === null : true
 					],

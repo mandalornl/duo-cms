@@ -1,22 +1,22 @@
 <?php
 
-namespace Duo\SeoBundle\Form;
+namespace Duo\TranslatorBundle\Form;
 
-use Duo\SeoBundle\Entity\Robot;
+use Duo\TranslatorBundle\Entity\EntryTranslation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RobotListingType extends AbstractType
+class EntryTranslationType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
-		$builder->add('content', TextareaType::class, [
-			'label' => 'Robots.txt',
+		$builder->add('text', TextareaType::class, [
+			'label' => 'duo.translator.form.entry_translation.text.label',
 			'attr' => [
 				'rows' => 6
 			]
@@ -29,7 +29,7 @@ class RobotListingType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => Robot::class
+			'data_class' => EntryTranslation::class
 		]);
 	}
 }

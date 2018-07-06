@@ -1,26 +1,27 @@
 <?php
 
-namespace Duo\TranslatorBundle\Form;
+namespace Duo\SecurityBundle\Form;
 
-use Duo\TranslatorBundle\Entity\EntryTranslation;
+use Duo\SecurityBundle\Entity\Group;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EntryTranslationListingType extends AbstractType
+class GroupType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
-		$builder->add('text', TextareaType::class, [
-			'label' => 'duo.translator.form.entry_translation.text.label',
-			'attr' => [
-				'rows' => 6
-			]
-		]);
+		$builder
+			->add('name', TextType::class, [
+				'label' => 'duo.security.form.group.name.label'
+			])
+			->add('roles', RoleChoiceType::class, [
+				'label' => 'duo.security.form.group.roles.label'
+			]);
 	}
 
 	/**
@@ -29,7 +30,7 @@ class EntryTranslationListingType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => EntryTranslation::class
+			'data_class' => Group::class
 		]);
 	}
 }

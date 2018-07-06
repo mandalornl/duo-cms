@@ -3,7 +3,7 @@
 namespace Duo\MediaBundle\Controller;
 
 use Duo\MediaBundle\Entity\Folder;
-use Duo\MediaBundle\Form\FolderListingType;
+use Duo\MediaBundle\Form\FolderType;
 
 trait FolderConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait FolderConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return FolderListingType::class;
+		return FolderType::class;
 	}
 
 	/**

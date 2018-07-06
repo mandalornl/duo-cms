@@ -3,7 +3,7 @@
 namespace Duo\TranslatorBundle\Controller;
 
 use Duo\TranslatorBundle\Entity\Entry;
-use Duo\TranslatorBundle\Form\EntryListingType;
+use Duo\TranslatorBundle\Form\EntryType;
 
 trait EntryConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait EntryConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return EntryListingType::class;
+		return EntryType::class;
 	}
 
 	/**

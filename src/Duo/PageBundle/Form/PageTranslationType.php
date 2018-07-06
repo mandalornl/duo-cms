@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class PageTranslationListingType extends AbstractType
+class PageTranslationType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}

@@ -3,7 +3,7 @@
 namespace Duo\MediaBundle\Controller;
 
 use Duo\MediaBundle\Entity\File;
-use Duo\MediaBundle\Form\FileListingType;
+use Duo\MediaBundle\Form\FileType;
 
 trait FileConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait FileConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return FileListingType::class;
+		return FileType::class;
 	}
 
 	/**

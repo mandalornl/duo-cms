@@ -17,8 +17,7 @@ services:
         class: Duo\AdminBundle\Helper\BreadcrumbHelper
         public: true
 
-    duo.admin.locale_helper:
-        class: Duo\AdminBundle\Helper\LocaleHelper
+    Duo\AdminBundle\Helper\LocaleHelper:
         public: true
         calls:
             - [ setDefaultLocale, [ '%locale%' ]]
@@ -26,40 +25,32 @@ services:
 
     duo.admin.mailer_helper:
         class: Duo\AdminBundle\Helper\MailerHelper
+        public: true
         arguments:
             $twig: '@twig'
             $emailFrom: '%mailer_from%'
             $dkimConfig: { keyFile: '%dkim_key_file%', domain: '%dkim_domain%', selector: '%dkim_selector%' }
-        public: true
 
     duo.admin.menu_builder:
         class: Duo\AdminBundle\Menu\MenuBuilder
         public: true
 
-    duo.admin.locale_listener:
-        class: Duo\AdminBundle\EventListener\LocaleListener
+    Duo\AdminBundle\EventListener\LocaleListener:
         arguments:
             $defaultLocale: '%locale%'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 16 }
 
-    duo.admin.listing.entity.translate_listener:
-        class: Duo\AdminBundle\EventListener\Listing\Entity\TranslateListener
-        arguments:
-            $localeHelper: '@duo.admin.locale_helper'
+    Duo\AdminBundle\EventListener\TranslateListener:
         tags:
             - { name: kernel.event_listener, event: duo.event.listing.entity.preCreate, method: preCreate }
             - { name: kernel.event_listener, event: duo.event.listing.entity.preUpdate, method: preUpdate }
 
     Duo\AdminBundle\Twig\LocaleTwigExtension:
-        arguments:
-            $localeHelper: '@duo.admin.locale_helper'
         tags:
             - { name: twig.extension }
 
     duo.admin.routing.url_loader:
         class: Duo\AdminBundle\Routing\UrlLoader
-        arguments:
-            $localeHelper: '@duo.admin.locale_helper'
         tags:
             - { name: routing.loader, priority: 0 }

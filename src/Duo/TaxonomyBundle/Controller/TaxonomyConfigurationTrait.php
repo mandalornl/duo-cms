@@ -3,7 +3,7 @@
 namespace Duo\TaxonomyBundle\Controller;
 
 use Duo\TaxonomyBundle\Entity\Taxonomy;
-use Duo\TaxonomyBundle\Form\TaxonomyListingType;
+use Duo\TaxonomyBundle\Form\TaxonomyType;
 
 trait TaxonomyConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait TaxonomyConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return TaxonomyListingType::class;
+		return TaxonomyType::class;
 	}
 
 	/**

@@ -3,7 +3,7 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\SecurityBundle\Entity\Group;
-use Duo\SecurityBundle\Form\GroupListingType;
+use Duo\SecurityBundle\Form\GroupType;
 
 trait GroupConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait GroupConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return GroupListingType::class;
+		return GroupType::class;
 	}
 
 	/**

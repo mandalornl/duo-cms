@@ -3,7 +3,7 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\SecurityBundle\Entity\Role;
-use Duo\SecurityBundle\Form\RoleListingType;
+use Duo\SecurityBundle\Form\RoleType;
 
 trait RoleConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait RoleConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return RoleListingType::class;
+		return RoleType::class;
 	}
 
 	/**

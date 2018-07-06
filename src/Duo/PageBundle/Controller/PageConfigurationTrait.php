@@ -3,7 +3,7 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\PageBundle\Entity\Page;
-use Duo\PageBundle\Form\PageListingType;
+use Duo\PageBundle\Form\PageType;
 
 trait PageConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait PageConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return PageListingType::class;
+		return PageType::class;
 	}
 
 	/**

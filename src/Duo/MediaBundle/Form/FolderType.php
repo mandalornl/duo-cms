@@ -1,14 +1,14 @@
 <?php
 
-namespace Duo\SecurityBundle\Form;
+namespace Duo\MediaBundle\Form;
 
-use Duo\SecurityBundle\Entity\Group;
+use Duo\MediaBundle\Entity\Folder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GroupListingType extends AbstractType
+class FolderType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -17,11 +17,12 @@ class GroupListingType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.security.form.group.name.label'
+				'label' => 'duo.media.form.folder.name.label'
 			])
-			->add('roles', RoleChoiceType::class, [
-				'label' => 'duo.security.form.group.roles.label'
-			]);
+			->add('parent', FolderAutoCompleteType::class, [
+				'label' => 'duo.media.form.folder.parent.label'
+			])
+		;
 	}
 
 	/**
@@ -30,7 +31,7 @@ class GroupListingType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => Group::class
+			'data_class' => Folder::class
 		]);
 	}
 }

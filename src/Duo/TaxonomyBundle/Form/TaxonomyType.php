@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class TaxonomyListingType extends AbstractType
+class TaxonomyType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -17,7 +17,7 @@ class TaxonomyListingType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder->add('translations', TranslationType::class, [
-			'entry_type' => TaxonomyTranslationListingType::class,
+			'entry_type' => TaxonomyTranslationType::class,
 			'allow_add' => false,
 			'allow_delete' => false,
 			'by_reference' => false,

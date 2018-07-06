@@ -20,8 +20,7 @@ services:
             $relativeUploadPath: '%duo.media.relative_upload_path%'
             $absoluteUploadPath: '%duo.media.absolute_upload_path%'
 
-    duo.media.listing.form.file_listener:
-        class: Duo\MediaBundle\EventListener\Listing\Form\FileListener
+    Duo\MediaBundle\EventListener\UploadFileListener:
         arguments:
             $uploadHelper: '@duo.media.upload_helper'
         tags:

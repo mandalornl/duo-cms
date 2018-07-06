@@ -1,23 +1,27 @@
 <?php
 
-namespace Duo\TaxonomyBundle\Form;
+namespace Duo\SecurityBundle\Form;
 
-use Duo\TaxonomyBundle\Entity\TaxonomyTranslation;
+use Duo\SecurityBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TaxonomyTranslationListingType extends AbstractType
+class RoleType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
-		$builder->add('name', TextType::class, [
-			'label' => 'duo.taxonomy.form.taxonomy.name.label'
-		]);
+		$builder
+			->add('name', TextType::class, [
+				'label' => 'duo.security.form.role.name.label'
+			])
+			->add('role', TextType::class, [
+				'label' => 'duo.security.form.role.role.label'
+			]);
 	}
 
 	/**
@@ -26,7 +30,7 @@ class TaxonomyTranslationListingType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => TaxonomyTranslation::class
+			'data_class' => Role::class
 		]);
 	}
 }

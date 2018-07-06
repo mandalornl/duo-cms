@@ -1,18 +1,19 @@
 <?php
 
-namespace Duo\TranslatorBundle\Form;
+namespace Duo\FormBundle\Form;
 
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\TranslationType;
-use Duo\TranslatorBundle\Entity\Entry;
+use Duo\FormBundle\Entity\Form;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class EntryListingType extends AbstractType
+class FormType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
@@ -21,25 +22,32 @@ class EntryListingType extends AbstractType
 	{
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
-				$builder->create('properties', TabType::class, [
-					'label' => 'duo.translator.tab.properties'
-				])
-				->add('keyword', TextType::class, [
-					'label' => 'duo.translator.form.entry.keyword.label'
-				])
-				->add('domain', TextType::class, [
-					'label' => 'duo.translator.form.entry.domain.label'
-				])
-			)
-			->add(
 				$builder->create('content', TabType::class, [
-					'label' => 'duo.translator.tab.content'
+					'label' => 'duo.form.tab.content'
 				])
 				->add('translations', TranslationType::class, [
-					'entry_type' => EntryTranslationListingType::class,
+					'entry_type' => FormTranslationType::class,
 					'constraints' => [
 						new Valid()
 					]
+				])
+			)
+			->add(
+				$builder->create('properties', TabType::class, [
+					'label' => 'duo.form.tab.properties'
+				])
+				->add('name', TextType::class, [
+					'label' => 'duo.form.form.form.name.label'
+				])
+				->add('emailFrom', EmailType::class, [
+					'label' => 'duo.form.form.form.email_from.label'
+				])
+				->add('emailTo', EmailType::class, [
+					'label' => 'duo.form.form.form.email_to.label'
+				])
+				->add('sendResultTo', EmailType::class, [
+					'required' => false,
+					'label' => 'duo.form.form.form.send_result_to.label'
 				])
 			);
 
@@ -52,7 +60,7 @@ class EntryListingType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => Entry::class
+			'data_class' => Form::class
 		]);
 	}
 }

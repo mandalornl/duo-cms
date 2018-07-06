@@ -1,12 +1,12 @@
 <?php
 
-namespace Duo\MediaBundle\EventListener\Listing\Form;
+namespace Duo\MediaBundle\EventListener;
 
 use Duo\AdminBundle\Event\Listing\FormEvent;
 use Duo\MediaBundle\Entity\File;
 use Duo\MediaBundle\Helper\UploadHelper;
 
-class FileListener
+class UploadFileListener
 {
 	/**
 	 * @var UploadHelper
