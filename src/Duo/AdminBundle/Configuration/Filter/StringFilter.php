@@ -2,10 +2,11 @@
 
 namespace Duo\AdminBundle\Configuration\Filter;
 
+use Duo\AdminBundle\Configuration\SearchInterface;
 use Duo\AdminBundle\Form\Filter\StringFilterType;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
 
-class StringFilter extends AbstractFilter implements StringFilterInterface
+class StringFilter extends AbstractFilter implements SearchInterface
 {
 	/**
 	 * {@inheritdoc}

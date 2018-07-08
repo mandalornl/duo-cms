@@ -9,7 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Action\ListActionInterface;
 use Duo\AdminBundle\Configuration\Field\FieldInterface;
 use Duo\AdminBundle\Configuration\Filter\FilterInterface;
-use Duo\AdminBundle\Configuration\Filter\StringFilterInterface;
+use Duo\AdminBundle\Configuration\SearchInterface;
 use Duo\AdminBundle\Form\ListingFilterType;
 use Duo\AdminBundle\Form\ListingSearchType;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
@@ -415,7 +415,7 @@ abstract class AbstractListController extends AbstractController
 	{
 		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
 		{
-			return $filter instanceof StringFilterInterface;
+			return $filter instanceof SearchInterface;
 		});
 
 		if (!count($filters))
@@ -472,7 +472,7 @@ abstract class AbstractListController extends AbstractController
 
 		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
 		{
-			return $filter instanceof StringFilterInterface;
+			return $filter instanceof SearchInterface;
 		});
 
 		if (!count($filters))

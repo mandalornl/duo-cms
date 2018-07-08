@@ -54,7 +54,7 @@
 		"yarn": ">=1.7.0"
 	},
 	"scripts": {
-		"heroku-postbuild": "yarn build",
+		"prepublish": "yarn build",
 		"dev": "bin/dev-server.js",
 		"icomoon": "bin/icomoon.js --src src/Duo/AdminBundle/Resources/webpack --dest src/Duo/AdminBundle/Resources/webpack/sass/_icomoon.scss",
 		"build": "NODE_ENV=production webpack --config webpack.config.js"
