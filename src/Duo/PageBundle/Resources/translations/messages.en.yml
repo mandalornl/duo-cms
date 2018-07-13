@@ -23,6 +23,7 @@ duo:
                 title: Title
                 url: Url
                 online: Online
+                taxonomies: Taxonomies
                 created: Created
                 modified: Modified
 

@@ -21,13 +21,28 @@ class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 
 		$user = $this->getReference('user');
 
-		$taxonomy = (new Taxonomy());
-		$taxonomy->setCreatedBy($user);
-		$taxonomy->translate('nl')->setName('Pagina');
-		$taxonomy->translate('en')->setName('Page');
-		$taxonomy->mergeNewTranslations();
+		foreach ([
+			'taxonomy_files' => [
+				'en' => 'Files',
+				'nl' => 'Bestanden'
+			]
+		 ] as $reference => $item)
+		{
+			$taxonomy = (new Taxonomy());
+			$taxonomy->setCreatedBy($user);
 
-		$manager->persist($taxonomy);
+			foreach ($item as $locale => $name)
+			{
+				$taxonomy->translate($locale)->setName($name);
+			}
+
+			$taxonomy->mergeNewTranslations();
+
+			$manager->persist($taxonomy);
+
+			$this->addReference($reference, $taxonomy);
+		}
+
 		$manager->flush();
 	}
 

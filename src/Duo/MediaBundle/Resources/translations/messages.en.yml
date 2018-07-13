@@ -8,6 +8,7 @@ duo:
                 name: Name
                 type: Type
                 size: Size
+                taxonomies: Taxonomies
                 created_at: Created at
                 modified_at: Modified at
 
@@ -15,24 +16,24 @@ duo:
                 name: Name
                 type: Type
                 byte_size: Size (bytes)
+                taxonomies: Taxonomies
                 created: Created
                 modified: Modified
 
+            action:
+                download: Download
+                edit: Edit
+
+            view:
+                list: View list
+                grid: View grid
+                switch: Switch view
+
         form:
-            file:
+            media:
                 name:
                     label: Name
-                folder:
-                    label: Folder
+                taxonomies:
+                    label: Taxonomies
                 file:
                     label: File
-
-            folder:
-                name:
-                    label: Name
-                parent:
-                    label: Parent
-
-            folder_autocomplete:
-                label: Folder
-                placeholder: Enter url or name

@@ -9,7 +9,7 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * @var string
 	 */
-	protected $alias = 'e';
+	protected $alias;
 
 	/**
 	 * @var QueryBuilder
@@ -135,6 +135,14 @@ abstract class AbstractFilter implements FilterInterface
 	public function getFormOptions(): array
 	{
 		return $this->formOptions;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getHash(): string
+	{
+		return md5(static::class . $this->property);
 	}
 
 	/**

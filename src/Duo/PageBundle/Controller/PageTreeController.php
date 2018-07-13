@@ -83,9 +83,9 @@ class PageTreeController extends Controller
 	{
 		$builder = $this->getDoctrine()->getRepository(Page::class)
 			->createQueryBuilder('e')
-			->join('e.translations', 't', Join::WITH, 't.locale = :locale')
+			->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
 			->setParameter('locale', $request->getLocale())
-			->where('e.revision = e.id')
+			->where('e.revision = e')
 			->orderBy('e.weight', 'ASC')
 			->addOrderBy('t.title', 'ASC');
 

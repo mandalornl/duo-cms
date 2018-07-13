@@ -2,6 +2,7 @@
 
 namespace Duo\TranslatorBundle\Controller;
 
+use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
@@ -49,5 +50,13 @@ class EntryListController extends AbstractListController
 			->addFilter(new StringFilter('domain', 'duo.translator.listing.filter.domain'))
 			->addFilter(new DateTimeFilter('createdAt', 'duo.translator.listing.filter.created'))
 			->addFilter(new DateTimeFilter('modifiedAt', 'duo.translator.listing.filter.modified'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defaultSorting(QueryBuilder $builder): void
+	{
+		$builder->orderBy('e.keyword', 'ASC');
 	}
 }

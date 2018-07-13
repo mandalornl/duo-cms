@@ -135,7 +135,7 @@ abstract class AbstractListController extends AbstractController
 		// only fetch latest revision of entities
 		if ($reflectionClass->implementsInterface(RevisionInterface::class))
 		{
-			$builder->andWhere('e.revision = e.id');
+			$builder->andWhere('e.revision = e');
 		}
 
 		// don't fetch deleted entities
@@ -150,14 +150,14 @@ abstract class AbstractListController extends AbstractController
 			// apply filters or revert to defaults
 			if (!$this->applyFilters($request, $builder))
 			{
-				$this->applyDefaultFilters($builder, $reflectionClass);
+				$this->defaultFilters($builder);
 			}
 		}
 
 		// apply sorting or revert to defaults
 		if (!$this->applySorting($request, $builder))
 		{
-			$this->applyDefaultSorting($builder, $reflectionClass);
+			$this->defaultSorting($builder);
 		}
 
 		return (new PaginatorHelper($builder))
@@ -170,10 +170,8 @@ abstract class AbstractListController extends AbstractController
 	 * Get list behaviors
 	 *
 	 * @return array
-	 *
-	 * @throws \Throwable
 	 */
-	private function getListBehaviors()
+	protected function getListBehaviors()
 	{
 		return [
 			'isSortable' => $this->isSortable(),
@@ -190,7 +188,7 @@ abstract class AbstractListController extends AbstractController
 	 */
 	public function addField(FieldInterface $field)
 	{
-		$this->getFields()->set($field->getProperty(), $field);
+		$this->getFields()->set($field->getHash(), $field);
 
 		return $this;
 	}
@@ -288,32 +286,24 @@ abstract class AbstractListController extends AbstractController
 		 */
 		$field = $this->getFields()->get($sortingData['sort']);
 
-		$builder->orderBy("{$field->getAlias()}.{$sortingData['sort']}", $sortingData['order']);
+		if ($field === null)
+		{
+			return false;
+		}
+
+		$builder->orderBy("{$field->getAlias()}.{$field->getProperty()}", $sortingData['order']);
 
 		return true;
 	}
 
 	/**
-	 * Apply default sorting
+	 * Default sorting
 	 *
 	 * @param QueryBuilder $builder
-	 * @param \ReflectionClass $reflectionClass
 	 */
-	protected function applyDefaultSorting(QueryBuilder $builder, \ReflectionClass $reflectionClass): void
+	protected function defaultSorting(QueryBuilder $builder): void
 	{
-		// order by last modified
-		if ($reflectionClass->implementsInterface(TimestampInterface::class))
-		{
-			$builder->addOrderBy('e.modifiedAt', 'DESC');
-		}
-
-		// order by weight
-		if ($reflectionClass->implementsInterface(SortInterface::class))
-		{
-			$builder->addOrderBy('e.weight', 'ASC');
-		}
-
-		$builder->addOrderBy('e.id', 'ASC');
+		$builder->orderBy('e.id', 'ASC');
 	}
 
 	/**
@@ -330,7 +320,7 @@ abstract class AbstractListController extends AbstractController
 	 */
 	public function addFilter(FilterInterface $filter)
 	{
-		$this->getFilters()->set($filter->getProperty(), $filter);
+		$this->getFilters()->set($filter->getHash(), $filter);
 
 		return $this;
 	}
@@ -357,147 +347,6 @@ abstract class AbstractListController extends AbstractController
 	public function getFilters(): ArrayCollection
 	{
 		return $this->filters;
-	}
-
-	/**
-	 * Search action
-	 *
-	 * @Route("/search", name="search", methods={ "GET", "POST" })
-	 *
-	 * @param Request $request
-	 *
-	 * @return RedirectResponse
-	 *
-	 * @throws \Throwable
-	 */
-	public function searchAction(Request $request): RedirectResponse
-	{
-		$routeName = "{$this->getRoutePrefix()}_index";
-
-		$session = $request->getSession();
-		$sessionName = "search_{$this->getType()}";
-
-		// clear search
-		if ($request->query->has('clear'))
-		{
-			$session->remove($sessionName);
-
-			return $this->redirectToRoute($routeName);
-		}
-
-		/**
-		 * @var FormInterface $form
-		 */
-		$form = $this->createForm(ListingSearchType::class);
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			$session->set($sessionName, $form->getData()['q']);
-
-			// clear filter(s)
-			$session->remove("filter_{$this->getType()}");
-		}
-
-		return $this->redirectToRoute($routeName);
-	}
-
-	/**
-	 * Get search form
-	 *
-	 * @param Request $request
-	 *
-	 * @return FormInterface
-	 *
-	 * @throws \Throwable
-	 */
-	protected function getSearchForm(Request $request): ?FormInterface
-	{
-		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
-		{
-			return $filter instanceof SearchInterface;
-		});
-
-		if (!count($filters))
-		{
-			return null;
-		}
-
-		$session = $request->getSession();
-		$sessionName = "search_{$this->getType()}";
-
-		return $this->createForm(ListingSearchType::class, [
-			'q' => $session->get($sessionName, $request->query->get('q'))
-		], [
-			'action' => $this->generateUrl("{$this->getRoutePrefix()}_search")
-		]);
-	}
-
-	/**
-	 * Get search form view
-	 *
-	 * @param Request $request
-	 *
-	 * @return FormView
-	 *
-	 * @throws \Throwable
-	 */
-	protected function getSearchFormView(Request $request): ?FormView
-	{
-		if (($form = $this->getSearchForm($request)) === null)
-		{
-			return null;
-		}
-
-		return $form->createView();
-	}
-
-	/**
-	 * Apply search
-	 *
-	 * @param Request $request
-	 * @param QueryBuilder $builder
-	 *
-	 * @return bool
-	 */
-	protected function applySearch(Request $request, QueryBuilder $builder): bool
-	{
-		$session = $request->getSession();
-		$sessionName = "search_{$this->getType()}";
-
-		if (!($keyword = $session->get($sessionName, $request->query->get('q'))))
-		{
-			return false;
-		}
-
-		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
-		{
-			return $filter instanceof SearchInterface;
-		});
-
-		if (!count($filters))
-		{
-			return false;
-		}
-
-		$orX = $builder->expr()->orX();
-
-		foreach ($filters as $filter)
-		{
-			/**
-			 * @var FilterInterface $filter
-			 */
-			$orX->add("{$filter->getAlias()}.{$filter->getProperty()} LIKE :keyword");
-		}
-
-		$builder
-			->andWhere($orX)
-			->setParameter('keyword', QueryHelper::escapeLike($keyword));
-
-		// clear filter(s)
-		$session->remove("filter_{$this->getType()}");
-
-		return true;
 	}
 
 	/**
@@ -640,12 +489,11 @@ abstract class AbstractListController extends AbstractController
 	}
 
 	/**
-	 * Apply default filters
+	 * Default filters
 	 *
 	 * @param QueryBuilder $builder
-	 * @param \ReflectionClass $reflectionClass
 	 */
-	protected function applyDefaultFilters(QueryBuilder $builder, \ReflectionClass $reflectionClass): void
+	protected function defaultFilters(QueryBuilder $builder): void
 	{
 		// Implement applyDefaultFilters() method
 	}
@@ -654,6 +502,147 @@ abstract class AbstractListController extends AbstractController
 	 * Define filters
 	 */
 	abstract protected function defineFilters(): void;
+
+	/**
+	 * Search action
+	 *
+	 * @Route("/search", name="search", methods={ "GET", "POST" })
+	 *
+	 * @param Request $request
+	 *
+	 * @return RedirectResponse
+	 *
+	 * @throws \Throwable
+	 */
+	public function searchAction(Request $request): RedirectResponse
+	{
+		$routeName = "{$this->getRoutePrefix()}_index";
+
+		$session = $request->getSession();
+		$sessionName = "search_{$this->getType()}";
+
+		// clear search
+		if ($request->query->has('clear'))
+		{
+			$session->remove($sessionName);
+
+			return $this->redirectToRoute($routeName);
+		}
+
+		/**
+		 * @var FormInterface $form
+		 */
+		$form = $this->createForm(ListingSearchType::class);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$session->set($sessionName, $form->getData()['q']);
+
+			// clear filter(s)
+			$session->remove("filter_{$this->getType()}");
+		}
+
+		return $this->redirectToRoute($routeName);
+	}
+
+	/**
+	 * Get search form
+	 *
+	 * @param Request $request
+	 *
+	 * @return FormInterface
+	 *
+	 * @throws \Throwable
+	 */
+	protected function getSearchForm(Request $request): ?FormInterface
+	{
+		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
+		{
+			return $filter instanceof SearchInterface;
+		});
+
+		if (!count($filters))
+		{
+			return null;
+		}
+
+		$session = $request->getSession();
+		$sessionName = "search_{$this->getType()}";
+
+		return $this->createForm(ListingSearchType::class, [
+			'q' => $session->get($sessionName, $request->query->get('q'))
+		], [
+			'action' => $this->generateUrl("{$this->getRoutePrefix()}_search")
+		]);
+	}
+
+	/**
+	 * Get search form view
+	 *
+	 * @param Request $request
+	 *
+	 * @return FormView
+	 *
+	 * @throws \Throwable
+	 */
+	protected function getSearchFormView(Request $request): ?FormView
+	{
+		if (($form = $this->getSearchForm($request)) === null)
+		{
+			return null;
+		}
+
+		return $form->createView();
+	}
+
+	/**
+	 * Apply search
+	 *
+	 * @param Request $request
+	 * @param QueryBuilder $builder
+	 *
+	 * @return bool
+	 */
+	protected function applySearch(Request $request, QueryBuilder $builder): bool
+	{
+		$session = $request->getSession();
+		$sessionName = "search_{$this->getType()}";
+
+		if (!($keyword = $session->get($sessionName, $request->query->get('q'))))
+		{
+			return false;
+		}
+
+		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
+		{
+			return $filter instanceof SearchInterface;
+		});
+
+		if (!count($filters))
+		{
+			return false;
+		}
+
+		$orX = $builder->expr()->orX();
+
+		foreach ($filters as $filter)
+		{
+			/**
+			 * @var FilterInterface $filter
+			 */
+			$orX->add("{$filter->getAlias()}.{$filter->getProperty()} LIKE :keyword");
+		}
+
+		$builder
+			->andWhere($orX)
+			->setParameter('keyword', QueryHelper::escapeLike($keyword));
+
+		// clear filter(s)
+		$session->remove("filter_{$this->getType()}");
+
+		return true;
+	}
 
 	/**
 	 * Add list action

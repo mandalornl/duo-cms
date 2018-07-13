@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import sortable from 'html5sortable/dist/html5sortable.es';
 
-import uniqid from '../util/uniqid';
+import uniqid from 'src/Duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
 /**
  * Initialize

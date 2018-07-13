@@ -2,6 +2,7 @@
 
 namespace Duo\SecurityBundle\Controller;
 
+use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
@@ -50,5 +51,13 @@ class GroupListController extends AbstractListController
 	public function indexAction(Request $request): Response
 	{
 		return $this->doIndexAction($request);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defaultSorting(QueryBuilder $builder): void
+	{
+		$builder->orderBy('e.name', 'ASC');
 	}
 }

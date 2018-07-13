@@ -150,9 +150,8 @@
 
 {% block duo_autocomplete_widget %}
 	{% set remotePath = remotePath ~ ('?' in remotePath ? '&': '?') ~ 'locale=' ~ app.request.locale %}
-	{% set requestId = app.request.get('id') %}
-	{% if requestId %}
-		{% set remotePath = remotePath ~ '&id=' ~ requestId %}
+	{% if excludeSelf and '_update' in app.request.attributes.get('_route') and app.request.attributes.has('id') %}
+		{% set remotePath = remotePath ~ '&id=' ~ app.request.attributes.get('id') %}
 	{% endif %}
 	{% set attr = attr | merge({
 		'data-url': remotePath,

@@ -18,7 +18,7 @@ class PageTwigExtension extends \Twig_Extension
 	 *
 	 * @param EntityManagerInterface $entityManager
 	 */
-	private function __construct(EntityManagerInterface $entityManager)
+	public function __construct(EntityManagerInterface $entityManager)
 	{
 		$this->entityManager = $entityManager;
 	}
@@ -39,35 +39,38 @@ class PageTwigExtension extends \Twig_Extension
 	 * Get page
 	 *
 	 * @param int $id
+	 * @param string $locale [optional]
 	 *
 	 * @return Page
 	 */
-	public function getPage(int $id): ?Page
+	public function getPage(int $id, string $locale = null): ?Page
 	{
-		return $this->entityManager->getRepository(Page::class)->findById($id);
+		return $this->entityManager->getRepository(Page::class)->findById($id, $locale);
 	}
 
 	/**
 	 * Get page by url
 	 *
 	 * @param string $url
+	 * @param string $locale [optional]
 	 *
 	 * @return Page
 	 */
-	public function getPageByUrl(string $url): ?Page
+	public function getPageByUrl(string $url, string $locale = null): ?Page
 	{
-		return $this->entityManager->getRepository(Page::class)->findOneByUrl($url);
+		return $this->entityManager->getRepository(Page::class)->findOneByUrl($url, $locale);
 	}
 
 	/**
 	 * Get page by name
 	 *
 	 * @param string $name
+	 * @param string $locale [optional]
 	 *
 	 * @return Page
 	 */
-	public function getPageByName(string $name): ?Page
+	public function getPageByName(string $name, string $locale = null): ?Page
 	{
-		return $this->entityManager->getRepository(Page::class)->findOneByName($name);
+		return $this->entityManager->getRepository(Page::class)->findOneByName($name, $locale);
 	}
 }

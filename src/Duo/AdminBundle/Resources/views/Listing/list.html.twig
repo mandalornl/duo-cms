@@ -106,7 +106,7 @@
 	{% endif %}
 
 	{% set checkboxId = random() %}
-	<form action="javascript:;" method="post" class="listing-form">
+	<form action="javascript:;" method="post" class="listing-index-form">
 		<div class="table-responsive">
 			<table class="table table-hover table-striped listing-table checkable">
 				<thead>
@@ -120,13 +120,13 @@
 						{% for field in list.fields %}
 							<th{% if field.sortable %} class="sortable"{% endif %}>
 								{% if field.sortable %}
-									{% if list.sorting and list.sorting.sort == field.property %}
-										{% set url = path(routePrefix ~ '_sorting', { sort: field.property, order: list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
+									{% if list.sorting and list.sorting.sort == field.hash %}
+										{% set url = path(routePrefix ~ '_sorting', { sort: field.hash, order: list.sorting.order == 'asc' ? 'desc' : 'asc' }) %}
 									{% else %}
-										{% set url = path(routePrefix ~ '_sorting', { sort: field.property }) %}
+										{% set url = path(routePrefix ~ '_sorting', { sort: field.hash }) %}
 									{% endif %}
 									<a href="{{ url }}">
-										{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.property %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}
+										{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.hash %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}
 									</a>
 								{% else %}
 									{{- field.label | trans -}}

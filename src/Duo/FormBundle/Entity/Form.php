@@ -5,6 +5,7 @@ namespace Duo\FormBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\TranslationInterface;
 use Duo\NodeBundle\Entity\AbstractNode;
+use Duo\PageBundle\Entity\Page;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -39,6 +40,14 @@ class Form extends AbstractNode
 	 * @Assert\Email()
 	 */
 	protected $sendResultTo;
+
+	/**
+	 * @var Page
+	 *
+	 * @ORM\ManyToOne(targetEntity="Duo\PageBundle\Entity\Page")
+	 * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
+	 */
+	protected $page;
 
 	/**
 	 * Set emailFrom
@@ -110,6 +119,30 @@ class Form extends AbstractNode
 	public function getSendResultTo(): ?string
 	{
 		return $this->sendResultTo;
+	}
+
+	/**
+	 * Set page
+	 * 
+	 * @param Page $page
+	 *
+	 * @return Form
+	 */
+	public function setPage(Page $page = null): Form
+	{
+		$this->page = $page;
+
+		return $this;
+	}
+
+	/**
+	 * Get page
+	 *
+	 * @return Page
+	 */
+	public function getPage(): ?Page
+	{
+		return $this->page;
 	}
 
 	/**

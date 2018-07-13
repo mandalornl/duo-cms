@@ -2,6 +2,7 @@
 
 namespace Duo\SeoBundle\Controller;
 
+use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\BooleanFilter;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
@@ -52,5 +53,13 @@ class RedirectListController extends AbstractListController
 	public function indexAction(Request $request): Response
 	{
 		return $this->doIndexAction($request);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defaultSorting(QueryBuilder $builder): void
+	{
+		$builder->orderBy('e.origin', 'ASC');
 	}
 }

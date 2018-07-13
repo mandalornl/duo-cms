@@ -3,7 +3,7 @@
 namespace Duo\TaxonomyBundle\Controller;
 
 use Duo\TaxonomyBundle\Entity\Taxonomy;
-use Duo\TaxonomyBundle\Form\TaxonomyType;
+use Duo\TaxonomyBundle\Form\Listing\TaxonomyType;
 
 trait TaxonomyConfigurationTrait
 {

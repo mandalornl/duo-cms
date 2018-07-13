@@ -5,11 +5,6 @@ namespace Duo\AdminBundle\Helper;
 class SlugifyHelper
 {
 	/**
-	 * SlugifyHelper constructor
-	 */
-	private function __construct() {}
-
-	/**
 	 * Slugify
 	 *
 	 * @param string $input
@@ -44,4 +39,9 @@ class SlugifyHelper
 
 		return trim($slug, $delimiter);
 	}
+
+	/**
+	 * SlugifyHelper constructor
+	 */
+	private function __construct() {}
 }

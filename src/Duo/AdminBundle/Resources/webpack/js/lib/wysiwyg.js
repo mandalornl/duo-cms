@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import uniqid from '../util/uniqid';
+import uniqid from 'src/Duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
 window.wysiwygEditors = window.wysiwygEditors || {};
 

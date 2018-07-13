@@ -139,6 +139,7 @@ trait PublishTrait
 	{
 		$dateTime = new \DateTime();
 
-		return ($this->publishAt !== null && $this->publishAt <= $dateTime) && ($this->unpublishAt === null || $this->unpublishAt > $dateTime);
+		return ($this->publishAt !== null && $this->publishAt <= $dateTime) &&
+			($this->unpublishAt === null || $this->unpublishAt > $dateTime);
 	}
 }

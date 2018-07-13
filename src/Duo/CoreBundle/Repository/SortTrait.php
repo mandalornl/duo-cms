@@ -164,7 +164,7 @@ trait SortTrait
 		// use latest revision
 		if ($entity instanceof RevisionInterface)
 		{
-			$builder->andWhere('e.revision = e.id');
+			$builder->andWhere('e.revision = e');
 		}
 
 		// ignore deleted

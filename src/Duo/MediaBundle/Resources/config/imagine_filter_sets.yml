@@ -1,0 +1,38 @@
+liip_imagine:
+    filter_sets:
+        crop:
+            quality: 85
+            filters:
+                strip: ~
+
+        # https://medium.com/hceverything/applying-srcset-choosing-the-right-sizes-for-responsive-images-at-different-breakpoints-a0433450a4a3
+        srcset_680:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [680, null], mode: outbound, allow_scale: false }
+        srcset_768:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [768, null], mode: outbound, allow_scale: false }
+        srcset_1024:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [1024, null], mode: outbound, allow_scale: false }
+        srcset_1366:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [1366, null], mode: outbound, allow_scale: false }
+        srcset_1600:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [1600, null], mode: outbound, allow_scale: false }
+        srcset_1920:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [1920, null], mode: outbound, allow_scale: false }

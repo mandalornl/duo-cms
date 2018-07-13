@@ -24,21 +24,6 @@ class DeleteListener
 	}
 
 	/**
-	 * On undelete event
-	 *
-	 * @param DeleteEvent $event
-	 */
-	public function onUndelete(DeleteEvent $event): void
-	{
-		$entity = $event->getEntity();
-
-		if ($entity instanceof TreeInterface)
-		{
-			$this->undeleteChildren($entity);
-		}
-	}
-
-	/**
 	 * Delete children
 	 *
 	 * @param TreeInterface $entity
@@ -53,6 +38,21 @@ class DeleteListener
 			$child->delete();
 
 			$this->deleteChildren($child);
+		}
+	}
+
+	/**
+	 * On undelete event
+	 *
+	 * @param DeleteEvent $event
+	 */
+	public function onUndelete(DeleteEvent $event): void
+	{
+		$entity = $event->getEntity();
+
+		if ($entity instanceof TreeInterface)
+		{
+			$this->undeleteChildren($entity);
 		}
 	}
 

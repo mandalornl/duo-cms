@@ -3,7 +3,7 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\PageBundle\Entity\Page;
-use Duo\PageBundle\Form\PageType;
+use Duo\PageBundle\Form\Listing\PageType;
 
 trait PageConfigurationTrait
 {

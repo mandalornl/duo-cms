@@ -1,9 +1,9 @@
 import $ from 'jquery';
 
-import * as wysiwyg from '../lib/wysiwyg';
-import * as sortable from '../lib/sortable';
-import autoComplete from '../lib/autocomplete';
-import {get} from '../util/api';
+import * as wysiwyg from 'src/Duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
+import * as sortable from 'src/Duo/AdminBundle/Resources/webpack/js/lib/sortable';
+import autoComplete from 'src/Duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
+import {get} from 'src/Duo/AdminBundle/Resources/webpack/js/util/api';
 
 /**
  * Initialize

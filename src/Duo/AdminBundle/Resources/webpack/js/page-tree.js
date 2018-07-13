@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
-import * as nestable from './lib/nestable';
-import * as loader from './util/loader';
-import * as api from './util/api';
+import * as nestable from 'src/Duo/AdminBundle/Resources/webpack/js/lib/nestable';
+import * as loader from 'src/Duo/AdminBundle/Resources/webpack/js/util/loader';
+import * as api from 'src/Duo/AdminBundle/Resources/webpack/js/util/api';
 
 $(async () =>
 {

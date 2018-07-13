@@ -50,7 +50,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 		$this->setFirstResultAndMaxResults($request, $builder);
 
 		$result = $builder
-			->select("DISTINCT e.id, CONCAT('/', t.url) text")
+			->select('DISTINCT e.id, t.url text')
 			->getQuery()
 			->getScalarResult();
 

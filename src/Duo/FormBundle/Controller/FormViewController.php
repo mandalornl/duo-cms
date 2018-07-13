@@ -116,15 +116,19 @@ class FormViewController extends Controller
 
 			return $this->json([
 				'success' => true,
-				'message' => $translation->getMessage()
+				'message' => $translation->getMessage(),
+				'url' => $entity->getPage() !== null ? $this->generateUrl('url', [
+					'url' => $entity->getPage()->translate($request->getLocale())->getUrl(),
+					'_locale' => $request->getLocale()
+				]) : null
 			]);
 		}
 
-		return $this->json(
-			$this->renderView('@DuoForm/Form/view.html.twig', [
+		return $this->json([
+			'html' => $this->renderView('@DuoForm/Form/view.html.twig', [
 				'form' => $form->createView()
 			])
-		);
+		]);
 	}
 
 	/**

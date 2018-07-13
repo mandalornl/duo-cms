@@ -8,6 +8,7 @@ duo:
                 name: Naam
                 type: Type
                 size: Grootte
+                taxonomies: Taxonomieën
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
@@ -15,24 +16,24 @@ duo:
                 name: Naam
                 type: Type
                 byte_size: Grootte (bytes)
+                taxonomies: Taxonomieën
                 created: Aangemaakt
                 modified: Gewijzigd
+
+            action:
+                download: Downloaden
+                edit: Wijzigen
+
+            view:
+                list: Toon lijst
+                grid: Toon grid
+                switch: Wissel weergave
 
         form:
             file:
                 name:
                     label: Naam
-                folder:
-                    label: Map
+                taxonomies:
+                    label: Taxonomieën
                 file:
                     label: Bestand
-
-            folder:
-                name:
-                    label: Naam
-                parent:
-                    label: Bovenliggend
-
-            folder_autocomplete:
-                label: Map
-                placeholder: Voer url of naam in

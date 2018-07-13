@@ -6,7 +6,7 @@ services:
 
     Duo\TaxonomyBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
+        exclude: '../../{Entity,Repository,Tests,Configuration}'
 
     Duo\TaxonomyBundle\Controller\:
         resource: '../../Controller'

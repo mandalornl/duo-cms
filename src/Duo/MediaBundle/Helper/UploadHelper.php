@@ -2,7 +2,7 @@
 
 namespace Duo\MediaBundle\Helper;
 
-use Duo\MediaBundle\Entity\File;
+use Duo\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadHelper
@@ -33,17 +33,17 @@ class UploadHelper
 	 * Upload
 	 *
 	 * @param UploadedFile $file
-	 * @param File $entity
+	 * @param Media $entity
 	 */
-	public function upload(UploadedFile $file, File $entity): void
+	public function upload(UploadedFile $file, Media $entity): void
 	{
-		$uuid = $this->getUuid();
+		$uuid = self::getUuid();
 		$extension = $file->guessExtension();
 
 		$metadata = [
-			'basename' => basename($file->getClientOriginalName(), ".{$extension}"),
+			'basename' => $file->getClientOriginalName(),
 			'extension' => $extension,
-			'filename' => $file->getClientOriginalName()
+			'filename' => basename($file->getClientOriginalName(), ".{$extension}")
 		];
 
 		// get image width/height
@@ -62,8 +62,7 @@ class UploadHelper
 			->setSize($file->getSize())
 			->setMimeType($file->getMimeType())
 			->setMetadata($metadata)
-			->setUrl("{$this->relativeUploadPath}/{$uuid}/{$file->getClientOriginalName()}")
-		;
+			->setUrl("{$this->relativeUploadPath}/{$uuid}/{$file->getClientOriginalName()}");
 
 		if ($entity->getName() === null)
 		{
@@ -76,10 +75,12 @@ class UploadHelper
 	/**
 	 * Get uuid
 	 *
+	 * @param int $length [optional]
+	 *
 	 * @return string
 	 */
-	public function getUuid(): string
+	public static function getUuid(int $length = 16): string
 	{
-		return md5(uniqid());
+		return bin2hex(random_bytes($length));
 	}
 }

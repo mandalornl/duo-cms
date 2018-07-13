@@ -138,6 +138,6 @@ class UrlSubscriber implements EventSubscriber
 	 */
 	private function generateUrl(array $urls): string
 	{
-		return implode('/', array_reverse(array_filter($urls)));
+		return '/' . implode('/', array_reverse(array_filter($urls)));
 	}
 }

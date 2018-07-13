@@ -3,7 +3,7 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\SecurityBundle\Entity\User;
-use Duo\SecurityBundle\Form\UserListingType;
+use Duo\SecurityBundle\Form\Listing\UserType;
 
 trait UserConfigurationTrait
 {
@@ -20,7 +20,7 @@ trait UserConfigurationTrait
 	 */
 	protected function getFormType(): ?string
 	{
-		return UserListingType::class;
+		return UserType::class;
 	}
 
 	/**

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import confirm from './util/confirm';
+import confirm from 'src/Duo/AdminBundle/Resources/webpack/js/util/confirm';
 
 $(() =>
 {

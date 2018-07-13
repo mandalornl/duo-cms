@@ -3,6 +3,8 @@
 - PHPUnit (wip)
 
 - MediaBundle (wip)
+- - List action: taxonomy
+- - Media modal
 - GenerateBundle
 - GoogleMapsBundle
 

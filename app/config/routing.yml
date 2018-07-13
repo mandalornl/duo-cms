@@ -1,3 +1,6 @@
+_liip_imagine:
+    resource: '@LiipImagineBundle/Resources/config/routing.yaml'
+
 duo_admin:
     resource: '@DuoAdminBundle/Resources/config/routing.yml'
 

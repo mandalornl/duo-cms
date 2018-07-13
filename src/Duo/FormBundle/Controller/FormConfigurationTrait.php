@@ -3,7 +3,7 @@
 namespace Duo\FormBundle\Controller;
 
 use Duo\FormBundle\Entity\Form;
-use Duo\FormBundle\Form\FormType;
+use Duo\FormBundle\Form\Listing\FormType;
 
 trait FormConfigurationTrait
 {

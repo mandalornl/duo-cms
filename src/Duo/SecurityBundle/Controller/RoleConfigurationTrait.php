@@ -3,7 +3,7 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\SecurityBundle\Entity\Role;
-use Duo\SecurityBundle\Form\RoleType;
+use Duo\SecurityBundle\Form\Listing\RoleType;
 
 trait RoleConfigurationTrait
 {

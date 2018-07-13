@@ -33,13 +33,3 @@ body.login main
 		}
 	}
 }
-
-@include media-breakpoint-up(sm)
-{
-	.listing-form, .form-entity
-	{
-		padding: 1rem;
-
-		background: #fff;
-	}
-}

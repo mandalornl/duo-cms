@@ -35,6 +35,8 @@ duo:
                     label: E-mail naar
                 send_result_to:
                     label: Resultaat versturen naar
+                page:
+                    label: Bedankt pagina
                 subject:
                     label: Onderwerp
                 message:

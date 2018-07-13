@@ -3,7 +3,7 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\SeoBundle\Entity\Robot;
-use Duo\SeoBundle\Form\RobotType;
+use Duo\SeoBundle\Form\Listing\RobotType;
 
 trait RobotConfigurationTrait
 {

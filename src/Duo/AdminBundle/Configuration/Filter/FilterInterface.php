@@ -99,4 +99,11 @@ interface FilterInterface
 	 * @return array
 	 */
 	public function getFormOptions(): array;
+
+	/**
+	 * Get hash
+	 *
+	 * @return string
+	 */
+	public function getHash(): string;
 }

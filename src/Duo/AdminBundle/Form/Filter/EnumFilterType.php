@@ -12,7 +12,7 @@ class EnumFilterType extends AbstractFilterType
 	/**
 	 * @var TranslatorInterface
 	 */
-	private $translator;
+	protected $translator;
 
 	/**
 	 * EnumFilterType constructor
@@ -50,10 +50,10 @@ class EnumFilterType extends AbstractFilterType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
+		$resolver->setRequired('choices');
+
 		$resolver->setDefaults([
 			'choices' => []
 		]);
-
-		$resolver->setRequired('choices');
 	}
 }

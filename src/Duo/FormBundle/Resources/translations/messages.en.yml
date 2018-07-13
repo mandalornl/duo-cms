@@ -35,6 +35,8 @@ duo:
                     label: Email to
                 send_result_to:
                     label: Send result to
+                page:
+                    label: Thank you page
                 subject:
                     label: Subject
                 message:

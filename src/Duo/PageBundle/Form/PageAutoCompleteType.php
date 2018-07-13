@@ -21,7 +21,7 @@ class PageAutoCompleteType extends AbstractType
 			'placeholder' => 'duo.page.form.page_autocomplete.placeholder',
 			'propertyName' => function(Page $page)
 			{
-				return "/{$page->translate()->getUrl()}";
+				return $page->translate()->getUrl();
 			}
 		]);
 	}

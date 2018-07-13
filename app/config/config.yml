@@ -76,6 +76,15 @@ swiftmailer:
     encryption: '%mailer_encryption%'
     spool: { type: memory }
 
+# Mjml Configuration #
 mjml:
     bin: '%kernel.project_dir%/node_modules/.bin/mjml'
     mimify: true
+
+# Liip Imagine Configuration #
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+                cache_prefix: media/cache
+    driver: imagick

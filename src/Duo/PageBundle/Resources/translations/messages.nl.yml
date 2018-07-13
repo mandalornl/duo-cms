@@ -23,6 +23,7 @@ duo:
                 title: Titel
                 url: Url
                 online: Online
+                taxonomies: Taxonomieën
                 created: Aangemaakt
                 modified: Gewijzigd
 

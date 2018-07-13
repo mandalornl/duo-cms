@@ -62,7 +62,8 @@ class AutoCompleteType extends AbstractType
 
 		foreach ([
 			'multiple',
-			'placeholder'
+			'placeholder',
+			'excludeSelf'
 		 ] as $varName)
 		{
 			$view->vars[$varName] = $options[$varName];
@@ -91,7 +92,9 @@ class AutoCompleteType extends AbstractType
 
 			'routeName' => null,
 			'routeParams' => [],
-			'routeType' => RouterInterface::ABSOLUTE_PATH
+			'routeType' => RouterInterface::ABSOLUTE_PATH,
+
+			'excludeSelf' => false
 		]);
 	}
 

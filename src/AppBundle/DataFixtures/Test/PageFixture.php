@@ -9,7 +9,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\PageBundle\Entity\Page;
-use Duo\TaxonomyBundle\Entity\Taxonomy;
 
 class PageFixture extends Fixture implements DependentFixtureInterface
 {
@@ -22,9 +21,9 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 		$user = $this->getReference('user');
 		$form = $this->getReference('form');
-		$taxonomies = $manager->getRepository(Taxonomy::class)->findAll();
 
 		$parent = null;
+
 		if (($page = $repository->findOneBy(['name' => 'home'])) === null)
 		{
 			$page = new Page();
@@ -78,11 +77,6 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 			$page->mergeNewTranslations();
 
-			foreach ($taxonomies as $taxonomy)
-			{
-				$page->addTaxonomy($taxonomy);
-			}
-
 			$manager->persist($page);
 			$manager->flush();
 
@@ -129,11 +123,6 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				);
 
 			$page->mergeNewTranslations();
-
-			foreach ($taxonomies as $taxonomy)
-			{
-				$page->addTaxonomy($taxonomy);
-			}
 
 			$manager->persist($page);
 			$manager->flush();
@@ -182,11 +171,6 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 			$page->mergeNewTranslations();
 
-			foreach ($taxonomies as $taxonomy)
-			{
-				$page->addTaxonomy($taxonomy);
-			}
-
 			$manager->persist($page);
 			$manager->flush();
 		}
@@ -234,11 +218,6 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 				$page->mergeNewTranslations();
 
-				foreach ($taxonomies as $taxonomy)
-				{
-					$page->addTaxonomy($taxonomy);
-				}
-
 				$manager->persist($page);
 			}
 
@@ -254,7 +233,6 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 	public function getDependencies(): array
 	{
 		return [
-			TaxonomyFixture::class,
 			FormFixture::class
 		];
 	}

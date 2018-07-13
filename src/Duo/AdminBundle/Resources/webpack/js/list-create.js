@@ -3,17 +3,17 @@ import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 
-import datePicker from './lib/datepicker';
-import select2 from './lib/select2';
-import autoComplete from './lib/autocomplete';
-import partList from './lib/part-list';
-import maxLength from './lib/maxlength';
-import * as wysiwyg from './lib/wysiwyg';
-import * as doNotLeave from './util/donotleave';
+import datePicker from 'src/Duo/AdminBundle/Resources/webpack/js/lib/datepicker';
+import select2 from 'src/Duo/AdminBundle/Resources/webpack/js/lib/select2';
+import autoComplete from 'src/Duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
+import partList from 'src/Duo/AdminBundle/Resources/webpack/js/lib/part-list';
+import maxLength from 'src/Duo/AdminBundle/Resources/webpack/js/lib/maxlength';
+import * as wysiwyg from 'src/Duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
+import * as doNotLeave from 'src/Duo/AdminBundle/Resources/webpack/js/util/donotleave';
 
 $(() =>
 {
-	const $form = $('.form-entity');
+	const $form = $('.listing-entity-form');
 
 	if (!$form.length)
 	{

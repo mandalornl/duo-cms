@@ -83,4 +83,11 @@ interface FieldInterface
 	 * @return string
 	 */
 	public function getAlias(): string;
+
+	/**
+	 * Get hash
+	 *
+	 * @return string
+	 */
+	public function getHash(): string;
 };

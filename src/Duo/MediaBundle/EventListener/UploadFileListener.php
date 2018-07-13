@@ -3,7 +3,7 @@
 namespace Duo\MediaBundle\EventListener;
 
 use Duo\AdminBundle\Event\Listing\FormEvent;
-use Duo\MediaBundle\Entity\File;
+use Duo\MediaBundle\Entity\Media;
 use Duo\MediaBundle\Helper\UploadHelper;
 
 class UploadFileListener
@@ -52,7 +52,7 @@ class UploadFileListener
 	{
 		$entity = $event->getEntity();
 
-		if (!$entity instanceof File)
+		if (!$entity instanceof Media)
 		{
 			return;
 		}

@@ -5,7 +5,6 @@ namespace Duo\PageBundle\Repository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Duo\AdminBundle\Repository\AbstractEntityRepository;
-use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\CoreBundle\Repository\SortTrait;
 use Duo\CoreBundle\Repository\TreeTrait;
 use Duo\PageBundle\Entity\Page;
@@ -55,16 +54,8 @@ class PageRepository extends AbstractEntityRepository
 	{
 		$builder = $this->getQueryBuilder($locale);
 
-		$alias = 'e';
-
-		$reflectionClass = $this->getClassMetadata()->getReflectionClass();
-		if ($reflectionClass->implementsInterface(TranslateInterface::class))
-		{
-			$alias = 't';
-		}
-
 		$builder
-			->andWhere("{$alias}.url = :url")
+			->andWhere('t.url = :url')
 			->setParameter('url', $url);
 
 		try

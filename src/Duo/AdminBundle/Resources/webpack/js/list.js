@@ -4,32 +4,20 @@ import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/alert';
 
-import confirm from './util/confirm';
-import datePicker from './lib/datepicker';
-import select2 from './lib/select2';
+import confirm from 'src/Duo/AdminBundle/Resources/webpack/js/util/confirm';
+import datePicker from 'src/Duo/AdminBundle/Resources/webpack/js/lib/datepicker';
+import select2 from 'src/Duo/AdminBundle/Resources/webpack/js/lib/select2';
 
 $(() =>
 {
-	const $form = $('.listing-form');
+	const $form = $('.listing-index-form');
 
 	if (!$form.length)
 	{
 		return;
 	}
 
-	const $list = $form.find('.listing-table');
-
-	$list.on('click', 'tbody tr[data-url]', function(e)
-	{
-		if ($(e.target).closest(':input, a, .custom-control').length)
-		{
-			return;
-		}
-
-		location.href = $(this).closest('tr').data('url');
-	});
-
-	$list.on('click', '[data-modal="delete"]', async function(e)
+	$form.on('click', '[data-modal="delete"]', async function(e)
 	{
 		e.preventDefault();
 
@@ -42,6 +30,16 @@ $(() =>
 		});
 
 		location.href = $this.attr('href');
+	});
+
+	$form.on('click', '.listing-table tbody tr[data-url]', function(e)
+	{
+		if ($(e.target).closest(':input, a, .custom-control').length)
+		{
+			return;
+		}
+
+		location.href = $(this).closest('tr').data('url');
 	});
 
 	$('.listing-index').on('click', '[data-modal="multi-delete"]', async function(e)

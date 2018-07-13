@@ -30,7 +30,7 @@ abstract class AbstractEntityRepository extends EntityRepository
 		// use latest revision
 		if ($reflectionClass->implementsInterface(RevisionInterface::class))
 		{
-			$builder->andWhere('e.revision = e.id');
+			$builder->andWhere('e.revision = e');
 		}
 
 		// which is not deleted

@@ -3,7 +3,7 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\SecurityBundle\Entity\Group;
-use Duo\SecurityBundle\Form\GroupType;
+use Duo\SecurityBundle\Form\Listing\GroupType;
 
 trait GroupConfigurationTrait
 {

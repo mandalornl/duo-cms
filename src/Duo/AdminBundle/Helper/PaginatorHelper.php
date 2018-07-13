@@ -20,7 +20,7 @@ class PaginatorHelper
 	/**
 	 * @var int
 	 */
-	private $limit = 10;
+	private $limit = 12;
 
 	/**
 	 * @var int

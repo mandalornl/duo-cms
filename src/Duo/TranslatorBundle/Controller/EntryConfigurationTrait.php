@@ -3,7 +3,7 @@
 namespace Duo\TranslatorBundle\Controller;
 
 use Duo\TranslatorBundle\Entity\Entry;
-use Duo\TranslatorBundle\Form\EntryType;
+use Duo\TranslatorBundle\Form\Listing\EntryType;
 
 trait EntryConfigurationTrait
 {

@@ -26,9 +26,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
 			->children()
-				->scalarNode('upload_path')
-					->defaultValue('/uploads/media')
-				->end()
+				->scalarNode('relative_upload_path')->defaultValue('/media')->end()
+				->scalarNode('absolute_upload_path')->defaultValue('%kernel.project_dir%/web/media')->end()
 			->end();
 
         return $treeBuilder;

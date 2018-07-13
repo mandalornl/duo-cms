@@ -141,4 +141,12 @@ class Field implements FieldInterface
 	{
 		return $this->alias;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getHash(): string
+	{
+		return md5(static::class . $this->property);
+	}
 }

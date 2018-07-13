@@ -123,3 +123,14 @@
 		}
 	}
 }
+
+@include media-breakpoint-up(sm)
+{
+	.listing-index-form,
+	.listing-entity-form
+	{
+		padding: 1rem;
+
+		background: #fff;
+	}
+}
