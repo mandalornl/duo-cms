@@ -3,6 +3,7 @@
 namespace Duo\TaxonomyBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -39,12 +40,13 @@ class TaxonomyChoiceType extends AbstractType
 			'query_builder' => function(EntityRepository $repository)
 			{
 				return $repository->createQueryBuilder('e')
-					->join('e.translations', 't')
+					->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
+					->setParameter('locale', $this->translator->getLocale())
 					->orderBy('t.name', 'ASC');
 			},
 			'choice_label' => function(Taxonomy $taxonomy)
 			{
-				return $taxonomy->translate()->getName();
+				return $taxonomy->translate($this->translator->getLocale())->getName();
 			},
 			'attr' => [
 				'data-placeholder' => $this->translator->trans('duo.taxonomy.form.taxonomy_choice.placeholder')
