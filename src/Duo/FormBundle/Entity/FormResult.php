@@ -141,4 +141,12 @@ class FormResult implements IdInterface, TimestampInterface
 	{
 		return $this->form;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->name;
+	}
 }

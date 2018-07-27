@@ -1,13 +1,13 @@
 {% block infinite_form_polycollection_row %}
-	<div class="part-list">
+	<div class="part-widget">
 		<label class="mb-0">
-			{{- 'duo.part.twig.label' | trans -}}
+			{{- 'duo.part.form.collection.label' | trans -}}
 		</label>
 		<hr>
 		{% if not disabled and allow_add %}
 			<div class="my-3">
 				<button type="button" class="btn btn-primary" data-url="{{ path(modal_route) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
-					{{- 'duo.part.twig.add_part' | trans -}}
+					{{- 'duo.part.form.collection.add_part' | trans -}}
 				</button>
 			</div>
 		{% endif %}
@@ -23,7 +23,7 @@
 		{% if not disabled and allow_add %}
 			<div class="my-3{% if not form | length %} d-none{% endif %}">
 				<button type="button" class="btn btn-primary" data-url="{{ path(modal_route) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
-					{{- 'duo.part.twig.add_part' | trans -}}
+					{{- 'duo.part.form.collection.add_part' | trans -}}
 				</button>
 			</div>
 		{% endif %}
@@ -32,15 +32,15 @@
 
 {% block duo_part_row %}
 {% spaceless %}
-	<div class="sortable-item part-item{% if disabled is defined and disabled %} disabled{% endif %}">
+	<div class="sortable-item part-widget-item{% if disabled is defined and disabled %} disabled{% endif %}">
 		<div class="form-group">
 			{{ form_label(form) }}
 			{{ form_widget(form) }}
 			{{ form_errors(form) }}
 			{%- if (disabled is not defined or not disabled) and allow_delete is defined and allow_delete -%}
 				<div class="d-flex justify-content-end">
-					<button type="button" class="btn btn-secondary" data-dismiss="part-item">
-						{{- 'duo.part.twig.remove_part' | trans }} <i class="icon-bin"></i>
+					<button type="button" class="btn btn-secondary" data-dismiss="part-widget-item">
+						{{- 'duo.part.form.collection.remove_part' | trans }} <i class="icon-bin"></i>
 					</button>
 				</div>
 			{%- endif -%}

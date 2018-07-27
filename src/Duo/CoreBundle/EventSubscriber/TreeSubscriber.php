@@ -32,17 +32,10 @@ class TreeSubscriber implements EventSubscriber
      */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
-		/**
-		 * @var ClassMetadata $classMetadata
-		 */
 		$classMetadata = $args->getClassMetadata();
 
-		if (($reflectionClass = $classMetadata->getReflectionClass()) === null)
-		{
-			return;
-		}
-
-		if (!$reflectionClass->implementsInterface(TreeInterface::class))
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
+			!$reflectionClass->implementsInterface(TreeInterface::class))
 		{
 			return;
 		}

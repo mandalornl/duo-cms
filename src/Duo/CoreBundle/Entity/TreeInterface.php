@@ -3,6 +3,7 @@
 namespace Duo\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface TreeInterface
 {
@@ -45,5 +46,5 @@ interface TreeInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getChildren();
+	public function getChildren(): Collection;
 }

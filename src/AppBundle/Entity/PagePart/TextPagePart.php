@@ -19,7 +19,31 @@ class TextPagePart extends AbstractPagePart
 	 * @ORM\Column(name="value", type="text", nullable=true)
 	 * @Assert\NotBlank()
 	 */
-	protected $value;
+	private $value;
+
+	/**
+	 * Set value
+	 *
+	 * @param string $value
+	 *
+	 * @return TextPagePart
+	 */
+	public function setValue(string $value = null): TextPagePart
+	{
+		$this->value = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Get value
+	 *
+	 * @return string
+	 */
+	public function getValue(): ?string
+	{
+		return $this->value;
+	}
 
 	/**
 	 * {@inheritdoc}

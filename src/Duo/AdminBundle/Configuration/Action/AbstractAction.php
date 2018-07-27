@@ -7,38 +7,22 @@ abstract class AbstractAction implements ActionInterface
 	/**
 	 * @var string
 	 */
-	private $label;
+	protected $label;
 
 	/**
 	 * @var string
 	 */
-	private $route;
+	protected $route;
 
 	/**
 	 * @var array
 	 */
-	private $routeParameters;
+	protected $routeParameters;
 
 	/**
 	 * @var string
 	 */
-	private $template;
-
-	/**
-	 * ItemAction constructor
-	 *
-	 * @param string $label
-	 * @param string $route
-	 * @param array $routeParameters [optional]
-	 * @param string $template [optional]
-	 */
-	public function __construct(string $label, string $route, array $routeParameters = [], string $template = null)
-	{
-		$this->label = $label;
-		$this->route = $route;
-		$this->routeParameters = $routeParameters;
-		$this->template = $template;
-	}
+	protected $template;
 
 	/**
 	 * {@inheritdoc}

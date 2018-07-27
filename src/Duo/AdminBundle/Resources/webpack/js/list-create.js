@@ -3,23 +3,27 @@ import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 
-import datePicker from 'src/Duo/AdminBundle/Resources/webpack/js/lib/datepicker';
-import select2 from 'src/Duo/AdminBundle/Resources/webpack/js/lib/select2';
-import autoComplete from 'src/Duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
-import partList from 'src/Duo/AdminBundle/Resources/webpack/js/lib/part-list';
-import maxLength from 'src/Duo/AdminBundle/Resources/webpack/js/lib/maxlength';
-import * as wysiwyg from 'src/Duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
-import * as doNotLeave from 'src/Duo/AdminBundle/Resources/webpack/js/util/donotleave';
+import datePicker from 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
+import select2 from 'duo/AdminBundle/Resources/webpack/js/lib/select2';
+import autoComplete from 'duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
+import maxLength from 'duo/AdminBundle/Resources/webpack/js/lib/maxlength';
+import wysiwyg from 'duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
+import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
+
+import partWidget from 'duo/PartBundle/Resources/webpack/js/part-widget';
+import mediaWidget from 'duo/MediaBundle/Resources/webpack/js/media-widget';
+import imageCrop from 'duo/MediaBundle/Resources/webpack/js/image-crop-widget';
 
 $(() =>
 {
-	const $form = $('.listing-entity-form');
+	const $form = $('.listing-create-form');
 
 	if (!$form.length)
 	{
 		return;
 	}
 
+	// show warning when user closes or reloads page
 	$form.on('change.donotleave', 'select', function()
 	{
 		doNotLeave.enable();
@@ -45,12 +49,38 @@ $(() =>
 		}
 	}, 'input, textarea');
 
+	// select proper translation tab
 	$form.on('change', '.translation-list .tab-list > select', function()
 	{
 		$(this.value).tab('show');
 	});
 
-	$('.listing-entity').on('click', 'button[data-action="save"]', function()
+	// init widgets inside part widget
+	$form.on('duo.event.part.add', function(e)
+	{
+		const $target = $(e.target);
+
+		autoComplete({
+			selector: $target.find('.autocomplete')
+		});
+
+		mediaWidget($target.find('.media-widget'));
+
+		imageCrop.init($target.find('.image-crop-widget'));
+		wysiwyg.init($target.find('.wysiwyg'));
+	});
+
+	// destroy widgets inside part widget
+	$form.on('duo.event.part.remove', function(e)
+	{
+		const $target = $(e.target);
+
+		wysiwyg.destroy($target.find('.wysiwyg'));
+		imageCrop.destroy($target.find('.image-crop-widget'));
+	});
+
+	// handle form submit
+	$('.listing-create').on('click', 'button[data-action="save"]', function()
 	{
 		const $this = $(this);
 		$this.prop('disabled', true);
@@ -100,33 +130,16 @@ $(() =>
 			const $anchor = $(`[href="#${$this.attr('id')}"]`);
 			$anchor.append(`<span class="badge badge-danger">${$invalid.length}</span>`);
 		});
-
-		// HACK: remove duplicate error messages
-		$invalid.each(function()
-		{
-			const messages = [];
-
-			$(this).closest('.form-group').find('.invalid-feedback > span').each(function()
-			{
-				const $this = $(this);
-
-				if (messages.indexOf($this.text()) !== -1)
-				{
-					$this.remove();
-
-					return;
-				}
-
-				messages.push($this.text());
-			});
-		});
 	}
 
 	datePicker();
 	select2();
 	autoComplete();
-	partList();
 	maxLength();
 
+	partWidget();
+	mediaWidget();
+
+	imageCrop.init();
 	wysiwyg.init();
 });

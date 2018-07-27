@@ -1,0 +1,151 @@
+{% extends '@DuoAdmin/index.html.twig' %}
+
+{% block bodyClass %}listing-index listing-type-{{ type }}{% endblock %}
+
+{% block toolbar %}
+	<nav class="navbar navbar-light bg-light justify-content-end">
+		<div class="form-inline">
+			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
+				<div class="btn-group" role="group">
+					<div class="btn-group" role="group">
+						<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
+						</button>
+						<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
+							{% if list.actions is defined %}
+								{% for action in list.actions %}
+									{% if action.template %}
+										{% include action.template %}
+									{% else %}
+										<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item">
+											{{- action.label | trans -}}
+										</a>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+							{% if list.isDeletable | default(false) %}
+								{% set url = path(routePrefix ~ '_delete') %}
+							{% else %}
+								{% set url = path(routePrefix ~ '_destroy') %}
+							{% endif %}
+							<a href="{{ url }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.admin.modal.multi_delete.title' | trans }}" data-body="{{ 'duo.admin.modal.multi_delete.body' | trans }}">
+								{{- 'duo.admin.listing.action.delete' | trans -}}
+							</a>
+						</div>
+					</div>
+					{% if (routePrefix ~ '_create') is validroute %}
+						<a href="{{ path(routePrefix ~ '_create') }}" class="btn btn-primary">
+							{{- 'duo.admin.toolbar.actions.new' | trans -}}
+						</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</nav>
+{% endblock %}
+
+{% block filter %}
+	{% if list.filterForm is defined and list.filterForm %}
+		{% set filterId = random() %}
+		<div class="listing-filter mb-3">
+			{% set activeFilters = app.request.session.get('filter_' ~ type, []) | length %}
+			<button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#{{ filterId }}">
+				{{- 'duo.admin.listing.filter.filter' | trans }}{% if activeFilters %} ({{ activeFilters }}){% endif -%}
+			</button>
+			<div id="{{ filterId }}" class="collapse my-3">
+				{% form_theme list.filterForm with ['@DuoAdmin/Form/fields.html.twig'] only %}
+				{{ form_start(list.filterForm) }}
+				{{ form_widget(list.filterForm) }}
+				<div class="row">
+					<div class="col d-flex justify-content-end">
+						<a href="{{ path(routePrefix ~ '_filter', { clear: true, iframe: app.request.query.get('iframe') }) }}" class="btn btn-secondary mr-2">
+							{{- 'duo.admin.listing.filter.clear' | trans -}}
+						</a>
+						<button type="submit" class="btn btn-primary">
+							{{- 'duo.admin.listing.filter.filter' | trans -}}
+						</button>
+					</div>
+				</div>
+				{{ form_end(list.filterForm) }}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block search %}
+	{% if list.searchForm is defined and list.searchForm %}
+		<div class="listing-search">
+			{% form_theme list.searchForm with ['@DuoAdmin/Form/fields.html.twig'] only %}
+			{{ form_start(list.searchForm) }}
+			<div class="form-group">
+				<div class="input-group">
+					{{ form_widget(list.searchForm.q) }}
+					<div class="input-group-append">
+						<a href="{{ path(routePrefix ~ '_search', { clear: true, iframe: app.request.query.get('iframe') }) }}" class="btn btn-secondary">
+							<span>
+								{{- 'duo.admin.listing.search.clear' | trans -}}
+							</span> <i class="icon-cross"></i>
+						</a>
+						<button type="submit" class="btn btn-primary">
+							<span>
+								{{- 'duo.admin.listing.search.search' | trans -}}
+							</span> <i class="icon-search"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			{{ form_end(list.searchForm) }}
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	{% if paginator.canPaginate() %}
+		<div class="listing-pagination">
+			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query) }}
+		</div>
+	{% endif %}
+
+	{% set checkboxId = random() %}
+	<form action="javascript:;" method="post" class="listing-index-form">
+		{% if list.canSwitchView | default(false) %}
+			<div class="d-flex justify-content-end mb-3">
+				<div class="btn-group" role="group" aria-label="{{ 'duo.admin.listing.view.switch' | trans }}">
+					<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({ view: 'list', iframe: app.request.query.get('iframe') })) }}" class="btn btn-white{% if list.view != 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.list' | trans }}">
+						<i class="icon-list"></i>
+					</a>
+					<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({ view: 'grid', iframe: app.request.query.get('iframe') })) }}" class="btn btn-white{% if list.view == 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.grid' | trans }}">
+						<i class="icon-image"></i>
+					</a>
+				</div>
+			</div>
+		{% endif %}
+		{% if list.view == 'grid' %}
+			<div class="listing-view-grid">
+				{% include list.views.grid %}
+			</div>
+		{% else %}
+			<div class="listing-view-list">
+				{% include list.views.list %}
+			</div>
+		{% endif %}
+	</form>
+
+	{% if paginator.canPaginate() and paginator.result | length >= paginator.limit %}
+		<div class="listing-pagination">
+			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query) }}
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block modal %}
+	{% if not app.request.query.get('iframe') %}
+		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' with {
+			id: 'delete',
+			title: 'duo.admin.modal.delete.title' | trans,
+			body: 'duo.admin.modal.delete.body' | trans
+		} %}
+
+		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' %}
+	{% endif %}
+{% endblock %}

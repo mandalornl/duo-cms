@@ -4,11 +4,11 @@ namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\WYSIWYGPagePart;
 use Duo\AdminBundle\Form\WYSIWYGType;
-use Duo\PageBundle\Form\AbstractPagePartType;
+use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WYSIWYGPagePartType extends AbstractPagePartType
+class WYSIWYGPagePartType extends AbstractPartType
 {
 	/**
 	 * {@inheritdoc}

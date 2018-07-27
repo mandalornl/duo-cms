@@ -1,0 +1,2 @@
+imports:
+    - { resource: '@DuoAdminBundle/Resources/config/services.yml' }

@@ -17,7 +17,7 @@ class Field implements FieldInterface
 	/**
 	 * @var bool
 	 */
-	private $sortable;
+	private $sortable = true;
 
 	/**
 	 * @var string
@@ -34,21 +34,12 @@ class Field implements FieldInterface
 	 *
 	 * @param string $property
 	 * @param string $label
-	 * @param bool $sortable [optional]
-	 * @param string $template [optional]
 	 * @param string $alias [optional] e = entity, t = translation
 	 */
-	public function __construct(string $property,
-								string $label,
-								bool $sortable = true,
-								string $template = null,
-								string $alias = 'e'
-	)
+	public function __construct(string $property, string $label, string $alias = 'e')
 	{
 		$this->property = $property;
 		$this->label = $label;
-		$this->sortable = $sortable;
-		$this->template = $template;
 		$this->alias = $alias;
 	}
 

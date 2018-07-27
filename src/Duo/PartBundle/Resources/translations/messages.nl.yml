@@ -3,7 +3,8 @@ duo:
         modal:
             title: Onderdelen
 
-        twig:
-            label: Onderdelen
-            add_part: Onderdeel toevoegen
-            remove_part: Verwijderen
+        form:
+            collection:
+                label: Onderdelen
+                add_part: Onderdeel toevoegen
+                remove_part: Verwijderen

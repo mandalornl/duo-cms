@@ -3,6 +3,7 @@
 namespace Duo\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface TranslateInterface
 {
@@ -61,7 +62,7 @@ interface TranslateInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getTranslations();
+	public function getTranslations(): Collection;
 
 	/**
 	 * Add new translation
@@ -86,7 +87,7 @@ interface TranslateInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getNewTranslations();
+	public function getNewTranslations(): Collection;
 
 	/**
 	 * Merge new translations

@@ -15,7 +15,7 @@ class GroupFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (count($manager->getRepository(Group::class)->findAll()))
+		if ($manager->getRepository(Group::class)->count([]))
 		{
 			return;
 		}

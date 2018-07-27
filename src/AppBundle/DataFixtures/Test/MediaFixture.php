@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\MediaBundle\Entity\Media;
 use Duo\MediaBundle\Helper\UploadHelper;
-use Duo\SecurityBundle\Entity\User;
+use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,13 +24,13 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (($media = $manager->getRepository(Media::class)->findOneBy(['name' => 'foobar.jpg'])) !== null)
+		if ($manager->getRepository(Media::class)->count([]))
 		{
 			return;
 		}
 
 		/**
-		 * @var User $user
+		 * @var UserInterface $user
 		 */
 		$user = $this->getReference('user');
 

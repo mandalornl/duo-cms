@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\SecurityBundle\Entity\GroupInterface;
-use Duo\SecurityBundle\Entity\User;
+use Duo\SecurityBundle\Entity\UserInterface;
 
 class UserFixture extends Fixture implements DependentFixtureInterface
 {
@@ -15,7 +15,7 @@ class UserFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (($user = $manager->getRepository(User::class)->findOneBy(['username' => 'admin'])) !== null)
+		if ($manager->getRepository(UserInterface::class)->count([]))
 		{
 			return;
 		}
@@ -25,17 +25,16 @@ class UserFixture extends Fixture implements DependentFixtureInterface
 		 */
 		$group = $this->getReference('group');
 
-		$user = (new User())
-			->setName('Admin')
-			->setActive(true)
-			->setEmail('admin@example.com')
-			->addGroup($group);
-
-		$user
-			->setUsername('admin')
-			->setPlainPassword('admin');
-
-		$user->setCreatedBy($user);
+		/**
+		 * @var UserInterface $user
+		 */
+		$user = $manager->getClassMetadata(UserInterface::class)->getReflectionClass()->newInstance();
+		$user->setName('Admin');
+		$user->setActive(true);
+		$user->setEmail('admin@example.com');
+		$user->addGroup($group);
+		$user->setUsername('admin');
+		$user->setPlainPassword('admin');
 
 		$manager->persist($user);
 		$manager->flush();

@@ -3,7 +3,8 @@
 namespace Duo\PageBundle\Controller;
 
 use Doctrine\ORM\Query\Expr\Join;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
+use Duo\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -52,11 +53,11 @@ class PageTreeController extends Controller
 	 */
 	public function childrenAction(Request $request, int $id): JsonResponse
 	{
-		$entity = $this->getDoctrine()->getRepository(Page::class)->find($id);
+		$entity = $this->getDoctrine()->getRepository(PageInterface::class)->find($id);
 
 		if ($entity === null)
 		{
-			$className = Page::class;
+			$className = PageInterface::class;
 
 			return $this->json([
 				'error' => "Entity '{$className}::{$id}' not found"
@@ -75,13 +76,18 @@ class PageTreeController extends Controller
 	 * Get pages
 	 *
 	 * @param Request $request
-	 * @param Page $parent [optional]
+	 * @param PageInterface $parent [optional]
 	 *
 	 * @return array
 	 */
-	private function getPages(Request $request, Page $parent = null): array
+	private function getPages(Request $request, PageInterface $parent = null): array
 	{
-		$builder = $this->getDoctrine()->getRepository(Page::class)
+		/**
+		 * @var PageRepository $repository
+		 */
+		$repository = $this->getDoctrine()->getRepository(PageInterface::class);
+
+		$builder = $repository
 			->createQueryBuilder('e')
 			->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
 			->setParameter('locale', $request->getLocale())

@@ -1,0 +1,8 @@
+imports:
+    - { resource: '@DuoSecurityBundle/Resources/config/parameters.yml' }
+    - { resource: '@DuoSecurityBundle/Resources/config/services.yml'}
+
+doctrine:
+    orm:
+        resolve_target_entities:
+            Duo\SecurityBundle\Entity\UserInterface: '%duo.security.entity.user%'

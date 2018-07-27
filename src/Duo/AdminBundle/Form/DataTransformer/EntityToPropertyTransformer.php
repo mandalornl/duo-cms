@@ -88,7 +88,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * Transform single
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return array
 	 */
@@ -142,7 +142,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	 *
 	 * @param int $id
 	 *
-	 * @return object
+	 * @return mixed
 	 */
 	private function reverseTransformSingle($id)
 	{
@@ -152,6 +152,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 		}
 
 		$entity = $this->entityManager->getRepository($this->entityClass)->find($id);
+
 		if ($entity === null)
 		{
 			throw new TransformationFailedException("Entity '{$this->entityClass}::{$id}' not found");
@@ -163,7 +164,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * Get label
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 * @param PropertyAccessorInterface $accessor [optional]
 	 *
 	 * @return string

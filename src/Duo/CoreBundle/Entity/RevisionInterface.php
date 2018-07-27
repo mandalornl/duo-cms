@@ -3,6 +3,7 @@
 namespace Duo\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface RevisionInterface
 {
@@ -45,5 +46,5 @@ interface RevisionInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getRevisions();
+	public function getRevisions(): Collection;
 }

@@ -8,7 +8,7 @@ use AppBundle\Entity\PagePart\WYSIWYGPagePart;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 
 class PageFixture extends Fixture implements DependentFixtureInterface
 {
@@ -17,7 +17,12 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		$repository = $manager->getRepository(Page::class);
+		if ($manager->getRepository(PageInterface::class)->count([]))
+		{
+			return;
+		}
+
+		$repository = $manager->getRepository(PageInterface::class);
 
 		$user = $this->getReference('user');
 		$form = $this->getReference('form');
@@ -26,7 +31,7 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 		if (($page = $repository->findOneBy(['name' => 'home'])) === null)
 		{
-			$page = new Page();
+			$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
 			$page->setName('home');
 			$page->setParent($parent);
 			$page->setCreatedBy($user);
@@ -85,7 +90,7 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 		if (($page = $repository->findOneBy(['name' => 'nieuws'])) === null)
 		{
-			$page = new Page();
+			$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
 			$page->setName('news');
 			$page->setParent($parent);
 			$page->setCreatedBy($user);
@@ -132,7 +137,7 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 
 		if (($page = $repository->findOneBy(['name' => 'article'])) === null)
 		{
-			$page = new Page();
+			$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
 			$page->setName('article');
 			$page->setParent($parent);
 			$page->setCreatedBy($user);
@@ -179,7 +184,7 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 		{
 			for ($i = 1; $i <= 10; $i++)
 			{
-				$page = new Page();
+				$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
 				$page->setName("foobar-{$i}");
 				$page->setCreatedBy($user);
 				$page->setWeight($i);

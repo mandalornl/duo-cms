@@ -13,23 +13,31 @@ footer
 	padding: 1rem 0;
 }
 
-body.login main
+body
 {
-	display: flex;
-
-	flex-direction: column;
-
-	justify-content: center;
-
-	@include media-breakpoint-up(sm)
+	&.login main
 	{
-		form
+		display: flex;
+
+		flex-direction: column;
+
+		justify-content: center;
+
+		@include media-breakpoint-up(sm)
 		{
-			padding: 1rem;
+			form
+			{
+				padding: 1rem;
 
-			background: #fff;
+				background: #fff;
 
-			border-radius: .25rem;
+				border-radius: .25rem;
+			}
 		}
+	}
+
+	&.iframe main
+	{
+		padding-top: 1rem;
 	}
 }

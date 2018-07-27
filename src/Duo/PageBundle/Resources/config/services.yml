@@ -23,3 +23,13 @@ services:
             $configurator: '@duo.page.page_part_configurator'
         tags:
             - { name: form.type }
+
+    duo.page.entity.page:
+        class: '%duo.page.entity.page%'
+
+    Duo\PageBundle\Entity\PageInterface: '@duo.page.entity.page'
+
+    duo.page.entity.page_translation:
+        class: '%duo.page.entity.page_translation%'
+
+    Duo\PageBundle\Entity\PageTranslationInterface: '@duo.page.entity.page_translation'

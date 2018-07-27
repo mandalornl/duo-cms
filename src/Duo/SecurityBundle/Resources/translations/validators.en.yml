@@ -1,8 +1,8 @@
 duo:
     security:
         errors:
-            role_used: This role is already used
-            name_used: This name is already used
-            username_used: This username is already used
-            email_user: This email is already used
+            role_used: This role has already been used
+            name_used: This name has already been used
+            username_used: This username has already been used
+            email_user: This email has already been used
             password_mismatch: The password fields do not match

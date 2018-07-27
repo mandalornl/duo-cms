@@ -62,7 +62,7 @@ trait TreeTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getChildren()
+	public function getChildren(): Collection
 	{
 		return $this->children = $this->children ?: new ArrayCollection();
 	}

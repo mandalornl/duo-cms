@@ -3,6 +3,7 @@
 namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Duo\CoreBundle\Entity\IdInterface;
 use Duo\CoreBundle\Entity\TimestampInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -10,6 +11,22 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 
 interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInterface, EquatableInterface
 {
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return UserInterface
+	 */
+	public function setName(string $name = null): UserInterface;
+
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName(): ?string;
+
 	/**
 	 * Set email
 	 *
@@ -100,6 +117,22 @@ interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInt
 	public function getPasswordRequestedAt(): ?\DateTime;
 
 	/**
+	 * Set active
+	 *
+	 * @param bool $active
+	 *
+	 * @return UserInterface
+	 */
+	public function setActive(bool $active): UserInterface;
+
+	/**
+	 * Get active
+	 *
+	 * @return bool
+	 */
+	public function getActive(): bool;
+
+	/**
 	 * Add group
 	 *
 	 * @param GroupInterface $group
@@ -122,7 +155,7 @@ interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInt
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getGroups();
+	public function getGroups(): Collection;
 
 	/**
 	 * Get roles

@@ -1,6 +1,3 @@
-parameters:
-    duo.security.user_class: Duo\SecurityBundle\Entity\User
-
 services:
     _defaults:
         autowire: true
@@ -27,7 +24,7 @@ services:
         class: Duo\SecurityBundle\Helper\LoginHelper
         public: true
 
-    duo.security.user:
-        class: '%duo.security.user_class%'
+    duo.security.entity.user:
+        class: '%duo.security.entity.user%'
 
-    Duo\SecurityBundle\Entity\UserInterface: '@duo.security.user'
+    Duo\SecurityBundle\Entity\UserInterface: '@duo.security.entity.user'

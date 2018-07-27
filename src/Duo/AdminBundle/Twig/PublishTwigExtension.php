@@ -11,7 +11,7 @@ class PublishTwigExtension extends \Twig_Extension
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTests()
+	public function getTests(): array
 	{
 		return [
 			new \Twig_SimpleTest('published', [$this, 'isPublished'])
@@ -21,7 +21,7 @@ class PublishTwigExtension extends \Twig_Extension
 	/**
 	 * Check whether or not entity is published
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return int
 	 */

@@ -2,9 +2,13 @@
 - Preview
 - PHPUnit (wip)
 
-- MediaBundle (wip)
-- - List action: taxonomy
-- - Media modal
+- MediaBundle (wip) 
+	- Upload d&d
+	- List action: taxonomy
+	- Media modal
+		- Only allow image selection
+- PageBundle
+	- Abstract page/translation
 - GenerateBundle
 - GoogleMapsBundle
 

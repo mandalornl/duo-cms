@@ -72,7 +72,7 @@ abstract class AbstractUpdateController extends AbstractController
 	 * Handle update entity request
 	 *
 	 * @param Request $request
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return Response|RedirectResponse
 	 *

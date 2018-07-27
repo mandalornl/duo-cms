@@ -3,6 +3,7 @@
 namespace Duo\PartBundle\Configurator;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface PartConfiguratorInterface
 {
@@ -34,7 +35,7 @@ interface PartConfiguratorInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getConfigs();
+	public function getConfigs(): Collection;
 
 	/**
 	 * Get types

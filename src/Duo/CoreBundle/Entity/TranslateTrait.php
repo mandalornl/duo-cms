@@ -111,7 +111,7 @@ trait TranslateTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTranslations()
+	public function getTranslations(): Collection
 	{
 		return $this->translations = $this->translations ?: new ArrayCollection();
 	}
@@ -140,7 +140,7 @@ trait TranslateTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getNewTranslations()
+	public function getNewTranslations(): Collection
 	{
 		return $this->newTranslations = $this->newTranslations ?: new ArrayCollection();
 	}

@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,7 @@ class UrlController extends Controller
 	{
 		$url = "/{$url}";
 
-		$page = $this->getDoctrine()->getRepository(Page::class)->findOneByUrl($url, $request->getLocale());
+		$page = $this->getDoctrine()->getRepository(PageInterface::class)->findOneByUrl($url, $request->getLocale());
 
 		if ($page === null)
 		{

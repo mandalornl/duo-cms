@@ -14,7 +14,7 @@ class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (count($taxonomies = $manager->getRepository(Taxonomy::class)->findAll()))
+		if ($manager->getRepository(Taxonomy::class)->count([]))
 		{
 			return;
 		}

@@ -3,6 +3,7 @@
 namespace Duo\AdminBundle\Menu;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface MenuBuilderInterface
 {
@@ -29,7 +30,7 @@ interface MenuBuilderInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getConfigs();
+	public function getConfigs(): Collection;
 
 	/**
 	 * Set menu

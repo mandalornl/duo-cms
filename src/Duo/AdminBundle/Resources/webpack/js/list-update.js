@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import confirm from 'src/Duo/AdminBundle/Resources/webpack/js/util/confirm';
+import confirm from 'duo/AdminBundle/Resources/webpack/js/util/confirm';
 
 $(() =>
 {
-	$('.listing-entity').on('click', '[data-modal="confirm"]', async function(e)
+	$('.listing-create').on('click', '[data-modal="confirm"]', async function(e)
 	{
 		e.preventDefault();
 

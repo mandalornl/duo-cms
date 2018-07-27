@@ -60,7 +60,7 @@ class DeleteSubscriber implements EventSubscriber
 	/**
 	 * Set deleted by
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 */
 	public function setDeletedBy($entity): void
 	{

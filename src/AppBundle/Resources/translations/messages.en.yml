@@ -4,6 +4,8 @@ app:
         text: Plain text
         video: Video
         wysiwyg: Text
+        image: Image
+        image_crop: Image (crop)
         form: Form
 
     form:

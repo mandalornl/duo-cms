@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormResult;
-use Duo\SecurityBundle\Entity\User;
+use Duo\SecurityBundle\Entity\UserInterface;
 
 class FormResultFixture extends Fixture implements DependentFixtureInterface
 {
@@ -16,7 +16,7 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (count($manager->getRepository(FormResult::class)->findAll()))
+		if ($manager->getRepository(FormResult::class)->count([]))
 		{
 			return;
 		}
@@ -27,7 +27,7 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 		$form = $this->getReference('form');
 
 		/**
-		 * @var User $user
+		 * @var UserInterface $user
 		 */
 		$user = $this->getReference('user');
 

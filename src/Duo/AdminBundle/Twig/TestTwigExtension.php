@@ -7,7 +7,7 @@ class TestTwigExtension extends \Twig_Extension
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTests()
+	public function getTests(): array
 	{
 		return [
 			new \Twig_SimpleTest('instanceof', [$this, 'isInstanceOf']),
@@ -18,7 +18,7 @@ class TestTwigExtension extends \Twig_Extension
 	/**
 	 * Check whether or not object is instance of class
 	 *
-	 * @param object $object
+	 * @param mixed $object
 	 * @param string $className
 	 *
 	 * @return bool

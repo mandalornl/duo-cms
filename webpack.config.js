@@ -22,7 +22,8 @@ module.exports = {
 	resolve: {
 		alias: {
 			web: path.resolve(process.cwd(), 'web'),
-			src: path.resolve(process.cwd(), 'src')
+			src: path.resolve(process.cwd(), 'src'),
+			duo: path.resolve(process.cwd(), 'src/Duo') // TODO: change to 'vendor/duo/duo-cms/src/Duo'
 		}
 	},
 

@@ -3,7 +3,7 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\AdminBundle\Helper\LocaleHelper;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +28,7 @@ class SitemapController extends Controller
 	public function indexAction(Request $request): Response
 	{
 		$view = $this->renderView('@DuoSeo/sitemap_index.xml.twig', [
-			'lastMod' => $this->getDoctrine()->getRepository(Page::class)->findLastModifiedAt(),
+			'lastMod' => $this->getDoctrine()->getRepository(PageInterface::class)->findLastModifiedAt(),
 			'locales' => $this->get(LocaleHelper::class)->getLocales()
 		]);
 
@@ -54,7 +54,7 @@ class SitemapController extends Controller
 		$request->setLocale($locale);
 
 		$view = $this->renderView('@DuoSeo/sitemap.xml.twig', [
-			'root' => $this->getDoctrine()->getRepository(Page::class)->findOneByName('home', $locale)
+			'root' => $this->getDoctrine()->getRepository(PageInterface::class)->findOneByName('home', $locale)
 		]);
 
 		return new Response($view, 200, [

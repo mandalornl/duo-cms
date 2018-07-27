@@ -43,11 +43,6 @@ class Menu implements MenuInterface
 	private $children;
 
 	/**
-	 * @var MenuInterface[]
-	 */
-	private $breadcrumbs = [];
-
-	/**
 	 * Item constructor
 	 */
 	public function __construct()
@@ -188,26 +183,8 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getChildren(): ArrayCollection
+	public function getChildren(): Collection
 	{
 		return $this->children;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setBreadcrumbs(array $breadcrumbs): MenuInterface
-	{
-		$this->breadcrumbs = $breadcrumbs;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getBreadcrumbs(): array
-	{
-		return $this->breadcrumbs;
 	}
 }

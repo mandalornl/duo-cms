@@ -4,12 +4,11 @@ namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\FormPagePart;
 use Duo\FormBundle\Form\FormAutoCompleteType;
-use Duo\PageBundle\Form\AbstractPagePartType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FormPagePartType extends AbstractPagePartType
+class FormPagePartType extends AbstractPartType
 {
 	/**
 	 * {@inheritdoc}
@@ -18,13 +17,9 @@ class FormPagePartType extends AbstractPagePartType
 	{
 		parent::buildForm($builder, $options);
 
-		$builder
-			->add('value', HiddenType::class, [
-				'data' => '-' // prevent parent validator constraint from triggering
-			])
-			->add('form', FormAutoCompleteType::class, [
-				'label' => false
-			]);
+		$builder->add('form', FormAutoCompleteType::class, [
+			'label' => false
+		]);
 	}
 
 	/**

@@ -1,4 +1,4 @@
 duo:
     taxonomy:
         errors:
-            taxonomy_used: This name is already used for this locale
+            taxonomy_used: This name has already been used for this locale

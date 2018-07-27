@@ -208,4 +208,12 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	{
 		return $this->metadata;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->name;
+	}
 }

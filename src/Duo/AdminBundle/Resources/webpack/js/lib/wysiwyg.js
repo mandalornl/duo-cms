@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import uniqid from 'src/Duo/AdminBundle/Resources/webpack/js/util/uniqid';
+import uniqid from 'duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
-window.wysiwygEditors = window.wysiwygEditors || {};
+const editors = {};
 
 /**
  * Initialize wysiwyg editor
@@ -33,7 +33,7 @@ const init = (selector = '.wysiwyg') =>
 
 			this.id = this.id || uniqid();
 
-			window.wysiwygEditors[this.id] = editor;
+			editors[this.id] = editor;
 		}).catch(error => console.error(error));
 	});
 };
@@ -52,15 +52,21 @@ const destroy = (selector = '.wysiwig') =>
 		const $this = $(this);
 		const id = $this.attr('id');
 
-		if (!window.wysiwygEditors[id])
+		if (!editors[id])
 		{
 			return;
 		}
 
 		$this.removeData('init.wysiwyg');
 
-		window.wysiwygEditors[id].destroy().catch(error => console.error(error));
+		editors[id].destroy().then(() =>
+		{
+			delete editors[id];
+		}).catch(error => console.error(error));
 	});
 };
 
-export {init, destroy};
+export default {
+	init: init,
+	destroy: destroy
+};

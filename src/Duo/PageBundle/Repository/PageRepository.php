@@ -7,7 +7,7 @@ use Doctrine\ORM\Query;
 use Duo\AdminBundle\Repository\AbstractEntityRepository;
 use Duo\CoreBundle\Repository\SortTrait;
 use Duo\CoreBundle\Repository\TreeTrait;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 
 class PageRepository extends AbstractEntityRepository
 {
@@ -20,11 +20,11 @@ class PageRepository extends AbstractEntityRepository
 	 * @param int $id
 	 * @param string $locale [optional]
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 *
 	 * @throws \Throwable
 	 */
-	public function findById(int $id, string $locale = null): ?Page
+	public function findById(int $id, string $locale = null): ?PageInterface
 	{
 		try
 		{
@@ -46,11 +46,11 @@ class PageRepository extends AbstractEntityRepository
 	 * @param string $url
 	 * @param string $locale [optional]
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 *
 	 * @throws \Throwable
 	 */
-	public function findOneByUrl(string $url, string $locale = null): ?Page
+	public function findOneByUrl(string $url, string $locale = null): ?PageInterface
 	{
 		$builder = $this->getQueryBuilder($locale);
 
@@ -76,11 +76,11 @@ class PageRepository extends AbstractEntityRepository
 	 * @param string $name
 	 * @param string $locale [optional]
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 *
 	 * @throws \Throwable
 	 */
-	public function findOneByName(string $name, string $locale = null): ?Page
+	public function findOneByName(string $name, string $locale = null): ?PageInterface
 	{
 		try
 		{

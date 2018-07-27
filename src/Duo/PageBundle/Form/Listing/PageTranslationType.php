@@ -5,7 +5,7 @@ namespace Duo\PageBundle\Form\Listing;
 use Duo\AdminBundle\Form\PublicationTabType;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
-use Duo\PageBundle\Entity\PageTranslation;
+use Duo\PageBundle\Entity\PageTranslationInterface;
 use Duo\PageBundle\Form\PagePartCollectionType;
 use Duo\SeoBundle\Form\SeoTabType;
 use Symfony\Component\Form\AbstractType;
@@ -69,7 +69,7 @@ class PageTranslationType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'isNew' => true,
-			'data_class' => PageTranslation::class
+			'data_class' => PageTranslationInterface::class
 		]);
 	}
 }

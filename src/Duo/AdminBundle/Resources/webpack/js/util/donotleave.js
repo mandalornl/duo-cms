@@ -26,4 +26,7 @@ const disable = () =>
 	window.onbeforeunload = null;
 };
 
-export {enable, disable};
+export default {
+	enable: enable,
+	disable: disable
+};

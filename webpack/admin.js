@@ -1,2 +1,3 @@
-require('src/Duo/AdminBundle/Resources/webpack/admin');
-require('src/Duo/MediaBundle/Resources/webpack/admin');
+require('duo/AdminBundle/Resources/webpack/admin');
+require('duo/PartBundle/Resources/webpack/admin');
+require('duo/MediaBundle/Resources/webpack/admin');

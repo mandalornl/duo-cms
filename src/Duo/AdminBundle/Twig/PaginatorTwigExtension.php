@@ -12,9 +12,9 @@ class PaginatorTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('paginator_widget', [$this, 'render_paginator'], [
+			new \Twig_SimpleFunction('render_paginator', [$this, 'renderPaginator'], [
 				'needs_environment' => true,
-				'is_safe' => ['html' => true]
+				'is_safe' => ['html']
 			])
 		];
 	}
@@ -24,22 +24,26 @@ class PaginatorTwigExtension extends \Twig_Extension
 	 *
 	 * @param \Twig_Environment $env
 	 * @param PaginatorHelper $paginator
-	 * @param string $url
+	 * @param string $routeName
+	 * @param array $routeParameters [optional]
 	 * @param array $parameters [optional]
 	 *
 	 * @return string
 	 *
-	 * @throws \Twig_Error_Loader
-	 * @throws \Twig_Error_Runtime
-	 * @throws \Twig_Error_Syntax
+	 * @throws \Throwable
 	 */
-	public function render_paginator(\Twig_Environment $env, PaginatorHelper $paginator, string $url, array $parameters = []): string
+	public function renderPaginator(\Twig_Environment $env,
+									 PaginatorHelper $paginator,
+									 string $routeName,
+									 array $routeParameters = [],
+									 array $parameters = []): string
 	{
 		$template = $env->load('@DuoAdmin/Navigation/pagination.html.twig');
 
 		return $template->render(array_merge([
 			'paginator' => $paginator,
-			'url' => $url
+			'routeName' => $routeName,
+			'routeParameters' => $routeParameters
 		], $parameters));
 	}
 }

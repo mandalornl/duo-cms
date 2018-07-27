@@ -2,6 +2,15 @@ duo:
     admin:
         choose_language: Choose language
 
+        elapsed_time:
+            seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'
+            minutes: '{0} %unit% minutes|{1} %unit% minute|]1,Inf[ %unit% minutes'
+            hours: '{0} %unit% hours|{1} %unit% hour|]1,Inf[ %unit% hours'
+            days: '{0} %unit% days|{1} %unit% day|]1,Inf[ %unit% days'
+            weeks: '{0} %unit% weeks|{1} %unit% week|]1,Inf[ %unit% weeks'
+            months: '{0} %unit% months|{1} %unit% month|]1,Inf[ %unit% months'
+            years: '{0} %unit% years|{1} %unit% year|]1,Inf[ %unit% years'
+
         type:
             bool:
                 yes: Yes
@@ -44,6 +53,7 @@ duo:
                 move_up: Move up
                 move_down: Move down
                 delete: Delete
+                edit: Edit
 
             filter:
                 filter: Filter
@@ -71,6 +81,11 @@ duo:
                 undelete_success: Item(s) undeleted succesfully
                 save_success: Item saved successfully
                 locked: Someone else has already applied some changes. Please try again.
+
+            view:
+                list: View list
+                grid: View grid
+                switch: Switch view
 
         paginator:
             label: Pagination
@@ -144,12 +159,3 @@ duo:
 
             listing_search:
                 placeholder: Enter keyword
-
-        elapsed_time:
-            seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'
-            minutes: '{0} %unit% minutes|{1} %unit% minute|]1,Inf[ %unit% minutes'
-            hours: '{0} %unit% hours|{1} %unit% hour|]1,Inf[ %unit% hours'
-            days: '{0} %unit% days|{1} %unit% day|]1,Inf[ %unit% days'
-            weeks: '{0} %unit% weeks|{1} %unit% week|]1,Inf[ %unit% weeks'
-            months: '{0} %unit% months|{1} %unit% month|]1,Inf[ %unit% months'
-            years: '{0} %unit% years|{1} %unit% year|]1,Inf[ %unit% years'

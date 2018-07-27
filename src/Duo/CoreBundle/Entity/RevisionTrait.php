@@ -58,7 +58,7 @@ trait RevisionTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getRevisions()
+	public function getRevisions(): Collection
 	{
 		return $this->revisions = $this->revisions ?: new ArrayCollection();
 	}

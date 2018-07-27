@@ -6,7 +6,7 @@ use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
 use Duo\AdminBundle\Form\TranslationType;
 use Duo\AdminBundle\Form\WeightChoiceType;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Form\PageAutoCompleteType;
 use Duo\TaxonomyBundle\Form\TaxonomyChoiceType;
 use Symfony\Component\Form\AbstractType;
@@ -71,7 +71,7 @@ class PageType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => Page::class
+			'data_class' => PageInterface::class
 		]);
 	}
 }

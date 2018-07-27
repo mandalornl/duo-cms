@@ -5,6 +5,12 @@ liip_imagine:
             filters:
                 strip: ~
 
+        listing_preview:
+            quality: 85
+            filters:
+                strip: ~
+                thumbnail: { size: [100, 100], mode: inset, allow_scale: false }
+
         # https://medium.com/hceverything/applying-srcset-choosing-the-right-sizes-for-responsive-images-at-different-breakpoints-a0433450a4a3
         srcset_680:
             quality: 85

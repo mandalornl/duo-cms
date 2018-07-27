@@ -2,7 +2,7 @@
 
 namespace Duo\PageBundle\Controller;
 
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Form\Listing\PageType;
 
 trait PageConfigurationTrait
@@ -12,7 +12,7 @@ trait PageConfigurationTrait
 	 */
 	protected function getEntityClass(): string
 	{
-		return Page::class;
+		return PageInterface::class;
 	}
 
 	/**

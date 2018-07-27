@@ -121,4 +121,12 @@ class Redirect implements IdInterface, TimestampInterface
 	{
 		return $this->permanent;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->origin;
+	}
 }

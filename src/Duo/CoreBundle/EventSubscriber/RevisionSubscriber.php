@@ -29,9 +29,6 @@ class RevisionSubscriber implements EventSubscriber
 	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
-		/**
-		 * @var ClassMetadata $classMetadata
-		 */
 		$classMetadata = $args->getClassMetadata();
 
 		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||

@@ -28,12 +28,10 @@ class TaxonomySubscriber implements EventSubscriber
 	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
-		/**
-		 * @var ClassMetadata $classMetadata
-		 */
 		$classMetadata = $args->getClassMetadata();
 
-		if ($classMetadata->getReflectionClass() === null)
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
+			!$reflectionClass->implementsInterface(TaxonomyInterface::class))
 		{
 			return;
 		}
@@ -48,13 +46,6 @@ class TaxonomySubscriber implements EventSubscriber
 	 */
 	private function mapField(ClassMetadata $classMetadata): void
 	{
-		$reflectionClass = $classMetadata->getReflectionClass();
-
-		if (!$reflectionClass->implementsInterface(TaxonomyInterface::class))
-		{
-			return;
-		}
-
 		if (!$classMetadata->hasAssociation('taxonomies'))
 		{
 			$classMetadata->mapManyToMany([

@@ -35,7 +35,7 @@ trait EntityPartTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParts()
+	public function getParts(): Collection
 	{
 		return $this->parts = $this->parts ?: new ArrayCollection();
 	}

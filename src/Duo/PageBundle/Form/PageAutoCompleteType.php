@@ -3,7 +3,8 @@
 namespace Duo\PageBundle\Form;
 
 use Duo\AdminBundle\Form\AutoCompleteType;
-use Duo\PageBundle\Entity\Page;
+use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,11 +17,14 @@ class PageAutoCompleteType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'label' => 'duo.page.form.page_autocomplete.label',
-			'class' => Page::class,
+			'class' => PageInterface::class,
 			'routeName' => 'duo_page_autocomplete_page_url',
 			'placeholder' => 'duo.page.form.page_autocomplete.placeholder',
-			'propertyName' => function(Page $page)
+			'propertyName' => function(PageInterface $page)
 			{
+				/**
+				 * @var TranslateInterface $page
+				 */
 				return $page->translate()->getUrl();
 			}
 		]);

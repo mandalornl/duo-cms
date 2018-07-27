@@ -1,0 +1,4 @@
+parameters:
+    duo.page.entity.page: AppBundle\Entity\Page
+    duo.page.entity.page_translation: AppBundle\Entity\PageTranslation
+    duo.security.entity.user: AppBundle\Entity\User

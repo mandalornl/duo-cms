@@ -4,7 +4,7 @@ namespace Duo\PageBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
 
 class PageTwigExtension extends \Twig_Extension
 {
@@ -26,7 +26,7 @@ class PageTwigExtension extends \Twig_Extension
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getFunctions()
+	public function getFunctions(): array
 	{
 		return [
 			new \Twig_SimpleFunction('get_page', [$this, 'getPage']),
@@ -41,11 +41,11 @@ class PageTwigExtension extends \Twig_Extension
 	 * @param int $id
 	 * @param string $locale [optional]
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 */
-	public function getPage(int $id, string $locale = null): ?Page
+	public function getPage(int $id, string $locale = null): ?PageInterface
 	{
-		return $this->entityManager->getRepository(Page::class)->findById($id, $locale);
+		return $this->entityManager->getRepository(PageInterface::class)->findById($id, $locale);
 	}
 
 	/**
@@ -54,11 +54,11 @@ class PageTwigExtension extends \Twig_Extension
 	 * @param string $url
 	 * @param string $locale [optional]
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 */
-	public function getPageByUrl(string $url, string $locale = null): ?Page
+	public function getPageByUrl(string $url, string $locale = null): ?PageInterface
 	{
-		return $this->entityManager->getRepository(Page::class)->findOneByUrl($url, $locale);
+		return $this->entityManager->getRepository(PageInterface::class)->findOneByUrl($url, $locale);
 	}
 
 	/**
@@ -67,10 +67,10 @@ class PageTwigExtension extends \Twig_Extension
 	 * @param string $name
 	 * @param string $locale [optional]
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 */
-	public function getPageByName(string $name, string $locale = null): ?Page
+	public function getPageByName(string $name, string $locale = null): ?PageInterface
 	{
-		return $this->entityManager->getRepository(Page::class)->findOneByName($name, $locale);
+		return $this->entityManager->getRepository(PageInterface::class)->findOneByName($name, $locale);
 	}
 }

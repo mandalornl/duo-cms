@@ -1,0 +1,84 @@
+{% spaceless %}
+<div class="table-responsive">
+	<table class="table table-hover table-striped{% if not app.request.query.get('iframe') %} checkable{% endif %}">
+		<thead>
+			<tr>
+				{% if not app.request.query.get('iframe') %}
+					<th>
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" id="{{ checkboxId }}_all" class="custom-control-input"{% if not paginator.count %} disabled{% endif %}>
+							<label for="{{ checkboxId }}_all" class="custom-control-label"></label>
+						</div>
+					</th>
+				{% endif %}
+				{% for field in list.fields %}
+					<th{% if field.sortable %} class="sortable"{% endif %}>
+						{% if field.sortable %}
+							{% if list.sorting and list.sorting.sort == field.hash %}
+								{% set url = path(routePrefix ~ '_sorting', { sort: field.hash, order: list.sorting.order == 'asc' ? 'desc' : 'asc', iframe: app.request.query.get('iframe') }) %}
+							{% else %}
+								{% set url = path(routePrefix ~ '_sorting', { sort: field.hash, iframe: app.request.query.get('iframe') }) %}
+							{% endif %}
+							<a href="{{ url }}">
+								{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.hash %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}
+							</a>
+						{% else %}
+							{{- field.label | trans -}}
+						{% endif %}
+					</th>
+				{% endfor %}
+				{% if not app.request.query.get('iframe') %}
+					<th>&nbsp;</th>
+				{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for entity in paginator.result %}
+				<tr{% if app.request.query.get('iframe') %} data-item="{{ {
+					id: entity.id,
+					name: entity | trim,
+					type: type
+				} | json_encode }}"{% else %} data-url="{{ path(routePrefix ~ '_update', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}"{% endif %}>
+					{% if not app.request.query.get('iframe') %}
+						<td>
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" id="{{ checkboxId }}_{{ entity.id }}" class="custom-control-input" name="ids[]" value="{{ entity.id }}">
+								<label for="{{ checkboxId }}_{{ entity.id }}" class="custom-control-label"></label>
+							</div>
+						</td>
+					{% endif %}
+					{% for field in list.fields %}
+						<td>
+							{%- if field.template -%}
+								{%- include field.template -%}
+							{%- else -%}
+								{%- include '@DuoAdmin/Listing/Field/default.html.twig' -%}
+							{%- endif -%}
+						</td>
+					{% endfor %}
+					{% if not app.request.query.get('iframe') %}
+						<td>
+							{% if list.isSortable | default(false) and not entity is treeable %}
+								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
+									<i class="icon-arrow-up"></i>
+								</a>
+								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
+									<i class="icon-arrow-down"></i>
+								</a>
+							{% endif %}
+							{% if list.isDeletable | default(false) %}
+								{% set url = path(routePrefix ~ '_delete', { id: entity.id }) %}
+							{% else %}
+								{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
+							{% endif %}
+							<a href="{{ url }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+								<i class="icon-bin"></i>
+							</a>
+						</td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endspaceless %}

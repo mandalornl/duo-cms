@@ -30,4 +30,12 @@ class Taxonomy implements IdInterface, TranslateInterface, TimestampInterface
 	{
 		return $this->doTranslate($locale, $fallback);
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->translate()->getName();
+	}
 }

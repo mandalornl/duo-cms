@@ -2,7 +2,7 @@
 
 namespace Duo\SecurityBundle\Controller;
 
-use Duo\SecurityBundle\Entity\User;
+use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\SecurityBundle\Form\Listing\UserType;
 
 trait UserConfigurationTrait
@@ -12,7 +12,7 @@ trait UserConfigurationTrait
 	 */
 	protected function getEntityClass(): string
 	{
-		return User::class;
+		return UserInterface::class;
 	}
 
 	/**

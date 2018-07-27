@@ -3,6 +3,7 @@
 namespace Duo\MediaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,9 +27,16 @@ class MediaType extends AbstractType
 
 		$resolver->setAllowedValues('mediaType', [
 			'file',
-			'image',
-			'crop'
+			'image'
 		]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getParent(): string
+	{
+		return TextType::class;
 	}
 
 	/**

@@ -13,7 +13,7 @@ class RoleFixture extends Fixture
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (count($manager->getRepository(Role::class)->findAll()))
+		if ($manager->getRepository(Role::class)->count([]))
 		{
 			return;
 		}

@@ -56,7 +56,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getConfigs()
+	public function getConfigs(): Collection
 	{
 		return $this->configs;
 	}
@@ -67,6 +67,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	public function getTypes(): array
 	{
 		$types = [];
+
 		foreach ($this->configs as $entries)
 		{
 			foreach ($entries as $entry)
@@ -84,6 +85,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	public function getIcons(): array
 	{
 		$icons = [];
+
 		foreach ($this->configs as $entries)
 		{
 			foreach ($entries as $entry)

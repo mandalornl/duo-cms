@@ -3,6 +3,7 @@
 namespace Duo\AdminBundle\Menu;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface MenuInterface
 {
@@ -125,21 +126,5 @@ interface MenuInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getChildren(): ArrayCollection;
-
-	/**
-	 * Set breadcrumbs
-	 *
-	 * @param MenuInterface[] $breadcrumbs
-	 *
-	 * @return MenuInterface
-	 */
-	public function setBreadcrumbs(array $breadcrumbs): MenuInterface;
-
-	/**
-	 * Get breadcrumbs
-	 *
-	 * @return MenuInterface[]
-	 */
-	public function getBreadcrumbs(): array;
+	public function getChildren(): Collection;
 }

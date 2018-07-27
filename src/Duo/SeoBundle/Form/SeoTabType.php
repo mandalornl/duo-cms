@@ -47,7 +47,7 @@ class SeoTabType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getParent()
+	public function getParent(): string
 	{
 		return TabType::class;
 	}

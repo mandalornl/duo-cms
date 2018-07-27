@@ -15,6 +15,7 @@
 		"chokidar": "^2.0.4",
 		"clean-webpack-plugin": "^0.1.19",
 		"compass-sass-mixins": "^0.12.7",
+		"cropper": "^4.0.0",
 		"css-loader": "^0.28.11",
 		"ejs-compiled-loader": "^1.1.0",
 		"exports-loader": "^0.7.0",

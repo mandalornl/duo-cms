@@ -3,7 +3,8 @@ duo:
         modal:
             title: Parts
 
-        twig:
-            label: Parts
-            add_part: Add part
-            remove_part: Remove
+        form:
+            collection:
+                label: Parts
+                add_part: Add part
+                remove_part: Remove

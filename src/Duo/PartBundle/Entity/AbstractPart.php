@@ -38,6 +38,8 @@ abstract class AbstractPart implements PartInterface
 	 */
 	public function __toString(): string
 	{
-		return "Part:{$this->id}";
+		$class = static::class;
+
+		return "{$class}::{$this->id}";
 	}
 }

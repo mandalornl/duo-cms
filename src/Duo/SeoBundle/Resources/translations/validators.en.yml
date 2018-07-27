@@ -1,4 +1,4 @@
 duo:
     seo:
         errors:
-            origin_used: This origin is already used
+            origin_used: This origin has already been used

@@ -7,14 +7,14 @@ use Symfony\Component\EventDispatcher\Event;
 class ORMEvent extends Event
 {
 	/**
-	 * @var object
+	 * @var mixed
 	 */
 	private $entity;
 
 	/**
 	 * ORMEvent constructor
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 */
 	public function __construct($entity)
 	{
@@ -24,7 +24,7 @@ class ORMEvent extends Event
 	/**
 	 * Set entity
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return ORMEvent
 	 */
@@ -38,7 +38,7 @@ class ORMEvent extends Event
 	/**
 	 * Get entity
 	 *
-	 * @return object
+	 * @return mixed
 	 */
 	public function getEntity()
 	{

@@ -1,5 +1,5 @@
 import './js/checkable';
-import './js/list';
+import './js/list-index';
 import './js/list-create';
 import './js/list-update';
 import './js/menu';

@@ -46,11 +46,6 @@ class MenuBuilder implements MenuBuilderInterface
 	private $menu;
 
 	/**
-	 * @var MenuInterface
-	 */
-	private $activeMenu;
-
-	/**
 	 * MenuBuilder constructor
 	 *
 	 * @param RouterInterface $router
@@ -58,10 +53,11 @@ class MenuBuilder implements MenuBuilderInterface
 	 * @param RequestStack $requestStack
 	 * @param Security $security
 	 */
-	public function __construct(RouterInterface $router,
-								EventDispatcherInterface $eventDispatcher,
-								RequestStack $requestStack,
-								Security $security
+	public function __construct(
+		RouterInterface $router,
+		EventDispatcherInterface $eventDispatcher,
+		RequestStack $requestStack,
+		Security $security
 	)
 	{
 		$this->router = $router;
@@ -105,7 +101,7 @@ class MenuBuilder implements MenuBuilderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getConfigs()
+	public function getConfigs(): Collection
 	{
 		return $this->configs;
 	}
@@ -140,8 +136,6 @@ class MenuBuilder implements MenuBuilderInterface
 			return;
 		}
 
-		$this->activeMenu = null;
-
 		// dispatch pre build event
 		$this->eventDispatcher->dispatch(MenuEvents::PRE_BUILD, new MenuEvent($this));
 
@@ -163,8 +157,6 @@ class MenuBuilder implements MenuBuilderInterface
 		}
 
 		$this->menu = $menu;
-
-		$this->buildBreadcrumbs();
 
 		// dispatch post build event
 		$this->eventDispatcher->dispatch(MenuEvents::POST_BUILD, new MenuEvent($this));
@@ -224,6 +216,7 @@ class MenuBuilder implements MenuBuilderInterface
 			if (isset($item['route']))
 			{
 				$routeParameters = [];
+
 				if (isset($item['routeParameters']))
 				{
 					$routeParameters = $item['routeParameters'];
@@ -244,8 +237,6 @@ class MenuBuilder implements MenuBuilderInterface
 			if (($url = $menu->getUrl()) && $url === $this->requestUri)
 			{
 				$menu->setActive(true);
-
-				$this->activeMenu = $menu;
 			}
 
 			// contains children
@@ -256,30 +247,5 @@ class MenuBuilder implements MenuBuilderInterface
 
 			$parent->addChild($menu);
 		}
-	}
-
-	/**
-	 * Build breadcrumbs
-	 */
-	private function buildBreadcrumbs(): void
-	{
-		if ($this->activeMenu === null)
-		{
-			return;
-		}
-
-		$breadcrumbs = [];
-
-		$parent = $this->activeMenu;
-
-		do
-		{
-			$breadcrumbs[] = $parent;
-
-			$parent = $parent->getParent();
-		}
-		while ($parent !== null);
-
-		$this->menu->setBreadcrumbs(array_reverse($breadcrumbs));
 	}
 }

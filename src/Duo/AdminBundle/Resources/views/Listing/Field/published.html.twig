@@ -1,8 +1,8 @@
-{% set published = entity is published %}
-{% if published is constant('Duo\\CoreBundle\\Entity\\PublishInterface::ALL') %}
-	{{ 'duo.admin.type.bool.yes' | trans }}
-{% elseif published is constant('Duo\\CoreBundle\\Entity\\PublishInterface::PARTIAL') %}
-	{{ 'duo.admin.type.publish.partially' | trans }}
-{% else %}
-	{{ 'duo.admin.type.bool.no' | trans }}
-{% endif %}
+{%- set published = entity is published -%}
+{%- if published is constant('Duo\\CoreBundle\\Entity\\PublishInterface::ALL') -%}
+	{{- 'duo.admin.type.bool.yes' | trans -}}
+{%- elseif published is constant('Duo\\CoreBundle\\Entity\\PublishInterface::PARTIAL') -%}
+	{{- 'duo.admin.type.publish.partially' | trans -}}
+{%- else -%}
+	{{- 'duo.admin.type.bool.no' | trans -}}
+{%- endif -%}

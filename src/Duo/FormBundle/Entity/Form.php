@@ -5,12 +5,22 @@ namespace Duo\FormBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\TranslationInterface;
 use Duo\NodeBundle\Entity\AbstractNode;
-use Duo\PageBundle\Entity\Page;
+use Duo\PageBundle\Entity\PageInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="duo_form")
+ * @ORM\Table(
+ *     name="duo_form",
+ *     uniqueConstraints={
+ *		   @ORM\UniqueConstraint(name="name_uniq", columns={ "name" })
+ *	   },
+ *     indexes={
+ *		   @ORM\Index(name="name_idx", columns={ "name" })
+ *	   }
+ * )
  * @ORM\Entity(repositoryClass="Duo\FormBundle\Repository\FormRepository")
+ * @UniqueEntity(fields={ "name" }, message="duo.form.errors.name_used")
  */
 class Form extends AbstractNode
 {
@@ -42,9 +52,9 @@ class Form extends AbstractNode
 	protected $sendResultTo;
 
 	/**
-	 * @var Page
+	 * @var PageInterface
 	 *
-	 * @ORM\ManyToOne(targetEntity="Duo\PageBundle\Entity\Page")
+	 * @ORM\ManyToOne(targetEntity="Duo\PageBundle\Entity\PageInterface")
 	 * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
 	protected $page;
@@ -124,11 +134,11 @@ class Form extends AbstractNode
 	/**
 	 * Set page
 	 * 
-	 * @param Page $page
+	 * @param PageInterface $page
 	 *
 	 * @return Form
 	 */
-	public function setPage(Page $page = null): Form
+	public function setPage(PageInterface $page = null): Form
 	{
 		$this->page = $page;
 
@@ -138,9 +148,9 @@ class Form extends AbstractNode
 	/**
 	 * Get page
 	 *
-	 * @return Page
+	 * @return PageInterface
 	 */
-	public function getPage(): ?Page
+	public function getPage(): ?PageInterface
 	{
 		return $this->page;
 	}
@@ -150,7 +160,7 @@ class Form extends AbstractNode
 	 *
 	 * @return FormTranslation|TranslationInterface
 	 */
-	public function translate(string $locale = null, bool $fallback = true)
+	public function translate(string $locale = null, bool $fallback = true): FormTranslation
 	{
 		return $this->doTranslate($locale, $fallback);
 	}

@@ -1,0 +1,4 @@
+duo:
+    form:
+        errors:
+            name_used: This name has already been used

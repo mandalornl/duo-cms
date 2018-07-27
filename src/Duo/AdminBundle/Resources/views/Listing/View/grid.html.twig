@@ -1,0 +1,38 @@
+{% spaceless %}
+	<div class="grid-list row">
+		{% for entity in paginator.result %}
+			<div class="d-flex flex-column col-6 col-sm-4 col-lg-3">
+				<div class="grid-item">
+					<input type="checkbox" id="{{ checkboxId }}_{{ entity.id }}"{% if app.request.query.get('iframe') %} data-item="{{ {
+						id: entity.id,
+						name: entity | trim,
+						type: type
+					} | json_encode }}"{% else %} name="ids[]" value="{{ entity.id }}"{% endif %}>
+					<label for="{{ checkboxId }}_{{ entity.id }}">
+						<span class="icon">
+							<i class="icon-file-empty"></i>
+						</span>
+						<span class="label">
+							<span class="name">{{ entity }}</span>
+							{% if not app.request.query.get('iframe') %}
+								<span class="actions">
+									<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}">
+										<i class="icon-pencil"></i>
+									</a>
+									{% if list.isDeletable | default(false) %}
+										{% set url = path(routePrefix ~ '_delete', { id: entity.id }) %}
+									{% else %}
+										{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
+									{% endif %}
+									<a href="{{ url }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+										<i class="icon-bin"></i>
+									</a>
+								</span>
+							{% endif %}
+						</span>
+					</label>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endspaceless %}

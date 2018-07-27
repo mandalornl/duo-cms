@@ -4,6 +4,8 @@ app:
         text: Platte tekst
         video: Video
         wysiwyg: Tekst
+        image: Afbeelding
+        image_crop: Afbeelding (uitsnede)
         form: Formulier
 
     form:

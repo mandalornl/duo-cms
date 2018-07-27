@@ -1,12 +1,12 @@
-{% use '@DuoPart/Form/fields.html.twig' %}
+{%- use '@DuoPart/Form/fields.html.twig' -%}
 
 {% spaceless %}
-{% set modalId = random() %}
-<div id="modal_{{ modalId }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ modalId }}">
-	<div class="modal-dialog" role="document">
+{% set id = random() %}
+<div id="modal_{{ id }}" class="modal fade modal-part" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ id }}_title">
+	<div class="modal-dialog{% if form.vars.prototypes | length > 6 %} modal-lg{% endif %}" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_{{ modalId }}">
+				<h5 class="modal-title" id="modal_{{ id }}_title">
 					{{- 'duo.part.modal.title' | trans -}}
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
@@ -14,18 +14,22 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="part-chooser">
-					{% form_theme form with ['@DuoAdmin/Form/fields.html.twig'] only %}
+				<div class="row">
+					{% form_theme form with [
+						'@DuoAdmin/Form/fields.html.twig',
+						'@DuoMedia/Form/fields.html.twig'
+					] only %}
+
 					{% for hash, prototype in form.vars.prototypes %}
 						{% set icon = attribute(form.vars.icons, hash) | default('icon-file-empty') %}
-						<div class="button">
+						<div class="col-6{% if form.vars.prototypes | length > 6 %} col-lg-4{% endif %}">
 							{% with {
 								form: prototype,
 								allow_add: form.vars.allow_add,
 								allow_delete: form.vars.allow_delete,
 								disabled: form.vars.disabled
 							} %}
-								<button type="button" data-dismiss="modal" data-prototype="{{ block('duo_part_row') | escape }}">
+								<button type="button" class="btn btn-light" data-dismiss="modal" data-prototype="{{ block('duo_part_row') | escape }}">
 									<i class="{{ icon }}"></i> {{ prototype.vars.label | trans -}}
 								</button>
 							{% endwith %}

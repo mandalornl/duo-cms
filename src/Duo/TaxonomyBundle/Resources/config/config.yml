@@ -1,0 +1,2 @@
+imports:
+    - { resource: '@DuoTaxonomyBundle/Resources/config/services.yml' }

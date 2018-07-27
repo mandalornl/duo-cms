@@ -1,4 +1,4 @@
 duo:
     validator:
         errors:
-            keyword_used: This keyword is already used for this domain
+            keyword_used: This keyword has already been used for this domain

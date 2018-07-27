@@ -49,7 +49,7 @@ class SlugSubscriber implements EventSubscriber
 	/**
 	 * Set slug
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @throws \IntlException
 	 */

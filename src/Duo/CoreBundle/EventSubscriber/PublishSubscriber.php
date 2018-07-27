@@ -83,7 +83,7 @@ class PublishSubscriber implements EventSubscriber
 	/**
 	 * Set blame
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 */
 	private function setBlame($entity): void
 	{

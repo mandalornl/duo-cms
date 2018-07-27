@@ -4,7 +4,7 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
-.img-center
+.image-preview
 {
 	position: relative;
 
@@ -12,6 +12,8 @@
 	background-image: linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd), linear-gradient(45deg, #ddd 25%, transparent 25%, transparent 75%, #ddd 75%, #ddd);
 	background-position: 0 0, 10px 10px;
 	background-size: 20px 20px;
+
+	@include user-select(none);
 
 	&:before
 	{
@@ -23,7 +25,7 @@
 		padding-bottom: 100%;
 	}
 
-	img
+	> img
 	{
 		max-width: 100%;
 		max-height: 100%;
@@ -38,98 +40,6 @@
 		left: 0;
 
 		margin: auto;
-	}
-}
-
-.media-thumbnail
-{
-	flex: 1 0 auto;
-
-	margin-bottom: 1rem;
-
-	position: relative;
-
-	input
-	{
-		position: absolute;
-		z-index: -1;
-
-		opacity: 0;
-
-		&:checked + label
-		{
-			box-shadow: 0 0 10px $blue !important;
-		}
-	}
-
-	label
-	{
-		display: block;
-
-		cursor: pointer;
-
-		margin: 0;
-
-		border: 1px solid $thumbnail-border-color;
-		border-radius: $thumbnail-border-radius;
-
-		transition: .2s box-shadow ease-out;
-
-		&:hover
-		{
-			box-shadow: 0 0 10px rgba(#000, .2);
-		}
-	}
-
-	.img-center
-	{
-		display: block;
-
-		@include border-top-radius($thumbnail-border-radius);
-	}
-
-	.label
-	{
-		display: block;
-
-		padding: .5rem;
-	}
-
-	.filename
-	{
-		display: block;
-
-		margin-bottom: .5rem;
-
-		overflow: hidden;
-
-		max-width: 100%;
-
-		text-overflow: ellipsis;
-
-		white-space: nowrap;
-	}
-
-	.actions
-	{
-		display: block;
-
-		text-align: right;
-
-		@include media-breakpoint-up(md)
-		{
-			margin-left: 1rem;
-		}
-
-		a
-		{
-			text-decoration: none;
-
-			& + a
-			{
-				margin-left: 1rem;
-			}
-		}
 	}
 }
 
@@ -153,7 +63,7 @@
 		}
 	}
 
-	.img-center
+	.image-preview
 	{
 		position: relative;
 
@@ -166,5 +76,46 @@
 	p
 	{
 		text-align: center;
+	}
+}
+
+.media-widget .image-preview
+{
+	border: 1px solid $thumbnail-border-color;
+	border-radius: $thumbnail-border-radius;
+
+	margin-bottom: .5rem;
+}
+
+.image-crop-widget .media-widget .image-preview .cropper-container
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+body.listing-type-media
+{
+	.listing-view-list .table tbody td
+	{
+		vertical-align: middle;
+
+		.image-preview
+		{
+			width: 100px;
+			height: 100px;
+
+			border: 1px solid $thumbnail-border-color;
+			border-radius: $thumbnail-border-radius;
+		}
+	}
+
+	.listing-view-grid .grid-list .grid-item .image-preview
+	{
+		display: block;
+
+		@include border-top-radius($thumbnail-border-radius);
 	}
 }

@@ -25,9 +25,9 @@ abstract class AbstractCreateController extends AbstractController
 	 */
 	protected function doCreateAction(Request $request): Response
 	{
-		$class = $this->getEntityClass();
+		$em = $this->getDoctrine()->getManager();
 
-		$entity = new $class();
+		$entity = $em->getClassMetadata($this->getEntityClass())->getReflectionClass()->newInstance();
 
 		$eventDispatcher = $this->get('event_dispatcher');
 
@@ -46,7 +46,6 @@ abstract class AbstractCreateController extends AbstractController
 			// dispatch post create event
 			$eventDispatcher->dispatch(FormEvents::POST_CREATE, new FormEvent($form, $entity));
 
-			$em = $this->getDoctrine()->getManager();
 			$em->persist($entity);
 			$em->flush();
 

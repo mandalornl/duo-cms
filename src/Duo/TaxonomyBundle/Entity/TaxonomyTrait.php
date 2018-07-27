@@ -35,7 +35,7 @@ trait TaxonomyTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTaxonomies()
+	public function getTaxonomies(): Collection
 	{
 		return $this->taxonomies = $this->taxonomies ?: new ArrayCollection();
 	}

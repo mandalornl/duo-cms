@@ -19,7 +19,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if (($form =  $manager->getRepository(Form::class)->findOneBy(['name' => 'Contact'])) !== null)
+		if ($manager->getRepository(Form::class)->count([]))
 		{
 			return;
 		}

@@ -15,13 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class FormPagePart extends AbstractPagePart
 {
 	/**
-	 * @var string
-	 *
-	 * Override ORM mapping
-	 */
-	protected $value;
-
-	/**
 	 * @var Form
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")

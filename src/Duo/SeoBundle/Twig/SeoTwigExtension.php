@@ -2,7 +2,7 @@
 
 namespace Duo\SeoBundle\Twig;
 
-use Duo\NodeBundle\Entity\NodeInterface;
+use Duo\PageBundle\Entity\PageInterface;
 
 class SeoTwigExtension extends \Twig_Extension
 {
@@ -23,8 +23,8 @@ class SeoTwigExtension extends \Twig_Extension
 	 * Render seo metadata
 	 *
 	 * @param \Twig_Environment $env
-	 * @param NodeInterface $page
-	 * @param array $parameters
+	 * @param PageInterface $page
+	 * @param array $parameters [optional]
 	 *
 	 * @return string
 	 *
@@ -32,7 +32,7 @@ class SeoTwigExtension extends \Twig_Extension
 	 * @throws \Twig_Error_Runtime
 	 * @throws \Twig_Error_Syntax
 	 */
-	public function renderSeoMetadata(\Twig_Environment $env, NodeInterface $page, array $parameters = []): string
+	public function renderSeoMetadata(\Twig_Environment $env, PageInterface $page, array $parameters = []): string
 	{
 		$template = $env->load('@DuoSeo/Seo/metadata.html.twig');
 

@@ -33,7 +33,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 	/**
 	 * Transform
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return int
 	 */
@@ -52,7 +52,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 	 *
 	 * @param int $id
 	 *
-	 * @return object
+	 * @return mixed
 	 */
 	public function reverseTransform($id)
 	{
@@ -62,6 +62,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 		}
 
 		$entity = $this->entityManager->getRepository($this->entityClass)->find($id);
+
 		if ($entity === null)
 		{
 			throw new TransformationFailedException("Entity '{$this->entityClass}::{$id}' not found");

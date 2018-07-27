@@ -2,7 +2,4 @@
 
 namespace Duo\AdminBundle\Configuration\Action;
 
-interface ItemActionInterface extends ActionInterface
-{
-
-}
+interface ItemActionInterface extends ActionInterface {}

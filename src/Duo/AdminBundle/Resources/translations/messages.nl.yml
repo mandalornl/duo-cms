@@ -2,6 +2,15 @@ duo:
     admin:
         choose_language: Kies taal
 
+        elapsed_time:
+            seconds: '{0} %unit% seconden|{1} %unit% seconde|]1,Inf[ %unit% seconden'
+            minutes: '{0} %unit% minuten|{1} %unit% minuut|]1,Inf[ %unit% minuten'
+            hours: '{0} %unit% uur|{1} %unit% uur|]1,Inf[ %unit% uur'
+            days: '{0} %unit% dagen|{1} %unit% dag|]1,Inf[ %unit% dagen'
+            weeks: '{0} %unit% weken|{1} %unit% week|]1,Inf[ %unit% weken'
+            months: '{0} %unit% maanden|{1} %unit% maand|]1,Inf[ %unit% maanden'
+            years: '{0} %unit% jaar|{1} %unit% jaar|]1,Inf[ %unit% jaar'
+
         type:
             bool:
                 yes: Ja
@@ -44,6 +53,7 @@ duo:
                 move_up: Verplaats omhoog
                 move_down: Verplaats omlaag
                 delete: Verwijderen
+                edit: Wijzigen
 
             filter:
                 filter: Filteren
@@ -71,6 +81,11 @@ duo:
                 undelete_success: Item(s) succesvol hersteld
                 save_success: Item succesvol opgeslagen
                 locked: Iemand anders heeft al enkele wijzigingen aangebracht. Probeer het nogmaals.
+
+            view:
+                list: Toon lijst
+                grid: Toon grid
+                switch: Wissel weergave
 
         paginator:
             label: Paginering
@@ -144,12 +159,3 @@ duo:
 
             listing_search:
                 placeholder: Voer zoekterm in
-
-        elapsed_time:
-            seconds: '{0} %unit% seconden|{1} %unit% seconde|]1,Inf[ %unit% seconden'
-            minutes: '{0} %unit% minuten|{1} %unit% minuut|]1,Inf[ %unit% minuten'
-            hours: '{0} %unit% uur|{1} %unit% uur|]1,Inf[ %unit% uur'
-            days: '{0} %unit% dagen|{1} %unit% dag|]1,Inf[ %unit% dagen'
-            weeks: '{0} %unit% weken|{1} %unit% week|]1,Inf[ %unit% weken'
-            months: '{0} %unit% maanden|{1} %unit% maand|]1,Inf[ %unit% maanden'
-            years: '{0} %unit% jaar|{1} %unit% jaar|]1,Inf[ %unit% jaar'

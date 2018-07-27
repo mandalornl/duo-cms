@@ -3,6 +3,7 @@
 namespace Duo\TaxonomyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface TaxonomyInterface
 {
@@ -29,5 +30,5 @@ interface TaxonomyInterface
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getTaxonomies();
+	public function getTaxonomies(): Collection;
 }

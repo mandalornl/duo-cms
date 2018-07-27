@@ -9,7 +9,7 @@ use Duo\CoreBundle\Entity\SortInterface;
 use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\CoreBundle\Entity\TreeInterface;
 use Duo\CoreBundle\Entity\RevisionInterface;
-use Duo\PageBundle\Entity\ViewInterface;
+use Duo\CoreBundle\Entity\ViewInterface;
 
 class CoreTwigExtension extends \Twig_Extension
 {
@@ -33,7 +33,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is deletable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -45,7 +45,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is publishable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -67,7 +67,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is sortable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -79,7 +79,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is translatable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -91,7 +91,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is treeable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -103,7 +103,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is revisionable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -115,7 +115,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is duplicatable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */
@@ -127,7 +127,7 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is viewable
 	 *
-	 * @param object $entity
+	 * @param mixed $entity
 	 *
 	 * @return bool
 	 */

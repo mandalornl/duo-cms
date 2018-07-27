@@ -3,12 +3,12 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\TextPagePart;
-use Duo\PageBundle\Form\AbstractPagePartType;
+use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TextPagePartType extends AbstractPagePartType
+class TextPagePartType extends AbstractPartType
 {
 	/**
 	 * {@inheritdoc}
