@@ -36,9 +36,9 @@ class RobotListController extends AbstractController
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($entity);
-			$em->flush();
+			$manager = $this->getDoctrine()->getManager();
+			$manager->persist($entity);
+			$manager->flush();
 
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}

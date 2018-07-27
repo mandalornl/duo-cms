@@ -90,9 +90,9 @@ abstract class AbstractRevisionController extends AbstractController
 		// dispatch revert event
 		$this->get('event_dispatcher')->dispatch(RevisionEvents::REVERT, new RevisionEvent($entity, $entity->getRevision()));
 
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($entity);
-		$em->flush();
+		$manager = $this->getDoctrine()->getManager();
+		$manager->persist($entity);
+		$manager->flush();
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

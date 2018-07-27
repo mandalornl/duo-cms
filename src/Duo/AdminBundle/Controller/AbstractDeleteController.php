@@ -109,7 +109,7 @@ abstract class AbstractDeleteController extends AbstractController
 		}
 		else
 		{
-			$em = $this->getDoctrine()->getManager();
+			$manager = $this->getDoctrine()->getManager();
 
 			$dispatcher = $this->get('event_dispatcher');
 
@@ -131,14 +131,14 @@ abstract class AbstractDeleteController extends AbstractController
 
 					call_user_func_array($callback, [ $entity, $dispatcher ]);
 
-					$em->persist($entity);
+					$manager->persist($entity);
 				}
 
-				$em->flush();
-				$em->clear();
+				$manager->flush();
+				$manager->clear();
 			}
 
-			$em->flush();
+			$manager->flush();
 
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')

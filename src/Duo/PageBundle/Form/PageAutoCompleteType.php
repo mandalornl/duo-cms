@@ -3,7 +3,6 @@
 namespace Duo\PageBundle\Form;
 
 use Duo\AdminBundle\Form\AutoCompleteType;
-use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,10 +21,7 @@ class PageAutoCompleteType extends AbstractType
 			'placeholder' => 'duo.page.form.page_autocomplete.placeholder',
 			'propertyName' => function(PageInterface $page)
 			{
-				/**
-				 * @var TranslateInterface $page
-				 */
-				return $page->translate()->getUrl();
+				return "/{$page->translate()->getUrl()}";
 			}
 		]);
 	}

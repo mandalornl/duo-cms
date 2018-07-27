@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Duo\CoreBundle\Entity\DeleteInterface;
@@ -10,7 +10,7 @@ use Duo\CoreBundle\Entity\PublishInterface;
 use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\CoreBundle\Entity\RevisionInterface;
 
-abstract class AbstractEntityRepository extends EntityRepository
+abstract class AbstractEntityRepository extends ServiceEntityRepository
 {
 	/**
 	 * Get query builder

@@ -2,25 +2,24 @@
 
 namespace Duo\PageBundle\Twig;
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Duo\PageBundle\Entity\PageInterface;
+use Duo\PageBundle\Repository\PageRepository;
 
 class PageTwigExtension extends \Twig_Extension
 {
 	/**
-	 * @var EntityManager
+	 * @var PageRepository
 	 */
-	private $entityManager;
+	private $pageRepository;
 
 	/**
 	 * PageTwigExtension constructor
 	 *
-	 * @param EntityManagerInterface $entityManager
+	 * @param PageRepository $pageRepository
 	 */
-	public function __construct(EntityManagerInterface $entityManager)
+	public function __construct(PageRepository $pageRepository)
 	{
-		$this->entityManager = $entityManager;
+		$this->pageRepository = $pageRepository;
 	}
 
 	/**
@@ -42,10 +41,12 @@ class PageTwigExtension extends \Twig_Extension
 	 * @param string $locale [optional]
 	 *
 	 * @return PageInterface
+	 *
+	 * @throws \Throwable
 	 */
 	public function getPage(int $id, string $locale = null): ?PageInterface
 	{
-		return $this->entityManager->getRepository(PageInterface::class)->findById($id, $locale);
+		return $this->pageRepository->findById($id, $locale);
 	}
 
 	/**
@@ -55,10 +56,12 @@ class PageTwigExtension extends \Twig_Extension
 	 * @param string $locale [optional]
 	 *
 	 * @return PageInterface
+	 *
+	 * @throws \Throwable
 	 */
 	public function getPageByUrl(string $url, string $locale = null): ?PageInterface
 	{
-		return $this->entityManager->getRepository(PageInterface::class)->findOneByUrl($url, $locale);
+		return $this->pageRepository->findOneByUrl($url, $locale);
 	}
 
 	/**
@@ -68,9 +71,11 @@ class PageTwigExtension extends \Twig_Extension
 	 * @param string $locale [optional]
 	 *
 	 * @return PageInterface
+	 *
+	 * @throws \Throwable
 	 */
 	public function getPageByName(string $name, string $locale = null): ?PageInterface
 	{
-		return $this->entityManager->getRepository(PageInterface::class)->findOneByName($name, $locale);
+		return $this->pageRepository->findOneByName($name, $locale);
 	}
 }

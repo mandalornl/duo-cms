@@ -28,7 +28,10 @@ class PageIndexController extends AbstractIndexController
 		$this
 			->addField(new Field('name', 'duo.page.listing.field.name'))
 			->addField(new Field('title', 'duo.page.listing.field.title', 't'))
-			->addField(new Field('url', 'duo.page.listing.field.url', 't'))
+			->addField(
+				(new Field('url', 'duo.page.listing.field.url', 't'))
+					->setTemplate('@DuoAdmin/Listing/Field/url.html.twig')
+			)
 			->addField(
 				(new Field('published', 'duo.page.listing.field.online'))
 					->setSortable(false)

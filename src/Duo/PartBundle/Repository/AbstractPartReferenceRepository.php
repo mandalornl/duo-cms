@@ -32,11 +32,11 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 		$partReference = $this->createPartReference($entity, $part);
 
 		/**
-		 * @var ObjectManager $em
+		 * @var ObjectManager $manager
 		 */
-		$em = $this->getEntityManager();
-		$em->persist($partReference);
-		$em->flush();
+		$manager = $this->getEntityManager();
+		$manager->persist($partReference);
+		$manager->flush();
 
 		return $partReference;
 	}
@@ -47,9 +47,9 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	public function addPartReferences(EntityPartInterface $entity): void
 	{
 		/**
-		 * @var ObjectManager $em
+		 * @var ObjectManager $manager
 		 */
-		$em = $this->getEntityManager();
+		$manager = $this->getEntityManager();
 
 		$weight = null;
 
@@ -90,10 +90,10 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 			 */
 			$partReference = $this->createPartReference($entity, $part);
 
-			$em->persist($partReference);
+			$manager->persist($partReference);
 		}
 
-		$em->flush();
+		$manager->flush();
 	}
 
 	/**
@@ -106,12 +106,10 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	 */
 	protected function createPartReference(EntityPartInterface $entity, PartInterface $part): PartReferenceInterface
 	{
-		$class = $this->getClassName();
-
 		/**
 		 * @var PartReferenceInterface $partReference
 		 */
-		$partReference = new $class();
+		$partReference = $this->getClassMetadata()->getReflectionClass()->newInstance();
 
 		return $partReference
 			->setEntityId($entity->getId())
@@ -290,10 +288,8 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 	 */
 	protected function updateWeightOfSiblingsOnAdd(EntityPartInterface $entity, int $weight): bool
 	{
-		$className = $this->getClassName();
-
 		$dql = <<<SQL
-UPDATE {$className} e SET e.weight = e.weight + 1 
+UPDATE {$this->getClassName()} e SET e.weight = e.weight + 1 
 WHERE e.weight >= :weight
 AND e.entityId = :entityId
 SQL;
@@ -317,10 +313,8 @@ SQL;
 	 */
 	protected function updateWeightOfSiblingsOnRemove(EntityPartInterface $entity, int $weight): bool
 	{
-		$className = $this->getClassName();
-
 		$dql = <<<SQL
-UPDATE {$className} e SET e.weight = e.weight - 1
+UPDATE {$this->getClassName()} e SET e.weight = e.weight - 1
 WHERE e.weight > :weight
 AND e.entityId = :entityId
 SQL;

@@ -29,12 +29,12 @@ abstract class AbstractSortController extends AbstractController
 	{
 		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
 		{
-			$em = $this->getDoctrine()->getManager();
+			$manager = $this->getDoctrine()->getManager();
 
 			/**
 			 * @var SortTrait $repository
 			 */
-			$repository = $em->getRepository($this->getEntityClass());
+			$repository = $manager->getRepository($this->getEntityClass());
 
 			$previousEntity = $repository->findPrevToSort($entity);
 
@@ -47,9 +47,9 @@ abstract class AbstractSortController extends AbstractController
 				// dispatch sort event
 				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
 
-				$em->persist($previousEntity);
-				$em->persist($entity);
-				$em->flush();
+				$manager->persist($previousEntity);
+				$manager->persist($entity);
+				$manager->flush();
 			}
 		});
 	}
@@ -80,12 +80,12 @@ abstract class AbstractSortController extends AbstractController
 	{
 		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
 		{
-			$em = $this->getDoctrine()->getManager();
+			$manager = $this->getDoctrine()->getManager();
 
 			/**
 			 * @var SortTrait $repository
 			 */
-			$repository = $em->getRepository($this->getEntityClass());
+			$repository = $manager->getRepository($this->getEntityClass());
 
 			$nextEntity = $repository->findNextToSort($entity);
 
@@ -98,9 +98,9 @@ abstract class AbstractSortController extends AbstractController
 				// dispatch sort event
 				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
 
-				$em->persist($nextEntity);
-				$em->persist($entity);
-				$em->flush();
+				$manager->persist($nextEntity);
+				$manager->persist($entity);
+				$manager->flush();
 			}
 		});
 	}
@@ -192,12 +192,12 @@ abstract class AbstractSortController extends AbstractController
 			return $this->createMoveToException($request, 'Missing parent and/or prev/next sibling id\'s');
 		}
 
-		$em = $this->getDoctrine()->getManager();
+		$manager = $this->getDoctrine()->getManager();
 
 		/**
 		 * @var EntityRepository|SortTrait $repository
 		 */
-		$repository = $em->getRepository($this->getEntityClass());
+		$repository = $manager->getRepository($this->getEntityClass());
 
 		if ($entity instanceof TreeInterface)
 		{
@@ -230,10 +230,10 @@ abstract class AbstractSortController extends AbstractController
 							 */
 							$child->setWeight($weight++);
 
-							$em->persist($child);
+							$manager->persist($child);
 						}
 
-						$em->persist($prevParent);
+						$manager->persist($prevParent);
 					}
 					else
 					{
@@ -248,14 +248,14 @@ abstract class AbstractSortController extends AbstractController
 
 							$child->setWeight($weight++);
 
-							$em->persist($child);
+							$manager->persist($child);
 						}
 					}
 				}
 
 				$parent->addChild($entity);
 
-				$em->persist($parent);
+				$manager->persist($parent);
 			}
 			else
 			{
@@ -275,10 +275,10 @@ abstract class AbstractSortController extends AbstractController
 						 */
 						$child->setWeight($weight++);
 
-						$em->persist($child);
+						$manager->persist($child);
 					}
 
-					$em->persist($prevParent);
+					$manager->persist($prevParent);
 				}
 
 				$entity->setParent(null);
@@ -328,10 +328,10 @@ abstract class AbstractSortController extends AbstractController
 		{
 			$child->setWeight($weight++);
 
-			$em->persist($child);
+			$manager->persist($child);
 		}
 
-		$em->flush();
+		$manager->flush();
 
 		if ($request->getRequestFormat() === 'json')
 		{

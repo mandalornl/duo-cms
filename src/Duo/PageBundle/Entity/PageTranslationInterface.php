@@ -5,10 +5,12 @@ namespace Duo\PageBundle\Entity;
 use Duo\CoreBundle\Entity\PublishInterface;
 use Duo\CoreBundle\Entity\SlugInterface;
 use Duo\CoreBundle\Entity\UrlInterface;
+use Duo\NodeBundle\Entity\NodeTranslationInterface;
 use Duo\PartBundle\Entity\EntityPartInterface;
 use Duo\SeoBundle\Entity\SeoInterface;
 
-interface PageTranslationInterface extends SlugInterface,
+interface PageTranslationInterface extends NodeTranslationInterface,
+										   SlugInterface,
 										   UrlInterface,
 										   PublishInterface,
 										   SeoInterface,

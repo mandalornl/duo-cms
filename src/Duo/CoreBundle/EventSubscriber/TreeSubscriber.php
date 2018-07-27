@@ -51,16 +51,16 @@ class TreeSubscriber implements EventSubscriber
 	 */
 	public function onFlush(OnFlushEventArgs $args): void
 	{
-		$uow = $args->getEntityManager()->getUnitOfWork();
+		$unitOfWork = $args->getEntityManager()->getUnitOfWork();
 
-		foreach ($uow->getScheduledEntityUpdates() as $entity)
+		foreach ($unitOfWork->getScheduledEntityUpdates() as $entity)
 		{
 			if (!$entity instanceof TreeInterface)
 			{
 				continue;
 			}
 
-			$changeSet = $uow->getEntityChangeSet($entity);
+			$changeSet = $unitOfWork->getEntityChangeSet($entity);
 
 			if (!isset($changeSet['parent']))
 			{
@@ -70,18 +70,18 @@ class TreeSubscriber implements EventSubscriber
 			// unset to recompute url's
 			if ($entity instanceof UrlInterface)
 			{
-				$this->unsetUrl($entity, $uow);
+				$this->unsetUrl($entity, $unitOfWork);
 			}
 			else
 			{
 				if ($entity instanceof TranslateInterface)
 				{
-					$this->unsetTranslationUrl($entity, $uow);
+					$this->unsetTranslationUrl($entity, $unitOfWork);
 				}
 			}
 		}
 
-		$uow->computeChangeSets();
+		$unitOfWork->computeChangeSets();
 	}
 
 	/**
@@ -143,24 +143,24 @@ class TreeSubscriber implements EventSubscriber
 	 * Unset url
 	 *
 	 * @param TreeInterface|UrlInterface $entity
-	 * @param UnitOfWork $uow
+	 * @param UnitOfWork $unitOfWork
 	 */
-	private function unsetUrl(UrlInterface $entity, UnitOfWork $uow): void
+	private function unsetUrl(UrlInterface $entity, UnitOfWork $unitOfWork): void
 	{
 		$entity->setUrl(null);
 
-		$uow->persist($entity);
+		$unitOfWork->persist($entity);
 
-		$this->unsetChildrenUrl($entity, $uow);
+		$this->unsetChildrenUrl($entity, $unitOfWork);
 	}
 
 	/**
 	 * Unset children url
 	 *
 	 * @param TreeInterface $entity
-	 * @param UnitOfWork $uow
+	 * @param UnitOfWork $unitOfWork
 	 */
-	private function unsetChildrenUrl(TreeInterface $entity, UnitOfWork $uow): void
+	private function unsetChildrenUrl(TreeInterface $entity, UnitOfWork $unitOfWork): void
 	{
 		/**
 		 * @var TreeInterface|UrlInterface $child
@@ -169,9 +169,9 @@ class TreeSubscriber implements EventSubscriber
 		{
 			$child->setUrl(null);
 
-			$uow->persist($child);
+			$unitOfWork->persist($child);
 
-			$this->unsetChildrenUrl($child, $uow);
+			$this->unsetChildrenUrl($child, $unitOfWork);
 		}
 	}
 
@@ -179,9 +179,9 @@ class TreeSubscriber implements EventSubscriber
 	 * Unset translation url
 	 *
 	 * @param TranslateInterface $entity
-	 * @param UnitOfWork $uow
+	 * @param UnitOfWork $unitOfWork
 	 */
-	private function unsetTranslationUrl(TranslateInterface $entity, UnitOfWork $uow): void
+	private function unsetTranslationUrl(TranslateInterface $entity, UnitOfWork $unitOfWork): void
 	{
 		foreach ($entity->getTranslations() as $translation)
 		{
@@ -192,19 +192,19 @@ class TreeSubscriber implements EventSubscriber
 
 			$translation->setUrl(null);
 
-			$uow->persist($translation);
+			$unitOfWork->persist($translation);
 		}
 
-		$this->unsetTranslationChildrenUrl($entity, $uow);
+		$this->unsetTranslationChildrenUrl($entity, $unitOfWork);
 	}
 
 	/**
 	 * Unset translation children url
 	 *
 	 * @param TreeInterface|TranslateInterface $entity
-	 * @param UnitOfWork $uow
+	 * @param UnitOfWork $unitOfWork
 	 */
-	private function unsetTranslationChildrenUrl(TreeInterface $entity, UnitOfWork $uow): void
+	private function unsetTranslationChildrenUrl(TreeInterface $entity, UnitOfWork $unitOfWork): void
 	{
 		foreach ($entity->getChildren() as $child)
 		{
@@ -217,10 +217,10 @@ class TreeSubscriber implements EventSubscriber
 
 				$translation->setUrl(null);
 
-				$uow->persist($translation);
+				$unitOfWork->persist($translation);
 			}
 
-			$this->unsetTranslationChildrenUrl($child, $uow);
+			$this->unsetTranslationChildrenUrl($child, $unitOfWork);
 		}
 	}
 }

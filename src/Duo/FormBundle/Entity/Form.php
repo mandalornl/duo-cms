@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *		   @ORM\Index(name="name_idx", columns={ "name" })
  *	   }
  * )
- * @ORM\Entity(repositoryClass="Duo\FormBundle\Repository\FormRepository")
+ * @ORM\Entity()
  * @UniqueEntity(fields={ "name" }, message="duo.form.errors.name_used")
  */
 class Form extends AbstractNode

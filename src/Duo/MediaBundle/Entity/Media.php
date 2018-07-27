@@ -14,7 +14,7 @@ use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
 
 /**
  * @ORM\Table(name="duo_media")
- * @ORM\Entity(repositoryClass="Duo\MediaBundle\Repository\MediaRepository")
+ * @ORM\Entity()
  */
 class Media implements IdInterface, TimestampInterface, DeleteInterface, TaxonomyInterface
 {

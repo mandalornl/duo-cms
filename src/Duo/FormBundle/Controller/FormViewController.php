@@ -93,9 +93,9 @@ class FormViewController extends Controller
 				->setData($submissionData)
 				->setForm($entity);
 
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($submission);
-			$em->flush();
+			$manager = $this->getDoctrine()->getManager();
+			$manager->persist($submission);
+			$manager->flush();
 
 			/**
 			 * @var FormTranslation $translation

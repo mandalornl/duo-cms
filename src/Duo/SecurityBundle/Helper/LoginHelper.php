@@ -33,9 +33,10 @@ class LoginHelper
 	 * @param TokenStorageInterface $tokenStorage
 	 * @param EventDispatcherInterface $eventDispatcher
 	 */
-	public function __construct(RequestHelper $requestHelper,
-								TokenStorageInterface $tokenStorage,
-								EventDispatcherInterface $eventDispatcher
+	public function __construct(
+		RequestHelper $requestHelper,
+		TokenStorageInterface $tokenStorage,
+		EventDispatcherInterface $eventDispatcher
 	)
 	{
 		$this->requestHelper = $requestHelper;
@@ -66,5 +67,22 @@ class LoginHelper
 		$this->eventDispatcher->dispatch('security.interactive_login', new InteractiveLoginEvent($request, $token));
 
 		return true;
+	}
+
+	/**
+	 * Manual logout
+	 *
+	 * @return bool
+	 */
+	public function doManualLogout(): bool
+	{
+		if (($request = $this->requestHelper->getRequest()) === null)
+		{
+			return false;
+		}
+
+		$this->tokenStorage->setToken(null);
+
+		return $request->getSession()->invalidate();
 	}
 }

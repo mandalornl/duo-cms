@@ -211,13 +211,9 @@ trait TranslateTrait
 		$translation->setLocale($locale);
 
 		$this->addNewTranslation($translation);
+
 		return $translation;
 	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	abstract public function translate(string $locale = null, bool $fallback = true);
 
 	/**
 	 * Find translation by locale

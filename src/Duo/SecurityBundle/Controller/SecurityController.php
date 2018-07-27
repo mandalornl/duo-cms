@@ -2,7 +2,6 @@
 
 namespace Duo\SecurityBundle\Controller;
 
-use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\SecurityBundle\Form\ForgotPasswordType;
 use Duo\SecurityBundle\Form\ResetPasswordType;
 use Duo\SecurityBundle\Helper\LoginHelper;
@@ -20,35 +19,18 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends Controller
 {
 	/**
-	 * Login
-	 *
-	 * @Route("/login", name="login", methods={ "GET", "POST" })
-	 *
-	 * @param Request $request
-	 * @param AuthenticationUtils $utils
-	 *
-	 * @return Response
-	 */
-	public function loginAction(Request $request, AuthenticationUtils $utils): Response
-	{
-		return $this->render('@DuoSecurity/Form/login.html.twig', [
-			'lastUsername' => $utils->getLastUsername(),
-			'error' => $utils->getLastAuthenticationError()
-		]);
-	}
-
-	/**
 	 * Forgot password
 	 *
 	 * @Route("/forgot-password", name="forgot_password", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
+	 * @param UserRepository $userRepository
 	 *
 	 * @return Response|RedirectResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function forgotPasswordAction(Request $request): Response
+	public function forgotPasswordAction(Request $request, UserRepository $userRepository): Response
 	{
 		$form = $this->createForm(ForgotPasswordType::class);
 		$form->handleRequest($request);
@@ -57,10 +39,7 @@ class SecurityController extends Controller
 		{
 			$data = $form->getData();
 
-			/**
-			 * @var UserInterface $user
-			 */
-			$user = $this->getDoctrine()->getRepository(UserInterface::class)->findOneBy([
+			$user = $userRepository->findOneBy([
 				'email' => $data['email']
 			]);
 
@@ -81,9 +60,9 @@ class SecurityController extends Controller
 						->setPasswordToken($token)
 						->setPasswordRequestedAt(new \DateTime());
 
-					$em = $this->getDoctrine()->getManager();
-					$em->persist($user);
-					$em->flush();
+					$manager = $this->getDoctrine()->getManager();
+					$manager->persist($user);
+					$manager->flush();
 
 					$message = $this->get('duo.admin.mailer_helper')
 						->prepare('@DuoSecurity/Mail/forgot_password.mjml.twig', [
@@ -110,26 +89,46 @@ class SecurityController extends Controller
 	}
 
 	/**
+	 * Login
+	 *
+	 * @Route("/login", name="login", methods={ "GET", "POST" })
+	 *
+	 * @param Request $request
+	 * @param AuthenticationUtils $utils
+	 *
+	 * @return Response
+	 */
+	public function loginAction(Request $request, AuthenticationUtils $utils): Response
+	{
+		return $this->render('@DuoSecurity/Form/login.html.twig', [
+			'lastUsername' => $utils->getLastUsername(),
+			'error' => $utils->getLastAuthenticationError()
+		]);
+	}
+
+	/**
 	 * Reset password
 	 *
 	 * @Route("/reset-password/{token}", name="reset_password", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 * @param string $token
+	 * @param UserRepository $userRepository
+	 * @param LoginHelper $loginHelper
 	 *
 	 * @return Response|RedirectResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function resetPasswordAction(Request $request, string $token): Response
+	public function resetPasswordAction(
+		Request $request,
+		string $token,
+		UserRepository $userRepository,
+		LoginHelper $loginHelper
+	): Response
 	{
-		/**
-		 * @var UserRepository $repository
-		 */
-		$repository = $this->getDoctrine()->getRepository(UserInterface::class);
-
 		// redirect to password forgot form on invalid token
-		if (!$repository->passwordTokenExists($token))
+		if (!$userRepository->passwordTokenExists($token))
 		{
 			$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.reset_password.error_message'));
 
@@ -141,7 +140,7 @@ class SecurityController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$user = $repository->findOneByPasswordToken($token);
+			$user = $userRepository->findOneByPasswordToken($token);
 
 			if ($user !== null)
 			{
@@ -152,9 +151,9 @@ class SecurityController extends Controller
 					->setPasswordToken(null)
 					->setPasswordRequestedAt(null);
 
-				$em = $this->getDoctrine()->getManager();
-				$em->persist($user);
-				$em->flush();
+				$manager = $this->getDoctrine()->getManager();
+				$manager->persist($user);
+				$manager->flush();
 
 				$message = $this->get('duo.admin.mailer_helper')
 					->prepare('@DuoSecurity/Mail/reset_password.mjml.twig')
@@ -165,7 +164,7 @@ class SecurityController extends Controller
 				$this->addFlash('success', $this->get('translator')->trans('duo.security.form.reset_password.success_message'));
 
 				// log in automatically
-				if ($this->get(LoginHelper::class)->manualLogin($user, 'admin'))
+				if ($loginHelper->manualLogin($user, 'admin'))
 				{
 					return $this->redirectToRoute('duo_admin_dashboard_index');
 				}

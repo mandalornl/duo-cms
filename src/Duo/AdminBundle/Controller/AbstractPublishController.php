@@ -128,9 +128,9 @@ abstract class AbstractPublishController extends AbstractController
 			}
 		}
 
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($entity);
-		$em->flush();
+		$manager = $this->getDoctrine()->getManager();
+		$manager->persist($entity);
+		$manager->flush();
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

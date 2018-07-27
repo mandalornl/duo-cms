@@ -2,6 +2,7 @@
 
 namespace Duo\PageBundle\Repository;
 
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Duo\AdminBundle\Repository\AbstractEntityRepository;
@@ -13,6 +14,20 @@ class PageRepository extends AbstractEntityRepository
 {
 	use SortTrait;
 	use TreeTrait;
+
+	/**
+	 * PageRepository constructor
+	 *
+	 * @param ManagerRegistry $registry
+	 */
+	public function __construct(ManagerRegistry $registry)
+	{
+		$entityClass = $registry->getManager()
+			->getClassMetadata(PageInterface::class)
+			->getName();
+
+		parent::__construct($registry, $entityClass);
+	}
 
 	/**
 	 * Find one by id

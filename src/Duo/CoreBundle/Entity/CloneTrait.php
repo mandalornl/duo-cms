@@ -6,6 +6,8 @@ trait CloneTrait
 {
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @throws \Throwable
 	 */
 	public function __clone()
 	{

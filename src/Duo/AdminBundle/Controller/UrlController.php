@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\PageBundle\Entity\PageInterface;
+use Duo\PageBundle\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,25 +14,24 @@ class UrlController extends Controller
 	 * Index action
 	 *
 	 * @param Request $request
-	 * @param string $url
+	 * @param PageRepository $pageRepository
+	 * @param string $url [optional]
 	 *
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function indexAction(Request $request, string $url = ''): Response
+	public function indexAction(Request $request, PageRepository $pageRepository, string $url = ''): Response
 	{
-		$url = "/{$url}";
-
-		$page = $this->getDoctrine()->getRepository(PageInterface::class)->findOneByUrl($url, $request->getLocale());
+		$page = $pageRepository->findOneByUrl($url, $request->getLocale());
 
 		if ($page === null)
 		{
-			throw $this->createNotFoundException("Page for '{$url}' not found");
+			throw $this->createNotFoundException("Page for '/{$url}' not found");
 		}
 
 		return $this->json([
-			'url' => $url,
+			'url' => "/{$url}",
 			'locale' => $request->getLocale(),
 			'page' => $page->translate($request->getLocale())->getTitle()
 		]);

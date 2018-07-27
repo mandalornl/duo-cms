@@ -2,15 +2,30 @@
 
 namespace Duo\SecurityBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Duo\SecurityBundle\Entity\UserInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 
-class UserRepository extends EntityRepository implements UserLoaderInterface
+class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
+	/**
+	 * UserRepository constructor
+	 *
+	 * @param ManagerRegistry $registry
+	 */
+	public function __construct(ManagerRegistry $registry)
+	{
+		$entityClass = $registry->getManager()
+			->getClassMetadata(UserInterface::class)
+			->getName();
+
+		parent::__construct($registry, $entityClass);
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */

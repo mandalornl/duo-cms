@@ -36,13 +36,13 @@ class ImageCropSubscriber implements EventSubscriber
 
 		if ($args->getNewValue('media') === null)
 		{
-			$em = $args->getEntityManager();
+			$manager = $args->getEntityManager();
 
-			$classMetadata = $em->getClassMetadata(ClassUtils::getClass($entity));
+			$classMetadata = $manager->getClassMetadata(ClassUtils::getClass($entity));
 
-			$uow = $em->getUnitOfWork();
-			$uow->remove($entity);
-			$uow->computeChangeSet($classMetadata, $entity);
+			$unitOfWork = $manager->getUnitOfWork();
+			$unitOfWork->remove($entity);
+			$unitOfWork->computeChangeSet($classMetadata, $entity);
 		}
 	}
 }

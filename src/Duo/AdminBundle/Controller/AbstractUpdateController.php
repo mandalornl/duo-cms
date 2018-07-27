@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\LockMode;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Duo\AdminBundle\Configuration\Action\ItemActionInterface;
 use Duo\AdminBundle\Event\Listing\EntityEvent;
@@ -100,18 +100,18 @@ abstract class AbstractUpdateController extends AbstractController
 			try
 			{
 				/**
-				 * @var EntityManager $em
+				 * @var EntityManagerInterface $manager
 				 */
-				$em = $this->getDoctrine()->getManager();
+				$manager = $this->getDoctrine()->getManager();
 
 				// check whether or not entity is locked
 				if ($entity instanceof VersionInterface)
 				{
-					$em->lock($entity, LockMode::OPTIMISTIC, $entity->getVersion());
+					$manager->lock($entity, LockMode::OPTIMISTIC, $entity->getVersion());
 				}
 
-				$em->persist($entity);
-				$em->flush();
+				$manager->persist($entity);
+				$manager->flush();
 
 				// dispatch post flush event
 				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
@@ -212,18 +212,18 @@ abstract class AbstractUpdateController extends AbstractController
 				try
 				{
 					/**
-					 * @var EntityManager $em
+					 * @var EntityManagerInterface $manager
 					 */
-					$em = $this->getDoctrine()->getManager();
+					$manager = $this->getDoctrine()->getManager();
 
 					// check whether or not entity is locked
 					if ($clone instanceof VersionInterface)
 					{
-						$em->lock($entity, LockMode::OPTIMISTIC, $clone->getVersion());
+						$manager->lock($entity, LockMode::OPTIMISTIC, $clone->getVersion());
 					}
 
-					$em->persist($clone);
-					$em->flush();
+					$manager->persist($clone);
+					$manager->flush();
 
 					// dispatch post flush event
 					$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($clone));

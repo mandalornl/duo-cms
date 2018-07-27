@@ -65,7 +65,7 @@ abstract class AbstractDestroyController extends AbstractController
 		}
 		else
 		{
-			$em = $this->getDoctrine()->getManager();
+			$manager = $this->getDoctrine()->getManager();
 
 			foreach (array_chunk($selection, 100) as $ids)
 			{
@@ -75,14 +75,14 @@ abstract class AbstractDestroyController extends AbstractController
 
 				foreach ($entities as $entity)
 				{
-					$em->remove($entity);
+					$manager->remove($entity);
 				}
 
-				$em->flush();
-				$em->clear();
+				$manager->flush();
+				$manager->clear();
 			}
 
-			$em->flush();
+			$manager->flush();
 
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')

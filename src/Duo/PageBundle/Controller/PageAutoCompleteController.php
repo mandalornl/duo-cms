@@ -4,7 +4,6 @@ namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractAutoCompleteController;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
-use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,17 +20,13 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	 * @Route("/url", name="url", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
+	 * @param PageRepository $pageRepository
 	 *
 	 * @return JsonResponse
 	 */
-	public function searchUrlAction(Request $request): JsonResponse
+	public function searchUrlAction(Request $request, PageRepository $pageRepository): JsonResponse
 	{
-		/**
-		 * @var PageRepository $repository
-		 */
-		$repository = $this->getDoctrine()->getRepository(PageInterface::class);
-
-		$builder = $repository
+		$builder = $pageRepository
 			->createQueryBuilder('e')
 			->join('e.translations', 't')
 			->where('t.locale = :locale AND (e.name LIKE :keyword OR t.url LIKE :keyword)')
@@ -42,7 +37,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 		// don't include self or offspring
 		if (($id = (int)$request->get('id')))
 		{
-			$ids = array_merge([$id], $repository->getOffspringIds($id));
+			$ids = array_merge([$id], $pageRepository->getOffspringIds($id));
 
 			$builder
 				->andWhere('e.id NOT IN(:ids)')
@@ -54,7 +49,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 		$this->setFirstResultAndMaxResults($request, $builder);
 
 		$result = $builder
-			->select('DISTINCT e.id, t.url text')
+			->select("DISTINCT e.id, CONCAT('/', t.url) text")
 			->getQuery()
 			->getScalarResult();
 

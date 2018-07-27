@@ -102,7 +102,7 @@
 {% block content %}
 	{% if paginator.canPaginate() %}
 		<div class="listing-pagination">
-			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query) }}
+			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
 		</div>
 	{% endif %}
 
@@ -133,7 +133,7 @@
 
 	{% if paginator.canPaginate() and paginator.result | length >= paginator.limit %}
 		<div class="listing-pagination">
-			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query) }}
+			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
 		</div>
 	{% endif %}
 {% endblock %}

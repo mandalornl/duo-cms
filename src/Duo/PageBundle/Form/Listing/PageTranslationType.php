@@ -5,6 +5,7 @@ namespace Duo\PageBundle\Form\Listing;
 use Duo\AdminBundle\Form\PublicationTabType;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
+use Duo\AdminBundle\Form\UrlType;
 use Duo\PageBundle\Entity\PageTranslationInterface;
 use Duo\PageBundle\Form\PagePartCollectionType;
 use Duo\SeoBundle\Form\SeoTabType;
@@ -50,7 +51,7 @@ class PageTranslationType extends AbstractType
 					// empty string is allowed for existing entities e.g. home
 					'empty_data' => !$options['isNew'] ? '' : null
 				])
-				->add('url', TextType::class, [
+				->add('url', UrlType::class, [
 					'label' => 'duo.page.form.page.url.label',
 					'required' => false,
 					'disabled' => true

@@ -6,7 +6,7 @@ services:
 
     Duo\SecurityBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
+        exclude: '../../{Entity,Tests}'
 
     Duo\SecurityBundle\Controller\:
         resource: '../../Controller'
@@ -19,10 +19,6 @@ services:
             $validator: '@validator'
         tags:
             - { name: doctrine.event_subscriber }
-
-    duo.security.login_helper:
-        class: Duo\SecurityBundle\Helper\LoginHelper
-        public: true
 
     duo.security.entity.user:
         class: '%duo.security.entity.user%'

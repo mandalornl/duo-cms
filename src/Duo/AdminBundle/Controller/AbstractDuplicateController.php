@@ -37,9 +37,9 @@ abstract class AbstractDuplicateController extends AbstractController
 			$clone->setRevision($clone);
 		}
 
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($clone);
-		$em->flush();
+		$manager = $this->getDoctrine()->getManager();
+		$manager->persist($clone);
+		$manager->flush();
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

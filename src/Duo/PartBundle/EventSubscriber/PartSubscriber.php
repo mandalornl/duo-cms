@@ -64,11 +64,11 @@ class PartSubscriber implements EventSubscriber
 		}
 
 		/**
-		 * @var PartReferenceRepositoryInterface $repo
+		 * @var PartReferenceRepositoryInterface $repository
 		 */
-		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+		$repository = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
 
-		foreach ($repo->getParts($entity) as $part)
+		foreach ($repository->getParts($entity) as $part)
 		{
 			$entity->getParts()->add($part);
 		}
@@ -89,23 +89,23 @@ class PartSubscriber implements EventSubscriber
 		}
 
 		/**
-		 * @var ObjectManager $em
+		 * @var ObjectManager $manager
 		 */
-		$em = $args->getObjectManager();
+		$manager = $args->getObjectManager();
 
 		foreach ($entity->getParts() as $part)
 		{
-			$em->persist($part);
+			$manager->persist($part);
 		}
 
-		$em->flush();
+		$manager->flush();
 
 		/**
-		 * @var PartReferenceRepositoryInterface $repo
+		 * @var PartReferenceRepositoryInterface $repository
 		 */
-		$repo = $em->getRepository($entity->getPartReferenceClass());
+		$repository = $manager->getRepository($entity->getPartReferenceClass());
 
-		$repo->addPartReferences($entity);
+		$repository->addPartReferences($entity);
 	}
 
 	/**
@@ -125,12 +125,12 @@ class PartSubscriber implements EventSubscriber
 		$id = spl_object_hash($entity);
 
 		/**
-		 * @var PartReferenceRepositoryInterface $repo
+		 * @var PartReferenceRepositoryInterface $repository
 		 */
-		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+		$repository = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
 
 		// store current part(s) for later reference
-		$this->parts[$id] = $repo->getParts($entity);
+		$this->parts[$id] = $repository->getParts($entity);
 	}
 
 	/**
@@ -155,14 +155,14 @@ class PartSubscriber implements EventSubscriber
 		$parts = $entity->getParts()->toArray();
 
 		/**
-		 * @var ObjectManager $em
+		 * @var ObjectManager $manager
 		 */
-		$em = $args->getObjectManager();
+		$manager = $args->getObjectManager();
 
 		/**
-		 * @var PartReferenceRepositoryInterface $repo
+		 * @var PartReferenceRepositoryInterface $repository
 		 */
-		$repo = $em->getRepository($entity->getPartReferenceClass());
+		$repository = $manager->getRepository($entity->getPartReferenceClass());
 
 		/**
 		 * @var PartInterface[] $removableParts
@@ -174,13 +174,13 @@ class PartSubscriber implements EventSubscriber
 			foreach ($removableParts as $part)
 			{
 				// remove part reference
-				$repo->removePartReference($entity, $part);
+				$repository->removePartReference($entity, $part);
 
 				// remove part
-				$em->remove($part);
+				$manager->remove($part);
 			}
 
-			$em->flush();
+			$manager->flush();
 		}
 
 		/**
@@ -193,13 +193,13 @@ class PartSubscriber implements EventSubscriber
 			foreach ($addableParts as $part)
 			{
 				// add part
-				$em->persist($part);
+				$manager->persist($part);
 
 				// add part reference
-				$repo->addPartReference($entity, $part);
+				$repository->addPartReference($entity, $part);
 			}
 
-			$em->flush();
+			$manager->flush();
 		}
 
 		unset($this->parts[$id]);
@@ -222,12 +222,12 @@ class PartSubscriber implements EventSubscriber
 		$id = spl_object_hash($entity);
 
 		/**
-		 * @var PartReferenceRepositoryInterface $repo
+		 * @var PartReferenceRepositoryInterface $repository
 		 */
-		$repo = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+		$repository = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
 
 		$this->parts[$id] = $entity->getParts()->toArray();
-		$this->references[$id] = $repo->getPartReferences($entity);
+		$this->references[$id] = $repository->getPartReferences($entity);
 	}
 
 	/**
@@ -242,13 +242,13 @@ class PartSubscriber implements EventSubscriber
 			return;
 		}
 
-		$uow = $args->getEntityManager()->getUnitOfWork();
+		$unitOfWork = $args->getEntityManager()->getUnitOfWork();
 
 		foreach ($this->parts as $id => $parts)
 		{
 			foreach ($parts as $part)
 			{
-				$uow->remove($part);
+				$unitOfWork->remove($part);
 			}
 
 			unset($this->parts[$id]);
@@ -258,7 +258,7 @@ class PartSubscriber implements EventSubscriber
 		{
 			foreach ($references as $reference)
 			{
-				$uow->remove($reference);
+				$unitOfWork->remove($reference);
 			}
 
 			unset($this->references[$id]);

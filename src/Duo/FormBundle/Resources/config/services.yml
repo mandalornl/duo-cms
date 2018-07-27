@@ -6,20 +6,15 @@ services:
 
     Duo\FormBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
+        exclude: '../../{Entity,Tests}'
 
     Duo\FormBundle\Controller\:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
 
-    duo.form.form_part_configurator:
-        class: Duo\FormBundle\Configurator\FormPartConfigurator
-        public: true
-
-    duo.form.form.form_part_collection:
-        class: Duo\FormBundle\Form\FormPartCollectionType
+    Duo\FormBundle\Form\FormPartCollectionType:
         arguments:
-            $configurator: '@duo.form.form_part_configurator'
+            $configurator: '@Duo\FormBundle\Configurator\FormPartConfigurator'
         tags:
             - { name: form.type }

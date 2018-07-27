@@ -6,21 +6,16 @@ services:
 
     Duo\PageBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests,Configuration}'
+        exclude: '../../{Entity,Tests,Configuration}'
 
     Duo\PageBundle\Controller\:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
 
-    duo.page.page_part_configurator:
-        class: Duo\PageBundle\Configurator\PagePartConfigurator
-        public: true
-
-    duo.page.form.page_part_collection:
-        class: Duo\PageBundle\Form\PagePartCollectionType
+    Duo\PageBundle\Form\PagePartCollectionType:
         arguments:
-            $configurator: '@duo.page.page_part_configurator'
+            $configurator: '@Duo\PageBundle\Configurator\PagePartConfigurator'
         tags:
             - { name: form.type }
 

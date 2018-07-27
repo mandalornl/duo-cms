@@ -7,16 +7,14 @@
 	- List action: taxonomy
 	- Media modal
 		- Only allow image selection
-- PageBundle
-	- Abstract page/translation
 - GenerateBundle
-- GoogleMapsBundle
+- GoogleMapsBundle?
+
+- ServiceEntityRepository: PartReference
 
 - Upgrade to Symfony 4.x
 
 - Listing export (xlsx): https://github.com/box/spout
-
-- Breadcrumbs (wip)
 
 - Move to font awesome?
 
