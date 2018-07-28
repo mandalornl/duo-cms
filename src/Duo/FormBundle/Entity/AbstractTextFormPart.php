@@ -30,7 +30,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setRequired(bool $required = false): FormPartInterface
+	public function setRequired(bool $required): TextFormPartInterface
 	{
 		$this->required = $required;
 
@@ -48,7 +48,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPlaceholder(string $placeholder = null): FormPartInterface
+	public function setPlaceholder(string $placeholder = null): TextFormPartInterface
 	{
 		$this->placeholder = $placeholder;
 
@@ -66,7 +66,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setErrorMessage(string $errorMessage = null): FormPartInterface
+	public function setErrorMessage(string $errorMessage = null): TextFormPartInterface
 	{
 		$this->errorMessage = $errorMessage;
 

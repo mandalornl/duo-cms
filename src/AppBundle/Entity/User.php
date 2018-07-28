@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     	   @ORM\Index(name="password_token_idx", columns={ "password_token" })
  *	   }
  * )
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Duo\SecurityBundle\Repository\UserRepository")
  * @UniqueEntity(fields={ "username" }, message="duo.security.errors.username_used")
  * @UniqueEntity(fields={ "email" }, message="duo.security.errors.email_used")
  */

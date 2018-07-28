@@ -2,16 +2,16 @@
 
 namespace Duo\FormBundle\Entity;
 
-interface TextFormPartInterface
+interface TextFormPartInterface extends FormPartInterface
 {
 	/**
 	 * Set required
 	 *
 	 * @param bool $required
 	 *
-	 * @return FormPartInterface
+	 * @return TextFormPartInterface
 	 */
-	public function setRequired(bool $required = false): FormPartInterface;
+	public function setRequired(bool $required): TextFormPartInterface;
 
 	/**
 	 * Get required
@@ -25,9 +25,9 @@ interface TextFormPartInterface
 	 *
 	 * @param string $placeholder
 	 *
-	 * @return FormPartInterface
+	 * @return TextFormPartInterface
 	 */
-	public function setPlaceholder(string $placeholder = null): FormPartInterface;
+	public function setPlaceholder(string $placeholder = null): TextFormPartInterface;
 
 	/**
 	 * Get placeholder
@@ -41,9 +41,9 @@ interface TextFormPartInterface
 	 *
 	 * @param string $errorMessage
 	 *
-	 * @return FormPartInterface
+	 * @return TextFormPartInterface
 	 */
-	public function setErrorMessage(string $errorMessage = null): FormPartInterface;
+	public function setErrorMessage(string $errorMessage = null): TextFormPartInterface;
 
 	/**
 	 * Get errorMessage

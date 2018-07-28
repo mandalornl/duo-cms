@@ -9,10 +9,10 @@ use Duo\CoreBundle\Entity\TimestampInterface;
 use Duo\CoreBundle\Entity\TimestampTrait;
 
 /**
- * @ORM\Table(name="duo_form_result")
+ * @ORM\Table(name="duo_form_submission")
  * @ORM\Entity()
  */
-class FormResult implements IdInterface, TimestampInterface
+class FormSubmission implements IdInterface, TimestampInterface
 {
 	use IdTrait;
 	use TimestampTrait;
@@ -51,9 +51,9 @@ class FormResult implements IdInterface, TimestampInterface
 	 *
 	 * @param string $name
 	 *
-	 * @return FormResult
+	 * @return FormSubmission
 	 */
-	public function setName(string $name = null): FormResult
+	public function setName(string $name = null): FormSubmission
 	{
 		$this->name = $name;
 
@@ -75,9 +75,9 @@ class FormResult implements IdInterface, TimestampInterface
 	 *
 	 * @param string $locale
 	 *
-	 * @return FormResult
+	 * @return FormSubmission
 	 */
-	public function setLocale(string $locale = null): FormResult
+	public function setLocale(string $locale = null): FormSubmission
 	{
 		$this->locale = $locale;
 
@@ -99,9 +99,9 @@ class FormResult implements IdInterface, TimestampInterface
 	 *
 	 * @param array $data
 	 *
-	 * @return FormResult
+	 * @return FormSubmission
 	 */
-	public function setData(array $data): FormResult
+	public function setData(array $data): FormSubmission
 	{
 		$this->data = $data;
 
@@ -123,9 +123,9 @@ class FormResult implements IdInterface, TimestampInterface
 	 *
 	 * @param Form $form
 	 *
-	 * @return FormResult
+	 * @return FormSubmission
 	 */
-	public function setForm(Form $form = null): FormResult
+	public function setForm(Form $form = null): FormSubmission
 	{
 		$this->form = $form;
 

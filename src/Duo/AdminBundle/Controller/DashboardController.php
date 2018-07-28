@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
+use Duo\AdminBundle\Menu\MenuBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +28,7 @@ class DashboardController extends Controller
 	public function indexAction(Request $request): Response
 	{
 		return $this->render('@DuoAdmin/index.html.twig', [
-			'menu' => $this->get('duo.admin.menu_builder')->createView()
+			'menu' => $this->get(MenuBuilder::class)->createView()
 		]);
 	}
 }

@@ -33,4 +33,12 @@ abstract class AbstractFormPart extends AbstractPart implements FormPartInterfac
 	{
 		return $this->label;
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getFormOptions(): array
+	{
+		return [];
+	}
 }

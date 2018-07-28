@@ -24,14 +24,14 @@ class FormViewType extends AbstractType
 
 			if ($formPart instanceof FormPartInterface)
 			{
-				$formOptions = array_merge($formOptions, [
+				$formOptions = array_replace_recursive($formOptions, [
 					'label' => $formPart->getLabel()
 				]);
 			}
 
 			if ($formPart instanceof TextFormPartInterface)
 			{
-				$formOptions = array_merge($formOptions, [
+				$formOptions = array_replace_recursive($formOptions, [
 					'required' => $formPart->getRequired(),
 					'constraints' => $formPart->getRequired() ? [
 						$formPart->getErrorMessage() ? new NotBlank([
@@ -49,7 +49,7 @@ class FormViewType extends AbstractType
 				$choices = explode(PHP_EOL, $formPart->getChoices());
 				$choices = array_combine($choices, $choices);
 
-				$formOptions = array_merge($formOptions, [
+				$formOptions = array_replace_recursive($formOptions, [
 					'placeholder' => $formPart->getPlaceholder(),
 					'choices' => $choices,
 					'constraints' => $formPart->getRequired() ? [
@@ -64,6 +64,9 @@ class FormViewType extends AbstractType
 					'multiple' => $formPart->getMultiple()
 				]);
 			}
+
+			// overwrite form options
+			$formOptions = array_replace_recursive($formOptions, $formPart->getFormOptions());
 
 			$builder->add($index, $formPart->getFormType(), $formOptions);
 		}

@@ -2,7 +2,7 @@
 
 namespace Duo\FormBundle\Entity;
 
-interface ChoiceFormPartInterface
+interface ChoiceFormPartInterface extends TextFormPartInterface
 {
 	/**
 	 * Set expanded
@@ -11,7 +11,7 @@ interface ChoiceFormPartInterface
 	 *
 	 * @return ChoiceFormPartInterface
 	 */
-	public function setExpanded(bool $expanded = false): ChoiceFormPartInterface;
+	public function setExpanded(bool $expanded): ChoiceFormPartInterface;
 
 	/**
 	 * Get expanded
@@ -27,7 +27,7 @@ interface ChoiceFormPartInterface
 	 *
 	 * @return ChoiceFormPartInterface
 	 */
-	public function setMultiple(bool $multiple = false): ChoiceFormPartInterface;
+	public function setMultiple(bool $multiple): ChoiceFormPartInterface;
 
 	/**
 	 * Get multiple

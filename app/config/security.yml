@@ -60,6 +60,7 @@ security:
 
     access_control:
         - { path: ^/admin/(login|forgot-password|reset-password), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/form-view/\d+, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
 

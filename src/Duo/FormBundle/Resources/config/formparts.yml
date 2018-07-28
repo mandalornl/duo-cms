@@ -2,4 +2,5 @@
 - { label: 'duo.form.form_part.textarea', class: Duo\FormBundle\Form\FormPart\TextareaFormPartType, icon: icon-file-text }
 - { label: 'duo.form.form_part.email', class: Duo\FormBundle\Form\FormPart\EmailFormPartType }
 - { label: 'duo.form.form_part.choice', class: Duo\FormBundle\Form\FormPart\ChoiceFormPartType }
+- { label: 'duo.form.form_part.terms', class: Duo\FormBundle\Form\FormPart\TermsFormPartType }
 - { label: 'duo.form.form_part.submit', class: Duo\FormBundle\Form\FormPart\SubmitFormPartType }

@@ -1,11 +1,13 @@
 duo:
     form:
         mail:
-            form_result:
-                subject: Form results - %form_name%
+            form_submission:
+                subject: New form submission - %form_name%
                 message: |
-                    New form results.
+                    New form submission.
 
-                    Use the following url to view the results:
+                    %submission%
+
+                    Use the following url to view the submission:
 
                     %url%

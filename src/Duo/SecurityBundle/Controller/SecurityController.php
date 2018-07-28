@@ -2,6 +2,7 @@
 
 namespace Duo\SecurityBundle\Controller;
 
+use Duo\AdminBundle\Helper\MailerHelper;
 use Duo\SecurityBundle\Form\ForgotPasswordType;
 use Duo\SecurityBundle\Form\ResetPasswordType;
 use Duo\SecurityBundle\Helper\LoginHelper;
@@ -25,12 +26,17 @@ class SecurityController extends Controller
 	 *
 	 * @param Request $request
 	 * @param UserRepository $userRepository
+	 * @param MailerHelper $mailerHelper
 	 *
 	 * @return Response|RedirectResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function forgotPasswordAction(Request $request, UserRepository $userRepository): Response
+	public function forgotPasswordAction(
+		Request $request,
+		UserRepository $userRepository,
+		MailerHelper $mailerHelper
+	): Response
 	{
 		$form = $this->createForm(ForgotPasswordType::class);
 		$form->handleRequest($request);
@@ -64,7 +70,7 @@ class SecurityController extends Controller
 					$manager->persist($user);
 					$manager->flush();
 
-					$message = $this->get('duo.admin.mailer_helper')
+					$message = $mailerHelper
 						->prepare('@DuoSecurity/Mail/forgot_password.mjml.twig', [
 							'token' => $token
 						])
@@ -115,6 +121,7 @@ class SecurityController extends Controller
 	 * @param string $token
 	 * @param UserRepository $userRepository
 	 * @param LoginHelper $loginHelper
+	 * @param MailerHelper $mailerHelper
 	 *
 	 * @return Response|RedirectResponse
 	 *
@@ -124,7 +131,8 @@ class SecurityController extends Controller
 		Request $request,
 		string $token,
 		UserRepository $userRepository,
-		LoginHelper $loginHelper
+		LoginHelper $loginHelper,
+		MailerHelper $mailerHelper
 	): Response
 	{
 		// redirect to password forgot form on invalid token
@@ -155,7 +163,7 @@ class SecurityController extends Controller
 				$manager->persist($user);
 				$manager->flush();
 
-				$message = $this->get('duo.admin.mailer_helper')
+				$message = $mailerHelper
 					->prepare('@DuoSecurity/Mail/reset_password.mjml.twig')
 					->setTo($user->getEmail());
 

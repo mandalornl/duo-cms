@@ -9,6 +9,7 @@ use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormPart\ChoiceFormPart;
 use Duo\FormBundle\Entity\FormPart\EmailFormPart;
 use Duo\FormBundle\Entity\FormPart\SubmitFormPart;
+use Duo\FormBundle\Entity\FormPart\TermsFormPart;
 use Duo\FormBundle\Entity\FormPart\TextareaFormPart;
 use Duo\FormBundle\Entity\FormPart\TextFormPart;
 
@@ -30,7 +31,8 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 		$form->setName('Contact');
 		$form->setEmailFrom('noreply@example.com');
 		$form->setEmailTo('info@example.com');
-		$form->setSendResultTo('result@example.com');
+		$form->setKeepSubmissions(true);
+		$form->setSendSubmissionsTo('submission@example.com');
 		$form->setCreatedBy($user);
 
 		$form->translate('nl')
@@ -54,6 +56,11 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 			->addPart(
 				(new TextareaFormPart())
 					->setLabel('Opmerkingen')
+					->setRequired(true)
+			)
+			->addPart(
+				(new TermsFormPart())
+					->setLabel('Algemene voorwaarden')
 					->setRequired(true)
 			)
 			->addPart(
@@ -82,6 +89,11 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 			->addPart(
 				(new TextareaFormPart())
 					->setLabel('Remarks')
+					->setRequired(true)
+			)
+			->addPart(
+				(new TermsFormPart())
+					->setLabel('Terms and Conditions')
 					->setRequired(true)
 			)
 			->addPart(

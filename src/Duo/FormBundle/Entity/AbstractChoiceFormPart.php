@@ -32,7 +32,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setExpanded(bool $expanded = false): ChoiceFormPartInterface
+	public function setExpanded(bool $expanded): ChoiceFormPartInterface
 	{
 		$this->expanded = $expanded;
 
@@ -50,7 +50,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMultiple(bool $multiple = false): ChoiceFormPartInterface
+	public function setMultiple(bool $multiple): ChoiceFormPartInterface
 	{
 		$this->multiple = $multiple;
 

@@ -8,6 +8,7 @@ use Duo\AdminBundle\Form\TranslationType;
 use Duo\FormBundle\Entity\Form;
 use Duo\PageBundle\Form\PageAutoCompleteType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,9 +47,13 @@ class FormType extends AbstractType
 				->add('emailTo', EmailType::class, [
 					'label' => 'duo.form.form.form.email_to.label'
 				])
-				->add('sendResultTo', EmailType::class, [
+				->add('keepSubmissions', CheckboxType::class, [
+					'label' => 'duo.form.form.form.keep_submissions.label',
+					'required' => false
+				])
+				->add('sendSubmissionsTo', EmailType::class, [
 					'required' => false,
-					'label' => 'duo.form.form.form.send_result_to.label'
+					'label' => 'duo.form.form.form.send_submissions_to.label'
 				])
 				->add('page', PageAutoCompleteType::class, [
 					'required' => false,

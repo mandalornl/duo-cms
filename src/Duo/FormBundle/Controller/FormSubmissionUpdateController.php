@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/form-result", name="duo_form_listing_result_")
+ * @Route("/form-submission", name="duo_form_listing_submission_")
  */
-class FormResultUpdateController extends AbstractUpdateController
+class FormSubmissionUpdateController extends AbstractUpdateController
 {
-	use FormResultConfigurationTrait;
+	use FormSubmissionConfigurationTrait;
 
 	/**
 	 * {@inheritdoc}

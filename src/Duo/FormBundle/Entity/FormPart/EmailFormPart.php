@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\FormBundle\Entity\AbstractTextFormPart;
 use Duo\FormBundle\Form\FormPart\EmailFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Table(name="duo_form_part_email")
@@ -19,6 +22,25 @@ class EmailFormPart extends AbstractTextFormPart
 	public function getFormType(): string
 	{
 		return EmailType::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getFormOptions(): array
+	{
+		return [
+			'constraints' => [
+				$this->getRequired() ? ($this->getErrorMessage() ? new NotBlank([
+					'message' => $this->getErrorMessage()
+				]) : new NotBlank()) : new Length([
+					'min' => 0
+				]),
+				$this->getErrorMessage() ? new Email([
+					'message' => $this->getErrorMessage()
+				]) : new Email()
+			]
+		];
 	}
 
 	/**

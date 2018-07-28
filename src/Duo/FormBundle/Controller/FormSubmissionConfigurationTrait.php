@@ -2,16 +2,16 @@
 
 namespace Duo\FormBundle\Controller;
 
-use Duo\FormBundle\Entity\FormResult;
+use Duo\FormBundle\Entity\FormSubmission;
 
-trait FormResultConfigurationTrait
+trait FormSubmissionConfigurationTrait
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	protected function getEntityClass(): string
 	{
-		return FormResult::class;
+		return FormSubmission::class;
 	}
 
 	/**
@@ -27,6 +27,6 @@ trait FormResultConfigurationTrait
 	 */
 	protected function getType(): string
 	{
-		return 'form_result';
+		return 'form_submission';
 	}
 }

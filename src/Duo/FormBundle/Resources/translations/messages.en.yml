@@ -10,7 +10,7 @@ duo:
 
         menu:
             forms: Forms
-            results: Results
+            submissions: Submissions
 
         listing:
             field:
@@ -33,8 +33,10 @@ duo:
                     label: Email from
                 email_to:
                     label: Email to
-                send_result_to:
-                    label: Send result to
+                keep_submissions:
+                    label: Keep submissions
+                send_submissions_to:
+                    label: Send submissions to
                 page:
                     label: Thank you page
                 subject:
@@ -61,10 +63,16 @@ duo:
                     label: Radio or checkbox
                 multiple:
                     label: Multiple
+                page:
+                    label: Page
 
         form_part:
             text: Text (one line)
             textarea: Text (multiple lines)
             email: Email
             choice: Choice (select, radio, checkbox)
+            terms: Terms and Conditions
             submit: Send button
+
+        terms:
+            view: view

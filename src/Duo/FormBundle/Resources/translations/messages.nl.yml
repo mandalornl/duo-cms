@@ -10,7 +10,7 @@ duo:
 
         menu:
             forms: Formulieren
-            results: Resultaten
+            submissions: Inzendingen
 
         listing:
             field:
@@ -33,8 +33,10 @@ duo:
                     label: E-mail van
                 email_to:
                     label: E-mail naar
-                send_result_to:
-                    label: Resultaat versturen naar
+                keep_submissions:
+                    label: Inzendingen bewaren
+                send_submissions_to:
+                    label: Inzendingen versturen naar
                 page:
                     label: Bedankt pagina
                 subject:
@@ -61,10 +63,16 @@ duo:
                     label: Radio of checkbox
                 multiple:
                     label: Meerdere
+                page:
+                    label: Pagina
 
         form_part:
             text: Tekst (één regel)
             textarea: Tekst (meerdere regels)
             email: E-mail
             choice: Keuzeveld (menu, radio, checkbox)
+            terms: Algemene voorwaarden
             submit: Verzendknop
+
+        terms:
+            view: bekijken

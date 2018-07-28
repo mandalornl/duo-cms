@@ -3,10 +3,11 @@
 namespace Duo\FormBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Duo\AdminBundle\Helper\MailerHelper;
 use Duo\CoreBundle\Entity\TranslateInterface;
 use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormPartInterface;
-use Duo\FormBundle\Entity\FormResult;
+use Duo\FormBundle\Entity\FormSubmission;
 use Duo\FormBundle\Entity\FormTranslation;
 use Duo\FormBundle\Form\FormViewType;
 use Duo\PartBundle\Entity\EntityPartInterface;
@@ -27,12 +28,13 @@ class FormViewController extends Controller
 	 *
 	 * @param Request $request
 	 * @param int $id
+	 * @param MailerHelper $mailerHelper
 	 *
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function viewAction(Request $request, int $id): JsonResponse
+	public function viewAction(Request $request, int $id, MailerHelper $mailerHelper): JsonResponse
 	{
 		$class = Form::class;
 
@@ -74,6 +76,7 @@ class FormViewController extends Controller
 			$data = $form->getData();
 
 			$submissionData = [];
+
 			foreach ($formParts as $index => $formPart)
 			{
 				if (!isset($data[$index]))
@@ -87,29 +90,34 @@ class FormViewController extends Controller
 				$submissionData[$formPart->getLabel()] = trim($data[$index]);
 			}
 
-			$submission = (new FormResult())
+			$submission = (new FormSubmission())
 				->setName($entity->getName())
 				->setLocale($request->getLocale())
 				->setData($submissionData)
 				->setForm($entity);
 
-			$manager = $this->getDoctrine()->getManager();
-			$manager->persist($submission);
-			$manager->flush();
+			// keep submission
+			if ($entity->getKeepSubmissions())
+			{
+				$manager = $this->getDoctrine()->getManager();
+				$manager->persist($submission);
+				$manager->flush();
+			}
 
 			/**
 			 * @var FormTranslation $translation
 			 */
 			$translation = $entity->translate($request->getLocale());
 
-			// send result to
-			if ($entity->getSendResultTo() && !count($this->get('validator')->validateProperty($entity, 'sendResultTo')))
+			// send submission to
+			if ($entity->getSendSubmissionsTo() && !count($this->get('validator')->validateProperty($entity, 'sendSubmissionTo')))
 			{
-				$message = $this->get('duo.admin.mailer_helper')
-					->prepare('@DuoForm/Mail/form_result.mjml.twig', [
+				$message = $mailerHelper
+					->prepare('@DuoForm/Mail/form_submission.mjml.twig', [
+						'entity' => $entity,
 						'submission' => $submission
 					])
-					->setTo($entity->getSendResultTo());
+					->setTo($entity->getSendSubmissionsTo());
 
 				$this->get('mailer')->send($message);
 			}

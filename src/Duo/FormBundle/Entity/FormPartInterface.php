@@ -14,6 +14,13 @@ interface FormPartInterface extends PartInterface
 	public function getFormType(): string;
 
 	/**
+	 * Get form options
+	 *
+	 * @return array
+	 */
+	public function getFormOptions(): array;
+
+	/**
 	 * Set label
 	 *
 	 * @param string $label

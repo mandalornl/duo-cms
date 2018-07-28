@@ -1,11 +1,13 @@
 duo:
     form:
         mail:
-            form_result:
-                subject: Resultaten formulier - %form_name%
+            form_submission:
+                subject: Nieuwe inzending formulier - %form_name%
                 message: |
-                    Nieuwe resultaten formulier.
+                    Nieuwe inzending formulier.
 
-                    Gebruik de onderstaande url om de resultaten te bekijken:
+                    %submission%
+
+                    Gebruik de onderstaande url om de inzending te bekijken:
 
                     %url%

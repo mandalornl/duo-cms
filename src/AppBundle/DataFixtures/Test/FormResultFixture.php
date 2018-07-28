@@ -6,7 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\FormBundle\Entity\Form;
-use Duo\FormBundle\Entity\FormResult;
+use Duo\FormBundle\Entity\FormSubmission;
 use Duo\SecurityBundle\Entity\UserInterface;
 
 class FormResultFixture extends Fixture implements DependentFixtureInterface
@@ -16,7 +16,7 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		if ($manager->getRepository(FormResult::class)->count([]))
+		if ($manager->getRepository(FormSubmission::class)->count([]))
 		{
 			return;
 		}
@@ -36,17 +36,19 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 				'Naam' => 'John Doe',
 				'E-mailadres' => 'johndoe@example.com',
 				'Aanhef' => 'Dhr',
-				'Opmerkingen' => 'Lorem ipsum dolor sit amet'
+				'Opmerkingen' => 'Lorem ipsum dolor sit amet',
+				'Algemene voorwaarden' => 1
 			],
 			'en' => [
 				'Name' => 'John Doe',
 				'Email' => 'johndoe@example.com',
 				'Salutation' => 'Mr',
-				'Remarks' => 'Lorem ipsum dolor sit amet'
+				'Remarks' => 'Lorem ipsum dolor sit amet',
+				'Terms and Conditions' => 1
 			]
 		 ] as $locale => $data)
 		{
-			$result = (new FormResult())
+			$result = (new FormSubmission())
 				->setForm($form)
 				->setLocale($locale)
 				->setName($form->getName())

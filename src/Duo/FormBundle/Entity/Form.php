@@ -43,13 +43,20 @@ class Form extends AbstractNode
 	protected $emailTo;
 
 	/**
+	 * @var bool
+	 *
+	 * @ORM\Column(name="keep_submissions", type="boolean", options={ "default" = 0 })
+	 */
+	protected $keepSubmissions = false;
+
+	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="send_result_to", type="string", nullable=true)
+	 * @ORM\Column(name="send_submissions_to", type="string", nullable=true)
 	 * @Assert\Length(min="0")
 	 * @Assert\Email()
 	 */
-	protected $sendResultTo;
+	protected $sendSubmissionsTo;
 
 	/**
 	 * @var PageInterface
@@ -108,27 +115,51 @@ class Form extends AbstractNode
 	}
 
 	/**
-	 * Set sendResultTo
+	 * Set keepSubmissions
 	 *
-	 * @param string $sendResultTo
+	 * @param bool $keepSubmissions
 	 *
 	 * @return Form
 	 */
-	public function setSendResultTo(string $sendResultTo = null): Form
+	public function setKeepSubmissions(bool $keepSubmissions): Form
 	{
-		$this->sendResultTo = $sendResultTo;
+		$this->keepSubmissions = $keepSubmissions;
 
 		return $this;
 	}
 
 	/**
-	 * Get sendResultTo
+	 * Get keepSubmissions
+	 *
+	 * @return bool
+	 */
+	public function getKeepSubmissions(): bool
+	{
+		return $this->keepSubmissions;
+	}
+
+	/**
+	 * Set sendSubmissionsTo
+	 *
+	 * @param string $sendSubmissionsTo
+	 *
+	 * @return Form
+	 */
+	public function setSendSubmissionsTo(string $sendSubmissionsTo = null): Form
+	{
+		$this->sendSubmissionsTo = $sendSubmissionsTo;
+
+		return $this;
+	}
+
+	/**
+	 * Get sendSubmissionsTo
 	 *
 	 * @return string
 	 */
-	public function getSendResultTo(): ?string
+	public function getSendSubmissionsTo(): ?string
 	{
-		return $this->sendResultTo;
+		return $this->sendSubmissionsTo;
 	}
 
 	/**

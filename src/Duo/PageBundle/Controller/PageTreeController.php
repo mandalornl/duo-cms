@@ -3,6 +3,7 @@
 namespace Duo\PageBundle\Controller;
 
 use Doctrine\ORM\Query\Expr\Join;
+use Duo\AdminBundle\Menu\MenuBuilder;
 use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,12 +29,11 @@ class PageTreeController extends Controller
 	 *
 	 * @return Response
 	 *
-	 * @throws \Throwable
 	 */
 	public function indexAction(Request $request): Response
 	{
 		return $this->render('@DuoPage/Menu/view.html.twig', [
-			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+			'menu' => $this->get(MenuBuilder::class)->createView(),
 			'pages' => $this->getPages($request),
 			'moveToRoute' => $this->generateUrl('duo_page_listing_page_move_to')
 		]);

@@ -9,7 +9,7 @@ use Duo\PageBundle\Entity\PageTranslationInterface;
 
 /**
  * @ORM\Table(name="duo_page")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Duo\PageBundle\Repository\PageRepository")
  */
 class Page extends AbstractPage
 {

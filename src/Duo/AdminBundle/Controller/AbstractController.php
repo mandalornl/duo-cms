@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
+use Duo\AdminBundle\Menu\MenuBuilder;
 use Duo\AdminBundle\Twig\TwigContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -75,7 +76,7 @@ abstract class AbstractController extends Controller
 	protected function getDefaultContext(array $context = []): TwigContext
 	{
 		$context = array_merge([
-			'menu' => $this->get('duo.admin.menu_builder')->createView(),
+			'menu' => $this->get(MenuBuilder::class)->createView(),
 			'routePrefix' => $this->getRoutePrefix(),
 			'type' => $this->getType()
 		], $context);
