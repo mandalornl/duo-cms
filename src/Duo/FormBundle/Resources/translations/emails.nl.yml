@@ -7,7 +7,7 @@ duo:
                     Nieuwe inzending formulier.
 
                     %submission%
-
+                url: |
                     Gebruik de onderstaande url om de inzending te bekijken:
 
                     %url%

@@ -65,7 +65,7 @@ class FormViewType extends AbstractType
 				]);
 			}
 
-			// overwrite form options
+			// overwrite/extend form options
 			$formOptions = array_replace_recursive($formOptions, $formPart->getFormOptions());
 
 			$builder->add($index, $formPart->getFormType(), $formOptions);

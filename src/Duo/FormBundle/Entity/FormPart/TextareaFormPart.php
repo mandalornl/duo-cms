@@ -24,6 +24,18 @@ class TextareaFormPart extends AbstractTextFormPart
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getFormOptions(): array
+	{
+		return [
+			'attr' => [
+				'rows' => 6
+			]
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getPartFormType(): string
 	{
 		return TextareaFormPartType::class;

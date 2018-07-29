@@ -1,6 +1,6 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
-{% block bodyClass %}listing-create{% endblock %}
+{% block bodyClass %}listing-create listing-type-{{ type | replace({ _: '-'}) }}{% endblock %}
 
 {% block toolbar %}
 	<nav class="navbar navbar-light bg-light justify-content-end">

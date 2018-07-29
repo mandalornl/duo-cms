@@ -14,9 +14,13 @@
 	{% import _self as self %}
 	{% autoescape false %}
 		{{ 'duo.form.mail.form_submission.message' | trans({
-			'%submission%': self.submission(submission.data) | trim,
-			'%url%': url('duo_form_listing_submission_update', { id: submission.id })
+			'%submission%': self.submission(submission.data) | trim
 		}, 'emails') }}
+		{% if entity.keepSubmissions %}
+			{{ 'duo.form.mail.form_submission.url' | trans({
+				'%url%': url('duo_form_listing_submission_update', { id: submission.id })
+			}, 'emails') }}
+		{% endif %}
 
 		{{ parent() }}
 	{% endautoescape %}
@@ -31,11 +35,16 @@
 			}, 'emails') -}}
 		</h3>
 		<p>
-
 			{{- 'duo.form.mail.form_submission.message' | trans({
-				'%submission%': self.submission(submission.data) | trim,
-				'%url%': url('duo_form_listing_submission_update', { id: submission.id })
+				'%submission%': self.submission(submission.data) | trim
 			}, 'emails') | nl2br -}}
 		</p>
+		{% if entity.keepSubmissions %}
+			<p>
+				{{- 'duo.form.mail.form_submission.url' | trans({
+					'%url%': url('duo_form_listing_submission_update', { id: submission.id })
+				}, 'emails') | nl2br -}}
+			</p>
+		{% endif %}
 	</mj-text>
 {% endblock %}

@@ -7,7 +7,7 @@ duo:
                     New form submission.
 
                     %submission%
-
+                url: |
                     Use the following url to view the submission:
 
                     %url%
