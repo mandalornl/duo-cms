@@ -1,13 +1,13 @@
 <?php
 
-namespace Duo\AdminBundle\Form;
+namespace Duo\AdminBundle\Form\Listing;
 
 use Duo\AdminBundle\Configuration\Filter\FilterInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ListingFilterType extends AbstractType
+class FilterType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}

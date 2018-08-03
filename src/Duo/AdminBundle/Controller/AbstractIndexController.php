@@ -10,8 +10,8 @@ use Duo\AdminBundle\Configuration\Action\ListActionInterface;
 use Duo\AdminBundle\Configuration\Field\FieldInterface;
 use Duo\AdminBundle\Configuration\Filter\FilterInterface;
 use Duo\AdminBundle\Configuration\SearchInterface;
-use Duo\AdminBundle\Form\ListingFilterType;
-use Duo\AdminBundle\Form\ListingSearchType;
+use Duo\AdminBundle\Form\Listing\FilterType;
+use Duo\AdminBundle\Form\Listing\SearchType;
 use Duo\AdminBundle\Helper\ORM\QueryHelper;
 use Duo\AdminBundle\Helper\PaginatorHelper;
 use Duo\CoreBundle\Entity\DeleteInterface;
@@ -213,14 +213,14 @@ abstract class AbstractIndexController extends AbstractController
 			// apply filters or revert to defaults
 			if (!$this->applyFilters($request, $builder))
 			{
-				$this->defaultFilters($builder);
+				$this->defaultFilters($request, $builder);
 			}
 		}
 
 		// apply sorting or revert to defaults
 		if (!$this->applySorting($request, $builder))
 		{
-			$this->defaultSorting($builder);
+			$this->defaultSorting($request, $builder);
 		}
 
 		return (new PaginatorHelper($builder))
@@ -365,9 +365,10 @@ abstract class AbstractIndexController extends AbstractController
 	/**
 	 * Default sorting
 	 *
+	 * @param Request $request
 	 * @param QueryBuilder $builder
 	 */
-	protected function defaultSorting(QueryBuilder $builder): void
+	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{
 		$builder->orderBy('e.id', 'ASC');
 	}
@@ -449,7 +450,7 @@ abstract class AbstractIndexController extends AbstractController
 		/**
 		 * @var FormInterface $form
 		 */
-		$form = $this->createForm(ListingFilterType::class, $filterData, [
+		$form = $this->createForm(FilterType::class, $filterData, [
 			'filters' => $this->getFilters()
 		]);
 		$form->handleRequest($request);
@@ -493,7 +494,7 @@ abstract class AbstractIndexController extends AbstractController
 		/**
 		 * @var FormInterface $form
 		 */
-		return $this->createForm(ListingFilterType::class, $filterData, [
+		return $this->createForm(FilterType::class, $filterData, [
 			'action' => $this->generateUrl("{$this->getRoutePrefix()}_filter", [
 				'iframe' => $request->query->get('iframe')
 			]),
@@ -566,9 +567,10 @@ abstract class AbstractIndexController extends AbstractController
 	/**
 	 * Default filters
 	 *
+	 * @param Request $request
 	 * @param QueryBuilder $builder
 	 */
-	protected function defaultFilters(QueryBuilder $builder): void
+	protected function defaultFilters(Request $request, QueryBuilder $builder): void
 	{
 		// Implement applyDefaultFilters() method
 	}
@@ -611,7 +613,7 @@ abstract class AbstractIndexController extends AbstractController
 		/**
 		 * @var FormInterface $form
 		 */
-		$form = $this->createForm(ListingSearchType::class);
+		$form = $this->createForm(SearchType::class);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
@@ -649,7 +651,7 @@ abstract class AbstractIndexController extends AbstractController
 		$session = $request->getSession();
 		$sessionName = "search_{$this->getType()}";
 
-		return $this->createForm(ListingSearchType::class, [
+		return $this->createForm(SearchType::class, [
 			'q' => $session->get($sessionName, $request->query->get('q'))
 		], [
 			'action' => $this->generateUrl("{$this->getRoutePrefix()}_search", [

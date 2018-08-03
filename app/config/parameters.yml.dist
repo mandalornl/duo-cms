@@ -30,6 +30,9 @@ parameters:
     dkim_domain: '%env(DKIM_DOMAIN)%'
     dkim_selector: '%env(DKIM_SELECTOR)%'
 
+    router.request_context.host: '%env(ROUTER_REQUEST_CONTEXT_HOST)%'
+    router.request_context.scheme: '%env(ROUTER_REQUEST_CONTEXT_SCHEME)%'
+
     env(DATABASE_HOST): 127.0.0.1
     env(DATABASE_PORT): ~
     env(DATABASE_NAME): duo
@@ -51,3 +54,6 @@ parameters:
 
     env(DKIM_DOMAIN): example.com
     env(DKIM_SELECTOR): default
+
+    env(ROUTER_REQUEST_CONTEXT_HOST): ~
+    env(ROUTER_REQUEST_CONTEXT_SCHEME): ~

@@ -11,7 +11,7 @@ import uniqid from 'duo/AdminBundle/Resources/webpack/js/util/uniqid';
 const init = (options = {}) =>
 {
 	options = $.extend({}, {
-		selector: '.nestable',
+		selector: '[data-toggle="nestable"]',
 		onSortStart: (e) => {},
 		onSortStop: (e) => {},
 		onSortUpdate: (e) => {}
@@ -75,9 +75,9 @@ const init = (options = {}) =>
 /**
  * Destroy
  *
- * @param {string|jQuery|HTMLElement} [selector = '.nestable']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-const destroy = (selector = '.nestable') =>
+const destroy = (selector = '[data-toggle="nestable"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 

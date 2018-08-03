@@ -1,19 +1,19 @@
 <?php
 
-namespace Duo\AdminBundle\Form;
+namespace Duo\AdminBundle\Form\Listing;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType as CoreSearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ListingSearchType extends AbstractType
+class SearchType extends AbstractType
 {
 	/**
 	 * {@inheritdoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
-		$builder->add('q', SearchType::class, [
+		$builder->add('q', CoreSearchType::class, [
 			'label' => false,
 			'required' => false,
 			'attr' => [

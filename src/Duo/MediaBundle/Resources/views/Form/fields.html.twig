@@ -1,23 +1,26 @@
 {% block duo_preview_widget %}
 	{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 
-	{% if 'image/' in data.mimeType %}
-		{% set metadata = data.metadata | default([]) %}
-		<div class="media-preview">
-			<a href="{{ data.url }}" download="{{ data.name }}" target="_blank" title="{{ data.name }}">
+	{% set metadata = data.metadata | default([]) %}
+	<div class="media-preview">
+		<a href="{{ data.url }}" download="{{ data.name }}" target="_blank" title="{{ data.name }}">
+			{% if 'image/' in data.mimeType %}
 				<div class="image-preview">
 					<img src="{{ data.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(data.url, [680, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
 				</div>
-				<p>
-					{{- data.mimeType -}}
-					<br>
-					{{- metadata.width | default(1) }} x {{ metadata.height | default(1) -}}
-					<br>
-					{{- data.size | humanizedbytes -}}
-				</p>
-			</a>
-		</div>
-	{% endif %}
+			{% else %}
+				{{- data.name -}}
+				<br>
+			{% endif %}
+			{{- data.mimeType -}}
+			<br>
+			{% if 'image/' in data.mimeType %}
+				{{- metadata.width | default(1) }} x {{ metadata.height | default(1) -}}
+				<br>
+			{% endif %}
+			{{- data.size | humanizedbytes -}}
+		</a>
+	</div>
 {% endblock %}
 
 {% block duo_media_widget %}

@@ -4,17 +4,31 @@
 	{% for entity in paginator.result %}
 		<div class="d-flex flex-column col-6 col-sm-4 col-lg-3">
 			<div class="grid-item">
-				<input type="checkbox" id="{{ checkboxId }}_{{ entity.id }}"{% if app.request.query.get('iframe') %} data-item="{{ {
-					id: entity.id,
-					name: entity | trim,
-					type: type,
-					src: entity.url | imagine_filter('srcset_680'),
-					srcset: media.srcset(entity.url, [680, 768, 1024])
-				} | json_encode }}"{% else %} name="ids[]" value="{{ entity.id }}"{% endif %}>
+				{% set item = null %}
+				{% if app.request.query.get('iframe') %}
+					{% set item = {
+						id: entity.id,
+						name: entity | trim,
+						type: type
+					} %}
+					{% if 'image/' in entity.mimeType %}
+						{% set item = item | merge({
+							src: entity.url | imagine_filter('srcset_680'),
+							srcset: media.srcset(entity.url, [680, 768, 1024])
+						}) %}
+					{% endif %}
+				{% endif %}
+				<input type="checkbox" id="{{ checkboxId }}_{{ entity.id }}"{% if item %} data-item="{{ item | json_encode }}"{% else %} name="ids[]" value="{{ entity.id }}"{% endif %}>
 				<label for="{{ checkboxId }}_{{ entity.id }}" title="{{ entity.name }}">
-					<span class="image-preview">
-						<img src="{{ entity.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(entity.url, [680, 768]) }}" sizes="(min-width: 992px) 25vw, (min-width: 576px) 33.33333vw, 50vw">
-					</span>
+					{% if 'image/' in entity.mimeType %}
+						<span class="image-preview">
+							<img src="{{ entity.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(entity.url, [680, 768]) }}" sizes="(min-width: 992px) 25vw, (min-width: 576px) 33.33333vw, 50vw">
+						</span>
+					{% else %}
+						<span class="icon">
+							<i class="icon-file-empty"></i>
+						</span>
+					{% endif %}
 					<span class="label">
 						<span class="name">{{ entity }}</span>
 						{% if not app.request.query.get('iframe') %}

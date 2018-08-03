@@ -39,45 +39,59 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 		 */
 		$taxonomy = $this->getReference('taxonomy_files');
 
-		$filename = __DIR__ . '/example.jpg';
+		foreach ([
+			__DIR__ . '/example.jpg',
+			__DIR__ . '/example.pdf'
+		 ] as $filename)
+		{
+			$size = @filesize($filename);
 
-		list($width, $height, $mimeType) = @getimagesize($filename);
+			$info = pathinfo($filename);
 
-		$size = @filesize($filename);
+			$uuid = UploadHelper::getUuid();
+			$relativePath = $this->container->getParameter('duo.media.relative_upload_path');
 
-		$info = pathinfo($filename);
+			$mimeType = mime_content_type($filename);
 
-		$uuid = UploadHelper::getUuid();
-		$relativePath = $this->container->getParameter('duo.media.relative_upload_path');
-
-		$media = (new Media())
-			->setName($info['basename'])
-			->setUuid($uuid)
-			->setUrl("{$relativePath}/{$uuid}/{$info['basename']}")
-			->setMimeType(image_type_to_mime_type($mimeType))
-			->setSize($size)
-			->setMetadata([
-				'width' => $width,
-				'height' => $height,
+			$metadata = [
 				'basename' => $info['basename'],
 				'extension' => $info['extension'],
 				'filename' => $info['filename']
-			]);
+			];
 
-		$media->setCreatedBy($user);
-		$media->addTaxonomy($taxonomy);
+			if (strpos($mimeType, 'image/') === 0)
+			{
+				list($width, $height) = @getimagesize($filename);
 
-		$manager->persist($media);
-		$manager->flush();
+				$metadata = array_merge($metadata, [
+					'width' => $width,
+					'height' => $height
+				]);
+			}
 
-		$absolutePath = $this->container->getParameter('duo.media.absolute_upload_path');
+			$media = (new Media())
+				->setName($info['basename'])
+				->setUuid($uuid)
+				->setUrl("{$relativePath}/{$uuid}/{$info['basename']}")
+				->setMimeType($mimeType)
+				->setSize($size)
+				->setMetadata($metadata);
 
-		if (!is_dir("{$absolutePath}/{$uuid}"))
-		{
-			mkdir("{$absolutePath}/{$uuid}");
+			$media->setCreatedBy($user);
+			$media->addTaxonomy($taxonomy);
+
+			$manager->persist($media);
+			$manager->flush();
+
+			$absolutePath = $this->container->getParameter('duo.media.absolute_upload_path');
+
+			if (!is_dir("{$absolutePath}/{$uuid}"))
+			{
+				mkdir("{$absolutePath}/{$uuid}");
+			}
+
+			copy($filename, "{$absolutePath}/{$uuid}/{$info['basename']}");
 		}
-
-		copy($filename, "{$absolutePath}/{$uuid}/{$info['basename']}");
 	}
 
 	/**

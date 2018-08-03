@@ -53,7 +53,7 @@ class FormIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defaultSorting(QueryBuilder $builder): void
+	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{
 		$builder->orderBy('e.name', 'ASC');
 	}

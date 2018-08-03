@@ -115,7 +115,7 @@
 						<i class="icon-list"></i>
 					</a>
 					<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({ view: 'grid', iframe: app.request.query.get('iframe') })) }}" class="btn btn-white{% if list.view == 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.grid' | trans }}">
-						<i class="icon-image"></i>
+						<i class="icon-grid"></i>
 					</a>
 				</div>
 			</div>

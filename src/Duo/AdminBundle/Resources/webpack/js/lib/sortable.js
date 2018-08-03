@@ -9,7 +9,7 @@ import sortable from 'html5sortable/dist/html5sortable.es';
 const init = (options = {}) =>
 {
 	options = $.extend({}, {
-		selector: '.sortable',
+		selector: '[data-toggle="sortable"]',
 		items: '.sortable-item:not(:disabled):not(.disabled)',
 		handle: '.sortable-handle',
 		placeholderClass: 'sortable-placeholder',
@@ -38,9 +38,9 @@ const init = (options = {}) =>
 /**
  * Destroy
  *
- * @param {string|jQuery|HTMLElement} [selector = '.sortable']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-const destroy = (selector = '.sortable') =>
+const destroy = (selector = '[data-toggle="sortable"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 

@@ -36,13 +36,21 @@
 		</thead>
 		<tbody>
 			{% for entity in paginator.result %}
-				<tr{% if app.request.query.get('iframe') %} data-item="{{ {
-					id: entity.id,
-					name: entity | trim,
-					type: type,
-					src: entity.url | imagine_filter('srcset_680'),
-					srcset: media.srcset(entity.url, [680, 768, 1024])
-				} | json_encode }}"{% else %} data-url="{{ path(routePrefix ~ '_update', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}"{% endif %}>
+				{% set item = null %}
+				{% if app.request.query.get('iframe') %}
+					{% set item = {
+						id: entity.id,
+						name: entity | trim,
+						type: type
+					} %}
+					{% if 'image/' in entity.mimeType %}
+						{% set item = item | merge({
+							src: entity.url | imagine_filter('srcset_680'),
+							srcset: media.srcset(entity.url, [680, 768, 1024])
+						}) %}
+					{% endif %}
+				{% endif %}
+				<tr{% if item %} data-item="{{ item | json_encode }}"{% else %} data-url="{{ path(routePrefix ~ '_update', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}"{% endif %}>
 					{% if not app.request.query.get('iframe') %}
 						<td>
 							<div class="custom-control custom-checkbox">
@@ -52,9 +60,11 @@
 						</td>
 					{% endif %}
 					<td>
-						<div class="image-preview">
-							<img src="{{ entity.url | imagine_filter('listing_preview') }}" alt="{{ entity.name }}">
-						</div>
+						{% if 'image/' in entity.mimeType %}
+							<div class="image-preview">
+								<img src="{{ entity.url | imagine_filter('listing_preview') }}" alt="{{ entity.name }}">
+							</div>
+						{% endif %}
 					</td>
 					{% for field in list.fields %}
 						<td>

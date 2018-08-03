@@ -53,6 +53,7 @@
 	{
 		display: block;
 
+		text-align: center;
 		text-decoration: none !important;
 
 		width: 100%;
@@ -71,11 +72,6 @@
 		border-radius: $thumbnail-border-radius;
 
 		margin-bottom: .5rem;
-	}
-
-	p
-	{
-		text-align: center;
 	}
 }
 
