@@ -52,6 +52,8 @@ export default (selector = '.media-widget') =>
 			// listen for iframe select event
 			$(window).on('duo.event.iframe.select', (e, data) =>
 			{
+				// TODO: check mediaType
+
 				if (data.type !== 'media')
 				{
 					return;
@@ -60,18 +62,34 @@ export default (selector = '.media-widget') =>
 				// dispatch clear event before updating fields
 				$btnClear.trigger('click');
 
-				$media.val(data.id);
-				$caption.text(data.name);
-
-				const $image = $(`<img src="${data.src}" srcset="${data.srcset}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="${data.name}" />`);
-				$image.on('load', () =>
+				/**
+				 * Select item
+				 */
+				const selectItem = () =>
 				{
-					$preview.append($image);
+					$media.val(data.id);
+					$caption.text(data.name);
 
 					$modal.find('[data-dismiss]').trigger('click');
 
 					$media.trigger('duo.event.media.select');
-				});
+				};
+
+				// pre load image before selecting item
+				if (data.src)
+				{
+					const $image = $(`<img src="${data.src}" srcset="${data.srcset}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="${data.name}" />`);
+					$image.on('load', () =>
+					{
+						$preview.append($image);
+
+						selectItem();
+					});
+
+					return;
+				}
+
+				selectItem();
 			});
 		});
 
@@ -84,6 +102,7 @@ export default (selector = '.media-widget') =>
 			$media.val(null);
 			$media.trigger('duo.event.media.clear');
 
+			// empty preview after event
 			$preview.empty();
 		});
 	});

@@ -58,7 +58,7 @@
 				{{ form_widget(list.filterForm) }}
 				<div class="row">
 					<div class="col d-flex justify-content-end">
-						<a href="{{ path(routePrefix ~ '_filter', { clear: true, iframe: app.request.query.get('iframe') }) }}" class="btn btn-secondary mr-2">
+						<a href="{{ path(routePrefix ~ '_filter', app.request.query.all | merge({ clear: true })) }}" class="btn btn-secondary mr-2">
 							{{- 'duo.admin.listing.filter.clear' | trans -}}
 						</a>
 						<button type="submit" class="btn btn-primary">
@@ -81,7 +81,7 @@
 				<div class="input-group">
 					{{ form_widget(list.searchForm.q) }}
 					<div class="input-group-append">
-						<a href="{{ path(routePrefix ~ '_search', { clear: true, iframe: app.request.query.get('iframe') }) }}" class="btn btn-secondary">
+						<a href="{{ path(routePrefix ~ '_search', app.request.query.all | merge({ clear: true })) }}" class="btn btn-secondary">
 							<span>
 								{{- 'duo.admin.listing.search.clear' | trans -}}
 							</span> <i class="icon-cross"></i>
@@ -111,10 +111,10 @@
 		{% if list.canSwitchView | default(false) %}
 			<div class="d-flex justify-content-end mb-3">
 				<div class="btn-group" role="group" aria-label="{{ 'duo.admin.listing.view.switch' | trans }}">
-					<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({ view: 'list', iframe: app.request.query.get('iframe') })) }}" class="btn btn-white{% if list.view != 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.list' | trans }}">
+					<a href="{{ path(routePrefix ~ '_index', app.request.query.all | merge({ view: 'list' })) }}" class="btn btn-white{% if list.view != 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.list' | trans }}">
 						<i class="icon-list"></i>
 					</a>
-					<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({ view: 'grid', iframe: app.request.query.get('iframe') })) }}" class="btn btn-white{% if list.view == 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.grid' | trans }}">
+					<a href="{{ path(routePrefix ~ '_index', app.request.query.all | merge({ view: 'grid' })) }}" class="btn btn-white{% if list.view == 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.grid' | trans }}">
 						<i class="icon-grid"></i>
 					</a>
 				</div>

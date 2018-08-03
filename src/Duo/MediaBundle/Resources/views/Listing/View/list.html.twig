@@ -17,9 +17,9 @@
 					<th{% if field.sortable %} class="sortable"{% endif %}>
 						{% if field.sortable %}
 							{% if list.sorting and list.sorting.sort == field.hash %}
-								{% set url = path(routePrefix ~ '_sorting', { sort: field.hash, order: list.sorting.order == 'asc' ? 'desc' : 'asc', iframe: app.request.query.get('iframe') }) %}
+								{% set url = path(routePrefix ~ '_sorting', app.request.query.all | merge({ sort: field.hash, order: list.sorting.order == 'asc' ? 'desc' : 'asc' })) %}
 							{% else %}
-								{% set url = path(routePrefix ~ '_sorting', { sort: field.hash, iframe: app.request.query.get('iframe') }) %}
+								{% set url = path(routePrefix ~ '_sorting', app.request.query.all | merge({ sort: field.hash, order: 'asc' })) %}
 							{% endif %}
 							<a href="{{ url }}">
 								{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.hash %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}

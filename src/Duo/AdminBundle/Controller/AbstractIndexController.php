@@ -67,21 +67,15 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
-		// store view
-		if ($request->query->has('view'))
-		{
-			$request->getSession()->set("view_{$this->getType()}", $request->query->get('view'));
-		}
-
 		return $this->render($this->getIndexTemplate(), (array)$this->getDefaultContext([
 			'paginator' => $this->getPaginator($request),
 			'list' => array_merge([
 				'filterForm' => $this->getFilterFormView($request),
 				'searchForm' => $this->getSearchFormView($request),
-				'fields' => $this->fields,
+				'fields' => $this->getFields(),
 				'sorting' => $this->getSorting($request),
 				'actions' => $this->getListActions(),
-				'view' => $request->getSession()->get("view_{$this->getType()}", $this->getDefaultView()),
+				'view' => $this->getView($request),
 				'views' => [
 					'list' => $this->getListViewTemplate(),
 					'grid' => $this->getGridViewTemplate()
@@ -150,6 +144,27 @@ abstract class AbstractIndexController extends AbstractController
 	protected function getGridViewTemplate(): string
 	{
 		return '@DuoAdmin/Listing/View/grid.html.twig';
+	}
+
+	/**
+	 * Get view
+	 *
+	 * @param Request $request
+	 *
+	 * @return string
+	 */
+	protected function getView(Request $request): string
+	{
+		$session = $request->getSession();
+		$sessionName = "view_{$this->getType()}";
+
+		// store view
+		if ($request->query->has('view'))
+		{
+			$session->set($sessionName, $request->query->get('view'));
+		}
+
+		return $session->get($sessionName, $this->getDefaultView());
 	}
 
 	/**
@@ -307,9 +322,7 @@ abstract class AbstractIndexController extends AbstractController
 
 		$session->set($sessionName, $sortingData);
 
-		return $this->redirectToRoute("{$this->getRoutePrefix()}_index", [
-			'iframe' => $request->query->get('iframe')
-		]);
+		return $this->redirectToRoute("{$this->getRoutePrefix()}_index", $request->query->all());
 	}
 
 	/**
@@ -430,9 +443,6 @@ abstract class AbstractIndexController extends AbstractController
 	public function filterAction(Request $request): RedirectResponse
 	{
 		$routeName = "{$this->getRoutePrefix()}_index";
-		$routeParameters = [
-			'iframe' => $request->query->get('iframe')
-		];
 
 		$session = $request->getSession();
 		$sessionName = "filter_{$this->getType()}";
@@ -442,7 +452,9 @@ abstract class AbstractIndexController extends AbstractController
 		{
 			$session->remove($sessionName);
 
-			return $this->redirectToRoute($routeName, $routeParameters);
+			$request->query->remove('clear');
+
+			return $this->redirectToRoute($routeName, $request->query->all());
 		}
 
 		$filterData = $session->get($sessionName, []);
@@ -467,7 +479,7 @@ abstract class AbstractIndexController extends AbstractController
 			$session->remove("search_{$this->getType()}");
 		}
 
-		return $this->redirectToRoute($routeName, $routeParameters);
+		return $this->redirectToRoute($routeName, $request->query->all());
 	}
 
 	/**
@@ -495,9 +507,7 @@ abstract class AbstractIndexController extends AbstractController
 		 * @var FormInterface $form
 		 */
 		return $this->createForm(FilterType::class, $filterData, [
-			'action' => $this->generateUrl("{$this->getRoutePrefix()}_filter", [
-				'iframe' => $request->query->get('iframe')
-			]),
+			'action' => $this->generateUrl("{$this->getRoutePrefix()}_filter", $request->query->all()),
 			'filters' => $this->getFilters()
 		]);
 	}
@@ -594,20 +604,18 @@ abstract class AbstractIndexController extends AbstractController
 	public function searchAction(Request $request): RedirectResponse
 	{
 		$routeName = "{$this->getRoutePrefix()}_index";
-		$routeParameters = [
-			'iframe' => $request->query->get('iframe')
-		];
 
 		$session = $request->getSession();
 		$sessionName = "search_{$this->getType()}";
-
 
 		// clear search
 		if ($request->query->has('clear'))
 		{
 			$session->remove($sessionName);
 
-			return $this->redirectToRoute($routeName, $routeParameters);
+			$request->query->remove('clear');
+
+			return $this->redirectToRoute($routeName, $request->query->all());
 		}
 
 		/**
@@ -624,7 +632,7 @@ abstract class AbstractIndexController extends AbstractController
 			$session->remove("filter_{$this->getType()}");
 		}
 
-		return $this->redirectToRoute($routeName, $routeParameters);
+		return $this->redirectToRoute($routeName, $request->query->all());
 	}
 
 	/**
@@ -651,12 +659,18 @@ abstract class AbstractIndexController extends AbstractController
 		$session = $request->getSession();
 		$sessionName = "search_{$this->getType()}";
 
+		// store keyword
+		if ($request->query->has('q'))
+		{
+			$session->set($sessionName, $request->query->get('q'));
+
+			$request->query->remove('q');
+		}
+
 		return $this->createForm(SearchType::class, [
-			'q' => $session->get($sessionName, $request->query->get('q'))
+			'q' => $session->get($sessionName)
 		], [
-			'action' => $this->generateUrl("{$this->getRoutePrefix()}_search", [
-				'iframe' => $request->query->get('iframe')
-			])
+			'action' => $this->generateUrl("{$this->getRoutePrefix()}_search", $request->query->all())
 		]);
 	}
 
