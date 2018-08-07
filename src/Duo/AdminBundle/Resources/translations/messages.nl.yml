@@ -63,7 +63,9 @@ duo:
                 equals: Gelijk aan
                 not_equals: Niet gelijk aan
                 starts_with: Begint met
+                not_starts_with: Begint niet met
                 ends_with: Eindigt met
+                not_ends_with: Eindigt niet met
                 before: Voor
                 after: Na
                 greater_or_equals: Groter of gelijk aan

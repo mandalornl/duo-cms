@@ -7,9 +7,9 @@ const editors = {};
 /**
  * Initialize wysiwyg editor
  *
- * @param {string|jQuery|HTMLElement} [selector = '.wysiwyg']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-const init = (selector = '.wysiwyg') =>
+const init = (selector = '[data-toggle="wysiwyg"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -41,9 +41,9 @@ const init = (selector = '.wysiwyg') =>
 /**
  * Destroy editor
  *
- * @param {string|jQuery|HTMLElement} [selector = '.wysiwyg']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-const destroy = (selector = '.wysiwig') =>
+const destroy = (selector = '[data-toggle="wysiwig"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 

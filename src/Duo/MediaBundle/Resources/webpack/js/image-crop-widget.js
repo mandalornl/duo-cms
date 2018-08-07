@@ -6,9 +6,9 @@ require('cropper');
 /**
  * Initialize image crop
  *
- * @param {string|jQuery|HTMLElement} [selector = '.image-crop']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-const init = (selector = '.image-crop-widget') =>
+const init = (selector = '[data-toggle="image-crop"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -89,9 +89,9 @@ const init = (selector = '.image-crop-widget') =>
 			});
 		};
 
-		$media.on('duo.event.media.select', () => init());
+		$media.on('duo.event.media.selectItem', () => init());
 
-		$media.on('duo.event.media.clear', () =>
+		$media.on('duo.event.media.clearItem', () =>
 		{
 			$crop.val(null);
 
@@ -124,9 +124,9 @@ const init = (selector = '.image-crop-widget') =>
 /**
  * Destroy image crop
  *
- * @param {string|jQuery|HTMLElement} [selector = '.image-crop-widget']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-const destroy = (selector = '.image-crop-widget') =>
+const destroy = (selector = '[data-toggle="image-crop"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 

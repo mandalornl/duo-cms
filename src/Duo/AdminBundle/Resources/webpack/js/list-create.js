@@ -56,27 +56,27 @@ $(() =>
 	});
 
 	// init widgets inside part widget
-	$form.on('duo.event.part.add', function(e)
+	$form.on('duo.event.part.add', '.part-widget .part-widget-item', function()
 	{
-		const $target = $(e.target);
+		const $item = $(this);
 
 		autoComplete({
-			selector: $target.find('.autocomplete')
+			selector: $item.find('[data-toggle="autocomplete"]')
 		});
 
-		mediaWidget($target.find('.media-widget'));
+		mediaWidget($item.find('[data-toggle="media"]'));
 
-		imageCrop.init($target.find('.image-crop-widget'));
-		wysiwyg.init($target.find('.wysiwyg'));
+		imageCrop.init($item.find('[data-toggle="image-crop"]'));
+		wysiwyg.init($item.find('[data-toggle="wysiwyg"]'));
 	});
 
 	// destroy widgets inside part widget
-	$form.on('duo.event.part.remove', function(e)
+	$form.on('duo.event.part.remove', '.part-widget .part-widget-item', function()
 	{
-		const $target = $(e.target);
+		const $item = $(this);
 
-		wysiwyg.destroy($target.find('.wysiwyg'));
-		imageCrop.destroy($target.find('.image-crop-widget'));
+		wysiwyg.destroy($item.find('[data-toggle="wysiwyg"]'));
+		imageCrop.destroy($item.find('[data-toggle="image-crop"]'));
 	});
 
 	// handle form submit

@@ -46,7 +46,10 @@
 {% block choice_widget_collapsed -%}
 	{%- set attr = attr | merge({ class: (attr.class | default('') ~ ' custom-select') | trim }) -%}
 	{% if multiple %}
-		{%- set attr = attr | merge({class: (attr.class | default('') ~ ' select2') | trim }) -%}
+		{%- set attr = attr | merge({
+			'data-toggle': 'select2',
+			class: (attr.class | default('') ~ ' select2') | trim
+		}) -%}
 	{% endif %}
 	{{- parent() -}}
 {%- endblock choice_widget_collapsed %}
@@ -63,7 +66,10 @@
 
 {% block date_widget -%}
 	{%- if widget == 'single_text' %}
-		{% set attr = attr | merge({ class: (attr.class | default('') ~ ' datepicker') | trim }) %}
+		{%- set attr = attr | merge({
+			'data-toggle': 'datepicker',
+			class: (attr.class | default('') ~ ' datepicker') | trim
+		}) -%}
 	{%- else -%}
 		{%- if not valid -%}
 			{% set attr = attr | merge({ class: (attr.class | default('') ~ ' form-control is-invalid') | trim }) -%}
@@ -156,7 +162,8 @@
 	{% set attr = attr | merge({
 		'data-url': remotePath,
 		'data-placeholder': placeholder | trans,
-		'class': (attr.class | default('') ~ ' custom-select autocomplete') | trim
+		'data-toggle': 'autocomplete',
+		class: (attr.class | default('') ~ ' custom-select autocomplete') | trim
 	}) %}
 	<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
 		{% if value is iterable %}

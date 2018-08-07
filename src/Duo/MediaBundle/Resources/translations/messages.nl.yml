@@ -2,6 +2,7 @@ duo:
     media:
         select: Selecteren
         clear: Wissen
+        empty: Geen item geselecteerd
 
         menu:
             media: Media

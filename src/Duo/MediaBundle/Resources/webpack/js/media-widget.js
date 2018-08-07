@@ -6,9 +6,9 @@ const modals = {};
 /**
  * Initialize
  *
- * @param {string|jQuery|HTMLElement} [selector = '.media-widget']
+ * @param {string|jQuery|HTMLElement} [selector]
  */
-export default (selector = '.media-widget') =>
+export default (selector = '[data-toggle="media"]') =>
 {
 	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
@@ -33,28 +33,33 @@ export default (selector = '.media-widget') =>
 		{
 			e.preventDefault();
 
-			const $this = $(this);
+			const url = $(this).data('url');
 
-			let $modal = modals[$this.data('url')];
+			let $modal = modals[url];
 
 			if (!$modal)
 			{
-				const html = await get($this.data('url'));
+				const html = await get(url);
 
 				$modal = $(html);
 				$modal.appendTo('body');
 
-				modals[$this.data('url')] = $modal;
+				modals[url] = $modal;
 			}
 
 			$modal.modal('show');
 
 			// listen for iframe select event
-			$(window).on('duo.event.iframe.select', (e, data) =>
+			$(window).on('duo.event.iframe.selectItem', (e, data) =>
 			{
-				// TODO: check mediaType
+				if (data.eventType !== 'media')
+				{
+					return;
+				}
 
-				if (data.type !== 'media')
+				// check whether or not mime-type is correct
+				if ($this.data('mediaType') === 'image' && data.mimeType.indexOf('image/') !== 0 ||
+					$this.data('mediaType') !== 'image' && data.mimeType.indexOf('image/') === 0)
 				{
 					return;
 				}
@@ -70,9 +75,13 @@ export default (selector = '.media-widget') =>
 					$media.val(data.id);
 					$caption.text(data.name);
 
-					$modal.find('[data-dismiss]').trigger('click');
+					$media.trigger('duo.event.media.selectItem');
 
-					$media.trigger('duo.event.media.select');
+					// show elements
+					$this.removeClass('empty');
+
+					// close modal after event
+					$modal.find('[data-dismiss]').trigger('click');
 				};
 
 				// pre load image before selecting item
@@ -100,10 +109,13 @@ export default (selector = '.media-widget') =>
 			$caption.text(null);
 
 			$media.val(null);
-			$media.trigger('duo.event.media.clear');
+			$media.trigger('duo.event.media.clearItem');
 
 			// empty preview after event
 			$preview.empty();
+
+			// hide elements
+			$this.addClass('empty');
 		});
 	});
 };

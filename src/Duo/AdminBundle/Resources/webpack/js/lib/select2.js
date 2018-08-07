@@ -22,7 +22,7 @@ export default (options = {}) =>
 	}
 
 	options = $.extend(true, {}, {
-		selector: '.select2',
+		selector: '[data-toggle="select2"]',
 		theme: 'bootstrap',
 		width: '100%',
 		dropdownAutoWidth: true,
@@ -37,7 +37,7 @@ export default (options = {}) =>
 	{
 		const $this = $(this);
 
-		if ($this.data('initalized.select2'))
+		if ($this.data('init.select2'))
 		{
 			return;
 		}
@@ -47,6 +47,6 @@ export default (options = {}) =>
 			minimumResultsForSearch: $this.find('option').length <= 10 ? Infinity : 10
 		}, options);
 
-		$this.select2(opts).data('initalized.select2', true);
+		$this.select2(opts).data('init.select2', true);
 	});
 };

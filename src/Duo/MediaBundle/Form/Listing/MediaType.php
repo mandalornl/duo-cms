@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MediaType extends AbstractType
 {
@@ -26,11 +27,15 @@ class MediaType extends AbstractType
 				'label' => 'duo.media.form.media.name.label'
 			])
 			->add('taxonomies', TaxonomyChoiceType::class, [
+				'required' => false,
 				'label' => 'duo.media.form.media.taxonomies.label'
 			])
 			->add('file', FileType::class, [
 				'mapped' => false,
-				'label' => 'duo.media.form.media.file.label'
+				'label' => 'duo.media.form.media.file.label',
+				'constraints' => [
+					new NotBlank()
+				]
 			])
 			->add('preview', PreviewType::class, [
 				'data' => $options['data']

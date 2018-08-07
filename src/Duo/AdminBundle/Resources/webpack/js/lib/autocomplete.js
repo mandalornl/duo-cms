@@ -17,7 +17,7 @@ require('select2-theme-bootstrap4/dist/select2-bootstrap.css');
 export default (options = {}) =>
 {
 	options = $.extend(true, {}, {
-		selector: '.autocomplete',
+		selector: '[data-toggle="autocomplete"]',
 		theme: 'bootstrap',
 		width: '100%',
 		dropdownAutoWidth: true,

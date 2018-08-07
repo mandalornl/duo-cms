@@ -12,7 +12,7 @@ class MediaHelper
 	 *
 	 * @return string
 	 */
-	public static function humanizeBytes(int $bytes, int $base = 1024): string
+	public static function humanizeBytes(int $bytes, int $base = 1000): string
 	{
 		$i = (int)floor(log($bytes, $base));
 

@@ -54,9 +54,21 @@ class StringFilter extends AbstractFilter implements SearchInterface
 					->setParameter($param, QueryHelper::escapeLike($data['value'], '%s%%'));
 				break;
 
+			case 'notStartsWith':
+				$this->builder
+					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
+					->setParameter($param, QueryHelper::escapeLike($data['value'], '%s%%'));
+				break;
+
 			case 'endsWith':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
+					->setParameter($param, QueryHelper::escapeLike($data['value'], '%%%s'));
+				break;
+
+			case 'notEndsWith':
+				$this->builder
+					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
 					->setParameter($param, QueryHelper::escapeLike($data['value'], '%%%s'));
 				break;
 

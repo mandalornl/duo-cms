@@ -6,7 +6,7 @@
 					<input type="checkbox" id="{{ checkboxId }}_{{ entity.id }}"{% if app.request.query.get('iframe') %} data-item="{{ {
 						id: entity.id,
 						name: entity | trim,
-						type: type
+						eventType: type
 					} | json_encode }}"{% else %} name="ids[]" value="{{ entity.id }}"{% endif %}>
 					<label for="{{ checkboxId }}_{{ entity.id }}">
 						<span class="icon">

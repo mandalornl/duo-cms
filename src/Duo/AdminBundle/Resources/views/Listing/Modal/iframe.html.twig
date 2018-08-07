@@ -11,7 +11,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<iframe src="{{ path(routePrefix ~ '_index', { iframe: true }) }}" scrolling="auto" frameborder="0" width="100%" height="100%"></iframe>
+				<iframe src="{{ path(routePrefix ~ '_index', app.request.query.all | merge ({ iframe: true })) }}" scrolling="auto" frameborder="0" width="100%" height="100%"></iframe>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">

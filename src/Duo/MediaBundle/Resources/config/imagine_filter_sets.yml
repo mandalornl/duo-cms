@@ -3,11 +3,13 @@ liip_imagine:
         crop:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
 
         listing_preview:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [100, 100], mode: inset, allow_scale: false }
 
@@ -15,30 +17,36 @@ liip_imagine:
         srcset_680:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [680, null], mode: outbound, allow_scale: false }
         srcset_768:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [768, null], mode: outbound, allow_scale: false }
         srcset_1024:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [1024, null], mode: outbound, allow_scale: false }
         srcset_1366:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [1366, null], mode: outbound, allow_scale: false }
         srcset_1600:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [1600, null], mode: outbound, allow_scale: false }
         srcset_1920:
             quality: 85
             filters:
+                auto_rotate: ~
                 strip: ~
                 thumbnail: { size: [1920, null], mode: outbound, allow_scale: false }

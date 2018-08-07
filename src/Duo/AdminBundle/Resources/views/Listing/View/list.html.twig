@@ -37,7 +37,7 @@
 				<tr{% if app.request.query.get('iframe') %} data-item="{{ {
 					id: entity.id,
 					name: entity | trim,
-					type: type
+					eventType: type
 				} | json_encode }}"{% else %} data-url="{{ path(routePrefix ~ '_update', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}"{% endif %}>
 					{% if not app.request.query.get('iframe') %}
 						<td>

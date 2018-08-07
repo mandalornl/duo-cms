@@ -2,6 +2,7 @@ duo:
     media:
         select: Select
         clear: Clear
+        empty: No item selected
 
         menu:
             media: Media

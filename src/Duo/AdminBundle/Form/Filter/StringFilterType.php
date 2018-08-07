@@ -21,7 +21,9 @@ class StringFilterType extends AbstractFilterType
 					'duo.admin.listing.filter.equals' => 'equals',
 					'duo.admin.listing.filter.not_equals' => 'notEquals',
 					'duo.admin.listing.filter.starts_with' => 'startsWith',
-					'duo.admin.listing.filter.ends_with' => 'endsWith'
+					'duo.admin.listing.filter.not_starts_with' => 'notStartsWith',
+					'duo.admin.listing.filter.ends_with' => 'endsWith',
+					'duo.admin.listing.filter.not_ends_with' => 'notEndsWith'
 				]
 			])
 			->add('value', TextType::class, [

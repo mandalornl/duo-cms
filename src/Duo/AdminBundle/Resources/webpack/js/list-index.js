@@ -13,7 +13,7 @@ postMessage.on(window, (e) =>
 {
 	if (e.origin !== location.origin)
 	{
-		throw 'Not allowed';
+		throw new Error('Not allowed');
 	}
 
 	try
@@ -71,7 +71,7 @@ $(() =>
 		e.preventDefault();
 
 		postMessage.send(window.parent, {
-			event: 'duo.event.iframe.select',
+			event: 'duo.event.iframe.selectItem',
 			data: $(this).data('item')
 		}, location.origin);
 	});

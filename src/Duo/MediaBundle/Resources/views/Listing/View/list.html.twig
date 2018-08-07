@@ -41,7 +41,8 @@
 					{% set item = {
 						id: entity.id,
 						name: entity | trim,
-						type: type
+						mimeType: entity.mimeType,
+						eventType: type
 					} %}
 					{% if 'image/' in entity.mimeType %}
 						{% set item = item | merge({

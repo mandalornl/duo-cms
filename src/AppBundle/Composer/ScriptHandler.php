@@ -23,6 +23,6 @@ class ScriptHandler extends SensioScriptHandler
 
 		$options = static::getOptions($event);
 
-		static::executeCommand($event, $consoleDir, 'doctrine:migrations:migrate -n', $options['process-timeout']);
+		static::executeCommand($event, $consoleDir, 'doctrine:migrations:migrate -n --allow-no-migration', $options['process-timeout']);
 	}
 }

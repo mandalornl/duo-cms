@@ -156,7 +156,7 @@ abstract class AbstractIndexController extends AbstractController
 	protected function getView(Request $request): string
 	{
 		$session = $request->getSession();
-		$sessionName = "view_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'view');
 
 		// store view
 		if ($request->query->has('view'))
@@ -259,6 +259,24 @@ abstract class AbstractIndexController extends AbstractController
 	}
 
 	/**
+	 * Get session name
+	 *
+	 * @param Request $request
+	 * @param string $prefix
+	 *
+	 * @return string
+	 */
+	protected function getSessionName(Request $request, string $prefix): string
+	{
+		if ($request->query->get('iframe'))
+		{
+			return "i{$prefix}_{$this->getType()}";
+		}
+
+		return "{$prefix}_{$this->getType()}";
+	}
+
+	/**
 	 * Add field
 	 *
 	 * @param FieldInterface $field
@@ -281,7 +299,7 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function removeField(FieldInterface $field)
 	{
-		$this->getFields()->removeElement($field);
+		$this->getFields()->remove($field->getHash());
 
 		return $this;
 	}
@@ -312,7 +330,7 @@ abstract class AbstractIndexController extends AbstractController
 	public function sortingAction(Request $request, string $sort, string $order = 'asc'): RedirectResponse
 	{
 		$session = $request->getSession();
-		$sessionName = "sorting_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'sorting');
 
 		$sortingData = $session->get($sessionName, []);
 		$sortingData = array_merge($sortingData, [
@@ -335,7 +353,7 @@ abstract class AbstractIndexController extends AbstractController
 	protected function getSorting(Request $request): ?array
 	{
 		$session = $request->getSession();
-		$sessionName = "sorting_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'sorting');
 
 		return $session->get($sessionName);
 	}
@@ -351,7 +369,7 @@ abstract class AbstractIndexController extends AbstractController
 	protected function applySorting(Request $request, QueryBuilder $builder): bool
 	{
 		$session = $request->getSession();
-		$sessionName = "sorting_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'sorting');
 
 		$sortingData = $session->get($sessionName, []);
 
@@ -414,7 +432,7 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function removeFilter(FilterInterface $filter)
 	{
-		$this->getFilters()->removeElement($filter);
+		$this->getFilters()->remove($filter->getHash());
 
 		return $this;
 	}
@@ -445,7 +463,7 @@ abstract class AbstractIndexController extends AbstractController
 		$routeName = "{$this->getRoutePrefix()}_index";
 
 		$session = $request->getSession();
-		$sessionName = "filter_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'filter');
 
 		// clear filter
 		if ($request->query->has('clear'))
@@ -476,7 +494,7 @@ abstract class AbstractIndexController extends AbstractController
 			}));
 
 			// clear search
-			$session->remove("search_{$this->getType()}");
+			$session->remove($this->getSessionName($request, 'search'));
 		}
 
 		return $this->redirectToRoute($routeName, $request->query->all());
@@ -499,7 +517,7 @@ abstract class AbstractIndexController extends AbstractController
 		}
 
 		$session = $request->getSession();
-		$sessionName = "filter_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'filter');
 
 		$filterData = $session->get($sessionName, []);
 
@@ -542,7 +560,7 @@ abstract class AbstractIndexController extends AbstractController
 	protected function applyFilters(Request $request, QueryBuilder $builder): bool
 	{
 		$session = $request->getSession();
-		$sessionName = "filter_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'filter');
 
 		$filterData = $session->get($sessionName, []);
 
@@ -569,7 +587,7 @@ abstract class AbstractIndexController extends AbstractController
 		}
 
 		// clear search
-		$session->remove("search_{$this->getType()}");
+		$session->remove($this->getSessionName($request, 'search'));
 
 		return true;
 	}
@@ -606,7 +624,7 @@ abstract class AbstractIndexController extends AbstractController
 		$routeName = "{$this->getRoutePrefix()}_index";
 
 		$session = $request->getSession();
-		$sessionName = "search_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'search');
 
 		// clear search
 		if ($request->query->has('clear'))
@@ -629,7 +647,7 @@ abstract class AbstractIndexController extends AbstractController
 			$session->set($sessionName, $form->getData()['q']);
 
 			// clear filter(s)
-			$session->remove("filter_{$this->getType()}");
+			$session->remove($this->getSessionName($request, 'filter'));
 		}
 
 		return $this->redirectToRoute($routeName, $request->query->all());
@@ -657,7 +675,7 @@ abstract class AbstractIndexController extends AbstractController
 		}
 
 		$session = $request->getSession();
-		$sessionName = "search_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'search');
 
 		// store keyword
 		if ($request->query->has('q'))
@@ -704,7 +722,7 @@ abstract class AbstractIndexController extends AbstractController
 	protected function applySearch(Request $request, QueryBuilder $builder): bool
 	{
 		$session = $request->getSession();
-		$sessionName = "search_{$this->getType()}";
+		$sessionName = $this->getSessionName($request, 'search');
 
 		if (!($keyword = $session->get($sessionName, $request->query->get('q'))))
 		{
@@ -736,7 +754,7 @@ abstract class AbstractIndexController extends AbstractController
 			->setParameter('keyword', QueryHelper::escapeLike($keyword));
 
 		// clear filter(s)
-		$session->remove("filter_{$this->getType()}");
+		$session->remove($this->getSessionName($request, 'filter'));
 
 		return true;
 	}

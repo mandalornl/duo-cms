@@ -1,32 +1,34 @@
 {% block duo_preview_widget %}
-	{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
+	{% if data is defined and data.id %}
+		{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 
-	{% set metadata = data.metadata | default([]) %}
-	<div class="media-preview">
-		<a href="{{ data.url }}" download="{{ data.name }}" target="_blank" title="{{ data.name }}">
-			{% if 'image/' in data.mimeType %}
-				<div class="image-preview">
-					<img src="{{ data.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(data.url, [680, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
-				</div>
-			{% else %}
-				{{- data.name -}}
+		<div class="media-preview">
+			<a href="{{ data.url }}" download="{{ data.name }}" target="_blank" title="{{ data.name }}">
+				{% if 'image/' in data.mimeType %}
+					<div class="image-preview">
+						<img src="{{ data.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(data.url, [680, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
+					</div>
+				{% else %}
+					{{- data.name -}}
+					<br>
+				{% endif %}
+				{{- data.mimeType -}}
 				<br>
-			{% endif %}
-			{{- data.mimeType -}}
-			<br>
-			{% if 'image/' in data.mimeType %}
-				{{- metadata.width | default(1) }} x {{ metadata.height | default(1) -}}
-				<br>
-			{% endif %}
-			{{- data.size | humanizedbytes -}}
-		</a>
-	</div>
+				{% if 'image/' in data.mimeType %}
+					{% set metadata = data.metadata | default([]) %}
+					{{- metadata.width | default(1) }} x {{ metadata.height | default(1) -}}
+					<br>
+				{% endif %}
+				{{- data.size | humanizedbytes -}}
+			</a>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block duo_media_widget %}
 	{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 
-	<div class="media-widget">
+	<div class="media-widget{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}" data-toggle="media">
 		<div class="row">
 			<div class="col-sm-8 col-md-6">
 				{% if mediaType == 'image' %}
@@ -36,16 +38,16 @@
 						{% endif %}
 					</div>
 				{% endif %}
-				<p class="caption mb-2">
+				<p class="caption" title="&laquo; {{ 'duo.media.empty' | trans }} &raquo;">
 					{%- if data %}{{ data.name }}{% endif -%}
 				</p>
 			</div>
 			<div class="col-sm-4 col-lg-3">
-				<div class="d-flex flex-sm-column justify-content-end">
-					<button type="button" class="btn btn-primary mr-2 mr-sm-0 mb-sm-2" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe') }}" data-media-type="{{ mediaType }}">
+				<div class="actions">
+					<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType }) }}">
 						{{- 'duo.media.select' | trans -}}
 					</button>
-					<button type="button" class="btn btn-secondary mb-sm-3" data-action="clear">
+					<button type="button" class="btn btn-secondary" data-action="clear">
 						{{- 'duo.media.clear' | trans -}}
 					</button>
 				</div>
@@ -58,7 +60,7 @@
 {% endblock %}
 
 {% block duo_image_crop_widget %}
-	<div class="image-crop-widget">
+	<div class="image-crop-widget" data-toggle="image-crop">
 		{{ form_widget(form) }}
 	</div>
 {% endblock %}

@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "duo/duo-cms",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Duo - Content Management System",
     "autoload": {
         "psr-4": {
             "": "src/"
@@ -13,13 +13,17 @@
         "psr-4": { "Tests\\": "tests/" },
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.2",
+        "ext-fileinfo": "*",
         "ext-imagick": "^3.4",
         "ext-intl": "^1.1",
         "ext-memcached": "^3.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "doctrine/doctrine-migrations-bundle": "^2.0",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
         "infinite-networks/form-bundle": "^1.0",
@@ -58,8 +62,9 @@
     },
     "config": {
         "platform": {
-            "php": "7.2.3"
+            "php": "7.2"
         },
+        "bin-dir": "bin",
         "sort-packages": true
     },
     "extra": {

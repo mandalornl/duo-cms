@@ -11,7 +11,7 @@ require('bootstrap-datepicker/dist/css/bootstrap-datepicker3.css');
 export default (options = {}) =>
 {
 	options = $.extend({}, {
-		selector: '.datepicker',
+		selector: '[data-toggle="datepicker"]',
 		calendarWeeks: true,
 		clearBtn: true,
 		format: 'dd-mm-yyyy'

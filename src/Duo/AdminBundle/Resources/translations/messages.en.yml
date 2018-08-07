@@ -63,7 +63,9 @@ duo:
                 equals: Equals
                 not_equals: Not equal to
                 starts_with: Starts with
+                not_starts_with: Does not start with
                 ends_with: Ends with
+                not_ends_with: Does not end with
                 before: Before
                 after: After
                 greater_or_equals: Greater of equals
