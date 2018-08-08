@@ -26,7 +26,6 @@ class WYSIWYGType extends AbstractType
 		$resolver->setDefaults([
 			'attr' => [
 				'class' => 'wysiwyg',
-				'data-toggle' => 'wysiwyg',
 				'rows' => 6
 			]
 		]);

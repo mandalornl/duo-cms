@@ -11,12 +11,14 @@ $(() =>
 		return;
 	}
 
+	const NAME = 'sticky-navbar';
+
 	const top = $nav.offset().top;
 	const $body = $(document.body);
 	const $main = $('main');
 	const $parent = $nav.parent();
 
-	$window.on('scroll.sticky-navbar', () =>
+	$window.on(`scroll.${NAME}`, () =>
 	{
 		const isSticky = $window.scrollTop() > top;
 
@@ -35,5 +37,5 @@ $(() =>
 			$parent.append($nav);
 		}
 
-	}).trigger('scroll.sticky-navbar');
+	}).trigger(`scroll.${NAME}`);
 });

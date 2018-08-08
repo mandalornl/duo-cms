@@ -3,88 +3,108 @@ import sortable from 'html5sortable/dist/html5sortable.es';
 
 import uniqid from 'duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
-/**
- * Initialize
- *
- * @param {{}} [options]
- */
-const init = (options = {}) =>
+export default ($ =>
 {
-	options = $.extend({}, {
-		selector: '[data-toggle="nestable"]',
+	const NAME = 'nestable';
+	const SELECTOR = `.${NAME}`;
+
+	const defaults = {
 		onSortStart: (e) => {},
 		onSortStop: (e) => {},
 		onSortUpdate: (e) => {}
-	}, options);
+	};
 
-	const $selector = (
-		options.selector instanceof jQuery || 'jquery' in Object(options.selector)
-	) ? options.selector : $(options.selector);
+	/**
+	 * Get jQuery
+	 *
+	 * @param {string|HTMLElement|jQuery} selector
+	 *
+	 * @returns {jQuery}
+	 */
+	const _$ = selector => (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
-	$selector.each(function()
-	{
-		const $this = $(this);
+	const methods = {
 
-		if ($this.data('init.nestable'))
+		SELECTOR: SELECTOR,
+
+		/**
+		 * Initialize
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {{}} [config]
+		 */
+		init: (selector, config) =>
 		{
-			return;
-		}
+			config = Object.assign({}, defaults, config);
 
-		$this.data('init.nestable', true);
-
-		const $list = $this.find('.nestable-list:not(.nestable-async)');
-
-		$list.attr('data-group', $list.data('group') || uniqid());
-
-		sortable($list.get(), {
-			items: '.nestable-item:not(:disabled):not(.disabled)',
-			handle: '.nestable-handle',
-			placeholderClass: 'nestable-placeholder',
-			draggingClass: 'nestable-dragging',
-			acceptFrom: `[data-group="${$list.data('group')}"]`
-		});
-
-		$list.on('sortstart', (e) =>
-		{
-			$list.each(function()
+			_$(selector).each(function()
 			{
 				const $this = $(this);
 
-				if ($this.find('> li').length || $this.closest('.nestable-dragging').length)
+				if ($this.data(`init.${NAME}`))
 				{
 					return;
 				}
 
-				$this.closest('.nestable-item').addClass('nestable-empty');
+				$this.data(`init.${NAME}`, true);
+
+				const $list = $this.find('.nestable-list:not(.nestable-async)');
+
+				$list.attr('data-group', $list.data('group') || uniqid());
+
+				sortable($list.get(), {
+					items: '.nestable-item:not(:disabled):not(.disabled)',
+					handle: '.nestable-handle',
+					placeholderClass: 'nestable-placeholder',
+					draggingClass: 'nestable-dragging',
+					acceptFrom: `[data-group="${$list.data('group')}"]`
+				});
+
+				$list.on('sortstart', e =>
+				{
+					$list.each(function()
+					{
+						const $this = $(this);
+
+						if ($this.find('> li').length || $this.closest('.nestable-dragging').length)
+						{
+							return;
+						}
+
+						$this.closest('.nestable-item').addClass('nestable-empty');
+					});
+
+					config.onSortStart(e);
+				});
+
+				$list.on('sortstop', e =>
+				{
+					$this.find('.nestable-empty').removeClass('nestable-empty');
+
+					config.onSortStop(e);
+				});
+
+				$list.on('sortupdate', config.onSortUpdate);
 			});
+		},
 
-			options.onSortStart(e);
-		});
-
-		$list.on('sortstop', (e) =>
+		/**
+		 * Destroy
+		 *
+		 * @param {string|HTMLElement|jquery} selector
+		 */
+		destroy: selector =>
 		{
-			$this.find('.nestable-empty').removeClass('nestable-empty');
+			const $selector = _$(selector);
 
-			options.onSortStop(e);
-		});
+			$selector.removeData(`init.${NAME}`);
+			$selector.find('.nestable-list').removeAttr('data-group').off('sortstart sortstop sortupdate');
 
-		$list.on('sortupdate', options.onSortUpdate);
-	});
-};
+			sortable($selector.get(), 'destroy');
+		}
+	};
 
-/**
- * Destroy
- *
- * @param {string|jQuery|HTMLElement} [selector]
- */
-const destroy = (selector = '[data-toggle="nestable"]') =>
-{
-	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));
 
-	$selector.removeData('init.nestable');
-	$selector.find('.nestable-list').removeAttr('data-group').off('sortstart sortstop sortupdate');
-
-	sortable($selector.get(), 'destroy');
-};
-
-export {init, destroy};
+	return methods;
+})($);

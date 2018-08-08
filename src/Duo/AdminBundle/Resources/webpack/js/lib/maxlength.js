@@ -1,47 +1,76 @@
 import $ from 'jquery';
 
-/**
- * Initialize max length
- *
- * @param {string|jQuery|HTMLElement} [selector = '[maxlength]']
- */
-export default (selector = '[maxlength]') =>
+export default ($ =>
 {
-	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+	const NAME = 'maxlength';
+	const SELECTOR = `[${NAME}]`;
 
-	$selector.each(function()
-	{
-		const $this = $(this);
+	/**
+	 * Get jQuery
+	 *
+	 * @param {string|HTMLElement|jQuery} selector
+	 *
+	 * @returns {jQuery}
+	 */
+	const _$ = selector => (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
 
-		if ($this.data('init.maxlength'))
+	const methods = {
+
+		SELECTOR: SELECTOR,
+
+		/**
+		 * Initialize
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 */
+		init: selector =>
 		{
-			return;
-		}
+			_$(selector).each(function()
+			{
+				const $this = $(this);
 
-		$this.data('init.maxlength', true);
+				if ($this.data(`init.${NAME}`))
+				{
+					return;
+				}
 
-		let $inputGroup = $this.closest('.input-group');
+				$this.data(`init.${NAME}`, true);
 
-		if (!$inputGroup.length)
-		{
-			$inputGroup = $([
-				'<div class="input-group">',
-					'<div class="input-group-append">',
-						'<span class="input-group-text">',
-							$this.attr('maxlength'),
-						'</span>',
-					'</div>',
-				'</div>'
-			].join(''));
+				let $inputGroup = $this.closest('.input-group');
 
-			$inputGroup.insertAfter($this).prepend($this);
-		}
+				if (!$inputGroup.length)
+				{
+					$inputGroup = $([
+						'<div class="input-group">',
+							'<div class="input-group-append">',
+								'<span class="input-group-text">',
+									$this.attr('maxlength'),
+								'</span>',
+							'</div>',
+						'</div>'
+					].join(''));
 
-		const $text = $inputGroup.find('.input-group-text');
+					$inputGroup.insertAfter($this).prepend($this);
+				}
 
-		$this.on('keyup.maxlength', function()
-		{
-			$text.text(Math.max(0, $this.attr('maxlength') - (this.value || '').length));
-		}).trigger('keyup.maxlength');
-	});
-};
+				const $text = $inputGroup.find('.input-group-text');
+
+				$this.on(`keyup.${NAME}`, function()
+				{
+					$text.text(Math.max(0, $this.attr('maxlength') - (this.value || '').length));
+				}).trigger(`keyup.${NAME}`);
+			});
+		},
+
+		/**
+		 * Destroy
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 */
+		destroy: selector => _$(selector).removeData(`init.${NAME}`).off(`keyup.${NAME}`)
+	};
+
+	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));
+
+	return methods;
+})($);

@@ -4,9 +4,9 @@ import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/alert';
 
+import 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
+import 'duo/AdminBundle/Resources/webpack/js/lib/select2';
 import confirm from 'duo/AdminBundle/Resources/webpack/js/util/confirm';
-import datePicker from 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
-import select2 from 'duo/AdminBundle/Resources/webpack/js/lib/select2';
 import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 
 postMessage.on(window, (e) =>
@@ -89,7 +89,4 @@ $(() =>
 
 		$form.attr('action', $this.attr('href')).submit();
 	});
-
-	datePicker();
-	select2();
 });

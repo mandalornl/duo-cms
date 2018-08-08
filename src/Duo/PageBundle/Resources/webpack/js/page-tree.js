@@ -1,12 +1,12 @@
 import $ from 'jquery';
 
-import * as nestable from 'duo/AdminBundle/Resources/webpack/js/lib/nestable';
 import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
-import * as api from 'duo/AdminBundle/Resources/webpack/js/util/api';
+import {get, post} from 'duo/AdminBundle/Resources/webpack/js/util/api';
+import nestable from 'duo/AdminBundle/Resources/webpack/js/lib/nestable';
 
 $(async () =>
 {
-	const $tree = $('.nestable.page-tree');
+	const $tree = $('.page-tree');
 
 	if (!$tree.length)
 	{
@@ -69,7 +69,7 @@ $(async () =>
 
 		loader.show(true);
 
-		const res = await api.post(`${$tree.data('url')}/json`, formData);
+		const res = await post(`${$tree.data('url')}/json`, formData);
 
 		loader.hide();
 
@@ -108,7 +108,7 @@ $(async () =>
 			{
 				loader.show(true);
 
-				const html = await api.get($this.data('url'));
+				const html = await get($this.data('url'));
 
 				if (!html)
 				{
@@ -119,8 +119,7 @@ $(async () =>
 				$list.replaceWith($html);
 
 				nestable.destroy($tree);
-				nestable.init({
-					selector: $tree,
+				nestable.init($tree, {
 					onSortUpdate: onSortUpdate
 				});
 
@@ -137,8 +136,7 @@ $(async () =>
 		$this.removeClass('open');
 	});
 
-	nestable.init({
-		selector: $tree,
+	nestable.init($tree, {
 		onSortUpdate: onSortUpdate
 	});
 });

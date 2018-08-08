@@ -1,61 +1,58 @@
-.sortable-list
+.sortable-item
 {
-	.sortable-item
+	border: 1px solid $input-border-color;
+	border-radius: $input-border-radius;
+
+	background: #fff;
+
+	margin-bottom: 1rem;
+
+	&:not(.disabled)
 	{
-		border: 1px solid $input-border-color;
-		border-radius: $input-border-radius;
-
-		background: #fff;
-
-		margin-bottom: 1rem;
-
-		&:not(.disabled)
+		.sortable-handle
 		{
-			.sortable-handle
+			cursor: move;
+			cursor: -webkit-grab;
+
+			@include user-select(none);
+
+			&:before
 			{
-				cursor: move;
-				cursor: -webkit-grab;
+				@include icomoon($icon-move);
 
-				@include user-select(none);
+				margin-right: .5rem;
 
-				&:before
-				{
-					@include icomoon($icon-move);
+				opacity: .5;
 
-					margin-right: .5rem;
+				transition: .2s ease-out;
+				transition-property: opacity, color;
+			}
 
-					opacity: .5;
+			&:hover:before
+			{
+				color: $link-hover-color;
 
-					transition: .2s ease-out;
-					transition-property: opacity, color;
-				}
-
-				&:hover:before
-				{
-					color: $link-hover-color;
-
-					opacity: 1;
-				}
+				opacity: 1;
 			}
 		}
 	}
+}
 
-	.sortable-handle
-	{
-		display: flex;
-		align-items: center;
-	}
+.sortable-handle
+{
+	display: flex;
+	align-items: center;
+}
 
-	.sortable-placeholder
-	{
-		padding: 1.25rem 1rem;
+.sortable-placeholder
+{
+	padding: 1.25rem 1rem;
 
-		margin: 1rem 0;
+	margin: 1rem 0;
 
-		background: #fafafa;
+	background: #fafafa;
 
-		box-shadow: inset 0 0 10px 0 rgba(#000, .1);
+	box-shadow: inset 0 0 10px 0 rgba(#000, .1);
 
-		border-radius: $input-border-radius;
-	}
+	border-radius: $input-border-radius;
 }

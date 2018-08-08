@@ -14,7 +14,7 @@
 				{% endif %}
 				<th>&nbsp;</th>
 				{% for field in list.fields %}
-					<th{% if field.sortable %} class="sortable"{% endif %}>
+					<th{% if field.sortable %} class="sortable-column"{% endif %}>
 						{% if field.sortable %}
 							{% if list.sorting and list.sorting.sort == field.hash %}
 								{% set url = path(routePrefix ~ '_sorting', app.request.query.all | merge({ sort: field.hash, order: list.sorting.order == 'asc' ? 'desc' : 'asc' })) %}

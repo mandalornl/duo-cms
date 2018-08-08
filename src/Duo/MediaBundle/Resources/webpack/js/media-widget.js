@@ -1,121 +1,162 @@
 import $ from 'jquery';
 import {get} from 'duo/AdminBundle/Resources/webpack/js/util/api';
 
-const modals = {};
-
-/**
- * Initialize
- *
- * @param {string|jQuery|HTMLElement} [selector]
- */
-export default (selector = '[data-toggle="media"]') =>
+export default ($ =>
 {
-	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+	const NAME = 'media';
+	const SELECTOR = `.${NAME}-widget`;
 
-	$selector.each(function()
-	{
-		const $this = $(this);
+	const modals = {};
 
-		if ($this.data('init.media-widget'))
+	/**
+	 * Get jQuery
+	 *
+	 * @param {string|HTMLElement|jQuery} selector
+	 *
+	 * @returns {jQuery}
+	 */
+	const _$ = selector => (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+
+	const methods = {
+
+		SELECTOR: SELECTOR,
+
+		/**
+		 * Initialize
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 */
+		init: selector =>
 		{
-			return;
-		}
-
-		$this.data('init.media-widget', true);
-
-		const $media = $this.find('[id$="_media"]');
-		const $caption = $this.find('.caption');
-		const $preview = $this.find('.image-preview');
-
-		const $btnClear = $this.find('button[data-action="clear"]');
-
-		$this.on('click', 'button[data-action="select"]', async function(e)
-		{
-			e.preventDefault();
-
-			const url = $(this).data('url');
-
-			let $modal = modals[url];
-
-			if (!$modal)
+			_$(selector).each(function()
 			{
-				const html = await get(url);
+				const $this = $(this);
 
-				$modal = $(html);
-				$modal.appendTo('body');
-
-				modals[url] = $modal;
-			}
-
-			$modal.modal('show');
-
-			// listen for iframe select event
-			$(window).on('duo.event.iframe.selectItem', (e, data) =>
-			{
-				if (data.eventType !== 'media')
+				if ($this.data(`init.${NAME}`))
 				{
 					return;
 				}
 
-				// check whether or not mime-type is correct
-				if ($this.data('mediaType') === 'image' && data.mimeType.indexOf('image/') !== 0 ||
-					$this.data('mediaType') !== 'image' && data.mimeType.indexOf('image/') === 0)
+				$this.data(`init.${NAME}`, true);
+
+				const $media = $this.find('[id$="_media"]');
+				const $caption = $this.find('.caption');
+				const $preview = $this.find('.image-preview');
+
+				const $btnClear = $this.find('button[data-action="clear"]');
+
+				$this.on(`click.${NAME}`, 'button[data-action="select"]', async function(e)
 				{
-					return;
-				}
+					e.preventDefault();
 
-				// dispatch clear event before updating fields
-				$btnClear.trigger('click');
+					const url = $(this).data('url');
 
-				/**
-				 * Select item
-				 */
-				const selectItem = () =>
-				{
-					$media.val(data.id);
-					$caption.text(data.name);
+					let $modal = modals[url];
 
-					$media.trigger('duo.event.media.selectItem');
-
-					// show elements
-					$this.removeClass('empty');
-
-					// close modal after event
-					$modal.find('[data-dismiss]').trigger('click');
-				};
-
-				// pre load image before selecting item
-				if (data.src)
-				{
-					const $image = $(`<img src="${data.src}" srcset="${data.srcset}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="${data.name}" />`);
-					$image.on('load', () =>
+					if (!$modal)
 					{
-						$preview.append($image);
+						const html = await get(url);
+
+						$modal = $(html);
+						$modal.appendTo('body');
+
+						modals[url] = $modal;
+					}
+
+					$modal.modal('show');
+
+					// listen for iframe select event
+					$(window).on('duo.event.iframe.selectItem', (e, data) =>
+					{
+						if (data.eventType !== 'media')
+						{
+							return;
+						}
+
+						// check whether or not mime-type is correct
+						if ($this.data('mediaType') === 'image' && data.mimeType.indexOf('image/') !== 0 ||
+							$this.data('mediaType') !== 'image' && data.mimeType.indexOf('image/') === 0)
+						{
+							console.error(`Illegal mime-type: '${data.mimeType}'`);
+
+							return;
+						}
+
+						// dispatch clear event before updating fields
+						$btnClear.trigger('click');
+
+						/**
+						 * Select item
+						 */
+						const selectItem = () =>
+						{
+							$caption.text(data.name);
+
+							$media.val(data.id);
+							$media.trigger('duo.event.media.selectItem');
+
+							// show elements
+							$this.removeClass('empty');
+
+							// close modal after event
+							$modal.find('[data-dismiss]').trigger('click');
+						};
+
+						// pre load image before selecting item
+						if (data.src)
+						{
+							const $image = $(`<img src="${data.src}" srcset="${data.srcset}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="${data.name}" />`);
+							$image.on('load', () =>
+							{
+								$preview.append($image);
+
+								selectItem();
+							});
+
+							return;
+						}
 
 						selectItem();
 					});
+				});
 
-					return;
-				}
+				$this.on(`click.${NAME}`, 'button[data-action="clear"]', function(e)
+				{
+					e.preventDefault();
 
-				selectItem();
+					$caption.text(null);
+
+					$media.val(null);
+					$media.trigger('duo.event.media.clearItem');
+
+					// empty preview after event
+					$preview.empty();
+
+					// hide elements
+					$this.addClass('empty');
+				});
 			});
-		});
+		},
 
-		$this.on('click', 'button[data-action="clear"]', function(e)
+		/**
+		 * Destroy
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 */
+		destroy: selector =>
 		{
-			e.preventDefault();
+			_$(selector).removeData(`init.${NAME}`).off(`click.${NAME}`);
 
-			$caption.text(null);
+			Object.keys(modals).forEach(key =>
+			{
+				modals[key].remove();
 
-			$media.val(null);
-			$media.trigger('duo.event.media.clearItem');
+				delete modals[key];
+			});
+		}
+	};
 
-			// empty preview after event
-			$preview.empty();
+	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));
 
-			// hide elements
-			$this.addClass('empty');
-		});
-	});
-};
+	return methods;
+})($);

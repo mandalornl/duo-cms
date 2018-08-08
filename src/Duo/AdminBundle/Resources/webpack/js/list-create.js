@@ -3,16 +3,16 @@ import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/tab';
 
-import datePicker from 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
-import select2 from 'duo/AdminBundle/Resources/webpack/js/lib/select2';
+import 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
+import 'duo/AdminBundle/Resources/webpack/js/lib/select2';
+import 'duo/AdminBundle/Resources/webpack/js/lib/maxlength';
 import autoComplete from 'duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
-import maxLength from 'duo/AdminBundle/Resources/webpack/js/lib/maxlength';
 import wysiwyg from 'duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
 import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
 
-import partWidget from 'duo/PartBundle/Resources/webpack/js/part-widget';
+import 'duo/PartBundle/Resources/webpack/js/part-widget';
 import mediaWidget from 'duo/MediaBundle/Resources/webpack/js/media-widget';
-import imageCrop from 'duo/MediaBundle/Resources/webpack/js/image-crop-widget';
+import imageCropWidget from 'duo/MediaBundle/Resources/webpack/js/image-crop-widget';
 
 $(() =>
 {
@@ -56,27 +56,35 @@ $(() =>
 	});
 
 	// init widgets inside part widget
-	$form.on('duo.event.part.add', '.part-widget .part-widget-item', function()
+	$form.on('duo.event.part.addItem', '.part-widget .sortable-item', function()
 	{
 		const $item = $(this);
 
-		autoComplete({
-			selector: $item.find('[data-toggle="autocomplete"]')
+		[
+			autoComplete,
+			wysiwyg,
+			mediaWidget,
+			imageCropWidget
+		].forEach(plugin =>
+		{
+			plugin.init($item.find(plugin.SELECTOR));
 		});
-
-		mediaWidget($item.find('[data-toggle="media"]'));
-
-		imageCrop.init($item.find('[data-toggle="image-crop"]'));
-		wysiwyg.init($item.find('[data-toggle="wysiwyg"]'));
 	});
 
 	// destroy widgets inside part widget
-	$form.on('duo.event.part.remove', '.part-widget .part-widget-item', function()
+	$form.on('duo.event.part.removeItem', '.part-widget .sortable-item', function()
 	{
 		const $item = $(this);
 
-		wysiwyg.destroy($item.find('[data-toggle="wysiwyg"]'));
-		imageCrop.destroy($item.find('[data-toggle="image-crop"]'));
+		[
+			autoComplete,
+			wysiwyg,
+			imageCropWidget,
+			mediaWidget
+		].forEach(plugin =>
+		{
+			plugin.destroy($item.find(plugin.SELECTOR));
+		});
 	});
 
 	// handle form submit
@@ -131,15 +139,4 @@ $(() =>
 			$anchor.append(`<span class="badge badge-danger">${$invalid.length}</span>`);
 		});
 	}
-
-	datePicker();
-	select2();
-	autoComplete();
-	maxLength();
-
-	partWidget();
-	mediaWidget();
-
-	imageCrop.init();
-	wysiwyg.init();
 });

@@ -100,22 +100,19 @@
 			flex-direction: column;
 		}
 
-		button[data-action="select"]
+		@include media-breakpoint-down(xs)
 		{
-			margin-right: .75rem;
-
-			@include media-breakpoint-up(sm)
+			.btn + .btn
 			{
-				margin-right: 0;
-				margin-bottom: .75rem;
+				margin-left: .75rem;
 			}
 		}
 
-		button[data-action="clear"]
+		@include media-breakpoint-up(sm)
 		{
-			@include media-breakpoint-up(sm)
+			.btn
 			{
-				margin-bottom: 1rem;
+				margin-bottom: .75rem;
 			}
 		}
 	}
@@ -138,6 +135,14 @@
 		.caption:before
 		{
 			content: attr(title);
+		}
+
+		@include media-breakpoint-up(sm)
+		{
+			.btn
+			{
+				margin-bottom: 0;
+			}
 		}
 	}
 }

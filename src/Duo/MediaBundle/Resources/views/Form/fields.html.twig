@@ -28,7 +28,7 @@
 {% block duo_media_widget %}
 	{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 
-	<div class="media-widget{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}" data-toggle="media">
+	<div class="media-widget{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}">
 		<div class="row">
 			<div class="col-sm-8 col-md-6">
 				{% if mediaType == 'image' %}
@@ -60,7 +60,7 @@
 {% endblock %}
 
 {% block duo_image_crop_widget %}
-	<div class="image-crop-widget" data-toggle="image-crop">
+	<div class="image-crop-widget">
 		{{ form_widget(form) }}
 	</div>
 {% endblock %}

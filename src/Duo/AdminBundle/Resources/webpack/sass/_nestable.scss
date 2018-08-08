@@ -1,147 +1,144 @@
-.nestable
+.nestable-list
 {
+	list-style: none;
+
+	margin: 0;
+	padding: 0;
+
 	.nestable-list
 	{
-		list-style: none;
+		margin-left: 1.5rem;
+	}
+}
 
-		margin: 0;
-		padding: 0;
+.nestable-item
+{
+	position: relative;
 
-		.nestable-list
+	&:not(.disabled)
+	{
+		.nestable-handle
 		{
-			margin-left: 1.5rem;
+			cursor: move;
+			cursor: -webkit-grab;
+
+			@include user-select(none);
 		}
 	}
+}
 
-	.nestable-item
+.nestable-handle
+{
+	display: flex;
+	align-items: center;
+
+	background-color: $gray-100;
+
+	border: 1px solid $gray-400;
+
+	border-radius: $input-border-radius;
+
+	padding: .5rem .25rem;
+	margin: .25rem 0;
+
+	&:before
 	{
-		position: relative;
+		content: '|||';
 
-		&:not(.disabled)
-		{
-			.nestable-handle
-			{
-				cursor: move;
-				cursor: -webkit-grab;
+		transform: rotateZ(90deg);
 
-				@include user-select(none);
-			}
-		}
+		margin-right: .5rem;
+		margin-left: .25rem;
+	}
+}
+
+.nestable-folder
+{
+	text-decoration: none !important;
+
+	color: $body-color;
+
+	margin-right: .5rem;
+
+	cursor: pointer;
+
+	&:before
+	{
+		@include icomoon($icon-folder);
 	}
 
-	.nestable-handle
+	&.open:before
 	{
-		display: flex;
-		align-items: center;
+		content: $icon-folder-open;
+	}
+}
+
+.nestable-placeholder
+{
+	background-color: #fafafa;
+
+	box-shadow: inset 0 0 10px 0 rgba(#000, .1);
+
+	border-radius: $input-border-radius;
+
+	min-height: 2.6021rem;
+}
+
+.nestable-dragging .nestable-handle
+{
+	opacity: .1;
+}
+
+.nestable-empty
+{
+	$width: rem-calc(40px);
+
+	> .nestable-handle
+	{
+		padding-right: .25rem + $width;
+	}
+
+	> .nestable-list
+	{
+		display: block !important;
 
 		background-color: $gray-100;
 
-		border: 1px solid $gray-400;
+		@include border-right-radius($input-border-radius);
 
-		border-radius: $input-border-radius;
+		border-left: 1px solid $input-border-color;
 
-		padding: .5rem .25rem;
-		margin: .25rem 0;
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		bottom: 1px;
+		left: calc(100% - #{$width});
 
-		&:before
-		{
-			content: '|||';
-
-			transform: rotateZ(90deg);
-
-			margin-right: .5rem;
-			margin-left: .25rem;
-		}
-	}
-
-	.nestable-folder
-	{
-		text-decoration: none;
-
-		color: $body-color;
-
-		margin-right: .5rem;
-
-		cursor: pointer;
+		margin-left: 0;
 
 		&:before
 		{
-			@include icomoon($icon-folder);
-		}
+			content: '+';
 
-		&.open:before
-		{
-			content: $icon-folder-open;
-		}
-	}
-
-	.nestable-placeholder
-	{
-		background-color: #fafafa;
-
-		box-shadow: inset 0 0 10px 0 rgba(#000, .1);
-
-		border-radius: $input-border-radius;
-
-		min-height: 2.6021rem;
-	}
-
-	.nestable-dragging .nestable-handle
-	{
-		opacity: .1;
-	}
-
-	.nestable-empty
-	{
-		$width: rem-calc(40px);
-
-		> .nestable-handle
-		{
-			padding-right: .25rem + $width;
-		}
-
-		> .nestable-list
-		{
-			display: block !important;
-
-			background-color: $gray-100;
-
-			@include border-right-radius($input-border-radius);
-
-			border-left: 1px solid $input-border-color;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
 			position: absolute;
-			top: 1px;
-			right: 1px;
-			bottom: 1px;
-			left: calc(100% - #{$width});
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
 
-			margin-left: 0;
+			@include user-select(none);
+		}
 
-			&:before
-			{
-				content: '+';
+		.nestable-placeholder
+		{
+			@include border-left-radius(0);
 
-				display: flex;
-				align-items: center;
-				justify-content: center;
-
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-
-				@include user-select(none);
-			}
-
-			.nestable-placeholder
-			{
-				@include border-left-radius(0);
-
-				height: 100%;
-				min-height: 1px;
-			}
+			height: 100%;
+			min-height: 1px;
 		}
 	}
 }

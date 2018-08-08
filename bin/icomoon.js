@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 const glob = require('glob');
-const _ = require('lodash');
+const _each = require('lodash/each');
 const yargs = require('yargs')
 	.usage('$0 [args]')
 	.options({
@@ -33,14 +33,14 @@ glob(`${yargs.src}/**/selection.json`, (err, files) =>
 		throw err;
 	}
 
-	_.each(files, filename =>
+	_each(files, filename =>
 	{
 		try
 		{
 			const data = JSON.parse(fs.readFileSync(filename));
 			const prefix = data.preferences.fontPref.prefix;
 
-			_.each(data.icons, icon =>
+			_each(data.icons, icon =>
 			{
 				const name = icon.properties.name;
 				const code = (icon.properties.code).toString(16);

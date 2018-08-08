@@ -2,71 +2,88 @@ import $ from 'jquery';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import uniqid from 'duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
-const editors = {};
-
-/**
- * Initialize wysiwyg editor
- *
- * @param {string|jQuery|HTMLElement} [selector]
- */
-const init = (selector = '[data-toggle="wysiwyg"]') =>
+export default ($ =>
 {
-	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+	const NAME = 'wysiwyg';
+	const SELECTOR = `.${NAME}`;
 
-	$selector.each(function()
-	{
-		const $this = $(this);
+	const editors = {};
 
-		if ($this.data('init.wysiwyg'))
+	/**
+	 * Get jQuery
+	 *
+	 * @param {string|HTMLElement|jQuery} selector
+	 *
+	 * @returns {jQuery}
+	 */
+	const _$ = selector => (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+
+	const methods = {
+
+		SELECTOR: SELECTOR,
+
+		/**
+		 * Initialize
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 */
+		init: selector =>
 		{
-			return;
-		}
-
-		$this.data('init.wysiwyg', true);
-
-		ClassicEditor.create(this).then(editor =>
-		{
-			if ($this.prop('disabled'))
+			_$(selector).each(function()
 			{
-				editor.isReadOnly = true;
-			}
+				const $this = $(this);
 
-			this.id = this.id || uniqid();
+				if ($this.data(`init.${NAME}`))
+				{
+					return;
+				}
 
-			editors[this.id] = editor;
-		}).catch(error => console.error(error));
-	});
-};
+				$this.data(`init.${NAME}`, true);
 
-/**
- * Destroy editor
- *
- * @param {string|jQuery|HTMLElement} [selector]
- */
-const destroy = (selector = '[data-toggle="wysiwig"]') =>
-{
-	const $selector = (selector instanceof jQuery || 'jquery' in Object(selector)) ? selector : $(selector);
+				ClassicEditor.create(this).then(editor =>
+				{
+					if ($this.prop('disabled'))
+					{
+						editor.isReadOnly = true;
+					}
 
-	$selector.each(function()
-	{
-		const $this = $(this);
-		const id = $this.attr('id');
+					this.id = this.id || uniqid();
 
-		if (!editors[id])
+					editors[this.id] = editor;
+
+				}).catch(error => console.error(error));
+			});
+		},
+
+		/**
+		 * Destroy
+		 *
+		 * @param {string|HTMLElement|jQuery} selector
+		 */
+		destroy: selector =>
 		{
-			return;
+			_$(selector).each(function()
+			{
+				const id = this.id;
+
+				if (!editors[id])
+				{
+					return;
+				}
+
+				const $this = $(this);
+
+				$this.removeData(`init.${NAME}`);
+
+				editors[id].destroy().then(() =>
+				{
+					delete editors[id];
+				}).catch(error => console.error(error));
+			});
 		}
+	};
 
-		$this.removeData('init.wysiwyg');
+	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));
 
-		editors[id].destroy().then(() =>
-		{
-			delete editors[id];
-		}).catch(error => console.error(error));
-	});
-};
-
-export default {
-	init: init,
-	destroy: destroy
-};
+	return methods;
+})($);
