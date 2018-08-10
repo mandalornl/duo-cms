@@ -31,11 +31,11 @@ export default ($ =>
 		 * Initialize
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
-		 * @param {{}} [config]
+		 * @param {{}} [options]
 		 */
-		init: (selector, config) =>
+		init: (selector, options) =>
 		{
-			config = Object.assign({}, defaults, config);
+			options = Object.assign({}, defaults, options);
 
 			_$(selector).each(function()
 			{
@@ -74,17 +74,17 @@ export default ($ =>
 						$this.closest('.nestable-item').addClass('nestable-empty');
 					});
 
-					config.onSortStart(e);
+					options.onSortStart(e);
 				});
 
 				$list.on('sortstop', e =>
 				{
 					$this.find('.nestable-empty').removeClass('nestable-empty');
 
-					config.onSortStop(e);
+					options.onSortStop(e);
 				});
 
-				$list.on('sortupdate', config.onSortUpdate);
+				$list.on('sortupdate', options.onSortUpdate);
 			});
 		},
 

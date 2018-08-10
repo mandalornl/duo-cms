@@ -31,11 +31,11 @@ export default ($ =>
 		 * Initialize
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
-		 * @param {{}} [config]
+		 * @param {{}} [options]
 		 */
-		init: (selector, config = {}) =>
+		init: (selector, options = {}) =>
 		{
-			config = Object.assign({}, defaults, config);
+			options = Object.assign({}, defaults, options);
 
 			_$(selector).each(function()
 			{
@@ -46,7 +46,7 @@ export default ($ =>
 					return;
 				}
 
-				$this.attr('placeholder', config.format).datepicker(config).data(`init.${NAME}`, true);
+				$this.attr('placeholder', options.format).datepicker(options).data(`init.${NAME}`, true);
 			});
 		},
 

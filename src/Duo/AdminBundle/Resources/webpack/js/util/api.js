@@ -84,37 +84,44 @@ const call = (method) => async (url, data = null) =>
  *
  * @param {string} url
  * @param {File} file
- * @param {{}} [params]
- * @param {Function} [onProgress]
+ * @param {{}} [options]
  *
- * @returns {Promise<*>}
+ * @returns {Promise<any>}
  */
-const uploadFile = (url, file, params = {}, onProgress = (() => {})) => new Promise((resolve, reject) =>
+const uploadFile = (url, file, options = {}) => new Promise((resolve, reject) =>
 {
-	const xhr = new XMLHttpRequest();
+	options = extend({}, {
+		params: {},
+		onUploadComplete: (e) => {},
+		onUploadProgress: (e) => {}
+	}, options);
 
-	xhr.open('PUT', `${url}?${stringify(extend(params, {
+	const params = extend(options.params, {
 		filename: file.name,
-		mimeType: file.type
-	}))}`);
+		mimeType: file.type,
+		size: file.size
+	});
+
+	const xhr = new XMLHttpRequest();
+	xhr.open('PUT', `${url}?${stringify(params)}`);
 	xhr.setRequestHeader('content-type', 'application/octet-stream');
-	xhr.upload.addEventListener('progress', onProgress);
+	xhr.upload.addEventListener('load', options.onUploadComplete);
+	xhr.upload.addEventListener('progress', options.onUploadProgress);
 	xhr.addEventListener('error', reject);
 	xhr.addEventListener('load', () =>
 	{
-		let parsed = null;
-
 		try
 		{
-			parsed = JSON.parse(xhr.responseText);
+			const response = JSON.parse(xhr.responseText);
 
-			if (parsed.error)
+			if (response.error)
 			{
-				reject(parsed.error);
+				reject(response.error);
+
 				return;
 			}
 
-			resolve(parsed);
+			resolve(response);
 		}
 		catch (err)
 		{

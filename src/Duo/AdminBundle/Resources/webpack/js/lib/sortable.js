@@ -30,11 +30,11 @@ export default ($ =>
 		 * Initialize
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
-		 * @param {{}} [config]
+		 * @param {{}} [options]
 		 */
-		init: (selector, config) =>
+		init: (selector, options) =>
 		{
-			config = Object.assign({}, defaults, config);
+			options = Object.assign({}, defaults, options);
 
 			_$(selector).each(function()
 			{
@@ -47,7 +47,7 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				sortable(this, config);
+				sortable(this, options);
 			});
 		},
 

@@ -1,0 +1,8 @@
+{% extends '@DuoAdmin/Listing/index.html.twig' %}
+
+{% block content %}
+	<div class="media-upload" data-url="{{ path('duo_media_listing_media_upload') }}">
+		<div class="upload-dropzone" title="{{ 'duo.media.upload' | trans }}"></div>
+		{{- parent() -}}
+	</div>
+{% endblock %}

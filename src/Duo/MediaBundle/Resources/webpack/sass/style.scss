@@ -179,3 +179,53 @@ body.listing-type-media
 		@include border-top-radius($thumbnail-border-radius);
 	}
 }
+
+.media-upload
+{
+	.progress
+	{
+		margin-bottom: .5rem;
+	}
+
+	.upload-dropzone
+	{
+		position: fixed;
+
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		z-index: 2000;
+
+		background-color: rgba(#000, .2);
+
+		&:before
+		{
+			content: attr(title);
+
+			display: block;
+
+			padding: 1rem;
+
+			background-color: #fff;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+
+			z-index: 2001;
+
+			transform: translate(-50%, -50%);
+
+			border-radius: .25rem;
+
+			box-shadow: 5px 5px 10px rgba(#000, .2);
+		}
+	}
+
+	&:not(.enter) .upload-dropzone
+	{
+		display: none;
+	}
+}

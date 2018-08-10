@@ -68,6 +68,14 @@ class MediaIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function getIndexTemplate(): string
+	{
+		return '@DuoMedia/Listing/index.html.twig';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function getListViewTemplate(): string
 	{
 		return '@DuoMedia/Listing/View/list.html.twig';

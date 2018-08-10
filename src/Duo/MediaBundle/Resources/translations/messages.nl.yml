@@ -3,6 +3,7 @@ duo:
         select: Selecteren
         clear: Wissen
         empty: Geen item geselecteerd
+        upload: Sleep hier je bestanden om ze direct te uploaden
 
         menu:
             media: Media

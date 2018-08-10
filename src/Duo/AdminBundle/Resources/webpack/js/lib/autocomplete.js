@@ -39,11 +39,11 @@ export default ($ =>
 		 * Initialize
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
-		 * @param {{}} [config]
+		 * @param {{}} [options]
 		 */
-		init: (selector, config = {}) =>
+		init: (selector, options = {}) =>
 		{
-			config = $.extend(true, {}, defaults, config);
+			options = $.extend(true, {}, defaults, options);
 
 			_$(selector).each(function()
 			{
@@ -54,7 +54,7 @@ export default ($ =>
 					return;
 				}
 
-				const _config = $.extend(true, {}, {
+				const _options = $.extend(true, {}, {
 					placeholder: $this.data('placeholder') || 'Enter keyword(s)',
 					ajax: {
 						url: $this.data('url'),
@@ -82,9 +82,9 @@ export default ($ =>
 							};
 						}
 					}
-				}, config);
+				}, options);
 
-				$this.select2(_config).data(`init.${NAME}`, true);
+				$this.select2(_options).data(`init.${NAME}`, true);
 			});
 		},
 
