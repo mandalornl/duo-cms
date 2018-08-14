@@ -1,7 +1,6 @@
 {% set pageCount = paginator.getPageCount() %}
 <nav aria-label="{{ 'duo.admin.paginator.label' | trans }}">
-	<ul class="pagination justify-content-end">
-
+	<ul class="pagination">
 		{% set previous = paginator.getPreviousPage() %}
 		{% if paginator.page <= 1 %}
 			<li class="page-item disabled">
@@ -14,7 +13,7 @@
 			</li>
 		{% else %}
 			<li class="page-item">
-				<a class="page-link" href="{{ path(routeName, routeParameters | merge({ page: previous > 1 ? previous: null })) }}" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
+				<a class="page-link" href="{{ path(routeName, routeParameters | merge({ page: previous })) }}" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
 					<span aria-hidden="true">&lsaquo;</span>
 					<span class="sr-only">
 						{{- 'duo.admin.paginator.previous' | trans -}}
@@ -46,7 +45,7 @@
 						<span class="sr-only"> ({{ 'duo.admin.paginator.current' | trans }})</span>
 					</span>
 				{% else %}
-					<a href="{{ path(routeName, routeParameters | merge({ page: page > 1 ? page : null })) }}" class="page-link">
+					<a href="{{ path(routeName, routeParameters | merge({ page: page })) }}" class="page-link">
 						{{- page -}}
 					</a>
 				{% endif -%}

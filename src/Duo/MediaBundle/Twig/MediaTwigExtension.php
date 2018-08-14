@@ -10,7 +10,7 @@ class MediaTwigExtension extends \Twig_Extension
 	public function getFilters(): array
 	{
 		return [
-			new \Twig_SimpleFilter('humanizedbytes', 'Duo\MediaBundle\Helper\MediaHelper::humanizeBytes')
+			new \Twig_SimpleFilter('humanizedbytes', 'Duo\MediaBundle\Tools\Unit\Byte::humanize')
 		];
 	}
 }

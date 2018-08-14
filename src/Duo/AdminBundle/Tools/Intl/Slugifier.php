@@ -1,8 +1,8 @@
 <?php
 
-namespace Duo\AdminBundle\Helper;
+namespace Duo\AdminBundle\Tools\Intl;
 
-class SlugifyHelper
+class Slugifier
 {
 	/**
 	 * Slugify
@@ -41,7 +41,7 @@ class SlugifyHelper
 	}
 
 	/**
-	 * SlugifyHelper constructor
+	 * Slugifier constructor
 	 */
 	private function __construct() {}
 }

@@ -94,6 +94,7 @@ duo:
             previous: Vorige
             next: Volgende
             current: Huidige
+            limiter: Items per pagina
 
         modal:
             global:

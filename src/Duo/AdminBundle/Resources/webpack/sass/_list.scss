@@ -199,33 +199,40 @@
 	}
 }
 
-.listing-pagination
+.listing-paginator
 {
 	background: #fff;
 
+	display: flex;
+	justify-content: flex-end;
+
 	@include media-breakpoint-up(sm)
 	{
-		nav
-		{
-			padding: 1rem;
+		padding: 1rem;
 
-			ul
-			{
-				margin: 0;
-			}
-		}
-
-		&:last-child nav
+		&:last-child
 		{
 			padding-top: 0;
 		}
+
+		.pagination
+		{
+			margin: 0;
+		}
+	}
+
+	.paginator-limiter select
+	{
+		width: auto;
+
+		margin-left: 1rem;
+		margin-bottom: 1rem;
 	}
 }
 
 @include media-breakpoint-up(sm)
 {
-	.listing-index-form,
-	.listing-create-form
+	.listing-form
 	{
 		padding: 1rem;
 

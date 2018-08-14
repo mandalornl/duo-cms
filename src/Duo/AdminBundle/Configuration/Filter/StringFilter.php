@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\Configuration\Filter;
 
 use Duo\AdminBundle\Configuration\SearchInterface;
 use Duo\AdminBundle\Form\Filter\StringFilterType;
-use Duo\AdminBundle\Helper\ORM\QueryHelper;
+use Duo\AdminBundle\Tools\ORM\Query;
 
 class StringFilter extends AbstractFilter implements SearchInterface
 {
@@ -27,13 +27,13 @@ class StringFilter extends AbstractFilter implements SearchInterface
 			case 'contains':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
-					->setParameter($param, QueryHelper::escapeLike($data['value']));
+					->setParameter($param, Query::escapeLike($data['value']));
 				break;
 
 			case 'notContains':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
-					->setParameter($param, QueryHelper::escapeLike($data['value']));
+					->setParameter($param, Query::escapeLike($data['value']));
 				break;
 
 			case 'equals':
@@ -51,25 +51,25 @@ class StringFilter extends AbstractFilter implements SearchInterface
 			case 'startsWith':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
-					->setParameter($param, QueryHelper::escapeLike($data['value'], '%s%%'));
+					->setParameter($param, Query::escapeLike($data['value'], '%s%%'));
 				break;
 
 			case 'notStartsWith':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
-					->setParameter($param, QueryHelper::escapeLike($data['value'], '%s%%'));
+					->setParameter($param, Query::escapeLike($data['value'], '%s%%'));
 				break;
 
 			case 'endsWith':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
-					->setParameter($param, QueryHelper::escapeLike($data['value'], '%%%s'));
+					->setParameter($param, Query::escapeLike($data['value'], '%%%s'));
 				break;
 
 			case 'notEndsWith':
 				$this->builder
 					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
-					->setParameter($param, QueryHelper::escapeLike($data['value'], '%%%s'));
+					->setParameter($param, Query::escapeLike($data['value'], '%%%s'));
 				break;
 
 			default:

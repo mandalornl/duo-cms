@@ -1,0 +1,11 @@
+<div class="paginator-limiter">
+	<select class="custom-select" aria-label="{{ 'duo.admin.paginator.limiter' | trans }}">
+		{% set limit = limit | default(paginator.defaultLimit) %}
+		{% for i in 1..4 %}
+			<option value="{{ path(routeName, routeParameters | merge({ limit: limit, page: null })) }}"{% if limit == paginator.limit %} selected{% endif %}>
+				{{- limit -}}
+			</option>
+			{% set limit = limit * 2 %}
+		{% endfor %}
+	</select>
+</div>

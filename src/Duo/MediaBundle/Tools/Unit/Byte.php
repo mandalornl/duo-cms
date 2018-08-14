@@ -1,8 +1,8 @@
 <?php
 
-namespace Duo\MediaBundle\Helper;
+namespace Duo\MediaBundle\Tools\Unit;
 
-class MediaHelper
+class Byte
 {
 	/**
 	 * Convert bytes to human readable
@@ -12,7 +12,7 @@ class MediaHelper
 	 *
 	 * @return string
 	 */
-	public static function humanizeBytes(int $bytes, int $base = 1000): string
+	public static function humanize(int $bytes, int $base = 1000): string
 	{
 		$i = (int)floor(log($bytes, $base));
 
@@ -20,7 +20,7 @@ class MediaHelper
 	}
 
 	/**
-	 * MediaHelper constructor
+	 * Byte constructor
 	 */
 	private function __construct() {}
 }

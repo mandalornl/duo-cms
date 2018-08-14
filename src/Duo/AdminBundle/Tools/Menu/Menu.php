@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Menu;
+namespace Duo\AdminBundle\Tools\Menu;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

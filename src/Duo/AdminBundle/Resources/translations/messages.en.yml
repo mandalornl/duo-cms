@@ -94,6 +94,7 @@ duo:
             previous: Previous
             next: Next
             current: Current
+            limiter: Items per page
 
         modal:
             global:

@@ -3,7 +3,7 @@
 namespace Duo\PageBundle\Controller;
 
 use Duo\AdminBundle\Controller\AbstractAutoCompleteController;
-use Duo\AdminBundle\Helper\ORM\QueryHelper;
+use Duo\AdminBundle\Tools\ORM\Query;
 use Duo\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +32,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 			->where('t.locale = :locale AND (e.name LIKE :keyword OR t.url LIKE :keyword)')
 			->orderBy('t.url', 'ASC')
 			->setParameter('locale', $request->getLocale())
-			->setParameter('keyword', QueryHelper::escapeLike($request->get('q', '')));
+			->setParameter('keyword', Query::escapeLike($request->get('q', '')));
 
 		// don't include self or offspring
 		if (($id = (int)$request->get('id')))

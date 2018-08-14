@@ -3,7 +3,14 @@ import confirm from 'duo/AdminBundle/Resources/webpack/js/util/confirm';
 
 $(() =>
 {
-	$('.listing-create').on('click', '[data-modal="confirm"]', async function(e)
+	const $listing = $('.listing-create');
+
+	if (!$listing.length)
+	{
+		return;
+	}
+
+	$listing.on('click', '[data-modal="confirm"]', async function(e)
 	{
 		e.preventDefault();
 

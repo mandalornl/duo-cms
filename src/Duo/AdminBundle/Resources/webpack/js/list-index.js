@@ -33,12 +33,14 @@ postMessage.on(window, (e) =>
 
 $(() =>
 {
-	const $form = $('.listing-index-form');
+	const $listing = $('.listing-index');
 
-	if (!$form.length)
+	if (!$listing.length)
 	{
 		return;
 	}
+
+	const $form = $listing.find('.listing-form');
 
 	$form.on('click', '[data-modal="delete"]', async function(e)
 	{
@@ -76,7 +78,8 @@ $(() =>
 		}, location.origin);
 	});
 
-	$('.listing-index').on('click', '[data-modal="multi-delete"]', async function(e)
+	// handle multi delete
+	$listing.on('click', '[data-modal="multi-delete"]', async function(e)
 	{
 		e.preventDefault();
 
@@ -87,6 +90,14 @@ $(() =>
 			body: $this.data('body')
 		});
 
-		$form.attr('action', $this.attr('href')).submit();
+		$listing.find('.listing-form').attr('action', $this.attr('href')).submit();
+	});
+
+	// handle paginator limit
+	$listing.on('change', '.paginator-limiter select', function(e)
+	{
+		e.preventDefault();
+
+		location.href = this.value;
 	});
 });

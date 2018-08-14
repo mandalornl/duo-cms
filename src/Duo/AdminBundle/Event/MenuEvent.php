@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Event;
 
-use Duo\AdminBundle\Menu\MenuBuilderInterface;
+use Duo\AdminBundle\Tools\Menu\MenuBuilderInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class MenuEvent extends Event

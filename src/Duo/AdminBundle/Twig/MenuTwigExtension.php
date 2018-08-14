@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\AdminBundle\Menu\MenuInterface;
+use Duo\AdminBundle\Tools\Menu\MenuInterface;
 
 class MenuTwigExtension extends \Twig_Extension
 {

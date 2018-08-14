@@ -3,7 +3,7 @@
 namespace Duo\PageBundle\Controller;
 
 use Doctrine\ORM\Query\Expr\Join;
-use Duo\AdminBundle\Menu\MenuBuilder;
+use Duo\AdminBundle\Tools\Menu\MenuBuilder;
 use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

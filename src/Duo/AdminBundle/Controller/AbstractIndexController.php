@@ -12,8 +12,8 @@ use Duo\AdminBundle\Configuration\Filter\FilterInterface;
 use Duo\AdminBundle\Configuration\SearchInterface;
 use Duo\AdminBundle\Form\Listing\FilterType;
 use Duo\AdminBundle\Form\Listing\SearchType;
-use Duo\AdminBundle\Helper\ORM\QueryHelper;
-use Duo\AdminBundle\Helper\PaginatorHelper;
+use Duo\AdminBundle\Tools\ORM\Query;
+use Duo\AdminBundle\Tools\Pagination\Paginator;
 use Duo\CoreBundle\Entity\DeleteInterface;
 use Duo\CoreBundle\Entity\RevisionInterface;
 use Duo\CoreBundle\Entity\TranslateInterface;
@@ -182,14 +182,14 @@ abstract class AbstractIndexController extends AbstractController
 	 *
 	 * @param Request $request
 	 *
-	 * @return PaginatorHelper
+	 * @return Paginator
 	 *
 	 * @throws \Throwable
 	 */
-	protected function getPaginator(Request $request): PaginatorHelper
+	protected function getPaginator(Request $request): Paginator
 	{
-		$page = (int)$request->get('page') ?: null;
-		$limit = (int)$request->get('limit') ?: null;
+		$limit = $this->getPaginatorLimit($request);
+		$page = $this->getPaginatorPage($request);
 
 		/**
 		 * @var EntityRepository $repository
@@ -238,10 +238,55 @@ abstract class AbstractIndexController extends AbstractController
 			$this->defaultSorting($request, $builder);
 		}
 
-		return (new PaginatorHelper($builder))
+		return (new Paginator($builder))
 			->setPage($page)
 			->setLimit($limit)
 			->createView();
+	}
+
+	/**
+	 * Get paginator limit
+	 *
+	 * @param Request $request
+	 *
+	 * @return int
+	 */
+	protected function getPaginatorLimit(Request $request): ?int
+	{
+		$session = $request->getSession();
+		$sessionName = $this->getSessionName($request, 'limit');
+
+		// store limit
+		if ($request->query->has('limit'))
+		{
+			$session->set($sessionName, (int)$request->query->get('limit'));
+
+			// clear page
+			$session->remove($this->getSessionName($request, 'page'));
+		}
+
+		return $session->get($sessionName);
+	}
+
+	/**
+	 * Get paginator page
+	 *
+	 * @param Request $request
+	 *
+	 * @return int
+	 */
+	protected function getPaginatorPage(Request $request): ?int
+	{
+		$session = $request->getSession();
+		$sessionName = $this->getSessionName($request, 'page');
+
+		// store page
+		if ($request->query->has('page'))
+		{
+			$session->set($sessionName, (int)$request->query->get('page'));
+		}
+
+		return $session->get($sessionName);
 	}
 
 	/**
@@ -751,7 +796,7 @@ abstract class AbstractIndexController extends AbstractController
 
 		$builder
 			->andWhere($orX)
-			->setParameter('keyword', QueryHelper::escapeLike($keyword));
+			->setParameter('keyword', Query::escapeLike($keyword));
 
 		// clear filter(s)
 		$session->remove($this->getSessionName($request, 'filter'));

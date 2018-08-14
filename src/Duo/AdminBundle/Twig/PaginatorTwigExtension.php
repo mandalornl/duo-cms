@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\AdminBundle\Helper\PaginatorHelper;
+use Duo\AdminBundle\Tools\Pagination\Paginator;
 
 class PaginatorTwigExtension extends \Twig_Extension
 {
@@ -15,6 +15,11 @@ class PaginatorTwigExtension extends \Twig_Extension
 			new \Twig_SimpleFunction('render_paginator', [$this, 'renderPaginator'], [
 				'needs_environment' => true,
 				'is_safe' => ['html']
+			]),
+
+			new \Twig_SimpleFunction('render_paginator_limiter', [$this, 'renderPaginatorLimiter'], [
+				'needs_environment' => true,
+				'is_safe' => ['html']
 			])
 		];
 	}
@@ -23,7 +28,7 @@ class PaginatorTwigExtension extends \Twig_Extension
 	 * Render paginator
 	 *
 	 * @param \Twig_Environment $env
-	 * @param PaginatorHelper $paginator
+	 * @param Paginator $paginator
 	 * @param string $routeName
 	 * @param array $routeParameters [optional]
 	 * @param array $parameters [optional]
@@ -32,13 +37,45 @@ class PaginatorTwigExtension extends \Twig_Extension
 	 *
 	 * @throws \Throwable
 	 */
-	public function renderPaginator(\Twig_Environment $env,
-									 PaginatorHelper $paginator,
-									 string $routeName,
-									 array $routeParameters = [],
-									 array $parameters = []): string
+	public function renderPaginator(
+		\Twig_Environment $env,
+		Paginator $paginator,
+		string $routeName,
+		array $routeParameters = [],
+		array $parameters = []
+	): string
 	{
-		$template = $env->load('@DuoAdmin/Navigation/pagination.html.twig');
+		$template = $env->load('@DuoAdmin/Navigation/paginator.html.twig');
+
+		return $template->render(array_merge([
+			'paginator' => $paginator,
+			'routeName' => $routeName,
+			'routeParameters' => $routeParameters
+		], $parameters));
+	}
+
+	/**
+	 * Render paginator limiter
+	 *
+	 * @param \Twig_Environment $env
+	 * @param Paginator $paginator
+	 * @param string $routeName
+	 * @param array $routeParameters [optional]
+	 * @param array $parameters [optional]
+	 *
+	 * @return string
+	 *
+	 * @throws \Throwable
+	 */
+	public function renderPaginatorLimiter(
+		\Twig_Environment $env,
+		Paginator $paginator,
+		string $routeName,
+		array $routeParameters,
+		array $parameters = []
+	): string
+	{
+		$template = $env->load('@DuoAdmin/Navigation/paginator_limiter.html.twig');
 
 		return $template->render(array_merge([
 			'paginator' => $paginator,

@@ -16,12 +16,14 @@ import imageCropWidget from 'duo/MediaBundle/Resources/webpack/js/image-crop-wid
 
 $(() =>
 {
-	const $form = $('.listing-create-form');
+	const $listing = $('.listing-create');
 
-	if (!$form.length)
+	if (!$listing.length)
 	{
 		return;
 	}
+
+	const $form = $listing.find('.listing-form');
 
 	// show warning when user closes or reloads page
 	$form.on('change.donotleave', 'select', function()
@@ -40,6 +42,7 @@ $(() =>
 		'keyup.donotleave': function()
 		{
 			const $this = $(this);
+
 			if ($this.data('donotleave.keydown') !== this.value)
 			{
 				doNotLeave.enable();
@@ -88,7 +91,7 @@ $(() =>
 	});
 
 	// handle form submit
-	$('.listing-create').on('click', 'button[data-action="save"]', function()
+	$listing.on('click', 'button[data-action="save"]', function()
 	{
 		const $this = $(this);
 		$this.prop('disabled', true);

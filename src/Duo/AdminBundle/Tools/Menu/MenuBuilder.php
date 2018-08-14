@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Menu;
+namespace Duo\AdminBundle\Tools\Menu;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -66,7 +66,7 @@ class MenuBuilder implements MenuBuilderInterface
 		$this->user = $security->getUser();
 
 		$this->configs = new ArrayCollection();
-		$this->configs[] = Yaml::parseFile(__DIR__ . '/../Resources/config/menu.yml');
+		$this->configs[] = Yaml::parseFile(__DIR__ . '/../../Resources/config/menu.yml');
 
 		// cache request uri
 		if (($request = $requestStack->getCurrentRequest()))

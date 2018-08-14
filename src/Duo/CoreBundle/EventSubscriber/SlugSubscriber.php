@@ -6,7 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\AdminBundle\Helper\SlugifyHelper;
+use Duo\AdminBundle\Tools\Intl\Slugifier;
 use Duo\CoreBundle\Entity\SlugInterface;
 
 class SlugSubscriber implements EventSubscriber
@@ -63,13 +63,13 @@ class SlugSubscriber implements EventSubscriber
 		// make sure slug is slugified
 		if (!empty($entity->getSlug()))
 		{
-			$entity->setSlug(SlugifyHelper::slugify($entity->getSlug()));
+			$entity->setSlug(Slugifier::slugify($entity->getSlug()));
 			return;
 		}
 
 		if ($entity->getSlug() === null)
 		{
-			$entity->setSlug(SlugifyHelper::slugify($entity->getValueToSlugify()));
+			$entity->setSlug(Slugifier::slugify($entity->getValueToSlugify()));
 		}
 	}
 }

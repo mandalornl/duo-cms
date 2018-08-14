@@ -29,7 +29,7 @@ duo:
                 download: Downloaden
 
         form:
-            file:
+            media:
                 name:
                     label: Naam
                 taxonomies:

@@ -1,12 +1,17 @@
 <?php
 
-namespace Duo\AdminBundle\Helper;
+namespace Duo\AdminBundle\Tools\Pagination;
 
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
-class PaginatorHelper
+class Paginator
 {
+	/**
+	 * @var int
+	 */
+	private $defaultLimit = 12;
+
 	/**
 	 * @var QueryBuilder
 	 */
@@ -20,7 +25,7 @@ class PaginatorHelper
 	/**
 	 * @var int
 	 */
-	private $limit = 12;
+	private $limit;
 
 	/**
 	 * @var int
@@ -38,7 +43,7 @@ class PaginatorHelper
 	private $result;
 
 	/**
-	 * PaginatorHelper constructor
+	 * Paginator constructor
 	 *
 	 * @param QueryBuilder $builder
 	 */
@@ -48,27 +53,13 @@ class PaginatorHelper
 	}
 
 	/**
-	 * Create view
+	 * Get defaultLimit
 	 *
-	 * @param bool $fetchJoinCollection [optional]
-	 *
-	 * @return PaginatorHelper
+	 * @return int
 	 */
-	public function createView(bool $fetchJoinCollection = true): PaginatorHelper
+	public function getDefaultLimit(): int
 	{
-		$offset = max(0, $this->page - 1) * $this->limit;
-
-		$query = $this->builder
-			->setFirstResult($offset)
-			->setMaxResults($this->limit)
-			->getQuery();
-
-		$paginator = new Paginator($query, $fetchJoinCollection);
-
-		$this->count = $paginator->count();
-		$this->result = $paginator->getIterator();
-
-		return $this;
+		return $this->defaultLimit;
 	}
 
 	/**
@@ -76,9 +67,9 @@ class PaginatorHelper
 	 *
 	 * @param QueryBuilder $builder
 	 *
-	 * @return PaginatorHelper
+	 * @return Paginator
 	 */
-	public function setQueryBuilder(QueryBuilder $builder): PaginatorHelper
+	public function setQueryBuilder(QueryBuilder $builder): Paginator
 	{
 		$this->builder = $builder;
 
@@ -100,9 +91,9 @@ class PaginatorHelper
 	 *
 	 * @param int $page
 	 *
-	 * @return PaginatorHelper
+	 * @return Paginator
 	 */
-	public function setPage(int $page = null): PaginatorHelper
+	public function setPage(int $page = null): Paginator
 	{
 		$this->page = $page ?: $this->page;
 
@@ -124,11 +115,11 @@ class PaginatorHelper
 	 *
 	 * @param int $limit
 	 *
-	 * @return PaginatorHelper
+	 * @return Paginator
 	 */
-	public function setLimit(int $limit = null): PaginatorHelper
+	public function setLimit(int $limit = null): Paginator
 	{
-		$this->limit = $limit ?: $this->limit;
+		$this->limit = $limit;
 
 		return $this;
 	}
@@ -140,7 +131,7 @@ class PaginatorHelper
 	 */
 	public function getLimit(): int
 	{
-		return $this->limit;
+		return $this->limit ?: $this->defaultLimit;
 	}
 
 	/**
@@ -148,9 +139,9 @@ class PaginatorHelper
 	 *
 	 * @param int $adjacent
 	 *
-	 * @return PaginatorHelper
+	 * @return Paginator
 	 */
-	public function setAdjacent(int $adjacent): PaginatorHelper
+	public function setAdjacent(int $adjacent): Paginator
 	{
 		$this->adjacent = $adjacent;
 
@@ -184,7 +175,7 @@ class PaginatorHelper
 	 */
 	public function getPageCount(): int
 	{
-		return ceil($this->count / $this->limit);
+		return ceil($this->count / $this->getLimit());
 	}
 
 	/**
@@ -265,5 +256,29 @@ class PaginatorHelper
 	public function getHideEnd(): int
 	{
 		return $this->getPageCount() - ($this->page + $this->adjacent);
+	}
+
+	/**
+	 * Create view
+	 *
+	 * @param bool $fetchJoinCollection [optional]
+	 *
+	 * @return Paginator
+	 */
+	public function createView(bool $fetchJoinCollection = true): Paginator
+	{
+		$offset = max(0, $this->page - 1) * $this->getLimit();
+
+		$query = $this->builder
+			->setFirstResult($offset)
+			->setMaxResults($this->getLimit())
+			->getQuery();
+
+		$paginator = new DoctrinePaginator($query, $fetchJoinCollection);
+
+		$this->count = $paginator->count();
+		$this->result = $paginator->getIterator();
+
+		return $this;
 	}
 }

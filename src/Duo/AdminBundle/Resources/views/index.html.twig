@@ -19,7 +19,10 @@
 	{% include '@DuoAdmin/Layout/_favicon.html.twig' %}
 
 	{# CSS #}
-	{% include '@DuoAdmin/Layout/_css.html.twig' %}
+	{% include '@DuoAdmin/Layout/_stylesheets.html.twig' %}
+
+	{# Javascript #}
+	{% include '@DuoAdmin/Layout/_javascripts.html.twig' %}
 </head>
 <body class="{% block bodyClass %}default{% endblock %}{% if app.request.query.get('iframe') %} iframe{% endif %}">
 	<div class="wrapper">
@@ -71,9 +74,6 @@
 	</div>
 	{# Modals #}
 	{% block modal %}{% endblock %}
-
-	{# Javascript #}
-	{% include '@DuoAdmin/Layout/_js_footer.html.twig' %}
 </body>
 </html>
 {% endspaceless %}

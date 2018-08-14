@@ -100,14 +100,17 @@
 {% endblock %}
 
 {% block content %}
-	{% if paginator.canPaginate() %}
-		<div class="listing-pagination">
-			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
+	{% if paginator.count > paginator.defaultLimit %}
+		<div class="listing-paginator">
+			{% if paginator.canPaginate() %}
+				{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
+			{% endif %}
+			{{ render_paginator_limiter(paginator, routePrefix ~ '_index', app.request.query.all) }}
 		</div>
 	{% endif %}
 
 	{% set checkboxId = random() %}
-	<form action="javascript:;" method="post" class="listing-index-form">
+	<form action="javascript:;" method="post" class="listing-form">
 		{% if list.canSwitchView | default(false) %}
 			<div class="d-flex justify-content-end mb-3">
 				<div class="btn-group" role="group" aria-label="{{ 'duo.admin.listing.view.switch' | trans }}">
@@ -131,9 +134,12 @@
 		{% endif %}
 	</form>
 
-	{% if paginator.canPaginate() and paginator.result | length >= paginator.limit %}
-		<div class="listing-pagination">
-			{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
+	{% if paginator.result | length >= paginator.defaultLimit %}
+		<div class="listing-paginator">
+			{% if paginator.canPaginate() %}
+				{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
+			{% endif %}
+			{{ render_paginator_limiter(paginator, routePrefix ~ '_index', app.request.query.all) }}
 		</div>
 	{% endif %}
 {% endblock %}

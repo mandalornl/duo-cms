@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\AdminBundle\Menu\MenuBuilder;
+use Duo\AdminBundle\Tools\Menu\MenuBuilder;
 use Duo\AdminBundle\Twig\TwigContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

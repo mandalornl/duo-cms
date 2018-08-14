@@ -1,8 +1,8 @@
 <?php
 
-namespace Duo\AdminBundle\Helper\ORM;
+namespace Duo\AdminBundle\Tools\ORM;
 
-class QueryHelper
+class Query
 {
 	/**
 	 * Escape like
@@ -37,7 +37,7 @@ class QueryHelper
 	}
 
 	/**
-	 * OrmHelper constructor
+	 * Query constructor
 	 */
 	private function __construct() {}
 }
