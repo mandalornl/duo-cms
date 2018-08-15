@@ -631,8 +631,9 @@ abstract class AbstractIndexController extends AbstractController
 				->apply();
 		}
 
-		// clear search
+		// clear search and page
 		$session->remove($this->getSessionName($request, 'search'));
+		$session->remove($this->getSessionName($request, 'page'));
 
 		return true;
 	}
@@ -798,8 +799,9 @@ abstract class AbstractIndexController extends AbstractController
 			->andWhere($orX)
 			->setParameter('keyword', Query::escapeLike($keyword));
 
-		// clear filter(s)
+		// clear filter and page
 		$session->remove($this->getSessionName($request, 'filter'));
+		$session->remove($this->getSessionName($request, 'page'));
 
 		return true;
 	}
