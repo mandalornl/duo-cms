@@ -12,3 +12,11 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    Duo\TranslatorBundle\EventSubscriber\EntrySubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    Duo\TranslatorBundle\Loader\DatabaseLoader:
+        tags:
+            - { name: translation.loader, alias: db, priority: 128 }

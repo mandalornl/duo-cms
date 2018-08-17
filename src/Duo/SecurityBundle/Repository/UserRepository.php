@@ -51,14 +51,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 	 * @param string $token
 	 *
 	 * @return UserInterface
-	 *
-	 * @throws \Throwable
 	 */
 	public function findOneByPasswordToken(string $token): ?UserInterface
 	{
 		try
 		{
-			$tokenLifetime = (new \DateTime())->sub(new \DateInterval('P1D'));
+			$tokenLifetime = (new \DateTime())->modify('-1 day');
 
 			return $this->createQueryBuilder('e')
 				->where('e.passwordToken = :token AND :tokenLifetime < e.passwordRequestedAt')

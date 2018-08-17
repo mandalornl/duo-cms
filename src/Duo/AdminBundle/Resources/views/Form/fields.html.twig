@@ -121,7 +121,7 @@
 	<div id="{{ id }}" class="translation-list">
 		<nav class="tab-list">
 			<label for="{{ id }}_tablist" class="sr-only">{{ 'duo.admin.choose_language' | trans }}</label>
-			<select id="{{ id }}_tablist" class="custom-select" style="width: auto;">
+			<select id="{{ id }}_tablist" class="custom-select w-auto locale-selector">
 				{% for locale, child in form %}
 					<option value="#{{ child.vars.id }}_list"{% if locale == app.request.locale %} selected{% endif %}>
 						{{- attribute(locales, locale) | default(locale | upper) -}}

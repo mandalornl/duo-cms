@@ -3,7 +3,6 @@
 namespace Duo\MediaBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\MediaBundle\Entity\ImageCrop;
@@ -38,7 +37,7 @@ class ImageCropSubscriber implements EventSubscriber
 		{
 			$manager = $args->getEntityManager();
 
-			$classMetadata = $manager->getClassMetadata(ClassUtils::getClass($entity));
+			$classMetadata = $manager->getClassMetadata(get_class($entity));
 
 			$unitOfWork = $manager->getUnitOfWork();
 			$unitOfWork->remove($entity);

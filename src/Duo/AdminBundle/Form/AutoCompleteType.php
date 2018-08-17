@@ -16,7 +16,7 @@ class AutoCompleteType extends AbstractType
 	/**
 	 * @var EntityManagerInterface
 	 */
-	private $entityManager;
+	private $manager;
 
 	/**
 	 * @var RouterInterface
@@ -26,12 +26,12 @@ class AutoCompleteType extends AbstractType
 	/**
 	 * AutoCompleteType constructor
 	 *
-	 * @param EntityManagerInterface $entityManager
+	 * @param EntityManagerInterface $manager
 	 * @param RouterInterface $router
 	 */
-	public function __construct(EntityManagerInterface $entityManager, RouterInterface $router)
+	public function __construct(EntityManagerInterface $manager, RouterInterface $router)
 	{
-		$this->entityManager = $entityManager;
+		$this->manager = $manager;
 		$this->router = $router;
 	}
 
@@ -41,7 +41,7 @@ class AutoCompleteType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder->addViewTransformer(new EntityToPropertyTransformer(
-			$this->entityManager,
+			$this->manager,
 			$options['class'],
 			$options['propertyName'],
 			$options['multiple']

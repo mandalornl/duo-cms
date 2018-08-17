@@ -48,6 +48,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    Duo\CoreBundle\EventSubscriber\TranslationSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
     Duo\CoreBundle\EventSubscriber\TreeSubscriber:
         tags:
             - { name: doctrine.event_subscriber }

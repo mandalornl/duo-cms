@@ -52,7 +52,7 @@ class SecurityController extends Controller
 			if ($user !== null)
 			{
 				// wait at least one hour before making a new request
-				$minimalWaitTime = (new \DateTime())->sub(new \DateInterval('PT1H'));
+				$minimalWaitTime = (new \DateTime())->modify('-1 hour');
 
 				if ($minimalWaitTime < $user->getPasswordRequestedAt())
 				{

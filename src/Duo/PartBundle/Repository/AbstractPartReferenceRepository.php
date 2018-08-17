@@ -3,7 +3,6 @@
 namespace Duo\PartBundle\Repository;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -114,7 +113,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 		return $partReference
 			->setEntityId($entity->getId())
 			->setPartId($part->getId())
-			->setPartClass(ClassUtils::getClass($part))
+			->setPartClass(get_class($part))
 			->setWeight($part->getWeight());
 	}
 
@@ -134,7 +133,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 			->andWhere('e.partId = :partId AND e.partClass = :partClass')
 			->setParameter('entityId', $entity->getId())
 			->setParameter('partId', $part->getId())
-			->setParameter('partClass', ClassUtils::getClass($part))
+			->setParameter('partClass', get_class($part))
 			->getQuery()
 			->execute();
 
@@ -214,7 +213,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 		// assign weight
 		foreach ($parts as $part)
 		{
-			$part->setWeight($sorting[ClassUtils::getClass($part) . $part->getId()]);
+			$part->setWeight($sorting[get_class($part) . $part->getId()]);
 		}
 
 		// sort parts using weight
@@ -244,7 +243,7 @@ abstract class AbstractPartReferenceRepository extends EntityRepository implemen
 				->andWhere('e.partId = :partId AND e.partClass = :partClass')
 				->setParameter('entityId', $entity->getId())
 				->setParameter('partId', $part->getId())
-				->setParameter('partClass', ClassUtils::getClass($part))
+				->setParameter('partClass', get_class($part))
 				->getQuery()
 				->getSingleScalarResult();
 		}

@@ -9,7 +9,6 @@ use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Duo\AdminBundle\Helper\LocaleHelper;
 use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\TranslationInterface;
 
 class TranslateSubscriber implements EventSubscriber
 {
@@ -41,42 +40,23 @@ class TranslateSubscriber implements EventSubscriber
 	}
 
 	/**
-	 * On load class metadata
+	 * On load class metadata event
 	 *
 	 * @param LoadClassMetadataEventArgs $args
 	 */
 	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
 	{
-		/**
-		 * @var ClassMetadata $classMetadata
-		 */
 		$classMetadata = $args->getClassMetadata();
 
-		if (($reflectionClass = $classMetadata->getReflectionClass()) === null)
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
+			!$reflectionClass->implementsInterface(TranslateInterface::class))
 		{
 			return;
 		}
 
-		$this->mapTranslatable($classMetadata, $reflectionClass);
-		$this->mapTranslation($classMetadata, $reflectionClass);
-	}
-
-	/**
-	 * Map translatable
-	 *
-	 * @param ClassMetadata $classMetaData
-	 * @param \ReflectionClass $reflectionClass
-	 */
-	private function mapTranslatable(ClassMetadata $classMetaData, \ReflectionClass $reflectionClass): void
-	{
-		if (!$reflectionClass->implementsInterface(TranslateInterface::class))
+		if (!$classMetadata->hasAssociation('translations'))
 		{
-			return;
-		}
-
-		if (!$classMetaData->hasAssociation('translations'))
-		{
-			$classMetaData->mapOneToMany([
+			$classMetadata->mapOneToMany([
 				'fieldName' 	=> 'translations',
 				'mappedBy' 		=> 'translatable',
 				'indexBy' 		=> 'locale',
@@ -85,50 +65,6 @@ class TranslateSubscriber implements EventSubscriber
 				'targetEntity' 	=> "{$reflectionClass->getName()}Translation",
 				'orphanRemoval' => true
 			]);
-		}
-	}
-
-	/**
-	 * Map translation
-	 *
-	 * @param ClassMetadata $classMetadata
-	 * @param \ReflectionClass $reflectionClass
-	 */
-	private function mapTranslation(ClassMetadata $classMetadata, \ReflectionClass $reflectionClass): void
-	{
-		if (!$reflectionClass->implementsInterface(TranslationInterface::class))
-		{
-			return;
-		}
-
-		if (!$classMetadata->hasAssociation('translatable'))
-		{
-			$targetEntity = substr($reflectionClass->getName(), 0, -11);
-
-			$classMetadata->mapManyToOne([
-				'fieldName' 	=> 'translatable',
-				'inversedBy' 	=> 'translations',
-				'cascade' 		=> ['persist', 'remove'],
-				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> $targetEntity,
-				'joinColumns' 	=> [[
-					'name' 					=> 'translatable_id',
-					'referencedColumnName' 	=> 'id',
-					'onDelete' 				=> 'CASCADE'
-				]]
-			]);
-		}
-
-		$name = 'translation_uniq';
-
-		if (!isset($classMetadata->table['uniqueConstraints'][$name]))
-		{
-			$classMetadata->table['uniqueConstraints'][$name] = [
-				'columns' => [
-					'translatable_id',
-					'locale'
-				]
-			];
 		}
 	}
 

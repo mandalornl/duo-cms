@@ -21,6 +21,8 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @throws \Throwable
 	 */
 	public function load(ObjectManager $manager): void
 	{

@@ -17,16 +17,16 @@ class MediaType extends AbstractType
 	/**
 	 * @var EntityManagerInterface
 	 */
-	private $entityManager;
+	private $manager;
 
 	/**
 	 * MediaType constructor
 	 *
-	 * @param EntityManagerInterface $entityManager
+	 * @param EntityManagerInterface $manager
 	 */
-	public function __construct(EntityManagerInterface $entityManager)
+	public function __construct(EntityManagerInterface $manager)
 	{
-		$this->entityManager = $entityManager;
+		$this->manager = $manager;
 	}
 
 	/**
@@ -35,7 +35,7 @@ class MediaType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder->addViewTransformer(new EntityToIdTransformer(
-			$this->entityManager,
+			$this->manager,
 			Media::class
 		));
 	}

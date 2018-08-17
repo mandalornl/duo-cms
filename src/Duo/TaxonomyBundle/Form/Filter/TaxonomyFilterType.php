@@ -15,19 +15,19 @@ class TaxonomyFilterType extends EnumFilterType
 	/**
 	 * @var EntityManagerInterface
 	 */
-	private $entityManager;
+	private $manager;
 
 	/**
 	 * TaxonomyFilterType constructor
 	 *
 	 * @param TranslatorInterface $translator
-	 * @param EntityManagerInterface $entityManager
+	 * @param EntityManagerInterface $manager
 	 */
-	public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager)
+	public function __construct(TranslatorInterface $translator, EntityManagerInterface $manager)
 	{
 		parent::__construct($translator);
 
-		$this->entityManager = $entityManager;
+		$this->manager = $manager;
 	}
 
 	/**
@@ -50,7 +50,7 @@ class TaxonomyFilterType extends EnumFilterType
 		/**
 		 * @var EntityRepository $repository
 		 */
-		$repository = $this->entityManager->getRepository(Taxonomy::class);
+		$repository = $this->manager->getRepository(Taxonomy::class);
 
 		$result = $repository->createQueryBuilder('e')
 			->select('e.id, t.name')

@@ -21,6 +21,17 @@ class EntryType extends AbstractType
 	{
 		$tabs = $builder->create('tabs', TabsType::class)
 			->add(
+				$builder->create('content', TabType::class, [
+					'label' => 'duo.translator.tab.content'
+				])
+					->add('translations', TranslationType::class, [
+						'entry_type' => EntryTranslationType::class,
+						'constraints' => [
+							new Valid()
+						]
+					])
+			)
+			->add(
 				$builder->create('properties', TabType::class, [
 					'label' => 'duo.translator.tab.properties'
 				])
@@ -29,17 +40,6 @@ class EntryType extends AbstractType
 				])
 				->add('domain', TextType::class, [
 					'label' => 'duo.translator.form.entry.domain.label'
-				])
-			)
-			->add(
-				$builder->create('content', TabType::class, [
-					'label' => 'duo.translator.tab.content'
-				])
-				->add('translations', TranslationType::class, [
-					'entry_type' => EntryTranslationType::class,
-					'constraints' => [
-						new Valid()
-					]
 				])
 			);
 

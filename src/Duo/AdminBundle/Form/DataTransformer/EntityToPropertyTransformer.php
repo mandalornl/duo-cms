@@ -14,7 +14,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * @var EntityManagerInterface
 	 */
-	private $entityManager;
+	private $manager;
 
 	/**
 	 * @var string
@@ -34,17 +34,19 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * EntityToPropertyTransformer constructor
 	 *
-	 * @param EntityManagerInterface $entityManager
+	 * @param EntityManagerInterface $manager
 	 * @param string $entityClass
 	 * @param string|\Closure $propertyName [optional]
 	 * @param bool $multiple [optional]
 	 */
-	public function __construct(EntityManagerInterface $entityManager,
-								string $entityClass,
-								$propertyName = null,
-								bool $multiple = false)
+	public function __construct(
+		EntityManagerInterface $manager,
+		string $entityClass,
+		$propertyName = null,
+		bool $multiple = false
+	)
 	{
-		$this->entityManager = $entityManager;
+		$this->manager = $manager;
 		$this->entityClass = $entityClass;
 		$this->propertyName = $propertyName;
 		$this->multiple = $multiple;
@@ -128,7 +130,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 			return [];
 		}
 
-		return $this->entityManager->createQueryBuilder()
+		return $this->manager->createQueryBuilder()
 			->select('e')
 			->from($this->entityClass, 'e')
 			->where('e.id IN(:ids)')
@@ -151,7 +153,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 			return null;
 		}
 
-		$entity = $this->entityManager->getRepository($this->entityClass)->find($id);
+		$entity = $this->manager->getRepository($this->entityClass)->find($id);
 
 		if ($entity === null)
 		{

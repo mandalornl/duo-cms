@@ -3,10 +3,12 @@
 namespace Duo\TranslatorBundle\Controller;
 
 use Doctrine\ORM\QueryBuilder;
+use Duo\AdminBundle\Configuration\Action\ListAction;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\AbstractIndexController;
+use Duo\TranslatorBundle\Entity\Entry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +27,18 @@ class EntryIndexController extends AbstractIndexController
 	 */
 	public function indexAction(Request $request): Response
 	{
+		$count = $this->getDoctrine()->getRepository(Entry::class)->count([
+			'flag' => [
+				Entry::FLAG_NEW,
+				Entry::FLAG_UPDATED
+			]
+		]);
+
+		if ($count)
+		{
+			$this->addFlash('info', $this->get('translator')->trans('duo.translator.not_live'));
+		}
+
 		return $this->doIndexAction($request);
 	}
 
@@ -50,6 +64,15 @@ class EntryIndexController extends AbstractIndexController
 			->addFilter(new StringFilter('domain', 'duo.translator.listing.filter.domain'))
 			->addFilter(new DateTimeFilter('createdAt', 'duo.translator.listing.filter.created'))
 			->addFilter(new DateTimeFilter('modifiedAt', 'duo.translator.listing.filter.modified'));
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function defineListActions(): void
+	{
+		$this
+			->addListAction(new ListAction('duo.translator.reload', 'duo_translator_reload'));
 	}
 
 	/**

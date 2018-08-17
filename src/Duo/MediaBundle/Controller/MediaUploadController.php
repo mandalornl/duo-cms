@@ -26,6 +26,8 @@ class MediaUploadController extends AbstractController
 	 * @param UploadHelper $uploadHelper
 	 *
 	 * @return JsonResponse
+	 *
+	 * @throws \Throwable
 	 */
 	public function uploadAction(Request $request, UploadHelper $uploadHelper): JsonResponse
 	{
@@ -77,7 +79,7 @@ class MediaUploadController extends AbstractController
 			unlink($tmpFile);
 
 			return $this->json([
-				'error' => (string)$e->getMessage()
+				'error' => $e->getMessage()
 			]);
 		}
 	}

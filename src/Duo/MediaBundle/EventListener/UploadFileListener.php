@@ -27,6 +27,8 @@ class UploadFileListener
 	 * On post create event
 	 *
 	 * @param FormEvent $event
+	 *
+	 * @throws \Throwable
 	 */
 	public function postCreate(FormEvent $event): void
 	{
@@ -37,6 +39,8 @@ class UploadFileListener
 	 * On post update event
 	 *
 	 * @param FormEvent $event
+	 *
+	 * @throws \Throwable
 	 */
 	public function postUpdate(FormEvent $event): void
 	{
@@ -47,6 +51,8 @@ class UploadFileListener
 	 * Upload file
 	 *
 	 * @param FormEvent $event
+	 *
+	 * @throws \Throwable
 	 */
 	private function uploadFile(FormEvent $event): void
 	{

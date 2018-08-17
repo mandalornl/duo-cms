@@ -23,7 +23,7 @@ trait TranslationTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setTranslatable(TranslateInterface $translatable): TranslationInterface
+	public function setTranslatable(TranslateInterface $translatable = null): TranslationInterface
 	{
 		$this->translatable = $translatable;
 

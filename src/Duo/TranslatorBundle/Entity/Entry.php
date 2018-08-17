@@ -33,6 +33,21 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	use TimestampTrait;
 
 	/**
+	 * @var int
+	 */
+	const FLAG_NONE = 0;
+
+	/**
+	 * @var int
+	 */
+	const FLAG_NEW = 1;
+
+	/**
+	 * @var int
+	 */
+	const FLAG_UPDATED = 2;
+
+	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="keyword", type="string", nullable=true)
@@ -47,6 +62,13 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	 * @Assert\NotBlank()
 	 */
 	private $domain;
+
+	/**
+	 * @var int
+	 *
+	 * @ORM\Column(name="flag", type="smallint", options={ "default" = 1 })
+	 */
+	private $flag = 1;
 
 	/**
 	 * Set keyword
@@ -94,6 +116,30 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	public function getDomain(): ?string
 	{
 		return $this->domain;
+	}
+
+	/**
+	 * Set flag
+	 *
+	 * @param int $flag
+	 *
+	 * @return Entry
+	 */
+	public function setFlag(int $flag): Entry
+	{
+		$this->flag = $flag;
+
+		return $this;
+	}
+
+	/**
+	 * Get flag
+	 *
+	 * @return int
+	 */
+	public function getFlag(): int
+	{
+		return $this->flag;
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace Duo\MediaBundle\Helper;
 
+use Duo\AdminBundle\Tools\Intl\Slugifier;
 use Duo\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -34,16 +35,20 @@ class UploadHelper
 	 *
 	 * @param UploadedFile $file
 	 * @param Media $entity
+	 *
+	 * @throws \Throwable
 	 */
 	public function upload(UploadedFile $file, Media $entity): void
 	{
 		$uuid = self::getUuid();
-		$extension = $file->guessExtension();
+
+		$extension = $file->getExtension() ?: $file->guessExtension();
+		$filename = basename($file->getClientOriginalName(), ".{$extension}");
 
 		$metadata = [
 			'basename' => $file->getClientOriginalName(),
 			'extension' => $extension,
-			'filename' => basename($file->getClientOriginalName(), ".{$extension}")
+			'filename' => $filename
 		];
 
 		// get image width/height
@@ -57,19 +62,22 @@ class UploadHelper
 			]);
 		}
 
+		// slugify filename
+		$filename = Slugifier::slugify($filename);
+
 		$entity
 			->setUuid($uuid)
 			->setSize($file->getSize())
 			->setMimeType($file->getMimeType())
 			->setMetadata($metadata)
-			->setUrl("{$this->relativeUploadPath}/{$uuid}/{$file->getClientOriginalName()}");
+			->setUrl("{$this->relativeUploadPath}/{$uuid}/{$filename}.{$extension}");
 
 		if ($entity->getName() === null)
 		{
 			$entity->setName($file->getClientOriginalName());
 		}
 
-		$file->move("{$this->absoluteUploadPath}/{$uuid}", $file->getClientOriginalName());
+		$file->move("{$this->absoluteUploadPath}/{$uuid}", "{$filename}.{$extension}");
 	}
 
 	/**
@@ -78,6 +86,8 @@ class UploadHelper
 	 * @param int $length [optional]
 	 *
 	 * @return string
+	 *
+	 * @throws \Throwable
 	 */
 	public static function getUuid(int $length = 16): string
 	{

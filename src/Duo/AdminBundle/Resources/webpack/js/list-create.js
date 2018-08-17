@@ -26,7 +26,7 @@ $(() =>
 	const $form = $listing.find('.listing-form');
 
 	// show warning when user closes or reloads page
-	$form.on('change.donotleave', 'select', function()
+	$form.on('change.donotleave', 'select:not(.locale-selector)', function()
 	{
 		doNotLeave.enable();
 

@@ -4,7 +4,6 @@ namespace Duo\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Util\ClassUtils;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 trait TranslateTrait
@@ -93,6 +92,7 @@ trait TranslateTrait
 	public function addTranslation(TranslationInterface $translation): TranslateInterface
 	{
 		$this->getTranslations()->set((string)$translation->getLocale(), $translation);
+
 		$translation->setTranslatable($this);
 
 		return $this;
@@ -103,6 +103,8 @@ trait TranslateTrait
 	 */
 	public function removeTranslation(TranslationInterface $translation): TranslateInterface
 	{
+		$translation->setTranslatable(null);
+
 		$this->getTranslations()->removeElement($translation);
 
 		return $this;
@@ -122,6 +124,7 @@ trait TranslateTrait
 	public function addNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
 		$this->getNewTranslations()->set((string)$translation->getLocale(), $translation);
+
 		$translation->setTranslatable($this);
 
 		return $this;
@@ -132,6 +135,8 @@ trait TranslateTrait
 	 */
 	public function removeNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
+		$translation->setTranslatable(null);
+
 		$this->getNewTranslations()->removeElement($translation);
 
 		return $this;
@@ -151,6 +156,7 @@ trait TranslateTrait
 	public function mergeNewTranslations(): TranslateInterface
 	{
 		$translations = $this->getTranslations();
+
 		$newTranslations = $this->getNewTranslations();
 
 		foreach ($newTranslations as $translation)
@@ -161,6 +167,7 @@ trait TranslateTrait
 			}
 
 			$this->addTranslation($translation);
+
 			$newTranslations->removeElement($translation);
 		}
 
@@ -202,7 +209,7 @@ trait TranslateTrait
 			}
 		}
 
-		$className = ClassUtils::getClass($this) . 'Translation';
+		$className = get_class($this) . 'Translation';
 
 		/**
 		 * @var TranslationInterface $translation
@@ -264,6 +271,7 @@ trait TranslateTrait
 	protected function onCloneTranslations(): void
 	{
 		$translations = $this->getTranslations();
+		
 		$this->translations = new ArrayCollection();
 
 		foreach ($translations as $translation)

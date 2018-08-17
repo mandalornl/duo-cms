@@ -4,8 +4,7 @@ namespace Duo\CoreBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -53,13 +52,13 @@ class SortSubscriber implements EventSubscriber
 		$entity = $args->getObject();
 
 		/**
-		 * @var EntityManager $entityManager
+		 * @var EntityManagerInterface $manager
 		 */
-		$entityManager = $args->getObjectManager();
+		$manager = $args->getObjectManager();
 
-		$builder = $entityManager->createQueryBuilder()
+		$builder = $manager->createQueryBuilder()
 			->select('COALESCE(MAX(e.weight) + 1, 0)')
-			->from(ClassUtils::getClass($entity), 'e');
+			->from(get_class($entity), 'e');
 
 		// use parent of entity
 		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)

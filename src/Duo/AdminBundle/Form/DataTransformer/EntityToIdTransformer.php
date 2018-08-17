@@ -11,7 +11,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 	/**
 	 * @var EntityManagerInterface
 	 */
-	private $entityManager;
+	private $manager;
 
 	/**
 	 * @var string
@@ -21,12 +21,12 @@ class EntityToIdTransformer implements DataTransformerInterface
 	/**
 	 * EntityToIdTransformer constructor
 	 *
-	 * @param EntityManagerInterface $entityManager
+	 * @param EntityManagerInterface $manager
 	 * @param string $entityClass
 	 */
-	public function __construct(EntityManagerInterface $entityManager, string $entityClass)
+	public function __construct(EntityManagerInterface $manager, string $entityClass)
 	{
-		$this->entityManager = $entityManager;
+		$this->manager = $manager;
 		$this->entityClass = $entityClass;
 	}
 
@@ -61,7 +61,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 			return null;
 		}
 
-		$entity = $this->entityManager->getRepository($this->entityClass)->find($id);
+		$entity = $this->manager->getRepository($this->entityClass)->find($id);
 
 		if ($entity === null)
 		{
