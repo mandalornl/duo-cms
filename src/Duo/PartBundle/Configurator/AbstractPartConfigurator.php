@@ -72,7 +72,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 		{
 			foreach ($entries as $entry)
 			{
-				$types[$entry['class']] = $entry['label'];
+				$types[$entry['type']] = $entry['label'];
 			}
 		}
 
@@ -95,7 +95,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 					continue;
 				}
 
-				$icons[$entry['class']] = $entry['icon'];
+				$icons[$entry['type']] = $entry['icon'];
 			}
 		}
 

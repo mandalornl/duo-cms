@@ -19,4 +19,4 @@ services:
 
     Duo\TranslatorBundle\Loader\DatabaseLoader:
         tags:
-            - { name: translation.loader, alias: db, priority: 128 }
+            - { name: translation.loader, alias: db, priority: 8 }

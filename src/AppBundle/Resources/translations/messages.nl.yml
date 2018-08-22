@@ -6,6 +6,7 @@ app:
         wysiwyg: Tekst
         image: Afbeelding
         image_crop: Afbeelding (uitsnede)
+        file: Bestand
         form: Formulier
 
     form:

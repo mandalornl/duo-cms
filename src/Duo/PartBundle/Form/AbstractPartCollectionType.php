@@ -32,10 +32,12 @@ abstract class AbstractPartCollectionType extends AbstractType
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
 		$icons = $this->configurator->getIcons();
-		foreach ($icons as $class => $icon)
+
+		foreach ($icons as $type => $icon)
 		{
-			$icons[md5($class)] = $icon;
-			unset($icons[$class]);
+			$icons[md5($type)] = $icon;
+
+			unset($icons[$type]);
 		}
 
 		$view->vars['icons'] = $icons;

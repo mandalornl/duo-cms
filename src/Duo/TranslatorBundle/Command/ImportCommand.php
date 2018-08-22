@@ -5,6 +5,7 @@ namespace Duo\TranslatorBundle\Command;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Duo\TranslatorBundle\Entity\Entry;
 use Duo\TranslatorBundle\Entity\EntryTranslation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -339,7 +340,12 @@ class ImportCommand extends ContainerAwareCommand
 	 */
 	private function getReferences(): array
 	{
-		$result = $this->getManager()->getRepository(Entry::class)
+		/**
+		 * @var EntityRepository $repository
+		 */
+		$repository = $this->getManager()->getRepository(Entry::class);
+
+		$result = $repository
 			->createQueryBuilder('e')
 			->select('e.id, e.domain, e.keyword')
 			->getQuery()

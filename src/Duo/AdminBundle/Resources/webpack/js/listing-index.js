@@ -68,7 +68,7 @@ $(() =>
 	});
 
 	// handle iframe item selection
-	$form.on('click', 'input[data-item], tr[data-item]', function(e)
+	$form.on('click', 'input[data-item]:not(:disabled), tr[data-item]:not(.disabled)', function(e)
 	{
 		e.preventDefault();
 

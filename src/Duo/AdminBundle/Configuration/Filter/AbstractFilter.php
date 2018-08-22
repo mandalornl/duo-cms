@@ -9,6 +9,16 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * @var string
 	 */
+	protected $property;
+
+	/**
+	 * @var string
+	 */
+	protected $label;
+
+	/**
+	 * @var string
+	 */
 	protected $alias;
 
 	/**
@@ -20,11 +30,6 @@ abstract class AbstractFilter implements FilterInterface
 	 * @var array
 	 */
 	protected $data = [];
-
-	/**
-	 * @var string
-	 */
-	protected $property;
 
 	/**
 	 * @var array
@@ -41,10 +46,44 @@ abstract class AbstractFilter implements FilterInterface
 	public function __construct(string $property, string $label, string $alias = 'e')
 	{
 		$this->property = $property;
+		$this->label = $label;
 		$this->alias = $alias;
-		$this->formOptions = [
-			'label' => $label
-		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setProperty(string $property): FilterInterface
+	{
+		$this->property = $property;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getProperty(): string
+	{
+		return $this->property;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setLabel(string $label): FilterInterface
+	{
+		$this->label = $label;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getLabel(): ?string
+	{
+		return $this->label;
 	}
 
 	/**
@@ -99,24 +138,6 @@ abstract class AbstractFilter implements FilterInterface
 	public function getData(): array
 	{
 		return $this->data;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setProperty(string $property): FilterInterface
-	{
-		$this->property = $property;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getProperty(): string
-	{
-		return $this->property;
 	}
 
 	/**

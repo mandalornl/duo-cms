@@ -62,6 +62,28 @@ class MediaIndexController extends AbstractIndexController
 	 */
 	public function indexAction(Request $request): Response
 	{
+		// filter images
+		if ($request->query->has('mediaType'))
+		{
+			$filter = (new StringFilter('mimeType', 'duo.media.listing.filter.type'))
+				->setData([
+					'operator' => $request->query->get('mediaType') === 'image' ? 'startsWith' : 'notStartsWith',
+					'value' => 'image/'
+				])
+				->setFormOptions([
+					'disabled' => true
+				]);
+
+			$session = $request->getSession();
+			$sessionName = $this->getSessionName($request, 'filter');
+
+			$session->set($sessionName, array_merge($session->get($sessionName, []), [
+				$filter->getHash() => $filter->getData()
+			]));
+
+			$this->addFilter($filter);
+		}
+
 		return $this->doIndexAction($request);
 	}
 

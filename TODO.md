@@ -3,7 +3,6 @@
 - PHPUnit (wip)
 
 - MediaBundle (wip) 
-	- Upload d&d
 	- List action: taxonomy
 	- Media modal
 		- Only allow image selection

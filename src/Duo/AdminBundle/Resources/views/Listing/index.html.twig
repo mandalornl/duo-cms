@@ -48,7 +48,7 @@
 	{% if list.filterForm is defined and list.filterForm %}
 		{% set filterId = random() %}
 		<div class="listing-filter mb-3">
-			{% set activeFilters = app.request.session.get('filter_' ~ type, []) | length %}
+			{% set activeFilters = app.request.session.get((app.request.query.get('iframe') ? 'i' : '') ~ 'filter_' ~ type, []) | length %}
 			<button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#{{ filterId }}">
 				{{- 'duo.admin.listing.filter.filter' | trans }}{% if activeFilters %} ({{ activeFilters }}){% endif -%}
 			</button>

@@ -7,6 +7,38 @@ use Doctrine\ORM\QueryBuilder;
 interface FilterInterface
 {
 	/**
+	 * Set property
+	 *
+	 * @param string $property
+	 *
+	 * @return FilterInterface
+	 */
+	public function setProperty(string $property): FilterInterface;
+
+	/**
+	 * Get property
+	 *
+	 * @return string
+	 */
+	public function getProperty(): string;
+
+	/**
+	 * Set label
+	 *
+	 * @param string $label
+	 *
+	 * @return FilterInterface
+	 */
+	public function setLabel(string $label): FilterInterface;
+
+	/**
+	 * Get label
+	 *
+	 * @return string
+	 */
+	public function getLabel(): ?string;
+
+	/**
 	 * Set alias
 	 *
 	 * @param string $alias
@@ -60,22 +92,6 @@ interface FilterInterface
 	 * @throws \LogicException
 	 */
 	public function apply(): void;
-
-	/**
-	 * Set property
-	 *
-	 * @param string $property
-	 *
-	 * @return FilterInterface
-	 */
-	public function setProperty(string $property): FilterInterface;
-
-	/**
-	 * Get property
-	 *
-	 * @return string
-	 */
-	public function getProperty(): string;
 
 	/**
 	 * Get form type
