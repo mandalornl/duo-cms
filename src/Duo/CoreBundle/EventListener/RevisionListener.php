@@ -11,9 +11,22 @@ use Duo\CoreBundle\Entity\TreeInterface;
 use Duo\CoreBundle\Entity\UrlInterface;
 use Duo\CoreBundle\Entity\RevisionInterface;
 use Duo\CoreBundle\Event\RevisionEvent;
+use Duo\CoreBundle\Event\RevisionEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RevisionListener
+class RevisionListener implements EventSubscriberInterface
 {
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			RevisionEvents::CLONE => 'onClone',
+			RevisionEvents::REVERT => 'onRevert'
+		];
+	}
+
 	/**
 	 * On clone event
 	 *

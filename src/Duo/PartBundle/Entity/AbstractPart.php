@@ -13,7 +13,7 @@ abstract class AbstractPart implements PartInterface
 	/**
 	 * @var int
 	 */
-	protected $weight = 0;
+	protected $weight;
 
 	/**
 	 * {@inheritdoc}

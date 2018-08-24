@@ -11,5 +11,5 @@ interface PagePartInterface extends PartInterface
 	 *
 	 * @return string
 	 */
-	public function getView(): string;
+	public function getView(): ?string;
 }

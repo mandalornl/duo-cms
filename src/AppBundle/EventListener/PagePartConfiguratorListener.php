@@ -3,10 +3,22 @@
 namespace AppBundle\EventListener;
 
 use Duo\PageBundle\Event\PagePartConfiguratorEvent;
+use Duo\PageBundle\Event\PagePartConfiguratorEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class PagePartConfiguratorListener
+class PagePartConfiguratorListener implements EventSubscriberInterface
 {
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			PagePartConfiguratorEvents::PRE_LOAD => 'preLoad'
+		];
+	}
+
 	/**
 	 * On pre load event
 	 *
@@ -16,7 +28,6 @@ class PagePartConfiguratorListener
 	{
 		$config = Yaml::parseFile(__DIR__ . '/../Resources/config/pageparts.yml');
 
-		$configurator = $event->getConfigurator();
-		$configurator->addConfig($config);
+		$event->getConfigurator()->addConfig($config);
 	}
 }

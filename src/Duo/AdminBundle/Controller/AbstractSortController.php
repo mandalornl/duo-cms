@@ -152,10 +152,7 @@ abstract class AbstractSortController extends AbstractController
 			]);
 		}
 
-		return $this->redirectToReferer(
-			$this->generateUrl("{$this->getRoutePrefix()}_index"),
-			$request
-		);
+		return $this->redirectToReferer($request, $this->generateUrl("{$this->getRoutePrefix()}_index"));
 	}
 
 	/**
@@ -340,10 +337,7 @@ abstract class AbstractSortController extends AbstractController
 			]);
 		}
 
-		return $this->redirectToReferer(
-			$this->generateUrl("{$this->getRoutePrefix()}_index"),
-			$request
-		);
+		return $this->redirectToReferer($request, $this->generateUrl("{$this->getRoutePrefix()}_index"));
 	}
 
 	/**

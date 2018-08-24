@@ -8,16 +8,6 @@ services:
         resource: '../../*'
         exclude: '../../{Entity,Repository,Tests}'
 
-    Duo\CoreBundle\EventListener\DeleteListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.core.event.delete, method: onDelete }
-            - { name: kernel.event_listener, event: duo.core.event.undelete, method: onUndelete }
-
-    Duo\CoreBundle\EventListener\RevisionListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.core.event.revision.clone, method: onClone }
-            - { name: kernel.event_listener, event: duo.core.event.revision.revert, method: onRevert }
-
     Duo\CoreBundle\EventSubscriber\PublishSubscriber:
         arguments:
             $security: '@security.helper'

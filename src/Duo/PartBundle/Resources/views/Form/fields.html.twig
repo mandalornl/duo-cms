@@ -6,7 +6,7 @@
 		<hr>
 		{% if not disabled and allow_add %}
 			<div class="my-3">
-				<button type="button" class="btn btn-primary" data-url="{{ path(modal_route) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
+				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
 					{{- 'duo.part.form.collection.add_part' | trans -}}
 				</button>
 			</div>
@@ -22,7 +22,7 @@
 		</div>
 		{% if not disabled and allow_add %}
 			<div class="my-3{% if not form | length %} d-none{% endif %}">
-				<button type="button" class="btn btn-primary" data-url="{{ path(modal_route) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
+				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
 					{{- 'duo.part.form.collection.add_part' | trans -}}
 				</button>
 			</div>

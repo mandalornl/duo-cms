@@ -5,7 +5,6 @@ namespace Duo\AdminBundle\Controller;
 use Duo\CoreBundle\Entity\RevisionInterface;
 use Duo\CoreBundle\Event\RevisionEvent;
 use Duo\CoreBundle\Event\RevisionEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,9 +36,6 @@ abstract class AbstractRevisionController extends AbstractController
 			return $this->revisionInterfaceNotImplemented($request, $id);
 		}
 
-		/**
-		 * @var FormInterface $form
-		 */
 		$form = $this->createForm($this->getFormType(), $entity, [
 			'action' => 'javascript:;',
 			'disabled' => true

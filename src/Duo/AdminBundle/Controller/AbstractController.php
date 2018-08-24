@@ -43,18 +43,13 @@ abstract class AbstractController extends Controller
 	/**
 	 * Redirect to referer
 	 *
-	 * @param string $fallbackUrl [optional]
-	 * @param Request $request [optional]
+	 * @param Request $request
+	 * @param string $fallbackUrl
 	 *
 	 * @return RedirectResponse
 	 */
-	protected function redirectToReferer(string $fallbackUrl, Request $request = null): RedirectResponse
+	protected function redirectToReferer(Request $request, string $fallbackUrl): RedirectResponse
 	{
-		if ($request === null)
-		{
-			$request = $this->get('request_stack')->getCurrentRequest();
-		}
-
 		// use fallback route if referer is missing
 		if ($request->headers->get('referer') === null)
 		{

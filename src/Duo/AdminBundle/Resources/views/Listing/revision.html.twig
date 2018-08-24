@@ -1,12 +1,12 @@
 {% extends '@DuoAdmin/index.html.twig' %}
 
-{% block bodyClass %}listing-revision{% endblock %}
+{% block bodyClass %}listing-create{% endblock %}
 
 {% block content %}
 	<div class="row">
 		<div class="col-xl-10">
 			{% form_theme form with ['@DuoAdmin/Form/fields.html.twig'] only %}
-			{{ form_start(form)}}
+			{{ form_start(form, { attr: { class: 'listing-form' }} )}}
 			{{ form_widget(form) }}
 			{{ form_end(form) }}
 		</div>

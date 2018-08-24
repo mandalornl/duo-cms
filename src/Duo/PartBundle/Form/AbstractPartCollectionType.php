@@ -41,7 +41,8 @@ abstract class AbstractPartCollectionType extends AbstractType
 		}
 
 		$view->vars['icons'] = $icons;
-		$view->vars['modal_route'] = $this->getModalRoute();
+		$view->vars['routeName'] = $this->getRouteName();
+		$view->vars['routeParameters'] = $this->getRouteParameters();
 	}
 
 	/**
@@ -80,9 +81,19 @@ abstract class AbstractPartCollectionType extends AbstractType
 	}
 
 	/**
-	 * Get modal route
+	 * Get route name
 	 *
 	 * @return string
 	 */
-	abstract protected function getModalRoute(): string;
+	abstract protected function getRouteName(): string;
+
+	/**
+	 * Get route parameters
+	 *
+	 * @return array
+	 */
+	protected function getRouteParameters(): array
+	{
+		return [];
+	}
 }

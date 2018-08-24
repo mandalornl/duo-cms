@@ -53,7 +53,7 @@ $(() =>
 	}, 'input, textarea');
 
 	// select proper translation tab
-	$form.on('change', '.translation-list .tab-list > select', function()
+	$form.on('change', '.translation-list .tab-list > .locale-selector', function()
 	{
 		$(this.value).tab('show');
 	});

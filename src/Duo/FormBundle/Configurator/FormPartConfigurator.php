@@ -22,12 +22,13 @@ class FormPartConfigurator extends AbstractPartConfigurator
 		if (!count($this->configs))
 		{
 			$config = Yaml::parseFile(__DIR__ . '/../Resources/config/formparts.yml');
+
 			$this->addConfig($config);
 		}
 	}
 
 	/**
-	 * Dispatch pre load event
+	 * {@inheritdoc}
 	 */
 	public function dispatchPreLoadEvent(): void
 	{

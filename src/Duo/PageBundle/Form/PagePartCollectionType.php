@@ -9,7 +9,7 @@ class PagePartCollectionType extends AbstractPartCollectionType
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getModalRoute(): string
+	protected function getRouteName(): string
 	{
 		return 'duo_page_part_modal_prototype';
 	}
