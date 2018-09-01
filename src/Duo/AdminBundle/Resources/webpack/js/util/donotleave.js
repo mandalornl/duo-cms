@@ -3,9 +3,9 @@ let waitFor;
 /**
  * Enable
  *
- * @param {Number} [delay = 1000]
+ * @param {Number} [delay]
  */
-const enable = (delay = 1000) =>
+const enable = (delay = 0) =>
 {
 	window.clearTimeout(waitFor);
 	waitFor = window.setTimeout(() =>

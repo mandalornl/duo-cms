@@ -2,8 +2,8 @@
 
 namespace Duo\PartBundle\Entity;
 
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
 
 interface PartInterface extends IdInterface, TimestampInterface
 {
@@ -14,7 +14,7 @@ interface PartInterface extends IdInterface, TimestampInterface
 	 *
 	 * @return PartInterface
 	 */
-	public function setWeight(int $weight): PartInterface;
+	public function setWeight(int $weight = null): PartInterface;
 
 	/**
 	 * Get weight
@@ -22,6 +22,22 @@ interface PartInterface extends IdInterface, TimestampInterface
 	 * @return int
 	 */
 	public function getWeight(): ?int;
+
+	/**
+	 * Set section
+	 *
+	 * @param string $section
+	 *
+	 * @return PartInterface
+	 */
+	public function setSection(string $section = null): PartInterface;
+
+	/**
+	 * Get section
+	 *
+	 * @return string
+	 */
+	public function getSection(): ?string;
 
 	/**
 	 * Get part form type

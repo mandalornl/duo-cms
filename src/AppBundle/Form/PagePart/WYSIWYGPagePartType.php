@@ -6,7 +6,6 @@ use AppBundle\Entity\PagePart\WYSIWYGPagePart;
 use Duo\AdminBundle\Form\WYSIWYGType;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class WYSIWYGPagePartType extends AbstractPartType
 {
@@ -25,11 +24,8 @@ class WYSIWYGPagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => WYSIWYGPagePart::class,
-			'model_class' => WYSIWYGPagePart::class
-		]);
+		return WYSIWYGPagePart::class;
 	}
 }

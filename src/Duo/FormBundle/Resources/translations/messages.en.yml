@@ -71,8 +71,8 @@ duo:
             textarea: Text (multiple lines)
             email: Email
             choice: Choice (select, radio, checkbox)
-            terms: Terms and Conditions
+            privacy: Privacy statement
             submit: Send button
 
-        terms:
+        privacy:
             view: view

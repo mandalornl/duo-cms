@@ -1,6 +1,0 @@
-- { label: duo.form.form_part.text, type: Duo\FormBundle\Form\FormPart\TextFormPartType, icon: icon-file-text }
-- { label: duo.form.form_part.textarea, type: Duo\FormBundle\Form\FormPart\TextareaFormPartType, icon: icon-file-text }
-- { label: duo.form.form_part.email, type: Duo\FormBundle\Form\FormPart\EmailFormPartType }
-- { label: duo.form.form_part.choice, type: Duo\FormBundle\Form\FormPart\ChoiceFormPartType }
-- { label: duo.form.form_part.terms, type: Duo\FormBundle\Form\FormPart\TermsFormPartType }
-- { label: duo.form.form_part.submit, type: Duo\FormBundle\Form\FormPart\SubmitFormPartType }

@@ -6,7 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
 
 class TranslationSubscriber implements EventSubscriber
 {

@@ -3,18 +3,20 @@
 namespace Duo\FormBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Duo\AdminBundle\Helper\MailerHelper;
-use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormPartInterface;
 use Duo\FormBundle\Entity\FormSubmission;
 use Duo\FormBundle\Entity\FormTranslation;
 use Duo\FormBundle\Form\FormViewType;
-use Duo\PartBundle\Entity\EntityPartInterface;
+use Duo\PartBundle\Entity\Property\PartInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/form-view", name="duo_form_view_")
@@ -34,7 +36,7 @@ class FormViewController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	public function viewAction(Request $request, int $id, MailerHelper $mailerHelper): JsonResponse
+	public function viewAction(Request $request, int $id, MailerHelper $mailerHelper): Response
 	{
 		$class = Form::class;
 
@@ -54,7 +56,7 @@ class FormViewController extends Controller
 
 		if ($formParts === null)
 		{
-			$interface = EntityPartInterface::class;
+			$interface = PartInterface::class;
 			$error = "Entity '{$class}::{$id}' doesn't implement '{$interface}'";
 
 			return $this->json([
@@ -147,14 +149,15 @@ class FormViewController extends Controller
 	 *
 	 * @return ArrayCollection
 	 */
-	private function getFormParts(Request $request, Form $entity): ArrayCollection
+	private function getFormParts(Request $request, Form $entity): ?Collection
 	{
-		if (!$entity instanceof EntityPartInterface)
+		if (!$entity instanceof PartInterface)
 		{
 			if ($entity instanceof TranslateInterface)
 			{
 				$translation = $entity->translate($request->getLocale());
-				if ($translation instanceof EntityPartInterface)
+
+				if ($translation instanceof PartInterface)
 				{
 					return $translation->getParts();
 				}
@@ -164,7 +167,7 @@ class FormViewController extends Controller
 		}
 
 		/**
-		 * @var EntityPartInterface $entity
+		 * @var PartInterface $entity
 		 */
 		return $entity->getParts();
 	}

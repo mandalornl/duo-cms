@@ -6,7 +6,6 @@ use AppBundle\Entity\PagePart\TextPagePart;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TextPagePartType extends AbstractPartType
 {
@@ -28,11 +27,8 @@ class TextPagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => TextPagePart::class,
-			'model_class' => TextPagePart::class
-		]);
+		return TextPagePart::class;
 	}
 }

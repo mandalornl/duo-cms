@@ -64,14 +64,19 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTypes(): array
+	public function getTypes(array $ids = []): array
 	{
 		$types = [];
 
-		foreach ($this->configs as $entries)
+		foreach ($this->configs as $config)
 		{
-			foreach ($entries as $entry)
+			foreach ($config['types'] as $id => $entry)
 			{
+				if (!empty($ids) && !in_array($id, $ids))
+				{
+					continue;
+				}
+
 				$types[$entry['type']] = $entry['label'];
 			}
 		}
@@ -82,13 +87,34 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getSections(): array
+	{
+		$sections = [];
+
+		foreach ($this->configs as $config)
+		{
+			foreach ($config['sections'] as $id => $entry)
+			{
+				$sections[$id] = [
+					'label' => $entry['label'],
+					'types' => $this->getTypes($entry['types'])
+				];
+			}
+		}
+
+		return $sections;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function getIcons(): array
 	{
 		$icons = [];
 
-		foreach ($this->configs as $entries)
+		foreach ($this->configs as $config)
 		{
-			foreach ($entries as $entry)
+			foreach ($config['types'] as $entry)
 			{
 				if (empty($entry['icon']))
 				{

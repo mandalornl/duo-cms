@@ -4,32 +4,42 @@ namespace Duo\PartBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\PartBundle\Entity\EntityPartInterface;
-use Duo\PartBundle\Entity\PartInterface;
-use Duo\PartBundle\Entity\PartReferenceInterface;
-use Duo\PartBundle\Repository\PartReferenceRepositoryInterface;
+use Duo\PartBundle\Collection\PartCollection;
+use Duo\PartBundle\Entity\Property\PartInterface as PropertyPartInterface;
+use Duo\PartBundle\Entity\PartInterface as EntityPartInterface;
+use Duo\PartBundle\Entity\Reference;
+use Duo\PartBundle\Entity\ReferenceInterface;
+use Duo\PartBundle\Helper\PartHelper;
 
 class PartSubscriber implements EventSubscriber
 {
 	/**
-	 * @var PartInterface[]
+	 * @var PartHelper
+	 */
+	private $partHelper;
+
+	/**
+	 * @var EntityPartInterface[]
 	 */
 	private $parts;
 
 	/**
-	 * @var PartReferenceInterface[]
+	 * @var ReferenceInterface[]
 	 */
 	private $references;
 
 	/**
 	 * PartSubscriber constructor
+	 *
+	 * @param PartHelper $partHelper
 	 */
-	public function __construct()
+	public function __construct(PartHelper $partHelper = null)
 	{
+		$this->partHelper = $partHelper;
+
 		$this->parts = [];
 		$this->references = [];
 	}
@@ -45,7 +55,7 @@ class PartSubscriber implements EventSubscriber
 			Events::preUpdate,
 			Events::postUpdate,
 			Events::preRemove,
-			Events::onFlush
+			Events::postRemove
 		];
 	}
 
@@ -58,20 +68,21 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof EntityPartInterface)
+		if (!$entity instanceof PropertyPartInterface)
 		{
 			return;
 		}
 
 		/**
-		 * @var PartReferenceRepositoryInterface $repository
+		 * @var EntityManagerInterface $manager
 		 */
-		$repository = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+		$manager = $args->getObjectManager();
 
-		foreach ($repository->getParts($entity) as $part)
-		{
-			$entity->getParts()->add($part);
-		}
+		$reflectionClass = $args->getObjectManager()->getClassMetadata(get_class($entity))->getReflectionClass();
+
+		$property = $reflectionClass->getProperty('parts');
+		$property->setAccessible(true);
+		$property->setValue($entity, new PartCollection($manager, $entity));
 	}
 
 	/**
@@ -83,14 +94,11 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof EntityPartInterface || !count($entity->getParts()))
+		if (!$entity instanceof PropertyPartInterface || !count($entity->getParts()))
 		{
 			return;
 		}
 
-		/**
-		 * @var ObjectManager $manager
-		 */
 		$manager = $args->getObjectManager();
 
 		foreach ($entity->getParts() as $part)
@@ -100,12 +108,8 @@ class PartSubscriber implements EventSubscriber
 
 		$manager->flush();
 
-		/**
-		 * @var PartReferenceRepositoryInterface $repository
-		 */
-		$repository = $manager->getRepository($entity->getPartReferenceClass());
-
-		$repository->addPartReferences($entity);
+		// add part references
+		$this->partHelper->addReferences($entity);
 	}
 
 	/**
@@ -117,20 +121,15 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof EntityPartInterface)
+		if (!$entity instanceof PropertyPartInterface)
 		{
 			return;
 		}
 
-		$id = spl_object_hash($entity);
-
-		/**
-		 * @var PartReferenceRepositoryInterface $repository
-		 */
-		$repository = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
+		$oid = spl_object_hash($entity);
 
 		// store current part(s) for later reference
-		$this->parts[$id] = $repository->getParts($entity);
+		$this->parts[$oid] = $args->getObjectManager()->getRepository(Reference::class)->findParts($entity);
 	}
 
 	/**
@@ -142,39 +141,31 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof EntityPartInterface)
+		if (!$entity instanceof PropertyPartInterface)
 		{
 			return;
 		}
 
-		$id = spl_object_hash($entity);
+		$manager = $args->getObjectManager();
+
+		$oid = spl_object_hash($entity);
 
 		/**
-		 * @var PartInterface[] $parts
+		 * @var EntityPartInterface[] $parts
 		 */
 		$parts = $entity->getParts()->toArray();
 
 		/**
-		 * @var ObjectManager $manager
+		 * @var EntityPartInterface[] $removableParts
 		 */
-		$manager = $args->getObjectManager();
-
-		/**
-		 * @var PartReferenceRepositoryInterface $repository
-		 */
-		$repository = $manager->getRepository($entity->getPartReferenceClass());
-
-		/**
-		 * @var PartInterface[] $removableParts
-		 */
-		$removableParts = array_diff($this->parts[$id], $parts);
+		$removableParts = array_diff($this->parts[$oid], $parts);
 
 		if (count($removableParts))
 		{
 			foreach ($removableParts as $part)
 			{
-				// remove part reference
-				$repository->removePartReference($entity, $part);
+				// remove reference
+				$this->partHelper->removeReference($entity, $part);
 
 				// remove part
 				$manager->remove($part);
@@ -184,9 +175,9 @@ class PartSubscriber implements EventSubscriber
 		}
 
 		/**
-		 * @var PartInterface[] $addableParts
+		 * @var EntityPartInterface[] $addableParts
 		 */
-		$addableParts = array_diff($parts, $this->parts[$id]);
+		$addableParts = array_diff($parts, $this->parts[$oid]);
 
 		if (count($addableParts))
 		{
@@ -194,15 +185,15 @@ class PartSubscriber implements EventSubscriber
 			{
 				// add part
 				$manager->persist($part);
-
-				// add part reference
-				$repository->addPartReference($entity, $part);
 			}
 
 			$manager->flush();
+
+			// add references
+			$this->partHelper->addReferences($entity, $addableParts);
 		}
 
-		unset($this->parts[$id]);
+		unset($this->parts[$oid]);
 	}
 
 	/**
@@ -214,54 +205,50 @@ class PartSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof EntityPartInterface || !count($entity->getParts()))
+		if (!$entity instanceof PropertyPartInterface || !count($entity->getParts()))
 		{
 			return;
 		}
 
-		$id = spl_object_hash($entity);
+		$oid = spl_object_hash($entity);
 
-		/**
-		 * @var PartReferenceRepositoryInterface $repository
-		 */
-		$repository = $args->getObjectManager()->getRepository($entity->getPartReferenceClass());
-
-		$this->parts[$id] = $entity->getParts()->toArray();
-		$this->references[$id] = $repository->getPartReferences($entity);
+		$this->parts[$oid] = $entity->getParts()->toArray();
+		$this->references[$oid] = $args->getObjectManager()
+			->getRepository(Reference::class)
+			->findReferences($entity);
 	}
 
 	/**
-	 * On flush event
+	 * On post remove event
 	 *
-	 * @param OnFlushEventArgs $args
+	 * @param LifecycleEventArgs $args
 	 */
-	public function onFlush(OnFlushEventArgs $args): void
+	public function postRemove(LifecycleEventArgs $args): void
 	{
-		if (!count($this->parts) && !count($this->references))
+		$entity = $args->getObject();
+
+		if (!$entity instanceof PropertyPartInterface || !count($entity->getParts()))
 		{
 			return;
 		}
 
-		$unitOfWork = $args->getEntityManager()->getUnitOfWork();
+		$manager = $args->getObjectManager();
 
-		foreach ($this->parts as $id => $parts)
+		$oid = spl_object_hash($entity);
+
+		foreach ($this->parts[$oid] as $part)
 		{
-			foreach ($parts as $part)
-			{
-				$unitOfWork->remove($part);
-			}
-
-			unset($this->parts[$id]);
+			$manager->remove($part);
 		}
 
-		foreach ($this->references as $id => $references)
+		foreach ($this->references[$oid] as $reference)
 		{
-			foreach ($references as $reference)
-			{
-				$unitOfWork->remove($reference);
-			}
-
-			unset($this->references[$id]);
+			$manager->remove($reference);
 		}
+
+		$manager->flush();
+
+		unset($this->parts[$oid]);
+		unset($this->references[$oid]);
 	}
 }

@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
 use Duo\PageBundle\Entity\AbstractPage;
 use Duo\PageBundle\Entity\PageTranslationInterface;
 

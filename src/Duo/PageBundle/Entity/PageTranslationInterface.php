@@ -2,19 +2,19 @@
 
 namespace Duo\PageBundle\Entity;
 
-use Duo\CoreBundle\Entity\PublishInterface;
-use Duo\CoreBundle\Entity\SlugInterface;
-use Duo\CoreBundle\Entity\UrlInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
+use Duo\CoreBundle\Entity\Property\SlugInterface;
+use Duo\CoreBundle\Entity\Property\UrlInterface;
 use Duo\NodeBundle\Entity\NodeTranslationInterface;
-use Duo\PartBundle\Entity\EntityPartInterface;
-use Duo\SeoBundle\Entity\SeoInterface;
+use Duo\PartBundle\Entity\Property\PartInterface;
+use Duo\SeoBundle\Entity\Property\SeoInterface;
 
 interface PageTranslationInterface extends NodeTranslationInterface,
 										   SlugInterface,
 										   UrlInterface,
 										   PublishInterface,
 										   SeoInterface,
-										   EntityPartInterface
+										   PartInterface
 {
 	/**
 	 * Set title

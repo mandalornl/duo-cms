@@ -6,7 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\CoreBundle\Entity\PublishInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Symfony\Component\Security\Core\Security;
 
 class PublishSubscriber implements EventSubscriber

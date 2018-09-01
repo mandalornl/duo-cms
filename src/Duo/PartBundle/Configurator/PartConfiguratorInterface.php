@@ -40,9 +40,18 @@ interface PartConfiguratorInterface
 	/**
 	 * Get types
 	 *
+	 * @param string[] $ids [optional]
+	 *
 	 * @return array
 	 */
-	public function getTypes(): array;
+	public function getTypes(array $ids = []): array;
+
+	/**
+	 * Get sections
+	 *
+	 * @return array
+	 */
+	public function getSections(): array;
 
 	/**
 	 * Get icons

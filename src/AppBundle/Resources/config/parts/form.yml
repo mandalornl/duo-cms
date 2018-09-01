@@ -1,0 +1,32 @@
+types:
+    text:
+        label: duo.form.form_part.text
+        type: Duo\FormBundle\Form\FormPart\TextFormPartType
+        icon: icon-file-text
+    textarea:
+        label: duo.form.form_part.textarea
+        type: Duo\FormBundle\Form\FormPart\TextareaFormPartType
+        icon: icon-file-text
+    email:
+        label: duo.form.form_part.email
+        type: Duo\FormBundle\Form\FormPart\EmailFormPartType
+    choice:
+        label: duo.form.form_part.choice
+        type: Duo\FormBundle\Form\FormPart\ChoiceFormPartType
+    privacy:
+        label: duo.form.form_part.privacy
+        type: Duo\FormBundle\Form\FormPart\PrivacyFormPartType
+    submit:
+        label: duo.form.form_part.submit
+        type: Duo\FormBundle\Form\FormPart\SubmitFormPartType
+
+sections:
+    main:
+        label: app.part.section.main
+        types:
+            - text
+            - textarea
+            - email
+            - choice
+            - privacy
+            - submit

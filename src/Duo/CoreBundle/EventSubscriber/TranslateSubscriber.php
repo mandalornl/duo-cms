@@ -8,7 +8,7 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Duo\AdminBundle\Helper\LocaleHelper;
-use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
 
 class TranslateSubscriber implements EventSubscriber
 {

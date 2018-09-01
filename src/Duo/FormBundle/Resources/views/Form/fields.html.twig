@@ -1,11 +1,11 @@
-{% block duo_terms_widget %}
+{% block duo_privacy_widget %}
 	<div class="custom-control custom-checkbox">
 		<input type="checkbox" id="{{ id }}" name="{{ full_name }}" class="custom-control-input" value="1"{% if required %} required{% endif %}{% if data is same as(true) %} checked{% endif %}>
 		<label class="custom-control-label required" for="{{ id }}">
 			{{- label }}
 			{% if page -%}
 				(<a href="{{ path('url', { url: page.url, _locale: app.request.locale }) }}" target="_blank">
-					{{- 'duo.form.terms.view' | trans -}}
+					{{- 'duo.form.privacy.view' | trans -}}
 				</a>)
 			{%- endif -%}
 		</label>

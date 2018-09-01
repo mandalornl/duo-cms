@@ -2,8 +2,8 @@
 
 namespace Duo\SecurityBundle\Entity;
 
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
 
 interface RoleInterface extends IdInterface, TimestampInterface
 {

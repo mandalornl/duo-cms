@@ -5,6 +5,7 @@ namespace Duo\PartBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractPartType extends AbstractType
 {
@@ -18,9 +19,8 @@ abstract class AbstractPartType extends AbstractType
 				'mapped' => false,
 				'data' => md5(static::class)
 			])
-			->add('weight', HiddenType::class, [
-				'required' => false
-			]);
+			->add('weight', HiddenType::class)
+			->add('section', HiddenType::class);
 	}
 
 	/**
@@ -30,4 +30,22 @@ abstract class AbstractPartType extends AbstractType
 	{
 		return 'duo_part';
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function configureOptions(OptionsResolver $resolver): void
+	{
+		$resolver->setDefaults([
+			'data_class' => $this->getDataClass(),
+			'model_class' => $this->getDataClass()
+		]);
+	}
+
+	/**
+	 * Get data class
+	 *
+	 * @return string
+	 */
+	abstract protected function getDataClass(): string;
 }

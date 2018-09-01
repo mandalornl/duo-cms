@@ -4,8 +4,8 @@ namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 

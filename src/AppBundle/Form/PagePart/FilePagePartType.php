@@ -6,7 +6,6 @@ use AppBundle\Entity\PagePart\FilePagePart;
 use Duo\MediaBundle\Form\MediaType;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FilePagePartType extends AbstractPartType
 {
@@ -26,11 +25,8 @@ class FilePagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => FilePagePart::class,
-			'model_class' => FilePagePart::class
-		]);
+		return FilePagePart::class;
 	}
 }

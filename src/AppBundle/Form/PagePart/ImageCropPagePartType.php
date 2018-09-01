@@ -6,7 +6,6 @@ use AppBundle\Entity\PagePart\ImageCropPagePart;
 use Duo\MediaBundle\Form\ImageCropType;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Valid;
 
 class ImageCropPagePartType extends AbstractPartType
@@ -29,11 +28,8 @@ class ImageCropPagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => ImageCropPagePart::class,
-			'model_class' => ImageCropPagePart::class
-		]);
+		return ImageCropPagePart::class;
 	}
 }

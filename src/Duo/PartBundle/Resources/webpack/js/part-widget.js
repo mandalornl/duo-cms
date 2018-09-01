@@ -69,13 +69,20 @@ export default ($ =>
 					e.preventDefault();
 
 					const $item = $(this).closest('.sortable-item');
+					$item.addClass('fade show');
 
-					// dispatch event
-					$item.trigger('duo.event.part.removeItem');
-					$item.remove();
+					window.setTimeout(() =>
+					{
+						$item.removeClass('show').on('bsTransitionEnd', () =>
+						{
+							// dispatch event
+							$item.trigger('duo.event.part.removeItem');
+							$item.remove();
 
-					updateWeight();
-					toggleButton();
+							updateWeight();
+							toggleButton();
+						}).emulateTransitionEnd(150);
+					}, 0);
 				});
 
 				$this.on(`click.${NAME}`, 'button[data-url][data-prototype-id]', async function()
@@ -97,7 +104,7 @@ export default ($ =>
 							prototype = prototype.replace(/\w+_part_collection\[/g, `${$this.data('prototype-name')}[`);
 
 							const $item = $(prototype);
-							$list.append($item);
+							$list.append($item.addClass('fade'));
 
 							// (re)init
 							sortable.destroy($list);
@@ -108,6 +115,10 @@ export default ($ =>
 
 							updateWeight();
 							toggleButton();
+
+							$('html, body').scrollTop($item.offset().top);
+
+							window.setTimeout(() => $item.addClass('show'), 250);
 						});
 
 						modals[$this.data('url')] = $modal;

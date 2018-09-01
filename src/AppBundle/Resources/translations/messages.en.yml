@@ -9,7 +9,18 @@ app:
         file: File
         form: Form
 
+    part:
+        section:
+            main: Main
+
     form:
         heading_page_part:
             type:
                 label: Type
+                choices:
+                    heading_1: Heading 1
+                    heading_2: Heading 2
+                    heading_3: Heading 3
+                    heading_4: Heading 4
+                    heading_5: Heading 5
+                    heading_6: Heading 6

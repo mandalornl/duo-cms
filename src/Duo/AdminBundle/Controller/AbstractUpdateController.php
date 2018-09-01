@@ -15,10 +15,11 @@ use Duo\AdminBundle\Event\Listing\ORMEvent;
 use Duo\AdminBundle\Event\Listing\ORMEvents;
 use Duo\AdminBundle\Event\TwigEvent;
 use Duo\AdminBundle\Event\TwigEvents;
-use Duo\CoreBundle\Entity\RevisionInterface;
-use Duo\CoreBundle\Entity\VersionInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\CoreBundle\Event\RevisionEvent;
 use Duo\CoreBundle\Event\RevisionEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -185,10 +186,10 @@ abstract class AbstractUpdateController extends AbstractController
 		// dispatch pre update event
 		$eventDispatcher->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($clone));
 
-		// pre submit state
-		$preSubmitState = serialize($clone);
-
 		$form = $this->createForm($this->getFormType(), $clone);
+
+		// pre submit state
+		$preSubmitState = serialize($this->getFormViewData($form));
 
 		// dispatch pre update event
 		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, new FormEvent($form, $clone));
@@ -201,7 +202,7 @@ abstract class AbstractUpdateController extends AbstractController
 			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, new FormEvent($form, $clone));
 
 			// post submit state
-			$postSubmitState = serialize($clone);
+			$postSubmitState = serialize($this->getFormViewData($form));
 
 			// check whether or not entity was modified, don't force unchanged revision
 			if (strcmp($preSubmitState, $postSubmitState) !== 0)
@@ -285,6 +286,32 @@ abstract class AbstractUpdateController extends AbstractController
 		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
 
 		return $this->render($this->getUpdateTemplate(), (array)$context);
+	}
+
+	/**
+	 * Get form data
+	 *
+	 * @param FormInterface $form
+	 *
+	 * @return array
+	 */
+	protected function getFormViewData(FormInterface $form): array
+	{
+		$result = [];
+
+		foreach ($form as $key => $value)
+		{
+			if (count($value))
+			{
+				$result[$key] = $this->getFormViewData($value);
+
+				continue;
+			}
+
+			$result[$key] = $value->getViewData();
+		}
+
+		return $result;
 	}
 
 	/**

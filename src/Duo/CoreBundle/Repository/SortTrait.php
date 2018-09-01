@@ -5,10 +5,10 @@ namespace Duo\CoreBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
-use Duo\CoreBundle\Entity\DeleteInterface;
-use Duo\CoreBundle\Entity\SortInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\SortInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 
 trait SortTrait
 {

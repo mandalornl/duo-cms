@@ -3,12 +3,12 @@
 namespace Duo\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\PublishTrait;
-use Duo\CoreBundle\Entity\SlugTrait;
-use Duo\CoreBundle\Entity\UrlTrait;
+use Duo\CoreBundle\Entity\Property\PublishTrait;
+use Duo\CoreBundle\Entity\Property\SlugTrait;
+use Duo\CoreBundle\Entity\Property\UrlTrait;
 use Duo\NodeBundle\Entity\AbstractNodeTranslation;
-use Duo\PartBundle\Entity\EntityPartTrait;
-use Duo\SeoBundle\Entity\SeoTrait;
+use Duo\PartBundle\Entity\Property\PartTrait;
+use Duo\SeoBundle\Entity\Property\SeoTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AbstractPageTranslation extends AbstractNodeTranslation implements PageTranslationInterface
@@ -17,7 +17,7 @@ class AbstractPageTranslation extends AbstractNodeTranslation implements PageTra
 	use UrlTrait;
 	use PublishTrait;
 	use SeoTrait;
-	use EntityPartTrait;
+	use PartTrait;
 
 	/**
 	 * @var string
@@ -84,13 +84,5 @@ class AbstractPageTranslation extends AbstractNodeTranslation implements PageTra
 	public function getValueToUrlize(): string
 	{
 		return $this->slug;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getPartReferenceClass(): string
-	{
-		return PagePartReference::class;
 	}
 }

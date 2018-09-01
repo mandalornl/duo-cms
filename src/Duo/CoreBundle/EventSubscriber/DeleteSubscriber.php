@@ -6,7 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Symfony\Component\Security\Core\Security;
 
 class DeleteSubscriber implements EventSubscriber

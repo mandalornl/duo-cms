@@ -7,7 +7,6 @@ use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class HeadingPagePartType extends AbstractPartType
 {
@@ -27,12 +26,12 @@ class HeadingPagePartType extends AbstractPartType
 				'placeholder' => false,
 				'label' => 'app.form.heading_page_part.type.label',
 				'choices' => [
-					'Heading 1' => 'h1',
-					'Heading 2' => 'h2',
-					'Heading 3' => 'h3',
-					'Heading 4' => 'h4',
-					'Heading 5' => 'h5',
-					'Heading 6' => 'h6'
+					'app.form.heading_page_part.type.choices.heading_1' => 'h1',
+					'app.form.heading_page_part.type.choices.heading_2' => 'h2',
+					'app.form.heading_page_part.type.choices.heading_3' => 'h3',
+					'app.form.heading_page_part.type.choices.heading_4' => 'h4',
+					'app.form.heading_page_part.type.choices.heading_5' => 'h5',
+					'app.form.heading_page_part.type.choices.heading_6' => 'h6'
 				]
 			]);
 	}
@@ -40,11 +39,8 @@ class HeadingPagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => HeadingPagePart::class,
-			'model_class' => HeadingPagePart::class
-		]);
+		return HeadingPagePart::class;
 	}
 }

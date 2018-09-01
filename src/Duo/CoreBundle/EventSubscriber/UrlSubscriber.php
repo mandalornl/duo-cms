@@ -6,10 +6,10 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\TranslationInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
-use Duo\CoreBundle\Entity\UrlInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
+use Duo\CoreBundle\Entity\Property\UrlInterface;
 
 class UrlSubscriber implements EventSubscriber
 {

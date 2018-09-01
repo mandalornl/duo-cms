@@ -3,10 +3,10 @@
 namespace Duo\NodeBundle\Entity;
 
 use Duo\CoreBundle\Entity\DuplicateInterface;
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\TimestampInterface;
-use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\VersionInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\VersionInterface;
 
 interface NodeInterface extends IdInterface,
 								DuplicateInterface,

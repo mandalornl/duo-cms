@@ -2,8 +2,8 @@
 
 namespace Duo\CoreBundle\EventListener;
 
-use Duo\CoreBundle\Entity\DeleteInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Event\DeleteEvent;
 use Duo\CoreBundle\Event\DeleteEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

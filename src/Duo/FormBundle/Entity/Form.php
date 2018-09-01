@@ -3,7 +3,7 @@
 namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
 use Duo\NodeBundle\Entity\AbstractNode;
 use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;

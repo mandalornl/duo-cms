@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

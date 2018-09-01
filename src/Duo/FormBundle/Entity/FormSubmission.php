@@ -3,10 +3,10 @@
 namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\IdTrait;
-use Duo\CoreBundle\Entity\TimestampInterface;
-use Duo\CoreBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\TimestampTrait;
 
 /**
  * @ORM\Table(name="duo_form_submission")

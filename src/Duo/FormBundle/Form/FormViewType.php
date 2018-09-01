@@ -46,7 +46,7 @@ class FormViewType extends AbstractType
 
 			if ($formPart instanceof ChoiceFormPartInterface)
 			{
-				$choices = explode(PHP_EOL, $formPart->getChoices());
+				$choices = array_map('trim', explode(PHP_EOL, $formPart->getChoices()));
 				$choices = array_combine($choices, $choices);
 
 				$formOptions = array_replace_recursive($formOptions, [

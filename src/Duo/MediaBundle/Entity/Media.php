@@ -3,14 +3,14 @@
 namespace Duo\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\DeleteInterface;
-use Duo\CoreBundle\Entity\DeleteTrait;
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\IdTrait;
-use Duo\CoreBundle\Entity\TimestampInterface;
-use Duo\CoreBundle\Entity\TimestampTrait;
-use Duo\TaxonomyBundle\Entity\TaxonomyInterface;
-use Duo\TaxonomyBundle\Entity\TaxonomyTrait;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\DeleteTrait;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\TimestampTrait;
+use Duo\TaxonomyBundle\Entity\Property\TaxonomyInterface;
+use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
 
 /**
  * @ORM\Table(name="duo_media")

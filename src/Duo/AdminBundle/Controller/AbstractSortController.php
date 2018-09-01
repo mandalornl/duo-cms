@@ -3,8 +3,8 @@
 namespace Duo\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
-use Duo\CoreBundle\Entity\SortInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\Property\SortInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Event\SortEvent;
 use Duo\CoreBundle\Event\SortEvents;
 use Duo\CoreBundle\Repository\SortTrait;

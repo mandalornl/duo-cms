@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\AdminBundle\Tools\Intl\Slugifier;
-use Duo\CoreBundle\Entity\SlugInterface;
+use Duo\CoreBundle\Entity\Property\SlugInterface;
 
 class SlugSubscriber implements EventSubscriber
 {

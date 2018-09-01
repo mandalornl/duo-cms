@@ -8,9 +8,9 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\UnitOfWork;
-use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
-use Duo\CoreBundle\Entity\UrlInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
+use Duo\CoreBundle\Entity\Property\UrlInterface;
 
 class TreeSubscriber implements EventSubscriber
 {

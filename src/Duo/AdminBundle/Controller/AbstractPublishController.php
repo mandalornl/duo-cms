@@ -2,8 +2,8 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\CoreBundle\Entity\PublishInterface;
-use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Event\PublishEvent;
 use Duo\CoreBundle\Event\PublishEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -26,7 +26,7 @@ class PagePartConfiguratorListener implements EventSubscriberInterface
 	 */
 	public function preLoad(PagePartConfiguratorEvent $event): void
 	{
-		$config = Yaml::parseFile(__DIR__ . '/../Resources/config/pageparts.yml');
+		$config = Yaml::parseFile(__DIR__ . '/../Resources/config/parts/page.yml');
 
 		$event->getConfigurator()->addConfig($config);
 	}

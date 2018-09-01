@@ -4,10 +4,10 @@ namespace Duo\NodeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\CloneTrait;
-use Duo\CoreBundle\Entity\IdTrait;
-use Duo\CoreBundle\Entity\TimestampTrait;
-use Duo\CoreBundle\Entity\TranslateTrait;
-use Duo\CoreBundle\Entity\VersionTrait;
+use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\TranslateTrait;
+use Duo\CoreBundle\Entity\Property\VersionTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class AbstractNode implements NodeInterface

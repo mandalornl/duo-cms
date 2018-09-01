@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 
 class RevisionSubscriber implements EventSubscriber
 {

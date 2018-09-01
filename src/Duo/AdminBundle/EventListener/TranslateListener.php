@@ -4,7 +4,7 @@ namespace Duo\AdminBundle\EventListener;
 
 use Duo\AdminBundle\Event\Listing\EntityEvent;
 use Duo\AdminBundle\Helper\LocaleHelper;
-use Duo\CoreBundle\Entity\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
 
 class TranslateListener
 {

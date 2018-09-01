@@ -6,7 +6,6 @@ use AppBundle\Entity\PagePart\ImagePagePart;
 use Duo\MediaBundle\Form\MediaType;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImagePagePartType extends AbstractPartType
 {
@@ -26,11 +25,8 @@ class ImagePagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => ImagePagePart::class,
-			'model_class' => ImagePagePart::class
-		]);
+		return ImagePagePart::class;
 	}
 }

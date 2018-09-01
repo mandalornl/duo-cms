@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-use Duo\CoreBundle\Entity\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class DeleteEvent extends Event

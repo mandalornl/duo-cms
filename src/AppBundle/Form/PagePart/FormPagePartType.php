@@ -6,7 +6,6 @@ use AppBundle\Entity\PagePart\FormPagePart;
 use Duo\FormBundle\Form\FormAutoCompleteType;
 use Duo\PartBundle\Form\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FormPagePartType extends AbstractPartType
 {
@@ -25,11 +24,8 @@ class FormPagePartType extends AbstractPartType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver): void
+	protected function getDataClass(): string
 	{
-		$resolver->setDefaults([
-			'data_class' => FormPagePart::class,
-			'model_class' => FormPagePart::class
-		]);
+		return FormPagePart::class;
 	}
 }

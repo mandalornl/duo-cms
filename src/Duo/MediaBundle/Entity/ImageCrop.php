@@ -3,10 +3,10 @@
 namespace Duo\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\IdInterface;
-use Duo\CoreBundle\Entity\IdTrait;
-use Duo\CoreBundle\Entity\TimestampInterface;
-use Duo\CoreBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\TimestampTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

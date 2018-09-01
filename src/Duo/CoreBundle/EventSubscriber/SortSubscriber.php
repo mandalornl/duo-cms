@@ -8,8 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Duo\CoreBundle\Entity\SortInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
+use Duo\CoreBundle\Entity\Property\SortInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
 
 class SortSubscriber implements EventSubscriber
 {

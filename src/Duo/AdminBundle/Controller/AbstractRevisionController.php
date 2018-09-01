@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Event\RevisionEvent;
 use Duo\CoreBundle\Event\RevisionEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;

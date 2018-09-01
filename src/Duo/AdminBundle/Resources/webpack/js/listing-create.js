@@ -72,6 +72,8 @@ $(() =>
 		{
 			plugin.init($item.find(plugin.SELECTOR));
 		});
+
+		doNotLeave.enable();
 	});
 
 	// destroy widgets inside part widget
@@ -88,6 +90,8 @@ $(() =>
 		{
 			plugin.destroy($item.find(plugin.SELECTOR));
 		});
+
+		doNotLeave.enable();
 	});
 
 	// handle form submit

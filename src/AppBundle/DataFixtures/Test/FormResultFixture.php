@@ -37,14 +37,14 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 				'E-mailadres' => 'johndoe@example.com',
 				'Aanhef' => 'Dhr',
 				'Opmerkingen' => 'Lorem ipsum dolor sit amet',
-				'Algemene voorwaarden' => 1
+				'Ik ga akkoord met de privacyverklaring' => 1
 			],
 			'en' => [
 				'Name' => 'John Doe',
 				'Email' => 'johndoe@example.com',
 				'Salutation' => 'Mr',
 				'Remarks' => 'Lorem ipsum dolor sit amet',
-				'Terms and Conditions' => 1
+				'I agree to the privacy statement' => 1
 			]
 		 ] as $locale => $data)
 		{

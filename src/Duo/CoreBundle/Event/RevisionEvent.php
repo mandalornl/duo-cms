@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class RevisionEvent extends Event

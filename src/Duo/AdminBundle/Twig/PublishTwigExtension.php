@@ -2,9 +2,9 @@
 
 namespace Duo\AdminBundle\Twig;
 
-use Duo\CoreBundle\Entity\PublishInterface;
-use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
 
 class PublishTwigExtension extends \Twig_Extension
 {

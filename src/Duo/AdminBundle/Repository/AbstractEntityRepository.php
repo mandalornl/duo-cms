@@ -5,10 +5,10 @@ namespace Duo\AdminBundle\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Duo\CoreBundle\Entity\DeleteInterface;
-use Duo\CoreBundle\Entity\PublishInterface;
-use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 
 abstract class AbstractEntityRepository extends ServiceEntityRepository
 {

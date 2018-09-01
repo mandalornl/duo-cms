@@ -2,8 +2,8 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\CoreBundle\Entity\DeleteInterface;
-use Duo\CoreBundle\Entity\IdInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
 use Duo\CoreBundle\Event\DeleteEvent;
 use Duo\CoreBundle\Event\DeleteEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

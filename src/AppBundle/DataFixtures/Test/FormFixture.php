@@ -9,7 +9,7 @@ use Duo\FormBundle\Entity\Form;
 use Duo\FormBundle\Entity\FormPart\ChoiceFormPart;
 use Duo\FormBundle\Entity\FormPart\EmailFormPart;
 use Duo\FormBundle\Entity\FormPart\SubmitFormPart;
-use Duo\FormBundle\Entity\FormPart\TermsFormPart;
+use Duo\FormBundle\Entity\FormPart\PrivacyFormPart;
 use Duo\FormBundle\Entity\FormPart\TextareaFormPart;
 use Duo\FormBundle\Entity\FormPart\TextFormPart;
 
@@ -59,8 +59,9 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 					->setRequired(true)
 			)
 			->addPart(
-				(new TermsFormPart())
-					->setLabel('Algemene voorwaarden')
+				(new PrivacyFormPart())
+					->setLabel('Ik ga akkoord met de privacyverklaring')
+					->setErrorMessage('Ga akkoord met de privacyverklaring')
 					->setRequired(true)
 			)
 			->addPart(
@@ -92,8 +93,9 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 					->setRequired(true)
 			)
 			->addPart(
-				(new TermsFormPart())
-					->setLabel('Terms and Conditions')
+				(new PrivacyFormPart())
+					->setLabel('I agree to the privacy statement')
+					->setErrorMessage('Agree to the privacy statment')
 					->setRequired(true)
 			)
 			->addPart(

@@ -3,12 +3,12 @@
 namespace Duo\CoreBundle\Twig;
 
 use Duo\CoreBundle\Entity\DuplicateInterface;
-use Duo\CoreBundle\Entity\DeleteInterface;
-use Duo\CoreBundle\Entity\PublishInterface;
-use Duo\CoreBundle\Entity\SortInterface;
-use Duo\CoreBundle\Entity\TranslateInterface;
-use Duo\CoreBundle\Entity\TreeInterface;
-use Duo\CoreBundle\Entity\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
+use Duo\CoreBundle\Entity\Property\SortInterface;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Entity\ViewInterface;
 
 class CoreTwigExtension extends \Twig_Extension

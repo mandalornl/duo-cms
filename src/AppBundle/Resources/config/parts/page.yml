@@ -1,0 +1,44 @@
+types:
+    heading:
+        label: app.page_part.heading
+        type: AppBundle\Form\PagePart\HeadingPagePartType
+    text:
+        label: app.page_part.text
+        type: AppBundle\Form\PagePart\TextPagePartType
+        icon: icon-file-text
+    wysiwyg:
+        label: app.page_part.wysiwyg
+        type: AppBundle\Form\PagePart\WYSIWYGPagePartType
+        icon: icon-file-text
+    video:
+        label: app.page_part.video
+        type: AppBundle\Form\PagePart\VideoPagePartType
+        icon: icon-file-video
+    image:
+        label: app.page_part.image
+        type: AppBundle\Form\PagePart\ImagePagePartType
+        icon: icon-image
+    image_crop:
+        label: app.page_part.image_crop
+        type: AppBundle\Form\PagePart\ImageCropPagePartType
+        icon: icon-image
+    file:
+        label: app.page_part.file
+        type: AppBundle\Form\PagePart\FilePagePartType
+    form:
+        label: app.page_part.form
+        type: AppBundle\Form\PagePart\FormPagePartType
+        icon: icon-clipboard
+
+sections:
+    main:
+        label: app.part.section.main
+        types:
+            - heading
+            - text
+            - wysiwyg
+            - video
+            - image
+            - image_crop
+            - file
+            - form

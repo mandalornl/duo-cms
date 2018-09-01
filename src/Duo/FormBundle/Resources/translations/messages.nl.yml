@@ -71,8 +71,8 @@ duo:
             textarea: Tekst (meerdere regels)
             email: E-mail
             choice: Keuzeveld (menu, radio, checkbox)
-            terms: Algemene voorwaarden
+            privacy: Privacyverklaring
             submit: Verzendknop
 
-        terms:
+        privacy:
             view: bekijken

@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-use Duo\CoreBundle\Entity\PublishInterface;
+use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class PublishEvent extends Event

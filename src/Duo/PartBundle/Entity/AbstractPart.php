@@ -2,8 +2,8 @@
 
 namespace Duo\PartBundle\Entity;
 
-use Duo\CoreBundle\Entity\IdTrait;
-use Duo\CoreBundle\Entity\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\TimestampTrait;
 
 abstract class AbstractPart implements PartInterface
 {
@@ -16,9 +16,14 @@ abstract class AbstractPart implements PartInterface
 	protected $weight;
 
 	/**
+	 * @var string
+	 */
+	protected $section;
+
+	/**
 	 * {@inheritdoc}
 	 */
-	public function setWeight(int $weight): PartInterface
+	public function setWeight(int $weight = null): PartInterface
 	{
 		$this->weight = $weight;
 
@@ -31,6 +36,24 @@ abstract class AbstractPart implements PartInterface
 	public function getWeight(): ?int
 	{
 		return $this->weight;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setSection(string $section = null): PartInterface
+	{
+		$this->section = $section;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getSection(): ?string
+	{
+		return $this->section;
 	}
 
 	/**

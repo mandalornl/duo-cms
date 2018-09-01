@@ -1,4 +1,13 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\PartBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Tests}'
+
     Duo\PartBundle\EventSubscriber\PartSubscriber:
         tags:
-            - { name: doctrine.event_subscriber, priority: -1024 }
+            - { name: doctrine.event_subscriber, priority: -64 }

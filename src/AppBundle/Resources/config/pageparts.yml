@@ -1,8 +1,0 @@
-- { label: app.page_part.heading, type: AppBundle\Form\PagePart\HeadingPagePartType }
-- { label: app.page_part.text, type: AppBundle\Form\PagePart\TextPagePartType, icon: icon-file-text }
-- { label: app.page_part.wysiwyg, type: AppBundle\Form\PagePart\WYSIWYGPagePartType, icon: icon-file-text }
-- { label: app.page_part.video, type: AppBundle\Form\PagePart\VideoPagePartType, icon: icon-file-video }
-- { label: app.page_part.image, type: AppBundle\Form\PagePart\ImagePagePartType, icon: icon-image }
-- { label: app.page_part.image_crop, type: AppBundle\Form\PagePart\ImageCropPagePartType, icon: icon-image }
-- { label: app.page_part.file, type: AppBundle\Form\PagePart\FilePagePartType, icon: icon-file-empty }
-- { label: app.page_part.form, type: AppBundle\Form\PagePart\FormPagePartType, icon: icon-clipboard }

@@ -151,14 +151,9 @@
 				margin-left: 1rem;
 			}
 
-			a
+			.btn + .btn
 			{
-				text-decoration: none;
-
-				& + a
-				{
-					margin-left: 1rem;
-				}
+				margin-left: .5rem;
 			}
 		}
 	}
@@ -253,11 +248,14 @@
 		}
 	}
 
-	tbody td:last-child a
+	tbody td
 	{
-		text-decoration: none;
+		vertical-align: middle;
 
-		margin-left: .75rem;
+		.btn
+		{
+			margin-left: .75rem;
+		}
 	}
 }
 

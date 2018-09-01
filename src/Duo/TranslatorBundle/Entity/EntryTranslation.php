@@ -3,8 +3,8 @@
 namespace Duo\TranslatorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\TranslationInterface;
-use Duo\CoreBundle\Entity\TranslationTrait;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\TranslationTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

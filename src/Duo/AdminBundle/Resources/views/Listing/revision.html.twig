@@ -5,10 +5,7 @@
 {% block content %}
 	<div class="row">
 		<div class="col-xl-10">
-			{% form_theme form with ['@DuoAdmin/Form/fields.html.twig'] only %}
-			{{ form_start(form, { attr: { class: 'listing-form' }} )}}
-			{{ form_widget(form) }}
-			{{ form_end(form) }}
+			{% include '@DuoAdmin/Listing/form.html.twig' %}
 		</div>
 	</div>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-use Duo\CoreBundle\Entity\SortInterface;
+use Duo\CoreBundle\Entity\Property\SortInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class SortEvent extends Event
