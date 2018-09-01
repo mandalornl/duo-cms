@@ -59,10 +59,10 @@
 					{% if not app.request.query.get('iframe') %}
 						<td>
 							{% if list.isSortable | default(false) and not entity is treeable %}
-								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
+								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
 									<i class="icon-arrow-up"></i>
 								</a>
-								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
+								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
 									<i class="icon-arrow-down"></i>
 								</a>
 							{% endif %}
@@ -71,7 +71,7 @@
 							{% else %}
 								{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
 							{% endif %}
-							<a href="{{ url }}" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+							<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
 								<i class="icon-bin"></i>
 							</a>
 						</td>

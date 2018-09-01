@@ -39,7 +39,7 @@
 			{{ form_errors(form) }}
 			{%- if (disabled is not defined or not disabled) and allow_delete is defined and allow_delete -%}
 				<div class="d-flex justify-content-end">
-					<button type="button" class="btn btn-secondary" data-dismiss="sortable-item">
+					<button type="button" class="btn btn-danger" data-dismiss="sortable-item">
 						{{- 'duo.part.form.collection.remove_part' | trans }} <i class="icon-bin"></i>
 					</button>
 				</div>
