@@ -39,7 +39,7 @@ class FormTranslation extends AbstractNodeTranslation implements PartInterface
 	 *
 	 * @return FormTranslation
 	 */
-	public function setSubject(string $subject = null): FormTranslation
+	public function setSubject(?string $subject): FormTranslation
 	{
 		$this->subject = $subject;
 
@@ -63,7 +63,7 @@ class FormTranslation extends AbstractNodeTranslation implements PartInterface
 	 *
 	 * @return FormTranslation
 	 */
-	public function setMessage(string $message = null): FormTranslation
+	public function setMessage(?string $message): FormTranslation
 	{
 		$this->message = $message;
 

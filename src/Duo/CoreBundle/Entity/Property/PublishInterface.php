@@ -28,7 +28,7 @@ interface PublishInterface
 	 *
 	 * @return PublishInterface
 	 */
-	public function setPublishAt(\DateTime $publishAt = null): PublishInterface;
+	public function setPublishAt(?\DateTime $publishAt): PublishInterface;
 
 	/**
 	 * Get publishAt
@@ -44,7 +44,7 @@ interface PublishInterface
 	 *
 	 * @return PublishInterface
 	 */
-	public function setUnpublishAt(\DateTime $unpublishAt = null): PublishInterface;
+	public function setUnpublishAt(?\DateTime $unpublishAt): PublishInterface;
 
 	/**
 	 * Get unpublishAt
@@ -60,7 +60,7 @@ interface PublishInterface
 	 *
 	 * @return PublishInterface
 	 */
-	public function setPublishedBy(UserInterface $publishedBy = null): PublishInterface;
+	public function setPublishedBy(?UserInterface $publishedBy): PublishInterface;
 
 	/**
 	 * Get publishedBy
@@ -76,7 +76,7 @@ interface PublishInterface
 	 *
 	 * @return PublishInterface
 	 */
-	public function setUnpublishedBy(UserInterface $unpublishedBy = null): PublishInterface;
+	public function setUnpublishedBy(?UserInterface $unpublishedBy): PublishInterface;
 
 	/**
 	 * Get unpublishedBy

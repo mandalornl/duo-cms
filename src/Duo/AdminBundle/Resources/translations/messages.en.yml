@@ -37,7 +37,6 @@ duo:
                 preview: Preview
                 delete: Delete
                 undelete: Undelete
-                remove: Remove
                 duplicate: Duplicate
                 revisions: Revisions
 
@@ -127,6 +126,10 @@ duo:
                 title: Undelete
                 body: Are you sure you want to undelete this item?
 
+            destroy:
+                title: Delete
+                body: Are you sure you want to delete this item? This action can not be undone!
+
             publish:
                 title: Publish
                 body: Are you sure you want to put this item online?
@@ -139,9 +142,17 @@ duo:
                 title: Delete
                 body: Are you sure you want to delete these items?
 
+            multi_destroy:
+                title: Delete
+                body: Are you sure you want to delete these items? This action can not be undone!
+
         form:
             file:
                 placeholder: Choose file
+
+            collection:
+                btn_add: Add
+                btn_delete: Delete
 
             weight_choice:
                 label: Weight

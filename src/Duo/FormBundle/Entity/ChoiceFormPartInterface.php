@@ -43,7 +43,7 @@ interface ChoiceFormPartInterface extends TextFormPartInterface
 	 *
 	 * @return ChoiceFormPartInterface
 	 */
-	public function setChoices(string $choices = null): ChoiceFormPartInterface;
+	public function setChoices(?string $choices): ChoiceFormPartInterface;
 
 	/**
 	 * Get choices

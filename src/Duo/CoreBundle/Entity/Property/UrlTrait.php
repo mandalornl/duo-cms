@@ -16,7 +16,7 @@ trait UrlTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUrl(string $url = null): UrlInterface
+	public function setUrl(?string $url): UrlInterface
 	{
 		$this->url = $url;
 

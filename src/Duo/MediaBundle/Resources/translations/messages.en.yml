@@ -2,7 +2,6 @@ duo:
     media:
         select: Select
         clear: Clear
-        empty: No item selected
         upload: Drop your files here to upload them instantly
 
         menu:

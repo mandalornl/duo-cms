@@ -3,9 +3,8 @@
 namespace Duo\PartBundle\Entity;
 
 use Duo\CoreBundle\Entity\Property\IdInterface;
-use Duo\CoreBundle\Entity\Property\TimestampInterface;
 
-interface ReferenceInterface extends IdInterface, TimestampInterface
+interface ReferenceInterface extends IdInterface
 {
 	/**
 	 * Set entityId
@@ -14,7 +13,7 @@ interface ReferenceInterface extends IdInterface, TimestampInterface
 	 *
 	 * @return ReferenceInterface
 	 */
-	public function setEntityId(int $entityId = null): ReferenceInterface;
+	public function setEntityId(?int $entityId): ReferenceInterface;
 
 	/**
 	 * Get entityId
@@ -30,7 +29,7 @@ interface ReferenceInterface extends IdInterface, TimestampInterface
 	 *
 	 * @return ReferenceInterface
 	 */
-	public function setEntityClass(string $entityClass = null): ReferenceInterface;
+	public function setEntityClass(?string $entityClass): ReferenceInterface;
 
 	/**
 	 * Get entityClass
@@ -46,7 +45,7 @@ interface ReferenceInterface extends IdInterface, TimestampInterface
 	 *
 	 * @return ReferenceInterface
 	 */
-	public function setPartId(int $partId = null): ReferenceInterface;
+	public function setPartId(?int $partId): ReferenceInterface;
 
 	/**
 	 * Get partId
@@ -62,7 +61,7 @@ interface ReferenceInterface extends IdInterface, TimestampInterface
 	 *
 	 * @return ReferenceInterface
 	 */
-	public function setPartClass(string $partClass = null): ReferenceInterface;
+	public function setPartClass(?string $partClass): ReferenceInterface;
 
 	/**
 	 * Get partClass
@@ -70,36 +69,4 @@ interface ReferenceInterface extends IdInterface, TimestampInterface
 	 * @return string
 	 */
 	public function getPartClass(): ?string;
-
-	/**
-	 * Set weight
-	 *
-	 * @param int $weight
-	 *
-	 * @return ReferenceInterface
-	 */
-	public function setWeight(int $weight = null): ReferenceInterface;
-
-	/**
-	 * Get weight
-	 *
-	 * @return int
-	 */
-	public function getWeight(): ?int;
-
-	/**
-	 * Set section
-	 *
-	 * @param string $section
-	 *
-	 * @return ReferenceInterface
-	 */
-	public function setSection(string $section = null): ReferenceInterface;
-
-	/**
-	 * Get section
-	 *
-	 * @return string
-	 */
-	public function getSection(): ?string;
 }

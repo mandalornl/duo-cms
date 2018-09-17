@@ -37,7 +37,7 @@ class AbstractPageTranslation extends AbstractNodeTranslation implements PageTra
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setTitle(string $title = null): PageTranslationInterface
+	public function setTitle(?string $title): PageTranslationInterface
 	{
 		$this->title = $title;
 

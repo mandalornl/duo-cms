@@ -64,7 +64,7 @@ class Group implements GroupInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setName(string $name = null): GroupInterface
+	public function setName(?string $name): GroupInterface
 	{
 		$this->name = $name;
 

@@ -28,7 +28,7 @@ class VideoPagePart extends AbstractPagePart
 	 *
 	 * @return VideoPagePart
 	 */
-	public function setValue(string $value = null): VideoPagePart
+	public function setValue(?string $value): VideoPagePart
 	{
 		$this->value = $value;
 

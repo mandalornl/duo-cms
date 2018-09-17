@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-read -r -p "The database will be erased. Are you sure? [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-	bin/console doctrine:database:drop --force
+read -r -p "The database will be erased. Are you sure? [Y/n] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY]| )$ ]] || [[ -z "$response" ]]; then
+	clear
+	bin/console doctrine:database:drop --force --if-exists
 	bin/console doctrine:database:create
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n

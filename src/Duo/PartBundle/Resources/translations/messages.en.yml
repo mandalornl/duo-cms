@@ -6,5 +6,5 @@ duo:
         form:
             collection:
                 label: Parts
-                add_part: Add part
-                remove_part: Remove
+                btn_add: Add
+                btn_delete: Delete

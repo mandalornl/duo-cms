@@ -12,6 +12,7 @@ app:
     part:
         section:
             main: Main
+            widgets: Widgets
 
     form:
         heading_page_part:
@@ -24,3 +25,11 @@ app:
                     heading_4: Heading 4
                     heading_5: Heading 5
                     heading_6: Heading 6
+
+        image_page_part:
+            alt:
+                label: Alt text
+
+        image_crop_page_part:
+            alt:
+                label: Alt text

@@ -72,7 +72,7 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 *
 	 * @return Media
 	 */
-	public function setName(string $name = null): Media
+	public function setName(?string $name): Media
 	{
 		$this->name = $name;
 
@@ -96,7 +96,7 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 *
 	 * @return Media
 	 */
-	public function setUuid(string $uuid = null): Media
+	public function setUuid(?string $uuid): Media
 	{
 		$this->uuid = $uuid;
 
@@ -120,7 +120,7 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 *
 	 * @return Media
 	 */
-	public function setUrl(string $url = null): Media
+	public function setUrl(?string $url): Media
 	{
 		$this->url = $url;
 
@@ -144,7 +144,7 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 *
 	 * @return Media
 	 */
-	public function setMimeType(string $mimeType = null): Media
+	public function setMimeType(?string $mimeType): Media
 	{
 		$this->mimeType = $mimeType;
 
@@ -168,7 +168,7 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 *
 	 * @return Media
 	 */
-	public function setSize(int $size = null): Media
+	public function setSize(?int $size): Media
 	{
 		$this->size = $size;
 
@@ -192,7 +192,7 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 *
 	 * @return Media
 	 */
-	public function setMetadata(array $metadata = null): Media
+	public function setMetadata(?array $metadata): Media
 	{
 		$this->metadata = $metadata;
 

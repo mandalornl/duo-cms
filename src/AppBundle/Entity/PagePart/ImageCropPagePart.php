@@ -24,13 +24,20 @@ class ImageCropPagePart extends AbstractPagePart
 	private $imageCrop;
 
 	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="alt", type="string", nullable=true)
+	 */
+	private $alt;
+
+	/**
 	 * Set imageCrop
 	 *
 	 * @param ImageCrop $imageCrop
 	 *
 	 * @return ImageCropPagePart
 	 */
-	public function setImageCrop(ImageCrop $imageCrop = null): ImageCropPagePart
+	public function setImageCrop(?ImageCrop $imageCrop): ImageCropPagePart
 	{
 		$this->imageCrop = $imageCrop;
 
@@ -45,6 +52,30 @@ class ImageCropPagePart extends AbstractPagePart
 	public function getImageCrop(): ?ImageCrop
 	{
 		return $this->imageCrop;
+	}
+
+	/**
+	 * Set alt
+	 *
+	 * @param string $alt
+	 *
+	 * @return ImagePagePart
+	 */
+	public function setAlt(?string $alt): ImagePagePart
+	{
+		$this->alt = $alt;
+
+		return $this;
+	}
+
+	/**
+	 * Get alt
+	 *
+	 * @return string
+	 */
+	public function getAlt(): ?string
+	{
+		return $this->alt;
 	}
 
 	/**

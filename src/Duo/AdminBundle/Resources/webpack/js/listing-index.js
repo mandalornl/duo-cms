@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import {parse} from 'querystring';
+
 import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
@@ -22,7 +24,8 @@ postMessage.on(window, (e) =>
 
 		if (response.event)
 		{
-			$(window).trigger(response.event, response.data);
+			// trigger target or use window instead
+			$(response.target ? `#${response.target}` : window).trigger(response.event, response.data);
 		}
 	}
 	catch (err)
@@ -72,8 +75,11 @@ $(() =>
 	{
 		e.preventDefault();
 
+		const params = parse(location.search.substr(1));
+
 		postMessage.send(window.parent, {
 			event: 'duo.event.iframe.selectItem',
+			target: params.target || null,
 			data: $(this).data('item')
 		}, location.origin);
 	});

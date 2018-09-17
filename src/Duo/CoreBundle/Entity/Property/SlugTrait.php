@@ -16,7 +16,7 @@ trait SlugTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setSlug(string $slug = null): SlugInterface
+	public function setSlug(?string $slug): SlugInterface
 	{
 		$this->slug = $slug;
 

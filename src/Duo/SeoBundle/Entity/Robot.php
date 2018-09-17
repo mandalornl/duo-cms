@@ -31,7 +31,7 @@ class Robot implements IdInterface, TimestampInterface
 	 *
 	 * @return Robot
 	 */
-	public function setContent(string $content = null): Robot
+	public function setContent(?string $content): Robot
 	{
 		$this->content = $content;
 

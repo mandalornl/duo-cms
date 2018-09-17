@@ -43,7 +43,7 @@ trait DeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDeletedBy(UserInterface $deletedBy = null): DeleteInterface
+	public function setDeletedBy(?UserInterface $deletedBy): DeleteInterface
 	{
 		$this->deletedBy = $deletedBy;
 

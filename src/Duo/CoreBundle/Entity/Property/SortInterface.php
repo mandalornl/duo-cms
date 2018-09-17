@@ -11,7 +11,7 @@ interface SortInterface
 	 *
 	 * @return SortInterface
 	 */
-	public function setWeight(int $weight = null): SortInterface;
+	public function setWeight(?int $weight): SortInterface;
 
 	/**
 	 * Get weight

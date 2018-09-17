@@ -68,7 +68,7 @@ class PrivacyFormPart extends AbstractFormPart
 	 *
 	 * @return PrivacyFormPart
 	 */
-	public function setErrorMessage(string $errorMessage = null): PrivacyFormPart
+	public function setErrorMessage(?string $errorMessage): PrivacyFormPart
 	{
 		$this->errorMessage = $errorMessage;
 
@@ -92,7 +92,7 @@ class PrivacyFormPart extends AbstractFormPart
 	 *
 	 * @return PrivacyFormPart
 	 */
-	public function setPage(PageInterface $page = null): PrivacyFormPart
+	public function setPage(?PageInterface $page): PrivacyFormPart
 	{
 		$this->page = $page;
 

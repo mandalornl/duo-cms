@@ -45,7 +45,7 @@ class Role implements RoleInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setName(string $name = null): RoleInterface
+	public function setName(?string $name): RoleInterface
 	{
 		$this->name = $name;
 
@@ -63,7 +63,7 @@ class Role implements RoleInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setRole(string $role = null): RoleInterface
+	public function setRole(?string $role): RoleInterface
 	{
 		$this->role = $role;
 

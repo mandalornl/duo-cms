@@ -23,7 +23,7 @@ interface PageTranslationInterface extends NodeTranslationInterface,
 	 *
 	 * @return PageTranslationInterface
 	 */
-	public function setTitle(string $title = null): PageTranslationInterface;
+	public function setTitle(?string $title): PageTranslationInterface;
 
 	/**
 	 * Get title

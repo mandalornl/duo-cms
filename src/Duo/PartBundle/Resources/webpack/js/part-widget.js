@@ -43,7 +43,7 @@ export default ($ =>
 
 				const $list = $this.find('.sortable-list');
 
-				let newIndex = $list.find('.sortable-item').length;
+				$list.data('index', $list.data('index') || $list.find('> .sortable-item').length);
 
 				/**
 				 * Update weight
@@ -61,14 +61,16 @@ export default ($ =>
 				 */
 				const toggleButton = () =>
 				{
-					$this.find('button[data-url][data-prototype-id]:last').parent().toggleClass('d-none', !$list.find('.sortable-item').length);
+					$this.find('button[data-url][data-prototype-id]:last').parent().toggleClass('d-none', !$list.find('> .sortable-item').length);
 				};
 
 				$list.on(`click.${NAME}`, '[data-dismiss="sortable-item"]', function(e)
 				{
 					e.preventDefault();
 
-					const $item = $(this).closest('.sortable-item');
+					const $this = $(this);
+
+					const $item = $this.closest(`.${$this.data('dismiss')}`);
 					$item.addClass('fade show');
 
 					window.setTimeout(() =>
@@ -89,42 +91,46 @@ export default ($ =>
 				{
 					const $this = $(this);
 
-					let $modal = modals[$this.data('url')];
+					const url = $this.data('url');
+
+					let $modal = modals[url];
 
 					if (!$modal)
 					{
-						const html = await get($this.data('url'));
+						const html = await get(url);
 
 						$modal = $(html);
 						$modal.appendTo('body');
-						$modal.on('click', 'button[data-prototype]', function()
-						{
-							let prototype = $(this).data('prototype').split('__name__').join(newIndex++);
-							prototype = prototype.replace(/\w+_part_collection_/g, `${$this.data('prototype-id')}_`);
-							prototype = prototype.replace(/\w+_part_collection\[/g, `${$this.data('prototype-name')}[`);
 
-							const $item = $(prototype);
-							$list.append($item.addClass('fade'));
-
-							// (re)init
-							sortable.destroy($list);
-							sortable.init($list);
-
-							// dispatch event
-							$item.trigger('duo.event.part.addItem');
-
-							updateWeight();
-							toggleButton();
-
-							$('html, body').scrollTop($item.offset().top);
-
-							window.setTimeout(() => $item.addClass('show'), 250);
-						});
-
-						modals[$this.data('url')] = $modal;
+						modals[url] = $modal;
 					}
 
-					$modal.modal('show');
+					$modal.off('click', 'button[data-prototype]').on('click', 'button[data-prototype]', function()
+					{
+						let prototype = $(this).data('prototype');
+						prototype = prototype.replace(/__name__/g, $list.data('index'));
+						prototype = prototype.replace(/\w+_part_collection_/g, `${$this.data('prototype-id')}_`);
+						prototype = prototype.replace(/\w+_part_collection/g, $this.data('prototype-name'));
+
+						const $item = $(prototype).addClass('fade');
+
+						$list.data('index', $list.data('index') + 1);
+						$list.append($item);
+
+						// (re)init
+						sortable.destroy($list);
+						sortable.init($list);
+
+						// dispatch event
+						$item.trigger('duo.event.part.addItem');
+
+						updateWeight();
+						toggleButton();
+
+						$('html, body').scrollTop($item.offset().top);
+
+						window.setTimeout(() => $item.addClass('show'), 250);
+					}).modal('show');
 				});
 
 				$list.on('sortupdate', updateWeight);
@@ -143,13 +149,21 @@ export default ($ =>
 			const $selector = _$(selector);
 
 			$selector.off(`click.${NAME}`);
-
-			Object.keys(modals).forEach(key =>
+			$selector.find('button[data-url][data-prototype-id]').each(function()
 			{
-				modals[key].remove();
+				const url = $(this).data('url');
 
-				delete modals[key];
+				if (!modals[url])
+				{
+					return;
+				}
+
+				modals[url].remove();
+
+				delete modals[url];
 			});
+
+			sortable.destroy($selector.find('> .sortable-list').off(`click.${NAME}`));
 		}
 	};
 

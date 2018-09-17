@@ -30,7 +30,7 @@
 
 	<div class="media-widget{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}">
 		<div class="row">
-			<div class="col-sm-8 col-md-6">
+			<div class="col-sm-6 col-lg-5">
 				{% if mediaType == 'image' %}
 					<div class="image-preview">
 						{% if data and 'image/' in data.mimeType %}
@@ -38,22 +38,20 @@
 						{% endif %}
 					</div>
 				{% endif %}
-				<p class="caption" title="&laquo; {{ 'duo.media.empty' | trans }} &raquo;">
+				<p class="caption">
 					{%- if data %}{{ data.name }}{% endif -%}
 				</p>
 			</div>
-			<div class="col-sm-4 col-lg-3">
-				<div class="actions">
-					<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType }) }}">
-						{{- 'duo.media.select' | trans -}}
-					</button>
-					<button type="button" class="btn btn-secondary" data-action="clear">
-						{{- 'duo.media.clear' | trans -}}
-					</button>
-				</div>
+			<div class="col-12">
+				<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType, target: id }) }}">
+					{{- 'duo.media.select' | trans -}}
+				</button>
+				<button type="button" class="btn btn-secondary" data-action="clear">
+					{{- 'duo.media.clear' | trans -}}
+				</button>
 			</div>
 		</div>
-		<div class="d-none">
+		<div class="d-none media-input">
 			{{ form_widget(form) }}
 		</div>
 	</div>

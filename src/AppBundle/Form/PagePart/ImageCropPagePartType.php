@@ -5,6 +5,7 @@ namespace AppBundle\Form\PagePart;
 use AppBundle\Entity\PagePart\ImageCropPagePart;
 use Duo\MediaBundle\Form\ImageCropType;
 use Duo\PartBundle\Form\AbstractPartType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Valid;
 
@@ -17,12 +18,16 @@ class ImageCropPagePartType extends AbstractPartType
 	{
 		parent::buildForm($builder, $options);
 
-		$builder->add('imageCrop', ImageCropType::class, [
-			'label' => false,
-			'constraints' => [
-				new Valid()
-			]
-		]);
+		$builder
+			->add('imageCrop', ImageCropType::class, [
+				'label' => false,
+				'constraints' => [
+					new Valid()
+				]
+			])->add('alt', TextType::class, [
+				'required' => false,
+				'label' => 'app.form.image_crop_page_part.alt.label'
+			]);
 	}
 
 	/**

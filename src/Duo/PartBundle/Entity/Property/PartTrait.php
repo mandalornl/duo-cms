@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Duo\PartBundle\Entity\PartInterface as EntityPartInterface;
+use Duo\PartBundle\Entity\Reference;
 
 trait PartTrait
 {
@@ -26,6 +27,14 @@ trait PartTrait
 	 */
 	public function addPart(EntityPartInterface $part): PartInterface
 	{
+		$part->setEntity($this);
+		$part->setReference(
+			(new Reference())
+				// corresponding entity and part id's are set inside reference subscriber
+				->setEntityClass(get_class($this))
+				->setPartClass(get_class($part))
+		);
+
 		$this->getParts()->add($part);
 
 		// dirty entity
@@ -40,6 +49,9 @@ trait PartTrait
 	public function removePart(EntityPartInterface $part): PartInterface
 	{
 		$this->getParts()->removeElement($part);
+
+		$part->setEntity(null);
+		$part->setReference(null);
 
 		// dirty entity
 		$this->partVersion = uniqid();
@@ -83,7 +95,7 @@ trait PartTrait
 
 		foreach ($parts as $part)
 		{
-			$this->parts[] = clone $part;
+			$this->addPart(clone $part);
 		}
 	}
 }

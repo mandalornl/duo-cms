@@ -10,6 +10,8 @@ import autoComplete from 'duo/AdminBundle/Resources/webpack/js/lib/autocomplete'
 import wysiwyg from 'duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
 import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
 
+import 'duo/AdminBundle/Resources/webpack/js/collection-widget';
+import 'duo/AdminBundle/Resources/webpack/js/file-widget';
 import 'duo/PartBundle/Resources/webpack/js/part-widget';
 import mediaWidget from 'duo/MediaBundle/Resources/webpack/js/media-widget';
 import imageCropWidget from 'duo/MediaBundle/Resources/webpack/js/image-crop-widget';
@@ -58,8 +60,10 @@ $(() =>
 		$(this.value).tab('show');
 	});
 
-	// init widgets inside part widget
-	$form.on('duo.event.part.addItem', '.part-widget .sortable-item', function()
+	/**
+	 * Init on add item
+	 */
+	const initOnAddItem = function()
 	{
 		const $item = $(this);
 
@@ -74,10 +78,12 @@ $(() =>
 		});
 
 		doNotLeave.enable();
-	});
+	};
 
-	// destroy widgets inside part widget
-	$form.on('duo.event.part.removeItem', '.part-widget .sortable-item', function()
+	/**
+	 * Destroy on remove item
+	 */
+	const destroyOnRemoveItem = function()
 	{
 		const $item = $(this);
 
@@ -92,7 +98,19 @@ $(() =>
 		});
 
 		doNotLeave.enable();
-	});
+	};
+
+	// init widgets inside part widget
+	$form.on('duo.event.part.addItem', '.part-widget .sortable-item', initOnAddItem);
+
+	// destroy widgets inside part widget
+	$form.on('duo.event.part.removeItem', '.part-widget .sortable-item', destroyOnRemoveItem);
+
+	// init widgets inside collection widget
+	$form.on('duo.event.collection.addItem', '.collection-widget .collection-item', initOnAddItem);
+
+	// destroy widgets inside collection widget
+	$form.on('duo.event.collection.removeItem', '.collection-widget .collection-item', destroyOnRemoveItem);
 
 	// handle form submit
 	$listing.on('click', 'button[data-action="save"]', function()

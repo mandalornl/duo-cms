@@ -40,7 +40,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPublishAt(\DateTime $publishAt = null): PublishInterface
+	public function setPublishAt(?\DateTime $publishAt): PublishInterface
 	{
 		$this->publishAt = $publishAt;
 
@@ -58,7 +58,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUnpublishAt(\DateTime $unpublishAt = null): PublishInterface
+	public function setUnpublishAt(?\DateTime $unpublishAt): PublishInterface
 	{
 		$this->unpublishAt = $unpublishAt;
 
@@ -76,7 +76,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPublishedBy(UserInterface $publishedBy = null): PublishInterface
+	public function setPublishedBy(?UserInterface $publishedBy): PublishInterface
 	{
 		$this->publishedBy = $publishedBy;
 
@@ -94,7 +94,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUnpublishedBy(UserInterface $unpublishedBy = null): PublishInterface
+	public function setUnpublishedBy(?UserInterface $unpublishedBy): PublishInterface
 	{
 		$this->unpublishedBy = $unpublishedBy;
 

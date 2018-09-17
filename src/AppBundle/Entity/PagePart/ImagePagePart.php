@@ -24,13 +24,20 @@ class ImagePagePart extends AbstractPagePart
 	private $media;
 
 	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="alt", type="string", nullable=true)
+	 */
+	private $alt;
+
+	/**
 	 * Set media
 	 *
 	 * @param Media $media
 	 *
 	 * @return ImagePagePart
 	 */
-	public function setMedia(Media $media = null): ImagePagePart
+	public function setMedia(?Media $media): ImagePagePart
 	{
 		$this->media = $media;
 
@@ -45,6 +52,30 @@ class ImagePagePart extends AbstractPagePart
 	public function getMedia(): ?Media
 	{
 		return $this->media;
+	}
+
+	/**
+	 * Set alt
+	 *
+	 * @param string $alt
+	 *
+	 * @return ImagePagePart
+	 */
+	public function setAlt(?string $alt): ImagePagePart
+	{
+		$this->alt = $alt;
+
+		return $this;
+	}
+
+	/**
+	 * Get alt
+	 *
+	 * @return string
+	 */
+	public function getAlt(): ?string
+	{
+		return $this->alt;
 	}
 
 	/**

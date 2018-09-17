@@ -27,7 +27,7 @@ interface TextFormPartInterface extends FormPartInterface
 	 *
 	 * @return TextFormPartInterface
 	 */
-	public function setPlaceholder(string $placeholder = null): TextFormPartInterface;
+	public function setPlaceholder(?string $placeholder): TextFormPartInterface;
 
 	/**
 	 * Get placeholder
@@ -43,7 +43,7 @@ interface TextFormPartInterface extends FormPartInterface
 	 *
 	 * @return TextFormPartInterface
 	 */
-	public function setErrorMessage(string $errorMessage = null): TextFormPartInterface;
+	public function setErrorMessage(?string $errorMessage): TextFormPartInterface;
 
 	/**
 	 * Get errorMessage

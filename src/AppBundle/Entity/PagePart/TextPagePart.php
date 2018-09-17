@@ -28,7 +28,7 @@ class TextPagePart extends AbstractPagePart
 	 *
 	 * @return TextPagePart
 	 */
-	public function setValue(string $value = null): TextPagePart
+	public function setValue(?string $value): TextPagePart
 	{
 		$this->value = $value;
 

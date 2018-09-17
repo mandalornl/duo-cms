@@ -20,7 +20,7 @@ trait TreeTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParent(TreeInterface $parent = null): TreeInterface
+	public function setParent(?TreeInterface $parent): TreeInterface
 	{
 		$this->parent = $parent;
 

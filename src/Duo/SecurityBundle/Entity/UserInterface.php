@@ -18,7 +18,7 @@ interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInt
 	 *
 	 * @return UserInterface
 	 */
-	public function setName(string $name = null): UserInterface;
+	public function setName(?string $name): UserInterface;
 
 	/**
 	 * Get name
@@ -91,7 +91,7 @@ interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInt
 	 *
 	 * @return UserInterface
 	 */
-	public function setPasswordToken(string $passwordToken = null): UserInterface;
+	public function setPasswordToken(?string $passwordToken): UserInterface;
 
 	/**
 	 * Get passwordToken
@@ -107,7 +107,7 @@ interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInt
 	 *
 	 * @return UserInterface
 	 */
-	public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null): UserInterface;
+	public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): UserInterface;
 
 	/**
 	 * Get passwordRequestAt

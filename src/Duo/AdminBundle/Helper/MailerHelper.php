@@ -24,7 +24,7 @@ class MailerHelper
 	 *
 	 * @param \Twig_Environment $twig
 	 * @param string $emailFrom
-	 * @param array $dkimConfig
+	 * @param array $dkimConfig [optional]
 	 */
 	public function __construct(\Twig_Environment $twig, string $emailFrom, array $dkimConfig = null)
 	{

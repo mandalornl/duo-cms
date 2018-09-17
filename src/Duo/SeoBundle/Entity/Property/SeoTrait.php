@@ -40,7 +40,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMetaTitle(string $metaTitle = null): SeoInterface
+	public function setMetaTitle(?string $metaTitle): SeoInterface
 	{
 		$this->metaTitle = $metaTitle;
 
@@ -58,7 +58,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMetaKeywords(string $metaKeywords = null): SeoInterface
+	public function setMetaKeywords(?string $metaKeywords): SeoInterface
 	{
 		$this->metaKeywords = $metaKeywords;
 
@@ -76,7 +76,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMetaDescription(string $metaDescription = null): SeoInterface
+	public function setMetaDescription(?string $metaDescription): SeoInterface
 	{
 		$this->metaDescription = $metaDescription;
 
@@ -94,7 +94,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMetaRobots(string $metaRobots = null): SeoInterface
+	public function setMetaRobots(?string $metaRobots): SeoInterface
 	{
 		$this->metaRobots = $metaRobots;
 

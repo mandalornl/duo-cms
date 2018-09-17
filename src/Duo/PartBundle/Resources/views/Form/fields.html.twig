@@ -1,4 +1,5 @@
-{% block infinite_form_polycollection_row %}
+{% block duo_part_collection_row -%}
+{%- spaceless -%}
 	<div class="part-widget">
 		<label class="mb-0">
 			{{- 'duo.part.form.collection.label' | trans -}}
@@ -6,8 +7,8 @@
 		<hr>
 		{% if not disabled and allow_add %}
 			<div class="my-3">
-				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
-					{{- 'duo.part.form.collection.add_part' | trans -}}
+				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
+					{{- 'duo.part.form.collection.btn_add' | trans -}}
 				</button>
 			</div>
 		{% endif %}
@@ -16,35 +17,36 @@
 				{% with {
 					form: child
 				} %}
-					{{ block('duo_part_row') }}
+					{{ block('duo_part_collection_prototype') }}
 				{% endwith %}
 			{% endfor %}
 		</div>
 		{% if not disabled and allow_add %}
 			<div class="my-3{% if not form | length %} d-none{% endif %}">
-				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ form.vars.id }}" data-prototype-name="{{ form.vars.full_name }}">
-					{{- 'duo.part.form.collection.add_part' | trans -}}
+				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
+					{{- 'duo.part.form.collection.btn_add' | trans -}}
 				</button>
 			</div>
 		{% endif %}
 	</div>
-{% endblock %}
+{%- endspaceless -%}
+{%- endblock %}
 
-{% block duo_part_row %}
-{% spaceless %}
-	<div class="sortable-item{% if disabled is defined and disabled %} disabled{% endif %}">
+{% block duo_part_collection_prototype -%}
+{%- spaceless -%}
+	<div class="sortable-item{% if disabled | default(false) %} disabled{% endif %}">
 		<div class="form-group">
 			{{ form_label(form) }}
 			{{ form_widget(form) }}
 			{{ form_errors(form) }}
-			{%- if (disabled is not defined or not disabled) and allow_delete is defined and allow_delete -%}
+			{%- if not disabled | default(false) and allow_delete | default(false) -%}
 				<div class="d-flex justify-content-end">
-					<button type="button" class="btn btn-danger" data-dismiss="sortable-item">
-						{{- 'duo.part.form.collection.remove_part' | trans }} <i class="icon-bin"></i>
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="sortable-item">
+						{{- 'duo.part.form.collection.btn_delete' | trans -}}
 					</button>
 				</div>
 			{%- endif -%}
 		</div>
 	</div>
-{% endspaceless %}
-{% endblock %}
+{%- endspaceless -%}
+{%- endblock %}

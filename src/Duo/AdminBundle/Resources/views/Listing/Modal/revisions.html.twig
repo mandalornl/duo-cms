@@ -40,17 +40,18 @@
 										{% endif %}
 									</td>
 									<td>
-										<a href="{{ path(routePrefix ~ '_revert', { id: revision.id }) }}" class="btn btn-primary" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_revert', { id: revision.id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
 											<i class="icon-history"></i>
 										</a>
 										{% if revision is deletable %}
-											{% set url = path(routePrefix ~ '_delete', { id: revision.id }) %}
+											<a href="{{ path(routePrefix ~ '_delete', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
+												<i class="icon-bin"></i>
+											</a>
 										{% else %}
-											{% set url = path(routePrefix ~ '_destroy', { id: revision.id }) %}
+											<a href="{{ path(routePrefix ~ '_destroy', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
+												<i class="icon-bin"></i>
+											</a>
 										{% endif %}
-										<a href="{{ url }}" title="{{ 'duo.admin.modal.revisions.delete' | trans }}" class="btn btn-danger" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
-											<i class="icon-bin"></i>
-										</a>
 									</td>
 								</tr>
 							{% endfor %}

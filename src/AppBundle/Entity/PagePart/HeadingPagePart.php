@@ -35,7 +35,7 @@ class HeadingPagePart extends AbstractPagePart
 	 *
 	 * @return HeadingPagePart
 	 */
-	public function setValue(string $value = null): HeadingPagePart
+	public function setValue(?string $value): HeadingPagePart
 	{
 		$this->value = $value;
 
@@ -59,7 +59,7 @@ class HeadingPagePart extends AbstractPagePart
 	 *
 	 * @return HeadingPagePart
 	 */
-	public function setType(string $type = null): HeadingPagePart
+	public function setType(?string $type): HeadingPagePart
 	{
 		$this->type = $type;
 

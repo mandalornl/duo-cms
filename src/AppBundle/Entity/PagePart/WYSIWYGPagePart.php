@@ -28,7 +28,7 @@ class WYSIWYGPagePart extends AbstractPagePart
 	 *
 	 * @return WYSIWYGPagePart
 	 */
-	public function setValue(string $value = null): WYSIWYGPagePart
+	public function setValue(?string $value): WYSIWYGPagePart
 	{
 		$this->value = $value;
 

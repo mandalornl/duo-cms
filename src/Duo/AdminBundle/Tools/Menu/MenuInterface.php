@@ -30,7 +30,7 @@ interface MenuInterface
 	 *
 	 * @return MenuInterface
 	 */
-	public function setIcon(string $icon = null): MenuInterface;
+	public function setIcon(?string $icon): MenuInterface;
 
 	/**
 	 * Get icon
@@ -62,7 +62,7 @@ interface MenuInterface
 	 *
 	 * @return MenuInterface
 	 */
-	public function setUrl(string $url = null): MenuInterface;
+	public function setUrl(?string $url): MenuInterface;
 
 	/**
 	 * Get url
@@ -78,7 +78,7 @@ interface MenuInterface
 	 *
 	 * @return MenuInterface
 	 */
-	public function setActive(bool $active = false): MenuInterface;
+	public function setActive(bool $active): MenuInterface;
 
 	/**
 	 * Get active
@@ -94,7 +94,7 @@ interface MenuInterface
 	 *
 	 * @return MenuInterface
 	 */
-	public function setParent(MenuInterface $parent = null): MenuInterface;
+	public function setParent(?MenuInterface $parent): MenuInterface;
 
 	/**
 	 * Get parent

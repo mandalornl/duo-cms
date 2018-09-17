@@ -24,13 +24,14 @@
 								{% endfor %}
 							{% endif %}
 							{% if list.isDeletable | default(false) %}
-								{% set url = path(routePrefix ~ '_delete') %}
+								<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.admin.modal.multi_delete.title' | trans }}" data-body="{{ 'duo.admin.modal.multi_delete.body' | trans }}">
+									{{- 'duo.admin.listing.action.delete' | trans -}}
+								</a>
 							{% else %}
-								{% set url = path(routePrefix ~ '_destroy') %}
+								<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.admin.modal.multi_destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.multi_destroy.body' | trans }}">
+									{{- 'duo.admin.listing.action.delete' | trans -}}
+								</a>
 							{% endif %}
-							<a href="{{ url }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.admin.modal.multi_delete.title' | trans }}" data-body="{{ 'duo.admin.modal.multi_delete.body' | trans }}">
-								{{- 'duo.admin.listing.action.delete' | trans -}}
-							</a>
 						</div>
 					</div>
 					{% if (routePrefix ~ '_create') is validroute %}
@@ -146,10 +147,14 @@
 {% block modal %}
 	{% if not app.request.query.get('iframe') %}
 		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' with {
-			id: 'delete',
+			id: 'delete'
+		} | merge(list.isDeletable | default(false) ? {
 			title: 'duo.admin.modal.delete.title' | trans,
 			body: 'duo.admin.modal.delete.body' | trans
-		} %}
+		} : {
+			title: 'duo.admin.modal.destroy.title' | trans,
+			body: 'duo.admin.modal.destroy.body' | trans
+		}) %}
 
 		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' %}
 	{% endif %}

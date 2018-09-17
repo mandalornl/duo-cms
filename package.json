@@ -31,7 +31,6 @@
 		"mobile-detect": "^1.4.2",
 		"node-sass": "^4.9.3",
 		"popper.js": "^1.14.4",
-		"querystring": "^0.2.0",
 		"resolve-url-loader": "^2.3.0",
 		"sass-libs": "https://github.com/mandalornl/sass-libs.git",
 		"sass-loader": "^7.0.3",
@@ -51,11 +50,10 @@
 		"yargs": "^11.0.0"
 	},
 	"engines": {
-		"node": ">=8.6.0",
-		"yarn": ">=1.7.0"
+		"node": ">=8.11.4",
+		"yarn": ">=1.9.4"
 	},
 	"scripts": {
-		"prepublish": "yarn build",
 		"dev": "bin/dev-server.js",
 		"icomoon": "bin/icomoon.js --src src/Duo/AdminBundle/Resources/webpack --dest src/Duo/AdminBundle/Resources/webpack/sass/_icomoon.scss",
 		"build": "NODE_ENV=production webpack --config webpack.config.js",

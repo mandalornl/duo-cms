@@ -14,7 +14,7 @@ interface TreeInterface
 	 *
 	 * @return TreeInterface
 	 */
-	public function setParent(TreeInterface $parent = null): TreeInterface;
+	public function setParent(?TreeInterface $parent): TreeInterface;
 
 	/**
 	 * Get parent

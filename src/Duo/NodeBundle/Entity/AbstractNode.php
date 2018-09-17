@@ -29,7 +29,7 @@ abstract class AbstractNode implements NodeInterface
     /**
      * {@inheritdoc}
      */
-    public function setName(string $name = null): NodeInterface
+    public function setName(?string $name): NodeInterface
     {
         $this->name = $name;
 

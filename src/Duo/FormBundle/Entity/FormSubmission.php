@@ -42,7 +42,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	 * @var Form
 	 *
 	 * @ORM\ManyToOne(targetEntity="Duo\FormBundle\Entity\Form")
-	 * @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="SET NULL")
+	 * @ORM\JoinColumn(name="form_id", referencedColumnName="id", onDelete="CASCADE")
 	 */
 	private $form;
 
@@ -53,7 +53,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	 *
 	 * @return FormSubmission
 	 */
-	public function setName(string $name = null): FormSubmission
+	public function setName(?string $name): FormSubmission
 	{
 		$this->name = $name;
 
@@ -77,7 +77,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	 *
 	 * @return FormSubmission
 	 */
-	public function setLocale(string $locale = null): FormSubmission
+	public function setLocale(?string $locale): FormSubmission
 	{
 		$this->locale = $locale;
 
@@ -125,7 +125,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	 *
 	 * @return FormSubmission
 	 */
-	public function setForm(Form $form = null): FormSubmission
+	public function setForm(?Form $form): FormSubmission
 	{
 		$this->form = $form;
 

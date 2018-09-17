@@ -11,7 +11,7 @@ interface UrlInterface
 	 *
 	 * @return UrlInterface
 	 */
-	public function setUrl(string $url = null): UrlInterface;
+	public function setUrl(?string $url): UrlInterface;
 
 	/**
 	 * Get url

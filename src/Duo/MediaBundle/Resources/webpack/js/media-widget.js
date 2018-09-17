@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {get} from 'duo/AdminBundle/Resources/webpack/js/util/api';
+import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
 
 export default ($ =>
 {
@@ -7,6 +8,8 @@ export default ($ =>
 	const SELECTOR = `.${NAME}-widget`;
 
 	const modals = {};
+
+	const $window = $(window);
 
 	/**
 	 * Get jQuery
@@ -39,7 +42,7 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				const $media = $this.find('[id$="_media"]');
+				const $media = $this.find('.media-input input[type=text]');
 				const $caption = $this.find('.caption');
 				const $preview = $this.find('.image-preview');
 
@@ -65,8 +68,7 @@ export default ($ =>
 
 					$modal.modal('show');
 
-					// listen for iframe select event
-					$(window).on('duo.event.iframe.selectItem', (e, data) =>
+					$media.off('duo.event.iframe.selectItem').on('duo.event.iframe.selectItem', (e, data) =>
 					{
 						if (data.eventType !== 'media')
 						{
@@ -81,6 +83,9 @@ export default ($ =>
 
 							return;
 						}
+
+						// show loader when (pre)loading takes to long
+						loader.show();
 
 						// dispatch clear event before updating fields
 						$btnClear.trigger('click');
@@ -100,13 +105,16 @@ export default ($ =>
 
 							// close modal after event
 							$modal.find('[data-dismiss]').trigger('click');
+
+							loader.hide();
 						};
 
 						// pre load image before selecting item
 						if (data.src)
 						{
 							const $image = $(`<img src="${data.src}" srcset="${data.srcset}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="${data.name}" />`);
-							$image.on('load', () =>
+
+							$image.one('load', () =>
 							{
 								$preview.append($image);
 
@@ -145,18 +153,26 @@ export default ($ =>
 		 */
 		destroy: selector =>
 		{
-			_$(selector).removeData(`init.${NAME}`).off(`click.${NAME}`);
+			const $selector = _$(selector);
 
-			Object.keys(modals).forEach(key =>
+			$selector.removeData(`init.${NAME}`).off(`click.${NAME}`);
+			$selector.find('button[data-action="select"]').each(function()
 			{
-				modals[key].remove();
+				const url = $(this).data('url');
 
-				delete modals[key];
+				if (!modals[url])
+				{
+					return;
+				}
+
+				modals[url].remove();
+
+				delete modals[url];
 			});
 		}
 	};
 
-	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));
+	$window.on(`load.${NAME}`, () => methods.init(SELECTOR));
 
 	return methods;
 })($);

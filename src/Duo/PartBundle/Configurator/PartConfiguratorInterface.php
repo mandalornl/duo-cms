@@ -40,23 +40,28 @@ interface PartConfiguratorInterface
 	/**
 	 * Get types
 	 *
+	 * @param bool $isView [optional]
 	 * @param string[] $ids [optional]
 	 *
 	 * @return array
 	 */
-	public function getTypes(array $ids = []): array;
+	public function getTypes(bool $isView = false, array $ids = []): array;
 
 	/**
 	 * Get sections
 	 *
+	 * @param bool $isView [optional]
+	 *
 	 * @return array
 	 */
-	public function getSections(): array;
+	public function getSections(bool $isView = false): array;
 
 	/**
 	 * Get icons
 	 *
+	 * @param bool $isView [optional]
+	 *
 	 * @return array
 	 */
-	public function getIcons(): array;
+	public function getIcons(bool $isView = false): array;
 }

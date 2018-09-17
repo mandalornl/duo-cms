@@ -31,16 +31,8 @@ abstract class AbstractPartCollectionType extends AbstractType
 	 */
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
-		$icons = $this->configurator->getIcons();
-
-		foreach ($icons as $type => $icon)
-		{
-			$icons[md5($type)] = $icon;
-
-			unset($icons[$type]);
-		}
-
-		$view->vars['icons'] = $icons;
+		$view->vars['icons'] = $this->configurator->getIcons(true);
+		$view->vars['sections'] = $this->configurator->getSections(true);
 		$view->vars['routeName'] = $this->getRouteName();
 		$view->vars['routeParameters'] = $this->getRouteParameters();
 	}
@@ -78,6 +70,14 @@ abstract class AbstractPartCollectionType extends AbstractType
 	public function getParent(): string
 	{
 		return PolyCollectionType::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getBlockPrefix(): string
+	{
+		return 'duo_part_collection';
 	}
 
 	/**

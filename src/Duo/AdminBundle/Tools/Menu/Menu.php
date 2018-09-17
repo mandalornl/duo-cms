@@ -71,7 +71,7 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setIcon(string $icon = null): MenuInterface
+	public function setIcon(?string $icon): MenuInterface
 	{
 		$this->icon = $icon;
 
@@ -107,7 +107,7 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUrl(string $url = null): MenuInterface
+	public function setUrl(?string $url): MenuInterface
 	{
 		$this->url = $url;
 
@@ -125,7 +125,7 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setActive(bool $active = false): MenuInterface
+	public function setActive(bool $active): MenuInterface
 	{
 		$this->active = $active;
 
@@ -143,7 +143,7 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setParent(MenuInterface $parent = null): MenuInterface
+	public function setParent(?MenuInterface $parent): MenuInterface
 	{
 		$this->parent = $parent;
 

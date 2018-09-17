@@ -13,7 +13,7 @@ interface TimestampInterface
 	 *
 	 * @return TimestampInterface
 	 */
-	public function setCreatedAt(\DateTime $createdAt = null): TimestampInterface;
+	public function setCreatedAt(?\DateTime $createdAt): TimestampInterface;
 
 	/**
 	 * Get created at
@@ -29,7 +29,7 @@ interface TimestampInterface
 	 *
 	 * @return TimestampInterface
 	 */
-	public function setModifiedAt(\DateTime $modifiedAt = null): TimestampInterface;
+	public function setModifiedAt(?\DateTime $modifiedAt): TimestampInterface;
 
 	/**
 	 * Get modified at
@@ -45,7 +45,7 @@ interface TimestampInterface
 	 *
 	 * @return TimestampInterface
 	 */
-	public function setCreatedBy(UserInterface $createdBy = null): TimestampInterface;
+	public function setCreatedBy(?UserInterface $createdBy): TimestampInterface;
 
 	/**
 	 * Get createdBy
@@ -61,7 +61,7 @@ interface TimestampInterface
 	 *
 	 * @return TimestampInterface
 	 */
-	public function setModifiedBy(UserInterface $modifiedBy = null): TimestampInterface;
+	public function setModifiedBy(?UserInterface $modifiedBy): TimestampInterface;
 
 	/**
 	 * Get modifiedBy

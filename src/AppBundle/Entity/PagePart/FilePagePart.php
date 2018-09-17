@@ -30,7 +30,7 @@ class FilePagePart extends AbstractPagePart
 	 *
 	 * @return FilePagePart
 	 */
-	public function setMedia(Media $media = null): FilePagePart
+	public function setMedia(?Media $media): FilePagePart
 	{
 		$this->media = $media;
 

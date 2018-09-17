@@ -14,7 +14,7 @@ interface RevisionInterface
 	 *
 	 * @return RevisionInterface
 	 */
-	public function setRevision(RevisionInterface $revision = null): RevisionInterface;
+	public function setRevision(?RevisionInterface $revision): RevisionInterface;
 
 	/**
 	 * Get revision

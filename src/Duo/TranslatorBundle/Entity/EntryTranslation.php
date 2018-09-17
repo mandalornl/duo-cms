@@ -30,7 +30,7 @@ class EntryTranslation implements TranslationInterface
 	 *
 	 * @return EntryTranslation
 	 */
-	public function setText(string $text = null): EntryTranslation
+	public function setText(?string $text): EntryTranslation
 	{
 		$this->text = $text;
 

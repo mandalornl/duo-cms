@@ -11,3 +11,7 @@ services:
     Duo\PartBundle\EventSubscriber\PartSubscriber:
         tags:
             - { name: doctrine.event_subscriber, priority: -64 }
+
+    Duo\PartBundle\EventSubscriber\ReferenceSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, priority: -128 }

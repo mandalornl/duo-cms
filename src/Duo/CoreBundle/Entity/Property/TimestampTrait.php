@@ -40,7 +40,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCreatedAt(\DateTime $createdAt = null): TimestampInterface
+	public function setCreatedAt(?\DateTime $createdAt): TimestampInterface
 	{
 		$this->createdAt = $createdAt;
 
@@ -58,7 +58,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setModifiedAt(\DateTime $modifiedAt = null): TimestampInterface
+	public function setModifiedAt(?\DateTime $modifiedAt): TimestampInterface
 	{
 		$this->modifiedAt = $modifiedAt;
 
@@ -76,7 +76,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCreatedBy(UserInterface $createdBy = null): TimestampInterface
+	public function setCreatedBy(?UserInterface $createdBy): TimestampInterface
 	{
 		$this->createdBy = $createdBy;
 
@@ -94,7 +94,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setModifiedBy(UserInterface $modifiedBy = null): TimestampInterface
+	public function setModifiedBy(?UserInterface $modifiedBy): TimestampInterface
 	{
 		$this->modifiedBy = $modifiedBy;
 

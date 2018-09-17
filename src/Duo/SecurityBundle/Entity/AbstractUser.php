@@ -100,7 +100,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
      * {@inheritdoc}
      */
-    public function setName(string $name = null): UserInterface
+    public function setName(?string $name): UserInterface
     {
         $this->name = $name;
 
@@ -136,7 +136,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function setUsername(string $username = null): UserInterface
+    public function setUsername(?string $username): UserInterface
     {
         $this->username = $username;
 
@@ -191,7 +191,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPasswordToken(string $passwordToken = null): UserInterface
+	public function setPasswordToken(?string $passwordToken): UserInterface
 	{
 		$this->passwordToken = $passwordToken;
 
@@ -209,7 +209,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null): UserInterface
+	public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): UserInterface
 	{
 		$this->passwordRequestedAt = $passwordRequestedAt;
 

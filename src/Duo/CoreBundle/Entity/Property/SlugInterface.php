@@ -11,7 +11,7 @@ interface SlugInterface
      *
      * @return SlugInterface
      */
-    public function setSlug(string $slug = null): SlugInterface;
+    public function setSlug(?string $slug): SlugInterface;
 
     /**
      * Get slug

@@ -77,7 +77,7 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	 *
 	 * @return Entry
 	 */
-	public function setKeyword(string $keyword = null): Entry
+	public function setKeyword(?string $keyword): Entry
 	{
 		$this->keyword = $keyword;
 
@@ -101,7 +101,7 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	 *
 	 * @return Entry
 	 */
-	public function setDomain(string $domain = null): Entry
+	public function setDomain(?string $domain): Entry
 	{
 		$this->domain = $domain;
 

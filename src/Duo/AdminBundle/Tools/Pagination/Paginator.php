@@ -93,7 +93,7 @@ class Paginator
 	 *
 	 * @return Paginator
 	 */
-	public function setPage(int $page = null): Paginator
+	public function setPage(?int $page): Paginator
 	{
 		$this->page = $page ?: $this->page;
 
@@ -117,7 +117,7 @@ class Paginator
 	 *
 	 * @return Paginator
 	 */
-	public function setLimit(int $limit = null): Paginator
+	public function setLimit(?int $limit): Paginator
 	{
 		$this->limit = $limit;
 

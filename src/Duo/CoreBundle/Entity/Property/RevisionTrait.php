@@ -20,7 +20,7 @@ trait RevisionTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setRevision(RevisionInterface $revision = null): RevisionInterface
+	public function setRevision(?RevisionInterface $revision): RevisionInterface
 	{
 		$this->revision = $revision;
 

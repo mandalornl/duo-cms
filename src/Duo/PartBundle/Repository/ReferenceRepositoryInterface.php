@@ -35,23 +35,4 @@ interface ReferenceRepositoryInterface
 	 * @return EntityPartInterface[]
 	 */
 	public function findParts(PropertyPartInterface $entity): array;
-
-	/**
-	 * Find weight
-	 *
-	 * @param PropertyPartInterface $entity
-	 * @param EntityPartInterface $part
-	 *
-	 * @return int
-	 */
-	public function findWeight(PropertyPartInterface $entity, EntityPartInterface $part): ?int;
-
-	/**
-	 * Find max weight
-	 *
-	 * @param PropertyPartInterface $entity
-	 *
-	 * @return int
-	 */
-	public function findMaxWeight(PropertyPartInterface $entity): int;
 }

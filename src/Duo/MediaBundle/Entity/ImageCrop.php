@@ -48,7 +48,7 @@ class ImageCrop implements IdInterface, TimestampInterface
 	 *
 	 * @return ImageCrop
 	 */
-	public function setMedia(Media $media = null): ImageCrop
+	public function setMedia(?Media $media): ImageCrop
 	{
 		$this->media = $media;
 
@@ -72,7 +72,7 @@ class ImageCrop implements IdInterface, TimestampInterface
 	 *
 	 * @return ImageCrop
 	 */
-	public function setCrop(string $crop = null): ImageCrop
+	public function setCrop(?string $crop): ImageCrop
 	{
 		$this->crop = $crop;
 
@@ -96,7 +96,7 @@ class ImageCrop implements IdInterface, TimestampInterface
 	 *
 	 * @return ImageCrop
 	 */
-	public function setRatio(string $ratio = null): ImageCrop
+	public function setRatio(?string $ratio): ImageCrop
 	{
 		$this->ratio = $ratio;
 

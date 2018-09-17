@@ -73,7 +73,7 @@ class Form extends AbstractNode
 	 *
 	 * @return Form
 	 */
-	public function setEmailFrom(string $emailFrom = null): Form
+	public function setEmailFrom(?string $emailFrom): Form
 	{
 		$this->emailFrom = $emailFrom;
 
@@ -97,7 +97,7 @@ class Form extends AbstractNode
 	 *
 	 * @return Form
 	 */
-	public function setEmailTo(string $emailTo = null): Form
+	public function setEmailTo(?string $emailTo): Form
 	{
 		$this->emailTo = $emailTo;
 
@@ -145,7 +145,7 @@ class Form extends AbstractNode
 	 *
 	 * @return Form
 	 */
-	public function setSendSubmissionsTo(string $sendSubmissionsTo = null): Form
+	public function setSendSubmissionsTo(?string $sendSubmissionsTo): Form
 	{
 		$this->sendSubmissionsTo = $sendSubmissionsTo;
 
@@ -169,7 +169,7 @@ class Form extends AbstractNode
 	 *
 	 * @return Form
 	 */
-	public function setPage(PageInterface $page = null): Form
+	public function setPage(?PageInterface $page): Form
 	{
 		$this->page = $page;
 

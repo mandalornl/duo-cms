@@ -64,7 +64,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTypes(array $ids = []): array
+	public function getTypes(bool $isView = false, array $ids = []): array
 	{
 		$types = [];
 
@@ -77,7 +77,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 					continue;
 				}
 
-				$types[$entry['type']] = $entry['label'];
+				$types[$isView ? md5($entry['type']) : $entry['type']] = $entry['label'];
 			}
 		}
 
@@ -87,7 +87,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSections(): array
+	public function getSections(bool $isView = false): array
 	{
 		$sections = [];
 
@@ -97,7 +97,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 			{
 				$sections[$id] = [
 					'label' => $entry['label'],
-					'types' => $this->getTypes($entry['types'])
+					'types' => array_keys($this->getTypes($isView, $entry['types']))
 				];
 			}
 		}
@@ -108,7 +108,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getIcons(): array
+	public function getIcons(bool $isView = false): array
 	{
 		$icons = [];
 
@@ -121,7 +121,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 					continue;
 				}
 
-				$icons[$entry['type']] = $entry['icon'];
+				$icons[$isView ? md5($entry['type']) : $entry['type']] = $entry['icon'];
 			}
 		}
 

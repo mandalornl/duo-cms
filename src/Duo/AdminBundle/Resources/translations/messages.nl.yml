@@ -37,7 +37,6 @@ duo:
                 preview: Preview
                 delete: Verwijderen
                 undelete: Herstellen
-                remove: Verwijderen
                 duplicate: Dupliceren
                 revisions: Revisies
 
@@ -127,6 +126,10 @@ duo:
                 title: Herstellen
                 body: Weet je zeker dat je dit item wilt herstellen?
 
+            destroy:
+                title: Verwijderen
+                body: Weet je zeker dat je dit item wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt!
+
             publish:
                 title: Publiceren
                 body: Weet je zeker dat je dit item online wilt zetten?
@@ -139,9 +142,17 @@ duo:
                 title: Verwijderen
                 body: Weet je zeker dat je deze items wilt verwijderen?
 
+            multi_destroy:
+                title: Verwijderen
+                body: Weet je zeker dat je deze items wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt!
+
         form:
             file:
                 placeholder: Kies bestand
+
+            collection:
+                btn_add: Toevoegen
+                btn_delete: Verwijderen
 
             weight_choice:
                 label: Gewicht

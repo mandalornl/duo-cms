@@ -40,7 +40,7 @@ class TaxonomyTranslation implements TranslationInterface
 	 *
 	 * @return TaxonomyTranslation
 	 */
-	public function setName(string $name = null): TaxonomyTranslation
+	public function setName(?string $name): TaxonomyTranslation
 	{
 		$this->name = $name;
 

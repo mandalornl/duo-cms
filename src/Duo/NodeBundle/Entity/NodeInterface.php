@@ -21,7 +21,7 @@ interface NodeInterface extends IdInterface,
 	 *
 	 * @return NodeInterface
 	 */
-	public function setName(string $name = null): NodeInterface;
+	public function setName(?string $name): NodeInterface;
 
 	/**
 	 * Get name

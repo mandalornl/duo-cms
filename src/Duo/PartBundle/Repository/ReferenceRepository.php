@@ -3,7 +3,7 @@
 namespace Duo\PartBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
+use Duo\PartBundle\Entity\PartInterface;
 use Duo\PartBundle\Entity\Property\PartInterface as PropertyPartInterface;
 use Duo\PartBundle\Entity\PartInterface as EntityPartInterface;
 use Duo\PartBundle\Entity\ReferenceInterface;
@@ -18,9 +18,6 @@ class ReferenceRepository extends EntityRepository implements ReferenceRepositor
 		return $this->findBy([
 			'entityId' => $entity->getId(),
 			'entityClass' => get_class($entity)
-		], [
-			'section' => 'ASC',
-			'weight' => 'ASC'
 		]);
 	}
 
@@ -58,19 +55,15 @@ class ReferenceRepository extends EntityRepository implements ReferenceRepositor
 		}
 
 		$types = [];
-		$properties = [];
 
 		foreach ($references as $reference)
 		{
 			$types[$reference->getPartClass()][] = $reference->getPartId();
-
-			// store part properties
-			$properties[$reference->getPartClass() . $reference->getPartId()] = [
-				'weight' => $reference->getWeight(),
-				'section' => $reference->getSection()
-			];
 		}
 
+		/**
+		 * @var PartInterface[] $parts
+		 */
 		$parts = [];
 
 		foreach ($types as $partClass => $ids)
@@ -85,67 +78,17 @@ class ReferenceRepository extends EntityRepository implements ReferenceRepositor
 			);
 		}
 
-		// assign part properties
-		foreach ($parts as $part)
-		{
-			$oid = get_class($part) . $part->getId();
-
-			$part
-				->setWeight($properties[$oid]['weight'])
-				->setSection($properties[$oid]['section']);
-		}
-
-		// sort parts using weight
+		// sort parts on section and weight
 		usort($parts, function(EntityPartInterface $a, EntityPartInterface $b)
 		{
-			return $a->getWeight() - $b->getWeight();
+			if ($a->getSection() === $b->getSection())
+			{
+				return $a->getWeight() - $b->getWeight();
+			}
+
+			return strcmp($a->getSection(), $b->getSection());
 		});
 
 		return $parts;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function findWeight(PropertyPartInterface $entity, EntityPartInterface $part): ?int
-	{
-		try
-		{
-			return (int)$this->createQueryBuilder('e')
-				->select('e.weight')
-				->where('e.entityId = :entityId AND e.entityClass = :entityClass')
-				->andWhere('e.partId = :partId AND e.partClass = :partClass')
-				->setParameter('entityId', $entity->getId())
-				->setParameter('entityClass', get_class($entity))
-				->setParameter('partId', $part->getId())
-				->setParameter('partClass', get_class($part))
-				->getQuery()
-				->getSingleScalarResult() ?: null;
-		}
-		catch (NonUniqueResultException $e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function findMaxWeight(PropertyPartInterface $entity): int
-	{
-		try
-		{
-			return (int)$this->createQueryBuilder('e')
-				->select('MAX(e.weight)')
-				->where('e.entityId = :entityId AND e.entityClass = :entityClass')
-				->setParameter('entityId', $entity->getId())
-				->setParameter('entityClass', get_class($entity))
-				->getQuery()
-				->getSingleScalarResult();
-		}
-		catch (NonUniqueResultException $e)
-		{
-			return 0;
-		}
 	}
 }

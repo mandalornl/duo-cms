@@ -68,7 +68,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setChoices(string $choices = null): ChoiceFormPartInterface
+	public function setChoices(?string $choices): ChoiceFormPartInterface
 	{
 		$this->choices = $choices;
 

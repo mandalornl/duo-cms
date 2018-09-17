@@ -90,59 +90,16 @@
 		margin-bottom: .5rem;
 	}
 
-	.actions
+	.btn + .btn
 	{
-		display: flex;
-		justify-content: flex-end;
-
-		@include media-breakpoint-up(sm)
-		{
-			flex-direction: column;
-		}
-
-		@include media-breakpoint-down(xs)
-		{
-			.btn + .btn
-			{
-				margin-left: .75rem;
-			}
-		}
-
-		@include media-breakpoint-up(sm)
-		{
-			.btn
-			{
-				margin-bottom: .75rem;
-			}
-		}
+		margin-left: .5rem;
 	}
 
 	&.empty
 	{
-		.row > [class^="col-"]
-		{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-		}
-
-		.image-preview,
-		button[data-action="clear"]
+		.image-preview, button[data-action="clear"]
 		{
 			display: none;
-		}
-
-		.caption:before
-		{
-			content: attr(title);
-		}
-
-		@include media-breakpoint-up(sm)
-		{
-			.btn
-			{
-				margin-bottom: 0;
-			}
 		}
 	}
 }

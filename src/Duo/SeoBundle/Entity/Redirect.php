@@ -57,7 +57,7 @@ class Redirect implements IdInterface, TimestampInterface
 	 *
 	 * @return Redirect
 	 */
-	public function setOrigin(string $origin = null): Redirect
+	public function setOrigin(?string $origin): Redirect
 	{
 		$this->origin = $origin;
 
@@ -81,7 +81,7 @@ class Redirect implements IdInterface, TimestampInterface
 	 *
 	 * @return Redirect
 	 */
-	public function setTarget(string $target = null): Redirect
+	public function setTarget(?string $target): Redirect
 	{
 		$this->target = $target;
 

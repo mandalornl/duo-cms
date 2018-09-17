@@ -29,7 +29,7 @@ interface DeleteInterface
 	 *
 	 * @return DeleteInterface
 	 */
-	public function setDeletedBy(UserInterface $deletedBy = null): DeleteInterface;
+	public function setDeletedBy(?UserInterface $deletedBy): DeleteInterface;
 
 	/**
 	 * Set deletedBy

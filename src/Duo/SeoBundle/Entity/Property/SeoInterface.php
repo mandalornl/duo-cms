@@ -11,7 +11,7 @@ interface SeoInterface
 	 *
 	 * @return SeoInterface
 	 */
-	public function setMetaTitle(string $metaTitle = null): SeoInterface;
+	public function setMetaTitle(?string $metaTitle): SeoInterface;
 
 	/**
 	 * Get metaTitle
@@ -27,7 +27,7 @@ interface SeoInterface
 	 *
 	 * @return SeoInterface
 	 */
-	public function setMetaKeywords(string $metaKeywords = null): SeoInterface;
+	public function setMetaKeywords(?string $metaKeywords): SeoInterface;
 
 	/**
 	 * Get metaKeywords
@@ -43,7 +43,7 @@ interface SeoInterface
 	 *
 	 * @return SeoInterface
 	 */
-	public function setMetaDescription(string $metaDescription = null): SeoInterface;
+	public function setMetaDescription(?string $metaDescription): SeoInterface;
 
 	/**
 	 * Get metaDescription
@@ -59,7 +59,7 @@ interface SeoInterface
 	 *
 	 * @return SeoInterface
 	 */
-	public function setMetaRobots(string $metaRobots = null): SeoInterface;
+	public function setMetaRobots(?string $metaRobots): SeoInterface;
 
 	/**
 	 * Get metaRobots

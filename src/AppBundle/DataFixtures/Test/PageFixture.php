@@ -42,16 +42,22 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				(new HeadingPagePart())
 					->setType('h1')
 					->setValue('Welkom')
+					->setWeight(0)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new WYSIWYGPagePart())
 					->setValue('<p>Dit is de homepagina.</p>')
+					->setWeight(1)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new FormPagePart())
 					->setForm($form)
+					->setWeight(2)
+					->setSection('main')
 					->setCreatedBy($user)
 			);
 
@@ -64,16 +70,22 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				(new HeadingPagePart())
 					->setType('h1')
 					->setValue('Welcome')
+					->setWeight(0)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new WYSIWYGPagePart())
 					->setValue('<p>This is the home page.</p>')
+					->setWeight(1)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new FormPagePart())
 					->setForm($form)
+					->setWeight(2)
+					->setSection('main')
 					->setCreatedBy($user)
 			);
 
@@ -98,11 +110,15 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				(new HeadingPagePart())
 					->setType('h1')
 					->setValue('Nieuws')
+					->setWeight(0)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new WYSIWYGPagePart())
 					->setValue('<p>Dit is nieuws.</p>')
+					->setWeight(1)
+					->setSection('main')
 					->setCreatedBy($user)
 			);
 
@@ -114,11 +130,15 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				(new HeadingPagePart())
 					->setType('h1')
 					->setValue('News')
+					->setWeight(0)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new WYSIWYGPagePart())
 					->setValue('<p>This is news.</p>')
+					->setWeight(1)
+					->setSection('main')
 					->setCreatedBy($user)
 			);
 
@@ -143,11 +163,15 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				(new HeadingPagePart())
 					->setType('h1')
 					->setValue('Artikel')
+					->setWeight(0)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new WYSIWYGPagePart())
 					->setValue('<p>Dit is een artikel.</p>')
+					->setWeight(1)
+					->setSection('main')
 					->setCreatedBy($user)
 			);
 
@@ -159,11 +183,15 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 				(new HeadingPagePart())
 					->setType('h1')
 					->setValue('Article')
+					->setWeight(0)
+					->setSection('main')
 					->setCreatedBy($user)
 			)
 			->addPart(
 				(new WYSIWYGPagePart())
 					->setValue('<p>This is an article.</p>')
+					->setWeight(1)
+					->setSection('main')
 					->setCreatedBy($user)
 			);
 
@@ -188,11 +216,15 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 					(new HeadingPagePart())
 						->setType('h1')
 						->setValue("Foobar {$i}")
+						->setWeight(0)
+						->setSection('main')
 						->setCreatedBy($user)
 				)
 				->addPart(
 					(new WYSIWYGPagePart())
 						->setValue("<p>Dit is foobar {$i}.</p>")
+						->setWeight(1)
+						->setSection('main')
 						->setCreatedBy($user)
 				);
 
@@ -204,11 +236,15 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 					(new HeadingPagePart())
 						->setType('h1')
 						->setValue("Foobar {$i}")
+						->setWeight(0)
+						->setSection('main')
 						->setCreatedBy($user)
 				)
 				->addPart(
 					(new WYSIWYGPagePart())
 						->setValue("<p>This is foobar {$i}.</p>")
+						->setWeight(1)
+						->setSection('main')
 						->setCreatedBy($user)
 				);
 

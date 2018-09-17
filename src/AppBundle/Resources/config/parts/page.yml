@@ -42,3 +42,13 @@ sections:
             - image_crop
             - file
             - form
+
+    widgets:
+        label: app.part.section.widgets
+        types:
+            - text
+            - video
+            - image
+            - image_crop
+            - file
+            - form

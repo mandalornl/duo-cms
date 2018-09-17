@@ -27,7 +27,7 @@ interface FormPartInterface extends PartInterface
 	 *
 	 * @return FormPartInterface
 	 */
-	public function setLabel(string $label = null): FormPartInterface;
+	public function setLabel(?string $label): FormPartInterface;
 
 	/**
 	 * Get label

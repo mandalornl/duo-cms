@@ -30,8 +30,8 @@
 										</a>
 									{%- endif -%}
 								{% else %}
-									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.delete.title' | trans }}" data-body="{{ 'duo.admin.modal.delete.body' | trans }}">
-										{{- 'duo.admin.toolbar.actions.remove' | trans -}}
+									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
+										{{- 'duo.admin.toolbar.actions.delete' | trans -}}
 									</a>
 								{% endif %}
 								{% if entity is publishable %}

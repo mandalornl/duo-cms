@@ -5,6 +5,5 @@ import './js/listing-update';
 import './js/menu';
 import './js/sticky-navbar';
 import './js/modal-fix';
-import './js/file-widget';
 
 require('./sass/style.scss');

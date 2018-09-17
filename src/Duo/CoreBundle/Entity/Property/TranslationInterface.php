@@ -11,14 +11,14 @@ interface TranslationInterface extends IdInterface
 	 *
 	 * @return TranslationInterface
 	 */
-	public function setTranslatable(TranslateInterface $translatable = null): TranslationInterface;
+	public function setTranslatable(?TranslateInterface $translatable): TranslationInterface;
 
 	/**
 	 * Get translatable
 	 *
 	 * @return TranslateInterface
 	 */
-	public function getTranslatable(): TranslateInterface;
+	public function getTranslatable(): ?TranslateInterface;
 
 	/**
 	 * Set locale

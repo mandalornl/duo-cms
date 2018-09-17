@@ -4,7 +4,6 @@ namespace Duo\PartBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\Property\IdTrait;
-use Duo\CoreBundle\Entity\Property\TimestampTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Reference implements ReferenceInterface
 {
 	use IdTrait;
-	use TimestampTrait;
 
 	/**
 	 * @var int
@@ -54,24 +52,11 @@ class Reference implements ReferenceInterface
 	 */
 	private $partClass;
 
-	/**
-	 * @var int
-	 *
-	 * @ORM\Column(name="weight", type="smallint", nullable=true)
-	 */
-	private $weight;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="section", type="string", nullable=true)
-	 */
-	private $section;
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setEntityId(int $entityId = null): ReferenceInterface
+	public function setEntityId(?int $entityId): ReferenceInterface
 	{
 		$this->entityId = $entityId;
 
@@ -89,7 +74,7 @@ class Reference implements ReferenceInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setEntityClass(string $entityClass = null): ReferenceInterface
+	public function setEntityClass(?string $entityClass): ReferenceInterface
 	{
 		$this->entityClass = $entityClass;
 
@@ -107,7 +92,7 @@ class Reference implements ReferenceInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPartId(int $partId = null): ReferenceInterface
+	public function setPartId(?int $partId): ReferenceInterface
 	{
 		$this->partId = $partId;
 
@@ -125,7 +110,7 @@ class Reference implements ReferenceInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPartClass(string $partClass = null): ReferenceInterface
+	public function setPartClass(?string $partClass): ReferenceInterface
 	{
 		$this->partClass = $partClass;
 
@@ -138,41 +123,5 @@ class Reference implements ReferenceInterface
 	public function getPartClass(): ?string
 	{
 		return $this->partClass;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setWeight(int $weight = null): ReferenceInterface
-	{
-		$this->weight = $weight;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getWeight(): int
-	{
-		return $this->weight;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setSection(string $section = null): ReferenceInterface
-	{
-		$this->section = $section;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getSection(): ?string
-	{
-		return $this->section;
 	}
 }

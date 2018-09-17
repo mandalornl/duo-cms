@@ -30,7 +30,7 @@ class FormPagePart extends AbstractPagePart
 	 *
 	 * @return FormPagePart
 	 */
-	public function setForm(Form $form = null): FormPagePart
+	public function setForm(?Form $form): FormPagePart
 	{
 		$this->form = $form;
 

@@ -29,7 +29,7 @@
 								allow_delete: form.vars.allow_delete,
 								disabled: form.vars.disabled
 							} %}
-								<button type="button" class="btn btn-light" data-dismiss="modal" data-prototype="{{ block('duo_part_row') | escape }}">
+								<button type="button" class="btn btn-light" data-dismiss="modal" data-prototype="{{ block('duo_part_collection_prototype') | escape }}">
 									<i class="{{ icon }}"></i> {{ prototype.vars.label | trans -}}
 								</button>
 							{% endwith %}
