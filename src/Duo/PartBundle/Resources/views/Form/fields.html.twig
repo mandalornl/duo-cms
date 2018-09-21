@@ -5,29 +5,46 @@
 			{{- 'duo.part.form.collection.label' | trans -}}
 		</label>
 		<hr>
-		{% if not disabled and allow_add %}
-			<div class="my-3">
-				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
-					{{- 'duo.part.form.collection.btn_add' | trans -}}
-				</button>
-			</div>
+		{% if sections | length > 1 %}
+			<ul class="nav nav-tabs" role="tablist">
+				{% for sectionId, section in sections %}
+					<li class="nav-item">
+						<a href="#{{ id }}_{{ sectionId }}_tabpanel" class="nav-link{% if loop.first %} active{% endif %}" id="{{ id }}_{{ sectionId }}_tab" data-toggle="tab" role="tab" aria-controls="{{ id }}_{{ sectionId }}_tabpanel" aria-selected="{% if loop.first %}true{% else %}false{% endif %}">
+							{{- section.label | trans -}}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
 		{% endif %}
-		<div class="sortable-list">
-			{% for child in form %}
-				{% with {
-					form: child
-				} %}
-					{{ block('duo_part_collection_prototype') }}
-				{% endwith %}
+		<div class="tab-content">
+			{% for sectionId, section in sections %}
+				<div class="tab-pane fade show{% if loop.first %} active{% endif %}" id="{{ id }}_{{ sectionId }}_tabpanel" role="tabpanel" aria-labelledby="{{ id }}_{{ sectionId }}_tab">
+					<div class="section" data-section="{{ sectionId }}" data-types="{{ section.types | json_encode }}">
+						{% if not disabled and allow_add %}
+							<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
+								{{- 'duo.part.form.collection.btn_add' | trans -}}
+							</button>
+						{% endif %}
+						<div class="sortable-list{% if not disabled and allow_add %} my-3{% endif %}">
+							{% for child in form %}
+								{% if child.vars.data.section == sectionId %}
+									{% with {
+										form: child
+									} %}
+										{{ block('duo_part_collection_prototype') }}
+									{% endwith %}
+								{% endif %}
+							{% endfor %}
+						</div>
+						{% if not disabled and allow_add %}
+							<button type="button" class="btn btn-primary d-none" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
+								{{- 'duo.part.form.collection.btn_add' | trans -}}
+							</button>
+						{% endif %}
+					</div>
+				</div>
 			{% endfor %}
 		</div>
-		{% if not disabled and allow_add %}
-			<div class="my-3{% if not form | length %} d-none{% endif %}">
-				<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
-					{{- 'duo.part.form.collection.btn_add' | trans -}}
-				</button>
-			</div>
-		{% endif %}
 	</div>
 {%- endspaceless -%}
 {%- endblock %}

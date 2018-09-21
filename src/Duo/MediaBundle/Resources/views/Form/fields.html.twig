@@ -6,7 +6,7 @@
 			<a href="{{ data.url }}" download="{{ data.name }}" target="_blank" title="{{ data.name }}">
 				{% if 'image/' in data.mimeType %}
 					<div class="image-preview">
-						<img src="{{ data.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(data.url, [680, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
+						<img src="{{ data.url | imagine_filter('srcset_640') }}" srcset="{{ media.srcset(data.url, [640, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
 					</div>
 				{% else %}
 					{{- data.name -}}
@@ -34,7 +34,7 @@
 				{% if mediaType == 'image' %}
 					<div class="image-preview">
 						{% if data and 'image/' in data.mimeType %}
-							<img src="{{ data.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(data.url, [680, 768, 1024]) }}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="{{ data.name }}">
+							<img src="{{ data.url | imagine_filter('srcset_640') }}" srcset="{{ media.srcset(data.url, [640, 768, 1024]) }}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="{{ data.name }}">
 						{% endif %}
 					</div>
 				{% endif %}

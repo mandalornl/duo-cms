@@ -41,55 +41,25 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				const $list = $this.find('.sortable-list');
+				const $section = $this.find('> .tab-content > .tab-pane > .section');
+				const $list = $section.find('> .sortable-list');
 
-				$list.data('index', $list.data('index') || $list.find('> .sortable-item').length);
+				let index = $list.find('> .sortable-item').length;
 
-				/**
-				 * Update weight
-				 */
-				const updateWeight = () =>
+				$list.each(function()
 				{
-					$list.find('.sortable-item [name$="[weight]"]').each(function(weight)
-					{
-						$(this).val(weight);
-					});
-				};
+					const $this = $(this);
 
-				/**
-				 * Toggle button
-				 */
-				const toggleButton = () =>
-				{
-					$this.find('button[data-url][data-prototype-id]:last').parent().toggleClass('d-none', !$list.find('> .sortable-item').length);
-				};
+					$this.next('button').toggleClass('d-none', !$this.find('> .sortable-item').length);
+				});
 
-				$list.on(`click.${NAME}`, '[data-dismiss="sortable-item"]', function(e)
+				$section.on(`click.${NAME}`, '> button[data-url][data-prototype-id]', async function(e)
 				{
 					e.preventDefault();
 
 					const $this = $(this);
-
-					const $item = $this.closest(`.${$this.data('dismiss')}`);
-					$item.addClass('fade show');
-
-					window.setTimeout(() =>
-					{
-						$item.removeClass('show').on('bsTransitionEnd', () =>
-						{
-							// dispatch event
-							$item.trigger('duo.event.part.removeItem');
-							$item.remove();
-
-							updateWeight();
-							toggleButton();
-						}).emulateTransitionEnd(150);
-					}, 0);
-				});
-
-				$this.on(`click.${NAME}`, 'button[data-url][data-prototype-id]', async function()
-				{
-					const $this = $(this);
+					const $section = $this.closest('.section');
+					const $list = $section.find('> .sortable-list');
 
 					const url = $this.data('url');
 
@@ -105,27 +75,43 @@ export default ($ =>
 						modals[url] = $modal;
 					}
 
-					$modal.off('click', 'button[data-prototype]').on('click', 'button[data-prototype]', function()
+					$modal.find('[data-type]').addClass('d-none');
+
+					($section.data('types') || []).forEach(type =>
 					{
+						$modal.find(`[data-type="${type}"]`).removeClass('d-none');
+					});
+
+					$modal.off('click', 'button[data-prototype]').on('click', 'button[data-prototype]', function(e)
+					{
+						e.preventDefault();
+
 						let prototype = $(this).data('prototype');
-						prototype = prototype.replace(/__name__/g, $list.data('index'));
+						prototype = prototype.replace(/__name__/g, index++);
 						prototype = prototype.replace(/\w+_part_collection_/g, `${$this.data('prototype-id')}_`);
 						prototype = prototype.replace(/\w+_part_collection/g, $this.data('prototype-name'));
 
 						const $item = $(prototype).addClass('fade');
 
-						$list.data('index', $list.data('index') + 1);
+						$item.find('[id$="_section"]').val($section.data('section'));
+
 						$list.append($item);
 
-						// (re)init
+						// (re) init sortable
 						sortable.destroy($list);
 						sortable.init($list);
 
 						// dispatch event
 						$item.trigger('duo.event.part.addItem');
 
-						updateWeight();
-						toggleButton();
+						// toggle button
+						$list.next('button').toggleClass('d-none', !$list.find('> .sortable-item').length);
+
+						// update weight
+						$list.find('> .sortable-item [id$="_weight"]').each(function(weight)
+						{
+							this.value = weight;
+						});
 
 						$('html, body').scrollTop($item.offset().top);
 
@@ -133,7 +119,44 @@ export default ($ =>
 					}).modal('show');
 				});
 
-				$list.on('sortupdate', updateWeight);
+				$list.on(`click.${NAME}`, 'button[data-dismiss="sortable-item"]', function(e)
+				{
+					e.preventDefault();
+
+					const $this = $(this);
+
+					const $list = $this.closest('.sortable-list');
+					const $item = $this.closest('.sortable-item');
+
+					$item.addClass('fade show');
+
+					window.setTimeout(() =>
+					{
+						$item.removeClass('show').on('bsTransitionEnd', () =>
+						{
+							// dispatch event
+							$item.trigger('duo.event.part.removeItem');
+							$item.remove();
+
+							// toggle button
+							$list.next('button').toggleClass('d-none', !$list.find('> .sortable-item').length);
+
+							// update weight
+							$list.find('> .sortable-item [id$="_weight"]').each(function(weight)
+							{
+								this.value = weight;
+							});
+						}).emulateTransitionEnd(150);
+					}, 0);
+				});
+
+				$list.on('sortupdate', function()
+				{
+					$(this).find('> .sortable-item [id$="_weight"]').each(function(weight)
+					{
+						this.value = weight;
+					});
+				});
 
 				sortable.init($list);
 			});
@@ -148,8 +171,13 @@ export default ($ =>
 		{
 			const $selector = _$(selector);
 
-			$selector.off(`click.${NAME}`);
-			$selector.find('button[data-url][data-prototype-id]').each(function()
+			const $section = $selector.find('> .tab-content > .tab-pane > .section');
+			$section.off(`click.${NAME}`);
+
+			const $list = $section.find('> .sortable-list');
+			$list.off(`click.${NAME}`);
+
+			$section.find('> button[data-url][data-prototype-id]').each(function()
 			{
 				const url = $(this).data('url');
 
@@ -163,7 +191,7 @@ export default ($ =>
 				delete modals[url];
 			});
 
-			sortable.destroy($selector.find('> .sortable-list').off(`click.${NAME}`));
+			sortable.destroy($list);
 		}
 	};
 

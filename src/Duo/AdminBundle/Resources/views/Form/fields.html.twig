@@ -121,14 +121,16 @@
 {# Custom #}
 {% block duo_tab_label %}
 	{% set selected = selected | default(false) %}
-	<a href="#{{ id }}_tab" id="{{ id }}_nav" class="nav-link{% if selected %} active{% endif %}" data-toggle="tab" role="tab" aria-controls="{{ id }}_tab" aria-selected="{{ selected }}">
-		{{- label | trans({}, translation_domain) -}}
-	</a>
+	<li class="nav-item">
+		<a href="#{{ id }}_tabpanel" id="{{ id }}_tab" class="nav-link{% if selected %} active{% endif %}" data-toggle="tab" role="tab" aria-controls="{{ id }}_tabpanel" aria-selected="{% if selected %}true{% else %}false{% endif %}">
+			{{- label | trans({}, translation_domain) -}}
+		</a>
+	</li>
 {% endblock %}
 
 {% block duo_tab_widget %}
 	{% set selected = selected | default(false) %}
-	<div class="tab-pane fade{% if selected %} show active{% endif %}" id="{{ id }}_tab" role="tabpanel" aria-labelledby="{{ id }}_nav">
+	<div class="tab-pane fade{% if selected %} show active{% endif %}" id="{{ id }}_tabpanel" role="tabpanel" aria-labelledby="{{ id }}_tab">
 		{{- form_widget(form) -}}
 	</div>
 {% endblock %}
@@ -136,16 +138,14 @@
 {% block duo_tabs_row %}
 	<div id="{{ id }}" class="tab-list">
 		<ul class="nav nav-tabs" role="tablist">
-			{% for tab in form %}
-				<li class="nav-item">
-					{{- form_label(tab, null, { selected: loop.first }) -}}
-				</li>
-			{% endfor %}
+			{%- for tab in form -%}
+				{{- form_label(tab, null, { selected: loop.first }) -}}
+			{%- endfor -%}
 		</ul>
 		<div class="tab-content">
-			{% for tab in form %}
-				{{ form_widget(tab, { selected: loop.first }) }}
-			{% endfor %}
+			{%- for tab in form -%}
+				{{- form_widget(tab, { selected: loop.first }) -}}
+			{%- endfor -%}
 		</div>
 	</div>
 {% endblock %}
@@ -154,10 +154,12 @@
 	{% set locales = get_locales(app.request.locale) %}
 	<div id="{{ id }}" class="translation-list">
 		<nav class="tab-list">
-			<label for="{{ id }}_tablist" class="sr-only">{{ 'duo.admin.choose_language' | trans }}</label>
-			<select id="{{ id }}_tablist" class="custom-select w-auto locale-selector">
+			<label for="{{ id }}_locale_selector" class="sr-only">
+				{{- 'duo.admin.choose_language' | trans -}}
+			</label>
+			<select id="{{ id }}_locale_selector" class="custom-select w-auto locale-selector">
 				{% for locale, child in form %}
-					<option value="#{{ child.vars.id }}_list"{% if locale == app.request.locale %} selected{% endif %}>
+					<option value="#{{ child.vars.id }}_tab"{% if locale == app.request.locale %} selected{% endif %}>
 						{{- attribute(locales, locale) | default(locale | upper) -}}
 					</option>
 				{% endfor %}
@@ -165,16 +167,16 @@
 			<ul class="nav nav-tabs d-none" role="tablist">
 				{% for locale, child in form %}
 					<li class="nav-item">
-						<a href="#{{ child.vars.id }}" id="{{ child.vars.id }}_list" class="nav-link{% if locale == app.request.locale %} active{% endif %}" data-toggle="tab" role="tab" aria-hidden="true" aria-controls="{{ child.vars.id }}" aria-selected="{% if locale == app.request.locale %}true{% else %}false{% endif %}">
+						<a href="#{{ child.vars.id }}_tabpanel" id="{{ child.vars.id }}_tab" class="nav-link{% if locale == app.request.locale %} active{% endif %}" data-toggle="tab" role="tab" aria-hidden="true" aria-controls="{{ child.vars.id }}_tabpanel" aria-selected="{% if locale == app.request.locale %}true{% else %}false{% endif %}">
 							{{- attribute(locales, locale) | default(locale | upper) -}}
 						</a>
 					</li>
 				{% endfor %}
 			</ul>
 		</nav>
-		<div class="tab-content" id="{{ id }}_content">
+		<div class="tab-content">
 			{% for locale, child in form %}
-				<div class="tab-pane fade{% if locale == app.request.locale %} show active{% endif %}" id="{{ child.vars.id }}" role="tabpanel" aria-labelledby="{{ child.vars.id }}_list">
+				<div class="tab-pane fade{% if locale == app.request.locale %} show active{% endif %}" id="{{ child.vars.id }}_tabpanel" role="tabpanel" aria-labelledby="{{ child.vars.id }}_tab">
 					{{- form_widget(child) -}}
 				</div>
 			{% endfor %}

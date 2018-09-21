@@ -4,44 +4,57 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
-.part-widget .sortable-item
+.part-widget
 {
-	.sortable-handle
+	.tab-content > .tab-pane
 	{
-		position: relative;
-
-		padding: .5rem;
-
-		background: #fafafa;
-
-		@include border-top-radius($input-border-radius);
-
-		&:after
-		{
-			content: '';
-
-			position: absolute;
-			right: 0;
-			bottom: -1px;
-			left: 0;
-
-			height: 1px;
-
-			background: $input-border-color;
-		}
+		padding-top: 0 !important;
 	}
 
-	> .form-group
+	.nav-tabs + .tab-content > .tab-pane
 	{
-		margin-bottom: 0;
+		padding-top: 1rem !important;
+	}
 
-		> div
+	.sortable-item
+	{
+		.sortable-handle
 		{
-			padding: .5rem 1rem 0;
+			position: relative;
 
-			&:last-child
+			padding: .5rem;
+
+			background: #fafafa;
+
+			@include border-top-radius($input-border-radius);
+
+			&:after
 			{
-				padding: .5rem 1rem 1rem;
+				content: '';
+
+				position: absolute;
+				right: 0;
+				bottom: -1px;
+				left: 0;
+
+				height: 1px;
+
+				background: $input-border-color;
+			}
+		}
+
+		> .form-group
+		{
+			margin-bottom: 0;
+
+			> div
+			{
+				padding: .5rem 1rem 0;
+
+				&:last-child
+				{
+					padding: .5rem 1rem 1rem;
+				}
 			}
 		}
 	}
@@ -49,15 +62,20 @@
 
 .modal-part .modal-body
 {
+	$spacing: .5rem;
+
 	.row
 	{
-		margin-left: -.5rem;
-		margin-right: -.5rem;
+		margin-left: -$spacing;
+		margin-right: -$spacing;
 
-		> div
+		> .col,
+		> [class*='col-']
 		{
-			padding-left: .5rem;
-			padding-right: .5rem;
+			padding-left: $spacing;
+			padding-right: $spacing;
+
+			display: flex;
 		}
 	}
 
@@ -71,6 +89,8 @@
 
 		padding: 1rem .5rem;
 		margin-bottom: 1rem;
+
+		white-space: initial;
 
 		i
 		{

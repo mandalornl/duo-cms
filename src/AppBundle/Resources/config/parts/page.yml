@@ -33,15 +33,7 @@ types:
 sections:
     main:
         label: app.part.section.main
-        types:
-            - heading
-            - text
-            - wysiwyg
-            - video
-            - image
-            - image_crop
-            - file
-            - form
+        types: [] # leave empty to include all
 
     widgets:
         label: app.part.section.widgets

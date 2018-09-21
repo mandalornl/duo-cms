@@ -2,11 +2,11 @@
 
 {% spaceless %}
 {% set id = random() %}
-<div id="modal_{{ id }}" class="modal fade modal-part" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_{{ id }}_title">
-	<div class="modal-dialog{% if form.vars.prototypes | length > 6 %} modal-lg{% endif %}" role="document">
+<div id="modal_prototype_{{ id }}" class="modal fade modal-part" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_prototype_{{ id }}_title">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_{{ id }}_title">
+				<h5 class="modal-title" id="modal_prototype_{{ id }}_title">
 					{{- 'duo.part.modal.title' | trans -}}
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
@@ -20,9 +20,9 @@
 						'@DuoMedia/Form/fields.html.twig'
 					] only %}
 
-					{% for hash, prototype in form.vars.prototypes %}
-						{% set icon = attribute(form.vars.icons, hash) | default('icon-file-empty') %}
-						<div class="col-6{% if form.vars.prototypes | length > 6 %} col-lg-4{% endif %}">
+					{% for type, prototype in form.vars.prototypes %}
+						{% set icon = attribute(form.vars.icons, type) | default('icon-file-empty') %}
+						<div class="col-6 col-lg-4" data-type="{{ type }}">
 							{% with {
 								form: prototype,
 								allow_add: form.vars.allow_add,

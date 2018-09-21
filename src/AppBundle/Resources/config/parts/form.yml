@@ -23,10 +23,4 @@ types:
 sections:
     main:
         label: app.part.section.main
-        types:
-            - text
-            - textarea
-            - email
-            - choice
-            - privacy
-            - submit
+        types: [] # leave empty to include all

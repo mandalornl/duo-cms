@@ -14,12 +14,12 @@ liip_imagine:
                 thumbnail: { size: [100, 100], mode: inset, allow_scale: false }
 
         # https://medium.com/hceverything/applying-srcset-choosing-the-right-sizes-for-responsive-images-at-different-breakpoints-a0433450a4a3
-        srcset_680:
+        srcset_640:
             quality: 85
             filters:
                 auto_rotate: ~
                 strip: ~
-                thumbnail: { size: [680, null], mode: outbound, allow_scale: false }
+                thumbnail: { size: [640, null], mode: outbound, allow_scale: false }
         srcset_768:
             quality: 85
             filters:

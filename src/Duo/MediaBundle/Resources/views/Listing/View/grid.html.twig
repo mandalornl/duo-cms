@@ -14,8 +14,8 @@
 					} %}
 					{% if 'image/' in entity.mimeType %}
 						{% set item = item | merge({
-							src: entity.url | imagine_filter('srcset_680'),
-							srcset: media.srcset(entity.url, [680, 768, 1024])
+							src: entity.url | imagine_filter('srcset_640'),
+							srcset: media.srcset(entity.url, [640, 768, 1024])
 						}) %}
 					{% endif %}
 				{% endif %}
@@ -23,7 +23,7 @@
 				<label for="{{ checkboxId }}_{{ entity.id }}" title="{{ entity.name }}">
 					{% if 'image/' in entity.mimeType %}
 						<span class="image-preview">
-							<img src="{{ entity.url | imagine_filter('srcset_680') }}" srcset="{{ media.srcset(entity.url, [680, 768]) }}" sizes="(min-width: 992px) 25vw, (min-width: 576px) 33.33333vw, 50vw">
+							<img src="{{ entity.url | imagine_filter('srcset_640') }}" srcset="{{ media.srcset(entity.url, [640, 768]) }}" sizes="(min-width: 992px) 25vw, (min-width: 576px) 33.33333vw, 50vw">
 						</span>
 					{% else %}
 						<span class="icon">
