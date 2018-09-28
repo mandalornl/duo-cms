@@ -59,9 +59,9 @@ class ImageCropPagePart extends AbstractPagePart
 	 *
 	 * @param string $alt
 	 *
-	 * @return ImagePagePart
+	 * @return ImageCropPagePart
 	 */
-	public function setAlt(?string $alt): ImagePagePart
+	public function setAlt(?string $alt): ImageCropPagePart
 	{
 		$this->alt = $alt;
 
@@ -92,5 +92,14 @@ class ImageCropPagePart extends AbstractPagePart
 	public function getView(): string
 	{
 		return '@App/PagePart/ImageCrop/view.html.twig';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __clone()
+	{
+		// be sure to clone crop entity
+		$this->imageCrop = clone $this->imageCrop;
 	}
 }

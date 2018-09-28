@@ -7,6 +7,7 @@ use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Entity\ViewInterface;
+use Duo\DraftBundle\Entity\Property\DraftInterface;
 use Duo\NodeBundle\Entity\NodeInterface;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyInterface;
 
@@ -16,4 +17,5 @@ interface PageInterface extends NodeInterface,
 								RevisionInterface,
 								SortInterface,
 								TreeInterface,
-								TaxonomyInterface {}
+								TaxonomyInterface,
+								DraftInterface {}

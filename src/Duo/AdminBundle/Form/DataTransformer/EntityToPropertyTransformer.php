@@ -90,7 +90,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * Transform single
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return array
 	 */
@@ -144,7 +144,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	 *
 	 * @param int $id
 	 *
-	 * @return mixed
+	 * @return object
 	 */
 	private function reverseTransformSingle($id)
 	{
@@ -166,12 +166,12 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * Get label
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 * @param PropertyAccessorInterface $accessor [optional]
 	 *
 	 * @return string
 	 */
-	private function getLabel($entity, PropertyAccessorInterface $accessor = null): string
+	private function getLabel(object $entity, PropertyAccessorInterface $accessor = null): string
 	{
 		if (is_callable($this->propertyName))
 		{

@@ -17,7 +17,13 @@ class PageRevisionController extends AbstractRevisionController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/revision/{id}/", name="revision", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/revision/{id}.{_format}",
+	 *     name="revision",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function revisionAction(Request $request, int $id): Response
 	{
@@ -27,7 +33,13 @@ class PageRevisionController extends AbstractRevisionController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/revert/{id}", name="revert", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/revert/{id}.{_format}",
+	 *     name="revert",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function revertAction(Request $request, int $id): Response
 	{

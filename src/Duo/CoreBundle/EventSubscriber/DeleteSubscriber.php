@@ -60,9 +60,9 @@ class DeleteSubscriber implements EventSubscriber
 	/**
 	 * Set deleted by
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 */
-	public function setDeletedBy($entity): void
+	public function setDeletedBy(object $entity): void
 	{
 		if (!$entity instanceof DeleteInterface || !$entity->isDeleted())
 		{

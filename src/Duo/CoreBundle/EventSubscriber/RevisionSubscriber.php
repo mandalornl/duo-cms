@@ -42,6 +42,23 @@ class RevisionSubscriber implements EventSubscriber
 	}
 
 	/**
+	 * On pre persist event
+	 *
+	 * @param LifecycleEventArgs $args
+	 */
+	public function prePersist(LifecycleEventArgs $args): void
+	{
+		$entity = $args->getObject();
+
+		if (!$entity instanceof RevisionInterface)
+		{
+			return;
+		}
+
+		$entity->setRevision($entity);
+	}
+
+	/**
 	 * Map revision
 	 *
 	 * @param ClassMetadata $classMetadata
@@ -87,22 +104,5 @@ class RevisionSubscriber implements EventSubscriber
 				]
 			]);
 		}
-	}
-
-	/**
-	 * On pre persist event
-	 *
-	 * @param LifecycleEventArgs $args
-	 */
-	public function prePersist(LifecycleEventArgs $args): void
-	{
-		$entity = $args->getObject();
-
-		if (!$entity instanceof RevisionInterface)
-		{
-			return;
-		}
-
-		$entity->setRevision($entity);
 	}
 }

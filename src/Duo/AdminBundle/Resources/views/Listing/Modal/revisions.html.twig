@@ -1,9 +1,9 @@
 {% spaceless %}
-<div id="modal_revisions_{{ type }}" class="modal fade modal-revisions" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_revisions_{{ type }}_title">
+<div id="modal_revisions" data-type="{{ type }}" class="modal revisions fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_revisions_title">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal_revisions_{{ type }}_title">
+				<h5 class="modal-title" id="modal_revisions_title">
 					{{- 'duo.admin.modal.revisions.title' | trans -}}
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
@@ -22,11 +22,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% set revisions = get_revertable_revisions(entity) %}
+							{% set revisions = revisions | default(get_revertable_revisions(entity)) %}
 							{% for revision in revisions %}
 								<tr>
 									<td>
-										<a href="{{ path(routePrefix ~ '_revision', { id: revision.id }) }}" target="_blank">
+										<a href="{{ path(routePrefix ~ '_revision', { id: revision.id }) }}" target="_blank" title="{{ 'duo.admin.modal.revisions.view' | trans }}">
 											{{- revision.name -}}
 										</a>
 									</td>
@@ -40,6 +40,9 @@
 										{% endif %}
 									</td>
 									<td>
+										<a href="{{ path(routePrefix ~ '_revision', { id: revision.id }) }}" class="btn btn-light btn-sm" target="_blank" title="{{ 'duo.admin.modal.revisions.view' | trans }}">
+											<i class="icon-eye"></i>
+										</a>
 										<a href="{{ path(routePrefix ~ '_revert', { id: revision.id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
 											<i class="icon-history"></i>
 										</a>
@@ -60,7 +63,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
 					{{- 'duo.admin.modal.global.close' | trans -}}
 				</button>
 			</div>

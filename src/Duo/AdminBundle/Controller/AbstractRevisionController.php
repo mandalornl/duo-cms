@@ -33,7 +33,7 @@ abstract class AbstractRevisionController extends AbstractController
 
 		if (!$entity instanceof RevisionInterface)
 		{
-			return $this->revisionInterfaceNotImplemented($request, $id);
+			return $this->interfaceNotImplemented($request, $id, RevisionInterface::class);
 		}
 
 		$form = $this->createForm($this->getFormType(), $entity, [
@@ -80,7 +80,7 @@ abstract class AbstractRevisionController extends AbstractController
 
 		if (!$entity instanceof RevisionInterface)
 		{
-			return $this->revisionInterfaceNotImplemented($request, $id);
+			return $this->interfaceNotImplemented($request, $id, RevisionInterface::class);
 		}
 
 		// dispatch revert event
@@ -96,11 +96,11 @@ abstract class AbstractRevisionController extends AbstractController
 			return $this->json([
 				'success' => true,
 				'id' => $entity->getId(),
-				'message' => $this->get('translator')->trans('duo.core.listing.alert.revert_success')
+				'message' => $this->get('translator')->trans('duo.admin.listing.alert.revert_success')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.core.listing.alert.revert_success'));
+		$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.revert_success'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $entity->getId()
@@ -118,30 +118,6 @@ abstract class AbstractRevisionController extends AbstractController
 	 * @throws \Throwable
 	 */
 	abstract public function revertAction(Request $request, int $id): Response;
-
-	/**
-	 * Revision interface not implemented
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return JsonResponse
-	 */
-	private function revisionInterfaceNotImplemented(Request $request, int $id): JsonResponse
-	{
-		$interface = RevisionInterface::class;
-		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
-
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'error' => $error
-			]);
-		}
-
-		throw $this->createNotFoundException($error);
-	}
 
 	/**
 	 * Get revision template

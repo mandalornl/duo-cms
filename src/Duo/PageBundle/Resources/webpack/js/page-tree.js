@@ -69,11 +69,11 @@ $(async () =>
 
 		loader.show(true);
 
-		const res = await post(`${$tree.data('url')}/json`, formData);
+		const res = await post(`${$tree.data('url')}.json`, formData);
 
 		loader.hide();
 
-		if (!res)
+		if (!res.success)
 		{
 			// reset position
 			const $origin = $(e.detail.origin.container);
@@ -108,14 +108,14 @@ $(async () =>
 			{
 				loader.show(true);
 
-				const html = await get($this.data('url'));
+				const res = await get($this.data('url'));
 
-				if (!html)
+				if (!res.html)
 				{
 					return;
 				}
 
-				const $html = $(html).find('.nestable-list').attr('data-group', $list.data('group')).end();
+				const $html = $(res.html).find('.nestable-list').attr('data-group', $list.data('group')).end();
 				$list.replaceWith($html);
 
 				nestable.destroy($tree);

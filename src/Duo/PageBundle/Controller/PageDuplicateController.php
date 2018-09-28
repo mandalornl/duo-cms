@@ -17,7 +17,13 @@ class PageDuplicateController extends AbstractDuplicateController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/duplicate/{id}", name="duplicate", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/duplicate/{id}.{_format}",
+	 *     name="duplicate",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function duplicateAction(Request $request, int $id): Response
 	{

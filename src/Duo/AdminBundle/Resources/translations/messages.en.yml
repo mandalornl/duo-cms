@@ -31,6 +31,7 @@ duo:
                 label: Actions
                 new: New
                 save: Save
+                save_draft: Save as draft
                 cancel: Cancel
                 publish: Online
                 unpublish: Offline
@@ -39,6 +40,7 @@ duo:
                 undelete: Undelete
                 duplicate: Duplicate
                 revisions: Revisions
+                drafts: Drafts
 
             dropdown:
                 global:
@@ -46,6 +48,9 @@ duo:
 
         tab:
             publication: Publication
+
+        alert:
+            error: An error occurred. Please try again.
 
         listing:
             action:
@@ -77,10 +82,15 @@ duo:
                 clear: Clear
 
             alert:
-                no_items: No item(s) selected
-                delete_success: Item(s) deleted succesfully
-                undelete_success: Item(s) undeleted succesfully
-                save_success: Item saved successfully
+                no_items: No item(s) selected.
+                no_changes: No changes found.
+                delete_success: Item(s) deleted succesfully.
+                undelete_success: Item(s) undeleted succesfully.
+                save_success: Item saved successfully.
+                revert_success: Item successfully reverted.
+                duplicate_success: Item successfully duplicated.
+                publish_success: Item successfully published.
+                unpublish_success: Item successfully taken offline.
                 locked: Someone else has already applied some changes. Please try again.
 
             view:
@@ -107,12 +117,29 @@ duo:
                 name: Name
                 created_at: Created at
                 created_by: Created by
+                view: View
                 revert: Revert
                 delete: Delete
+
+            drafts:
+                title: Drafts
+                name: Name
+                created_at: Created at
+                created_by: Created by
+                apply: Apply
+                delete: Delete
+
+            new_draft:
+                title: New draft
+                name: Name
 
             revert:
                 title: Revert
                 body: Are you sure you want to revert this item?
+
+            apply:
+                title: Apply
+                body: Are you sure you want to apply this item?
 
             duplicate:
                 title: Duplicate

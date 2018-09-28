@@ -2,14 +2,17 @@ import $ from 'jquery';
 
 $(() =>
 {
-	$(document).on('click', '.checkable thead [type=checkbox]:not(:disabled)', function()
+	const theadSelector = 'thead input[type=checkbox]:not(:disabled)';
+	const tbodySelector = 'tbody input[type=checkbox]:not(:disabled)';
+
+	$(document).on('click.checkable', `.checkable ${theadSelector}`, function()
 	{
 		const $this = $(this);
-		$this.closest('.checkable').find('tbody [type=checkbox]:not(:disabled)').prop('checked', $this.prop('checked'));
-	}).on('click', '.checkable tbody [type=checkbox]', function()
+		$this.closest('.checkable').find(tbodySelector).prop('checked', $this.prop('checked'));
+	}).on('click.checkable', `.checkable ${tbodySelector}`, function()
 	{
 		const $checkable = $(this).closest('.checkable');
-		const isChecked = !$checkable.find('tbody [type=checkbox]:not(:checked):not(:disabled)').length;
-		$checkable.find('thead [type=checkbox]:not(:disabled)').prop('checked', isChecked);
+		const isChecked = !$checkable.find(`${tbodySelector}:not(:checked)`).length;
+		$checkable.find(theadSelector).prop('checked', isChecked);
 	});
 });

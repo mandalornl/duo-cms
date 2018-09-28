@@ -3,7 +3,6 @@
 namespace Duo\AdminBundle\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +19,7 @@ abstract class AbstractAutoCompleteController extends Controller
 	protected function setFirstResultAndMaxResults(Request $request, QueryBuilder $builder, int $defaultLimit = 10): void
 	{
 		$limit = (int)$request->get('limit') ?: $defaultLimit;
+
 		if ($limit <= 0)
 		{
 			return;
@@ -27,7 +27,6 @@ abstract class AbstractAutoCompleteController extends Controller
 
 		$builder->setMaxResults($limit);
 
-		$offset = null;
 		if (($page = (int)$request->get('page')))
 		{
 			$offset  = ($page - 1) * $limit;
@@ -51,7 +50,7 @@ abstract class AbstractAutoCompleteController extends Controller
 				->getQuery()
 				->getSingleScalarResult();
 		}
-		catch (NoResultException | NonUniqueResultException $e)
+		catch (NonUniqueResultException $e)
 		{
 			return 0;
 		}

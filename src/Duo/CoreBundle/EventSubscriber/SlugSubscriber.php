@@ -49,11 +49,11 @@ class SlugSubscriber implements EventSubscriber
 	/**
 	 * Set slug
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @throws \IntlException
 	 */
-	private function setSlug($entity): void
+	private function setSlug(object $entity): void
 	{
 		if (!$entity instanceof SlugInterface)
 		{

@@ -42,9 +42,9 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 		$taxonomy = $this->getReference('taxonomy_files');
 
 		foreach ([
-			__DIR__ . '/example.jpg',
-			__DIR__ . '/example.pdf'
-		 ] as $filename)
+			'jpg' => __DIR__ . '/example.jpg',
+			'pdf' => __DIR__ . '/example.pdf'
+		 ] as $type => $filename)
 		{
 			$size = @filesize($filename);
 
@@ -93,6 +93,8 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 			}
 
 			copy($filename, "{$absolutePath}/{$uuid}/{$info['basename']}");
+
+			$this->addReference("media-{$type}", $media);
 		}
 	}
 

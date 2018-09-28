@@ -57,6 +57,7 @@ abstract class AbstractCreateController extends AbstractController
 			{
 				return $this->json([
 					'success' => true,
+					'id' => $entity->getId(),
 					'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
 				]);
 			}

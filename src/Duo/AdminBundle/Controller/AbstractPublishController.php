@@ -31,7 +31,7 @@ abstract class AbstractPublishController extends AbstractController
 			$entity->publish();
 
 			$dispatcher->dispatch(PublishEvents::PUBLISH, new PublishEvent($entity));
-		}, $request, $id);
+		}, 'duo.admin.listing.alert.publish_success', $request, $id);
 	}
 
 	/**
@@ -63,7 +63,7 @@ abstract class AbstractPublishController extends AbstractController
 			$entity->unpublish();
 
 			$dispatcher->dispatch(PublishEvents::UNPUBLISH, new PublishEvent($entity));
-		}, $request, $id);
+		}, 'duo.admin.listing.alert.unpublish_success', $request, $id);
 	}
 
 	/**
@@ -82,6 +82,7 @@ abstract class AbstractPublishController extends AbstractController
 	 * Handle publication request
 	 *
 	 * @param \Closure $callback
+	 * @param string $message
 	 * @param Request $request
 	 * @param int $id
 	 *
@@ -89,7 +90,7 @@ abstract class AbstractPublishController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function handlePublicationRequest(\Closure $callback, Request $request, int $id): Response
+	private function handlePublicationRequest(\Closure $callback, string $message, Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -119,12 +120,12 @@ abstract class AbstractPublishController extends AbstractController
 				}
 				else
 				{
-					return $this->publishInterfaceNotImplemented($request, $id);
+					return $this->interfaceNotImplemented($request, $id, PublishInterface::class);
 				}
 			}
 			else
 			{
-				return $this->publishInterfaceNotImplemented($request, $id);
+				return $this->interfaceNotImplemented($request, $id, PublishInterface::class);
 			}
 		}
 
@@ -137,37 +138,15 @@ abstract class AbstractPublishController extends AbstractController
 		{
 			return $this->json([
 				'success' => true,
-				'id' => $entity->getId()
+				'id' => $entity->getId(),
+				'message' => $this->get('translator')->trans($message)
 			]);
 		}
+
+		$this->addFlash('success', $this->get('translator')->trans($message));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $entity->getId()
 		]);
-	}
-
-	/**
-	 * Publishable interface not implemented
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return JsonResponse
-	 */
-	private function publishInterfaceNotImplemented(Request $request, int $id): JsonResponse
-	{
-		$interface = PublishInterface::class;
-
-		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
-
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'error' => $error
-			]);
-		}
-
-		throw $this->createNotFoundException($error);
 	}
 }

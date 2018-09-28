@@ -58,7 +58,7 @@
 				{{ form_widget(list.filterForm) }}
 				<div class="row">
 					<div class="col d-flex justify-content-end">
-						<a href="{{ path(routePrefix ~ '_filter', app.request.query.all | merge({ clear: true })) }}" class="btn btn-secondary mr-2">
+						<a href="{{ path(routePrefix ~ '_filter', app.request.query.all | merge({ clear: true })) }}" class="btn btn-light mr-2">
 							{{- 'duo.admin.listing.filter.clear' | trans -}}
 						</a>
 						<button type="submit" class="btn btn-primary">

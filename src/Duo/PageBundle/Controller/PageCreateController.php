@@ -17,7 +17,13 @@ class PageCreateController extends AbstractCreateController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/create", name="create", methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/create.{_format}",
+	 *     name="create",
+	 *     requirements={ "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function createAction(Request $request): Response
 	{

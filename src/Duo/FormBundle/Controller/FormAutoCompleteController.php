@@ -18,7 +18,7 @@ class FormAutoCompleteController extends AbstractAutoCompleteController
 	/**
 	 * Search name action
 	 *
-	 * @Route("/name", name="name", methods={ "GET", "POST" })
+	 * @Route("/name", name="name", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 *

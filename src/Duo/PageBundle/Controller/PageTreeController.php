@@ -35,7 +35,7 @@ class PageTreeController extends Controller
 		return $this->render('@DuoPage/Menu/view.html.twig', [
 			'menu' => $this->get(MenuBuilder::class)->createView(),
 			'pages' => $this->getPages($request),
-			'moveToRoute' => $this->generateUrl('duo_page_listing_page_move_to')
+			'moveToUrl' => $this->generateUrl('duo_page_listing_page_move_to')
 		]);
 	}
 
@@ -64,12 +64,12 @@ class PageTreeController extends Controller
 			]);
 		}
 
-		return $this->json(
-			$this->renderView('@DuoPage/Menu/tree.html.twig', [
+		return $this->json([
+			'html' => $this->renderView('@DuoPage/Menu/tree.html.twig', [
 				'pages' => $this->getPages($request, $entity),
 				'parent' => $entity
 			])
-		);
+		]);
 	}
 
 	/**
@@ -90,10 +90,10 @@ class PageTreeController extends Controller
 		$builder = $repository
 			->createQueryBuilder('e')
 			->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
-			->setParameter('locale', $request->getLocale())
-			->where('e.revision = e')
+			->where('e.revision = e AND e.deletedAt IS NULL')
 			->orderBy('e.weight', 'ASC')
-			->addOrderBy('t.title', 'ASC');
+			->addOrderBy('t.title', 'ASC')
+			->setParameter('locale', $request->getLocale());
 
 		if ($parent !== null)
 		{

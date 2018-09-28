@@ -17,7 +17,13 @@ class PageDestroyController extends AbstractDestroyController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/destroy/{id}", name="destroy", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/destroy/{id}.{_format}",
+	 *     name="destroy",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function destroyAction(Request $request, int $id = null): Response
 	{

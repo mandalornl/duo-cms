@@ -91,6 +91,7 @@ trait PartTrait
 	protected function onCloneParts(): void
 	{
 		$parts = $this->getParts();
+
 		$this->parts = new ArrayCollection();
 
 		foreach ($parts as $part)

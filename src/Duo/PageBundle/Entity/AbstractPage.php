@@ -6,6 +6,7 @@ use Duo\CoreBundle\Entity\Property\DeleteTrait;
 use Duo\CoreBundle\Entity\Property\RevisionTrait;
 use Duo\CoreBundle\Entity\Property\SortTrait;
 use Duo\CoreBundle\Entity\Property\TreeTrait;
+use Duo\DraftBundle\Entity\Property\DraftTrait;
 use Duo\NodeBundle\Entity\AbstractNode;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
 
@@ -16,4 +17,5 @@ abstract class AbstractPage extends AbstractNode implements PageInterface
 	use SortTrait;
 	use TreeTrait;
 	use TaxonomyTrait;
+	use DraftTrait;
 }

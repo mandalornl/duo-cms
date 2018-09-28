@@ -73,13 +73,13 @@ abstract class AbstractUpdateController extends AbstractController
 	 * Handle update entity request
 	 *
 	 * @param Request $request
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return Response|RedirectResponse
 	 *
 	 * @throws \Throwable
 	 */
-	protected function handleUpdateEntityRequest(Request $request, $entity): Response
+	protected function handleUpdateEntityRequest(Request $request, object $entity): Response
 	{
 		$eventDispatcher = $this->get('event_dispatcher');
 
@@ -179,6 +179,24 @@ abstract class AbstractUpdateController extends AbstractController
 	 */
 	protected function handleUpdateRevisionRequest(Request $request, RevisionInterface $entity): Response
 	{
+		// not accessing the latest revision
+		if ($entity->getRevision() !== $entity)
+		{
+			if ($request->getRequestFormat() === 'json')
+			{
+				return $this->json([
+					'error' => "Not accessing the latest revision. Use entity with id '{$entity->getRevision()->getId()}' instead."
+				]);
+			}
+			else
+			{
+				// redirect to latest revision
+				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
+					'id' => $entity->getRevision()->getId()
+				]);
+			}
+		}
+
 		$clone = clone $entity;
 
 		$eventDispatcher = $this->get('event_dispatcher');
@@ -204,57 +222,75 @@ abstract class AbstractUpdateController extends AbstractController
 			// post submit state
 			$postSubmitState = serialize($this->getFormViewData($form));
 
-			// check whether or not entity was modified, don't force unchanged revision
-			if (strcmp($preSubmitState, $postSubmitState) !== 0)
+			// check whether or not entity was modified, don't force unchanged revisions
+			if (strcmp($preSubmitState, $postSubmitState) === 0)
 			{
-				// dispatch onClone event
-				$eventDispatcher->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
-
-				try
+				// reply with json response
+				if ($request->getRequestFormat() === 'json')
 				{
-					/**
-					 * @var EntityManagerInterface $manager
-					 */
-					$manager = $this->getDoctrine()->getManager();
-
-					// check whether or not entity is locked
-					if ($clone instanceof VersionInterface)
-					{
-						$manager->lock($entity, LockMode::OPTIMISTIC, $clone->getVersion());
-					}
-
-					$manager->persist($clone);
-					$manager->flush();
-
-					// dispatch post flush event
-					$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($clone));
-
-					// reply with json response
-					if ($request->getRequestFormat() === 'json')
-					{
-						return $this->json([
-							'success' => true,
-							'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
-						]);
-					}
-
-					$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
-
-					return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
+					return $this->json([
+						'success' => false,
+						'id' => $entity->getId(),
+						'message' => $this->get('translator')->trans('duo.admin.listing.alert.no_changes_found')
+					]);
 				}
-				catch (OptimisticLockException $e)
+
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.no_changes_found'));
+
+				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
+					'id' => $entity->getId()
+				]);
+			}
+
+			// dispatch onClone event
+			$eventDispatcher->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
+
+			try
+			{
+				/**
+				 * @var EntityManagerInterface $manager
+				 */
+				$manager = $this->getDoctrine()->getManager();
+
+				// check whether or not entity is locked
+				if ($clone instanceof VersionInterface)
 				{
-					// reply with json response
-					if ($request->getRequestFormat() === 'json')
-					{
-						return $this->json([
-							'success' => false,
-							'message' => $this->get('translator')->trans('duo.admin.listing.alert.locked')
-						]);
-					}
-
-					$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.locked'));
+					$manager->lock($entity, LockMode::OPTIMISTIC, $clone->getVersion());
 				}
+
+				$manager->persist($clone);
+				$manager->flush();
+
+				// dispatch post flush event
+				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($clone));
+
+				// reply with json response
+				if ($request->getRequestFormat() === 'json')
+				{
+					return $this->json([
+						'success' => true,
+						'id' => $clone->getId(),
+						'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
+					]);
+				}
+
+				$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+
+				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
+			}
+			catch (OptimisticLockException $e)
+			{
+				// reply with json response
+				if ($request->getRequestFormat() === 'json')
+				{
+					return $this->json([
+						'success' => false,
+						'id' => $entity->getId(),
+						'message' => $this->get('translator')->trans('duo.admin.listing.alert.locked')
+					]);
+				}
+
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.locked'));
 			}
 		}
 
@@ -265,14 +301,6 @@ abstract class AbstractUpdateController extends AbstractController
 				'html' => $this->renderView('@DuoAdmin/Listing/form.html.twig', [
 					'form' => $form->createView()
 				])
-			]);
-		}
-
-		// redirect to latest revision
-		if ($entity->getRevision() !== $entity)
-		{
-			return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
-				'id' => $entity->getRevision()->getId()
 			]);
 		}
 

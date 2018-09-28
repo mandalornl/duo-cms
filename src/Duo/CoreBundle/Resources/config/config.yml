@@ -1,5 +1,6 @@
 imports:
     - { resource: '@DuoAdminBundle/Resources/config/config.yml' }
+    - { resource: '@DuoDraftBundle/Resources/config/config.yml' }
     - { resource: '@DuoFormBundle/Resources/config/config.yml' }
     - { resource: '@DuoMediaBundle/Resources/config/config.yml' }
     - { resource: '@DuoPageBundle/Resources/config/config.yml' }

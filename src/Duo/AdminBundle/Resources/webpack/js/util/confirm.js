@@ -28,5 +28,7 @@ export default (options = {}) => new Promise(resolve =>
 		$modal.find('.modal-body').html(options.body.replace(/\r|\n|\r|\n/g, '<br>'));
 	}
 
-	$modal.off('click', '.btn:not([data-dismiss])').on('click', '.btn:not([data-dismiss])', resolve).modal('show');
+	const selector = 'button:not([data-dismiss])';
+
+	$modal.off('click', selector).on('click', selector, resolve).modal('show');
 });

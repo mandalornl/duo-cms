@@ -4,14 +4,14 @@ import {uploadFile} from 'duo/AdminBundle/Resources/webpack/js/util/api';
 
 $(() =>
 {
-	const $upload = $('.media-upload');
+	const $container = $('.media-upload');
 
-	if (!$upload.length)
+	if (!$container.length)
 	{
 		return;
 	}
 
-	const $view = $upload.find('.listing-view-grid, .listing-view-list');
+	const $view = $container.find('.listing-view-grid, .listing-view-list');
 
 	/**
 	 * Get files
@@ -63,7 +63,7 @@ $(() =>
 
 		window.setTimeout(() => $progressBar.addClass('show'), 0);
 
-		return uploadFile($upload.data('url'), file, {
+		return uploadFile($container.data('url'), file, {
 			onUploadProgress: (e) =>
 			{
 				if (!e.lengthComputable)
@@ -89,16 +89,16 @@ $(() =>
 		});
 	};
 
-	$upload.on({
-		'dragenter': () => $upload.addClass('enter')
+	$container.on({
+		'dragenter': () => $container.addClass('enter')
 	});
 
-	$upload.on({
+	$container.on({
 		'drop': function(e)
 		{
 			e.preventDefault();
 
-			$upload.removeClass('enter');
+			$container.removeClass('enter');
 
 			// show warning on page reload
 			doNotLeave.enable();
@@ -116,7 +116,7 @@ $(() =>
 
 		'dragover': (e) => e.preventDefault(),
 
-		'dragleave': () => $upload.removeClass('enter')
+		'dragleave': () => $container.removeClass('enter')
 
 	}, '.upload-dropzone');
 });

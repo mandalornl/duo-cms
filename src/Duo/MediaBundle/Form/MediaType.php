@@ -43,7 +43,7 @@ class MediaType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildView(FormView $view, FormInterface $form, array $options)
+	public function finishView(FormView $view, FormInterface $form, array $options): void
 	{
 		$view->vars['mediaType'] = $options['mediaType'];
 	}

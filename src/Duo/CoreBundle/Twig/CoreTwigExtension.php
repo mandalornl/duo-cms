@@ -33,11 +33,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is deletable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isDeletable($entity): bool
+	public function isDeletable(object $entity): bool
 	{
 		return $entity instanceof DeleteInterface;
 	}
@@ -45,11 +45,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is publishable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isPublishable($entity): bool
+	public function isPublishable(object $entity): bool
 	{
 		if ($entity instanceof PublishInterface)
 		{
@@ -67,11 +67,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is sortable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isSortable($entity): bool
+	public function isSortable(object $entity): bool
 	{
 		return $entity instanceof SortInterface;
 	}
@@ -79,11 +79,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is translatable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isTranslatable($entity): bool
+	public function isTranslatable(object $entity): bool
 	{
 		return $entity instanceof TranslateInterface;
 	}
@@ -91,11 +91,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is treeable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isTreeable($entity): bool
+	public function isTreeable(object $entity): bool
 	{
 		return $entity instanceof TreeInterface;
 	}
@@ -103,11 +103,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is revisionable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isRevisionable($entity): bool
+	public function isRevisionable(object $entity): bool
 	{
 		return $entity instanceof RevisionInterface;
 	}
@@ -115,11 +115,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is duplicatable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isDuplicatable($entity): bool
+	public function isDuplicatable(object $entity): bool
 	{
 		return $entity instanceof DuplicateInterface;
 	}
@@ -127,11 +127,11 @@ class CoreTwigExtension extends \Twig_Extension
 	/**
 	 * Is viewable
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return bool
 	 */
-	public function isViewable($entity): bool
+	public function isViewable(object $entity): bool
 	{
 		return $entity instanceof ViewInterface;
 	}

@@ -101,7 +101,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	 *
 	 * @return FormSubmission
 	 */
-	public function setData(array $data): FormSubmission
+	public function setData(?array $data): FormSubmission
 	{
 		$this->data = $data;
 
@@ -113,7 +113,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	 *
 	 * @return array
 	 */
-	public function getData(): array
+	public function getData(): ?array
 	{
 		return $this->data;
 	}

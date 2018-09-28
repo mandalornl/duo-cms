@@ -1,5 +1,5 @@
 {% set id = 'modal_confirm' ~ (id is defined ? '_' ~ id : '') %}
-<div id="{{ id }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="{{ id }}_title">
+<div id="{{ id }}" class="modal confirm fade " tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="{{ id }}_title">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -14,7 +14,7 @@
 				<p>{% if body is defined %}{{ body }}{% endif %}</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+				<button type="button" class="btn btn-light" data-dismiss="modal">
 					{{- 'duo.admin.modal.global.cancel' | trans -}}
 				</button>
 				{% if action is defined %}

@@ -17,7 +17,13 @@ class PageUpdateController extends AbstractUpdateController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}", name="update", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/{id}.{_format}",
+	 *     name="update",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function updateAction(Request $request, int $id): Response
 	{

@@ -126,7 +126,7 @@ abstract class AbstractDeleteController extends AbstractController
 					 */
 					if (!$entity instanceof DeleteInterface)
 					{
-						return $this->deleteInterfaceNotImplemented($request, $entity->getId());
+						return $this->interfaceNotImplemented($request, $entity->getId(), DeleteInterface::class);
 					}
 
 					call_user_func_array($callback, [ $entity, $dispatcher ]);
@@ -153,30 +153,5 @@ abstract class AbstractDeleteController extends AbstractController
 		}
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
-	}
-
-	/**
-	 * Soft deletable interface not implemented
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return JsonResponse
-	 */
-	private function deleteInterfaceNotImplemented(Request $request, int $id): JsonResponse
-	{
-		$interface = DeleteInterface::class;
-
-		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
-
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'error' => $error
-			]);
-		}
-
-		throw $this->createNotFoundException($error);
 	}
 }

@@ -14,9 +14,17 @@
 							</button>
 							<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
 								{% if entity is revisionable %}
-									{% set revisions = get_revertable_revisions(entity) %}
-									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_revisions_{{ type }}"{% if revisions | length < 1 %} disabled{% endif %}>
+									{% set revisions = revisions | default(get_revertable_revisions(entity)) %}
+									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_revisions"{% if revisions | length < 1 %} disabled{% endif %}>
 										{{- 'duo.admin.toolbar.actions.revisions' | trans -}}
+									</button>
+								{% endif %}
+								{% if entity is draftable %}
+									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_drafts"{% if entity.drafts | length < 1 %} disabled{% endif %}>
+										{{- 'duo.admin.toolbar.actions.drafts' | trans -}}
+									</button>
+									<button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal_new_draft">
+										{{- 'duo.admin.toolbar.actions.save_draft' | trans -}}
 									</button>
 								{% endif %}
 								{% if entity is deletable %}

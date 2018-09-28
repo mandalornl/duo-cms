@@ -85,21 +85,17 @@
 {% endblock %}
 
 {% block collection_widget %}
-	<div class="collection-widget" data-item="{{ block('collection_widget_item') | escape }}">
+	<div class="widget-collection" data-item="{{ block('collection_widget_item') | escape }}">
 		{% if not disabled and allow_add %}
-			<div class="mb-3">
-				<button type="button" class="btn btn-primary" data-action="add">
-					{{- 'duo.admin.form.collection.btn_add' | trans -}}
-				</button>
-			</div>
+			<button type="button" class="btn btn-primary mb-3" data-action="add">
+				{{- 'duo.admin.form.collection.btn_add' | trans -}}
+			</button>
 		{% endif %}
 		{{- parent() -}}
 		{% if not disabled and allow_add %}
-			<div class="my-3{% if not form | length %} d-none{% endif %}">
-				<button type="button" class="btn btn-primary" data-action="add">
-					{{- 'duo.admin.form.collection.btn_add' | trans -}}
-				</button>
-			</div>
+			<button type="button" class="btn btn-primary my-3{% if not form | length %} d-none{% endif %}" data-action="add">
+				{{- 'duo.admin.form.collection.btn_add' | trans -}}
+			</button>
 		{% endif %}
 	</div>
 {% endblock %}

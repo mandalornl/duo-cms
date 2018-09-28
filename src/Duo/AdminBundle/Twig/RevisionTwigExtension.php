@@ -26,21 +26,9 @@ class RevisionTwigExtension extends \Twig_Extension
 	 */
 	public function getRevertableRevisions(RevisionInterface $entity): array
 	{
-		$entities = [];
-
-		foreach ($entity->getRevisions() as $revision)
+		return $entity->getRevisions()->filter(function(RevisionInterface $revision) use ($entity)
 		{
-			/**
-			 * @var RevisionInterface|DeleteInterface $revision
-			 */
-			if ($revision === $entity->getRevision() || ($revision instanceof DeleteInterface && $revision->isDeleted()))
-			{
-				continue;
-			}
-
-			$entities[] = $revision;
-		}
-
-		return $entities;
+			return !($revision === $entity->getRevision() || ($revision instanceof DeleteInterface && $revision->isDeleted()));
+		})->toArray();
 	}
 }

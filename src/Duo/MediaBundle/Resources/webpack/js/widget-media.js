@@ -5,7 +5,7 @@ import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
 export default ($ =>
 {
 	const NAME = 'media';
-	const SELECTOR = `.${NAME}-widget`;
+	const SELECTOR = `.widget-${NAME}`;
 
 	const modals = {};
 

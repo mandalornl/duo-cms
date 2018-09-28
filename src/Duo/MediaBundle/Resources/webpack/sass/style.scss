@@ -75,7 +75,7 @@
 	}
 }
 
-.media-widget
+.widget-media
 {
 	.image-preview
 	{
@@ -90,11 +90,6 @@
 		margin-bottom: .5rem;
 	}
 
-	.btn + .btn
-	{
-		margin-left: .5rem;
-	}
-
 	&.empty
 	{
 		.image-preview, button[data-action="clear"]
@@ -104,7 +99,7 @@
 	}
 }
 
-.image-crop-widget .media-widget .image-preview .cropper-container
+.widget-image-crop .widget-media .image-preview .cropper-container
 {
 	position: absolute;
 	top: 0;

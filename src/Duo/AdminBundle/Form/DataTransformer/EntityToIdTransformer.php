@@ -33,7 +33,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 	/**
 	 * Transform
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return int
 	 */
@@ -52,7 +52,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 	 *
 	 * @param int $id
 	 *
-	 * @return mixed
+	 * @return object
 	 */
 	public function reverseTransform($id)
 	{

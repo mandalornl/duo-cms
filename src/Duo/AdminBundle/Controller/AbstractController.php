@@ -22,12 +22,47 @@ abstract class AbstractController extends Controller
 	 *
 	 * @param Request $request
 	 * @param int $id
+	 * @param string $className [optional]
 	 *
 	 * @return JsonResponse
 	 */
-	protected function entityNotFound(Request $request, int $id): JsonResponse
+	protected function entityNotFound(Request $request, int $id, string $className = null): JsonResponse
 	{
-		$error = "Entity '{$this->getEntityClass()}::{$id}' not found";
+		$className = $className ?: $this->getEntityClass();
+
+		$error = "Entity '{$className}::{$id}' not found";
+
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
+		{
+			return $this->json([
+				'error' => $error
+			]);
+		}
+
+		throw $this->createNotFoundException($error);
+	}
+
+	/**
+	 * Interface not implemented
+	 *
+	 * @param Request $request
+	 * @param int $id
+	 * @param string $interfaceName
+	 * @param string $className [optional]
+	 *
+	 * @return JsonResponse
+	 */
+	protected function interfaceNotImplemented(
+		Request $request,
+		int $id,
+		string $interfaceName,
+		string $className = null
+	): JsonResponse
+	{
+		$className = $className ?: $this->getEntityClass();
+
+		$error = "Entity '{$className}::{$id}' doesn't implement '{$interfaceName}'";
 
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')

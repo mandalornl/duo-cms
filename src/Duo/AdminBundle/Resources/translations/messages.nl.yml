@@ -31,6 +31,7 @@ duo:
                 label: Acties
                 new: Nieuw
                 save: Opslaan
+                save_draft: Opslaan als concept
                 cancel: Annuleren
                 publish: Online
                 unpublish: Offline
@@ -39,6 +40,7 @@ duo:
                 undelete: Herstellen
                 duplicate: Dupliceren
                 revisions: Revisies
+                drafts: Concepten
 
             dropdown:
                 global:
@@ -46,6 +48,9 @@ duo:
 
         tab:
             publication: Publicatie
+
+        alert:
+            error: Er is een fout opgetreden. Probeer het nogmaals.
 
         listing:
             action:
@@ -77,10 +82,15 @@ duo:
                 clear: Wissen
 
             alert:
-                no_items: Geen item(s) geselecteerd
-                delete_success: Item(s) succesvol verwijderd
-                undelete_success: Item(s) succesvol hersteld
-                save_success: Item succesvol opgeslagen
+                no_items: Geen item(s) geselecteerd.
+                no_changes: Geen wijzigingen gevonden.
+                delete_success: Item(s) succesvol verwijderd.
+                undelete_success: Item(s) succesvol hersteld.
+                save_success: Item succesvol opgeslagen.
+                revert_success: Item succesvol teruggezet.
+                duplicate_success: Item succesvol gedupliceerd.
+                publish_success: Item succesvol gepubliceerd.
+                unpublish_success: Item succesvol offline gehaald.
                 locked: Iemand anders heeft al enkele wijzigingen aangebracht. Probeer het nogmaals.
 
             view:
@@ -107,12 +117,29 @@ duo:
                 name: Naam
                 created_at: Aangemaakt op
                 created_by: Aangemaakt door
+                view: Inzien
                 revert: Terugzetten
                 delete: Verwijderen
+
+            drafts:
+                title: Concepten
+                name: Naam
+                created_at: Aangemaakt op
+                created_by: Aangemaakt door
+                apply: Toepassen
+                delete: Verwijderen
+
+            new_draft:
+                title: Nieuw concept
+                name: Naam
 
             revert:
                 title: Terugzetten
                 body: Weet je zeker dat je dit item wilt terugzetten?
+
+            apply:
+                title: Toepassen
+                body: Weet je zeker dat je dit item wilt toepassen?
 
             duplicate:
                 title: Dupliceren

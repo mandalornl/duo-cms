@@ -3,7 +3,7 @@ import $ from 'jquery';
 ($ =>
 {
 	const NAME = 'collection';
-	const SELECTOR = `.${NAME}-widget`;
+	const SELECTOR = `.widget-${NAME}`;
 
 	/**
 	 * Add item
@@ -34,11 +34,20 @@ import $ from 'jquery';
 		$item.trigger('duo.event.collection.addItem');
 
 		// toggle button
-		$container.find('button[data-action="add"]:last').parent().toggleClass('d-none', !$list.find('> .collection-item').length);
+		$container.find('button[data-action="add"]:last').toggleClass('d-none', !$list.find('> .collection-item').length);
 
 		$('html, body').scrollTop($item.offset().top);
 
-		window.setTimeout(() => $item.addClass('show'), 250);
+		window.setTimeout(() =>
+		{
+			$item.addClass('show').on('bsTransitionEnd', () =>
+			{
+				$item.find(':input:visible').filter(function()
+				{
+					return this.value === '';
+				}).first().focus();
+			}).emulateTransitionEnd(150);
+		}, 250);
 	};
 
 	/**
@@ -67,13 +76,12 @@ import $ from 'jquery';
 				$item.remove();
 
 				// toggle button
-				$container.find('button[data-action="add"]:last').parent().toggleClass('d-none', !$list.find('> .collection-item').length);
+				$container.find('button[data-action="add"]:last').toggleClass('d-none', !$list.find('> .collection-item').length);
 			}).emulateTransitionEnd(150);
 		}, 0);
 	};
 
 	$(document)
-		.on(`click.${NAME}.add`, `${SELECTOR} [data-action="add"]`, addItem)
-		.on(`click.${NAME}.remove`, `${SELECTOR} [data-dismiss="collection-item"]`, removeItem)
-	;
+		.on(`click.${NAME}.add`, `${SELECTOR} button[data-action="add"]`, addItem)
+		.on(`click.${NAME}.remove`, `${SELECTOR} button[data-dismiss="collection-item"]`, removeItem);
 })($);

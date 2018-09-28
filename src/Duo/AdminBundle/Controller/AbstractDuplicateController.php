@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Controller;
 
+use Duo\CoreBundle\Entity\DuplicateInterface;
 use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,11 +30,17 @@ abstract class AbstractDuplicateController extends AbstractController
 			return $this->entityNotFound($request, $id);
 		}
 
+		if (!$entity instanceof DuplicateInterface)
+		{
+			return $this->interfaceNotImplemented($request, $id, DuplicateInterface::class);
+		}
+
 		$clone = clone $entity;
 
 		// use clone as initial revision
 		if ($clone instanceof RevisionInterface)
 		{
+			// TODO: Still needed?! Is handled by RevisionSubscriber too.
 			$clone->setRevision($clone);
 		}
 
@@ -46,9 +53,12 @@ abstract class AbstractDuplicateController extends AbstractController
 		{
 			return $this->json([
 				'success' => true,
-				'id' => $clone->getId()
+				'id' => $clone->getId(),
+				'message' => $this->get('translator')->trans('duo.admin.listing.alert.duplicate_success')
 			]);
 		}
+
+		$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.duplicate_success'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $clone->getId()

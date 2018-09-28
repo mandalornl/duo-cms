@@ -2,7 +2,7 @@
 
 $database = parse_url(getenv('DATABASE_URL'));
 
-if (isset($database['scheme']) && $database['scheme'] === 'mysql')
+if (($database['scheme'] ?? '') === 'mysql')
 {
 	$container->setParameter('database_driver', 'pdo_mysql');
 	$container->setParameter('database_host', $database['host']);
@@ -14,7 +14,7 @@ if (isset($database['scheme']) && $database['scheme'] === 'mysql')
 
 $memcached = parse_url(getenv('MEMCACHED_URL'));
 
-if (isset($memcached['scheme']) && $memcached['scheme'] === 'memcached')
+if (($memcached['scheme'] ?? '') === 'memcached')
 {
 	$container->setParameter('memcached_host', $memcached['host']);
 	$container->setParameter('memcached_port', $memcached['port']);

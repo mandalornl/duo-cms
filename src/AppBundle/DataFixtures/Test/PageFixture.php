@@ -4,11 +4,16 @@ namespace AppBundle\DataFixtures\Test;
 
 use AppBundle\Entity\PagePart\FormPagePart;
 use AppBundle\Entity\PagePart\HeadingPagePart;
+use AppBundle\Entity\PagePart\ImageCropPagePart;
 use AppBundle\Entity\PagePart\WYSIWYGPagePart;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Duo\FormBundle\Entity\Form;
+use Duo\MediaBundle\Entity\ImageCrop;
+use Duo\MediaBundle\Entity\Media;
 use Duo\PageBundle\Entity\PageInterface;
+use Duo\SecurityBundle\Entity\UserInterface;
 
 class PageFixture extends Fixture implements DependentFixtureInterface
 {
@@ -22,8 +27,20 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 			return;
 		}
 
+		/**
+		 * @var UserInterface $user
+		 */
 		$user = $this->getReference('user');
+
+		/**
+		 * @var Form $form
+		 */
 		$form = $this->getReference('form');
+
+		/**
+		 * @var Media $media
+		 */
+		$media = $this->getReference('media-jpg');
 
 		$parent = null;
 
@@ -59,6 +76,20 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 					->setWeight(2)
 					->setSection('main')
 					->setCreatedBy($user)
+			)
+			->addPart(
+				(new ImageCropPagePart())
+					->setWeight(3)
+					->setSection('widgets')
+					->setCreatedBy($user)
+					->setImageCrop(
+						(new ImageCrop())
+							->setCrop('0;0;1;1')
+							->setRatio('4:3')
+							->setMedia($media)
+							->setCreatedBy($user)
+					)
+					->setAlt('Test afbeelding')
 			);
 
 		$page->translate('en')
@@ -87,6 +118,20 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 					->setWeight(2)
 					->setSection('main')
 					->setCreatedBy($user)
+			)
+			->addPart(
+				(new ImageCropPagePart())
+					->setWeight(3)
+					->setSection('widgets')
+					->setCreatedBy($user)
+					->setImageCrop(
+						(new ImageCrop())
+							->setCrop('0;0;1;1')
+							->setRatio('4:3')
+							->setMedia($media)
+							->setCreatedBy($user)
+					)
+					->setAlt('Test image')
 			);
 
 		$page->mergeNewTranslations();
@@ -263,7 +308,8 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 	public function getDependencies(): array
 	{
 		return [
-			FormFixture::class
+			FormFixture::class,
+			MediaFixture::class
 		];
 	}
 }

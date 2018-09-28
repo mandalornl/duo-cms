@@ -18,11 +18,6 @@ services:
             $relativeUploadPath: '%duo.media.relative_upload_path%'
             $absoluteUploadPath: '%duo.media.absolute_upload_path%'
 
-    Duo\MediaBundle\EventListener\UploadFileListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.event.listing.form.postCreate, method: postCreate }
-            - { name: kernel.event_listener, event: duo.event.listing.form.postUpdate, method: postUpdate }
-
     Duo\MediaBundle\EventSubscriber\ImageCropSubscriber:
         tags:
             - { name: doctrine.event_subscriber }

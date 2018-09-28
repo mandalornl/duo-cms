@@ -18,9 +18,10 @@ class PageSortController extends AbstractSortController
 	 * {@inheritdoc}
 	 *
 	 * @Route(
-	 *     path="/move-up/{id}",
+	 *     path="/move-up/{id}.{_format}",
 	 *     name="move_up",
-	 *     requirements={ "id" = "\d+" },
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
 	 *     methods={ "GET", "POST" }
 	 * )
 	 */
@@ -33,9 +34,10 @@ class PageSortController extends AbstractSortController
 	 * {@inheritdoc}
 	 *
 	 * @Route(
-	 *     path="/move-down/{id}",
+	 *     path="/move-down/{id}.{_format}",
 	 *     name="move_down",
-	 *     requirements={ "id" = "\d+" },
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
 	 *     methods={ "GET", "POST" }
 	 * )
 	 */
@@ -48,7 +50,7 @@ class PageSortController extends AbstractSortController
 	 * {@inheritdoc}
 	 *
 	 * @Route(
-	 *     path="/move-to/{_format}",
+	 *     path="/move-to.{_format}",
 	 *     name="move_to",
 	 *     defaults={ "_format" = "html" },
 	 *     requirements={ "_format" = "html|json" },

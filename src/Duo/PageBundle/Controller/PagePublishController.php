@@ -17,7 +17,13 @@ class PagePublishController extends AbstractPublishController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/publish/{id}", name="publish", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/publish/{id}.{_format}",
+	 *     name="publish",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function publishAction(Request $request, int $id): Response
 	{
@@ -27,7 +33,13 @@ class PagePublishController extends AbstractPublishController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/unpublish/{id}", name="unpublish", requirements={ "id" = "\d+" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/unpublish/{id}.{_format}",
+	 *     name="unpublish",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 */
 	public function unpublishAction(Request $request, int $id): Response
 	{

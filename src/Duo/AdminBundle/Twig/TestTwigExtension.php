@@ -16,23 +16,18 @@ class TestTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * Check whether or not object is instance of class
+	 * Check whether or not value is instance of class
 	 *
-	 * @param mixed $object
+	 * @param mixed $value
 	 * @param string $className
 	 *
 	 * @return bool
 	 *
 	 * @throws \Throwable
 	 */
-	public function isInstanceOf($object, string $className): bool
+	public function isInstanceOf($value, string $className): bool
 	{
-		if (gettype($object) !== 'object')
-		{
-			return false;
-		}
-
-		return (new \ReflectionClass($className))->isInstance($object);
+		return is_object($value) && (new \ReflectionClass($className))->isInstance($value);
 	}
 
 	/**

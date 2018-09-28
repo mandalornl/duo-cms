@@ -21,11 +21,11 @@ class PublishTwigExtension extends \Twig_Extension
 	/**
 	 * Check whether or not entity is published
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return int
 	 */
-	public function isPublished($entity): int
+	public function isPublished(object $entity): int
 	{
 		if (!$entity instanceof PublishInterface)
 		{

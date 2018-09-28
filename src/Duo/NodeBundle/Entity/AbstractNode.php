@@ -21,7 +21,7 @@ abstract class AbstractNode implements NodeInterface
     /**
      * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=false)
+	 * @ORM\Column(name="name", type="string", nullable=true)
 	 * @Assert\NotBlank()
      */
     protected $name;

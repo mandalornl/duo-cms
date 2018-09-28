@@ -6,7 +6,7 @@ import {get} from 'duo/AdminBundle/Resources/webpack/js/util/api';
 export default ($ =>
 {
 	const NAME = 'part';
-	const SELECTOR = `.${NAME}-widget`;
+	const SELECTOR = `.widget-${NAME}`;
 
 	const modals = {};
 
@@ -115,7 +115,16 @@ export default ($ =>
 
 						$('html, body').scrollTop($item.offset().top);
 
-						window.setTimeout(() => $item.addClass('show'), 250);
+						window.setTimeout(() =>
+						{
+							$item.addClass('show').on('bsTransitionEnd', () =>
+							{
+								$item.find(':input:visible').filter(function()
+								{
+									return this.value === '';
+								}).first().focus();
+							}).emulateTransitionEnd(150);
+						}, 250);
 					}).modal('show');
 				});
 

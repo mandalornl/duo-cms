@@ -139,7 +139,7 @@ abstract class AbstractSortController extends AbstractController
 
 		if (!$entity instanceof SortInterface)
 		{
-			return $this->sortInterfaceNotImplemented($request, $id);
+			return $this->interfaceNotImplemented($request, $id, SortInterface::class);
 		}
 
 		call_user_func_array($callback, [ $entity ]);
@@ -177,7 +177,7 @@ abstract class AbstractSortController extends AbstractController
 
 		if (!$entity instanceof SortInterface)
 		{
-			return $this->sortInterfaceNotImplemented($request, $id);
+			return $this->interfaceNotImplemented($request, $id, SortInterface::class);
 		}
 
 		$parentId = (int)$request->get('parentId') ?: null;
@@ -363,31 +363,6 @@ abstract class AbstractSortController extends AbstractController
 	 */
 	private function createMoveToException(Request $request, string $error): JsonResponse
 	{
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'error' => $error
-			]);
-		}
-
-		throw $this->createNotFoundException($error);
-	}
-
-	/**
-	 * Sortable interface not implemented
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return JsonResponse
-	 */
-	private function sortInterfaceNotImplemented(Request $request, int $id): JsonResponse
-	{
-		$interface = SortInterface::class;
-
-		$error = "Entity '{$this->getEntityClass()}::{$id}' doesn't implement '{$interface}'";
-
 		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{

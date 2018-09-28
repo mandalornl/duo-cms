@@ -1,0 +1,61 @@
+{% spaceless %}
+<div id="modal_drafts" data-type="{{ type }}" class="modal drafts fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_drafts_title">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_drafts_title">
+					{{- 'duo.admin.modal.drafts.title' | trans -}}
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th>{{ 'duo.admin.modal.drafts.name' | trans }}</th>
+								<th>{{ 'duo.admin.modal.drafts.created_at' | trans }}</th>
+								<th>{{ 'duo.admin.modal.drafts.created_by' | trans }}</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for draft in entity.drafts %}
+								<tr>
+									<td>
+										{{- draft.name -}}
+									</td>
+									<td>
+										{{- draft.createdAt | localizeddate('short', 'short', app.request.locale) -}}
+									</td>
+									<td>
+										{% set user = draft.createdBy %}
+										{% if user %}
+											{{- user.name -}}
+										{% endif %}
+									</td>
+									<td>
+										<a href="{{ path(routePrefix ~ '_draft_apply', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.apply' | trans }}" class="btn btn-primary btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.apply.title' | trans }}" data-body="{{ 'duo.admin.modal.apply.body' | trans }}">
+											<i class="icon-download"></i>
+										</a>
+										<a href="{{ path(routePrefix ~ '_draft_destroy', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
+											<i class="icon-bin"></i>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
+					{{- 'duo.admin.modal.global.close' | trans -}}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endspaceless %}

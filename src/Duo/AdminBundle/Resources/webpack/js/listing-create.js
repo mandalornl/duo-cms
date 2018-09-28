@@ -10,11 +10,12 @@ import autoComplete from 'duo/AdminBundle/Resources/webpack/js/lib/autocomplete'
 import wysiwyg from 'duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
 import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
 
-import 'duo/AdminBundle/Resources/webpack/js/collection-widget';
-import 'duo/AdminBundle/Resources/webpack/js/file-widget';
-import 'duo/PartBundle/Resources/webpack/js/part-widget';
-import mediaWidget from 'duo/MediaBundle/Resources/webpack/js/media-widget';
-import imageCropWidget from 'duo/MediaBundle/Resources/webpack/js/image-crop-widget';
+import 'duo/AdminBundle/Resources/webpack/js/widget-collection';
+import 'duo/AdminBundle/Resources/webpack/js/widget-file';
+import 'duo/PartBundle/Resources/webpack/js/widget-parts';
+import 'duo/DraftBundle/Resources/webpack/js/modal-new-draft';
+import widgetMedia from 'duo/MediaBundle/Resources/webpack/js/widget-media';
+import widgetImageCrop from 'duo/MediaBundle/Resources/webpack/js/widget-image-crop';
 
 $(() =>
 {
@@ -61,17 +62,17 @@ $(() =>
 	});
 
 	/**
-	 * Init on add item
+	 * On add item
 	 */
-	const initOnAddItem = function()
+	const onAddItem = function()
 	{
 		const $item = $(this);
 
 		[
 			autoComplete,
 			wysiwyg,
-			mediaWidget,
-			imageCropWidget
+			widgetMedia,
+			widgetImageCrop
 		].forEach(plugin =>
 		{
 			plugin.init($item.find(plugin.SELECTOR));
@@ -81,17 +82,17 @@ $(() =>
 	};
 
 	/**
-	 * Destroy on remove item
+	 * On remove item
 	 */
-	const destroyOnRemoveItem = function()
+	const onRemoveItem = function()
 	{
 		const $item = $(this);
 
 		[
 			autoComplete,
 			wysiwyg,
-			imageCropWidget,
-			mediaWidget
+			widgetImageCrop,
+			widgetMedia
 		].forEach(plugin =>
 		{
 			plugin.destroy($item.find(plugin.SELECTOR));
@@ -101,16 +102,16 @@ $(() =>
 	};
 
 	// init widgets inside part widget
-	$form.on('duo.event.part.addItem', '.part-widget .sortable-item', initOnAddItem);
+	$form.on('duo.event.part.addItem', '.widget-parts .sortable-item', onAddItem);
 
 	// destroy widgets inside part widget
-	$form.on('duo.event.part.removeItem', '.part-widget .sortable-item', destroyOnRemoveItem);
+	$form.on('duo.event.part.removeItem', '.widget-parts .sortable-item', onRemoveItem);
 
 	// init widgets inside collection widget
-	$form.on('duo.event.collection.addItem', '.collection-widget .collection-item', initOnAddItem);
+	$form.on('duo.event.collection.addItem', '.widget-collection .collection-item', onAddItem);
 
 	// destroy widgets inside collection widget
-	$form.on('duo.event.collection.removeItem', '.collection-widget .collection-item', destroyOnRemoveItem);
+	$form.on('duo.event.collection.removeItem', '.widget-collection .collection-item', onRemoveItem);
 
 	// handle form submit
 	$listing.on('click', 'button[data-action="save"]', function()
@@ -132,7 +133,7 @@ $(() =>
 
 		do
 		{
-			const $anchor = $(`[href="#${$tabPane.attr('id')}"]`);
+			const $anchor = $(`a[href="#${$tabPane.attr('id')}"]`);
 			$anchor.tab('show');
 
 			const $option = $(`option[value="#${$anchor.attr('id')}"]`);
@@ -160,7 +161,7 @@ $(() =>
 				return;
 			}
 
-			const $anchor = $(`[href="#${$this.attr('id')}"]`);
+			const $anchor = $(`a[href="#${$this.attr('id')}"]`);
 			$anchor.append(`<span class="badge badge-danger">${$invalid.length}</span>`);
 		});
 	}

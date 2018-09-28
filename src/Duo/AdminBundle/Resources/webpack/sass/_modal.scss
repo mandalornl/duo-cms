@@ -1,0 +1,48 @@
+.modal
+{
+	&.revisions,
+	&.drafts
+	{
+		.table
+		{
+			thead th,
+			tbody td
+			{
+				&:last-child
+				{
+					width: 1%;
+
+					white-space: nowrap;
+				}
+			}
+
+			tbody td
+			{
+				vertical-align: middle;
+
+				.btn
+				{
+					margin-left: .75rem;
+				}
+			}
+		}
+	}
+
+	&.iframe
+	{
+		@include media-breakpoint-up(sm)
+		{
+			.modal-dialog
+			{
+				max-width: 90vw;
+			}
+		}
+
+		.modal-body
+		{
+			height: 72vh;
+
+			padding: 0;
+		}
+	}
+}

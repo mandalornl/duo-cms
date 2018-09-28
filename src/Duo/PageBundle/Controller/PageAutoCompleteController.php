@@ -2,6 +2,7 @@
 
 namespace Duo\PageBundle\Controller;
 
+use Doctrine\ORM\Query\Expr\Join;
 use Duo\AdminBundle\Controller\AbstractAutoCompleteController;
 use Duo\AdminBundle\Tools\ORM\Query;
 use Duo\PageBundle\Repository\PageRepository;
@@ -17,7 +18,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	/**
 	 * Search url action
 	 *
-	 * @Route("/url", name="url", methods={ "GET", "POST" })
+	 * @Route("/url", name="url", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 * @param PageRepository $pageRepository
@@ -28,8 +29,9 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	{
 		$builder = $pageRepository
 			->createQueryBuilder('e')
-			->join('e.translations', 't')
-			->where('t.locale = :locale AND (e.name LIKE :keyword OR t.url LIKE :keyword)')
+			->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
+			->where('e.revision = e AND e.deletedAt IS NULL')
+			->andWhere('(e.name LIKE :keyword OR t.url LIKE :keyword)')
 			->orderBy('t.url', 'ASC')
 			->setParameter('locale', $request->getLocale())
 			->setParameter('keyword', Query::escapeLike($request->get('q', '')));

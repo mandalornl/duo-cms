@@ -28,7 +28,7 @@
 {% block duo_media_widget %}
 	{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 
-	<div class="media-widget{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}">
+	<div class="widget-media{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}">
 		<div class="row">
 			<div class="col-sm-6 col-lg-5">
 				{% if mediaType == 'image' %}
@@ -46,7 +46,7 @@
 				<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType, target: id }) }}">
 					{{- 'duo.media.select' | trans -}}
 				</button>
-				<button type="button" class="btn btn-secondary" data-action="clear">
+				<button type="button" class="btn btn-secondary ml-2" data-action="clear">
 					{{- 'duo.media.clear' | trans -}}
 				</button>
 			</div>
@@ -58,7 +58,7 @@
 {% endblock %}
 
 {% block duo_image_crop_widget %}
-	<div class="image-crop-widget">
+	<div class="widget-image-crop">
 		{{ form_widget(form) }}
 	</div>
 {% endblock %}

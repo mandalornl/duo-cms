@@ -13,7 +13,7 @@ class FormEvent extends Event
 	private $form;
 
 	/**
-	 * @var mixed
+	 * @var object
 	 */
 	private $entity;
 
@@ -21,9 +21,9 @@ class FormEvent extends Event
 	 * FormEvent constructor
 	 *
 	 * @param FormInterface $form
-	 * @param mixed $entity
+	 * @param object $entity
 	 */
-	public function __construct(FormInterface $form, $entity)
+	public function __construct(FormInterface $form, object $entity)
 	{
 		$this->form = $form;
 		$this->entity = $entity;
@@ -56,11 +56,11 @@ class FormEvent extends Event
 	/**
 	 * Set entity
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 *
 	 * @return FormEvent
 	 */
-	public function setEntity($entity): FormEvent
+	public function setEntity(?object $entity): FormEvent
 	{
 		$this->entity = $entity;
 
@@ -70,9 +70,9 @@ class FormEvent extends Event
 	/**
 	 * Get entity
 	 *
-	 * @return mixed
+	 * @return object
 	 */
-	public function getEntity()
+	public function getEntity(): ?object
 	{
 		return $this->entity;
 	}

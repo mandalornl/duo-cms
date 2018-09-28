@@ -83,9 +83,9 @@ class PublishSubscriber implements EventSubscriber
 	/**
 	 * Set blame
 	 *
-	 * @param mixed $entity
+	 * @param object $entity
 	 */
-	private function setBlame($entity): void
+	private function setBlame(object $entity): void
 	{
 		if (!$entity instanceof PublishInterface)
 		{

@@ -2,7 +2,7 @@
 
 {% spaceless %}
 {% set id = random() %}
-<div id="modal_prototype_{{ id }}" class="modal fade modal-part" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_prototype_{{ id }}_title">
+<div id="modal_prototype_{{ id }}" class="modal prototypes fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_prototype_{{ id }}_title">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
 					{{- 'duo.admin.modal.global.close' | trans -}}
 				</button>
 			</div>

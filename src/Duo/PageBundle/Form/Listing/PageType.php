@@ -31,7 +31,7 @@ class PageType extends AbstractType
 				->add('translations', TranslationType::class, [
 					'entry_type' => PageTranslationType::class,
 					'entry_options' => [
-						'isNew' => is_object($options['data']) ? $options['data']->getId() === null : true
+						'isNew' => is_object($options['data']) && $options['data']->getId() === null
 					],
 					'constraints' => [
 						new Valid()
@@ -71,7 +71,8 @@ class PageType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => PageInterface::class
+			'data_class' => PageInterface::class,
+			'data' => null
 		]);
 	}
 }
