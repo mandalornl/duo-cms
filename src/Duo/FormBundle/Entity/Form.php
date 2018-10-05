@@ -13,10 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_form",
  *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="name_uniq", columns={ "name" })
- *	   },
- *     indexes={
- *		   @ORM\Index(name="name_idx", columns={ "name" })
+ *		   @ORM\UniqueConstraint(name="UNIQ_NAME", columns={ "name" })
  *	   }
  * )
  * @ORM\Entity()
@@ -27,7 +24,7 @@ class Form extends AbstractNode
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email_from", type="string", nullable=false)
+	 * @ORM\Column(name="email_from", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
 	 */
@@ -36,7 +33,7 @@ class Form extends AbstractNode
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email_to", type="string", nullable=false)
+	 * @ORM\Column(name="email_to", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
 	 */

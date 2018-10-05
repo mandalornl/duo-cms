@@ -24,7 +24,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="choices", type="text", nullable=false)
+	 * @ORM\Column(name="choices", type="text", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	protected $choices;

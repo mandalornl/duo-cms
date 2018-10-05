@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_taxonomy_translation",
  *	   uniqueConstraints={
- *	       @ORM\UniqueConstraint(name="name_uniq", columns={ "name", "locale" })
+ *	       @ORM\UniqueConstraint(name="UNIQ_NAME", columns={ "name", "locale" })
  *	   },
  *     indexes={
- *		   @ORM\Index(name="name_idx", columns={ "name" })
+ *		   @ORM\Index(name="IDX_NAME", columns={ "name" })
  *	   }
  * )
  * @ORM\Entity()

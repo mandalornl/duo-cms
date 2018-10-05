@@ -50,7 +50,7 @@ parameters:
     env(SECRET): ThisTokenIsNotSoSecretChangeIt
 
     env(LOCALE): en
-    env(LOCALES): nl|en
+    env(LOCALES): en|nl
 
     env(DKIM_DOMAIN): example.com
     env(DKIM_SELECTOR): default

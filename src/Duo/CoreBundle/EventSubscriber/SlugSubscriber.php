@@ -4,6 +4,7 @@ namespace Duo\CoreBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Duo\AdminBundle\Tools\Intl\Slugifier;
@@ -17,9 +18,38 @@ class SlugSubscriber implements EventSubscriber
 	public function getSubscribedEvents(): array
 	{
 		return [
+			Events::loadClassMetadata,
 			Events::prePersist,
 			Events::preUpdate
 		];
+	}
+
+	/**
+	 * On load class metadata event
+	 *
+	 * @param LoadClassMetadataEventArgs $args
+	 */
+	public function loadClassMetadata(LoadClassMetadataEventArgs $args): void
+	{
+		$classMetadata = $args->getClassMetadata();
+
+		if (($reflectionClass = $classMetadata->getReflectionClass()) === null ||
+			!$reflectionClass->implementsInterface(SlugInterface::class)
+		)
+		{
+			return;
+		}
+
+		$name = 'IDX_SLUG';
+
+		if (!(isset($classMetadata->table['indexes'][$name])))
+		{
+			$classMetadata->table['indexes'][$name] = [
+				'columns' => [
+					'slug'
+				]
+			];
+		}
 	}
 
     /**

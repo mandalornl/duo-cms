@@ -5,7 +5,7 @@ import {get} from 'duo/AdminBundle/Resources/webpack/js/util/api';
 
 export default ($ =>
 {
-	const NAME = 'part';
+	const NAME = 'parts';
 	const SELECTOR = `.widget-${NAME}`;
 
 	const modals = {};

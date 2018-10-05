@@ -18,7 +18,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
      * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=false)
+	 * @ORM\Column(name="name", type="string", nullable=true)
 	 * @Assert\NotBlank()
      */
     protected $name;
@@ -26,7 +26,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email", type="string", length=64, nullable=false)
+	 * @ORM\Column(name="email", type="string", length=64, nullable=true)
 	 * @Assert\Email()
 	 */
     protected $email;
@@ -34,7 +34,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     /**
      * @var string
 	 *
-	 * @ORM\Column(name="username", type="string", length=64, nullable=false)
+	 * @ORM\Column(name="username", type="string", length=64, nullable=true)
 	 * @Assert\NotBlank()
      */
     protected $username;
@@ -42,7 +42,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="password", type="string", length=64, nullable=false)
+	 * @ORM\Column(name="password", type="string", length=64, nullable=true)
 	 */
     protected $password;
 

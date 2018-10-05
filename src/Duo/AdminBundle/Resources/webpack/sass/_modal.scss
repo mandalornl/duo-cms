@@ -8,11 +8,11 @@
 			thead th,
 			tbody td
 			{
+				white-space: nowrap;
+
 				&:last-child
 				{
 					width: 1%;
-
-					white-space: nowrap;
 				}
 			}
 

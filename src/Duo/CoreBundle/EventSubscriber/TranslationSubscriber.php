@@ -51,7 +51,7 @@ class TranslationSubscriber implements EventSubscriber
 			]);
 		}
 
-		$name = 'trans_uniq';
+		$name = 'UNIQ_TRANSLATION';
 
 		if (!isset($classMetadata->table['uniqueConstraints'][$name]))
 		{

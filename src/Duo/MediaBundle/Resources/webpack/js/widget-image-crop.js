@@ -95,6 +95,12 @@ export default ($ =>
 								width: (values[2] * imageData.naturalWidth) - x,
 								height: (values[3] * imageData.naturalHeight) - y
 							});
+
+							// disable cropper
+							if ($media.is(':disabled'))
+							{
+								$image.data('cropper').disable();
+							}
 						});
 
 						$image.on('cropend', () =>

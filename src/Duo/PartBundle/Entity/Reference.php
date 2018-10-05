@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_part_reference",
  *     indexes={
- *		   @ORM\Index(name="entity_idx", columns={ "entity_id", "entity_class" }),
- *     	   @ORM\Index(name="part_idx", columns={ "part_id", "part_class" })
+ *		   @ORM\Index(name="IDX_ENTITY", columns={ "entity_id", "entity_class" }),
+ *     	   @ORM\Index(name="IDX_PART", columns={ "part_id", "part_class" })
  *	   }
  * )
  * @ORM\Entity(repositoryClass="Duo\PartBundle\Repository\ReferenceRepository")

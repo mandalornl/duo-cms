@@ -3,7 +3,7 @@
 	{% for page in pages %}
 		<li class="nestable-item" data-id="{{ page.id }}">
 			<div class="nestable-handle">
-				<a href="javascript:;" class="nestable-folder{% if not page.children | length %} d-none{% endif %}" data-url="{{ path('duo_page_tree_children', { id: page.id }) }}"></a>
+				<a href="javascript:;" class="nestable-folder{% if not page.children | length %} d-none{% endif %}" data-url="{{ path('duo_page_listing_page_tree_children', { id: page.id }) }}"></a>
 				{{- page.title -}}
 			</div>
 			{% include '@DuoPage/Menu/tree.html.twig' with { parent: page, pages: [], async: page.children | length } %}

@@ -126,6 +126,7 @@ duo:
                 name: Naam
                 created_at: Aangemaakt op
                 created_by: Aangemaakt door
+                view: Inzien
                 apply: Toepassen
                 delete: Verwijderen
 

@@ -19,7 +19,7 @@ class FormTranslation extends AbstractNodeTranslation implements PartInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="subject", type="string", nullable=false)
+	 * @ORM\Column(name="subject", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	protected $subject;
@@ -27,7 +27,7 @@ class FormTranslation extends AbstractNodeTranslation implements PartInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="message", type="string", nullable=false)
+	 * @ORM\Column(name="message", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	protected $message;

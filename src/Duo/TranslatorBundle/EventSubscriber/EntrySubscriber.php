@@ -46,8 +46,7 @@ class EntrySubscriber implements EventSubscriber
 	 */
 	public function onFlush(OnFlushEventArgs $args): void
 	{
-		$manager = $args->getEntityManager();
-		$unitOfWork = $manager->getUnitOfWork();
+		$unitOfWork = $args->getEntityManager()->getUnitOfWork();
 
 		foreach ($unitOfWork->getScheduledEntityUpdates() as $entity)
 		{
@@ -62,10 +61,9 @@ class EntrySubscriber implements EventSubscriber
 			$translatable = $entity->getTranslatable();
 			$translatable->setFlag(Entry::FLAG_UPDATED);
 
-			$classMetadata = $manager->getClassMetadata(get_class($translatable));
-
 			$unitOfWork->persist($translatable);
-			$unitOfWork->computeChangeSet($classMetadata, $translatable);
 		}
+
+		$unitOfWork->computeChangeSets();
 	}
 }

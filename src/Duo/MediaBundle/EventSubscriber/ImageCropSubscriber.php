@@ -3,7 +3,7 @@
 namespace Duo\MediaBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Duo\MediaBundle\Entity\ImageCrop;
 
@@ -15,33 +15,34 @@ class ImageCropSubscriber implements EventSubscriber
 	public function getSubscribedEvents(): array
 	{
 		return [
-			Events::preUpdate
+			Events::onFlush
 		];
 	}
 
 	/**
-	 * On post update event
+	 * On flush event
 	 *
-	 * @param PreUpdateEventArgs $args
+	 * @param OnFlushEventArgs $args
 	 */
-	public function preUpdate(PreUpdateEventArgs $args): void
+	public function onFlush(OnFlushEventArgs $args): void
 	{
-		$entity = $args->getObject();
+		$unitOfWork = $args->getEntityManager()->getUnitOfWork();
 
-		if (!$entity instanceof ImageCrop || !$args->hasChangedField('media'))
+		foreach ($unitOfWork->getScheduledEntityUpdates() as $entity)
 		{
-			return;
+			if (!$entity instanceof ImageCrop)
+			{
+				continue;
+			}
+
+			$changeSet = $unitOfWork->getEntityChangeSet($entity);
+
+			if (isset($changeSet['media']) && $changeSet['media'][1] === null)
+			{
+				$unitOfWork->remove($entity);
+			}
 		}
 
-		if ($args->getNewValue('media') === null)
-		{
-			$manager = $args->getEntityManager();
-
-			$classMetadata = $manager->getClassMetadata(get_class($entity));
-
-			$unitOfWork = $manager->getUnitOfWork();
-			$unitOfWork->remove($entity);
-			$unitOfWork->computeChangeSet($classMetadata, $entity);
-		}
+		$unitOfWork->computeChangeSets();
 	}
 }

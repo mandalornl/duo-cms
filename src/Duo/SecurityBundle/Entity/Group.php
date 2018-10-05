@@ -14,10 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_group",
  *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="group_uniq", columns={ "name" })
- *	   },
- *     indexes={
- *		   @ORM\Index(name="name_idx", columns={ "name" })
+ *		   @ORM\UniqueConstraint(name="UNIQ_GROUP", columns={ "name" })
  *	   }
  * )
  * @ORM\Entity()
@@ -31,7 +28,7 @@ class Group implements GroupInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=false)
+	 * @ORM\Column(name="name", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	private $name;

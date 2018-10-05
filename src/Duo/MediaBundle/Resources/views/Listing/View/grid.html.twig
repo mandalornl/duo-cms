@@ -34,7 +34,7 @@
 						<span class="name">{{ entity }}</span>
 						{% if not app.request.query.get('iframe') %}
 							<span class="actions">
-								<a href="{{ entity.url }}" class="btn btn-white btn-sm" download="{{ entity.name }}" target="_blank" title="{{ 'duo.media.listing.action.download' | trans }}">
+								<a href="{{ entity.url }}" download="{{ entity.name }}" title="{{ 'duo.media.listing.action.download' | trans }}" target="_blank" class="btn btn-white btn-sm">
 									<i class="icon-download"></i>
 								</a>
 								<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo.admin.listing.action.edit' | trans }}">

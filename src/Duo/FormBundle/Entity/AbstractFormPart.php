@@ -20,7 +20,7 @@ abstract class AbstractFormPart extends AbstractPart implements FormPartInterfac
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="label", type="string", nullable=false)
+	 * @ORM\Column(name="label", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	protected $label;

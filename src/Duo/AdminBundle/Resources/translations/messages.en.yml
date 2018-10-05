@@ -126,6 +126,7 @@ duo:
                 name: Name
                 created_at: Created at
                 created_by: Created by
+                view: View
                 apply: Apply
                 delete: Delete
 

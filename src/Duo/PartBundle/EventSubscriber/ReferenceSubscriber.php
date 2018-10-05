@@ -4,6 +4,7 @@ namespace Duo\PartBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Duo\PartBundle\Entity\PartInterface as EntityPartInterface;
 
@@ -33,12 +34,21 @@ class ReferenceSubscriber implements EventSubscriber
 			return;
 		}
 
-		$reference = $entity->getReference();
-		$reference->setEntityId($entity->getEntity()->getId());
-		$reference->setPartId($entity->getId());
+		$className = get_class($entity->getReference());
 
+		$dql = <<<SQL
+UPDATE {$className} e SET e.entityId = :entityId, e.partId = :partId WHERE e = :reference
+SQL;
+
+		/**
+		 * @var EntityManagerInterface $manager
+		 */
 		$manager = $args->getObjectManager();
-		$manager->persist($reference);
-		$manager->flush();
+
+		$manager->createQuery($dql)
+			->setParameter('entityId', $entity->getEntity()->getId())
+			->setParameter('partId', $entity->getId())
+			->setParameter('reference', $entity->getReference())
+			->execute();
 	}
 }

@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_role",
  *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="role_uniq", columns={ "role" })
+ *		   @ORM\UniqueConstraint(name="UNIQ_ROLE", columns={ "role" })
  *	   },
  *     indexes={
- *		   @ORM\Index(name="name_idx", columns={ "name" })
+ *		   @ORM\Index(name="IDX_NAME", columns={ "name" })
  *	   }
  * )
  * @ORM\Entity()
@@ -29,7 +29,7 @@ class Role implements RoleInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=false)
+	 * @ORM\Column(name="name", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	private $name;
@@ -37,7 +37,7 @@ class Role implements RoleInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="role", type="string", nullable=false)
+	 * @ORM\Column(name="role", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	private $role;

@@ -67,7 +67,19 @@ class PublishSubscriber implements EventSubscriber
 	 */
 	public function prePersist(LifecycleEventArgs $args): void
 	{
-		$this->setBlame($args->getObject());
+		$entity = $args->getObject();
+
+		if (!$entity instanceof PublishInterface || !$entity->isPublished())
+		{
+			return;
+		}
+
+		if (($user = $this->security->getUser()) === null)
+		{
+			return;
+		}
+
+		$entity->setPublishedBy($user);
 	}
 
 	/**
@@ -77,16 +89,8 @@ class PublishSubscriber implements EventSubscriber
 	 */
 	public function preUpdate(PreUpdateEventArgs $args): void
 	{
-		$this->setBlame($args->getObject());
-	}
+		$entity = $args->getObject();
 
-	/**
-	 * Set blame
-	 *
-	 * @param object $entity
-	 */
-	private function setBlame(object $entity): void
-	{
 		if (!$entity instanceof PublishInterface)
 		{
 			return;
@@ -100,6 +104,7 @@ class PublishSubscriber implements EventSubscriber
 		if ($this->isPublished && !$entity->isPublished())
 		{
 			$entity->setUnpublishedBy($user);
+
 			return;
 		}
 

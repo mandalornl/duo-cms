@@ -3,6 +3,7 @@ imports:
     - { resource: '@DuoDraftBundle/Resources/config/config.yml' }
     - { resource: '@DuoFormBundle/Resources/config/config.yml' }
     - { resource: '@DuoMediaBundle/Resources/config/config.yml' }
+    - { resource: '@DuoNodeBundle/Resources/config/config.yml' }
     - { resource: '@DuoPageBundle/Resources/config/config.yml' }
     - { resource: '@DuoPartBundle/Resources/config/config.yml' }
     - { resource: '@DuoSecurityBundle/Resources/config/config.yml' }

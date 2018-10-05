@@ -34,8 +34,6 @@ class PartSubscriber implements EventSubscriber
 	{
 		return [
 			Events::postLoad,
-			Events::postPersist,
-			Events::postUpdate,
 			Events::onFlush
 		];
 	}
@@ -67,75 +65,51 @@ class PartSubscriber implements EventSubscriber
 	}
 
 	/**
-	 * On post persist event
-	 *
-	 * @param LifecycleEventArgs $args
-	 */
-	public function postPersist(LifecycleEventArgs $args): void
-	{
-		$entity = $args->getObject();
-
-		if (!$entity instanceof PropertyPartInterface || !count($entity->getParts()))
-		{
-			return;
-		}
-
-		$manager = $args->getObjectManager();
-
-		foreach ($entity->getParts() as $part)
-		{
-			$manager->persist($part);
-		}
-
-		$manager->flush();
-	}
-
-	/**
-	 * On post update event
-	 *
-	 * @param LifecycleEventArgs $args
-	 */
-	public function postUpdate(LifecycleEventArgs $args): void
-	{
-		$entity = $args->getObject();
-
-		if (!$entity instanceof PropertyPartInterface)
-		{
-			return;
-		}
-
-		$collection = $entity->getParts();
-
-		if ($collection instanceof PartCollection && !$collection->isDirty())
-		{
-			return;
-		}
-
-		$manager = $args->getObjectManager();
-
-		foreach ($collection->getDeleteDiff() as $part)
-		{
-			$manager->remove($part);
-		}
-
-		foreach ($collection->getInsertDiff() as $part)
-		{
-			$manager->persist($part);
-		}
-
-		$manager->flush();
-	}
-
-	/**
 	 * On flush event
 	 *
 	 * @param OnFlushEventArgs $args
 	 */
 	public function onFlush(OnFlushEventArgs $args): void
 	{
-		$manager = $args->getEntityManager();
+		$unitOfWork = $args->getEntityManager()->getUnitOfWork();
 
-		$unitOfWork = $manager->getUnitOfWork();
+		foreach ($unitOfWork->getScheduledEntityInsertions() as $entity)
+		{
+			if (!$entity instanceof PropertyPartInterface)
+			{
+				continue;
+			}
+
+			foreach ($entity->getParts() as $part)
+			{
+				$unitOfWork->persist($part);
+			}
+		}
+
+		foreach ($unitOfWork->getScheduledEntityUpdates() as $entity)
+		{
+			if (!$entity instanceof PropertyPartInterface)
+			{
+				continue;
+			}
+
+			$collection = $entity->getParts();
+
+			if (!($collection instanceof PartCollection && $collection->isDirty()))
+			{
+				continue;
+			}
+
+			foreach ($collection->getDeleteDiff() as $part)
+			{
+				$unitOfWork->remove($part);
+			}
+
+			foreach ($collection->getInsertDiff() as $part)
+			{
+				$unitOfWork->persist($part);
+			}
+		}
 
 		foreach ($unitOfWork->getScheduledEntityDeletions() as $entity)
 		{
@@ -149,5 +123,7 @@ class PartSubscriber implements EventSubscriber
 				$unitOfWork->remove($part);
 			}
 		}
+
+		$unitOfWork->computeChangeSets();
 	}
 }

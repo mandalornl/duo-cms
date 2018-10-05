@@ -7,7 +7,7 @@ content:
             icon: icon-files-empty
         menu:
             label: duo.page.menu.page_tree
-            route: duo_page_tree_index
+            route: duo_page_listing_page_tree_index
             icon: icon-tree
         media:
             label: duo.media.menu.media

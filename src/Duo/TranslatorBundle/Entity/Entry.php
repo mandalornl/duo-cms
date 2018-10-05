@@ -17,10 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_translator_entry",
  *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="keyword_uniq", columns={ "keyword", "domain" })
+ *		   @ORM\UniqueConstraint(name="UNIQ_KEYWORD", columns={ "keyword", "domain" })
  *	   },
  *     indexes={
- *		   @ORM\Index(name="keyword_idx", columns={ "keyword" })
+ *		   @ORM\Index(name="IDX_KEYWORD", columns={ "keyword" })
  *	   }
  * )
  * @ORM\Entity()

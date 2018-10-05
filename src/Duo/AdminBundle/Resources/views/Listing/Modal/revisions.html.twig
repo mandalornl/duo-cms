@@ -26,7 +26,7 @@
 							{% for revision in revisions %}
 								<tr>
 									<td>
-										<a href="{{ path(routePrefix ~ '_revision', { id: revision.id }) }}" target="_blank" title="{{ 'duo.admin.modal.revisions.view' | trans }}">
+										<a href="{{ path(routePrefix ~ '_revision_view', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.view' | trans }}" target="_blank">
 											{{- revision.name -}}
 										</a>
 									</td>
@@ -40,10 +40,10 @@
 										{% endif %}
 									</td>
 									<td>
-										<a href="{{ path(routePrefix ~ '_revision', { id: revision.id }) }}" class="btn btn-light btn-sm" target="_blank" title="{{ 'duo.admin.modal.revisions.view' | trans }}">
+										<a href="{{ path(routePrefix ~ '_revision_view', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.view' | trans }}" target="_blank" class="btn btn-light btn-sm" >
 											<i class="icon-eye"></i>
 										</a>
-										<a href="{{ path(routePrefix ~ '_revert', { id: revision.id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_revision_revert', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" class="btn btn-primary btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
 											<i class="icon-history"></i>
 										</a>
 										{% if revision is deletable %}

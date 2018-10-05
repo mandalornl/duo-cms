@@ -8,8 +8,11 @@ use Duo\CoreBundle\Entity\Property\IdTrait;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
 use Duo\CoreBundle\Entity\Property\TranslateTrait;
 use Duo\CoreBundle\Entity\Property\VersionTrait;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+/**
+ * @UniqueEntity(fields={ "name" }, message="duo.node.errors.name_used")
+ */
 abstract class AbstractNode implements NodeInterface
 {
 	use IdTrait;
@@ -21,8 +24,7 @@ abstract class AbstractNode implements NodeInterface
     /**
      * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=true)
-	 * @Assert\NotBlank()
+	 * @ORM\Column(name="name", type="string", nullable=true, unique=true)
      */
     protected $name;
 

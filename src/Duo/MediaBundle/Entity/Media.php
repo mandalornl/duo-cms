@@ -210,6 +210,56 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	}
 
 	/**
+	 * Get original basename
+	 *
+	 * @return string
+	 */
+	public function getOriginalBasename(): ?string
+	{
+		return $this->metadata['basename'] ?? null;
+	}
+
+	/**
+	 * Get original filename
+	 *
+	 * @return string
+	 */
+	public function getOriginalFilename(): ?string
+	{
+		return $this->metadata['filename'] ?? null;
+	}
+
+	/**
+	 * Get original extension
+	 *
+	 * @return string
+	 */
+	public function getOriginalExtension(): ?string
+	{
+		return $this->metadata['extension'] ?? null;
+	}
+
+	/**
+	 * Get original width
+	 *
+	 * @return int
+	 */
+	public function getOriginalWidth(): ?int
+	{
+		return $this->metadata['width'] ?? null;
+	}
+
+	/**
+	 * Get original height
+	 *
+	 * @return int
+	 */
+	public function getOriginalHeight(): ?int
+	{
+		return $this->metadata['height'] ?? null;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function __toString(): string

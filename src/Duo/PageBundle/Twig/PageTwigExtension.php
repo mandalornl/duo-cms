@@ -10,16 +10,16 @@ class PageTwigExtension extends \Twig_Extension
 	/**
 	 * @var PageRepository
 	 */
-	private $pageRepository;
+	private $repository;
 
 	/**
 	 * PageTwigExtension constructor
 	 *
-	 * @param PageRepository $pageRepository
+	 * @param PageRepository $repository
 	 */
-	public function __construct(PageRepository $pageRepository)
+	public function __construct(PageRepository $repository)
 	{
-		$this->pageRepository = $pageRepository;
+		$this->repository = $repository;
 	}
 
 	/**
@@ -46,7 +46,7 @@ class PageTwigExtension extends \Twig_Extension
 	 */
 	public function getPage(int $id, string $locale = null): ?PageInterface
 	{
-		return $this->pageRepository->findById($id, $locale);
+		return $this->repository->findById($id, $locale);
 	}
 
 	/**
@@ -61,7 +61,7 @@ class PageTwigExtension extends \Twig_Extension
 	 */
 	public function getPageByUrl(string $url, string $locale = null): ?PageInterface
 	{
-		return $this->pageRepository->findOneByUrl($url, $locale);
+		return $this->repository->findOneByUrl($url, $locale);
 	}
 
 	/**
@@ -76,6 +76,6 @@ class PageTwigExtension extends \Twig_Extension
 	 */
 	public function getPageByName(string $name, string $locale = null): ?PageInterface
 	{
-		return $this->pageRepository->findOneByName($name, $locale);
+		return $this->repository->findOneByName($name, $locale);
 	}
 }

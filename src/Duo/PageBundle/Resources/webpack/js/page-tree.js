@@ -50,7 +50,7 @@ $(async () =>
 	/**
 	 * On sort update event
 	 *
-	 * @param {{}} e
+	 * @param {Event} e
 	 *
 	 * @returns {Promise<void>}
 	 */

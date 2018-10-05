@@ -14,11 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(
  *     name="duo_redirect",
  *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="origin_uniq", columns={ "origin" })
- *	   },
- *     indexes={
- *     	   @ORM\Index(name="origin_idx", columns={ "origin" })
- *     }
+ *		   @ORM\UniqueConstraint(name="UNIQ_ORIGIN", columns={ "origin" })
+ *	   }
  * )
  * @ORM\Entity()
  * @UniqueEntity(fields={ "origin" }, message="duo.seo.errors.origin_used")
@@ -31,7 +28,7 @@ class Redirect implements IdInterface, TimestampInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="origin", type="string", nullable=false)
+	 * @ORM\Column(name="origin", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	private $origin;
@@ -39,7 +36,7 @@ class Redirect implements IdInterface, TimestampInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="target", type="string", nullable=false)
+	 * @ORM\Column(name="target", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	private $target;

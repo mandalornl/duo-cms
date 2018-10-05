@@ -1,0 +1,4 @@
+duo:
+    page:
+        errors:
+            url_used: This url has already been used

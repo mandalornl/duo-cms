@@ -3,7 +3,7 @@
 		{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 
 		<div class="media-preview">
-			<a href="{{ data.url }}" download="{{ data.name }}" target="_blank" title="{{ data.name }}">
+			<a href="{{ data.url }}" download="{{ data.name }}" title="{{ data.name }}" target="_blank">
 				{% if 'image/' in data.mimeType %}
 					<div class="image-preview">
 						<img src="{{ data.url | imagine_filter('srcset_640') }}" srcset="{{ media.srcset(data.url, [640, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
@@ -42,14 +42,16 @@
 					{%- if data %}{{ data.name }}{% endif -%}
 				</p>
 			</div>
-			<div class="col-12">
-				<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType, target: id }) }}">
-					{{- 'duo.media.select' | trans -}}
-				</button>
-				<button type="button" class="btn btn-secondary ml-2" data-action="clear">
-					{{- 'duo.media.clear' | trans -}}
-				</button>
-			</div>
+			{% if not disabled | default(false) %}
+				<div class="col-12">
+					<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType, target: id }) }}">
+						{{- 'duo.media.select' | trans -}}
+					</button>
+					<button type="button" class="btn btn-secondary ml-2" data-action="clear">
+						{{- 'duo.media.clear' | trans -}}
+					</button>
+				</div>
+			{% endif %}
 		</div>
 		<div class="d-none media-input">
 			{{ form_widget(form) }}

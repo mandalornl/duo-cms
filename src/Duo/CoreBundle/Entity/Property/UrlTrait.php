@@ -9,7 +9,7 @@ trait UrlTrait
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="url", type="string", nullable=false)
+	 * @ORM\Column(name="url", type="string", nullable=true)
 	 */
 	protected $url;
 

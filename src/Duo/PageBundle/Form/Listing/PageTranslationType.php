@@ -49,12 +49,14 @@ class PageTranslationType extends AbstractType
 					'label' => 'duo.page.form.page.slug.label',
 					'required' => false,
 					// empty string is allowed for existing entities e.g. home
-					'empty_data' => !$options['isNew'] ? '' : null
+					'empty_data' => $options['isNew'] ? null : ''
 				])
 				->add('url', UrlType::class, [
 					'label' => 'duo.page.form.page.url.label',
 					'required' => false,
-					'disabled' => true
+					'attr' => [
+						'readonly' => true
+					]
 				])
 			)
 			->add($builder->create('publication', PublicationTabType::class))
@@ -69,8 +71,10 @@ class PageTranslationType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'isNew' => true,
-			'data_class' => PageTranslationInterface::class
+			'data_class' => PageTranslationInterface::class,
+			'isNew' => true
 		]);
+
+		$resolver->setAllowedTypes('isNew', 'bool');
 	}
 }

@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Duo\NodeBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'

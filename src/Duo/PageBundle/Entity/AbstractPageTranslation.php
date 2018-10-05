@@ -9,8 +9,12 @@ use Duo\CoreBundle\Entity\Property\UrlTrait;
 use Duo\NodeBundle\Entity\AbstractNodeTranslation;
 use Duo\PartBundle\Entity\Property\PartTrait;
 use Duo\SeoBundle\Entity\Property\SeoTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @UniqueEntity(fields={ "url", "locale" }, message="duo.page.errors.url_used")
+ */
 class AbstractPageTranslation extends AbstractNodeTranslation implements PageTranslationInterface
 {
 	use SlugTrait;

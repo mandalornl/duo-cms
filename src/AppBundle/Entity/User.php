@@ -10,13 +10,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(
  *     name="duo_user",
  *     uniqueConstraints={
- *	       @ORM\UniqueConstraint(name="username_uniq", columns={ "username" }),
- *     	   @ORM\UniqueConstraint(name="email_uniq", columns={ "email" })
+ *	       @ORM\UniqueConstraint(name="UNIQ_USERNAME", columns={ "username" }),
+ *     	   @ORM\UniqueConstraint(name="UNIQ_EMAIL", columns={ "email" })
  *	   },
  *     indexes={
- *		   @ORM\Index(name="username_idx", columns={ "username" }),
- *     	   @ORM\Index(name="email_idx", columns={ "email" }),
- *     	   @ORM\Index(name="password_token_idx", columns={ "password_token" })
+ *		   @ORM\Index(name="IDX_PASSWORD_TOKEN", columns={ "password_token" })
  *	   }
  * )
  * @ORM\Entity(repositoryClass="Duo\SecurityBundle\Repository\UserRepository")
