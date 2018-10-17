@@ -1,0 +1,22 @@
+{% macro url(page, priority) %}
+	<url>
+		<loc>{{ url('url', { url: page.translate(app.request.locale).url, _locale: app.request.locale }) }}</loc>
+		<lastmod>{{ page.modifiedAt | date('c') }}</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>{{ priority }}</priority>
+	</url>
+{% endmacro %}
+
+{% macro urls(page, priority) %}
+	{% import _self as self %}
+
+	{% if page and page.translate(app.request.locale).published %}
+		{{ self.url(page, priority) }}
+		{% if page.children | length %}
+			{% set priority = priority - 0.1 %}
+			{% for child in page.children %}
+				{{ self.urls(child, priority) }}
+			{% endfor %}
+		{% endif %}
+	{% endif %}
+{% endmacro %}

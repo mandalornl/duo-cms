@@ -19,6 +19,24 @@ abstract class AbstractController extends Controller
 	use RoutePrefixTrait;
 
 	/**
+	 * @var \ReflectionClass
+	 */
+	protected $entityReflectionClass;
+
+	/**
+	 * Get entity reflection class
+	 *
+	 * @return \ReflectionClass
+	 */
+	protected function getEntityReflectionClass(): ?\ReflectionClass
+	{
+		return $this->entityReflectionClass = $this->entityReflectionClass ?:
+			$this->getDoctrine()->getManager()
+				->getClassMetadata($this->getEntityClass())
+				->getReflectionClass();
+	}
+
+	/**
 	 * Entity not found
 	 *
 	 * @param Request $request

@@ -4,12 +4,12 @@ namespace Duo\PageBundle\Entity;
 
 use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Duo\CoreBundle\Entity\Property\SlugInterface;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
 use Duo\CoreBundle\Entity\Property\UrlInterface;
-use Duo\NodeBundle\Entity\NodeTranslationInterface;
 use Duo\PartBundle\Entity\Property\PartInterface;
 use Duo\SeoBundle\Entity\Property\SeoInterface;
 
-interface PageTranslationInterface extends NodeTranslationInterface,
+interface PageTranslationInterface extends TranslationInterface,
 										   SlugInterface,
 										   UrlInterface,
 										   PublishInterface,

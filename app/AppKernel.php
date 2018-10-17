@@ -21,7 +21,6 @@ class AppKernel extends Kernel
 			new Liip\ImagineBundle\LiipImagineBundle(),
             new Duo\CoreBundle\DuoCoreBundle(),
             new Duo\PartBundle\DuoPartBundle(),
-            new Duo\NodeBundle\DuoNodeBundle(),
             new Duo\PageBundle\DuoPageBundle(),
             new Duo\FormBundle\DuoFormBundle(),
             new Duo\SecurityBundle\DuoSecurityBundle(),

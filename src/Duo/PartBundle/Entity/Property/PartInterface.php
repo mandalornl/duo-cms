@@ -34,6 +34,15 @@ interface PartInterface
 	public function getParts(): Collection;
 
 	/**
+	 * Get parts from section
+	 *
+	 * @param string $section
+	 *
+	 * @return ArrayCollection
+	 */
+	public function getPartsFromSection(string $section): Collection;
+
+	/**
 	 * Set partVersion
 	 *
 	 * @param string $partVersion

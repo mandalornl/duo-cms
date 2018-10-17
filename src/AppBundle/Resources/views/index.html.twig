@@ -1,0 +1,52 @@
+{% spaceless %}
+<!doctype html>
+{% set htmlLocale = app.request.locale | slice(0, 2) %}
+<html lang="{{ htmlLocale }}">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<title>{% block title %}App - {{ brand_name }}{% endblock %}</title>
+
+	{# SEO metadata #}
+	{{ render_seo_metadata(page) }}
+
+	{# Favicon #}
+	{% include '@App/Layout/_favicon.html.twig' %}
+
+	{# CSS #}
+	{% include '@App/Layout/_stylesheets.html.twig' %}
+
+	{# Webfonts #}
+	{% include '@App/Layout/_webfonts.html.twig' %}
+
+	{# Javascript #}
+	{% include '@App/Layout/_javascripts.html.twig' %}
+
+	{# Google Analytics #}
+	{% include '@App/Layout/_googleanalytics.html.twig' %}
+</head>
+<body class="{% block bodyClass %}app{% endblock %}">
+	<header>Header</header>
+	<main class="container" role="main">
+		<nav>Nav</nav>
+		<div class="row">
+			<section class="col-md-8">
+				{% set parts = page.translate(app.request.locale).getPartsFromSection('main') %}
+				{% for part in parts %}
+					{% include part.view %}
+				{% endfor %}
+			</section>
+			<aside class="col-md-4">
+				{% set parts = page.translate(app.request.locale).getPartsFromSection('widgets') %}
+				{% for part in parts %}
+					{% include part.view %}
+				{% endfor %}
+			</aside>
+		</div>
+	</main>
+	<footer>Footer</footer>
+</body>
+</html>
+{% endspaceless %}

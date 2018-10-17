@@ -3,20 +3,19 @@
 namespace Duo\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\CoreBundle\Entity\CloneTrait;
 use Duo\CoreBundle\Entity\Property\PublishTrait;
 use Duo\CoreBundle\Entity\Property\SlugTrait;
+use Duo\CoreBundle\Entity\Property\TranslationTrait;
 use Duo\CoreBundle\Entity\Property\UrlTrait;
-use Duo\NodeBundle\Entity\AbstractNodeTranslation;
 use Duo\PartBundle\Entity\Property\PartTrait;
 use Duo\SeoBundle\Entity\Property\SeoTrait;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueEntity(fields={ "url", "locale" }, message="duo.page.errors.url_used")
- */
-class AbstractPageTranslation extends AbstractNodeTranslation implements PageTranslationInterface
+class AbstractPageTranslation implements PageTranslationInterface
 {
+	use CloneTrait;
+	use TranslationTrait;
 	use SlugTrait;
 	use UrlTrait;
 	use PublishTrait;

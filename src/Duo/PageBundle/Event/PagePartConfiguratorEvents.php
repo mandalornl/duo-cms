@@ -2,7 +2,7 @@
 
 namespace Duo\PageBundle\Event;
 
-class PagePartConfiguratorEvents
+final class PagePartConfiguratorEvents
 {
 	/**
 	 * @Event("Duo\PageBundle\Event\PagePartConfiguratorEvent")

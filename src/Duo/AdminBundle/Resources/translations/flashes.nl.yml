@@ -1,0 +1,8 @@
+duo:
+    admin:
+        error: Er is een fout opgetreden. Probeer het nogmaals.
+        no_items: Geen item(s) geselecteerd.
+        no_changes: Geen wijzigingen gevonden.
+        destroy_success: Item(s) succesvol verwijderd.
+        save_success: Item succesvol opgeslagen.
+        locked: Iemand anders heeft al enkele wijzigingen aangebracht. Probeer het nogmaals.

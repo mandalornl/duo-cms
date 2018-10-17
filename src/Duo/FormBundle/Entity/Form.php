@@ -3,24 +3,45 @@
 namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\CoreBundle\Entity\CloneTrait;
+use Duo\CoreBundle\Entity\DuplicateInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TranslateTrait;
 use Duo\CoreBundle\Entity\Property\TranslationInterface;
-use Duo\NodeBundle\Entity\AbstractNode;
+use Duo\CoreBundle\Entity\Property\VersionInterface;
+use Duo\CoreBundle\Entity\Property\VersionTrait;
 use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(
- *     name="duo_form",
- *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="UNIQ_NAME", columns={ "name" })
- *	   }
- * )
+ * @ORM\Table(name="duo_form")
  * @ORM\Entity()
  * @UniqueEntity(fields={ "name" }, message="duo.form.errors.name_used")
  */
-class Form extends AbstractNode
+class Form implements IdInterface,
+					  DuplicateInterface,
+					  TimestampInterface,
+					  TranslateInterface,
+					  VersionInterface
 {
+	use IdTrait;
+	use TranslateTrait;
+	use CloneTrait;
+	use TimestampTrait;
+	use VersionTrait;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="name", type="string", nullable=true, unique=true)
+	 */
+	private $name;
+
 	/**
 	 * @var string
 	 *
@@ -28,7 +49,7 @@ class Form extends AbstractNode
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
 	 */
-	protected $emailFrom;
+	private $emailFrom;
 
 	/**
 	 * @var string
@@ -37,14 +58,14 @@ class Form extends AbstractNode
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
 	 */
-	protected $emailTo;
+	private $emailTo;
 
 	/**
 	 * @var bool
 	 *
 	 * @ORM\Column(name="keep_submissions", type="boolean", options={ "default" = 0 })
 	 */
-	protected $keepSubmissions = false;
+	private $keepSubmissions = false;
 
 	/**
 	 * @var string
@@ -53,7 +74,7 @@ class Form extends AbstractNode
 	 * @Assert\Length(min="0")
 	 * @Assert\Email()
 	 */
-	protected $sendSubmissionsTo;
+	private $sendSubmissionsTo;
 
 	/**
 	 * @var PageInterface
@@ -61,7 +82,31 @@ class Form extends AbstractNode
 	 * @ORM\ManyToOne(targetEntity="Duo\PageBundle\Entity\PageInterface")
 	 * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
 	 */
-	protected $page;
+	private $page;
+
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return Form
+	 */
+	public function setName(?string $name): Form
+	{
+		$this->name = $name;
+
+		return $this;
+	}
+
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName(): ?string
+	{
+		return $this->name;
+	}
 
 	/**
 	 * Set emailFrom
@@ -161,7 +206,7 @@ class Form extends AbstractNode
 
 	/**
 	 * Set page
-	 * 
+	 *
 	 * @param PageInterface $page
 	 *
 	 * @return Form
@@ -191,5 +236,13 @@ class Form extends AbstractNode
 	public function translate(string $locale = null, bool $fallback = true): FormTranslation
 	{
 		return $this->doTranslate($locale, $fallback);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __toString(): string
+	{
+		return $this->name;
 	}
 }

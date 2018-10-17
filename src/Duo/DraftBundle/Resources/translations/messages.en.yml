@@ -1,0 +1,20 @@
+duo:
+    draft:
+        toolbar:
+            actions:
+                save_draft: Save as draft
+                drafts: Drafts
+
+        modal:
+            drafts:
+                title: Drafts
+                name: Name
+                created_at: Created at
+                created_by: Created by
+                view: View
+                apply: Apply
+                delete: Delete
+
+            new_draft:
+                title: New draft
+                name: Name

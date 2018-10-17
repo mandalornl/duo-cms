@@ -1,1 +1,4 @@
-<div class="form-pp"></div>
+{% if part.form %}
+	{% set form = part.form %}
+	<div class="form-pp loading" data-id="{{ form.id }}"></div>
+{% endif %}

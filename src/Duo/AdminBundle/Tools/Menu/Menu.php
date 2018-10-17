@@ -163,9 +163,9 @@ class Menu implements MenuInterface
 	 */
 	public function addChild(MenuInterface $menuItem): MenuInterface
 	{
-		$this->children[$menuItem->getId()] = $menuItem;
-
 		$menuItem->setParent($this);
+
+		$this->children[$menuItem->getId()] = $menuItem;
 
 		return $this;
 	}
@@ -176,6 +176,8 @@ class Menu implements MenuInterface
 	public function removeChild(MenuInterface $menuItem): MenuInterface
 	{
 		$this->children->removeElement($menuItem);
+
+		$menuItem->setParent(null);
 
 		return $this;
 	}

@@ -70,6 +70,17 @@ trait PartTrait
 	/**
 	 * {@inheritdoc}
 	 */
+	public function getPartsFromSection(string $section): Collection
+	{
+		return $this->getParts()->filter(function(EntityPartInterface $part) use ($section)
+		{
+			return $part->getSection() === $section;
+		});
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setPartVersion(string $partVersion): PartInterface
 	{
 		$this->partVersion = $partVersion;

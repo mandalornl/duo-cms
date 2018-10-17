@@ -9,26 +9,23 @@
 
 	<title>{% block title %}Admin - {{ brand_name }}{% endblock %}</title>
 
-	{# Google Analytics #}
-	{% include '@DuoAdmin/Layout/_googleanalytics.html.twig' %}
-
-	{# Webfonts #}
-	{% include '@DuoAdmin/Layout/_webfonts.html.twig' %}
-
 	{# Favicon #}
 	{% include '@DuoAdmin/Layout/_favicon.html.twig' %}
 
 	{# CSS #}
 	{% include '@DuoAdmin/Layout/_stylesheets.html.twig' %}
 
+	{# Webfonts #}
+	{% include '@DuoAdmin/Layout/_webfonts.html.twig' %}
+
 	{# Javascript #}
 	{% include '@DuoAdmin/Layout/_javascripts.html.twig' %}
 </head>
-<body class="{% block bodyClass %}default{% endblock %}{% if app.request.query.get('iframe') %} iframe{% endif %}">
+<body class="{% block bodyClass %}admin{% endblock %}{% if app.request.query.get('iframe') %} iframe{% endif %}">
 	<div class="wrapper">
 		{% if not app.request.query.get('iframe') and menu is defined %}
 			<div class="sidebar">
-				{{ render_menu(menu) }}
+				{% include '@DuoAdmin/Navigation/sidebar.html.twig' %}
 			</div>
 		{% endif %}
 		<div class="page">

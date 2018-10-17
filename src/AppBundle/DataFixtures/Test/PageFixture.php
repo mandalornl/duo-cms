@@ -84,12 +84,12 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 					->setCreatedBy($user)
 					->setImageCrop(
 						(new ImageCrop())
-							->setCrop('0;0;1;1')
+							->setCrop('0;0;0.75;1')
 							->setRatio('4:3')
 							->setMedia($media)
 							->setCreatedBy($user)
 					)
-					->setAlt('Test afbeelding')
+					->setAltText('Test afbeelding')
 			);
 
 		$page->translate('en')
@@ -126,12 +126,12 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 					->setCreatedBy($user)
 					->setImageCrop(
 						(new ImageCrop())
-							->setCrop('0;0;1;1')
+							->setCrop('0;0;0.75;1')
 							->setRatio('4:3')
 							->setMedia($media)
 							->setCreatedBy($user)
 					)
-					->setAlt('Test image')
+					->setAltText('Test image')
 			);
 
 		$page->mergeNewTranslations();

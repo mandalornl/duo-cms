@@ -40,8 +40,6 @@ class UploadHelper
 	 */
 	public function upload(UploadedFile $file, Media $entity): void
 	{
-		$uuid = self::getUuid();
-
 		$extension = $file->getExtension() ?: $file->guessExtension();
 		$filename = basename($file->getClientOriginalName(), ".{$extension}");
 
@@ -66,31 +64,16 @@ class UploadHelper
 		$filename = Slugifier::slugify($filename);
 
 		$entity
-			->setUuid($uuid)
 			->setSize($file->getSize())
 			->setMimeType($file->getMimeType())
 			->setMetadata($metadata)
-			->setUrl("{$this->relativeUploadPath}/{$uuid}/{$filename}.{$extension}");
+			->setUrl("{$this->relativeUploadPath}/{$entity->getUuid()}/{$filename}.{$extension}");
 
 		if ($entity->getName() === null)
 		{
 			$entity->setName($file->getClientOriginalName());
 		}
 
-		$file->move("{$this->absoluteUploadPath}/{$uuid}", "{$filename}.{$extension}");
-	}
-
-	/**
-	 * Get uuid
-	 *
-	 * @param int $length [optional]
-	 *
-	 * @return string
-	 *
-	 * @throws \Throwable
-	 */
-	public static function getUuid(int $length = 16): string
-	{
-		return bin2hex(random_bytes($length));
+		$file->move("{$this->absoluteUploadPath}/{$entity->getUuid()}", "{$filename}.{$extension}");
 	}
 }

@@ -1,5 +1,5 @@
 imports:
-    - { resource: '@DuoCoreBundle/Resources/config/config.yml' }
+    - { resource: '@DuoAdminBundle/Resources/config/config.yml' }
     - { resource: '@AppBundle/Resources/config/config.yml' }
 
     - { resource: parameters.yml }
@@ -43,6 +43,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         brand_name: '%brand_name%'
+        google_analytics_id: '%google_analytics_id%'
 
 # Doctrine Configuration
 doctrine:

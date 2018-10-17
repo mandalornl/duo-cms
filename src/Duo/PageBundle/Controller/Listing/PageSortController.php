@@ -2,7 +2,7 @@
 
 namespace Duo\PageBundle\Controller\Listing;
 
-use Duo\AdminBundle\Controller\Listing\AbstractSortController;
+use Duo\CoreBundle\Controller\Listing\AbstractSortController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -7,7 +7,6 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TranslationInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
@@ -43,43 +42,6 @@ class UrlSubscriber implements EventSubscriber
 			return;
 		}
 
-		$this->setUniqueConstraints($classMetadata);
-		$this->setIndexes($classMetadata);
-	}
-
-	/**
-	 * Set unique constraints
-	 *
-	 * @param ClassMetadata $classMetadata
-	 */
-	private function setUniqueConstraints(ClassMetadata $classMetadata): void
-	{
-		$name = 'UNIQ_URL';
-
-		if (!isset($classMetadata->table['uniqueConstraints'][$name]))
-		{
-			$columns = [
-				'url'
-			];
-
-			if ($classMetadata->getReflectionClass()->implementsInterface(TranslationInterface::class))
-			{
-				$columns[] = 'locale';
-			}
-
-			$classMetadata->table['uniqueConstraints'][$name] = [
-				'columns' => $columns
-			];
-		}
-	}
-
-	/**
-	 * Set indexes
-	 *
-	 * @param ClassMetadata $classMetadata
-	 */
-	private function setIndexes(ClassMetadata $classMetadata): void
-	{
 		$name = 'IDX_URL';
 
 		if (!(isset($classMetadata->table['indexes'][$name])))

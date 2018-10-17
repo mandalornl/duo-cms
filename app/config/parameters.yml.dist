@@ -20,6 +20,9 @@ parameters:
     mailer_encryption: '%env(MAILER_ENCRYPTION)%'
     mailer_from: '%env(MAILER_FROM)%'
 
+    memcached_host: '%env(MEMCACHED_HOST)%'
+    memcached_port: '%env(MEMCACHED_PORT)%'
+
     # A secret key that's used to generate certain security-related tokens
     secret: '%env(SECRET)%'
 
@@ -32,6 +35,8 @@ parameters:
 
     router.request_context.host: '%env(ROUTER_REQUEST_CONTEXT_HOST)%'
     router.request_context.scheme: '%env(ROUTER_REQUEST_CONTEXT_SCHEME)%'
+
+    google_analytics_id: '%env(GOOGLE_ANALYTICS_ID)%'
 
     env(DATABASE_HOST): 127.0.0.1
     env(DATABASE_PORT): ~
@@ -47,6 +52,9 @@ parameters:
     env(MAILER_ENCRYPTION): ~
     env(MAILER_FROM): info@example.com
 
+    env(MEMCACHED_HOST): localhost
+    env(MEMCACHED_PORT): 11211
+
     env(SECRET): ThisTokenIsNotSoSecretChangeIt
 
     env(LOCALE): en
@@ -57,3 +65,5 @@ parameters:
 
     env(ROUTER_REQUEST_CONTEXT_HOST): ~
     env(ROUTER_REQUEST_CONTEXT_SCHEME): ~
+
+    env(GOOGLE_ANALYTICS_ID): ~

@@ -2,7 +2,7 @@
 
 namespace Duo\MediaBundle\Controller\Listing;
 
-use Duo\AdminBundle\Controller\Listing\AbstractDeleteController;
+use Duo\CoreBundle\Controller\Listing\AbstractDeleteController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

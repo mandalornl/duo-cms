@@ -1,2 +1,14 @@
 imports:
     - { resource: '@DuoAdminBundle/Resources/config/services.yml' }
+
+    # import configs from other bundles
+    - { resource: '@DuoCoreBundle/Resources/config/config.yml' }
+    - { resource: '@DuoDraftBundle/Resources/config/config.yml' }
+    - { resource: '@DuoFormBundle/Resources/config/config.yml' }
+    - { resource: '@DuoMediaBundle/Resources/config/config.yml' }
+    - { resource: '@DuoPageBundle/Resources/config/config.yml' }
+    - { resource: '@DuoPartBundle/Resources/config/config.yml' }
+    - { resource: '@DuoSecurityBundle/Resources/config/config.yml' }
+    - { resource: '@DuoSeoBundle/Resources/config/config.yml' }
+    - { resource: '@DuoTaxonomyBundle/Resources/config/config.yml' }
+    - { resource: '@DuoTranslatorBundle/Resources/config/config.yml' }

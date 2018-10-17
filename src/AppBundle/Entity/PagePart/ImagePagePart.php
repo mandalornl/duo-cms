@@ -26,9 +26,9 @@ class ImagePagePart extends AbstractPagePart
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="alt", type="string", nullable=true)
+	 * @ORM\Column(name="alt_text", type="string", nullable=true)
 	 */
-	private $alt;
+	private $altText;
 
 	/**
 	 * Set media
@@ -55,27 +55,27 @@ class ImagePagePart extends AbstractPagePart
 	}
 
 	/**
-	 * Set alt
+	 * Set altText
 	 *
-	 * @param string $alt
+	 * @param string $altText
 	 *
 	 * @return ImagePagePart
 	 */
-	public function setAlt(?string $alt): ImagePagePart
+	public function setAltText(?string $altText): ImagePagePart
 	{
-		$this->alt = $alt;
+		$this->altText = $altText;
 
 		return $this;
 	}
 
 	/**
-	 * Get alt
+	 * Get altText
 	 *
 	 * @return string
 	 */
-	public function getAlt(): ?string
+	public function getAltText(): ?string
 	{
-		return $this->alt;
+		return $this->altText;
 	}
 
 	/**

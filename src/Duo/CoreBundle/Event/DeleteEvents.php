@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-class DeleteEvents
+final class DeleteEvents
 {
 	/**
 	 * @Event("Duo\CoreBundle\Event\DeleteEvent")

@@ -94,6 +94,7 @@ class SlugSubscriber implements EventSubscriber
 		if (!empty($entity->getSlug()))
 		{
 			$entity->setSlug(Slugifier::slugify($entity->getSlug()));
+
 			return;
 		}
 

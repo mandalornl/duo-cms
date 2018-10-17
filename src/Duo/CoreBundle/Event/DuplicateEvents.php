@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-class DuplicateEvents
+final class DuplicateEvents
 {
 	/**
 	 * @Event("Duo\CoreBundle\Event\DuplicateEvent")

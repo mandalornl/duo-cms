@@ -31,9 +31,9 @@ trait DraftTrait
 	 */
 	public function removeDraft(EntityDraftInterface $draft): PropertyDraftInterface
 	{
-		$draft->setEntity(null);
-
 		$this->getDrafts()->removeElement($draft);
+
+		$draft->setEntity(null);
 
 		return $this;
 	}

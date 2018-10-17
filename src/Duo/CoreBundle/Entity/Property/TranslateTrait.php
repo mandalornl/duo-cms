@@ -4,7 +4,6 @@ namespace Duo\CoreBundle\Entity\Property;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 trait TranslateTrait
 {
@@ -30,24 +29,43 @@ trait TranslateTrait
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @throws \Exception
 	 */
 	public function __call(string $name, array $arguments = [])
 	{
-		if (($entity = $this->translate($this->currentLocale)) === null)
+		$entity = $this->translate($this->currentLocale, false);
+
+		$reflectionClass = new \ReflectionClass($entity);
+
+		// access property
+		if ($reflectionClass->hasProperty($name))
 		{
-			return null;
+			$property = $reflectionClass->getProperty($name);
+			$property->setAccessible(true);
+
+			if (count($arguments))
+			{
+				$property->setValue($entity, $arguments[0]);
+
+				return $entity;
+			}
+
+			return $property->getValue($entity);
 		}
 
-		$accessor = PropertyAccess::createPropertyAccessor();
-
-		if (count($arguments))
+		// invoke method
+		if ($reflectionClass->hasMethod($name))
 		{
-			$accessor->setValue($entity, $name, $arguments[0]);
+			$method = $reflectionClass->getMethod($name);
 
-			return $entity;
+			if ($method->isPublic())
+			{
+				return $method->invokeArgs($entity, $arguments);
+			}
 		}
 
-		return $accessor->getValue($entity, $name);
+		return null;
 	}
 
 	/**
@@ -91,9 +109,9 @@ trait TranslateTrait
 	 */
 	public function addTranslation(TranslationInterface $translation): TranslateInterface
 	{
-		$this->getTranslations()->set((string)$translation->getLocale(), $translation);
-
 		$translation->setTranslatable($this);
+
+		$this->getTranslations()->set($translation->getLocale(), $translation);
 
 		return $this;
 	}
@@ -103,9 +121,9 @@ trait TranslateTrait
 	 */
 	public function removeTranslation(TranslationInterface $translation): TranslateInterface
 	{
-		$translation->setTranslatable(null);
-
 		$this->getTranslations()->removeElement($translation);
+
+		$translation->setTranslatable(null);
 
 		return $this;
 	}
@@ -123,9 +141,9 @@ trait TranslateTrait
 	 */
 	public function addNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
-		$this->getNewTranslations()->set((string)$translation->getLocale(), $translation);
-
 		$translation->setTranslatable($this);
+
+		$this->getNewTranslations()->set($translation->getLocale(), $translation);
 
 		return $this;
 	}
@@ -135,9 +153,9 @@ trait TranslateTrait
 	 */
 	public function removeNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
-		$translation->setTranslatable(null);
-
 		$this->getNewTranslations()->removeElement($translation);
+
+		$translation->setTranslatable(null);
 
 		return $this;
 	}
@@ -189,7 +207,7 @@ trait TranslateTrait
 			$locale = $this->currentLocale;
 		}
 
-		if (($translation = $this->findTranslationByLocale($locale)))
+		if (($translation = $this->findTranslationByLocale($locale)) !== null)
 		{
 			return $translation;
 		}
@@ -197,13 +215,12 @@ trait TranslateTrait
 		if ($fallback)
 		{
 			if (($fallbackLocale = $this->computeFallbackLocale($locale)) &&
-				($translation = $this->findTranslationByLocale($fallbackLocale))
-			)
+				($translation = $this->findTranslationByLocale($fallbackLocale)) !== null)
 			{
 				return $translation;
 			}
 
-			if (($translation = $this->findTranslationByLocale($this->defaultLocale, false)))
+			if (($translation = $this->findTranslationByLocale($this->defaultLocale, false)) !== null)
 			{
 				return $translation;
 			}

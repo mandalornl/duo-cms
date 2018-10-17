@@ -2,7 +2,7 @@
 
 {% block modal %}
 	{% if entity is revisionable %}
-		{% include '@DuoAdmin/Listing/Modal/revisions.html.twig' %}
+		{% include '@DuoCore/Listing/Modal/revisions.html.twig' %}
 	{% endif %}
 	{% if entity is draftable %}
 		{% include '@DuoDraft/Listing/Modal/drafts.html.twig' %}

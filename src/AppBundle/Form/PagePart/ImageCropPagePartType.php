@@ -24,7 +24,7 @@ class ImageCropPagePartType extends AbstractPartType
 				'constraints' => [
 					new Valid()
 				]
-			])->add('alt', TextType::class, [
+			])->add('altText', TextType::class, [
 				'required' => false,
 				'label' => 'app.form.image_crop_page_part.alt.label'
 			]);

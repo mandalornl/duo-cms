@@ -1,0 +1,8 @@
+duo:
+    admin:
+        error: An error occurred. Please try again.
+        no_items: No item(s) selected.
+        no_changes: No changes found.
+        destroy_success: Item(s) deleted succesfully.
+        save_success: Item saved successfully.
+        locked: Someone else has already applied some changes. Please try again.

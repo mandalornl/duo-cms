@@ -19,7 +19,15 @@ class WYSIWYGTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($value)
 	{
-		if ($value === null || $value === '<p>&nbsp;</p>')
+		$values = [
+			null,
+			'',
+			' ',
+			'<p>&nbsp;</p>',
+			'<p> </p>'
+		];
+
+		if (in_array($value, $values))
 		{
 			return null;
 		}

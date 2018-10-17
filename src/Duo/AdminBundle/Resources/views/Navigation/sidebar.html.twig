@@ -1,0 +1,36 @@
+{% import _self as self %}
+
+{% macro render(parent) %}
+	{% import _self as self %}
+
+	{% for child in parent.children %}
+		<li class="nav-item">
+			{% if child.url %}
+				<a href="{{ child.url }}" class="nav-link{% if child.active %} active{% endif %}">
+					{%- if child.icon -%}
+						<i class="{{ child.icon }}"></i>
+					{%- endif -%}
+					{{- child.label | trans -}}
+				</a>
+			{% else %}
+				<span class="nav-link">
+					{%- if child.icon -%}
+						<i class="{{ child.icon }}"></i>
+					{%- endif -%}
+					{{- child.label | trans -}}
+				</span>
+			{% endif %}
+			{% if child.children | length %}
+				<ul class="nav flex-column">
+					{{- self.render(child) -}}
+				</ul>
+			{% endif %}
+		</li>
+	{% endfor %}
+{% endmacro %}
+
+<nav role="navigation">
+	<ul class="nav flex-column">
+		{{- self.render(menu) -}}
+	</ul>
+</nav>

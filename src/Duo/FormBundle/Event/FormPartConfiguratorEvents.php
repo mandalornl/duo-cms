@@ -2,7 +2,7 @@
 
 namespace Duo\FormBundle\Event;
 
-class FormPartConfiguratorEvents
+final class FormPartConfiguratorEvents
 {
 	/**
 	 * @Event("Duo\FormBundle\Event\FormPartConfiguratorEvent")

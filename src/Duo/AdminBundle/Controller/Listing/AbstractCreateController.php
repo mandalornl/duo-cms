@@ -58,11 +58,11 @@ abstract class AbstractCreateController extends AbstractController
 				return $this->json([
 					'success' => true,
 					'id' => $entity->getId(),
-					'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
+					'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+			$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
 
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}

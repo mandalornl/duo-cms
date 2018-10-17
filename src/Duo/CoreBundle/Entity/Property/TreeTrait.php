@@ -52,9 +52,9 @@ trait TreeTrait
 	 */
 	public function removeChild(TreeInterface $child): TreeInterface
 	{
-		$child->setParent(null);
-
 		$this->getChildren()->removeElement($child);
+
+		$child->setParent(null);
 
 		return $this;
 	}

@@ -22,7 +22,7 @@ class ImagePagePartType extends AbstractPartType
 				'label' => false,
 				'mediaType' => 'image'
 			])
-			->add('alt', TextType::class, [
+			->add('altText', TextType::class, [
 				'required' => false,
 				'label' => 'app.form.image_page_part.alt.label'
 			]);

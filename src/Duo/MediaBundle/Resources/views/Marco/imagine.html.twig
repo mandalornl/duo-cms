@@ -1,0 +1,22 @@
+{# Sizes based on: https://medium.com/hceverything/applying-srcset-choosing-the-right-sizes-for-responsive-images-at-different-breakpoints-a0433450a4a3 #}
+{%- macro thumb(media, size) -%}
+	{{- media.url | imagine_filter('thumb', { thumbnail: { size: [size, ] }} ) -}}
+{%- endmacro -%}
+
+{%- macro srcset(media, sizes = [640, 768, 1024, 1366, 1600, 1920]) -%}
+	{%- for size in sizes -%}
+		{{- media.url | imagine_filter('thumb', { thumbnail: { size: [size, ] }} ) }} {{ size }}w{% if not loop.last %},{% endif -%}
+	{%- endfor -%}
+{%- endmacro -%}
+
+{%- macro crop(imageCrop, size) -%}
+	{%- set config = get_crop_imagine_config(imageCrop) | merge({ relative_resize: { widen: size } }) -%}
+	{{- imageCrop.media.url | imagine_filter('crop', config) -}}
+{%- endmacro -%}
+
+{%- macro cropSrcset(imageCrop, sizes = [640, 768, 1024, 1366, 1600, 1920]) -%}
+	{%- set config = get_crop_imagine_config(imageCrop) -%}
+	{%- for size in sizes -%}
+		{{- imageCrop.media.url | imagine_filter('crop', config | merge({ relative_resize: { widen: size }} )) }} {{ size }}w{% if not loop.last %},{% endif -%}
+	{%- endfor -%}
+{%- endmacro -%}

@@ -4,7 +4,7 @@ namespace Duo\CoreBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
-class PublishEvents
+final class PublishEvents
 {
 	/**
 	 * @Event("Duo\CoreBundle\Event\PublishEvent")

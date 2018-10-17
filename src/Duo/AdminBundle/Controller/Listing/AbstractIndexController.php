@@ -16,7 +16,9 @@ use Duo\AdminBundle\Tools\ORM\Query;
 use Duo\AdminBundle\Tools\Pagination\Paginator;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\RevisionInterface;
+use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -183,8 +185,6 @@ abstract class AbstractIndexController extends AbstractController
 	 * @param Request $request
 	 *
 	 * @return Paginator
-	 *
-	 * @throws \Throwable
 	 */
 	protected function getPaginator(Request $request): Paginator
 	{
@@ -198,12 +198,8 @@ abstract class AbstractIndexController extends AbstractController
 
 		$builder = $repository->createQueryBuilder('e');
 
-		$reflectionClass = $this->getDoctrine()->getManager()
-			->getClassMetadata($this->getEntityClass())
-			->getReflectionClass();
-
 		// join translations
-		if ($reflectionClass->implementsInterface(TranslateInterface::class))
+		if ($this->getEntityReflectionClass()->implementsInterface(TranslateInterface::class))
 		{
 			$builder
 				->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
@@ -211,13 +207,13 @@ abstract class AbstractIndexController extends AbstractController
 		}
 
 		// only fetch latest revision of entities
-		if ($reflectionClass->implementsInterface(RevisionInterface::class))
+		if ($this->getEntityReflectionClass()->implementsInterface(RevisionInterface::class))
 		{
 			$builder->andWhere('e.revision = e');
 		}
 
 		// don't fetch deleted entities
-		if ($reflectionClass->implementsInterface(DeleteInterface::class))
+		if ($this->getEntityReflectionClass()->implementsInterface(DeleteInterface::class))
 		{
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
@@ -859,7 +855,8 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	protected function isSortable(): bool
 	{
-		return false;
+		return $this->getEntityReflectionClass()->implementsInterface(SortInterface::class) &&
+			!$this->getEntityReflectionClass()->implementsInterface(TreeInterface::class);
 	}
 
 	/**
@@ -869,7 +866,7 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	protected function isDeletable(): bool
 	{
-		return false;
+		return $this->getEntityReflectionClass()->implementsInterface(DeleteInterface::class);
 	}
 
 	/**

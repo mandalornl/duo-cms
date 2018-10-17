@@ -8,6 +8,15 @@ services:
         resource: '../../*'
         exclude: '../../{Entity,Repository,Tests}'
 
+    Duo\CoreBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Duo\CoreBundle\EventSubscriber\UuidSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
     Duo\CoreBundle\EventSubscriber\PublishSubscriber:
         arguments:
             $security: '@security.helper'

@@ -15,15 +15,12 @@
 {
 	position: relative;
 
-	&:not(.disabled)
+	&:not(.disabled) .nestable-handle
 	{
-		.nestable-handle
-		{
-			cursor: move;
-			cursor: -webkit-grab;
+		cursor: move;
+		cursor: -webkit-grab;
 
-			@include user-select(none);
-		}
+		@include user-select(none);
 	}
 }
 

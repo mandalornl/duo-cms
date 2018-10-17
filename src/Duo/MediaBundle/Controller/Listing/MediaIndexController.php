@@ -122,14 +122,6 @@ class MediaIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function isDeletable(): bool
-	{
-		return true;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function canSwitchView(): bool
 	{
 		return true;

@@ -3,10 +3,12 @@
 namespace Duo\AdminBundle\EventListener;
 
 use Duo\AdminBundle\Event\Listing\EntityEvent;
+use Duo\AdminBundle\Event\Listing\EntityEvents;
 use Duo\AdminBundle\Helper\LocaleHelper;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TranslateListener
+class TranslateListener implements EventSubscriberInterface
 {
 	/**
 	 * @var LocaleHelper
@@ -21,6 +23,17 @@ class TranslateListener
 	public function __construct(LocaleHelper $localeHelper)
 	{
 		$this->localeHelper = $localeHelper;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			EntityEvents::PRE_CREATE => 'preCreate',
+			EntityEvents::PRE_UPDATE => 'preUpdate'
+		];
 	}
 
 	/**

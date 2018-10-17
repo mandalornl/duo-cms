@@ -1,12 +1,13 @@
+{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
+
 {% block duo_preview_widget %}
 	{% if data is defined and data.id %}
-		{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
-
 		<div class="media-preview">
 			<a href="{{ data.url }}" download="{{ data.name }}" title="{{ data.name }}" target="_blank">
 				{% if 'image/' in data.mimeType %}
+					{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 					<div class="image-preview">
-						<img src="{{ data.url | imagine_filter('srcset_640') }}" srcset="{{ media.srcset(data.url, [640, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
+						<img src="{{ imagine.thumb(data, 640) }}" srcset="{{ imagine.srcset(data, [640, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
 					</div>
 				{% else %}
 					{{- data.name -}}
@@ -26,15 +27,14 @@
 {% endblock %}
 
 {% block duo_media_widget %}
-	{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
-
 	<div class="widget-media{% if not data %} empty{% endif %}" data-media-type="{{ mediaType }}">
 		<div class="row">
 			<div class="col-sm-6 col-lg-5">
 				{% if mediaType == 'image' %}
 					<div class="image-preview">
 						{% if data and 'image/' in data.mimeType %}
-							<img src="{{ data.url | imagine_filter('srcset_640') }}" srcset="{{ media.srcset(data.url, [640, 768, 1024]) }}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="{{ data.name }}">
+							{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
+							<img src="{{ imagine.thumb(data, 640) }}" srcset="{{ imagine.srcset(data, [640, 768, 1024]) }}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="{{ data.name }}">
 						{% endif %}
 					</div>
 				{% endif %}

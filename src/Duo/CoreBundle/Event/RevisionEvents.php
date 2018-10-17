@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-class RevisionEvents
+final class RevisionEvents
 {
 	/**
 	 * @Event("Duo\CoreBundle\Event\RevisionEvent")

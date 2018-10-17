@@ -18,8 +18,6 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 	 * @param string $locale [optional]
 	 *
 	 * @return QueryBuilder
-	 *
-	 * @throws \Throwable
 	 */
 	protected function getQueryBuilder(string $locale = null): QueryBuilder
 	{
@@ -39,6 +37,12 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 			$builder->andWhere('e.deletedAt IS NULL');
 		}
 
+		// and is published
+		if ($reflectionClass->implementsInterface(PublishInterface::class))
+		{
+			$this->andWherePublished($builder);
+		}
+
 		// has translations
 		if ($reflectionClass->implementsInterface(TranslateInterface::class))
 		{
@@ -55,26 +59,14 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 				$builder->join('e.translations', 't');
 			}
 
-			$translationReflectionClass = new \ReflectionClass(
-				$this->getClassMetadata()->getAssociationTargetClass('translations')
-			);
+			$translationReflectionClass = $this->getEntityManager()
+				->getClassMetadata($this->getClassMetadata()->getAssociationTargetClass('translations'))
+				->getReflectionClass();
 
 			// and is published
 			if ($translationReflectionClass->implementsInterface(PublishInterface::class))
 			{
 				$this->andWherePublished($builder, 't');
-			}
-			else
-			{
-				$this->andWherePublished($builder);
-			}
-		}
-		else
-		{
-			// and is published
-			if ($reflectionClass->implementsInterface(PublishInterface::class))
-			{
-				$this->andWherePublished($builder);
 			}
 		}
 

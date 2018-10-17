@@ -16,9 +16,6 @@ duo:
                 yes: Ja
                 no: Nee
 
-            publish:
-                partially: Deels
-
         navbar:
             toggle: Toggle navigatie
             logout: Uitloggen
@@ -31,32 +28,16 @@ duo:
                 label: Acties
                 new: Nieuw
                 save: Opslaan
-                save_draft: Opslaan als concept
                 cancel: Annuleren
-                publish: Online
-                unpublish: Offline
-                preview: Preview
-                delete: Verwijderen
-                undelete: Herstellen
-                duplicate: Dupliceren
-                revisions: Revisies
-                drafts: Concepten
+                destroy: Verwijderen
 
             dropdown:
                 global:
                     more: Meer
 
-        tab:
-            publication: Publicatie
-
-        alert:
-            error: Er is een fout opgetreden. Probeer het nogmaals.
-
         listing:
             action:
-                move_up: Verplaats omhoog
-                move_down: Verplaats omlaag
-                delete: Verwijderen
+                destroy: Verwijderen
                 edit: Wijzigen
 
             filter:
@@ -81,18 +62,6 @@ duo:
                 search: Zoeken
                 clear: Wissen
 
-            alert:
-                no_items: Geen item(s) geselecteerd.
-                no_changes: Geen wijzigingen gevonden.
-                delete_success: Item(s) succesvol verwijderd.
-                undelete_success: Item(s) succesvol hersteld.
-                save_success: Item succesvol opgeslagen.
-                revert_success: Item succesvol teruggezet.
-                duplicate_success: Item succesvol gedupliceerd.
-                publish_success: Item succesvol gepubliceerd.
-                unpublish_success: Item succesvol offline gehaald.
-                locked: Iemand anders heeft al enkele wijzigingen aangebracht. Probeer het nogmaals.
-
             view:
                 list: Toon lijst
                 grid: Toon grid
@@ -112,63 +81,13 @@ duo:
                 ok: Ok
                 actions: Acties
 
-            revisions:
-                title: Revisies
-                name: Naam
-                created_at: Aangemaakt op
-                created_by: Aangemaakt door
-                view: Inzien
-                revert: Terugzetten
-                delete: Verwijderen
-
-            drafts:
-                title: Concepten
-                name: Naam
-                created_at: Aangemaakt op
-                created_by: Aangemaakt door
-                view: Inzien
-                apply: Toepassen
-                delete: Verwijderen
-
-            new_draft:
-                title: Nieuw concept
-                name: Naam
-
-            revert:
-                title: Terugzetten
-                body: Weet je zeker dat je dit item wilt terugzetten?
-
             apply:
                 title: Toepassen
                 body: Weet je zeker dat je dit item wilt toepassen?
 
-            duplicate:
-                title: Dupliceren
-                body: Weet je zeker dat je dit item wilt dupliceren?
-
-            delete:
-                title: Verwijderen
-                body: Weet je zeker dat je dit item wilt verwijderen?
-
-            undelete:
-                title: Herstellen
-                body: Weet je zeker dat je dit item wilt herstellen?
-
             destroy:
                 title: Verwijderen
                 body: Weet je zeker dat je dit item wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt!
-
-            publish:
-                title: Publiceren
-                body: Weet je zeker dat je dit item online wilt zetten?
-
-            unpublish:
-                title: Depubliceren
-                body: Weet je zeker dat je dit item offline wilt halen?
-
-            multi_delete:
-                title: Verwijderen
-                body: Weet je zeker dat je deze items wilt verwijderen?
 
             multi_destroy:
                 title: Verwijderen
@@ -185,10 +104,6 @@ duo:
             weight_choice:
                 label: Gewicht
                 placeholder: Maak een keuze
-
-            publication:
-                publish_at: Publiceer op
-                unpublish_at: Depubliceer op
 
             boolean_filter:
                 placeholder: Maak een keuze

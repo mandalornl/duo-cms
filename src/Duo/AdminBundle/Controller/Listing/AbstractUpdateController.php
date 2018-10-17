@@ -122,11 +122,11 @@ abstract class AbstractUpdateController extends AbstractController
 				{
 					return $this->json([
 						'success' => true,
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
+						'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+				$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
 
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 			}
@@ -137,11 +137,11 @@ abstract class AbstractUpdateController extends AbstractController
 				{
 					return $this->json([
 						'success' => false,
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.locked')
+						'message' => $this->get('translator')->trans('duo.admin.locked', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.locked'));
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.locked', [], 'flashes'));
 			}
 		}
 
@@ -231,11 +231,11 @@ abstract class AbstractUpdateController extends AbstractController
 					return $this->json([
 						'success' => false,
 						'id' => $entity->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.no_changes_found')
+						'message' => $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.no_changes_found'));
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes'));
 
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 					'id' => $entity->getId()
@@ -270,11 +270,11 @@ abstract class AbstractUpdateController extends AbstractController
 					return $this->json([
 						'success' => true,
 						'id' => $clone->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
+						'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+				$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
 
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 			}
@@ -286,11 +286,11 @@ abstract class AbstractUpdateController extends AbstractController
 					return $this->json([
 						'success' => false,
 						'id' => $entity->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.listing.alert.locked')
+						'message' => $this->get('translator')->trans('duo.admin.locked', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.listing.alert.locked'));
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.locked', [], 'flashes'));
 			}
 		}
 

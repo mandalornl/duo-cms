@@ -1,0 +1,11 @@
+.nestable-tree:not(.is-sortable) .nestable-handle
+{
+	cursor: default;
+
+	padding-left: .5rem;
+
+	&:before
+	{
+		content: none;
+	}
+}

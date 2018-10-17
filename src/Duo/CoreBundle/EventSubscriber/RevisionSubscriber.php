@@ -77,7 +77,7 @@ class RevisionSubscriber implements EventSubscriber
 				'joinColumns' 	=> [[
 					'name' 					=> 'revision_id',
 					'referencedColumnName'	=> 'id',
-					'onDelete'				=> 'SET NULL'
+					'onDelete'				=> 'CASCADE'
 				]]
 			]);
 		}

@@ -3,84 +3,46 @@
 namespace Duo\PageBundle\Controller\Listing;
 
 use Doctrine\ORM\Query\Expr\Join;
-use Duo\AdminBundle\Tools\Menu\MenuBuilder;
+use Duo\CoreBundle\Controller\Listing\AbstractTreeController;
+use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/page-tree", name="duo_page_listing_page_tree_")
- *
- * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
+ * @Route("/page-tree", name="duo_page_listing_page_")
  */
-class PageTreeController extends Controller
+class PageTreeController extends AbstractTreeController
 {
+	use PageConfigurationTrait;
+
 	/**
-	 * Index action
+	 * {@inheritdoc}
 	 *
-	 * @Route("/", name="index", methods={ "GET" })
-	 *
-	 * @param Request $request
-	 *
-	 * @return Response
-	 *
+	 * @Route("/", name="tree_index", methods={ "GET" })
 	 */
 	public function indexAction(Request $request): Response
 	{
-		return $this->render('@DuoPage/Menu/view.html.twig', [
-			'menu' => $this->get(MenuBuilder::class)->createView(),
-			'pages' => $this->getPages($request),
-			'moveToUrl' => $this->generateUrl('duo_page_listing_page_move_to')
-		]);
+		return $this->doIndexAction($request);
 	}
 
 	/**
-	 * Children action
+	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}/children", name="children", requirements={ "id" = "\d+" }, methods={ "GET" })
-	 *
-	 * @param Request $request
-	 * @param int $id
-	 *
-	 * @return JsonResponse
-	 *
-	 * @throws \Throwable
+	 * @Route("/{id}/children", name="tree_children", requirements={ "id" = "\d+" }, defaults={ "_format" = "json" }, methods={ "GET" })
 	 */
 	public function childrenAction(Request $request, int $id): JsonResponse
 	{
-		$entity = $this->getDoctrine()->getRepository(PageInterface::class)->find($id);
-
-		if ($entity === null)
-		{
-			$className = PageInterface::class;
-
-			return $this->json([
-				'error' => "Entity '{$className}::{$id}' not found"
-			]);
-		}
-
-		return $this->json([
-			'html' => $this->renderView('@DuoPage/Menu/tree.html.twig', [
-				'pages' => $this->getPages($request, $entity),
-				'parent' => $entity
-			])
-		]);
+		return $this->doChildrenAction($request, $id);
 	}
 
 	/**
-	 * Get pages
-	 *
-	 * @param Request $request
-	 * @param PageInterface $parent [optional]
-	 *
-	 * @return array
+	 * {@inheritdoc}
 	 */
-	private function getPages(Request $request, PageInterface $parent = null): array
+	protected function getChildren(Request $request, TreeInterface $parent = null): array
 	{
 		/**
 		 * @var PageRepository $repository

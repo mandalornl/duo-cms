@@ -72,7 +72,7 @@ class UrlLoader extends Loader
 		if (count($this->localeHelper->getLocales()) > 1)
 		{
 			return new Route('/{_locale}/{url}', [
-				'_controller' => 'DuoAdminBundle:Url:index',
+				'_controller' => 'AppBundle:Default:index',
 				'_locale' => $this->localeHelper->getLocale()
 			], [
 				'url' => '(.+)?',
@@ -81,7 +81,7 @@ class UrlLoader extends Loader
 		}
 
 		return new Route('/{url}', [
-			'_controller' => 'DuoAdminBundle:Url:index'
+			'_controller' => 'AppBundle:Default:index'
 		], [
 			'url' => '(.+)?'
 		]);

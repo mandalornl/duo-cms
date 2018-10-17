@@ -127,11 +127,11 @@ abstract class AbstractDraftController extends AbstractController
 			{
 				return $this->json([
 					'success' => true,
-					'message' => $this->get('translator')->trans('duo.admin.listing.alert.save_success')
+					'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.save_success'));
+			$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
 		}
 		else
 		{
@@ -140,11 +140,11 @@ abstract class AbstractDraftController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.alert.error')
+					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.alert.error'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.error', [], 'flashes'));
 		}
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
@@ -199,11 +199,11 @@ abstract class AbstractDraftController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.alert.error')
+					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.alert.error'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.error', [], 'flashes'));
 
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 				'id' => $entity->getId()
@@ -277,11 +277,11 @@ abstract class AbstractDraftController extends AbstractController
 		{
 			return $this->json([
 				'success' => true,
-				'message' => $this->get('translator')->trans('duo.admin.listing.alert.delete_success')
+				'message' => $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.admin.listing.alert.delete_success'));
+		$this->addFlash('success', $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes'));
 
 		if (($entity = $entity->getEntity()) !== null)
 		{

@@ -2,10 +2,10 @@
 
 namespace Duo\PageBundle\Form\Listing;
 
-use Duo\AdminBundle\Form\PublicationTabType;
 use Duo\AdminBundle\Form\TabsType;
 use Duo\AdminBundle\Form\TabType;
-use Duo\AdminBundle\Form\UrlType;
+use Duo\CoreBundle\Form\PublicationTabType;
+use Duo\CoreBundle\Form\UrlType;
 use Duo\PageBundle\Entity\PageTranslationInterface;
 use Duo\PageBundle\Form\PagePartCollectionType;
 use Duo\SeoBundle\Form\SeoTabType;

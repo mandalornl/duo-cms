@@ -50,7 +50,6 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 
 			$info = pathinfo($filename);
 
-			$uuid = UploadHelper::getUuid();
 			$relativePath = $this->container->getParameter('duo.media.relative_upload_path');
 
 			$mimeType = mime_content_type($filename);
@@ -73,11 +72,11 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 
 			$media = (new Media())
 				->setName($info['basename'])
-				->setUuid($uuid)
-				->setUrl("{$relativePath}/{$uuid}/{$info['basename']}")
 				->setMimeType($mimeType)
 				->setSize($size)
 				->setMetadata($metadata);
+
+			$media->setUrl("{$relativePath}/{$media->getUuid()}/{$info['basename']}");
 
 			$media->setCreatedBy($user);
 			$media->addTaxonomy($taxonomy);
@@ -87,12 +86,12 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 
 			$absolutePath = $this->container->getParameter('duo.media.absolute_upload_path');
 
-			if (!is_dir("{$absolutePath}/{$uuid}"))
+			if (!is_dir("{$absolutePath}/{$media->getUuid()}"))
 			{
-				mkdir("{$absolutePath}/{$uuid}");
+				mkdir("{$absolutePath}/{$media->getUuid()}");
 			}
 
-			copy($filename, "{$absolutePath}/{$uuid}/{$info['basename']}");
+			copy($filename, "{$absolutePath}/{$media->getUuid()}/{$info['basename']}");
 
 			$this->addReference("media-{$type}", $media);
 		}

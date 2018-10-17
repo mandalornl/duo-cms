@@ -3,12 +3,15 @@
 namespace Duo\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duo\CoreBundle\Entity\CloneTrait;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\DeleteTrait;
 use Duo\CoreBundle\Entity\Property\IdInterface;
 use Duo\CoreBundle\Entity\Property\IdTrait;
 use Duo\CoreBundle\Entity\Property\TimestampInterface;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\UuidInterface;
+use Duo\CoreBundle\Entity\Property\UuidTrait;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
 
@@ -16,12 +19,14 @@ use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
  * @ORM\Table(name="duo_media")
  * @ORM\Entity()
  */
-class Media implements IdInterface, TimestampInterface, DeleteInterface, TaxonomyInterface
+class Media implements IdInterface, TimestampInterface, DeleteInterface, TaxonomyInterface, UuidInterface
 {
 	use IdTrait;
 	use TimestampTrait;
 	use DeleteTrait;
 	use TaxonomyTrait;
+	use CloneTrait;
+	use UuidTrait;
 
 	/**
 	 * @var string
@@ -29,13 +34,6 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	 * @ORM\Column(name="name", type="string", nullable=true)
 	 */
 	private $name;
-
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="uuid", type="string", length=32, nullable=true)
-	 */
-	private $uuid;
 
 	/**
 	 * @var string
@@ -87,30 +85,6 @@ class Media implements IdInterface, TimestampInterface, DeleteInterface, Taxonom
 	public function getName(): ?string
 	{
 		return $this->name;
-	}
-
-	/**
-	 * Set uuid
-	 *
-	 * @param string $uuid
-	 *
-	 * @return Media
-	 */
-	public function setUuid(?string $uuid): Media
-	{
-		$this->uuid = $uuid;
-
-		return $this;
-	}
-
-	/**
-	 * Get uuid
-	 *
-	 * @return string
-	 */
-	public function getUuid(): ?string
-	{
-		return $this->uuid;
 	}
 
 	/**

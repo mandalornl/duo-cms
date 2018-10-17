@@ -1,5 +1,3 @@
-{% spaceless %}
-{% import '@DuoMedia/Marco/srcset.html.twig' as media %}
 <div class="table-responsive">
 	<table class="table table-hover table-striped checkable">
 		<thead>
@@ -45,9 +43,10 @@
 						eventType: type
 					} %}
 					{% if 'image/' in entity.mimeType %}
+						{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 						{% set item = item | merge({
-							src: entity.url | imagine_filter('srcset_640'),
-							srcset: media.srcset(entity.url, [640, 768, 1024])
+							src: imagine.thumb(entity, 640),
+							srcset: imagine.srcset(entity, [640, 768, 1024])
 						}) %}
 					{% endif %}
 				{% endif %}
@@ -91,7 +90,7 @@
 							{% else %}
 								{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
 							{% endif %}
-							<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo.admin.listing.action.delete' | trans }}">
+							<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo.admin.listing.action.destroy' | trans }}">
 								<i class="icon-bin"></i>
 							</a>
 						</td>
@@ -101,4 +100,3 @@
 		</tbody>
 	</table>
 </div>
-{% endspaceless %}

@@ -1,0 +1,15 @@
+<ul class="nestable-list{% if not children | length %} d-none{% endif %}{% if async | default(false) %} nestable-async{% endif %}"{% if parent | default(null) %} data-id="{{ parent.id }}"{% endif %}>
+	{% for entity in children %}
+		<li class="nestable-item" data-id="{{ entity.id }}">
+			<div class="nestable-handle">
+				<a href="javascript:;" class="nestable-folder{% if not entity.children | length %} d-none{% endif %}" data-url="{{ path(routePrefix ~ '_tree_children', { id: entity.id }) }}"></a>
+				{{- entity | trim -}}
+			</div>
+			{% include '@DuoCore/Tree/tree.html.twig' with {
+				parent: entity,
+				children: [],
+				async: entity.children | length
+			} %}
+		</li>
+	{% endfor %}
+</ul>

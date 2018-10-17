@@ -3,7 +3,9 @@
 namespace Duo\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\NodeBundle\Entity\AbstractNodeTranslation;
+use Duo\CoreBundle\Entity\CloneTrait;
+use Duo\CoreBundle\Entity\Property\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\TranslationTrait;
 use Duo\PartBundle\Entity\Property\PartInterface;
 use Duo\PartBundle\Entity\Property\PartTrait;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,9 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="duo_form_translation")
  * @ORM\Entity()
  */
-class FormTranslation extends AbstractNodeTranslation implements PartInterface
+class FormTranslation implements TranslationInterface, PartInterface
 {
+	use CloneTrait;
 	use PartTrait;
+	use TranslationTrait;
 
 	/**
 	 * @var string
@@ -22,7 +26,7 @@ class FormTranslation extends AbstractNodeTranslation implements PartInterface
 	 * @ORM\Column(name="subject", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
-	protected $subject;
+	private $subject;
 
 	/**
 	 * @var string
@@ -30,7 +34,7 @@ class FormTranslation extends AbstractNodeTranslation implements PartInterface
 	 * @ORM\Column(name="message", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
-	protected $message;
+	private $message;
 
 	/**
 	 * Set subject

@@ -23,7 +23,7 @@ class SeoTwigExtension extends \Twig_Extension
 	 * Render seo metadata
 	 *
 	 * @param \Twig_Environment $env
-	 * @param PageInterface $page
+	 * @param PageInterface $page [optional]
 	 * @param array $parameters [optional]
 	 *
 	 * @return string
@@ -32,7 +32,7 @@ class SeoTwigExtension extends \Twig_Extension
 	 * @throws \Twig_Error_Runtime
 	 * @throws \Twig_Error_Syntax
 	 */
-	public function renderSeoMetadata(\Twig_Environment $env, PageInterface $page, array $parameters = []): string
+	public function renderSeoMetadata(\Twig_Environment $env, PageInterface $page = null, array $parameters = []): string
 	{
 		$template = $env->load('@DuoSeo/Seo/metadata.html.twig');
 

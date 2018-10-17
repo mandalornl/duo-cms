@@ -2,7 +2,7 @@
 
 namespace Duo\CoreBundle\Event;
 
-class SortEvents
+final class SortEvents
 {
 	/**
 	 * @Event("Duo\CoreBundle\Event\SortEvent")

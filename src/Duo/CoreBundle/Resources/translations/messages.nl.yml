@@ -1,0 +1,67 @@
+duo:
+    core:
+        type:
+            publish:
+                partially: Deels
+
+        toolbar:
+            actions:
+                publish: Online
+                unpublish: Offline
+                delete: Verwijderen
+                undelete: Herstellen
+                duplicate: Dupliceren
+                revisions: Revisies
+                preview: Preview
+
+        tab:
+            publication: Publicatie
+
+        listing:
+            action:
+                delete: Verwijderen
+                move_up: Verplaats omhoog
+                move_down: Verplaats omlaag
+
+        modal:
+            revisions:
+                title: Revisies
+                name: Naam
+                created_at: Aangemaakt op
+                created_by: Aangemaakt door
+                view: Inzien
+                revert: Terugzetten
+                delete: Verwijderen
+
+            revert:
+                title: Terugzetten
+                body: Weet je zeker dat je dit item wilt terugzetten?
+
+            delete:
+                title: Verwijderen
+                body: Weet je zeker dat je dit item wilt verwijderen?
+
+            undelete:
+                title: Herstellen
+                body: Weet je zeker dat je dit item wilt herstellen?
+
+            multi_delete:
+                title: Verwijderen
+                body: Weet je zeker dat je deze items wilt verwijderen?
+
+            duplicate:
+                title: Dupliceren
+                body: Weet je zeker dat je dit item wilt dupliceren?
+
+            publish:
+                title: Publiceren
+                body: Weet je zeker dat je dit item online wilt zetten?
+
+            unpublish:
+                title: Depubliceren
+                body: Weet je zeker dat je dit item offline wilt halen?
+
+        form:
+            publication:
+                publish_at: Publiceer op
+                unpublish_at: Depubliceer op

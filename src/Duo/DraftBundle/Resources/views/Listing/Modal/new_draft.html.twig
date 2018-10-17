@@ -1,42 +1,40 @@
-{% spaceless %}
-	<div id="modal_new_draft" data-type="{{ type }}" data-url="{{ path(routePrefix ~ '_draft_create', { id: entity.id }) }}" class="modal new-draft fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_new_draft_title">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal_new_draft_title">
-						{{- 'duo.admin.modal.new_draft.title' | trans -}}
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="modal_new_draft_name" class="form-control-label required">
-							{{- 'duo.admin.modal.new_draft.name' | trans -}}
-						</label>
-						<input type="text" name="_draft[name]" id="modal_new_draft_name" class="form-control" required>
-						<span class="invalid-feedback d-none">
-							<span class="d-block">
-								<span class="form-error-icon badge badge-danger text-uppercase">
-									{{- 'Error' | trans({}, 'validators') -}}
-								</span>
-								<span class="form-error-message">
-									{{- 'This value should not be blank.' | trans({}, 'validators') -}}
-								</span>
+<div id="modal_new_draft" data-type="{{ type }}" data-url="{{ path(routePrefix ~ '_draft_create', { id: entity.id }) }}" class="modal new-draft fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_new_draft_title">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_new_draft_title">
+					{{- 'duo.draft.modal.new_draft.title' | trans -}}
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="modal_new_draft_name" class="form-control-label required">
+						{{- 'duo.draft.modal.new_draft.name' | trans -}}
+					</label>
+					<input type="text" name="_draft[name]" id="modal_new_draft_name" class="form-control" required>
+					<span class="invalid-feedback d-none">
+						<span class="d-block">
+							<span class="form-error-icon badge badge-danger text-uppercase">
+								{{- 'Error' | trans({}, 'validators') -}}
+							</span>
+							<span class="form-error-message">
+								{{- 'This value should not be blank.' | trans({}, 'validators') -}}
 							</span>
 						</span>
-					</div>
+					</span>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-light" data-dismiss="modal">
-						{{- 'duo.admin.modal.global.cancel' | trans -}}
-					</button>
-					<button type="button" class="btn btn-primary">
-						{{- 'duo.admin.modal.global.ok' | trans -}}
-					</button>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light" data-dismiss="modal">
+					{{- 'duo.admin.modal.global.cancel' | trans -}}
+				</button>
+				<button type="button" class="btn btn-primary">
+					{{- 'duo.admin.modal.global.ok' | trans -}}
+				</button>
 			</div>
 		</div>
 	</div>
-{% endspaceless %}
+</div>

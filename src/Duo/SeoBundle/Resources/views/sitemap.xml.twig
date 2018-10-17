@@ -1,27 +1,7 @@
 {% spaceless %}
-{% import _self as _ %}
-
-{% macro createItem(page, priority) %}
-	{% import _self as _ %}
-
-	{% if page and page.translate(app.request.locale).published %}
-		<url>
-			<loc>{{ url('url', { url: page.translate(app.request.locale).url, _locale: app.request.locale }) }}</loc>
-			<lastmod>{{ page.modifiedAt | date('c') }}</lastmod>
-			<changefreq>weekly</changefreq>
-			<priority>{{ priority }}</priority>
-		</url>
-		{% if page.children | length %}
-			{% set priority = priority - 0.1 %}
-			{% for child in page.children %}
-				{{ _.createItem(child, priority) }}
-			{% endfor %}
-		{% endif %}
-	{% endif %}
-{% endmacro %}
-
+{% import '@DuoSeo/Macro/tag.html.twig' as tag %}
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	{{ _.createItem(root, 1.0) }}
+	{{ tag.urls(root, 1.0) }}
 </urlset>
 {% endspaceless %}

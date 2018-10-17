@@ -33,16 +33,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 16 }
 
-    Duo\AdminBundle\EventListener\TranslateListener:
-        tags:
-            - { name: kernel.event_listener, event: duo.event.listing.entity.preCreate, method: preCreate }
-            - { name: kernel.event_listener, event: duo.event.listing.entity.preUpdate, method: preUpdate }
-
-    Duo\AdminBundle\Twig\LocaleTwigExtension:
-        tags:
-            - { name: twig.extension }
-
-    duo.admin.routing.url_loader:
-        class: Duo\AdminBundle\Routing\UrlLoader
+    Duo\AdminBundle\Routing\UrlLoader:
         tags:
             - { name: routing.loader, priority: 0 }
