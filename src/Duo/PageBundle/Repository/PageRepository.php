@@ -37,15 +37,16 @@ class PageRepository extends AbstractEntityRepository
 	 *
 	 * @return PageInterface
 	 */
-	public function findById(int $id, string $locale = null): ?PageInterface
+	public function findOneById(int $id, string $locale = null): ?PageInterface
 	{
 		try
 		{
-			return $this->getQueryBuilder($locale)
+			return $this->createDefaultQueryBuilder($locale)
 				->andWhere('e.id = :id')
 				->setParameter('id', $id)
 				->getQuery()
 				->getOneOrNullResult();
+
 		}
 		catch (NonUniqueResultException $e)
 		{
@@ -63,15 +64,11 @@ class PageRepository extends AbstractEntityRepository
 	 */
 	public function findOneByUrl(string $url, string $locale = null): ?PageInterface
 	{
-		$builder = $this->getQueryBuilder($locale);
-
-		$builder
-			->andWhere('t.url = :url')
-			->setParameter('url', $url);
-
 		try
 		{
-			return $builder
+			return $this->createDefaultQueryBuilder($locale)
+				->andWhere('t.url = :url')
+				->setParameter('url', $url)
 				->getQuery()
 				->getOneOrNullResult();
 		}
@@ -93,7 +90,7 @@ class PageRepository extends AbstractEntityRepository
 	{
 		try
 		{
-			return $this->getQueryBuilder($locale)
+			return $this->createDefaultQueryBuilder($locale)
 				->andWhere('e.name = :name')
 				->setParameter('name', $name)
 				->getQuery()
@@ -114,7 +111,7 @@ class PageRepository extends AbstractEntityRepository
 	{
 		try
 		{
-			$dateTime = $this->getQueryBuilder()
+			$dateTime = $this->createDefaultQueryBuilder()
 				->select('MAX(e.modifiedAt)')
 				->getQuery()
 				->getOneOrNullResult(Query::HYDRATE_SINGLE_SCALAR);

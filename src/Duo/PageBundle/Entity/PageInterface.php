@@ -11,15 +11,17 @@ use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TimestampInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
+use Duo\CoreBundle\Entity\Property\UuidInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\DraftBundle\Entity\Property\DraftInterface;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyInterface;
 
 interface PageInterface extends IdInterface,
-								DuplicateInterface,
+								UuidInterface,
 								TimestampInterface,
 								TranslateInterface,
 								VersionInterface,
+								DuplicateInterface,
 								PreviewInterface,
 								DeleteInterface,
 								RevisionInterface,

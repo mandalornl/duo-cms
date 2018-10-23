@@ -2,31 +2,46 @@
 
 namespace Duo\AdminBundle\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Duo\AdminBundle\Helper\LocaleHelper;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
-class LocaleListener
+class LocaleListener implements EventSubscriberInterface
 {
 	/**
-	 * @var string
+	 * @var LocaleHelper
 	 */
-	private $defaultLocale = 'nl';
+	private $localeHelper;
 
 	/**
 	 * LocaleListener constructor
 	 *
-	 * @param string $defaultLocale
+	 * @param LocaleHelper $localeHelper
 	 */
-	public function __construct(string $defaultLocale)
+	public function __construct(LocaleHelper $localeHelper)
 	{
-		$this->defaultLocale = $defaultLocale;
+		$this->localeHelper = $localeHelper;
 	}
 
 	/**
-	 * On kernel request
-	 *
-	 * @param GetResponseEvent $event
+	 * {@inheritdoc}
 	 */
-	public function onKernelRequest(GetResponseEvent $event): void
+	public static function getSubscribedEvents(): array
+	{
+		return [
+			KernelEvents::REQUEST => [
+				[ 'onKernelRequest', 16 ]
+			]
+		];
+	}
+
+	/**
+	 * On kernel request event
+	 *
+	 * @param KernelEvent $event
+	 */
+	public function onKernelRequest(KernelEvent $event): void
 	{
 		$request = $event->getRequest();
 
@@ -35,7 +50,7 @@ class LocaleListener
 			return;
 		}
 
-		$locale = $request->query->get('locale', $this->defaultLocale);
+		$locale = $request->query->get('locale', $this->localeHelper->getDefaultLocale());
 
 		if (!preg_match('#^[a-z]{2}(?:[-_][a-zA-Z]{2})?$#', $locale))
 		{

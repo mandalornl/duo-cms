@@ -56,23 +56,23 @@ class SortSubscriber implements EventSubscriber
 		 */
 		$manager = $args->getObjectManager();
 
-		$builder = $manager->createQueryBuilder()
-			->select('COALESCE(MAX(e.weight) + 1, 0)')
-			->from(get_class($entity), 'e');
-
-		// use parent of entity
-		if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)
-		{
-			$builder
-				->andWhere('e.parent = :parent')
-				->setParameter('parent', $parent);
-		}
-
 		try
 		{
+			$builder = $manager->createQueryBuilder()
+				->select('COALESCE(MAX(e.weight) + 1, 0)')
+				->from(get_class($entity), 'e');
+
+			// use parent of entity
+			if ($entity instanceof TreeInterface && ($parent = $entity->getParent()) !== null)
+			{
+				$builder
+					->andWhere('e.parent = :parent')
+					->setParameter('parent', $parent);
+			}
+
 			return (int)$builder->getQuery()->getSingleScalarResult();
 		}
-		catch (NonUniqueResultException | NoResultException $e)
+		catch (NonUniqueResultException $e)
 		{
 			return 0;
 		}

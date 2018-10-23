@@ -4,8 +4,8 @@ namespace Duo\CoreBundle\Controller\Listing;
 
 use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\CoreBundle\Entity\DuplicateInterface;
-use Duo\CoreBundle\Event\DuplicateEvent;
-use Duo\CoreBundle\Event\DuplicateEvents;
+use Duo\CoreBundle\Event\Listing\DuplicateEvent;
+use Duo\CoreBundle\Event\Listing\DuplicateEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

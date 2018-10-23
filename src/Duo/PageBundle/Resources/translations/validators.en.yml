@@ -2,3 +2,4 @@ duo:
     page:
         errors:
             url_used: This url has already been used
+            name_used: This name has already been used

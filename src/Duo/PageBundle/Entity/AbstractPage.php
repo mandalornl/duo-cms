@@ -11,6 +11,7 @@ use Duo\CoreBundle\Entity\Property\SortTrait;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
 use Duo\CoreBundle\Entity\Property\TranslateTrait;
 use Duo\CoreBundle\Entity\Property\TreeTrait;
+use Duo\CoreBundle\Entity\Property\UuidTrait;
 use Duo\CoreBundle\Entity\Property\VersionTrait;
 use Duo\DraftBundle\Entity\Property\DraftTrait;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
@@ -18,9 +19,9 @@ use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
 abstract class AbstractPage implements PageInterface
 {
 	use IdTrait;
-	use TranslateTrait;
-	use CloneTrait;
+	use UuidTrait;
 	use TimestampTrait;
+	use TranslateTrait;
 	use VersionTrait;
 	use DeleteTrait;
 	use RevisionTrait;
@@ -28,6 +29,7 @@ abstract class AbstractPage implements PageInterface
 	use TreeTrait;
 	use TaxonomyTrait;
 	use DraftTrait;
+	use CloneTrait;
 
 	/**
 	 * @var string

@@ -13,13 +13,13 @@ use Duo\CoreBundle\Entity\Property\RevisionInterface;
 abstract class AbstractEntityRepository extends ServiceEntityRepository
 {
 	/**
-	 * Get query builder
+	 * Create default query builder
 	 *
 	 * @param string $locale [optional]
 	 *
 	 * @return QueryBuilder
 	 */
-	protected function getQueryBuilder(string $locale = null): QueryBuilder
+	public function createDefaultQueryBuilder(string $locale = null): QueryBuilder
 	{
 		$builder = $this->createQueryBuilder('e');
 
@@ -50,13 +50,13 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 			if ($locale !== null)
 			{
 				$builder
-					->join('e.translations', 't', Join::WITH, 't.locale = :locale')
+					->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
 					->setParameter('locale', $locale);
 			}
 			// or all
 			else
 			{
-				$builder->join('e.translations', 't');
+				$builder->join('e.translations', 't', Join::WITH, 't.translatable = e');
 			}
 
 			$translationReflectionClass = $this->getEntityManager()
@@ -82,7 +82,7 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 	private function andWherePublished(QueryBuilder $builder, string $alias = 'e'): void
 	{
 		$builder
-			->andWhere("({$alias}.publishAt <= :dateTime AND ({$alias}.unpublishAt > :dateTime OR {$alias}.unpublishAt IS NULL))")
-			->setParameter('dateTime', new \DateTime());
+			->andWhere("({$alias}.publishAt <= :now AND ({$alias}.unpublishAt > :now OR {$alias}.unpublishAt IS NULL))")
+			->setParameter('now', new \DateTime());
 	}
 }

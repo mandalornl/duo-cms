@@ -6,10 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Duo\CoreBundle\Entity\Property\IdInterface;
 use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\UuidInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 
-interface UserInterface extends IdInterface, TimestampInterface, AdvancedUserInterface, EquatableInterface
+interface UserInterface extends IdInterface,
+								UuidInterface,
+								TimestampInterface,
+								AdvancedUserInterface,
+								EquatableInterface
 {
 	/**
 	 * Set name

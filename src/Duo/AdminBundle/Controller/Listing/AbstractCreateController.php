@@ -37,14 +37,26 @@ abstract class AbstractCreateController extends AbstractController
 		$form = $this->createForm($this->getFormType(), $entity);
 
 		// dispatch pre create event
-		$eventDispatcher->dispatch(FormEvents::PRE_CREATE, new FormEvent($form, $entity));
+		$eventDispatcher->dispatch(FormEvents::PRE_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
+
+		// return when response is given
+		if ($formEvent->hasResponse())
+		{
+			return $formEvent->getResponse();
+		}
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post create event
-			$eventDispatcher->dispatch(FormEvents::POST_CREATE, new FormEvent($form, $entity));
+			$eventDispatcher->dispatch(FormEvents::POST_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
+
+			// return when response is given
+			if ($formEvent->hasResponse())
+			{
+				return $formEvent->getResponse();
+			}
 
 			$manager->persist($entity);
 			$manager->flush();

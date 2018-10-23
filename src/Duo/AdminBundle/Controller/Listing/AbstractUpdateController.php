@@ -13,12 +13,12 @@ use Duo\AdminBundle\Event\Listing\FormEvent;
 use Duo\AdminBundle\Event\Listing\FormEvents;
 use Duo\AdminBundle\Event\Listing\ORMEvent;
 use Duo\AdminBundle\Event\Listing\ORMEvents;
-use Duo\AdminBundle\Event\TwigEvent;
-use Duo\AdminBundle\Event\TwigEvents;
+use Duo\AdminBundle\Event\Listing\TwigEvent;
+use Duo\AdminBundle\Event\Listing\TwigEvents;
 use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
-use Duo\CoreBundle\Event\RevisionEvent;
-use Duo\CoreBundle\Event\RevisionEvents;
+use Duo\CoreBundle\Event\Listing\RevisionEvent;
+use Duo\CoreBundle\Event\Listing\RevisionEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,14 +89,26 @@ abstract class AbstractUpdateController extends AbstractController
 		$form = $this->createForm($this->getFormType(), $entity);
 
 		// dispatch pre update event
-		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, new FormEvent($form, $entity));
+		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+
+		// return when response is given
+		if ($formEvent->hasResponse())
+		{
+			return $formEvent->getResponse();
+		}
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post update event
-			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, new FormEvent($form, $entity));
+			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+
+			// return when response is given
+			if ($formEvent->hasResponse())
+			{
+				return $formEvent->getResponse();
+			}
 
 			try
 			{
@@ -210,14 +222,26 @@ abstract class AbstractUpdateController extends AbstractController
 		$preSubmitState = serialize($this->getFormViewData($form));
 
 		// dispatch pre update event
-		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, new FormEvent($form, $clone));
+		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $clone, $request)));
+
+		// return when response is given
+		if ($formEvent->hasResponse())
+		{
+			return $formEvent->getResponse();
+		}
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post update event
-			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, new FormEvent($form, $clone));
+			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $clone, $request)));
+
+			// return when response is given
+			if ($formEvent->hasResponse())
+			{
+				return $formEvent->getResponse();
+			}
 
 			// post submit state
 			$postSubmitState = serialize($this->getFormViewData($form));
@@ -242,7 +266,7 @@ abstract class AbstractUpdateController extends AbstractController
 				]);
 			}
 
-			// dispatch onClone event
+			// dispatch clone event
 			$eventDispatcher->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
 
 			try

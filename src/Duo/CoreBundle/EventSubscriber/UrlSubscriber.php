@@ -129,9 +129,6 @@ class UrlSubscriber implements EventSubscriber
 			return;
 		}
 
-		/**
-		 * @var TreeInterface $translatable
-		 */
 		$translatable = $entity->getTranslatable();
 
 		$urls = [ $entity->getValueToUrlize() ];

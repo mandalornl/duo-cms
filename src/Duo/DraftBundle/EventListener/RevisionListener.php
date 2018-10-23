@@ -2,8 +2,8 @@
 
 namespace Duo\DraftBundle\EventListener;
 
-use Duo\CoreBundle\Event\RevisionEvent;
-use Duo\CoreBundle\Event\RevisionEvents;
+use Duo\CoreBundle\Event\Listing\RevisionEvent;
+use Duo\CoreBundle\Event\Listing\RevisionEvents;
 use Duo\DraftBundle\Entity\Property\DraftInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -50,7 +50,7 @@ class RevisionListener implements EventSubscriberInterface
 		$entity = $event->getEntity();
 		$origin = $event->getOrigin();
 
-		if (!$origin instanceof DraftInterface)
+		if (!$entity instanceof DraftInterface || !$origin instanceof DraftInterface)
 		{
 			return;
 		}

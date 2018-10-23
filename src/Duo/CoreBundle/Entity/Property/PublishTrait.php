@@ -142,4 +142,15 @@ trait PublishTrait
 		return ($this->publishAt !== null && $this->publishAt <= $dateTime) &&
 			($this->unpublishAt === null || $this->unpublishAt > $dateTime);
 	}
+
+	/**
+	 * On clone publish
+	 */
+	protected function onClonePublish(): void
+	{
+		$this->publishAt = null;
+		$this->publishedBy = null;
+		$this->unpublishAt = null;
+		$this->unpublishedBy = null;
+	}
 }

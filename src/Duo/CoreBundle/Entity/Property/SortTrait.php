@@ -9,7 +9,7 @@ trait SortTrait
 	/**
 	 * @var int
 	 *
-	 * @ORM\Column(name="weight", type="smallint", options={ "default" = 0 })
+	 * @ORM\Column(name="weight", type="smallint", nullable=true)
 	 */
 	protected $weight;
 

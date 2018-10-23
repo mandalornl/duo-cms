@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityRepository;
 use Duo\TranslatorBundle\Entity\Entry;
 use Duo\TranslatorBundle\Entity\EntryTranslation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -69,6 +70,9 @@ class ImportCommand extends ContainerAwareCommand
 		$references = $this->getReferences();
 		$messages = $this->getMessages($input);
 
+		$progressBar = new ProgressBar($output, $this->getMessagesCount($messages));
+		$progressBar->start();
+
 		$count = 1;
 		$batchSize = $input->getOption('batch-size');
 
@@ -84,7 +88,13 @@ class ImportCommand extends ContainerAwareCommand
 				{
 					if (!$input->getOption('force'))
 					{
+						$progressBar->clear();
+
 						$output->writeln("{$this->getTimestamp()} - Entry for '{$domain}.[locale] - {$keyword}' already exists.");
+
+						$progressBar->display();
+						$progressBar->advance(count($locales));
+
 						continue;
 					}
 
@@ -102,7 +112,12 @@ class ImportCommand extends ContainerAwareCommand
 				{
 					$entity->translate($locale)->setText($text);
 
+					$progressBar->clear();
+
 					$output->writeln("{$this->getTimestamp()} - Entry for '{$domain}.{$locale} - {$keyword}' added.");
+
+					$progressBar->display();
+					$progressBar->advance();
 				}
 
 				$entity->mergeNewTranslations();
@@ -114,15 +129,24 @@ class ImportCommand extends ContainerAwareCommand
 					$manager->flush();
 					$manager->clear();
 
+					$progressBar->clear();
+
 					$output->writeln("{$this->getTimestamp()} - Batch complete.");
+
+					$progressBar->display();
 				}
 			}
 		}
+
+		$progressBar->clear();
 
 		$output->writeln("{$this->getTimestamp()} - Flush remaining entities.");
 
 		$manager->flush();
 		$manager->clear();
+
+		$progressBar->finish();
+		$progressBar->clear();
 
 		$output->writeln("{$this->getTimestamp()} - Job finished.");
 	}
@@ -241,6 +265,21 @@ class ImportCommand extends ContainerAwareCommand
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Get messages count
+	 *
+	 * @param array $messages
+	 *
+	 * @return int
+	 */
+	private function getMessagesCount(array $messages): int
+	{
+		return (int)array_sum(array_map(function(array $keywords)
+		{
+			return count($keywords, COUNT_RECURSIVE) - count($keywords);
+		}, $messages));
 	}
 
 	/**

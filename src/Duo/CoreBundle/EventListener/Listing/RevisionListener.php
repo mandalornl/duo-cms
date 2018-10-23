@@ -1,17 +1,14 @@
 <?php
 
-namespace Duo\CoreBundle\EventListener;
+namespace Duo\CoreBundle\EventListener\Listing;
 
-use Duo\CoreBundle\Entity\Property\PublishInterface;
-use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\SortInterface;
-use Duo\CoreBundle\Entity\Property\TimestampInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Entity\Property\UrlInterface;
 use Duo\CoreBundle\Entity\Property\RevisionInterface;
-use Duo\CoreBundle\Event\RevisionEvent;
-use Duo\CoreBundle\Event\RevisionEvents;
+use Duo\CoreBundle\Event\Listing\RevisionEvent;
+use Duo\CoreBundle\Event\Listing\RevisionEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RevisionListener implements EventSubscriberInterface
@@ -35,8 +32,6 @@ class RevisionListener implements EventSubscriberInterface
 	public function onClone(RevisionEvent $event): void
 	{
 		$this->setRevision($event);
-		$this->unsetBlame($event);
-		$this->undelete($event);
 		$this->setParentOnClone($event);
 		$this->unsetUrlOnClone($event);
 		$this->unsetTranslationUrlOnClone($event);
@@ -50,7 +45,7 @@ class RevisionListener implements EventSubscriberInterface
 	public function onRevert(RevisionEvent $event): void
 	{
 		$this->setRevision($event);
-		$this->setWeight($event);
+		$this->setWeightOnRevert($event);
 		$this->setParentOnRevert($event);
 		$this->unsetUrlOnRevert($event);
 		$this->unsetTranslationUrlOnRevert($event);
@@ -66,79 +61,29 @@ class RevisionListener implements EventSubscriberInterface
 		$entity = $event->getEntity();
 		$origin = $event->getOrigin();
 
-		/**
-		 * @var RevisionInterface $revision
-		 */
 		foreach ($origin->getRevisions() as $revision)
 		{
+			/**
+			 * @var RevisionInterface $revision
+			 */
 			$revision->setRevision($entity);
 		}
 	}
 
 	/**
-	 * Unset blame
+	 * Set weight on revert
 	 *
 	 * @param RevisionEvent $event
 	 */
-	private function unsetBlame(RevisionEvent $event): void
+	private function setWeightOnRevert(RevisionEvent $event): void
 	{
 		$entity = $event->getEntity();
-
-		if ($entity instanceof TimestampInterface)
-		{
-			$entity
-				->setCreatedBy(null)
-				->setModifiedBy(null);
-		}
-
-		if ($entity instanceof DeleteInterface)
-		{
-			$entity->setDeletedBy(null);
-		}
-
-		if ($entity instanceof PublishInterface)
-		{
-			$entity
-				->setPublishedBy(null)
-				->setUnpublishedBy(null);
-		}
-	}
-
-	/**
-	 * Undelete entity
-	 *
-	 * @param RevisionEvent $event
-	 */
-	private function undelete(RevisionEvent $event): void
-	{
-		$entity = $event->getEntity();
-
-		if (!$entity instanceof DeleteInterface)
-		{
-			return;
-		}
-
-		$entity->undelete();
-	}
-
-	/**
-	 * Set weight
-	 *
-	 * @param RevisionEvent $event
-	 */
-	private function setWeight(RevisionEvent $event): void
-	{
-		$entity = $event->getEntity();
-
-		if (!$entity instanceof SortInterface)
-		{
-			return;
-		}
-
-		/**
-		 * @var SortInterface $origin
-		 */
 		$origin = $event->getOrigin();
+
+		if (!$entity instanceof SortInterface || !$origin instanceof SortInterface)
+		{
+			return;
+		}
 
 		$entity->setWeight($origin->getWeight());
 	}
@@ -173,9 +118,10 @@ class RevisionListener implements EventSubscriberInterface
 	 */
 	private function setParentOnRevert(RevisionEvent $event): void
 	{
+		$entity = $event->getEntity();
 		$origin = $event->getOrigin();
 
-		if (!$origin instanceof TreeInterface)
+		if (!$entity instanceof TreeInterface || !$origin instanceof TreeInterface)
 		{
 			return;
 		}
@@ -185,7 +131,7 @@ class RevisionListener implements EventSubscriberInterface
 			/**
 			 * @var TreeInterface $child
 			 */
-			$child->setParent($event->getEntity());
+			$child->setParent($entity);
 		}
 	}
 

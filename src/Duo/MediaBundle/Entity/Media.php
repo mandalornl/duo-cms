@@ -16,17 +16,26 @@ use Duo\TaxonomyBundle\Entity\Property\TaxonomyInterface;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
 
 /**
- * @ORM\Table(name="duo_media")
+ * @ORM\Table(
+ *     name="duo_media",
+ *     indexes={
+ *     	   @ORM\Index(name="IDX_URL", columns={ "url" })
+ *	   }
+ * )
  * @ORM\Entity()
  */
-class Media implements IdInterface, TimestampInterface, DeleteInterface, TaxonomyInterface, UuidInterface
+class Media implements IdInterface,
+					   UuidInterface,
+					   TimestampInterface,
+					   DeleteInterface,
+					   TaxonomyInterface
 {
 	use IdTrait;
+	use UuidTrait;
 	use TimestampTrait;
 	use DeleteTrait;
 	use TaxonomyTrait;
 	use CloneTrait;
-	use UuidTrait;
 
 	/**
 	 * @var string

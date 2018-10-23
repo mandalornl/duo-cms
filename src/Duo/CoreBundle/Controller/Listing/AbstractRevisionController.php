@@ -4,8 +4,8 @@ namespace Duo\CoreBundle\Controller\Listing;
 
 use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\CoreBundle\Entity\Property\RevisionInterface;
-use Duo\CoreBundle\Event\RevisionEvent;
-use Duo\CoreBundle\Event\RevisionEvents;
+use Duo\CoreBundle\Event\Listing\RevisionEvent;
+use Duo\CoreBundle\Event\Listing\RevisionEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

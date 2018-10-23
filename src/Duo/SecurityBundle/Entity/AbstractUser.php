@@ -5,15 +5,19 @@ namespace Duo\SecurityBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Duo\CoreBundle\Entity\CloneTrait;
 use Duo\CoreBundle\Entity\Property\IdTrait;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
+use Duo\CoreBundle\Entity\Property\UuidTrait;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class AbstractUser implements UserInterface, \Serializable
 {
 	use IdTrait;
+	use UuidTrait;
 	use TimestampTrait;
+	use CloneTrait;
 
 	/**
      * @var string

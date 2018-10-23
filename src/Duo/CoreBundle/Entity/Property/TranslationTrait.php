@@ -3,6 +3,7 @@
 namespace Duo\CoreBundle\Entity\Property;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait TranslationTrait
 {
@@ -17,6 +18,8 @@ trait TranslationTrait
 	 * @var string
 	 *
 	 * @ORM\Column(name="locale", type="string", length=5, nullable=true)
+	 * @Assert\NotBlank()
+	 * @Assert\Locale()
 	 */
 	protected $locale;
 

@@ -32,7 +32,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 		$form->setEmailFrom('noreply@example.com');
 		$form->setEmailTo('info@example.com');
 		$form->setKeepSubmissions(true);
-		$form->setSendSubmissionsTo('submission@example.com');
+		$form->setSendSubmissionsTo('submissions@example.com');
 		$form->setCreatedBy($user);
 
 		$form->translate('nl')

@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\Event;
+namespace Duo\AdminBundle\Event\Listing;
 
 use Duo\AdminBundle\Twig\TwigContextInterface;
 use Symfony\Component\EventDispatcher\Event;

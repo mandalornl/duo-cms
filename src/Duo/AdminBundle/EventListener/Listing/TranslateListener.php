@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\AdminBundle\EventListener;
+namespace Duo\AdminBundle\EventListener\Listing;
 
 use Duo\AdminBundle\Event\Listing\EntityEvent;
 use Duo\AdminBundle\Event\Listing\EntityEvents;

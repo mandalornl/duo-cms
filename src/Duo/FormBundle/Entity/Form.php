@@ -12,6 +12,8 @@ use Duo\CoreBundle\Entity\Property\TimestampTrait;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TranslateTrait;
 use Duo\CoreBundle\Entity\Property\TranslationInterface;
+use Duo\CoreBundle\Entity\Property\UuidInterface;
+use Duo\CoreBundle\Entity\Property\UuidTrait;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\CoreBundle\Entity\Property\VersionTrait;
 use Duo\PageBundle\Entity\PageInterface;
@@ -20,20 +22,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_form")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Duo\FormBundle\Repository\FormRepository")
  * @UniqueEntity(fields={ "name" }, message="duo.form.errors.name_used")
  */
 class Form implements IdInterface,
+					  UuidInterface,
 					  DuplicateInterface,
 					  TimestampInterface,
 					  TranslateInterface,
 					  VersionInterface
 {
 	use IdTrait;
-	use TranslateTrait;
-	use CloneTrait;
+	use UuidTrait;
 	use TimestampTrait;
+	use TranslateTrait;
 	use VersionTrait;
+	use CloneTrait;
 
 	/**
 	 * @var string

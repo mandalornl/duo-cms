@@ -2,7 +2,6 @@
 
 namespace Duo\PageBundle\Controller\Listing;
 
-use Doctrine\ORM\Query\Expr\Join;
 use Duo\CoreBundle\Controller\Listing\AbstractTreeController;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\PageBundle\Entity\PageInterface;
@@ -32,7 +31,13 @@ class PageTreeController extends AbstractTreeController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/{id}/children", name="tree_children", requirements={ "id" = "\d+" }, defaults={ "_format" = "json" }, methods={ "GET" })
+	 * @Route(
+	 *     "/{id}/children",
+	 *     name="tree_children",
+	 *     requirements={ "id" = "\d+" },
+	 *     defaults={ "_format" = "json" },
+	 *     methods={ "GET" }
+	 * )
 	 */
 	public function childrenAction(Request $request, int $id): JsonResponse
 	{
@@ -49,13 +54,9 @@ class PageTreeController extends AbstractTreeController
 		 */
 		$repository = $this->getDoctrine()->getRepository(PageInterface::class);
 
-		$builder = $repository
-			->createQueryBuilder('e')
-			->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
-			->where('e.revision = e AND e.deletedAt IS NULL')
+		$builder = $repository->createDefaultQueryBuilder($request->getLocale())
 			->orderBy('e.weight', 'ASC')
-			->addOrderBy('t.title', 'ASC')
-			->setParameter('locale', $request->getLocale());
+			->addOrderBy('t.title', 'ASC');
 
 		if ($parent !== null)
 		{

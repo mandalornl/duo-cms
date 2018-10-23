@@ -15,43 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class SitemapController extends Controller
 {
 	/**
-	 * @var PageRepository
-	 */
-	private $pageRepository;
-
-	/**
-	 * @var LocaleHelper
-	 */
-	private $localeHelper;
-
-	/**
-	 * SitemapController constructor
-	 *
-	 * @param PageRepository $repository
-	 * @param LocaleHelper $localeHelper
-	 */
-	public function __construct(PageRepository $repository, LocaleHelper $localeHelper)
-	{
-		$this->pageRepository = $repository;
-		$this->localeHelper = $localeHelper;
-	}
-
-	/**
 	 * Index
 	 *
 	 * @Route("/sitemap.xml", name="index", methods={ "GET" })
 	 *
-	 * @param Request $request
+	 * @param PageRepository $repository
+	 * @param LocaleHelper $localeHelper
 	 *
 	 * @return Response
-	 *
-	 * @throws \Throwable
 	 */
-	public function indexAction(Request $request): Response
+	public function indexAction(PageRepository $repository, LocaleHelper $localeHelper): Response
 	{
 		$view = $this->renderView('@DuoSeo/sitemap_index.xml.twig', [
-			'lastMod' => $this->pageRepository->findLastModifiedAt(),
-			'locales' => $this->localeHelper->getLocales()
+			'lastMod' => $repository->findLastModifiedAt(),
+			'locales' => $localeHelper->getLocales()
 		]);
 
 		return new Response($view, 200, [
@@ -62,21 +39,21 @@ class SitemapController extends Controller
 	/**
 	 * Feed
 	 *
-	 * @Route("/sitemap-{locale}.xml", requirements={ "locale" = "%locales%" }, name="feed")
+	 * @Route("/sitemap-{locale}.xml", name="feed", requirements={ "locale" = "%locales%" }, methods={ "GET" })
 	 *
 	 * @param Request $request
+	 * @param PageRepository $repository
 	 * @param string $locale
 	 *
 	 * @return Response
 	 *
-	 * @throws \Throwable
 	 */
-	public function feedAction(Request $request, string $locale): Response
+	public function feedAction(Request $request, PageRepository $repository, string $locale): Response
 	{
 		$request->setLocale($locale);
 
 		$view = $this->renderView('@DuoSeo/sitemap.xml.twig', [
-			'root' => $this->pageRepository->findOneByName('home', $locale)
+			'root' => $repository->findOneByName('home', $locale)
 		]);
 
 		return new Response($view, 200, [

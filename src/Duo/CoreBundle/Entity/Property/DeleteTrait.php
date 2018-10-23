@@ -85,4 +85,13 @@ trait DeleteTrait
 	{
 		return $this->deletedAt !== null && $this->deletedAt <= new \DateTime();
 	}
+
+	/**
+	 * On clone delete
+	 */
+	protected function onCloneDelete(): void
+	{
+		$this->deletedAt = null;
+		$this->deletedBy = null;
+	}
 }

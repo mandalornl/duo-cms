@@ -27,12 +27,6 @@ services:
     Duo\AdminBundle\Tools\Menu\MenuBuilder:
         public: true
 
-    Duo\AdminBundle\EventListener\LocaleListener:
-        arguments:
-            $defaultLocale: '%locale%'
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 16 }
-
     Duo\AdminBundle\Routing\UrlLoader:
         tags:
             - { name: routing.loader, priority: 0 }

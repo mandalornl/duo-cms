@@ -46,7 +46,7 @@ abstract class AbstractAutoCompleteController extends Controller
 	{
 		try
 		{
-			return (int)$builder->select('COUNT(DISTINCT e.id)')
+			return (int)$builder->select('COUNT(DISTINCT e)')
 				->getQuery()
 				->getSingleScalarResult();
 		}

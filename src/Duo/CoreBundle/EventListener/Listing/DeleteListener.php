@@ -1,11 +1,11 @@
 <?php
 
-namespace Duo\CoreBundle\EventListener;
+namespace Duo\CoreBundle\EventListener\Listing;
 
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
-use Duo\CoreBundle\Event\DeleteEvent;
-use Duo\CoreBundle\Event\DeleteEvents;
+use Duo\CoreBundle\Event\Listing\DeleteEvent;
+use Duo\CoreBundle\Event\Listing\DeleteEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DeleteListener implements EventSubscriberInterface
@@ -30,10 +30,12 @@ class DeleteListener implements EventSubscriberInterface
 	{
 		$entity = $event->getEntity();
 
-		if ($entity instanceof TreeInterface)
+		if (!$entity instanceof TreeInterface)
 		{
-			$this->deleteChildren($entity);
+			return;
 		}
+
+		$this->deleteChildren($entity);
 	}
 
 	/**
@@ -63,10 +65,12 @@ class DeleteListener implements EventSubscriberInterface
 	{
 		$entity = $event->getEntity();
 
-		if ($entity instanceof TreeInterface)
+		if (!$entity instanceof TreeInterface)
 		{
-			$this->undeleteChildren($entity);
+			return;
 		}
+
+		$this->undeleteChildren($entity);
 	}
 
 	/**

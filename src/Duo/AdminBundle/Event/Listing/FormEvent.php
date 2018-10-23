@@ -4,6 +4,8 @@ namespace Duo\AdminBundle\Event\Listing;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class FormEvent extends Event
 {
@@ -18,15 +20,27 @@ class FormEvent extends Event
 	private $entity;
 
 	/**
+	 * @var Request
+	 */
+	private $request;
+
+	/**
+	 * @var Response
+	 */
+	private $response;
+
+	/**
 	 * FormEvent constructor
 	 *
 	 * @param FormInterface $form
 	 * @param object $entity
+	 * @param Request $request
 	 */
-	public function __construct(FormInterface $form, object $entity)
+	public function __construct(FormInterface $form, object $entity, Request $request)
 	{
 		$this->form = $form;
 		$this->entity = $entity;
+		$this->request = $request;
 	}
 
 	/**
@@ -36,7 +50,7 @@ class FormEvent extends Event
 	 *
 	 * @return FormEvent
 	 */
-	public function setForm(FormInterface $form): FormEvent
+	public function setForm(?FormInterface $form): FormEvent
 	{
 		$this->form = $form;
 
@@ -48,7 +62,7 @@ class FormEvent extends Event
 	 *
 	 * @return FormInterface
 	 */
-	public function getForm(): FormInterface
+	public function getForm(): ?FormInterface
 	{
 		return $this->form;
 	}
@@ -75,5 +89,49 @@ class FormEvent extends Event
 	public function getEntity(): ?object
 	{
 		return $this->entity;
+	}
+
+	/**
+	 * Set request
+	 *
+	 * @param Request $request
+	 *
+	 * @return FormEvent
+	 */
+	public function setRequest(?Request $request): FormEvent
+	{
+		$this->request = $request;
+
+		return $this;
+	}
+
+	/**
+	 * Get request
+	 *
+	 * @return Request
+	 */
+	public function getRequest(): ?Request
+	{
+		return $this->request;
+	}
+
+	/**
+	 * Has response
+	 *
+	 * @return bool
+	 */
+	public function hasResponse(): bool
+	{
+		return $this->response instanceof Response;
+	}
+
+	/**
+	 * Get response
+	 *
+	 * @return Response
+	 */
+	public function getResponse(): ?Response
+	{
+		return $this->response;
 	}
 }

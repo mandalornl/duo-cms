@@ -42,11 +42,10 @@ class PageTwigExtension extends \Twig_Extension
 	 *
 	 * @return PageInterface
 	 *
-	 * @throws \Throwable
 	 */
 	public function getPage(int $id, string $locale = null): ?PageInterface
 	{
-		return $this->repository->findById($id, $locale);
+		return $this->repository->findOneById($id, $locale);
 	}
 
 	/**
@@ -72,7 +71,6 @@ class PageTwigExtension extends \Twig_Extension
 	 *
 	 * @return PageInterface
 	 *
-	 * @throws \Throwable
 	 */
 	public function getPageByName(string $name, string $locale = null): ?PageInterface
 	{

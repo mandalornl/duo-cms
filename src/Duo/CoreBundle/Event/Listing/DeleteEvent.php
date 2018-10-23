@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\CoreBundle\Event;
+namespace Duo\CoreBundle\Event\Listing;
 
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Symfony\Component\EventDispatcher\Event;

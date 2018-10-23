@@ -89,7 +89,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 				->getQuery()
 				->getSingleScalarResult() > 0;
 		}
-		catch (NoResultException | NonUniqueResultException $e)
+		catch (NonUniqueResultException $e)
 		{
 			return false;
 		}

@@ -19,6 +19,6 @@ class UrlTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($value)
 	{
-		return rtrim($value, '/');
+		return ltrim($value, '/');
 	}
 }
