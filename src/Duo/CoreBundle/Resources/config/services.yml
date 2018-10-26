@@ -8,10 +8,10 @@ services:
         resource: '../../*'
         exclude: '../../{Entity,Repository,Tests}'
 
-    Duo\CoreBundle\Controller\:
-        resource: '../../Controller'
-        public: true
-        tags: ['controller.service_arguments']
+#    Duo\CoreBundle\Controller\:
+#        resource: '../../Controller'
+#        public: true
+#        tags: ['controller.service_arguments']
 
     Duo\CoreBundle\EventSubscriber\UuidSubscriber:
         tags:
@@ -26,6 +26,10 @@ services:
     Duo\CoreBundle\EventSubscriber\RevisionSubscriber:
         tags:
             - { name: doctrine.event_subscriber }
+
+    Duo\CoreBundle\EventSubscriber\DraftSubscriber:
+        tags:
+        - { name: doctrine.event_subscriber }
 
     Duo\CoreBundle\EventSubscriber\DeleteSubscriber:
         arguments:

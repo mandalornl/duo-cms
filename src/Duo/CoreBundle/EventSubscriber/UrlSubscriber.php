@@ -68,8 +68,14 @@ class UrlSubscriber implements EventSubscriber
 			return;
 		}
 
+		if ($entity instanceof TranslationInterface)
+		{
+			$this->setTranslationUrl($entity);
+
+			return;
+		}
+
 		$this->setUrl($entity);
-		$this->setTranslationUrl($entity);
 	}
 
 	/**
@@ -86,8 +92,14 @@ class UrlSubscriber implements EventSubscriber
 			return;
 		}
 
+		if ($entity instanceof TranslationInterface)
+		{
+			$this->setTranslationUrl($entity);
+
+			return;
+		}
+
 		$this->setUrl($entity);
-		$this->setTranslationUrl($entity);
 	}
 
 	/**
@@ -120,18 +132,13 @@ class UrlSubscriber implements EventSubscriber
 	/**
 	 * Set translation url
 	 *
-	 * @param UrlInterface $entity
+	 * @param UrlInterface|TranslationInterface $entity
 	 */
 	private function setTranslationUrl(UrlInterface $entity): void
 	{
-		if (!$entity instanceof TranslationInterface)
-		{
-			return;
-		}
-
-		$translatable = $entity->getTranslatable();
-
 		$urls = [ $entity->getValueToUrlize() ];
+
+		$translatable = $entity->getEntity();
 
 		if ($translatable instanceof TreeInterface)
 		{

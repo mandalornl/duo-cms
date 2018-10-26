@@ -10,10 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(
- *     name="duo_role",
- *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="UNIQ_ROLE", columns={ "role" })
- *	   },
+ *     name="duo_security_role",
  *     indexes={
  *		   @ORM\Index(name="IDX_NAME", columns={ "name" })
  *	   }
@@ -37,7 +34,7 @@ class Role implements RoleInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="role", type="string", nullable=true)
+	 * @ORM\Column(name="role", type="string", nullable=true, unique=true)
 	 * @Assert\NotBlank()
 	 */
 	private $role;

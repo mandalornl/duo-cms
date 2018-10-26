@@ -15,11 +15,10 @@ use Duo\AdminBundle\Event\Listing\ORMEvent;
 use Duo\AdminBundle\Event\Listing\ORMEvents;
 use Duo\AdminBundle\Event\Listing\TwigEvent;
 use Duo\AdminBundle\Event\Listing\TwigEvents;
-use Duo\CoreBundle\Entity\Property\RevisionInterface;
+use Duo\AdminBundle\Tools\Form\Form;
+use Duo\CoreBundle\Entity\Property\RevisionInterface as PropertyRevisionInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
-use Duo\CoreBundle\Event\Listing\RevisionEvent;
-use Duo\CoreBundle\Event\Listing\RevisionEvents;
-use Symfony\Component\Form\FormInterface;
+use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,18 +54,160 @@ abstract class AbstractUpdateController extends AbstractController
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
+		if ($request->query->has('test'))
+		{
+			return $this->json($entity->getRevisions()->first()->getData());
+		}
+
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);
 		}
 
-		// handle entity revision
-		if ($entity instanceof RevisionInterface)
+		$eventDispatcher = $this->get('event_dispatcher');
+
+		// dispatch pre update event
+		$eventDispatcher->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity));
+
+		$form = $this->createForm($this->getFormType(), $entity);
+
+		// pre submit state
+		$preSubmitState = Form::getViewData($form);
+
+		// dispatch pre update event
+		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+
+		// return when response is given
+		if ($formEvent->hasResponse())
 		{
-			return $this->handleUpdateRevisionRequest($request, $entity);
+			return $formEvent->getResponse();
 		}
 
-		return $this->handleUpdateEntityRequest($request, $entity);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			// dispatch post update event
+			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+
+			// return when response is given
+			if ($formEvent->hasResponse())
+			{
+				return $formEvent->getResponse();
+			}
+
+			// post submit state
+			$postSubmitState = Form::getViewData($form);
+
+			// check whether or not entity was modified, don't force unchanged revisions
+			if ($preSubmitState === $postSubmitState)
+			{
+				// reply with json response
+				if ($request->getRequestFormat() === 'json')
+				{
+					return $this->json([
+						'success' => false,
+						'id' => $entity->getId(),
+						'message' => $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes')
+					]);
+				}
+
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes'));
+
+				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
+					'id' => $entity->getId()
+				]);
+			}
+
+			try
+			{
+				/**
+				 * @var EntityManagerInterface $manager
+				 */
+				$manager = $this->getDoctrine()->getManager();
+
+				// check whether or not entity is locked
+				if ($entity instanceof VersionInterface)
+				{
+					$manager->lock($entity, LockMode::OPTIMISTIC, $entity->getVersion());
+				}
+
+				$manager->persist($entity);
+
+				// add revision
+				if ($entity instanceof PropertyRevisionInterface)
+				{
+					$className = "{$manager->getRepository($this->getEntityClass())->getClassName()}Revision";
+
+					/**
+					 * @var EntityRevisionInterface $revision
+					 */
+					$revision = $manager->getClassMetadata($className)->getReflectionClass()->newInstance();
+					$revision
+						->setEntity($entity)
+						->setData(array_diff_key($preSubmitState, [
+							'version' => null,
+							'_token' => null
+						]));
+
+					$manager->persist($revision);
+				}
+
+				$manager->flush();
+
+				// dispatch post flush event
+				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
+
+				// reply with json response
+				if ($request->getRequestFormat() === 'json')
+				{
+					return $this->json([
+						'success' => true,
+						'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
+					]);
+				}
+
+				$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
+
+				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
+					'id' => $entity->getId()
+				]);
+			}
+			catch (OptimisticLockException $e)
+			{
+				// reply with json response
+				if ($request->getRequestFormat() === 'json')
+				{
+					return $this->json([
+						'success' => false,
+						'message' => $this->get('translator')->trans('duo.admin.locked', [], 'flashes')
+					]);
+				}
+
+				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.locked', [], 'flashes'));
+			}
+		}
+
+		// reply with json response
+		if ($request->getRequestFormat() === 'json')
+		{
+			return $this->json([
+				'html' => $this->renderView('@DuoAdmin/Listing/form.html.twig', [
+					'form' => $form->createView()
+				])
+			]);
+		}
+
+		$context = $this->getDefaultContext([
+			'form' => $form->createView(),
+			'entity' => $entity,
+			'actions' => $this->getItemActions()
+		]);
+
+		// dispatch twig context event
+		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
+
+		return $this->render($this->getUpdateTemplate(), (array)$context);
 	}
 
 	/**
@@ -177,193 +318,6 @@ abstract class AbstractUpdateController extends AbstractController
 		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
 
 		return $this->render($this->getUpdateTemplate(), (array)$context);
-	}
-
-	/**
-	 * Handle update revision request
-	 *
-	 * @param Request $request
-	 * @param RevisionInterface $entity
-	 *
-	 * @return Response|RedirectResponse
-	 *
-	 * @throws \Throwable
-	 */
-	protected function handleUpdateRevisionRequest(Request $request, RevisionInterface $entity): Response
-	{
-		// not accessing the latest revision
-		if ($entity->getRevision() !== $entity)
-		{
-			if ($request->getRequestFormat() === 'json')
-			{
-				return $this->json([
-					'error' => "Not accessing the latest revision. Use entity with id '{$entity->getRevision()->getId()}' instead."
-				]);
-			}
-			else
-			{
-				// redirect to latest revision
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
-					'id' => $entity->getRevision()->getId()
-				]);
-			}
-		}
-
-		$clone = clone $entity;
-
-		$eventDispatcher = $this->get('event_dispatcher');
-
-		// dispatch pre update event
-		$eventDispatcher->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($clone));
-
-		$form = $this->createForm($this->getFormType(), $clone);
-
-		// pre submit state
-		$preSubmitState = serialize($this->getFormViewData($form));
-
-		// dispatch pre update event
-		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $clone, $request)));
-
-		// return when response is given
-		if ($formEvent->hasResponse())
-		{
-			return $formEvent->getResponse();
-		}
-
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			// dispatch post update event
-			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $clone, $request)));
-
-			// return when response is given
-			if ($formEvent->hasResponse())
-			{
-				return $formEvent->getResponse();
-			}
-
-			// post submit state
-			$postSubmitState = serialize($this->getFormViewData($form));
-
-			// check whether or not entity was modified, don't force unchanged revisions
-			if (strcmp($preSubmitState, $postSubmitState) === 0)
-			{
-				// reply with json response
-				if ($request->getRequestFormat() === 'json')
-				{
-					return $this->json([
-						'success' => false,
-						'id' => $entity->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes')
-					]);
-				}
-
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes'));
-
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
-					'id' => $entity->getId()
-				]);
-			}
-
-			// dispatch clone event
-			$eventDispatcher->dispatch(RevisionEvents::CLONE, new RevisionEvent($clone, $entity));
-
-			try
-			{
-				/**
-				 * @var EntityManagerInterface $manager
-				 */
-				$manager = $this->getDoctrine()->getManager();
-
-				// check whether or not entity is locked
-				if ($clone instanceof VersionInterface)
-				{
-					$manager->lock($entity, LockMode::OPTIMISTIC, $clone->getVersion());
-				}
-
-				$manager->persist($clone);
-				$manager->flush();
-
-				// dispatch post flush event
-				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($clone));
-
-				// reply with json response
-				if ($request->getRequestFormat() === 'json')
-				{
-					return $this->json([
-						'success' => true,
-						'id' => $clone->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
-					]);
-				}
-
-				$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
-
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
-			}
-			catch (OptimisticLockException $e)
-			{
-				// reply with json response
-				if ($request->getRequestFormat() === 'json')
-				{
-					return $this->json([
-						'success' => false,
-						'id' => $entity->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.locked', [], 'flashes')
-					]);
-				}
-
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.locked', [], 'flashes'));
-			}
-		}
-
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'html' => $this->renderView('@DuoAdmin/Listing/form.html.twig', [
-					'form' => $form->createView()
-				])
-			]);
-		}
-
-		$context = $this->getDefaultContext([
-			'form' => $form->createView(),
-			'entity' => $clone,
-			'actions' => $this->getItemActions()
-		]);
-
-		// dispatch twig context event
-		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
-
-		return $this->render($this->getUpdateTemplate(), (array)$context);
-	}
-
-	/**
-	 * Get form data
-	 *
-	 * @param FormInterface $form
-	 *
-	 * @return array
-	 */
-	protected function getFormViewData(FormInterface $form): array
-	{
-		$result = [];
-
-		foreach ($form as $key => $value)
-		{
-			if (count($value))
-			{
-				$result[$key] = $this->getFormViewData($value);
-
-				continue;
-			}
-
-			$result[$key] = $value->getViewData();
-		}
-
-		return $result;
 	}
 
 	/**

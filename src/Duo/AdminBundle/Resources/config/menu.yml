@@ -61,7 +61,7 @@ seo:
             #icon: icon-shuffle
         robots:
             label: duo.seo.menu.robots
-            route: duo_seo_listing_robot_index
+            route: duo_seo_listing_robots_index
             #icon: icon-bug
 
 settings:

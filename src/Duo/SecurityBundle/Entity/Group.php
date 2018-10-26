@@ -11,12 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(
- *     name="duo_group",
- *     uniqueConstraints={
- *		   @ORM\UniqueConstraint(name="UNIQ_GROUP", columns={ "name" })
- *	   }
- * )
+ * @ORM\Table(name="duo_security_group")
  * @ORM\Entity()
  * @UniqueEntity(fields={ "name" }, message="duo.security.errors.name_used")
  */
@@ -28,7 +23,7 @@ class Group implements GroupInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=true)
+	 * @ORM\Column(name="name", type="string", nullable=true, unique=true)
 	 * @Assert\NotBlank()
 	 */
 	private $name;

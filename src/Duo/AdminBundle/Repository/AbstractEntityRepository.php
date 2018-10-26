@@ -8,7 +8,6 @@ use Doctrine\ORM\QueryBuilder;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
-use Duo\CoreBundle\Entity\Property\RevisionInterface;
 
 abstract class AbstractEntityRepository extends ServiceEntityRepository
 {
@@ -24,12 +23,6 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 		$builder = $this->createQueryBuilder('e');
 
 		$reflectionClass = $this->getClassMetadata()->getReflectionClass();
-
-		// use latest revision
-		if ($reflectionClass->implementsInterface(RevisionInterface::class))
-		{
-			$builder->andWhere('e.revision = e');
-		}
 
 		// which is not deleted
 		if ($reflectionClass->implementsInterface(DeleteInterface::class))
@@ -50,13 +43,13 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 			if ($locale !== null)
 			{
 				$builder
-					->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
+					->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
 					->setParameter('locale', $locale);
 			}
 			// or all
 			else
 			{
-				$builder->join('e.translations', 't', Join::WITH, 't.translatable = e');
+				$builder->join('e.translations', 't', Join::WITH, 't.entity = e');
 			}
 
 			$translationReflectionClass = $this->getEntityManager()

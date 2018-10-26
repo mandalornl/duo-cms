@@ -29,8 +29,8 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	{
 		$builder = $pageRepository
 			->createQueryBuilder('e')
-			->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
-			->where('e.revision = e AND e.deletedAt IS NULL')
+			->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
+			->where('e.deletedAt IS NULL')
 			->andWhere('(e.name LIKE :keyword OR t.url LIKE :keyword)')
 			->orderBy('t.url', 'ASC')
 			->setParameter('locale', $request->getLocale())

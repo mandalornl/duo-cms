@@ -35,18 +35,18 @@ class TranslationSubscriber implements EventSubscriber
 			return;
 		}
 
-		if (!$classMetadata->hasAssociation('translatable'))
+		if (!$classMetadata->hasAssociation('entity'))
 		{
 			$classMetadata->mapManyToOne([
-				'fieldName' 	=> 'translatable',
+				'fieldName' 	=> 'entity',
 				'inversedBy' 	=> 'translations',
 				'cascade' 		=> ['persist', 'remove'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
 				'targetEntity' 	=> substr($reflectionClass->getName(), 0, -11),
 				'joinColumns' 	=> [[
-					'name' => 'translatable_id',
-					'referencedColumnName' => 'id',
-					'onDelete' => 'CASCADE'
+					'name' 					=> 'entity_id',
+					'referencedColumnName' 	=> 'id',
+					'onDelete' 				=> 'CASCADE'
 				]]
 			]);
 		}
@@ -57,7 +57,7 @@ class TranslationSubscriber implements EventSubscriber
 		{
 			$classMetadata->table['uniqueConstraints'][$name] = [
 				'columns' => [
-					'translatable_id',
+					'entity_id',
 					'locale'
 				]
 			];

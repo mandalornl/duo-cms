@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/seo/robots", name="duo_seo_listing_robot_")
+ * @Route("/admin/seo/robots", name="duo_seo_listing_robots_")
  */
-class RobotListController extends AbstractController
+class RobotIndexController extends AbstractController
 {
 	use RobotConfigurationTrait;
 
@@ -62,11 +62,11 @@ class RobotListController extends AbstractController
 			return $entity;
 		}
 
-		$content = <<<EOD
+		$content = <<<EOT
 User-agent: *
 Disallow: /admin/
 Sitemap: {scheme}://{host}/sitemap.xml
-EOD;
+EOT;
 
 		return (new Robot())
 			->setContent($content);

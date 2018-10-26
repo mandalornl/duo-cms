@@ -1,11 +1,11 @@
 <?php
 
-namespace Duo\DraftBundle\Entity\Property;
+namespace Duo\CoreBundle\Entity\Property;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Duo\DraftBundle\Entity\DraftInterface as EntityDraftInterface;
-use Duo\DraftBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
+use Duo\CoreBundle\Entity\DraftInterface as EntityDraftInterface;
+use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 
 trait DraftTrait
 {

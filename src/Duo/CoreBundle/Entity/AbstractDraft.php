@@ -1,16 +1,14 @@
 <?php
 
-namespace Duo\DraftBundle\Entity;
+namespace Duo\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\DraftInterface as EntityDraftInterface;
 use Duo\CoreBundle\Entity\Property\IdTrait;
-use Duo\CoreBundle\Entity\Property\TimestampInterface;
+use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
-use Duo\DraftBundle\Entity\DraftInterface as EntityDraftInterface;
-use Duo\DraftBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 
-abstract class AbstractDraft implements IdInterface, TimestampInterface, EntityDraftInterface
+abstract class AbstractDraft implements EntityDraftInterface
 {
 	use IdTrait;
 	use TimestampTrait;

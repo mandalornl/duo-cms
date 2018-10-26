@@ -2,6 +2,7 @@
 
 namespace Duo\PageBundle\Controller\Listing;
 
+use AppBundle\Entity\PageRevision;
 use Duo\CoreBundle\Controller\Listing\AbstractRevisionController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,5 +44,29 @@ class PageRevisionController extends AbstractRevisionController
 	public function revertAction(Request $request, int $id): Response
 	{
 		return $this->doRevertAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route(
+	 *     path="/revision/destroy/{id}.{_format}",
+	 *     name="revision_destroy",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
+	 */
+	public function destroyAction(Request $request, int $id): Response
+	{
+		return $this->doDestroyAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getRevisionEntityClass(): string
+	{
+		return PageRevision::class;
 	}
 }

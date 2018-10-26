@@ -58,7 +58,7 @@ class TranslateSubscriber implements EventSubscriber
 		{
 			$classMetadata->mapOneToMany([
 				'fieldName' 	=> 'translations',
-				'mappedBy' 		=> 'translatable',
+				'mappedBy' 		=> 'entity',
 				'indexBy' 		=> 'locale',
 				'cascade' 		=> ['persist', 'remove'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,

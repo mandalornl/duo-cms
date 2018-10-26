@@ -69,7 +69,7 @@ class MenuBuilder implements MenuBuilderInterface
 		$this->configs[] = Yaml::parseFile(__DIR__ . '/../../Resources/config/menu.yml');
 
 		// cache request uri
-		if (($request = $requestStack->getCurrentRequest()))
+		if (($request = $requestStack->getCurrentRequest()) !== null)
 		{
 			$this->requestUri = $request->getRequestUri();
 		}

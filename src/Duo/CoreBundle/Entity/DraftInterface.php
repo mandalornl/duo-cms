@@ -1,10 +1,12 @@
 <?php
 
-namespace Duo\DraftBundle\Entity;
+namespace Duo\CoreBundle\Entity;
 
-use Duo\DraftBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
+use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
+use Duo\CoreBundle\Entity\Property\IdInterface;
+use Duo\CoreBundle\Entity\Property\TimestampInterface;
 
-interface DraftInterface
+interface DraftInterface extends IdInterface, TimestampInterface
 {
 	/**
 	 * Set name

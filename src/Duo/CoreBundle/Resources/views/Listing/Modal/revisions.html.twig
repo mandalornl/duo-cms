@@ -1,5 +1,5 @@
 <div id="modal_revisions" data-type="{{ type }}" class="modal revisions fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_revisions_title">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal_revisions_title">
@@ -14,21 +14,14 @@
 					<table class="table table-hover table-striped">
 						<thead>
 							<tr>
-								<th>{{ 'duo.core.modal.revisions.name' | trans }}</th>
 								<th>{{ 'duo.core.modal.revisions.created_at' | trans }}</th>
 								<th>{{ 'duo.core.modal.revisions.created_by' | trans }}</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% set revisions = revisions | default(get_revertable_revisions(entity)) %}
-							{% for revision in revisions %}
+							{% for revision in entity.revisions %}
 								<tr>
-									<td>
-										<a href="{{ path(routePrefix ~ '_revision_view', { id: revision.id }) }}" title="{{ 'duo.core.modal.revisions.view' | trans }}" target="_blank">
-											{{- revision.name -}}
-										</a>
-									</td>
 									<td>
 										{{- revision.createdAt | localizeddate('short', 'short', app.request.locale) -}}
 									</td>
@@ -40,20 +33,14 @@
 									</td>
 									<td>
 										<a href="{{ path(routePrefix ~ '_revision_view', { id: revision.id }) }}" title="{{ 'duo.core.modal.revisions.view' | trans }}" target="_blank" class="btn btn-light btn-sm" >
-											<i class="icon-eye"></i>
+											<i class="icon-display"></i>
 										</a>
 										<a href="{{ path(routePrefix ~ '_revision_revert', { id: revision.id }) }}" title="{{ 'duo.core.modal.revisions.revert' | trans }}" class="btn btn-primary btn-sm" data-modal="confirm" data-title="{{ 'duo.core.modal.revert.title' | trans }}" data-body="{{ 'duo.core.modal.revert.body' | trans }}">
 											<i class="icon-history"></i>
 										</a>
-										{% if revision is deletable %}
-											<a href="{{ path(routePrefix ~ '_delete', { id: revision.id }) }}" title="{{ 'duo.core.modal.revisions.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.core.modal.delete.title' | trans }}" data-body="{{ 'duo.core.modal.delete.body' | trans }}">
-												<i class="icon-bin"></i>
-											</a>
-										{% else %}
-											<a href="{{ path(routePrefix ~ '_destroy', { id: revision.id }) }}" title="{{ 'duo.core.modal.revisions.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
-												<i class="icon-bin"></i>
-											</a>
-										{% endif %}
+										<a href="{{ path(routePrefix ~ '_revision_destroy', { id: revision.id }) }}" title="{{ 'duo.core.modal.revisions.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
+											<i class="icon-bin"></i>
+										</a>
 									</td>
 								</tr>
 							{% endfor %}

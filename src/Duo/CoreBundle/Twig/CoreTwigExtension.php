@@ -4,6 +4,7 @@ namespace Duo\CoreBundle\Twig;
 
 use Duo\CoreBundle\Entity\DuplicateInterface;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
+use Duo\CoreBundle\Entity\Property\DraftInterface;
 use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
@@ -26,7 +27,8 @@ class CoreTwigExtension extends \Twig_Extension
 			new \Twig_SimpleTest('treeable', [$this, 'isTreeable']),
 			new \Twig_SimpleTest('revisionable', [$this, 'isRevisionable']),
 			new \Twig_SimpleTest('duplicatable', [$this, 'isDuplicatable']),
-			new \Twig_SimpleTest('previewable', [$this, 'isPreviewable'])
+			new \Twig_SimpleTest('previewable', [$this, 'isPreviewable']),
+			new \Twig_SimpleTest('draftable', [$this, 'isDraftable'])
 		];
 	}
 
@@ -134,5 +136,17 @@ class CoreTwigExtension extends \Twig_Extension
 	public function isPreviewable(object $entity): bool
 	{
 		return $entity instanceof PreviewInterface;
+	}
+
+	/**
+	 * Is draftable
+	 *
+	 * @param object $entity
+	 *
+	 * @return bool
+	 */
+	public function isDraftable(object $entity): bool
+	{
+		return $entity instanceof DraftInterface;
 	}
 }

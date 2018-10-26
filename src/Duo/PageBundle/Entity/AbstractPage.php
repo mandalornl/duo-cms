@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Duo\CoreBundle\Entity\CloneTrait;
 use Duo\CoreBundle\Entity\Property\DeleteTrait;
 use Duo\CoreBundle\Entity\Property\IdTrait;
+use Duo\CoreBundle\Entity\Property\DraftTrait;
 use Duo\CoreBundle\Entity\Property\RevisionTrait;
 use Duo\CoreBundle\Entity\Property\SortTrait;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
@@ -13,9 +14,12 @@ use Duo\CoreBundle\Entity\Property\TranslateTrait;
 use Duo\CoreBundle\Entity\Property\TreeTrait;
 use Duo\CoreBundle\Entity\Property\UuidTrait;
 use Duo\CoreBundle\Entity\Property\VersionTrait;
-use Duo\DraftBundle\Entity\Property\DraftTrait;
 use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+/**
+ * @UniqueEntity(fields={ "name" }, message="duo.page.errors.name_used")
+ */
 abstract class AbstractPage implements PageInterface
 {
 	use IdTrait;
@@ -34,7 +38,7 @@ abstract class AbstractPage implements PageInterface
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", nullable=true)
+	 * @ORM\Column(name="name", type="string", nullable=true, unique=true)
 	 */
 	protected $name;
 

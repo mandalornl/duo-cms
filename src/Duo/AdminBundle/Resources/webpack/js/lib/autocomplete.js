@@ -59,7 +59,7 @@ export default ($ =>
 					ajax: {
 						url: $this.data('url'),
 						dataType: 'json',
-						delay: (md.mobile() || md.tablet()) ? 1200 : 600,
+						delay: (md.mobile() || md.tablet()) ? 1000 : 250,
 						cache: true,
 
 						data: (params) =>

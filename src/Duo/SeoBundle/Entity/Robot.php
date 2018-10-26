@@ -9,7 +9,7 @@ use Duo\CoreBundle\Entity\Property\TimestampInterface;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
 
 /**
- * @ORM\Table(name="duo_robot")
+ * @ORM\Table(name="duo_seo_robot")
  * @ORM\Entity(repositoryClass="Duo\SeoBundle\Repository\RobotRepository")
  */
 class Robot implements IdInterface, TimestampInterface

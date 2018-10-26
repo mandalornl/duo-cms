@@ -109,7 +109,7 @@ trait TranslateTrait
 	 */
 	public function addTranslation(TranslationInterface $translation): TranslateInterface
 	{
-		$translation->setTranslatable($this);
+		$translation->setEntity($this);
 
 		$this->getTranslations()->set($translation->getLocale(), $translation);
 
@@ -123,7 +123,7 @@ trait TranslateTrait
 	{
 		$this->getTranslations()->removeElement($translation);
 
-		$translation->setTranslatable(null);
+		$translation->setEntity(null);
 
 		return $this;
 	}
@@ -141,7 +141,7 @@ trait TranslateTrait
 	 */
 	public function addNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
-		$translation->setTranslatable($this);
+		$translation->setEntity($this);
 
 		$this->getNewTranslations()->set($translation->getLocale(), $translation);
 
@@ -155,7 +155,7 @@ trait TranslateTrait
 	{
 		$this->getNewTranslations()->removeElement($translation);
 
-		$translation->setTranslatable(null);
+		$translation->setEntity(null);
 
 		return $this;
 	}

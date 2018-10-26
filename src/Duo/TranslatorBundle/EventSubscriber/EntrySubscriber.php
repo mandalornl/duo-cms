@@ -56,12 +56,12 @@ class EntrySubscriber implements EventSubscriber
 			}
 
 			/**
-			 * @var Entry $translatable
+			 * @var Entry $entry
 			 */
-			$translatable = $entity->getTranslatable();
-			$translatable->setFlag(Entry::FLAG_UPDATED);
+			$entry = $entity->getEntity();
+			$entry->setFlag(Entry::FLAG_UPDATED);
 
-			$unitOfWork->persist($translatable);
+			$unitOfWork->persist($entry);
 		}
 
 		$unitOfWork->computeChangeSets();

@@ -13,6 +13,8 @@ duo:
                 duplicate: Duplicate
                 revisions: Revisions
                 preview: Preview
+                save_draft: Save as draft
+                drafts: Drafts
 
         tab:
             publication: Publication
@@ -26,12 +28,24 @@ duo:
         modal:
             revisions:
                 title: Revisions
-                name: Name
                 created_at: Created at
                 created_by: Created by
                 view: View
                 revert: Revert
                 delete: Delete
+
+            drafts:
+                title: Drafts
+                name: Name
+                created_at: Created at
+                created_by: Created by
+                view: View
+                apply: Apply
+                delete: Delete
+
+            new_draft:
+                title: New draft
+                name: Name
 
             revert:
                 title: Revert

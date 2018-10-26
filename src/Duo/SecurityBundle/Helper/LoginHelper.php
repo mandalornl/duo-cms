@@ -2,7 +2,7 @@
 
 namespace Duo\SecurityBundle\Helper;
 
-use Duo\AdminBundle\Helper\RequestHelper;
+use Duo\AdminBundle\Helper\Traits\RequestStackTrait;
 use Duo\SecurityBundle\Entity\UserInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -11,10 +11,7 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginHelper
 {
-	/**
-	 * @var RequestHelper
-	 */
-	private $requestHelper;
+	use RequestStackTrait;
 
 	/**
 	 * @var TokenStorageInterface
@@ -29,17 +26,14 @@ class LoginHelper
 	/**
 	 * LoginHelper constructor
 	 *
-	 * @param RequestHelper $requestHelper
 	 * @param TokenStorageInterface $tokenStorage
 	 * @param EventDispatcherInterface $eventDispatcher
 	 */
 	public function __construct(
-		RequestHelper $requestHelper,
 		TokenStorageInterface $tokenStorage,
 		EventDispatcherInterface $eventDispatcher
 	)
 	{
-		$this->requestHelper = $requestHelper;
 		$this->tokenStorage = $tokenStorage;
 		$this->eventDispatcher = $eventDispatcher;
 	}
@@ -54,10 +48,12 @@ class LoginHelper
 	 */
 	public function manualLogin(UserInterface $user, string $firewall): bool
 	{
-		if (($request = $this->requestHelper->getRequest()) === null)
+		if (!$this->hasRequest())
 		{
 			return false;
 		}
+
+		$request = $this->getRequest();
 
 		$token = new UsernamePasswordToken($user, null, $firewall, $user->getRoles());
 		$this->tokenStorage->setToken($token);
@@ -76,13 +72,13 @@ class LoginHelper
 	 */
 	public function doManualLogout(): bool
 	{
-		if (($request = $this->requestHelper->getRequest()) === null)
+		if (!$this->hasRequest())
 		{
 			return false;
 		}
 
 		$this->tokenStorage->setToken(null);
 
-		return $request->getSession()->invalidate();
+		return $this->getRequest()->getSession()->invalidate();
 	}
 }

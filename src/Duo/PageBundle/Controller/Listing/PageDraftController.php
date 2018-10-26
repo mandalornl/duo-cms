@@ -3,7 +3,7 @@
 namespace Duo\PageBundle\Controller\Listing;
 
 use AppBundle\Entity\PageDraft;
-use Duo\DraftBundle\Controller\Listing\AbstractDraftController;
+use Duo\CoreBundle\Controller\Listing\AbstractDraftController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,14 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageDraftController extends AbstractDraftController
 {
 	use PageConfigurationTrait;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getDraftEntityClass(): string
-	{
-		return PageDraft::class;
-	}
 
 	/**
 	 * {@inheritdoc}
@@ -84,5 +76,13 @@ class PageDraftController extends AbstractDraftController
 	public function destroyAction(Request $request, int $id): Response
 	{
 		return $this->doDestroyAction($request, $id);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getDraftEntityClass(): string
+	{
+		return PageDraft::class;
 	}
 }

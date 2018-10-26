@@ -4,14 +4,11 @@ namespace Duo\CoreBundle\Entity\Property;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Duo\CoreBundle\Entity\Property\RevisionInterface as PropertyRevisionInterface;
+use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
 
 trait RevisionTrait
 {
-	/**
-	 * @var RevisionInterface
-	 */
-	protected $revision;
-
 	/**
 	 * @var Collection
 	 */
@@ -20,37 +17,23 @@ trait RevisionTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setRevision(?RevisionInterface $revision): RevisionInterface
+	public function addRevision(EntityRevisionInterface $revision): PropertyRevisionInterface
 	{
-		$this->revision = $revision;
+		$revision->setEntity($this);
 
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getRevision(): ?RevisionInterface
-	{
-		return $this->revision;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function addRevision(RevisionInterface $revision): RevisionInterface
-	{
 		$this->getRevisions()->add($revision);
 
 		return $this;
 	}
 
 	/**
-	 * {@inheritdoc
+	 * {@inheritdoc}
 	 */
-	public function removeRevision(RevisionInterface $revision): RevisionInterface
+	public function removeRevision(EntityRevisionInterface $revision): PropertyRevisionInterface
 	{
 		$this->getRevisions()->removeElement($revision);
+
+		$revision->setEntity(null);
 
 		return $this;
 	}

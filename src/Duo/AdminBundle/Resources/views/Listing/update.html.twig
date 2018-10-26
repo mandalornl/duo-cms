@@ -5,8 +5,8 @@
 		{% include '@DuoCore/Listing/Modal/revisions.html.twig' %}
 	{% endif %}
 	{% if entity is draftable %}
-		{% include '@DuoDraft/Listing/Modal/drafts.html.twig' %}
-		{% include '@DuoDraft/Listing/Modal/new_draft.html.twig' %}
+		{% include '@DuoCore/Listing/Modal/drafts.html.twig' %}
+		{% include '@DuoCore/Listing/Modal/new_draft.html.twig' %}
 	{% endif %}
 	{{ parent() }}
 {% endblock %}

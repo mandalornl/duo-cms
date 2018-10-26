@@ -12,7 +12,7 @@ trait TranslationTrait
 	/**
 	 * @var TranslateInterface
 	 */
-	protected $translatable;
+	protected $entity;
 
 	/**
 	 * @var string
@@ -26,9 +26,9 @@ trait TranslationTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setTranslatable(?TranslateInterface $translatable): TranslationInterface
+	public function setEntity(?TranslateInterface $entity): TranslationInterface
 	{
-		$this->translatable = $translatable;
+		$this->entity = $entity;
 
 		return $this;
 	}
@@ -36,9 +36,9 @@ trait TranslationTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTranslatable(): ?TranslateInterface
+	public function getEntity(): ?TranslateInterface
 	{
-		return $this->translatable;
+		return $this->entity;
 	}
 
 	/**

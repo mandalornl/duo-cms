@@ -43,7 +43,8 @@ class PageType extends AbstractType
 					'label' => 'duo.page.tab.properties'
 				])
 				->add('name', TextType::class, [
-					'label' => 'duo.page.form.page.name.label'
+					'label' => 'duo.page.form.page.name.label',
+					'required' => false
 				])
 				->add('weight', WeightChoiceType::class, [
 					'label' => 'duo.page.form.page.weight.label',
@@ -71,7 +72,8 @@ class PageType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => PageInterface::class
+			'data_class' => PageInterface::class,
+			'data' => null
 		]);
 	}
 }

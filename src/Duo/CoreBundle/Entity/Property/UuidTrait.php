@@ -10,7 +10,7 @@ trait UuidTrait
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="uuid", type="string", length=36, nullable=false, unique=true)
+	 * @ORM\Column(name="uuid", type="string", length=36, nullable=false, unique=true, options={ "fixed" = true })
 	 */
 	protected $uuid;
 

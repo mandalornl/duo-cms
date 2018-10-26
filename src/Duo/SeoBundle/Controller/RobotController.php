@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/", name="duo_seo_robot_")
+ * @Route("/", name="duo_seo_robots_")
  */
 class RobotController extends Controller
 {
@@ -31,9 +31,10 @@ class RobotController extends Controller
 			throw $this->createNotFoundException();
 		}
 
-		$content = $entity->getContent();
-		$content = str_replace('{scheme}', $request->getScheme(), $content);
-		$content = str_replace('{host}', $request->getHttpHost(), $content);
+		$content = strtr($entity->getContent(), [
+			'{scheme}' => $request->getScheme(),
+			'{host}' => $request->getHttpHost()
+		]);
 
 		return new Response($content, 200, [
 			'content-type' => 'text/plain'

@@ -1,14 +1,13 @@
 <?php
 
-namespace Duo\DraftBundle\EventSubscriber;
+namespace Duo\CoreBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-
-use Duo\DraftBundle\Entity\DraftInterface as EntityDraftInterface;
-use Duo\DraftBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
+use Duo\CoreBundle\Entity\DraftInterface as EntityDraftInterface;
+use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 
 class DraftSubscriber implements EventSubscriber
 {
@@ -56,15 +55,15 @@ class DraftSubscriber implements EventSubscriber
 		if (!$classMetadata->hasAssociation('entity'))
 		{
 			$classMetadata->mapManyToOne([
-				'fieldName' => 'entity',
-				'inversedBy' => 'drafts',
-				'cascade' => ['persist'],
-				'fetch' => ClassMetadata::FETCH_LAZY,
-				'targetEntity' => substr($reflectionClass->getName(), 0, -5),
-				'joinColumns' => [[
-					'name' => 'entity_id',
-					'referencedColumnName' => 'id',
-					'onDelete' => 'CASCADE'
+				'fieldName' 	=> 'entity',
+				'inversedBy' 	=> 'drafts',
+				'cascade' 		=> ['persist'],
+				'fetch' 		=> ClassMetadata::FETCH_LAZY,
+				'targetEntity' 	=> substr($reflectionClass->getName(), 0, -5),
+				'joinColumns' 	=> [[
+					'name' 					=> 'entity_id',
+					'referencedColumnName' 	=> 'id',
+					'onDelete' 				=> 'CASCADE'
 				]]
 			]);
 		}
@@ -86,14 +85,14 @@ class DraftSubscriber implements EventSubscriber
 		if (!$classMetadata->hasAssociation('drafts'))
 		{
 			$classMetadata->mapOneToMany([
-				'fieldName' => 'drafts',
-				'mappedBy' => 'entity',
-				'cascade' => ['persist'],
-				'fetch' => ClassMetadata::FETCH_LAZY,
-				'targetEntity' => "{$reflectionClass->getName()}Draft",
+				'fieldName' 	=> 'drafts',
+				'mappedBy' 		=> 'entity',
+				'cascade' 		=> ['persist'],
+				'fetch' 		=> ClassMetadata::FETCH_LAZY,
+				'targetEntity' 	=> "{$reflectionClass->getName()}Draft",
 				'orphanRemoval' => true,
-				'orderBy' => [
-					'id' => 'DESC'
+				'orderBy' 		=> [
+					'name' => 'ASC'
 				]
 			]);
 		}

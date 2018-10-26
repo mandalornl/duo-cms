@@ -137,10 +137,10 @@ trait PublishTrait
 	 */
 	public function isPublished(): bool
 	{
-		$dateTime = new \DateTime();
+		$now = new \DateTime();
 
-		return ($this->publishAt !== null && $this->publishAt <= $dateTime) &&
-			($this->unpublishAt === null || $this->unpublishAt > $dateTime);
+		return ($this->publishAt !== null && $this->publishAt <= $now) &&
+			($this->unpublishAt === null || $this->unpublishAt > $now);
 	}
 
 	/**

@@ -1,11 +1,11 @@
 <?php
 
-namespace Duo\DraftBundle\Controller\Listing;
+namespace Duo\CoreBundle\Controller\Listing;
 
 use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\CoreBundle\Entity\DraftInterface as EntityDraftInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
-use Duo\DraftBundle\Entity\DraftInterface as EntityDraftInterface;
-use Duo\DraftBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
+use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,13 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractDraftController extends AbstractController
 {
-	/**
-	 * Get draft entity class.
-	 *
-	 * @return string
-	 */
-	abstract protected function getDraftEntityClass(): string;
-
 	/**
 	 * View action
 	 *
@@ -36,7 +29,7 @@ abstract class AbstractDraftController extends AbstractController
 
 		if ($draft === null)
 		{
-			return $this->entityNotFound($request, $id);
+			return $this->entityNotFound($request, $id, $this->getDraftEntityClass());
 		}
 
 		if (!$draft instanceof EntityDraftInterface)
@@ -46,10 +39,10 @@ abstract class AbstractDraftController extends AbstractController
 
 		if (($entity = $draft->getEntity()) === null)
 		{
-			return $this->entityNotFound($request, -1, $this->getEntityClass());
+			return $this->entityNotFound($request, -1);
 		}
 
-		// TODO: Investigate if there is no better way.
+		// TODO: Investigate if there is no better way to disable form after submission.
 		$form = $this->createForm($this->getFormType(), $entity);
 		$form->submit($this->getFormData($draft, $form));
 
@@ -195,6 +188,7 @@ abstract class AbstractDraftController extends AbstractController
 
 		if (($route = $this->get('router')->getRouteCollection()->get("{$this->getRoutePrefix()}_update")) === null)
 		{
+			// reply with json response
 			if ($request->getRequestFormat() === 'json')
 			{
 				return $this->json([
@@ -205,9 +199,7 @@ abstract class AbstractDraftController extends AbstractController
 
 			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.error', [], 'flashes'));
 
-			return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
-				'id' => $entity->getId()
-			]);
+			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
 
 		$form = $this->createForm($this->getFormType());
@@ -312,7 +304,17 @@ abstract class AbstractDraftController extends AbstractController
 	 */
 	protected function getDraftTemplate(): string
 	{
-		return '@DuoDraft/Listing/draft.html.twig';
+		return '@DuoCore/Listing/draft.html.twig';
+	}
+
+	/**
+	 * Get draft entity class.
+	 *
+	 * @return string
+	 */
+	protected function getDraftEntityClass(): string
+	{
+		return "{$this->getEntityClass()}Draft";
 	}
 
 	/**

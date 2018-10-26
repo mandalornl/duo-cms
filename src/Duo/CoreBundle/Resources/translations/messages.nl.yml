@@ -13,6 +13,8 @@ duo:
                 duplicate: Dupliceren
                 revisions: Revisies
                 preview: Preview
+                save_draft: Opslaan als concept
+                drafts: Concepten
 
         tab:
             publication: Publicatie
@@ -26,12 +28,24 @@ duo:
         modal:
             revisions:
                 title: Revisies
-                name: Naam
                 created_at: Aangemaakt op
                 created_by: Aangemaakt door
                 view: Inzien
                 revert: Terugzetten
                 delete: Verwijderen
+
+            drafts:
+                title: Concepten
+                name: Naam
+                created_at: Aangemaakt op
+                created_by: Aangemaakt door
+                view: Inzien
+                apply: Toepassen
+                delete: Verwijderen
+
+            new_draft:
+                title: Nieuw concept
+                name: Naam
 
             revert:
                 title: Terugzetten

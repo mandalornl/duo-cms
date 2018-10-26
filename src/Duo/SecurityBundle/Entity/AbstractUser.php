@@ -9,9 +9,14 @@ use Duo\CoreBundle\Entity\CloneTrait;
 use Duo\CoreBundle\Entity\Property\IdTrait;
 use Duo\CoreBundle\Entity\Property\TimestampTrait;
 use Duo\CoreBundle\Entity\Property\UuidTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @UniqueEntity(fields={ "username" }, message="duo.security.errors.username_used")
+ * @UniqueEntity(fields={ "email" }, message="duo.security.errors.email_used")
+ */
 abstract class AbstractUser implements UserInterface, \Serializable
 {
 	use IdTrait;
@@ -30,7 +35,8 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email", type="string", length=64, nullable=true)
+	 * @ORM\Column(name="email", type="string", length=64, nullable=true, unique=true)
+	 * @Assert\NotBlank()
 	 * @Assert\Email()
 	 */
     protected $email;
@@ -38,7 +44,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     /**
      * @var string
 	 *
-	 * @ORM\Column(name="username", type="string", length=64, nullable=true)
+	 * @ORM\Column(name="username", type="string", length=64, nullable=true, unique=true)
 	 * @Assert\NotBlank()
      */
     protected $username;

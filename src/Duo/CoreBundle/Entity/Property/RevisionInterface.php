@@ -2,49 +2,33 @@
 
 namespace Duo\CoreBundle\Entity\Property;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
 
 interface RevisionInterface
 {
 	/**
-	 * Set revision
-	 *
-	 * @param RevisionInterface $revision
-	 *
-	 * @return RevisionInterface
-	 */
-	public function setRevision(?RevisionInterface $revision): RevisionInterface;
-
-	/**
-	 * Get revision
-	 *
-	 * @return RevisionInterface
-	 */
-	public function getRevision(): ?RevisionInterface;
-
-	/**
 	 * Add revision
 	 *
-	 * @param RevisionInterface $revision
+	 * @param EntityRevisionInterface $revision
 	 *
 	 * @return RevisionInterface
 	 */
-	public function addRevision(RevisionInterface $revision): RevisionInterface;
+	public function addRevision(EntityRevisionInterface $revision): RevisionInterface;
 
 	/**
 	 * Remove revision
 	 *
-	 * @param RevisionInterface $revision
+	 * @param EntityRevisionInterface $revision
 	 *
 	 * @return RevisionInterface
 	 */
-	public function removeRevision(RevisionInterface $revision): RevisionInterface;
+	public function removeRevision(EntityRevisionInterface $revision): RevisionInterface;
 
 	/**
 	 * Get revisions
 	 *
-	 * @return ArrayCollection
+	 * @return Collection
 	 */
 	public function getRevisions(): Collection;
 }

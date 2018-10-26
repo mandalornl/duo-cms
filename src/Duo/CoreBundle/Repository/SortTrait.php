@@ -161,12 +161,6 @@ trait SortTrait
 			}
 		}
 
-		// use latest revision
-		if ($entity instanceof RevisionInterface)
-		{
-			$builder->andWhere('e.revision = e');
-		}
-
 		// ignore deleted
 		if ($entity instanceof DeleteInterface)
 		{

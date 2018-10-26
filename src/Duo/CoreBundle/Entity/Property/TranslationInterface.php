@@ -5,20 +5,20 @@ namespace Duo\CoreBundle\Entity\Property;
 interface TranslationInterface extends IdInterface
 {
 	/**
-	 * Set translatable
+	 * Set entity
 	 *
-	 * @param TranslateInterface $translatable
+	 * @param TranslateInterface $entity
 	 *
 	 * @return TranslationInterface
 	 */
-	public function setTranslatable(?TranslateInterface $translatable): TranslationInterface;
+	public function setEntity(?TranslateInterface $entity): TranslationInterface;
 
 	/**
-	 * Get translatable
+	 * Get entity
 	 *
 	 * @return TranslateInterface
 	 */
-	public function getTranslatable(): ?TranslateInterface;
+	public function getEntity(): ?TranslateInterface;
 
 	/**
 	 * Set locale

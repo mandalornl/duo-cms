@@ -13,7 +13,7 @@ import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
 import 'duo/AdminBundle/Resources/webpack/js/widget-collection';
 import 'duo/AdminBundle/Resources/webpack/js/widget-file';
 import 'duo/PartBundle/Resources/webpack/js/widget-parts';
-import 'duo/DraftBundle/Resources/webpack/js/modal-new-draft';
+import 'duo/CoreBundle/Resources/webpack/js/modal-new-draft';
 import widgetMedia from 'duo/MediaBundle/Resources/webpack/js/widget-media';
 import widgetImageCrop from 'duo/MediaBundle/Resources/webpack/js/widget-image-crop';
 

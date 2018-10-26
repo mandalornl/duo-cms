@@ -2,15 +2,11 @@
 
 namespace Duo\AdminBundle\Helper;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Duo\AdminBundle\Helper\Traits\RequestStackTrait;
 
 class LocaleHelper
 {
-	/**
-	 * @var RequestStack
-	 */
-	private $requestStack;
+	use RequestStackTrait;
 
 	/**
 	 * @var string
@@ -28,22 +24,6 @@ class LocaleHelper
 	public function __construct()
 	{
 		$this->locales = [ $this->defaultLocale ];
-	}
-
-	/**
-	 * Set requestStack
-	 *
-	 * @param RequestStack $requestStack
-	 *
-	 * @return LocaleHelper
-	 *
-	 * @required
-	 */
-	public function setRequestStack(RequestStack $requestStack): LocaleHelper
-	{
-		$this->requestStack = $requestStack;
-
-		return $this;
 	}
 
 	/**
@@ -128,12 +108,12 @@ class LocaleHelper
 	 */
 	public function getLocale(): string
 	{
-		if (($request = $this->getRequest()) === null)
+		if (!$this->hasRequest())
 		{
 			return $this->defaultLocale;
 		}
 
-		return $request->getLocale();
+		return $this->getRequest()->getLocale();
 	}
 
 	/**
@@ -143,26 +123,11 @@ class LocaleHelper
 	 */
 	public function getPreferredLanguage(): string
 	{
-		if (($request = $this->getRequest()) === null)
+		if (!$this->hasRequest())
 		{
 			return $this->defaultLocale;
 		}
 
-		return $request->getPreferredLanguage($this->locales);
-	}
-
-	/**
-	 * Get request
-	 *
-	 * @return Request
-	 */
-	private function getRequest(): ?Request
-	{
-		if ($this->requestStack === null)
-		{
-			return null;
-		}
-
-		return $this->requestStack->getCurrentRequest();
+		return $this->getRequest()->getPreferredLanguage($this->locales);
 	}
 }

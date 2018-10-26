@@ -202,14 +202,8 @@ abstract class AbstractIndexController extends AbstractController
 		if ($this->getEntityReflectionClass()->implementsInterface(TranslateInterface::class))
 		{
 			$builder
-				->join('e.translations', 't', Join::WITH, 't.translatable = e AND t.locale = :locale')
+				->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
 				->setParameter('locale', $request->getLocale());
-		}
-
-		// only fetch latest revision of entities
-		if ($this->getEntityReflectionClass()->implementsInterface(RevisionInterface::class))
-		{
-			$builder->andWhere('e.revision = e');
 		}
 
 		// don't fetch deleted entities
