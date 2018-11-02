@@ -5,7 +5,7 @@ namespace AppBundle\Entity\PagePart;
 use AppBundle\Form\PagePart\ImageCropPagePartType;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\MediaBundle\Entity\ImageCrop;
-use Duo\PageBundle\Entity\AbstractPagePart;
+use Duo\PageBundle\Entity\PagePart\AbstractPagePart;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

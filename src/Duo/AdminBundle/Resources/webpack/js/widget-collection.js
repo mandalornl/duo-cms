@@ -21,9 +21,11 @@ import $ from 'jquery';
 
 		$list.data('index', $list.data('index') || $list.find('> .collection-item').length);
 
+		const prototypeName = $list.data('prototype-name') || '__name__';
+
 		let prototype = $list.data('prototype');
-		prototype = prototype.replace(/__name__label__/g, $list.data('index'));
-		prototype = prototype.replace(/__name__/g, $list.data('index'));
+		prototype = prototype.split(`${prototypeName}label__`).join($list.data('index'));
+		prototype = prototype.split(prototypeName).join($list.data('index'));
 
 		const $item = $($container.data('item')).prepend(prototype);
 
@@ -34,9 +36,9 @@ import $ from 'jquery';
 		$item.trigger('duo.event.collection.addItem');
 
 		// toggle button
-		$container.find('button[data-action="add"]:last').toggleClass('d-none', !$list.find('> .collection-item').length);
+		$container.find('> button[data-action="add"]:last').toggleClass('d-none', !$list.find('> .collection-item').length);
 
-		$('html, body').scrollTop($item.offset().top);
+		$('html, body').scrollTop($item.offset().top - 75);
 
 		window.setTimeout(() =>
 		{
@@ -76,7 +78,7 @@ import $ from 'jquery';
 				$item.remove();
 
 				// toggle button
-				$container.find('button[data-action="add"]:last').toggleClass('d-none', !$list.find('> .collection-item').length);
+				$container.find('> button[data-action="add"]:last').toggleClass('d-none', !$list.find('> .collection-item').length);
 			}).emulateTransitionEnd(150);
 		}, 0);
 	};

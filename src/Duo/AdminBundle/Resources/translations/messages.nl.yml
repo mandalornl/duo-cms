@@ -81,15 +81,15 @@ duo:
                 ok: Ok
                 actions: Acties
 
-            apply:
-                title: Toepassen
-                body: Weet je zeker dat je dit item wilt toepassen?
+            action:
+                title: Actie
+                body: Weet je zeker dat je deze actie wilt uitvoeren?
 
             destroy:
                 title: Verwijderen
                 body: Weet je zeker dat je dit item wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt!
 
-            multi_destroy:
+            destroy_multi:
                 title: Verwijderen
                 body: Weet je zeker dat je deze items wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt!
 

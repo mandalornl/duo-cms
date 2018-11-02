@@ -25,9 +25,5 @@ duo_translator:
 duo_seo:
     resource: '@DuoSeoBundle/Resources/config/routing.yml'
 
-duo_url:
-    resource: .
-    type: url
-
 app:
     resource: '@AppBundle/Resources/config/routing.yml'

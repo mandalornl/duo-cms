@@ -3,12 +3,28 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\VideoPagePart;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class VideoPagePartType extends AbstractPartType
 {
+	/**
+	 * @var TranslatorInterface
+	 */
+	private $translator;
+
+	/**
+	 * VideoPagePartType constructor
+	 *
+	 * @param TranslatorInterface $translator
+	 */
+	public function __construct(TranslatorInterface $translator)
+	{
+		$this->translator = $translator;
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -17,7 +33,10 @@ class VideoPagePartType extends AbstractPartType
 		parent::buildForm($builder, $options);
 
 		$builder->add('value', TextType::class, [
-			'label' => false
+			'label' => false,
+			'attr' => [
+				'placeholder' => $this->translator->trans('app.form.video_page_part.value.placeholder')
+			]
 		]);
 	}
 

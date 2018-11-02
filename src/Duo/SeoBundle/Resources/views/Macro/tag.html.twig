@@ -1,6 +1,6 @@
 {% macro url(page, priority) %}
 	<url>
-		<loc>{{ url('url', { url: page.translate(app.request.locale).url, _locale: app.request.locale }) }}</loc>
+		<loc>{{ url('_url', { url: page.translate(app.request.locale).url, _locale: app.request.locale }) }}</loc>
 		<lastmod>{{ page.modifiedAt | date('c') }}</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>{{ priority }}</priority>

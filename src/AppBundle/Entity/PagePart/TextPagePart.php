@@ -4,7 +4,7 @@ namespace AppBundle\Entity\PagePart;
 
 use AppBundle\Form\PagePart\TextPagePartType;
 use Doctrine\ORM\Mapping as ORM;
-use Duo\PageBundle\Entity\AbstractPagePart;
+use Duo\PageBundle\Entity\PagePart\AbstractPagePart;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

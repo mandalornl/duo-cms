@@ -28,7 +28,7 @@ abstract class AbstractSortController extends AbstractController
 	 */
 	protected function doMoveUpAction(Request $request, int $id): Response
 	{
-		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
+		return $this->handleMoveUpOrDownRequest(function(SortInterface $entity)
 		{
 			$manager = $this->getDoctrine()->getManager();
 
@@ -37,22 +37,23 @@ abstract class AbstractSortController extends AbstractController
 			 */
 			$repository = $manager->getRepository($this->getEntityClass());
 
-			$previousEntity = $repository->findPrevToSort($entity);
+			$prevEntity = $repository->findPrevToSort($entity);
 
-			if ($previousEntity !== null)
+			if ($prevEntity !== null)
 			{
-				$weight = $previousEntity->getWeight();
-				$previousEntity->setWeight($entity->getWeight());
+				$weight = $prevEntity->getWeight();
+				$prevEntity->setWeight($entity->getWeight());
 				$entity->setWeight($weight);
 
 				// dispatch sort event
-				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($entity, $previousEntity));
+				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($prevEntity));
+				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($entity));
 
-				$manager->persist($previousEntity);
+				$manager->persist($prevEntity);
 				$manager->persist($entity);
 				$manager->flush();
 			}
-		});
+		}, $request, $id);
 	}
 
 	/**
@@ -79,7 +80,7 @@ abstract class AbstractSortController extends AbstractController
 	 */
 	protected function doMoveDownAction(Request $request, int $id): Response
 	{
-		return $this->handleMoveUpOrDownRequest($request, $id, function(SortInterface $entity)
+		return $this->handleMoveUpOrDownRequest(function(SortInterface $entity)
 		{
 			$manager = $this->getDoctrine()->getManager();
 
@@ -97,13 +98,14 @@ abstract class AbstractSortController extends AbstractController
 				$entity->setWeight($weight);
 
 				// dispatch sort event
-				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($entity, $nextEntity));
+				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($nextEntity));
+				$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($entity));
 
 				$manager->persist($nextEntity);
 				$manager->persist($entity);
 				$manager->flush();
 			}
-		});
+		}, $request, $id);
 	}
 
 	/**
@@ -121,15 +123,15 @@ abstract class AbstractSortController extends AbstractController
 	/**
 	 * Handle move up or down request
 	 *
+	 * @param \Closure $callback
 	 * @param Request $request
 	 * @param int $id
-	 * @param \Closure $callback
 	 *
 	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleMoveUpOrDownRequest(Request $request, int $id, \Closure $callback): Response
+	private function handleMoveUpOrDownRequest(\Closure $callback, Request $request, int $id): Response
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass());
 
@@ -228,6 +230,9 @@ abstract class AbstractSortController extends AbstractController
 							 */
 							$child->setWeight($weight++);
 
+							// dispatch sort event
+							$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($child));
+
 							$manager->persist($child);
 						}
 
@@ -245,6 +250,9 @@ abstract class AbstractSortController extends AbstractController
 							}
 
 							$child->setWeight($weight++);
+
+							// dispatch sort event
+							$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($child));
 
 							$manager->persist($child);
 						}
@@ -272,6 +280,9 @@ abstract class AbstractSortController extends AbstractController
 						 * @var SortInterface $child
 						 */
 						$child->setWeight($weight++);
+
+						// dispatch sort event
+						$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($child));
 
 						$manager->persist($child);
 					}
@@ -326,11 +337,15 @@ abstract class AbstractSortController extends AbstractController
 		{
 			$child->setWeight($weight++);
 
+			// dispatch sort event
+			$this->get('event_dispatcher')->dispatch(SortEvents::SORT, new SortEvent($child));
+
 			$manager->persist($child);
 		}
 
 		$manager->flush();
 
+		// reply with json response
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([

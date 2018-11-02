@@ -2,7 +2,7 @@
 
 namespace Duo\TaxonomyBundle\Form\Listing;
 
-use Duo\AdminBundle\Form\TranslationType;
+use Duo\AdminBundle\Form\Type\TranslationType;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

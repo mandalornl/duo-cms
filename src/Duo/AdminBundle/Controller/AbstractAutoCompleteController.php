@@ -3,6 +3,7 @@
 namespace Duo\AdminBundle\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +49,7 @@ abstract class AbstractAutoCompleteController extends Controller
 		{
 			return (int)$builder->select('COUNT(DISTINCT e)')
 				->getQuery()
-				->getSingleScalarResult();
+				->getOneOrNullResult(Query::HYDRATE_SINGLE_SCALAR);
 		}
 		catch (NonUniqueResultException $e)
 		{

@@ -2,3 +2,7 @@ duo_admin:
     resource: '@DuoAdminBundle/Controller/'
     type: annotation
     prefix: /admin
+
+duo_url:
+    resource: .
+    type: url

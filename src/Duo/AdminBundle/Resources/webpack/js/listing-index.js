@@ -84,8 +84,8 @@ $(() =>
 		}, location.origin);
 	});
 
-	// handle multi delete
-	$listing.on('click', '[data-modal="multi-delete"]', async function(e)
+	// handle actions
+	$listing.on('click', '.navbar [data-modal="multi-action"]', async function(e)
 	{
 		e.preventDefault();
 
@@ -96,7 +96,7 @@ $(() =>
 			body: $this.data('body')
 		});
 
-		$listing.find('.listing-form').attr('action', $this.attr('href')).submit();
+		$form.attr('action', $this.attr('href')).submit();
 	});
 
 	// handle paginator limit

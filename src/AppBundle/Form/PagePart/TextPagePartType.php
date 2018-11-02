@@ -3,7 +3,7 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\TextPagePart;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 

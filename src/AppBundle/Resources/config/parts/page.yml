@@ -5,11 +5,11 @@ types:
     text:
         label: app.page_part.text
         type: AppBundle\Form\PagePart\TextPagePartType
-        icon: icon-file-text
+        icon: icon-file-text2
     wysiwyg:
         label: app.page_part.wysiwyg
         type: AppBundle\Form\PagePart\WYSIWYGPagePartType
-        icon: icon-file-text
+        icon: icon-file-text2
     video:
         label: app.page_part.video
         type: AppBundle\Form\PagePart\VideoPagePartType

@@ -1,9 +1,10 @@
 duo:
     page:
         tab:
+            translations: Translations
+            properties: Properties
             content: Content
             menu: Menu
-            properties: Properties
 
         menu:
             pages: Pages
@@ -40,7 +41,7 @@ duo:
                 title:
                     label: Title
                 visible_menu:
-                    label: Visible
+                    label: Visible in menu
                 slug:
                     label: Slug
                 url:

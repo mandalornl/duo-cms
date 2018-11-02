@@ -3,7 +3,7 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\HeadingPagePart;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

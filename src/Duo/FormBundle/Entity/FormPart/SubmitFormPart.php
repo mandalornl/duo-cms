@@ -3,7 +3,6 @@
 namespace Duo\FormBundle\Entity\FormPart;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\FormBundle\Entity\AbstractFormPart;
 use Duo\FormBundle\Form\FormPart\SubmitFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 

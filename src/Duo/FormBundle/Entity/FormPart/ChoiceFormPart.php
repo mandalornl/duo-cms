@@ -3,7 +3,6 @@
 namespace Duo\FormBundle\Entity\FormPart;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\FormBundle\Entity\AbstractChoiceFormPart;
 use Duo\FormBundle\Form\FormPart\ChoiceFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 

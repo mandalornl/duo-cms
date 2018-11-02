@@ -54,7 +54,7 @@
 									{%- endif -%}
 								{% endif %}
 								{% if entity is previewable %}
-									<a href="{{ path('url', { url: entity.url }) }}" target="_blank" class="dropdown-item">
+									<a href="{{ path('_url', { url: entity.url, _locale: app.request.locale }) }}" target="_blank" class="dropdown-item">
 										{{- 'duo.core.toolbar.actions.preview' | trans -}}
 									</a>
 								{% endif %}
@@ -68,7 +68,7 @@
 										{% if action.template %}
 											{% include action.template %}
 										{% else %}
-											<a href="{{ path(action.route, action.routeParameters | merge({ id: entity.id })) }}" class="dropdown-item">
+											<a href="{{ path(action.route, action.routeParameters | merge({ id: entity.id })) }}" class="dropdown-item" disabled>
 												{{- action.label | trans -}}
 											</a>
 										{% endif %}

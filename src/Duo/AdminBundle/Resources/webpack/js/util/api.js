@@ -8,7 +8,7 @@ import {extend} from 'lodash';
  *
  * @returns {Function}
  */
-const call = (method) => async (url, data = null) =>
+const call = method => async (url, data = null) =>
 {
 	let options = {
 		headers: {

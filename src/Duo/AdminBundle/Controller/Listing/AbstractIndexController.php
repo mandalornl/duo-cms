@@ -525,7 +525,7 @@ abstract class AbstractIndexController extends AbstractController
 			// remove empty filters
 			$session->set($sessionName, array_filter($form->getData(), function(array $data)
 			{
-				return !empty($data['value']);
+				return isset($data['value']);
 			}));
 
 			// clear search

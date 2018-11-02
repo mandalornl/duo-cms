@@ -1,0 +1,4 @@
+duo:
+    seo:
+        activate_success: Item(s) activated succesfully.
+        deactivate_success: Item(s) deactivated succesfully.

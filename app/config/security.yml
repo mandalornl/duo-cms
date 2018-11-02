@@ -11,7 +11,7 @@ security:
     encoders:
         admin:
             class: Duo\SecurityBundle\Entity\UserInterface
-            algorithm: bcrypt
+            algorithm: argon2i
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

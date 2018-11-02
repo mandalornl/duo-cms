@@ -183,7 +183,7 @@ abstract class AbstractDraftController extends AbstractController
 
 		if (($entity = $draft->getEntity()) === null)
 		{
-			return $this->entityNotFound($request, -1, $this->getEntityClass());
+			return $this->entityNotFound($request, -1);
 		}
 
 		if (($route = $this->get('router')->getRouteCollection()->get("{$this->getRoutePrefix()}_update")) === null)

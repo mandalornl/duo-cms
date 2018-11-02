@@ -8,7 +8,12 @@ duo:
             robots: Robots
 
         listing:
+            action:
+                activate: Activeren
+                deactivate: Deactiveren
+
             field:
+                active: Actief
                 origin: Oorsprong
                 target: Doel
                 permanent: Permanent
@@ -16,6 +21,7 @@ duo:
                 modified_at: Gewijzigd op
 
             filter:
+                active: Actief
                 origin: Oorsprong
                 target: Doel
                 permanent: Permanent
@@ -34,9 +40,11 @@ duo:
                 placeholder: Maak een keuze
 
             redirect:
+                active:
+                    label: Actief
+                permanent:
+                    label: Permanent
                 origin:
                     label: Oorsprong
                 target:
                     label: Doel
-                permanent:
-                    label: Permanent

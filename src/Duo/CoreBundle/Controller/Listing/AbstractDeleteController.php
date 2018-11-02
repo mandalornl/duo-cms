@@ -27,11 +27,11 @@ abstract class AbstractDeleteController extends AbstractController
 	 */
 	protected function doDeleteAction(Request $request, int $id = null): Response
 	{
-		return $this->handleDeletionRequest(function(DeleteInterface $entity, EventDispatcherInterface $dispatcher)
+		return $this->handleDeletionRequest(function(DeleteInterface $entity)
 		{
 			$entity->delete();
 
-			$dispatcher->dispatch(DeleteEvents::DELETE, new DeleteEvent($entity));
+			$this->get('event_dispatcher')->dispatch(DeleteEvents::DELETE, new DeleteEvent($entity));
 		}, 'duo.core.delete_success', $request, $id);
 	}
 
@@ -59,11 +59,11 @@ abstract class AbstractDeleteController extends AbstractController
 	 */
 	protected function doUndeleteAction(Request $request, int $id = null): Response
 	{
-		return $this->handleDeletionRequest(function(DeleteInterface $entity, EventDispatcherInterface $dispatcher)
+		return $this->handleDeletionRequest(function(DeleteInterface $entity)
 		{
 			$entity->undelete();
 
-			$dispatcher->dispatch(DeleteEvents::UNDELETE, new DeleteEvent($entity));
+			$this->get('event_dispatcher')->dispatch(DeleteEvents::UNDELETE, new DeleteEvent($entity));
 		}, 'duo.core.undelete_success', $request, $id);
 	}
 
@@ -106,13 +106,11 @@ abstract class AbstractDeleteController extends AbstractController
 				]);
 			}
 
-			$this->addFlash('warning', $this->get('translator')->trans('duo.alert.no_items', [], 'flashes'));
+			$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_items', [], 'flashes'));
 		}
 		else
 		{
 			$manager = $this->getDoctrine()->getManager();
-
-			$dispatcher = $this->get('event_dispatcher');
 
 			foreach (array_chunk($selection, 100) as $ids)
 			{
@@ -130,7 +128,7 @@ abstract class AbstractDeleteController extends AbstractController
 						return $this->interfaceNotImplemented($request, $entity->getId(), DeleteInterface::class);
 					}
 
-					call_user_func_array($callback, [ $entity, $dispatcher ]);
+					call_user_func_array($callback, [ $entity ]);
 
 					$manager->persist($entity);
 				}

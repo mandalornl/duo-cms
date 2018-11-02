@@ -2,9 +2,9 @@
 
 namespace Duo\FormBundle\Form;
 
-use Duo\FormBundle\Entity\ChoiceFormPartInterface;
-use Duo\FormBundle\Entity\FormPartInterface;
-use Duo\FormBundle\Entity\TextFormPartInterface;
+use Duo\FormBundle\Entity\FormPart\ChoiceFormPartInterface;
+use Duo\FormBundle\Entity\FormPart\FormPartInterface;
+use Duo\FormBundle\Entity\FormPart\TextFormPartInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

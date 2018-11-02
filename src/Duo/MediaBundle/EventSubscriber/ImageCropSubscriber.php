@@ -37,6 +37,7 @@ class ImageCropSubscriber implements EventSubscriber
 
 			$changeSet = $unitOfWork->getEntityChangeSet($entity);
 
+			// remove crop if no media is selected
 			if (isset($changeSet['media']) && $changeSet['media'][1] === null)
 			{
 				$unitOfWork->remove($entity);

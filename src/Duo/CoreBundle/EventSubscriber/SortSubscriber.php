@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 
@@ -70,7 +70,9 @@ class SortSubscriber implements EventSubscriber
 					->setParameter('parent', $parent);
 			}
 
-			return (int)$builder->getQuery()->getSingleScalarResult();
+			return (int)$builder
+				->getQuery()
+				->getOneOrNullResult(Query::HYDRATE_SINGLE_SCALAR);
 		}
 		catch (NonUniqueResultException $e)
 		{

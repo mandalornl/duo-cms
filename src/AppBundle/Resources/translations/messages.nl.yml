@@ -33,3 +33,7 @@ app:
         image_crop_page_part:
             alt:
                 label: Alt tekst
+
+        video_page_part:
+            value:
+                label: bijv. YouTube url

@@ -5,6 +5,7 @@ namespace Duo\PageBundle\EventListener\Listing;
 use Duo\CoreBundle\Event\Listing\DuplicateEvent;
 use Duo\CoreBundle\Event\Listing\DuplicateEvents;
 use Duo\PageBundle\Entity\PageInterface;
+use Duo\PageBundle\Entity\PageTranslationInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DuplicateListener implements EventSubscriberInterface
@@ -28,12 +29,24 @@ class DuplicateListener implements EventSubscriberInterface
 	{
 		$entity = $event->getEntity();
 
-		if (!$entity instanceof PageInterface || $entity->getName() === null)
+		if (!$entity instanceof PageInterface)
 		{
 			return;
 		}
 
 		// ensure unique name
-		$entity->setName(uniqid("{$entity->getName()}-"));
+		if ($entity->getName() !== null)
+		{
+			$entity->setName(uniqid("{$entity->getName()}-"));
+		}
+
+		// ensure unique slug, which in turn results in a unique url
+		foreach ($entity->getTranslations() as $translation)
+		{
+			/**
+			 * @var PageTranslationInterface $translation
+			 */
+			$translation->setSlug(uniqid("{$translation->getSlug()}-"));
+		}
 	}
 }

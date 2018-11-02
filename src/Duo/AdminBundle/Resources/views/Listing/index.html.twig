@@ -7,33 +7,35 @@
 		<div class="form-inline">
 			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
-					<div class="btn-group" role="group">
-						<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
-							{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
-						</button>
-						<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
-							{% if list.actions is defined %}
-								{% for action in list.actions %}
-									{% if action.template %}
-										{% include action.template %}
-									{% else %}
-										<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item">
-											{{- action.label | trans -}}
-										</a>
-									{% endif %}
-								{% endfor %}
-							{% endif %}
-							{% if list.isDeletable | default(false) %}
-								<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.core.modal.multi_delete.title' | trans }}" data-body="{{ 'duo.core.modal.multi_delete.body' | trans }}">
-									{{- 'duo.core.listing.action.delete' | trans -}}
-								</a>
-							{% else %}
-								<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-delete" data-title="{{ 'duo.admin.modal.multi_destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.multi_destroy.body' | trans }}">
-									{{- 'duo.admin.listing.action.destroy' | trans -}}
-								</a>
-							{% endif %}
+					{% if paginator.count %}
+						<div class="btn-group" role="group">
+							<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+								{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
+							</button>
+							<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
+								{% if list.actions is defined %}
+									{% for action in list.actions %}
+										{% if action.template %}
+											{% include action.template %}
+										{% else %}
+											<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item{% if not paginator.count %} disabled{% endif %}" data-modal="multi-action" data-title="{{ action.label | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+												{{- action.label | trans -}}
+											</a>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+								{% if list.isDeletable | default(false) %}
+									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.core.modal.delete_multi.title' | trans }}" data-body="{{ 'duo.core.modal.delete_multi.body' | trans }}">
+										{{- 'duo.core.listing.action.delete' | trans -}}
+									</a>
+								{% else %}
+									<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.modal.destroy_multi.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy_multi.body' | trans }}">
+										{{- 'duo.admin.listing.action.destroy' | trans -}}
+									</a>
+								{% endif %}
+							</div>
 						</div>
-					</div>
+					{% endif %}
 					{% if (routePrefix ~ '_create') is validroute %}
 						<a href="{{ path(routePrefix ~ '_create') }}" class="btn btn-primary">
 							{{- 'duo.admin.toolbar.actions.new' | trans -}}

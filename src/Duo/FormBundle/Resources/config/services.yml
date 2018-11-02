@@ -13,7 +13,7 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    Duo\FormBundle\Form\FormPartCollectionType:
+    Duo\FormBundle\Form\Type\FormPartCollectionType:
         arguments:
             $configurator: '@Duo\FormBundle\Configurator\FormPartConfigurator'
         tags:

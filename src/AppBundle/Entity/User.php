@@ -7,7 +7,7 @@ use Duo\SecurityBundle\Entity\AbstractUser;
 
 /**
  * @ORM\Table(
- *     name="duo_user",
+ *     name="duo_security_user",
  *     indexes={
  *		   @ORM\Index(name="IDX_PASSWORD_TOKEN", columns={ "password_token" })
  *	   }

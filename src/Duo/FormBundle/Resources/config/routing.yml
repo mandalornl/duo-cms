@@ -2,3 +2,8 @@ duo_form:
     resource: '@DuoFormBundle/Controller/'
     type: annotation
     prefix: /admin
+
+duo_form_view:
+    resource: '@DuoFormBundle/Controller/FormViewController.php'
+    type: annotation
+    prefix: /

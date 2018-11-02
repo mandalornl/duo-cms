@@ -3,8 +3,7 @@
 namespace Duo\FormBundle\Form\FormPart;
 
 use Duo\FormBundle\Entity\FormPart\PrivacyFormPart;
-use Duo\FormBundle\Form\AbstractFormPartType;
-use Duo\PageBundle\Form\PageAutoCompleteType;
+use Duo\PageBundle\Form\Type\PageAutoCompleteType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

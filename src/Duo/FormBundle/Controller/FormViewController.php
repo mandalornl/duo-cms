@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Duo\AdminBundle\Helper\MailerHelper;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\FormBundle\Entity\Form;
-use Duo\FormBundle\Entity\FormPartInterface;
+use Duo\FormBundle\Entity\FormPart\FormPartInterface;
 use Duo\FormBundle\Entity\FormSubmission;
 use Duo\FormBundle\Entity\FormTranslation;
 use Duo\FormBundle\Form\FormViewType;
@@ -26,29 +26,31 @@ class FormViewController extends Controller
 	/**
 	 * View action
 	 *
-	 * @Route("/{id}", name="form", methods={ "GET", "POST" })
+	 * @Route("/{uuid}", name="form", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
-	 * @param int $id
 	 * @param MailerHelper $mailerHelper
+	 * @param string $uuid
 	 *
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function viewAction(Request $request, int $id, MailerHelper $mailerHelper): Response
+	public function viewAction(Request $request, MailerHelper $mailerHelper, string $uuid): Response
 	{
-		$class = Form::class;
+		$className = Form::class;
 
 		/**
 		 * @var Form $entity
 		 */
-		$entity = $this->getDoctrine()->getRepository($class)->find($id);
+		$entity = $this->getDoctrine()->getRepository($className)->findOneBy([
+			'uuid' => $uuid
+		]);
 
 		if ($entity === null)
 		{
 			return $this->json([
-				'error' => "Entity '{$class}::{$id}' not found"
+				'error' => "Entity '{$className}::{$uuid}' not found"
 			]);
 		}
 
@@ -57,7 +59,7 @@ class FormViewController extends Controller
 		if ($formParts === null)
 		{
 			$interface = PartInterface::class;
-			$error = "Entity '{$class}::{$id}' doesn't implement '{$interface}'";
+			$error = "Entity '{$className}::{$uuid}' doesn't implement '{$interface}'";
 
 			return $this->json([
 				'error' => $error
@@ -66,7 +68,7 @@ class FormViewController extends Controller
 
 		$form = $this->createForm(FormViewType::class, null, [
 			'action' => $this->generateUrl('duo_form_view_form', [
-				'id' => $id,
+				'uuid' => $entity->getUuid(),
 				'locale' => $request->getLocale()
 			]),
 			'formParts' => $formParts
@@ -112,7 +114,8 @@ class FormViewController extends Controller
 			$translation = $entity->translate($request->getLocale());
 
 			// send submission to
-			if ($entity->getSendSubmissionsTo() && !count($this->get('validator')->validateProperty($entity, 'sendSubmissionTo')))
+			if ($entity->getSendSubmissionsTo() &&
+				!count($this->get('validator')->validateProperty($entity, 'sendSubmissionTo')))
 			{
 				$message = $mailerHelper
 					->prepare('@DuoForm/Mail/form_submission.mjml.twig', [
@@ -127,7 +130,7 @@ class FormViewController extends Controller
 			return $this->json([
 				'success' => true,
 				'message' => $translation->getMessage(),
-				'url' => $entity->getPage() !== null ? $this->generateUrl('url', [
+				'url' => $entity->getPage() !== null ? $this->generateUrl('_url', [
 					'url' => $entity->getPage()->translate($request->getLocale())->getUrl(),
 					'_locale' => $request->getLocale()
 				]) : null

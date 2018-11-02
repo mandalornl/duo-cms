@@ -3,8 +3,8 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\ImagePagePart;
-use Duo\MediaBundle\Form\MediaType;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\MediaBundle\Form\Type\MediaType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 

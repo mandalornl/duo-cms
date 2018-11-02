@@ -19,7 +19,7 @@
 								{% set url = path(routePrefix ~ '_sorting', app.request.query.all | merge({ sort: field.hash, order: 'asc' })) %}
 							{% endif %}
 							<a href="{{ url }}">
-								{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.hash %} <i class="icon-sort-{{ list.sorting.order }}"></i>{% endif %}
+								{{- field.label | trans }}{% if list.sorting and list.sorting.sort == field.hash %} <i class="icon-sort-amount-{{ list.sorting.order }}"></i>{% endif %}
 							</a>
 						{% else %}
 							{{- field.label | trans -}}

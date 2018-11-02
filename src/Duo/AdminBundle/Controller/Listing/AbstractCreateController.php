@@ -29,15 +29,13 @@ abstract class AbstractCreateController extends AbstractController
 
 		$entity = $manager->getClassMetadata($this->getEntityClass())->getReflectionClass()->newInstance();
 
-		$eventDispatcher = $this->get('event_dispatcher');
-
 		// dispatch pre create event
-		$eventDispatcher->dispatch(EntityEvents::PRE_CREATE, new EntityEvent($entity));
+		$this->get('event_dispatcher')->dispatch(EntityEvents::PRE_CREATE, new EntityEvent($entity));
 
 		$form = $this->createForm($this->getFormType(), $entity);
 
 		// dispatch pre create event
-		$eventDispatcher->dispatch(FormEvents::PRE_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
+		$this->get('event_dispatcher')->dispatch(FormEvents::PRE_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
 
 		// return when response is given
 		if ($formEvent->hasResponse())
@@ -50,7 +48,7 @@ abstract class AbstractCreateController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post create event
-			$eventDispatcher->dispatch(FormEvents::POST_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
+			$this->get('event_dispatcher')->dispatch(FormEvents::POST_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
 
 			// return when response is given
 			if ($formEvent->hasResponse())
@@ -62,7 +60,7 @@ abstract class AbstractCreateController extends AbstractController
 			$manager->flush();
 
 			// dispatch post flush event
-			$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
+			$this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
 
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')

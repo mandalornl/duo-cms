@@ -2,3 +2,7 @@ duo_seo:
     resource: '@DuoSeoBundle/Controller/'
     type: annotation
     prefix: /
+
+duo_redirect:
+    resource: .
+    type: redirect

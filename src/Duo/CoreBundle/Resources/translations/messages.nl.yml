@@ -59,7 +59,7 @@ duo:
                 title: Herstellen
                 body: Weet je zeker dat je dit item wilt herstellen?
 
-            multi_delete:
+            delete_multi:
                 title: Verwijderen
                 body: Weet je zeker dat je deze items wilt verwijderen?
 

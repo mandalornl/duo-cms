@@ -3,8 +3,8 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\WYSIWYGPagePart;
-use Duo\AdminBundle\Form\WYSIWYGType;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\AdminBundle\Form\Type\WYSIWYGType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class WYSIWYGPagePartType extends AbstractPartType

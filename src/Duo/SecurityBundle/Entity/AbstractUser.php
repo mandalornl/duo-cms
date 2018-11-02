@@ -35,7 +35,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="email", type="string", length=64, nullable=true, unique=true)
+	 * @ORM\Column(name="email", type="string", length=128, nullable=true, unique=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
 	 */
@@ -44,7 +44,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     /**
      * @var string
 	 *
-	 * @ORM\Column(name="username", type="string", length=64, nullable=true, unique=true)
+	 * @ORM\Column(name="username", type="string", length=128, nullable=true, unique=true)
 	 * @Assert\NotBlank()
      */
     protected $username;
@@ -52,7 +52,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="password", type="string", length=64, nullable=true)
+	 * @ORM\Column(name="password", type="string", length=128, nullable=true)
 	 */
     protected $password;
 
@@ -86,7 +86,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	 * @var Collection
 	 *
 	 * @ORM\ManyToMany(targetEntity="Duo\SecurityBundle\Entity\Group", cascade={ "persist" })
-	 * @ORM\JoinTable(name="duo_user_to_group",
+	 * @ORM\JoinTable(name="duo_security_user_to_group",
 	 *     joinColumns={
 	 *		   @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
 	 * 	   },

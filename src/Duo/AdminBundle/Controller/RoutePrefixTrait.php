@@ -35,9 +35,9 @@ trait RoutePrefixTrait
 
 		if ($annotation === null)
 		{
-			$class = get_class($this);
+			$className = get_class($this);
 
-			throw new AnnotationException("Class '{$class}' is missing annotation '{$annotationName}'");
+			throw new AnnotationException("Controller '{$className}' is missing annotation '{$annotationName}'");
 		}
 
 		return $this->routePrefix = rtrim($annotation->getName(), '_');

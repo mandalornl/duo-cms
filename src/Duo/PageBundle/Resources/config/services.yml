@@ -13,7 +13,7 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    Duo\PageBundle\Form\PagePartCollectionType:
+    Duo\PageBundle\Form\Type\PagePartCollectionType:
         arguments:
             $configurator: '@Duo\PageBundle\Configurator\PagePartConfigurator'
         tags:

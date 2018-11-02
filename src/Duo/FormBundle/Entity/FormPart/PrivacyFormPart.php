@@ -3,9 +3,8 @@
 namespace Duo\FormBundle\Entity\FormPart;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\FormBundle\Entity\AbstractFormPart;
 use Duo\FormBundle\Form\FormPart\PrivacyFormPartType;
-use Duo\FormBundle\Form\PrivacyType;
+use Duo\FormBundle\Form\Type\PrivacyType;
 use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
@@ -18,7 +17,7 @@ class PrivacyFormPart extends AbstractFormPart
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="required", type="boolean", options={ "default" = 0})
+	 * @ORM\Column(name="required", type="boolean", options={ "default" = 0 })
 	 */
 	private $required = false;
 

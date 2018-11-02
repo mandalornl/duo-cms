@@ -39,8 +39,8 @@ duo:
 
             forgot_password:
                 title: Forgot password
-                error_message: Unknown email address
-                wait_message: You have to wait at least one hour before you can make a new request
+                error_message: Unknown email address.
+                wait_message: You have to wait at least one hour before you can make a new request.
                 success_message: |
                     An email has ben sent to you that allows you to reset your password.
 
@@ -52,8 +52,8 @@ duo:
 
             reset_password:
                 title: Reset password
-                error_message: An error occurred, please try again
-                success_message: Your password has been successfully changed
+                error_message: An error occurred, please try again.
+                success_message: Your password has been successfully changed.
                 password:
                     label: Password
                 repeat_password:

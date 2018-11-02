@@ -13,20 +13,13 @@ class SortEvent extends Event
 	private $entity;
 
 	/**
-	 * @var SortInterface
-	 */
-	private $origin;
-
-	/**
 	 * SortEvent constructor
 	 *
 	 * @param SortInterface $entity
-	 * @param SortInterface $origin
 	 */
-	public function __construct(SortInterface $entity, SortInterface $origin)
+	public function __construct(SortInterface $entity)
 	{
 		$this->entity = $entity;
-		$this->origin = $origin;
 	}
 
 	/**
@@ -51,29 +44,5 @@ class SortEvent extends Event
 	public function getEntity(): ?SortInterface
 	{
 		return $this->entity;
-	}
-
-	/**
-	 * Set origin
-	 *
-	 * @param SortInterface $origin
-	 *
-	 * @return SortEvent
-	 */
-	public function setOrigin(SortInterface $origin): SortEvent
-	{
-		$this->origin = $origin;
-
-		return $this;
-	}
-
-	/**
-	 * Get origin
-	 *
-	 * @return SortInterface
-	 */
-	public function getOrigin(): ?SortInterface
-	{
-		return $this->origin;
 	}
 }

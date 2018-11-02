@@ -12,12 +12,7 @@ class UrlLoader extends Loader
 	/**
 	 * @var bool
 	 */
-	private $loaded;
-
-	/**
-	 * @var string
-	 */
-	private $routeName = 'url';
+	private $isLoaded;
 
 	/**
 	 * @var LocaleHelper
@@ -39,17 +34,19 @@ class UrlLoader extends Loader
 	 */
 	public function load($resource, $type = null): RouteCollection
 	{
-		if ($this->loaded === true)
+		if ($this->isLoaded === true)
 		{
-			$className = get_class($this);
+			$className = static::class;
 
 			throw new \RuntimeException("Do not add the '{$className}' loader twice");
 		}
 
-		$this->loaded = true;
+		$this->isLoaded = true;
 
 		$routes = new RouteCollection();
-		$routes->add($this->routeName, $this->getRoute());
+
+		$this->addUrlRoute($routes);
+		$this->addRedirectToPreferredLanguageRoute($routes);
 
 		return $routes;
 	}
@@ -59,31 +56,53 @@ class UrlLoader extends Loader
 	 */
 	public function supports($resource, $type = null): bool
 	{
-		return $type === $this->routeName;
+		return $type === 'url';
 	}
 
 	/**
-	 * Get route
+	 * Add url route
 	 *
-	 * @return Route
+	 * @param RouteCollection $routes
 	 */
-	private function getRoute(): Route
+	private function addUrlRoute(RouteCollection $routes): void
 	{
 		if (count($this->localeHelper->getLocales()) > 1)
 		{
-			return new Route('/{_locale}/{url}', [
+			$routes->add('_url', new Route('/{_locale}/{url}', [
 				'_controller' => 'AppBundle:Default:index',
 				'_locale' => $this->localeHelper->getLocale()
 			], [
 				'url' => '(.+)?',
 				'_locale' => $this->localeHelper->getLocalesAsString()
-			]);
+			]));
+
+			return;
 		}
 
-		return new Route('/{url}', [
+		$routes->add('_url', new Route('/{url}', [
 			'_controller' => 'AppBundle:Default:index'
 		], [
 			'url' => '(.+)?'
-		]);
+		]));
+	}
+
+	/**
+	 * Add redirect to preferred language route
+	 *
+	 * @param RouteCollection $routes
+	 */
+	private function addRedirectToPreferredLanguageRoute(RouteCollection $routes): void
+	{
+		if (count($this->localeHelper->getLocales()) <= 1)
+		{
+			return;
+		}
+
+		$routes->add('_redirect_to_preferred_language', new Route('/', [
+			'_controller' => 'FrameworkBundle:Redirect:redirect',
+			'route' => '_url',
+			'url' => '',
+			'_locale' => $this->localeHelper->getPreferredLanguage()
+		]));
 	}
 }

@@ -3,7 +3,7 @@
 namespace Duo\SecurityBundle\Form\Listing;
 
 use Duo\SecurityBundle\Entity\Group;
-use Duo\SecurityBundle\Form\RoleChoiceType;
+use Duo\SecurityBundle\Form\Type\RoleChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

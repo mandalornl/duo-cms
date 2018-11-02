@@ -113,7 +113,7 @@ export default ($ =>
 							this.value = weight;
 						});
 
-						$('html, body').scrollTop($item.offset().top);
+						$('html, body').scrollTop($item.offset().top - 75);
 
 						window.setTimeout(() =>
 						{

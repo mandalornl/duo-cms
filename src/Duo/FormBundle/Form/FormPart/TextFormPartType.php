@@ -3,7 +3,6 @@
 namespace Duo\FormBundle\Form\FormPart;
 
 use Duo\FormBundle\Entity\FormPart\TextFormPart;
-use Duo\FormBundle\Form\AbstractTextFormPartType;
 
 class TextFormPartType extends AbstractTextFormPartType
 {

@@ -64,10 +64,8 @@ abstract class AbstractUpdateController extends AbstractController
 			return $this->entityNotFound($request, $id);
 		}
 
-		$eventDispatcher = $this->get('event_dispatcher');
-
 		// dispatch pre update event
-		$eventDispatcher->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity));
+		$this->get('event_dispatcher')->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity));
 
 		$form = $this->createForm($this->getFormType(), $entity);
 
@@ -75,7 +73,7 @@ abstract class AbstractUpdateController extends AbstractController
 		$preSubmitState = Form::getViewData($form);
 
 		// dispatch pre update event
-		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+		$this->get('event_dispatcher')->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
 
 		// return when response is given
 		if ($formEvent->hasResponse())
@@ -88,7 +86,7 @@ abstract class AbstractUpdateController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post update event
-			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+			$this->get('event_dispatcher')->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
 
 			// return when response is given
 			if ($formEvent->hasResponse())
@@ -156,7 +154,7 @@ abstract class AbstractUpdateController extends AbstractController
 				$manager->flush();
 
 				// dispatch post flush event
-				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
+				$this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
 
 				// reply with json response
 				if ($request->getRequestFormat() === 'json')
@@ -205,117 +203,7 @@ abstract class AbstractUpdateController extends AbstractController
 		]);
 
 		// dispatch twig context event
-		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
-
-		return $this->render($this->getUpdateTemplate(), (array)$context);
-	}
-
-	/**
-	 * Handle update entity request
-	 *
-	 * @param Request $request
-	 * @param object $entity
-	 *
-	 * @return Response|RedirectResponse
-	 *
-	 * @throws \Throwable
-	 */
-	protected function handleUpdateEntityRequest(Request $request, object $entity): Response
-	{
-		$eventDispatcher = $this->get('event_dispatcher');
-
-		// dispatch pre update event
-		$eventDispatcher->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity));
-
-		$form = $this->createForm($this->getFormType(), $entity);
-
-		// dispatch pre update event
-		$eventDispatcher->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
-
-		// return when response is given
-		if ($formEvent->hasResponse())
-		{
-			return $formEvent->getResponse();
-		}
-
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			// dispatch post update event
-			$eventDispatcher->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
-
-			// return when response is given
-			if ($formEvent->hasResponse())
-			{
-				return $formEvent->getResponse();
-			}
-
-			try
-			{
-				/**
-				 * @var EntityManagerInterface $manager
-				 */
-				$manager = $this->getDoctrine()->getManager();
-
-				// check whether or not entity is locked
-				if ($entity instanceof VersionInterface)
-				{
-					$manager->lock($entity, LockMode::OPTIMISTIC, $entity->getVersion());
-				}
-
-				$manager->persist($entity);
-				$manager->flush();
-
-				// dispatch post flush event
-				$eventDispatcher->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
-
-				// reply with json response
-				if ($request->getRequestFormat() === 'json')
-				{
-					return $this->json([
-						'success' => true,
-						'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
-					]);
-				}
-
-				$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
-
-				return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
-			}
-			catch (OptimisticLockException $e)
-			{
-				// reply with json response
-				if ($request->getRequestFormat() === 'json')
-				{
-					return $this->json([
-						'success' => false,
-						'message' => $this->get('translator')->trans('duo.admin.locked', [], 'flashes')
-					]);
-				}
-
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.locked', [], 'flashes'));
-			}
-		}
-
-		// reply with json response
-		if ($request->getRequestFormat() === 'json')
-		{
-			return $this->json([
-				'html' => $this->renderView('@DuoAdmin/Listing/form.html.twig', [
-					'form' => $form->createView()
-				])
-			]);
-		}
-
-		$context = $this->getDefaultContext([
-			'form' => $form->createView(),
-			'entity' => $entity,
-			'actions' => $this->getItemActions()
-		]);
-
-		// dispatch twig context event
-		$eventDispatcher->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
+		$this->get('event_dispatcher')->dispatch(TwigEvents::CONTEXT, new TwigEvent($context));
 
 		return $this->render($this->getUpdateTemplate(), (array)$context);
 	}

@@ -1,9 +1,10 @@
 duo:
     page:
         tab:
+            translations: Vertalingen
+            properties: Eigenschappen
             content: Content
             menu: Menu
-            properties: Eigenschappen
 
         menu:
             pages: Pagina's
@@ -40,7 +41,7 @@ duo:
                 title:
                     label: Titel
                 visible_menu:
-                    label: Zichtbaar
+                    label: Zichtbaar in menu
                 slug:
                     label: Slug
                 url:

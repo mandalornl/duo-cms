@@ -118,10 +118,10 @@ class SecurityController extends Controller
 	 * @Route("/reset-password/{token}", name="reset_password", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
-	 * @param string $token
 	 * @param UserRepository $userRepository
 	 * @param LoginHelper $loginHelper
 	 * @param MailerHelper $mailerHelper
+	 * @param string $token
 	 *
 	 * @return Response|RedirectResponse
 	 *
@@ -129,10 +129,10 @@ class SecurityController extends Controller
 	 */
 	public function resetPasswordAction(
 		Request $request,
-		string $token,
 		UserRepository $userRepository,
 		LoginHelper $loginHelper,
-		MailerHelper $mailerHelper
+		MailerHelper $mailerHelper,
+		string $token
 	): Response
 	{
 		// redirect to password forgot form on invalid token

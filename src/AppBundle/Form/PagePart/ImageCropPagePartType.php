@@ -3,8 +3,8 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\ImageCropPagePart;
-use Duo\MediaBundle\Form\ImageCropType;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\MediaBundle\Form\Type\ImageCropType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Valid;

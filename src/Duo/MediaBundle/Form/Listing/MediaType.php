@@ -3,8 +3,8 @@
 namespace Duo\MediaBundle\Form\Listing;
 
 use Duo\MediaBundle\Entity\Media;
-use Duo\MediaBundle\Form\PreviewType;
-use Duo\TaxonomyBundle\Form\TaxonomyChoiceType;
+use Duo\MediaBundle\Form\Type\PreviewType;
+use Duo\TaxonomyBundle\Form\Type\TaxonomyChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

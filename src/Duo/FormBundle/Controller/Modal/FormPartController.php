@@ -2,7 +2,7 @@
 
 namespace Duo\FormBundle\Controller\Modal;
 
-use Duo\FormBundle\Form\FormPartCollectionType;
+use Duo\FormBundle\Form\Type\FormPartCollectionType;
 use Duo\PartBundle\Controller\Modal\AbstractPartController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

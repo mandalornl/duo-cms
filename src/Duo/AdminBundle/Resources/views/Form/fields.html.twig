@@ -91,7 +91,13 @@
 				{{- 'duo.admin.form.collection.btn_add' | trans -}}
 			</button>
 		{% endif %}
-		{{- parent() -}}
+		{% if prototype is defined %}
+			{%- set attr = attr | merge({
+				'data-prototype': form_row(prototype),
+				'data-prototype-name': prototype.vars.name | default('__name__')
+			}) -%}
+		{% endif %}
+		{{- block('form_widget') -}}
 		{% if not disabled and allow_add %}
 			<button type="button" class="btn btn-primary my-3{% if not form | length %} d-none{% endif %}" data-action="add">
 				{{- 'duo.admin.form.collection.btn_add' | trans -}}
@@ -101,7 +107,6 @@
 {% endblock %}
 
 {%- block collection_widget_item -%}
-{%- spaceless -%}
 	<div class="collection-item">
 		{% if not disabled | default(false) and allow_delete | default(false) %}
 			<div class="d-flex justify-content-end">
@@ -111,7 +116,6 @@
 			</div>
 		{% endif %}
 	</div>
-{%- endspaceless -%}
 {%- endblock -%}
 
 {# Custom #}

@@ -33,3 +33,7 @@ app:
         image_crop_page_part:
             alt:
                 label: Alt text
+
+        video_page_part:
+            value:
+                placeholder: e.g. YouTube url

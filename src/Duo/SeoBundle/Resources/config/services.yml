@@ -6,9 +6,13 @@ services:
 
     Duo\SeoBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
+        exclude: '../../{Entity,Tests}'
 
     Duo\SeoBundle\Controller\:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    Duo\SeoBundle\Routing\RedirectLoader:
+        tags:
+            - { name: routing.loader, priority: 0 }

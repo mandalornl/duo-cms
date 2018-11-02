@@ -2,11 +2,11 @@ types:
     text:
         label: duo.form.form_part.text
         type: Duo\FormBundle\Form\FormPart\TextFormPartType
-        icon: icon-file-text
+        icon: icon-file-text2
     textarea:
         label: duo.form.form_part.textarea
         type: Duo\FormBundle\Form\FormPart\TextareaFormPartType
-        icon: icon-file-text
+        icon: icon-file-text2
     email:
         label: duo.form.form_part.email
         type: Duo\FormBundle\Form\FormPart\EmailFormPartType

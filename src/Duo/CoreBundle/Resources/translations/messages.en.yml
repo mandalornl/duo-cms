@@ -21,9 +21,9 @@ duo:
 
         listing:
             action:
+                delete: Delete
                 move_up: Move up
                 move_down: Move down
-                delete: Delete
 
         modal:
             revisions:
@@ -59,7 +59,7 @@ duo:
                 title: Undelete
                 body: Are you sure you want to undelete this item?
 
-            multi_delete:
+            delete_multi:
                 title: Delete
                 body: Are you sure you want to delete these items?
 

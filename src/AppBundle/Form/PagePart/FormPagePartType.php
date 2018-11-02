@@ -3,8 +3,8 @@
 namespace AppBundle\Form\PagePart;
 
 use AppBundle\Entity\PagePart\FormPagePart;
-use Duo\FormBundle\Form\FormAutoCompleteType;
-use Duo\PartBundle\Form\AbstractPartType;
+use Duo\FormBundle\Form\Type\FormAutoCompleteType;
+use Duo\PartBundle\Form\Type\AbstractPartType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FormPagePartType extends AbstractPartType

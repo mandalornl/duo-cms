@@ -12,13 +12,27 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_seo_redirect")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Duo\SeoBundle\Repository\RedirectRepository")
  * @UniqueEntity(fields={ "origin" }, message="duo.seo.errors.origin_used")
  */
 class Redirect implements IdInterface, TimestampInterface
 {
 	use IdTrait;
 	use TimestampTrait;
+
+	/**
+	 * @var bool
+	 *
+	 * @ORM\Column(name="active", type="boolean", options={ "default" = 1 })
+	 */
+	private $active = true;
+
+	/**
+	 * @var int
+	 *
+	 * @ORM\Column(name="permanent", type="boolean", options={ "default" = 1 })
+	 */
+	private $permanent = true;
 
 	/**
 	 * @var string
@@ -37,11 +51,52 @@ class Redirect implements IdInterface, TimestampInterface
 	private $target;
 
 	/**
-	 * @var int
+	 * Set active
 	 *
-	 * @ORM\Column(name="permanent", type="boolean", options={ "default" = 1 })
+	 * @param bool $active
+	 *
+	 * @return Redirect
 	 */
-	private $permanent = true;
+	public function setActive(bool $active): Redirect
+	{
+		$this->active = $active;
+
+		return $this;
+	}
+
+	/**
+	 * Get active
+	 *
+	 * @return bool
+	 */
+	public function getActive(): bool
+	{
+		return $this->active;
+	}
+
+	/**
+	 * Set permanent
+	 *
+	 * @param bool $permanent
+	 *
+	 * @return Redirect
+	 */
+	public function setPermanent(bool $permanent = true): Redirect
+	{
+		$this->permanent = $permanent;
+
+		return $this;
+	}
+
+	/**
+	 * Get permanent
+	 *
+	 * @return bool
+	 */
+	public function getPermanent(): bool
+	{
+		return $this->permanent;
+	}
 
 	/**
 	 * Set origin
@@ -88,30 +143,6 @@ class Redirect implements IdInterface, TimestampInterface
 	public function getTarget(): ?string
 	{
 		return $this->target;
-	}
-
-	/**
-	 * Set permanent
-	 *
-	 * @param bool $permanent
-	 *
-	 * @return Redirect
-	 */
-	public function setPermanent(bool $permanent = true): Redirect
-	{
-		$this->permanent = $permanent;
-
-		return $this;
-	}
-
-	/**
-	 * Get permanent
-	 *
-	 * @return bool
-	 */
-	public function getPermanent(): bool
-	{
-		return $this->permanent;
 	}
 
 	/**

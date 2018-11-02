@@ -3,7 +3,6 @@
 namespace Duo\FormBundle\Entity\FormPart;
 
 use Doctrine\ORM\Mapping as ORM;
-use Duo\FormBundle\Entity\AbstractTextFormPart;
 use Duo\FormBundle\Form\FormPart\TextareaFormPartType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 

@@ -32,7 +32,7 @@ class Group implements GroupInterface
 	 * @var Collection
 	 *
 	 * @ORM\ManyToMany(targetEntity="Duo\SecurityBundle\Entity\Role", cascade={ "persist" })
-	 * @ORM\JoinTable(name="duo_group_to_role",
+	 * @ORM\JoinTable(name="duo_security_group_to_role",
 	 * 	   joinColumns={
 	 *		   @ORM\JoinColumn(name="group_id", referencedColumnName="id", onDelete="CASCADE")
 	 *	   },

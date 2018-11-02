@@ -5,7 +5,7 @@ namespace Duo\SecurityBundle\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Duo\SecurityBundle\Entity\UserInterface;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
@@ -87,7 +87,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 				->where('e.passwordToken = :token')
 				->setParameter('token', $token)
 				->getQuery()
-				->getSingleScalarResult() > 0;
+				->getOneOrNullResult(Query::HYDRATE_SINGLE_SCALAR) > 0;
 		}
 		catch (NonUniqueResultException $e)
 		{

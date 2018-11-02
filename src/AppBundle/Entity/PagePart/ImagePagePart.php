@@ -5,7 +5,7 @@ namespace AppBundle\Entity\PagePart;
 use AppBundle\Form\PagePart\ImagePagePartType;
 use Doctrine\ORM\Mapping as ORM;
 use Duo\MediaBundle\Entity\Media;
-use Duo\PageBundle\Entity\AbstractPagePart;
+use Duo\PageBundle\Entity\PagePart\AbstractPagePart;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
