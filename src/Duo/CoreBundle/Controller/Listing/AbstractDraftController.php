@@ -304,7 +304,7 @@ abstract class AbstractDraftController extends AbstractController
 	 */
 	protected function getDraftTemplate(): string
 	{
-		return '@DuoCore/Listing/draft.html.twig';
+		return '@DuoAdmin/Listing/draft.html.twig';
 	}
 
 	/**

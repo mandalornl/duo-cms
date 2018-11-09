@@ -143,7 +143,6 @@ class ImportCommand extends ContainerAwareCommand
 		$output->writeln("{$this->getTimestamp()} - Flush remaining entities.");
 
 		$manager->flush();
-		$manager->clear();
 
 		$progressBar->finish();
 		$progressBar->clear();

@@ -143,6 +143,16 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	}
 
 	/**
+	 * Is live
+	 *
+	 * @return bool
+	 */
+	public function isLive(): bool
+	{
+		return $this->flag === self::FLAG_NONE;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 *
 	 * @return EntryTranslation|TranslationInterface

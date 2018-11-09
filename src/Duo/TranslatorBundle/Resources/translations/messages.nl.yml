@@ -1,16 +1,15 @@
 duo:
     translator:
-        not_live: Enkele vertalingen staan nog niet live. Gebruik de 'Herladen' actie om de vertalingen te verversen.
-        reload: Herladen
-        reload_success: De vertalingen zijn succesvol herladen.
-        reload_error: Er is een fout opgetreden tijdens het herladen van de vertalingen.
-
         tab:
             content: Content
             properties: Eigenschappen
 
         menu:
             translations: Vertalingen
+
+        toolbar:
+            actions:
+                reload: Herladen
 
         listing:
             field:

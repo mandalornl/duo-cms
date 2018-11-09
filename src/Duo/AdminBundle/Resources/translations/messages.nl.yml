@@ -15,6 +15,8 @@ duo:
             bool:
                 yes: Ja
                 no: Nee
+            publish:
+                partially: Deels
 
         navbar:
             toggle: Toggle navigatie
@@ -23,6 +25,13 @@ duo:
         breadcrumbs:
             label: Broodkruimelpad
 
+        tab:
+            publication: Publicatie
+
+        menu:
+            content: Inhoud
+            settings: Instellingen
+
         toolbar:
             actions:
                 label: Acties
@@ -30,6 +39,15 @@ duo:
                 save: Opslaan
                 cancel: Annuleren
                 destroy: Verwijderen
+                publish: Online
+                unpublish: Offline
+                delete: Verwijderen
+                undelete: Herstellen
+                duplicate: Dupliceren
+                revisions: Revisies
+                preview: Preview
+                save_draft: Opslaan als concept
+                drafts: Concepten
 
             dropdown:
                 global:
@@ -39,6 +57,9 @@ duo:
             action:
                 destroy: Verwijderen
                 edit: Wijzigen
+                delete: Verwijderen
+                move_up: Verplaats omhoog
+                move_down: Verplaats omlaag
 
             filter:
                 filter: Filteren
@@ -93,9 +114,62 @@ duo:
                 title: Verwijderen
                 body: Weet je zeker dat je deze items wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt!
 
+            revert:
+                title: Terugzetten
+                body: Weet je zeker dat je dit item wilt terugzetten?
+
+            delete:
+                title: Verwijderen
+                body: Weet je zeker dat je dit item wilt verwijderen?
+
+            undelete:
+                title: Herstellen
+                body: Weet je zeker dat je dit item wilt herstellen?
+
+            delete_multi:
+                title: Verwijderen
+                body: Weet je zeker dat je deze items wilt verwijderen?
+
+            duplicate:
+                title: Dupliceren
+                body: Weet je zeker dat je dit item wilt dupliceren?
+
+            publish:
+                title: Publiceren
+                body: Weet je zeker dat je dit item online wilt zetten?
+
+            unpublish:
+                title: Depubliceren
+                body: Weet je zeker dat je dit item offline wilt halen?
+
+            revisions:
+                title: Revisies
+                created_at: Aangemaakt op
+                created_by: Aangemaakt door
+                view: Inzien
+                revert: Terugzetten
+                delete: Verwijderen
+
+            drafts:
+                title: Concepten
+                name: Naam
+                created_at: Aangemaakt op
+                created_by: Aangemaakt door
+                view: Inzien
+                apply: Toepassen
+                delete: Verwijderen
+
+            new_draft:
+                title: Nieuw concept
+                name: Naam
+
         form:
             file:
                 placeholder: Kies bestand
+
+            publication:
+                publish_at: Publiceer op
+                unpublish_at: Depubliceer op
 
             collection:
                 btn_add: Toevoegen

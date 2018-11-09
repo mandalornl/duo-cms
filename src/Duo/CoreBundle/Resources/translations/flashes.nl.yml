@@ -1,8 +1,0 @@
-duo:
-    core:
-        delete_success: Item(s) succesvol verwijderd.
-        undelete_success: Item(s) succesvol hersteld.
-        revert_success: Item succesvol teruggezet.
-        duplicate_success: Item succesvol gedupliceerd.
-        publish_success: Item succesvol gepubliceerd.
-        unpublish_success: Item succesvol offline gehaald.

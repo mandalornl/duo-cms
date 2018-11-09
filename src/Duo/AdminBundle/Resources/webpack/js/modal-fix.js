@@ -1,13 +1,13 @@
 import $ from 'jquery';
 
-$(() =>
+($ =>
 {
 	/**
 	 * Update backdrop z-index
 	 *
 	 * @param {jQuery} $item
 	 */
-	const updateBackdrop = ($item) => setTimeout(() =>
+	const updateBackdrop = $item => window.setTimeout(() =>
 	{
 		$('.modal-backdrop:not(.modal-stack)').css('z-index', Number($item.css('z-index')) - 1).addClass('modal-stack');
 	}, 0);
@@ -35,9 +35,9 @@ $(() =>
 			updateBackdrop($this);
 		},
 
-		'hidden.bs.modal': () => setTimeout(() =>
+		'hidden.bs.modal': () => window.setTimeout(() =>
 		{
 			$(document.body).toggleClass('modal-open', $('.modal:visible').length !== 0);
 		}, 0)
 	}, '.modal');
-});
+})($);

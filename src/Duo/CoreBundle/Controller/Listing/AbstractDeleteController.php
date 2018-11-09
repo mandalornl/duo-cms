@@ -32,7 +32,7 @@ abstract class AbstractDeleteController extends AbstractController
 			$entity->delete();
 
 			$this->get('event_dispatcher')->dispatch(DeleteEvents::DELETE, new DeleteEvent($entity));
-		}, 'duo.core.delete_success', $request, $id);
+		}, 'duo.admin.delete_success', $request, $id);
 	}
 
 	/**
@@ -64,7 +64,7 @@ abstract class AbstractDeleteController extends AbstractController
 			$entity->undelete();
 
 			$this->get('event_dispatcher')->dispatch(DeleteEvents::UNDELETE, new DeleteEvent($entity));
-		}, 'duo.core.undelete_success', $request, $id);
+		}, 'duo.admin.undelete_success', $request, $id);
 	}
 
 	/**

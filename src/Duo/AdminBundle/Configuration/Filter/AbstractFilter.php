@@ -81,7 +81,7 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getLabel(): ?string
+	public function getLabel(): string
 	{
 		return $this->label;
 	}
@@ -99,45 +99,9 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getAlias(): ?string
+	public function getAlias(): string
 	{
 		return $this->alias;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setQueryBuilder(QueryBuilder $builder): FilterInterface
-	{
-		$this->builder = $builder;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getQueryBuilder(): ?QueryBuilder
-	{
-		return $this->builder;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setData(array $data): FilterInterface
-	{
-		$this->data = $data;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getData(): array
-	{
-		return $this->data;
 	}
 
 	/**
@@ -169,19 +133,21 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * Create illegal operator exception
 	 *
+	 * @param string $operator
+	 *
 	 * @return \LogicException
 	 */
-	protected function createIllegalOperatorException(): \LogicException
+	protected function createIllegalOperatorException(string $operator): \LogicException
 	{
-		$data = $this->getData();
-
-		return new \LogicException("Illegal operator '{$data['operator']}'");
+		return new \LogicException("Illegal operator '{$operator}'");
 	}
 
 	/**
 	 * Get param
 	 *
+	 * @param array $data
+	 *
 	 * @return string
 	 */
-	abstract protected function getParam(): string;
+	abstract protected function getParam(array $data): string;
 }

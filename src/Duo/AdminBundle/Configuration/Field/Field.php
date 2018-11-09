@@ -2,6 +2,8 @@
 
 namespace Duo\AdminBundle\Configuration\Field;
 
+use Doctrine\ORM\QueryBuilder;
+
 class Field implements FieldInterface
 {
 	/**
@@ -18,6 +20,11 @@ class Field implements FieldInterface
 	 * @var bool
 	 */
 	private $sortable = true;
+
+	/**
+	 * @var \Closure
+	 */
+	private $sortableCallback;
 
 	/**
 	 * @var string
@@ -82,6 +89,24 @@ class Field implements FieldInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function setAlias(string $alias): FieldInterface
+	{
+		$this->alias = $alias;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getAlias(): string
+	{
+		return $this->alias;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setSortable(bool $sortable): FieldInterface
 	{
 		$this->sortable = $sortable;
@@ -95,6 +120,24 @@ class Field implements FieldInterface
 	public function getSortable(): bool
 	{
 		return $this->sortable;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setSortableCallback(\Closure $sortableCallback): FieldInterface
+	{
+		$this->sortableCallback = $sortableCallback;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getSortableCallback(): ?\Closure
+	{
+		return $this->sortableCallback;
 	}
 
 	/**
@@ -118,26 +161,23 @@ class Field implements FieldInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setAlias(string $alias): FieldInterface
-	{
-		$this->alias = $alias;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getAlias(): string
-	{
-		return $this->alias;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function getHash(): string
 	{
 		return md5(static::class . $this->property);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function applySorting(QueryBuilder $builder, string $order): void
+	{
+		if ($this->sortableCallback !== null)
+		{
+			call_user_func_array($this->sortableCallback, [ $this, $builder, $order ]);
+
+			return;
+		}
+
+		$builder->orderBy("{$this->alias}.{$this->property}", $order);
 	}
 }

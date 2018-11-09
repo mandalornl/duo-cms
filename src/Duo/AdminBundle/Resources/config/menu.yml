@@ -1,5 +1,5 @@
 content:
-    label: Content
+    label: duo.admin.menu.content
     children:
         pages:
             label: duo.page.menu.pages
@@ -65,7 +65,7 @@ seo:
             #icon: icon-bug
 
 settings:
-    label: Settings
+    label: duo.admin.menu.settings
     icon: icon-cogs
     children:
         translations:

@@ -2,6 +2,8 @@
 
 namespace Duo\AdminBundle\Configuration\Field;
 
+use Doctrine\ORM\QueryBuilder;
+
 interface FieldInterface
 {
 	/**
@@ -37,6 +39,22 @@ interface FieldInterface
 	public function getLabel(): string;
 
 	/**
+	 * Set alias
+	 *
+	 * @param string $alias
+	 *
+	 * @return FieldInterface
+	 */
+	public function setAlias(string $alias): FieldInterface;
+
+	/**
+	 * Get alias
+	 *
+	 * @return string
+	 */
+	public function getAlias(): string;
+
+	/**
 	 * Set sortable
 	 *
 	 * @param bool $sortable
@@ -51,6 +69,22 @@ interface FieldInterface
 	 * @return bool
 	 */
 	public function getSortable(): bool;
+
+	/**
+	 * Set sortableCallback
+	 *
+	 * @param \Closure $sortableCallback
+	 *
+	 * @return FieldInterface
+	 */
+	public function setSortableCallback(\Closure $sortableCallback): FieldInterface;
+
+	/**
+	 * Get sortableCallback
+	 *
+	 * @return \Closure
+	 */
+	public function getSortableCallback(): ?\Closure;
 
 	/**
 	 * Set template
@@ -69,25 +103,17 @@ interface FieldInterface
 	public function getTemplate(): ?string;
 
 	/**
-	 * Set alias
-	 *
-	 * @param string $alias
-	 *
-	 * @return FieldInterface
-	 */
-	public function setAlias(string $alias): FieldInterface;
-
-	/**
-	 * Get alias
-	 *
-	 * @return string
-	 */
-	public function getAlias(): string;
-
-	/**
 	 * Get hash
 	 *
 	 * @return string
 	 */
 	public function getHash(): string;
+
+	/**
+	 * Apply sorting
+	 *
+	 * @param QueryBuilder $builder
+	 * @param string $order
+	 */
+	public function applySorting(QueryBuilder $builder, string $order): void;
 };

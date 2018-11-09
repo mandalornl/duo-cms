@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-xl-11">
 			<div class="nestable-tree{% if isSortable %} is-sortable{% endif %}"{% if isSortable %} data-move-to-url="{{ moveToUrl }}"{% endif %}>
-				{% include '@DuoCore/Tree/tree.html.twig' with { children: children } %}
+				{% include '@DuoAdmin/Tree/tree.html.twig' with { children: children } %}
 			</div>
 		</div>
 	</div>

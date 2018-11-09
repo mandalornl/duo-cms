@@ -30,12 +30,12 @@ class PageIndexController extends AbstractIndexController
 			->addField(new Field('title', 'duo.page.listing.field.title', 't'))
 			->addField(
 				(new Field('url', 'duo.page.listing.field.url', 't'))
-					->setTemplate('@DuoCore/Listing/Field/url.html.twig')
+					->setTemplate('@DuoAdmin/Listing/Field/url.html.twig')
 			)
 			->addField(
 				(new Field('published', 'duo.page.listing.field.online'))
 					->setSortable(false)
-					->setTemplate('@DuoCore/Listing/Field/published.html.twig')
+					->setTemplate('@DuoAdmin/Listing/Field/published.html.twig')
 			)
 			->addField(new Field('createdAt', 'duo.page.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.page.listing.field.modified_at'));

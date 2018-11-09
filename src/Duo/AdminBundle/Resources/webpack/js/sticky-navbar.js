@@ -1,8 +1,6 @@
 import $ from 'jquery';
 
-const $window = $(window);
-
-$(() =>
+($ =>
 {
 	const $nav = $('header > nav + nav');
 
@@ -17,6 +15,8 @@ $(() =>
 	const $body = $(document.body);
 	const $main = $('main');
 	const $parent = $nav.parent();
+
+	const $window = $(window);
 
 	$window.on(`scroll.${NAME}`, () =>
 	{
@@ -38,4 +38,4 @@ $(() =>
 		}
 
 	}).trigger(`scroll.${NAME}`);
-});
+})($);

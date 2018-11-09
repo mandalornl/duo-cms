@@ -1,16 +1,15 @@
 duo:
     translator:
-        not_live: Some translations are not live yet. Use the 'Reload' action to refresh the translations.
-        reload: Reload
-        reload_success: Translations have been reloaded successfully.
-        reload_error: An error occurred while reloading translations.
-
         tab:
             content: Content
             properties: Properties
 
         menu:
             translations: Translations
+
+        toolbar:
+            actions:
+                reload: Reload
 
         listing:
             field:

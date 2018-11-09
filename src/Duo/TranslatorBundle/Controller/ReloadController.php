@@ -20,7 +20,7 @@ class ReloadController extends Controller
 	/**
 	 * Reload action
 	 *
-	 * @Route("/settings/translation/reload", name="duo_translator_reload", methods={ "GET" })
+	 * @Route("/settings/translation/reload", name="duo_translator_reload", methods={ "GET", "POST" })
 	 *
 	 * @param KernelInterface $kernel
 	 *
@@ -28,20 +28,6 @@ class ReloadController extends Controller
 	 */
 	public function reloadAction(KernelInterface $kernel): Response
 	{
-		/**
-		 * @var EntityRepository $repository
-		 */
-		$repository = $this->getDoctrine()->getRepository(Entry::class);
-
-		$repository
-			->createQueryBuilder('e')
-			->update()
-			->set('e.flag', ':flag')
-			->where('e.flag <> :flag')
-			->setParameter('flag', Entry::FLAG_NONE)
-			->getQuery()
-			->execute();
-
 		$application = new Application($kernel);
 		$application->setAutoExit(false);
 
@@ -54,11 +40,25 @@ class ReloadController extends Controller
 		{
 			$application->run($input);
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.translator.reload_success'));
+			/**
+			 * @var EntityRepository $repository
+			 */
+			$repository = $this->getDoctrine()->getRepository(Entry::class);
+
+			$repository
+				->createQueryBuilder('e')
+				->update()
+				->set('e.flag', ':flag')
+				->where('e.flag <> :flag')
+				->setParameter('flag', Entry::FLAG_NONE)
+				->getQuery()
+				->execute();
+
+			$this->addFlash('success', $this->get('translator')->trans('duo.translator.reload_success', [], 'flashes'));
 		}
 		catch (\Exception $e)
 		{
-			$this->addFlash('error', $this->get('translator')->trans('duo.translator.reload_error'));
+			$this->addFlash('error', $this->get('translator')->trans('duo.translator.reload_error', [], 'flashes'));
 		}
 
 		return $this->redirectToRoute('duo_translator_listing_entry_index');

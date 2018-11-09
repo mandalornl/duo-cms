@@ -58,10 +58,10 @@
 					{% if not app.request.query.get('iframe') %}
 						<td>
 							{% if list.isSortable | default(false) and not entity is treeable %}
-								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.core.listing.action.move_up' | trans }}">
+								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
 									<i class="icon-arrow-up"></i>
 								</a>
-								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.core.listing.action.move_down' | trans }}">
+								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
 									<i class="icon-arrow-down"></i>
 								</a>
 							{% endif %}

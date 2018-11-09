@@ -17,12 +17,12 @@ class PageType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder
+			->add('version', HiddenType::class)
 			->add(
 				$builder->create('tabs', TabsType::class)
 					->add($builder->create('translations', TranslationsTabType::class))
 					->add($builder->create('properties', PropertiesTabType::class))
-			)
-			->add('version', HiddenType::class);
+			);
 	}
 
 	/**

@@ -1,0 +1,5 @@
+duo:
+    translator:
+        not_live: Some translations are not live yet. Use the 'Reload' action to refresh the translations.
+        reload_success: Translations have been reloaded successfully.
+        reload_error: An error occurred while reloading translations.

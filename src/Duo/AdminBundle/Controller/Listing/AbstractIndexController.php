@@ -15,7 +15,6 @@ use Duo\AdminBundle\Form\Listing\SearchType;
 use Duo\AdminBundle\Tools\ORM\Query;
 use Duo\AdminBundle\Tools\Pagination\Paginator;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
-use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
@@ -423,7 +422,7 @@ abstract class AbstractIndexController extends AbstractController
 			return false;
 		}
 
-		$builder->orderBy("{$field->getAlias()}.{$field->getProperty()}", $sortingData['order']);
+		$field->applySorting($builder, $sortingData['order']);
 
 		return true;
 	}
@@ -525,7 +524,7 @@ abstract class AbstractIndexController extends AbstractController
 			// remove empty filters
 			$session->set($sessionName, array_filter($form->getData(), function(array $data)
 			{
-				return isset($data['value']);
+				return !in_array($data['value'], [null, []], true);
 			}));
 
 			// clear search
@@ -615,10 +614,7 @@ abstract class AbstractIndexController extends AbstractController
 			 * @var FilterInterface $filter
 			 */
 			$filter = $this->getFilters()->get($key);
-			$filter
-				->setQueryBuilder($builder)
-				->setData($data)
-				->apply();
+			$filter->applyFilter($builder, $data);
 		}
 
 		// clear search and page

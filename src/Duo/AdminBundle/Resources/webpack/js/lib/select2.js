@@ -7,7 +7,7 @@ require('select2/dist/css/select2.css');
 require('select2-theme-bootstrap4/dist/select2-bootstrap.css');
 
 // TODO: import proper i18n
-//import 'select2/dist/js/i18n/nl';
+// import 'select2/dist/js/i18n/nl';
 
 export default ($ =>
 {
@@ -59,6 +59,7 @@ export default ($ =>
 				}
 
 				const _options = $.extend(true, {}, {
+					language: window.locale.slice(0, 2),
 					placeholder: $this.data('placeholder') || 'Please choose',
 					minimumResultsForSearch: $this.find('option').length <= 10 ? Infinity : 10
 				}, options);

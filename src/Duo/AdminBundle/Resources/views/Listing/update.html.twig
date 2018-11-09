@@ -2,11 +2,11 @@
 
 {% block modal %}
 	{% if entity is revisionable %}
-		{% include '@DuoCore/Listing/Modal/revisions.html.twig' %}
+		{% include '@DuoAdmin/Listing/Modal/revisions.html.twig' %}
 	{% endif %}
 	{% if entity is draftable %}
-		{% include '@DuoCore/Listing/Modal/drafts.html.twig' %}
-		{% include '@DuoCore/Listing/Modal/new_draft.html.twig' %}
+		{% include '@DuoAdmin/Listing/Modal/drafts.html.twig' %}
+		{% include '@DuoAdmin/Listing/Modal/new_draft.html.twig' %}
 	{% endif %}
 	{{ parent() }}
 {% endblock %}

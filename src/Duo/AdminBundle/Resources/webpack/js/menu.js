@@ -1,10 +1,10 @@
 import $ from 'jquery';
 
-$(() =>
+($ =>
 {
 	const $body = $(document.body);
 
-	$(document).on('click', '#menu', function(e)
+	$(document).on('click.menu', '#menu', e =>
 	{
 		e.preventDefault();
 
@@ -20,4 +20,4 @@ $(() =>
 			$body.removeClass('sidebar-open');
 		}).emulateTransitionEnd(300);
 	});
-});
+})($);

@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Configuration\Filter;
 
+use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Form\Filter\NumericFilterType;
 
 class NumericFilter extends AbstractFilter
@@ -9,57 +10,55 @@ class NumericFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function apply(): void
+	public function applyFilter(QueryBuilder $builder, array $data): void
 	{
-		$data = $this->getData();
-
 		if (empty($data['value']) || empty($data['operator']))
 		{
 			return;
 		}
 
-		$param = $this->getParam();
+		$param = $this->getParam($data);
 
 		switch ($data['operator'])
 		{
 			case 'equals':
-				$this->builder
+				$builder
 					->andWherE("{$this->alias}.{$this->property} = :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'notEquals':
-				$this->builder
+				$builder
 					->andWhere("{$this->alias}.{$this->property} <> :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'greaterOrEquals':
-				$this->builder
+				$builder
 					->andWherE("{$this->alias}.{$this->property} >= :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'greater':
-				$this->builder
+				$builder
 					->andWherE("{$this->alias}.{$this->property} > :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'less':
-				$this->builder
+				$builder
 					->andWherE("{$this->alias}.{$this->property} < :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'lessOrEquals':
-				$this->builder
+				$builder
 					->andWherE("{$this->alias}.{$this->property} <= :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			default:
-				throw $this->createIllegalOperatorException();
+				throw $this->createIllegalOperatorException($data['operator']);
 		}
 	}
 
@@ -74,10 +73,8 @@ class NumericFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getParam(): string
+	protected function getParam(array $data): string
 	{
-		$data = $this->getData();
-
 		return 'num_' . md5("{$data['operator']}_{$this->property}");
 	}
 }

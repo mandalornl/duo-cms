@@ -18,11 +18,11 @@ class PublicationTabType extends AbstractType
 		$builder
 			->add('publishAt', DateTimeType::class, [
 				'required' => false,
-				'label' => 'duo.core.form.publication.publish_at'
+				'label' => 'duo.admin.form.publication.publish_at'
 			])
 			->add('unpublishAt', DateTimeType::class, [
 				'required' => false,
-				'label' => 'duo.core.form.publication.unpublish_at'
+				'label' => 'duo.admin.form.publication.unpublish_at'
 			]);
 	}
 
@@ -32,7 +32,7 @@ class PublicationTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.core.tab.publication'
+			'label' => 'duo.admin.tab.publication'
 		]);
 	}
 

@@ -245,49 +245,49 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 		$manager->persist($page);
 		$manager->flush();
 
-		// create foobar
+		// create more dummy
 		for ($i = 1; $i <= 10; $i++)
 		{
 			$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
-			$page->setName("foobar-{$i}");
+			$page->setName("lorem-ipsum-{$i}");
 			$page->setCreatedBy($user);
 			$page->setWeight($i);
 
 			$page->translate('nl')
-				->setTitle("Foobar {$i}")
+				->setTitle("Lorem ipsum {$i}")
 				->publish()
 				->setPublishedBy($user)
 				->addPart(
 					(new HeadingPagePart())
 						->setType('h1')
-						->setValue("Foobar {$i}")
+						->setValue("Lorem ipsum {$i}")
 						->setWeight(0)
 						->setSection('main')
 						->setCreatedBy($user)
 				)
 				->addPart(
 					(new WYSIWYGPagePart())
-						->setValue("<p>Dit is foobar {$i}.</p>")
+						->setValue("<p>Dit is lorem ipsum {$i}.</p>")
 						->setWeight(1)
 						->setSection('main')
 						->setCreatedBy($user)
 				);
 
 			$page->translate('en')
-				->setTitle("Foobar {$i}")
+				->setTitle("Lorem ipsum {$i}")
 				->publish()
 				->setPublishedBy($user)
 				->addPart(
 					(new HeadingPagePart())
 						->setType('h1')
-						->setValue("Foobar {$i}")
+						->setValue("Lorem ipsum {$i}")
 						->setWeight(0)
 						->setSection('main')
 						->setCreatedBy($user)
 				)
 				->addPart(
 					(new WYSIWYGPagePart())
-						->setValue("<p>This is foobar {$i}.</p>")
+						->setValue("<p>This is lorem ipsum {$i}.</p>")
 						->setWeight(1)
 						->setSection('main')
 						->setCreatedBy($user)

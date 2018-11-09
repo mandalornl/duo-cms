@@ -7,17 +7,17 @@
 {% endmacro %}
 
 {% block subject %}
-	{{- brand_name }} - {{ 'duo.form.mail.form_submission.subject' | trans({ '%form_name%': submission.name }, 'emails') -}}
+	{{- brand_name }} - {{ 'duo.form.form_submission.subject' | trans({ '%form_name%': submission.name }, 'emails') -}}
 {% endblock %}
 
 {% block body_text %}
 	{% import _self as self %}
 	{% autoescape false %}
-		{{ 'duo.form.mail.form_submission.message' | trans({
+		{{ 'duo.form.form_submission.message' | trans({
 			'%submission%': self.submission(submission.data) | trim
 		}, 'emails') }}
 		{% if entity.keepSubmissions %}
-			{{ 'duo.form.mail.form_submission.url' | trans({
+			{{ 'duo.form.form_submission.url' | trans({
 				'%url%': url('duo_form_listing_submission_update', { id: submission.id })
 			}, 'emails') }}
 		{% endif %}
@@ -30,18 +30,18 @@
 	{% import _self as self %}
 	<mj-text>
 		<h3>
-			{{- 'duo.form.mail.form_submission.subject' | trans({
+			{{- 'duo.form.form_submission.subject' | trans({
 				'%form_name%': submission.name
 			}, 'emails') -}}
 		</h3>
 		<p>
-			{{- 'duo.form.mail.form_submission.message' | trans({
+			{{- 'duo.form.form_submission.message' | trans({
 				'%submission%': self.submission(submission.data) | trim
 			}, 'emails') | nl2br -}}
 		</p>
 		{% if entity.keepSubmissions %}
 			<p>
-				{{- 'duo.form.mail.form_submission.url' | trans({
+				{{- 'duo.form.form_submission.url' | trans({
 					'%url%': url('duo_form_listing_submission_update', { id: submission.id })
 				}, 'emails') | nl2br -}}
 			</p>

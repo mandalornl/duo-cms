@@ -36,7 +36,7 @@ interface FilterInterface
 	 *
 	 * @return string
 	 */
-	public function getLabel(): ?string;
+	public function getLabel(): string;
 
 	/**
 	 * Set alias
@@ -52,46 +52,17 @@ interface FilterInterface
 	 *
 	 * @return string
 	 */
-	public function getAlias(): ?string;
+	public function getAlias(): string;
 
 	/**
-	 * Set query builder
+	 * Apply filter
 	 *
 	 * @param QueryBuilder $builder
-	 *
-	 * @return FilterInterface
-	 */
-	public function setQueryBuilder(QueryBuilder $builder): FilterInterface;
-
-	/**
-	 * Get query builder
-	 *
-	 * @return QueryBuilder
-	 */
-	public function getQueryBuilder(): ?QueryBuilder;
-
-	/**
-	 * Set data
-	 *
 	 * @param array $data
-	 *
-	 * @return FilterInterface
-	 */
-	public function setData(array $data): FilterInterface;
-
-	/**
-	 * Get data
-	 *
-	 * @return array
-	 */
-	public function getData(): array;
-
-	/**
-	 * Apply
 	 *
 	 * @throws \LogicException
 	 */
-	public function apply(): void;
+	public function applyFilter(QueryBuilder $builder, array $data): void;
 
 	/**
 	 * Get form type

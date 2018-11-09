@@ -1,6 +1,6 @@
 <?php
 
-namespace Duo\CoreBundle\EventListener\Listing;
+namespace Duo\AdminBundle\EventListener\Listing;
 
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;

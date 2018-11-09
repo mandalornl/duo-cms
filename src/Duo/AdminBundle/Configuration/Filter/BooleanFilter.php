@@ -2,6 +2,7 @@
 
 namespace Duo\AdminBundle\Configuration\Filter;
 
+use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Form\Filter\BooleanFilterType;
 
 class BooleanFilter extends AbstractFilter
@@ -9,18 +10,16 @@ class BooleanFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function apply(): void
+	public function applyFilter(QueryBuilder $builder, array $data): void
 	{
-		$data = $this->getData();
-
 		if (!isset($data['value']))
 		{
 			return;
 		}
 
-		$param = $this->getParam();
+		$param = $this->getParam($data);
 
-		$this->builder
+		$builder
 			->andWhere("{$this->alias}.{$this->property} = :{$param}")
 			->setParameter($param, (int)$data['value']);
 	}
@@ -36,7 +35,7 @@ class BooleanFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getParam(): string
+	protected function getParam(array $data): string
 	{
 		return 'bool_' . md5($this->property);
 	}

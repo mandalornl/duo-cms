@@ -54,11 +54,6 @@ abstract class AbstractUpdateController extends AbstractController
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
-		if ($request->query->has('test'))
-		{
-			return $this->json($entity->getRevisions()->first()->getData());
-		}
-
 		if ($entity === null)
 		{
 			return $this->entityNotFound($request, $id);

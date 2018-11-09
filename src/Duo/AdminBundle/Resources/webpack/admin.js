@@ -1,9 +1,7 @@
-import './js/checkable';
-import './js/listing-index';
-import './js/listing-create';
-import './js/listing-update';
-import './js/menu';
-import './js/sticky-navbar';
-import './js/modal-fix';
+import 'duo/AdminBundle/Resources/webpack/js/common';
 
-require('./sass/style.scss');
+import 'duo/AdminBundle/Resources/webpack/js/listing-index';
+import 'duo/AdminBundle/Resources/webpack/js/listing-create';
+import 'duo/AdminBundle/Resources/webpack/js/listing-update';
+
+require('duo/AdminBundle/Resources/webpack/sass/style.scss');

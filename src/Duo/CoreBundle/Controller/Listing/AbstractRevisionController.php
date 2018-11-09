@@ -216,7 +216,7 @@ abstract class AbstractRevisionController extends AbstractController
 	 */
 	protected function getRevisionTemplate(): string
 	{
-		return '@DuoCore/Listing/revision.html.twig';
+		return '@DuoAdmin/Listing/revision.html.twig';
 	}
 
 	/**

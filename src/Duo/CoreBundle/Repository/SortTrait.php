@@ -8,7 +8,6 @@ use Doctrine\ORM\QueryBuilder;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
-use Duo\CoreBundle\Entity\Property\RevisionInterface;
 
 trait SortTrait
 {

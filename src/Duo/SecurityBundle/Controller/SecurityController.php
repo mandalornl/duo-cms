@@ -56,7 +56,7 @@ class SecurityController extends Controller
 
 				if ($minimalWaitTime < $user->getPasswordRequestedAt())
 				{
-					$this->addFlash('warning', $this->get('translator')->trans('duo.security.form.forgot_password.wait_message'));
+					$this->addFlash('warning', $this->get('translator')->trans('duo.security.forgot_password_wait', [], 'flashes'));
 				}
 				else
 				{
@@ -78,14 +78,14 @@ class SecurityController extends Controller
 
 					$this->get('mailer')->send($message);
 
-					$this->addFlash('info', $this->get('translator')->trans('duo.security.form.forgot_password.success_message'));
+					$this->addFlash('info', $this->get('translator')->trans('duo.security.forgot_password_success', [], 'flashes'));
 
 					return $this->redirectToRoute('duo_security_login');
 				}
 			}
 			else
 			{
-				$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.forgot_password.error_message'));
+				$this->addFlash('danger', $this->get('translator')->trans('duo.security.forgot_password_error', [], 'flashes'));
 			}
 		}
 
@@ -138,7 +138,7 @@ class SecurityController extends Controller
 		// redirect to password forgot form on invalid token
 		if (!$userRepository->passwordTokenExists($token))
 		{
-			$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.reset_password.error_message'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo.security.reset_password_error', [], 'flashes'));
 
 			return $this->redirectToRoute('duo_security_forgot_password');
 		}
@@ -169,7 +169,7 @@ class SecurityController extends Controller
 
 				$this->get('mailer')->send($message);
 
-				$this->addFlash('success', $this->get('translator')->trans('duo.security.form.reset_password.success_message'));
+				$this->addFlash('success', $this->get('translator')->trans('duo.security.reset_password_success', [], 'flashes'));
 
 				// log in automatically
 				if ($loginHelper->manualLogin($user, 'admin'))
@@ -180,7 +180,7 @@ class SecurityController extends Controller
 				return $this->redirectToRoute('duo_security_login');
 			}
 
-			$this->addFlash('danger', $this->get('translator')->trans('duo.security.form.reset_password.error_message'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo.security.reset_password_error', [], 'flashes'));
 		}
 
 		return $this->render('@DuoSecurity/Form/reset_password.html.twig', [

@@ -22,7 +22,7 @@ abstract class AbstractTreeController extends AbstractController
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
-		return $this->render('@DuoCore/Tree/view.html.twig', (array)$this->getDefaultContext([
+		return $this->render('@DuoAdmin/Tree/view.html.twig', (array)$this->getDefaultContext([
 			'children' => $this->getChildren($request),
 			'moveToUrl' => $this->generateUrl("{$this->getRoutePrefix()}_move_to", [
 				'_format' => 'json'
@@ -67,7 +67,7 @@ abstract class AbstractTreeController extends AbstractController
 		}
 
 		return $this->json([
-			'html' => $this->renderView('@DuoCore/Tree/tree.html.twig', [
+			'html' => $this->renderView('@DuoAdmin/Tree/tree.html.twig', [
 				'children' => $this->getChildren($request, $entity),
 				'parent' => $entity,
 				'routePrefix' => $this->getRoutePrefix()

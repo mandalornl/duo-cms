@@ -19,12 +19,12 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	/**
 	 * @var string
 	 */
-	private $entityClass;
+	private $className;
 
 	/**
 	 * @var string|\Closure
 	 */
-	private $propertyName;
+	private $property;
 
 	/**
 	 * @var bool
@@ -35,20 +35,20 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	 * EntityToPropertyTransformer constructor
 	 *
 	 * @param EntityManagerInterface $manager
-	 * @param string $entityClass
-	 * @param string|\Closure $propertyName [optional]
+	 * @param string $className
+	 * @param string|\Closure $property [optional]
 	 * @param bool $multiple [optional]
 	 */
 	public function __construct(
 		EntityManagerInterface $manager,
-		string $entityClass,
-		$propertyName = null,
+		string $className,
+		$property = null,
 		bool $multiple = false
 	)
 	{
 		$this->manager = $manager;
-		$this->entityClass = $entityClass;
-		$this->propertyName = $propertyName;
+		$this->className = $className;
+		$this->property = $property;
 		$this->multiple = $multiple;
 	}
 
@@ -132,7 +132,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 
 		return $this->manager->createQueryBuilder()
 			->select('e')
-			->from($this->entityClass, 'e')
+			->from($this->className, 'e')
 			->where('e.id IN(:ids)')
 			->setParameter('ids', $ids)
 			->getQuery()
@@ -153,11 +153,11 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 			return null;
 		}
 
-		$entity = $this->manager->getRepository($this->entityClass)->find($id);
+		$entity = $this->manager->getRepository($this->className)->find($id);
 
 		if ($entity === null)
 		{
-			throw new TransformationFailedException("Entity '{$this->entityClass}::{$id}' not found");
+			throw new TransformationFailedException("Entity '{$this->className}::{$id}' not found");
 		}
 
 		return $entity;
@@ -173,18 +173,18 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	 */
 	private function getLabel(object $entity, PropertyAccessorInterface $accessor = null): string
 	{
-		if (is_callable($this->propertyName))
+		if (is_callable($this->property))
 		{
-			return call_user_func_array($this->propertyName, [ $entity ]);
+			return call_user_func_array($this->property, [ $entity ]);
 		}
 
-		if ($accessor === null && $this->propertyName !== null)
+		if ($accessor === null && $this->property !== null)
 		{
 			$accessor = PropertyAccess::createPropertyAccessor();
 		}
 
-		return $this->propertyName === null
+		return $this->property === null
 			? (string)$entity
-			: $accessor->getValue($entity, $this->propertyName);
+			: $accessor->getValue($entity, $this->property);
 	}
 }

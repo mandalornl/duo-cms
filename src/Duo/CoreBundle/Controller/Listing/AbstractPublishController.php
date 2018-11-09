@@ -48,11 +48,11 @@ abstract class AbstractPublishController extends AbstractController
 			return $this->json([
 				'success' => true,
 				'id' => $entity->getId(),
-				'message' => $this->get('translator')->trans('duo.core.publish_success', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo.admin.publish_success', [], 'flashes')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.core.publish_success', [], 'flashes'));
+		$this->addFlash('success', $this->get('translator')->trans('duo.admin.publish_success', [], 'flashes'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $entity->getId()
@@ -104,11 +104,11 @@ abstract class AbstractPublishController extends AbstractController
 			return $this->json([
 				'success' => true,
 				'id' => $entity->getId(),
-				'message' => $this->get('translator')->trans('duo.core.unpublish_success', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo.admin.unpublish_success', [], 'flashes')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.core.unpublish_success', [], 'flashes'));
+		$this->addFlash('success', $this->get('translator')->trans('duo.admin.unpublish_success', [], 'flashes'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $entity->getId()

@@ -2,6 +2,7 @@
 
 namespace Duo\PageBundle\Configuration\Filter;
 
+use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Filter\AbstractFilter;
 use Duo\PageBundle\Form\Filter\OnlineFilterType;
 
@@ -10,20 +11,18 @@ class OnlineFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function apply(): void
+	public function applyFilter(QueryBuilder $builder, array $data): void
 	{
-		$data = $this->getData();
-
 		if (!isset($data['value']))
 		{
 			return;
 		}
 
-		$param = $this->getParam();
+		$param = $this->getParam($data);
 
 		if (!(int)$data['value'])
 		{
-			$this->builder
+			$builder
 				->andWhere(
 					"({$this->alias}.publishAt IS NULL OR {$this->alias}.publishAt > :{$param}) OR " .
 					"({$this->alias}.unpublishAt IS NOT NULL AND {$this->alias}.unpublishAt <= :{$param})"
@@ -31,14 +30,14 @@ class OnlineFilter extends AbstractFilter
 		}
 		else
 		{
-			$this->builder
+			$builder
 				->andWhere(
 					"{$this->alias}.publishAt IS NOT NULL AND {$this->alias}.publishAt <= :{$param} AND " .
 					"({$this->alias}.unpublishAt IS NULL OR {$this->alias}.unpublishAt > :{$param})"
 				);
 		}
 
-		$this->builder->setParameter($param, new \DateTime());
+		$builder->setParameter($param, new \DateTime());
 	}
 
 	/**
@@ -52,7 +51,7 @@ class OnlineFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function getParam(): string
+	protected function getParam(array $data): string
 	{
 		return 'online_' . md5($this->property);
 	}

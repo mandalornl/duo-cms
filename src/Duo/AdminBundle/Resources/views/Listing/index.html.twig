@@ -25,8 +25,8 @@
 									{% endfor %}
 								{% endif %}
 								{% if list.isDeletable | default(false) %}
-									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.core.modal.delete_multi.title' | trans }}" data-body="{{ 'duo.core.modal.delete_multi.body' | trans }}">
-										{{- 'duo.core.listing.action.delete' | trans -}}
+									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.modal.delete_multi.title' | trans }}" data-body="{{ 'duo.admin.modal.delete_multi.body' | trans }}">
+										{{- 'duo.admin.listing.action.delete' | trans -}}
 									</a>
 								{% else %}
 									<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.modal.destroy_multi.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy_multi.body' | trans }}">
@@ -151,8 +151,8 @@
 		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' with {
 			id: 'delete'
 		} | merge(list.isDeletable | default(false) ? {
-			title: 'duo.core.modal.delete.title' | trans,
-			body: 'duo.core.modal.delete.body' | trans
+			title: 'duo.admin.modal.delete.title' | trans,
+			body: 'duo.admin.modal.delete.body' | trans
 		} : {
 			title: 'duo.admin.modal.destroy.title' | trans,
 			body: 'duo.admin.modal.destroy.body' | trans

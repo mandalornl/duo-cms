@@ -36,7 +36,7 @@ class EntryIndexController extends AbstractIndexController
 
 		if ($count)
 		{
-			$this->addFlash('info', $this->get('translator')->trans('duo.translator.not_live'));
+			$this->addFlash('info', $this->get('translator')->trans('duo.translator.not_live', [], 'flashes'));
 		}
 
 		return $this->doIndexAction($request);
@@ -71,8 +71,7 @@ class EntryIndexController extends AbstractIndexController
 	 */
 	protected function defineListActions(): void
 	{
-		$this
-			->addListAction(new ListAction('duo.translator.reload', 'duo_translator_reload'));
+		$this->addListAction(new ListAction('duo.translator.toolbar.actions.reload', 'duo_translator_reload'));
 	}
 
 	/**
