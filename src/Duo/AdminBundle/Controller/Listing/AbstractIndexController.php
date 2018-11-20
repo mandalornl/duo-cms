@@ -6,10 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Duo\AdminBundle\Configuration\Action\ListActionInterface;
+use Duo\AdminBundle\Configuration\Action\ActionInterface;
 use Duo\AdminBundle\Configuration\Field\FieldInterface;
 use Duo\AdminBundle\Configuration\Filter\FilterInterface;
-use Duo\AdminBundle\Configuration\SearchInterface;
+use Duo\AdminBundle\Configuration\Filter\SearchInterface;
 use Duo\AdminBundle\Form\Listing\FilterType;
 use Duo\AdminBundle\Form\Listing\SearchType;
 use Duo\AdminBundle\Tools\ORM\Query;
@@ -41,21 +41,7 @@ abstract class AbstractIndexController extends AbstractController
 	/**
 	 * @var ArrayCollection
 	 */
-	protected $listActions;
-
-	/**
-	 * AbstractIndexController constructor
-	 */
-	public function __construct()
-	{
-		$this->fields = new ArrayCollection();
-		$this->filters = new ArrayCollection();
-		$this->listActions = new ArrayCollection();
-
-		$this->defineFields();
-		$this->defineFilters();
-		$this->defineListActions();
-	}
+	protected $actions;
 
 	/**
 	 * Index action
@@ -68,6 +54,11 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
+		// define properties
+		$this->defineFields($request);
+		$this->defineFilters($request);
+		$this->defineActions($request);
+
 		return $this->render($this->getIndexTemplate(), (array)$this->getDefaultContext([
 			'paginator' => $this->getPaginator($request),
 			'list' => array_merge([
@@ -75,7 +66,7 @@ abstract class AbstractIndexController extends AbstractController
 				'searchForm' => $this->getSearchFormView($request),
 				'fields' => $this->getFields(),
 				'sorting' => $this->getSorting($request),
-				'actions' => $this->getListActions(),
+				'actions' => $this->getActions(),
 				'view' => $this->getView($request),
 				'views' => [
 					'list' => $this->getListViewTemplate(),
@@ -293,24 +284,6 @@ abstract class AbstractIndexController extends AbstractController
 	}
 
 	/**
-	 * Get session name
-	 *
-	 * @param Request $request
-	 * @param string $prefix
-	 *
-	 * @return string
-	 */
-	protected function getSessionName(Request $request, string $prefix): string
-	{
-		if ($request->query->get('iframe'))
-		{
-			return "i{$prefix}_{$this->getType()}";
-		}
-
-		return "{$prefix}_{$this->getType()}";
-	}
-
-	/**
 	 * Add field
 	 *
 	 * @param FieldInterface $field
@@ -345,13 +318,19 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function getFields(): ArrayCollection
 	{
-		return $this->fields;
+		return $this->fields = $this->fields ?: new ArrayCollection();
 	}
 
 	/**
 	 * Sorting action
 	 *
-	 * @Route("/sorting/{sort}/{order}", name="sorting", requirements={ "order" = "asc|desc" }, defaults={ "order" = "asc" }, methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/sorting/{sort}/{order}",
+	 *     name="sorting",
+	 *     requirements={ "order" = "asc|desc" },
+	 *     defaults={ "order" = "asc" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 *
 	 * @param Request $request
 	 * @param string $sort [optional]
@@ -440,8 +419,10 @@ abstract class AbstractIndexController extends AbstractController
 
 	/**
 	 * Define fields
+	 *
+	 * @param Request $request
 	 */
-	abstract protected function defineFields(): void;
+	abstract protected function defineFields(Request $request): void;
 
 	/**
 	 * Add filter
@@ -478,7 +459,7 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function getFilters(): ArrayCollection
 	{
-		return $this->filters;
+		return $this->filters = $this->filters ?: new ArrayCollection();
 	}
 
 	/**
@@ -637,8 +618,10 @@ abstract class AbstractIndexController extends AbstractController
 
 	/**
 	 * Define filters
+	 *
+	 * @param Request $request
 	 */
-	abstract protected function defineFilters(): void;
+	abstract protected function defineFilters(Request $request): void;
 
 	/**
 	 * Search action
@@ -761,6 +744,9 @@ abstract class AbstractIndexController extends AbstractController
 			return false;
 		}
 
+		/**
+		 * @var SearchInterface[] $filters
+		 */
 		$filters = $this->getFilters()->filter(function(FilterInterface $filter)
 		{
 			return $filter instanceof SearchInterface;
@@ -775,10 +761,7 @@ abstract class AbstractIndexController extends AbstractController
 
 		foreach ($filters as $filter)
 		{
-			/**
-			 * @var FilterInterface $filter
-			 */
-			$orX->add("{$filter->getAlias()}.{$filter->getProperty()} LIKE :keyword");
+			$filter->applySearch($builder, $orX, $keyword);
 		}
 
 		$builder
@@ -793,47 +776,49 @@ abstract class AbstractIndexController extends AbstractController
 	}
 
 	/**
-	 * Add list action
+	 * Add action
 	 *
-	 * @param ListActionInterface $listAction
+	 * @param ActionInterface $action
 	 *
 	 * @return $this
 	 */
-	public function addListAction(ListActionInterface $listAction)
+	public function addAction(ActionInterface $action)
 	{
-		$this->getListActions()->add($listAction);
+		$this->getActions()->add($action);
 
 		return $this;
 	}
 
 	/**
-	 * Remove list action
+	 * Remove action
 	 *
-	 * @param ListActionInterface $listAction
+	 * @param ActionInterface $action
 	 *
 	 * @return $this
 	 */
-	public function removeListAction(ListActionInterface $listAction)
+	public function removeAction(ActionInterface $action)
 	{
-		$this->getListActions()->removeElement($listAction);
+		$this->getActions()->removeElement($action);
 
 		return $this;
 	}
 
 	/**
-	 * Get list actions
+	 * Get actions
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getListActions(): ArrayCollection
+	public function getActions(): ArrayCollection
 	{
-		return $this->listActions;
+		return $this->actions = $this->actions ?: new ArrayCollection();
 	}
 
 	/**
-	 * Define list actions
+	 * Define actions
+	 *
+	 * @param Request $request
 	 */
-	protected function defineListActions(): void
+	protected function defineActions(Request $request): void
 	{
 		// Implement defineListActions() method.
 	}

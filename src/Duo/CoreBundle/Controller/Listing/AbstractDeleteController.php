@@ -7,7 +7,6 @@ use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\IdInterface;
 use Duo\CoreBundle\Event\Listing\DeleteEvent;
 use Duo\CoreBundle\Event\Listing\DeleteEvents;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,9 +90,14 @@ abstract class AbstractDeleteController extends AbstractController
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleDeletionRequest(\Closure $callback, string $message, Request $request, int $id = null): Response
+	private function handleDeletionRequest(
+		\Closure $callback,
+		string $message,
+		Request $request,
+		int $id = null
+	): Response
 	{
-		$selection = (array)$id ?: $request->get('ids', []);
+		$selection = (array)$id ?: $this->getSelection($request);
 
 		if (!count($selection))
 		{

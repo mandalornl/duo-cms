@@ -17,10 +17,14 @@
 									{% for action in list.actions %}
 										{% if action.template %}
 											{% include action.template %}
-										{% else %}
+										{% elseif action.route %}
 											<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item{% if not paginator.count %} disabled{% endif %}" data-modal="multi-action" data-title="{{ action.label | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 												{{- action.label | trans -}}
 											</a>
+										{% else %}
+											<button type="button" class="dropdown-item" disabled>
+												{{- action.label | trans -}}
+											</button>
 										{% endif %}
 									{% endfor %}
 								{% endif %}

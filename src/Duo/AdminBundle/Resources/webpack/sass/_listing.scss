@@ -1,4 +1,4 @@
-.listing-view-list .table
+.listing-view-list > .table-responsive > .table
 {
 	thead th,
 	tbody td
@@ -19,8 +19,7 @@
 		}
 	}
 
-	tbody tr[data-url] td,
-	tbody tr[data-item] td
+	tbody td
 	{
 		cursor: pointer;
 	}

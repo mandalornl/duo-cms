@@ -23,7 +23,7 @@ class MediaIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFields(): void
+	protected function defineFields(Request $request): void
 	{
 		$this
 			->addField(new Field('name', 'duo.media.listing.field.name'))
@@ -44,7 +44,7 @@ class MediaIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFilters(): void
+	protected function defineFilters(Request $request): void
 	{
 		$this
 			->addFilter(new StringFilter('name', 'duo.media.listing.filter.name'))

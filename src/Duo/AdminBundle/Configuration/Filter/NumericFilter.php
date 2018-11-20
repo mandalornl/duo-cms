@@ -23,7 +23,7 @@ class NumericFilter extends AbstractFilter
 		{
 			case 'equals':
 				$builder
-					->andWherE("{$this->alias}.{$this->property} = :{$param}")
+					->andWhere("{$this->alias}.{$this->property} = :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
@@ -35,25 +35,25 @@ class NumericFilter extends AbstractFilter
 
 			case 'greaterOrEquals':
 				$builder
-					->andWherE("{$this->alias}.{$this->property} >= :{$param}")
+					->andWhere("{$this->alias}.{$this->property} >= :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'greater':
 				$builder
-					->andWherE("{$this->alias}.{$this->property} > :{$param}")
+					->andWhere("{$this->alias}.{$this->property} > :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'less':
 				$builder
-					->andWherE("{$this->alias}.{$this->property} < :{$param}")
+					->andWhere("{$this->alias}.{$this->property} < :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 
 			case 'lessOrEquals':
 				$builder
-					->andWherE("{$this->alias}.{$this->property} <= :{$param}")
+					->andWhere("{$this->alias}.{$this->property} <= :{$param}")
 					->setParameter($param, $data['value']);
 				break;
 

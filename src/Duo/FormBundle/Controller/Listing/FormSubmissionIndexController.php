@@ -21,7 +21,7 @@ class FormSubmissionIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFields(): void
+	protected function defineFields(Request $request): void
 	{
 		$this
 			->addField(new Field('name', 'duo.form.listing.field.name'))
@@ -33,7 +33,7 @@ class FormSubmissionIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFilters(): void
+	protected function defineFilters(Request $request): void
 	{
 		$this
 			->addFilter(new StringFilter('name', 'duo.form.listing.filter.name'))

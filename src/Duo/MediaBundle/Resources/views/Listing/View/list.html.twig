@@ -50,7 +50,7 @@
 						}) %}
 					{% endif %}
 				{% endif %}
-				<tr{% if item %} data-item="{{ item | json_encode }}"{% else %} data-url="{{ path(routePrefix ~ '_update', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}"{% endif %}>
+				<tr{% if item %} data-item="{{ item | json_encode }}"{% endif %}>
 					{% if not app.request.query.get('iframe') %}
 						<td>
 							<div class="custom-control custom-checkbox">
@@ -90,6 +90,9 @@
 							{% else %}
 								{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
 							{% endif %}
+							<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm btn-edit" title="{{ 'duo.admin.listing.action.edit' | trans }}">
+								<i class="icon-pencil"></i>
+							</a>
 							<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo.admin.listing.action.destroy' | trans }}">
 								<i class="icon-bin"></i>
 							</a>

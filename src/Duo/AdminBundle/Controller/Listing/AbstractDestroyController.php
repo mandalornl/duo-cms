@@ -48,7 +48,7 @@ abstract class AbstractDestroyController extends AbstractController
 	 */
 	private function handleDestroyRequest(Request $request, int $id = null): Response
 	{
-		$selection = (array)$id ?: $request->get('ids', []);
+		$selection = (array)$id ?: $this->getSelection($request);
 
 		if (!count($selection))
 		{

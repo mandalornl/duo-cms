@@ -30,14 +30,21 @@ import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 		location.href = $this.attr('href');
 	});
 
-	$form.on('click', 'tr[data-url]', function(e)
+	$form.on('click', 'tr:not([data-item])', function(e)
 	{
 		if ($(e.target).closest(':input, a, .custom-control').length)
 		{
 			return;
 		}
 
-		location.href = $(this).closest('tr').data('url');
+		const $anchor = $(this).closest('tr').find('.btn-edit');
+
+		if (!$anchor.length)
+		{
+			return;
+		}
+
+		location.href = $anchor.attr('href');
 	});
 
 	// handle iframe item selection

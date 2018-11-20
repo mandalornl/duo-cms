@@ -43,14 +43,6 @@ class Menu implements MenuInterface
 	private $children;
 
 	/**
-	 * Item constructor
-	 */
-	public function __construct()
-	{
-		$this->children = new ArrayCollection();
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function setLabel(string $label): MenuInterface
@@ -165,7 +157,7 @@ class Menu implements MenuInterface
 	{
 		$menuItem->setParent($this);
 
-		$this->children[$menuItem->getId()] = $menuItem;
+		$this->getChildren()->set($menuItem->getId(), $menuItem);
 
 		return $this;
 	}
@@ -175,7 +167,7 @@ class Menu implements MenuInterface
 	 */
 	public function removeChild(MenuInterface $menuItem): MenuInterface
 	{
-		$this->children->removeElement($menuItem);
+		$this->getChildren()->removeElement($menuItem);
 
 		$menuItem->setParent(null);
 
@@ -187,6 +179,6 @@ class Menu implements MenuInterface
 	 */
 	public function getChildren(): Collection
 	{
-		return $this->children;
+		return $this->children = $this->children ?: new ArrayCollection();
 	}
 }

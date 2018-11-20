@@ -23,7 +23,7 @@ class PageIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFields(): void
+	protected function defineFields(Request $request): void
 	{
 		$this
 			->addField(new Field('name', 'duo.page.listing.field.name'))
@@ -44,7 +44,7 @@ class PageIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFilters(): void
+	protected function defineFilters(Request $request): void
 	{
 		$this
 			->addFilter(new StringFilter('name', 'duo.page.listing.filter.name'))

@@ -3,13 +3,15 @@
 namespace Duo\SeoBundle\Controller\Listing;
 
 use Doctrine\ORM\QueryBuilder;
-use Duo\AdminBundle\Configuration\Action\ListAction;
+use Duo\AdminBundle\Configuration\Action\Action;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\BooleanFilter;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\Listing\AbstractIndexController;
 use Duo\SeoBundle\Entity\Redirect;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,7 @@ class RedirectIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFields(): void
+	protected function defineFields(Request $request): void
 	{
 		$this
 			->addField(new Field('active', 'duo.seo.listing.field.active'))
@@ -38,7 +40,7 @@ class RedirectIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFilters(): void
+	protected function defineFilters(Request $request): void
 	{
 		$this
 			->addFilter(new BooleanFilter('active', 'duo.seo.listing.filter.active'))
@@ -54,11 +56,17 @@ class RedirectIndexController extends AbstractIndexController
 	 *
 	 * @throws \Throwable
 	 */
-	protected function defineListActions(): void
+	protected function defineActions(Request $request): void
 	{
 		$this
-			->addListAction(new ListAction('duo.seo.listing.action.activate', "{$this->getRoutePrefix()}_activate"))
-			->addListAction(new ListAction('duo.seo.listing.action.deactivate', "{$this->getRoutePrefix()}_deactivate"));
+			->addAction(
+				(new Action('duo.seo.listing.action.activate'))
+					->setRoute("{$this->getRoutePrefix()}_activate")
+			)
+			->addAction(
+				(new Action('duo.seo.listing.action.deactivate'))
+					->setRoute("{$this->getRoutePrefix()}_deactivate")
+			);
 	}
 
 	/**
@@ -74,39 +82,53 @@ class RedirectIndexController extends AbstractIndexController
 	/**
 	 * Activate action
 	 *
-	 * @Route("/activate", name="activate", methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/activate/{id}.{_format}",
+	 *     name="activate",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 *
 	 * @param Request $request
+	 * @param int $id [optional]
 	 *
-	 * @return Response
+	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function activateAction(Request $request): Response
+	public function activateAction(Request $request, int $id = null): Response
 	{
 		return $this->handleActivationRequest(function(Redirect $entity)
 		{
 			$entity->setActive(true);
-		}, 'duo.seo.activate_success', $request);
+		}, 'duo.seo.activate_success', $request, $id);
 	}
 
 	/**
 	 * Deactivate action
 	 *
-	 * @Route("/deactivate", name="deactivate", methods={ "GET", "POST" })
+	 * @Route(
+	 *     path="/deactivate/{id}.{_format}",
+	 *     name="deactivate",
+	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
+	 *     defaults={ "_format" = "html" },
+	 *     methods={ "GET", "POST" }
+	 * )
 	 *
 	 * @param Request $request
+	 * @param int $id [optional]
 	 *
-	 * @return Response
+	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	public function deactivateAction(Request $request): Response
+	public function deactivateAction(Request $request, int $id = null): Response
 	{
 		return $this->handleActivationRequest(function(Redirect $entity)
 		{
 			$entity->setActive(false);
-		}, 'duo.seo.deactivate_success', $request);
+		}, 'duo.seo.deactivate_success', $request, $id);
 	}
 
 	/**
@@ -115,13 +137,20 @@ class RedirectIndexController extends AbstractIndexController
 	 * @param \Closure $callback
 	 * @param string $message
 	 * @param Request $request
-	 * @return Response
+	 * @param int $id [optional]
+	 *
+	 * @return RedirectResponse|JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	private function handleActivationRequest(\Closure $callback, string $message, Request $request): Response
+	private function handleActivationRequest(
+		\Closure $callback,
+		string $message,
+		Request $request,
+		int $id = null
+	): Response
 	{
-		$selection = $request->get('ids', []);
+		$selection = (array)$id ?: $this->getSelection($request);
 
 		if (!count($selection))
 		{

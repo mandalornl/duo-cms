@@ -2,8 +2,8 @@
 
 namespace Duo\AdminBundle\Configuration\Filter;
 
+use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\QueryBuilder;
-use Duo\AdminBundle\Configuration\SearchInterface;
 use Duo\AdminBundle\Form\Filter\StringFilterType;
 use Duo\AdminBundle\Tools\ORM\Query;
 
@@ -90,5 +90,13 @@ class StringFilter extends AbstractFilter implements SearchInterface
 	protected function getParam(array $data): string
 	{
 		return 'str_' . md5("{$data['operator']}_{$this->property}");
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function applySearch(QueryBuilder $builder, Orx $orX, string $keyword): void
+	{
+		$orX->add("{$this->alias}.{$this->property} LIKE :keyword");
 	}
 }

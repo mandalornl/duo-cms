@@ -100,14 +100,6 @@ abstract class AbstractUser implements UserInterface, \Serializable
     protected $groups;
 
 	/**
-	 * User constructor
-	 */
-    public function __construct()
-	{
-		$this->groups = new ArrayCollection();
-	}
-
-	/**
      * {@inheritdoc}
      */
     public function setName(?string $name): UserInterface
@@ -265,7 +257,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	 */
 	public function addGroup(GroupInterface $group): UserInterface
 	{
-		$this->groups[] = $group;
+		$this->getGroups()->add($group);
 
 		return $this;
 	}
@@ -275,7 +267,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	 */
 	public function removeGroup(GroupInterface $group): UserInterface
 	{
-		$this->groups->removeElement($group);
+		$this->getGroups()->removeElement($group);
 
 		return $this;
 	}
@@ -285,7 +277,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	 */
 	public function getGroups(): Collection
 	{
-		return $this->groups;
+		return $this->groups = $this->groups ?: new ArrayCollection();
 	}
 
 	/**
@@ -295,7 +287,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	{
 		$roles = [];
 
-		foreach ($this->groups as $group)
+		foreach ($this->getGroups() as $group)
 		{
 			/**
 			 * @var GroupInterface $group

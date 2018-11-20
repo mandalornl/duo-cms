@@ -71,22 +71,6 @@ interface FieldInterface
 	public function getSortable(): bool;
 
 	/**
-	 * Set sortableCallback
-	 *
-	 * @param \Closure $sortableCallback
-	 *
-	 * @return FieldInterface
-	 */
-	public function setSortableCallback(\Closure $sortableCallback): FieldInterface;
-
-	/**
-	 * Get sortableCallback
-	 *
-	 * @return \Closure
-	 */
-	public function getSortableCallback(): ?\Closure;
-
-	/**
 	 * Set template
 	 *
 	 * @param string $template

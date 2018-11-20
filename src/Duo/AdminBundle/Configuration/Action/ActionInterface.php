@@ -18,7 +18,7 @@ interface ActionInterface
 	 *
 	 * @return string
 	 */
-	public function getLabel(): ?string;
+	public function getLabel(): string;
 
 	/**
 	 * Set route

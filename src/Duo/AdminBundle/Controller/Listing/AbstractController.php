@@ -134,6 +134,38 @@ abstract class AbstractController extends Controller
 	}
 
 	/**
+	 * Get session name
+	 *
+	 * @param Request $request
+	 * @param string $prefix
+	 *
+	 * @return string
+	 */
+	protected function getSessionName(Request $request, string $prefix): string
+	{
+		$sessionName = "{$prefix}_{$this->getType()}";
+
+		if ($request->query->has('iframe') && $request->query->get('iframe'))
+		{
+			return "i{$sessionName}";
+		}
+
+		return $sessionName;
+	}
+
+	/**
+	 * Get selection
+	 *
+	 * @param Request $request
+	 *
+	 * @return int[]
+	 */
+	protected function getSelection(Request $request): array
+	{
+		return $request->get('ids', $request->getSession()->get($this->getSessionName($request, 'ids'), []));
+	}
+
+	/**
 	 * Get entity class
 	 *
 	 * @return string

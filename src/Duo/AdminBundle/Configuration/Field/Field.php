@@ -17,24 +17,19 @@ class Field implements FieldInterface
 	private $label;
 
 	/**
+	 * @var string
+	 */
+	private $alias;
+
+	/**
 	 * @var bool
 	 */
 	private $sortable = true;
 
 	/**
-	 * @var \Closure
-	 */
-	private $sortableCallback;
-
-	/**
 	 * @var string
 	 */
 	private $template;
-
-	/**
-	 * @var string
-	 */
-	private $alias;
 
 	/**
 	 * Field constructor
@@ -125,24 +120,6 @@ class Field implements FieldInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setSortableCallback(\Closure $sortableCallback): FieldInterface
-	{
-		$this->sortableCallback = $sortableCallback;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getSortableCallback(): ?\Closure
-	{
-		return $this->sortableCallback;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function setTemplate(string $template): FieldInterface
 	{
 		$this->template = $template;
@@ -171,13 +148,6 @@ class Field implements FieldInterface
 	 */
 	public function applySorting(QueryBuilder $builder, string $order): void
 	{
-		if ($this->sortableCallback !== null)
-		{
-			call_user_func_array($this->sortableCallback, [ $this, $builder, $order ]);
-
-			return;
-		}
-
 		$builder->orderBy("{$this->alias}.{$this->property}", $order);
 	}
 }

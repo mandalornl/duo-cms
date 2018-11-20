@@ -3,7 +3,7 @@
 namespace Duo\TranslatorBundle\Controller\Listing;
 
 use Doctrine\ORM\QueryBuilder;
-use Duo\AdminBundle\Configuration\Action\ListAction;
+use Duo\AdminBundle\Configuration\Action\Action;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
@@ -45,7 +45,7 @@ class EntryIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFields(): void
+	protected function defineFields(Request $request): void
 	{
 		$this
 			->addField(new Field('keyword', 'duo.translator.listing.field.keyword'))
@@ -57,7 +57,7 @@ class EntryIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineFilters(): void
+	protected function defineFilters(Request $request): void
 	{
 		$this
 			->addFilter(new StringFilter('keyword', 'duo.translator.listing.filter.keyword'))
@@ -69,9 +69,12 @@ class EntryIndexController extends AbstractIndexController
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function defineListActions(): void
+	protected function defineActions(Request $request): void
 	{
-		$this->addListAction(new ListAction('duo.translator.toolbar.actions.reload', 'duo_translator_reload'));
+§		$this->addAction(
+			(new Action('duo.translator.toolbar.actions.reload'))
+				->setRoute('duo_translator_reload')
+		);
 	}
 
 	/**

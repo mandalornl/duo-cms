@@ -2,27 +2,37 @@
 
 namespace Duo\AdminBundle\Configuration\Action;
 
-abstract class AbstractAction implements ActionInterface
+class Action implements ActionInterface
 {
 	/**
 	 * @var string
 	 */
-	protected $label;
+	private $label;
 
 	/**
 	 * @var string
 	 */
-	protected $route;
+	private $route;
 
 	/**
 	 * @var array
 	 */
-	protected $routeParameters;
+	private $routeParameters = [];
 
 	/**
 	 * @var string
 	 */
-	protected $template;
+	private $template;
+
+	/**
+	 * AbstractAction constructor
+	 *
+	 * @param string $label
+	 */
+	public function __construct(string $label)
+	{
+		$this->label = $label;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -37,7 +47,7 @@ abstract class AbstractAction implements ActionInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getLabel(): ?string
+	public function getLabel(): string
 	{
 		return $this->label;
 	}

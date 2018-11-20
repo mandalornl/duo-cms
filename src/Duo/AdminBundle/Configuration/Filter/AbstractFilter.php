@@ -107,6 +107,24 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function setData(array $data): FilterInterface
+	{
+		$this->data = $data;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getData(): array
+	{
+		return $this->data;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setFormOptions(array $formOptions): FilterInterface
 	{
 		$this->formOptions = $formOptions;

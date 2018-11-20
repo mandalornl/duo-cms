@@ -55,21 +55,20 @@ interface FilterInterface
 	public function getAlias(): string;
 
 	/**
-	 * Apply filter
+	 * Set data
 	 *
-	 * @param QueryBuilder $builder
 	 * @param array $data
 	 *
-	 * @throws \LogicException
+	 * @return FilterInterface
 	 */
-	public function applyFilter(QueryBuilder $builder, array $data): void;
+	public function setData(array $data): FilterInterface;
 
 	/**
-	 * Get form type
+	 * Get data
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public function getFormType(): string;
+	public function getData(): array;
 
 	/**
 	 * Set formOptions
@@ -86,6 +85,23 @@ interface FilterInterface
 	 * @return array
 	 */
 	public function getFormOptions(): array;
+
+	/**
+	 * Apply filter
+	 *
+	 * @param QueryBuilder $builder
+	 * @param array $data
+	 *
+	 * @throws \LogicException
+	 */
+	public function applyFilter(QueryBuilder $builder, array $data): void;
+
+	/**
+	 * Get form type
+	 *
+	 * @return string
+	 */
+	public function getFormType(): string;
 
 	/**
 	 * Get hash

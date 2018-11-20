@@ -67,10 +67,14 @@
 									{% for action in actions %}
 										{% if action.template %}
 											{% include action.template %}
-										{% else %}
-											<a href="{{ path(action.route, action.routeParameters | merge({ id: entity.id })) }}" class="dropdown-item" disabled>
+										{% elseif action.route %}
+											<a href="{{ path(action.route, action.routeParameters | merge({ id: entity.id })) }}" class="dropdown-item">
 												{{- action.label | trans -}}
 											</a>
+										{% else %}
+											<button type="button" class="dropdown-item" disabled>
+												{{- action.label | trans -}}
+											</button>
 										{% endif %}
 									{% endfor %}
 								{% endif %}

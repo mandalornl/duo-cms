@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
-use Duo\AdminBundle\Configuration\Action\ItemActionInterface;
+use Duo\AdminBundle\Configuration\Action\ActionInterface;
 use Duo\AdminBundle\Event\Listing\EntityEvent;
 use Duo\AdminBundle\Event\Listing\EntityEvents;
 use Duo\AdminBundle\Event\Listing\FormEvent;
@@ -28,17 +28,7 @@ abstract class AbstractUpdateController extends AbstractController
 	/**
 	 * @var ArrayCollection
 	 */
-	protected $itemActions;
-
-	/**
-	 * AbstractUpdateController constructor
-	 */
-	public function __construct()
-	{
-		$this->itemActions = new ArrayCollection();
-
-		$this->defineItemActions();
-	}
+	protected $actions;
 
 	/**
 	 * Update entity
@@ -191,10 +181,13 @@ abstract class AbstractUpdateController extends AbstractController
 			]);
 		}
 
+		// define properties
+		$this->defineActions($request);
+
 		$context = $this->getDefaultContext([
 			'form' => $form->createView(),
 			'entity' => $entity,
-			'actions' => $this->getItemActions()
+			'actions' => $this->getActions()
 		]);
 
 		// dispatch twig context event
@@ -226,47 +219,49 @@ abstract class AbstractUpdateController extends AbstractController
 	}
 
 	/**
-	 * Add item action
+	 * Add action
 	 *
-	 * @param ItemActionInterface $itemAction
+	 * @param ActionInterface $action
 	 *
 	 * @return $this
 	 */
-	public function addItemAction(ItemActionInterface $itemAction)
+	public function addItemAction(ActionInterface $action)
 	{
-		$this->getItemActions()->add($itemAction);
+		$this->getActions()->add($action);
 
 		return $this;
 	}
 
 	/**
-	 * Remove item action
+	 * Remove action
 	 *
-	 * @param ItemActionInterface $itemAction
+	 * @param ActionInterface $action
 	 *
 	 * @return $this
 	 */
-	public function removeItemAction(ItemActionInterface $itemAction)
+	public function removeAction(ActionInterface $action)
 	{
-		$this->getItemActions()->removeElement($itemAction);
+		$this->getActions()->removeElement($action);
 
 		return $this;
 	}
 
 	/**
-	 * Get item actions
+	 * Get actions
 	 *
 	 * @return ArrayCollection
 	 */
-	public function getItemActions(): ArrayCollection
+	public function getActions(): ArrayCollection
 	{
-		return $this->itemActions;
+		return $this->actions = $this->actions ?: new ArrayCollection();
 	}
 
 	/**
-	 * Define item actions
+	 * Define actions
+	 *
+	 * @param Request $request
 	 */
-	protected function defineItemActions(): void
+	protected function defineActions(Request $request): void
 	{
 		// Implement defineItemActions() method.
 	}
