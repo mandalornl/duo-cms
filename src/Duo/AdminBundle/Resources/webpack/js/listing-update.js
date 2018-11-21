@@ -17,7 +17,7 @@ $(() =>
 		const $this = $(this);
 
 		await confirm({
-			title: $this.data('title'),
+			title: $this.data('title') || $this.text(),
 			body: $this.data('body')
 		});
 

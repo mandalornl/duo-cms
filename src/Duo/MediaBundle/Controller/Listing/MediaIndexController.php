@@ -53,15 +53,7 @@ class MediaIndexController extends AbstractIndexController
 			->addFilter(new TaxonomyFilter('id', 'duo.media.listing.filter.taxonomies'))
 			->addFilter(new DateTimeFilter('createdAt', 'duo.media.listing.filter.created'))
 			->addFilter(new DateTimeFilter('modifiedAt', 'duo.media.listing.filter.modified'));
-	}
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @Route("/", name="index", methods={ "GET" })
-	 */
-	public function indexAction(Request $request): Response
-	{
 		// filter images
 		if ($request->query->has('mediaType'))
 		{
@@ -83,7 +75,15 @@ class MediaIndexController extends AbstractIndexController
 
 			$this->addFilter($filter);
 		}
+	}
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @Route("/", name="index", methods={ "GET" })
+	 */
+	public function indexAction(Request $request): Response
+	{
 		return $this->doIndexAction($request);
 	}
 

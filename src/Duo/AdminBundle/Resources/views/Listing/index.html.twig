@@ -18,7 +18,7 @@
 										{% if action.template %}
 											{% include action.template %}
 										{% elseif action.route %}
-											<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item{% if not paginator.count %} disabled{% endif %}" data-modal="multi-action" data-title="{{ action.label | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+											<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 												{{- action.label | trans -}}
 											</a>
 										{% else %}
@@ -28,12 +28,17 @@
 										{% endif %}
 									{% endfor %}
 								{% endif %}
-								{% if list.isDeletable | default(false) %}
-									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.modal.delete_multi.title' | trans }}" data-body="{{ 'duo.admin.modal.delete_multi.body' | trans }}">
+								{% if (routePrefix ~ '_export') is validroute %}
+									<a href="{{ path(routePrefix ~ '_export') }}" target="_blank" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.listing.action.export' | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+										{{- 'duo.admin.listing.action.export' | trans }} (xlsx)
+									</a>
+								{% endif %}
+								{% if (routePrefix ~ '_delete') is validroute %}
+									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 										{{- 'duo.admin.listing.action.delete' | trans -}}
 									</a>
 								{% else %}
-									<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.modal.destroy_multi.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy_multi.body' | trans }}">
+									<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo.admin.modal.action.body_permanent' | trans }}">
 										{{- 'duo.admin.listing.action.destroy' | trans -}}
 									</a>
 								{% endif %}
@@ -153,14 +158,12 @@
 {% block modal %}
 	{% if not app.request.query.get('iframe') %}
 		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' with {
-			id: 'delete'
-		} | merge(list.isDeletable | default(false) ? {
-			title: 'duo.admin.modal.delete.title' | trans,
-			body: 'duo.admin.modal.delete.body' | trans
-		} : {
-			title: 'duo.admin.modal.destroy.title' | trans,
-			body: 'duo.admin.modal.destroy.body' | trans
-		}) %}
+			id: 'delete',
+			title: 'duo.admin.toolbar.actions.delete' | trans,
+			body: ((routePrefix ~ '_delete') is validroute ?
+				'duo.admin.modal.action.body' :
+				'duo.admin.modal.action.body_permanent') | trans
+		} %}
 
 		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' %}
 	{% endif %}

@@ -4,16 +4,12 @@
 
 - MediaBundle (wip) 
 	- List action: taxonomy
-	- Media modal
-		- Only allow image selection
 - GenerateBundle
 - GoogleMapsBundle?
 
 - ServiceEntityRepository: PartReference
 
 - Upgrade to Symfony 4.x
-
-- Listing export (xlsx): https://github.com/box/spout
 
 - Move to font awesome?
 

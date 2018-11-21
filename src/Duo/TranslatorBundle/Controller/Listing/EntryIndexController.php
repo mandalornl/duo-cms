@@ -71,7 +71,7 @@ class EntryIndexController extends AbstractIndexController
 	 */
 	protected function defineActions(Request $request): void
 	{
-§		$this->addAction(
+		$this->addAction(
 			(new Action('duo.translator.toolbar.actions.reload'))
 				->setRoute('duo_translator_reload')
 		);

@@ -139,13 +139,11 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 		$manager->persist($page);
 		$manager->flush();
 
-		$parent = $page;
-
 		// create news
 		$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
 		$page->setName('news');
-		$page->setParent($parent);
 		$page->setCreatedBy($user);
+		$page->setWeight(1);
 
 		$page->translate('nl')
 			->setTitle('Nieuws')
@@ -251,7 +249,7 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 			$page = $manager->getClassMetadata(PageInterface::class)->getReflectionClass()->newInstance();
 			$page->setName("lorem-ipsum-{$i}");
 			$page->setCreatedBy($user);
-			$page->setWeight($i);
+			$page->setWeight($i + 1);
 
 			$page->translate('nl')
 				->setTitle("Lorem ipsum {$i}")

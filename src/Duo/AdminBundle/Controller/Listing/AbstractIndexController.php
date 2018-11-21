@@ -277,8 +277,6 @@ abstract class AbstractIndexController extends AbstractController
 	protected function getListBehaviors(): array
 	{
 		return [
-			'isSortable' => $this->isSortable(),
-			'isDeletable' => $this->isDeletable(),
 			'canSwitchView' => $this->canSwitchView()
 		];
 	}
@@ -320,6 +318,13 @@ abstract class AbstractIndexController extends AbstractController
 	{
 		return $this->fields = $this->fields ?: new ArrayCollection();
 	}
+
+	/**
+	 * Define fields
+	 *
+	 * @param Request $request
+	 */
+	abstract protected function defineFields(Request $request): void;
 
 	/**
 	 * Sorting action
@@ -416,13 +421,6 @@ abstract class AbstractIndexController extends AbstractController
 	{
 		$builder->orderBy('e.id', 'ASC');
 	}
-
-	/**
-	 * Define fields
-	 *
-	 * @param Request $request
-	 */
-	abstract protected function defineFields(Request $request): void;
 
 	/**
 	 * Add filter
@@ -821,27 +819,6 @@ abstract class AbstractIndexController extends AbstractController
 	protected function defineActions(Request $request): void
 	{
 		// Implement defineListActions() method.
-	}
-
-	/**
-	 * Whether or not entities implement SortInterface
-	 *
-	 * @return bool
-	 */
-	protected function isSortable(): bool
-	{
-		return $this->getEntityReflectionClass()->implementsInterface(SortInterface::class) &&
-			!$this->getEntityReflectionClass()->implementsInterface(TreeInterface::class);
-	}
-
-	/**
-	 * Whether or not entities implement DeleteInterface
-	 *
-	 * @return bool
-	 */
-	protected function isDeletable(): bool
-	{
-		return $this->getEntityReflectionClass()->implementsInterface(DeleteInterface::class);
 	}
 
 	/**

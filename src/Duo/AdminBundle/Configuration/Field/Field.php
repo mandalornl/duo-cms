@@ -150,4 +150,12 @@ class Field implements FieldInterface
 	{
 		$builder->orderBy("{$this->alias}.{$this->property}", $order);
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function applyExport(QueryBuilder $builder): void
+	{
+		$builder->addSelect("{$this->alias}.{$this->property}");
+	}
 }

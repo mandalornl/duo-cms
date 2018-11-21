@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import {parse} from 'querystring';
 
+import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
 import confirm from 'duo/AdminBundle/Resources/webpack/js/util/confirm';
 import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 
@@ -23,7 +24,7 @@ import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 
 		await confirm({
 			selector: '#modal_confirm_delete',
-			title: $this.data('title'),
+			title: $this.data('title') || $this.text(),
 			body: $this.data('body')
 		});
 
@@ -69,11 +70,21 @@ import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 		const $this = $(this);
 
 		await confirm({
-			title: $this.data('title'),
+			title: $this.data('title') || $this.text(),
 			body: $this.data('body')
 		});
 
-		$form.attr('action', $this.attr('href')).submit();
+		const target = $this.attr('target') || '_self';
+
+		if (target === '_self')
+		{
+			loader.show();
+		}
+
+		$form.attr({
+			action: $this.attr('href'),
+			target: target
+		}).submit();
 	});
 
 	// handle paginator limit

@@ -21,6 +21,7 @@
         "ext-imagick": "^3.4",
         "ext-intl": "^1.1",
         "ext-memcached": "^3.0",
+        "box/spout": "^2.7",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "doctrine/doctrine-migrations-bundle": "^2.0",

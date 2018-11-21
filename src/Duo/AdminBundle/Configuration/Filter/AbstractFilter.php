@@ -2,8 +2,6 @@
 
 namespace Duo\AdminBundle\Configuration\Filter;
 
-use Doctrine\ORM\QueryBuilder;
-
 abstract class AbstractFilter implements FilterInterface
 {
 	/**
@@ -20,11 +18,6 @@ abstract class AbstractFilter implements FilterInterface
 	 * @var string
 	 */
 	protected $alias;
-
-	/**
-	 * @var QueryBuilder
-	 */
-	protected $builder;
 
 	/**
 	 * @var array

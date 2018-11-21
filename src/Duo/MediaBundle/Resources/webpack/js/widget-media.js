@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 import {get} from 'duo/AdminBundle/Resources/webpack/js/util/api';
 import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
 

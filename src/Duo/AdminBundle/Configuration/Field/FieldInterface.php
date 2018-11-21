@@ -100,4 +100,11 @@ interface FieldInterface
 	 * @param string $order
 	 */
 	public function applySorting(QueryBuilder $builder, string $order): void;
+
+	/**
+	 * Apply export
+	 *
+	 * @param QueryBuilder $builder
+	 */
+	public function applyExport(QueryBuilder $builder): void;
 };

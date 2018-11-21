@@ -1,5 +1,7 @@
 {% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 <div class="row grid-list">
+	{% set canDelete = (routePrefix ~ '_delete') is validroute %}
+
 	{% for entity in paginator.result %}
 		<div class="d-flex flex-column col-6 col-sm-4 col-lg-3">
 			<div class="grid-item">
@@ -39,7 +41,7 @@
 								<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo.admin.listing.action.edit' | trans }}">
 									<i class="icon-pencil"></i>
 								</a>
-								{% if list.isDeletable | default(false) %}
+								{% if canDelete %}
 									{% set url = path(routePrefix ~ '_delete', { id: entity.id }) %}
 								{% else %}
 									{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}

@@ -30,5 +30,10 @@ export default (options = {}) => new Promise(resolve =>
 
 	const selector = 'button:not([data-dismiss])';
 
-	$modal.off('click', selector).on('click', selector, resolve).modal('show');
+	$modal.off('click', selector).on('click', selector, () =>
+	{
+		$modal.modal('hide');
+
+		resolve();
+	}).modal('show');
 });
