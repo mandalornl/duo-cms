@@ -5,7 +5,7 @@ $database = parse_url(getenv('DATABASE_URL'));
 if (($database['scheme'] ?? '') === 'mysql')
 {
 	$container->setParameter('database_driver', 'pdo_mysql');
-	$container->setParameter('database_host', $database['host']);
+	$container->setParameter('database_host', $database['host'] ?? '127.0.0.1');
 	$container->setParameter('database_port', $database['port'] ?? 3306);
 	$container->setParameter('database_name', substr($database['path'], 1));
 	$container->setParameter('database_user', $database['user']);
@@ -16,13 +16,13 @@ $memcached = parse_url(getenv('MEMCACHED_URL'));
 
 if (($memcached['scheme'] ?? '') === 'memcached')
 {
-	$container->setParameter('memcached_host', $memcached['host']);
-	$container->setParameter('memcached_port', $memcached['port']);
+	$container->setParameter('memcached_host', $memcached['host'] ?? 'localhost');
+	$container->setParameter('memcached_port', $memcached['port'] ?? 11211);
 }
 
 $mailer = parse_url(getenv('MAILER_URL'));
 
-if (isset($mailer['host']))
+if (in_array(($mailer['scheme'] ?? null), ['smtp', 'gmail', 'sendmail']))
 {
 	$queryData = [];
 	parse_str($mailer['query'] ?? '', $queryData);

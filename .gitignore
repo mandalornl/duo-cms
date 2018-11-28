@@ -10,5 +10,4 @@
 /vendor/
 /web/bundles/
 /web/media/
-/webpack/config.json
 !**/.gitkeep

@@ -11,14 +11,14 @@ const WebpackDevServer = require('webpack-dev-server');
 
 let webpackServer = null;
 
-const PHP_HOST = process.env.PHP_HOST || '127.0.0.1';
-const PHP_PORT = process.env.PHP_PORT || 3000;
-const WEBPACK_HOST = process.env.WEBPACK_HOST || '0.0.0.0';
-const WEBPACK_PORT = process.env.WEBPACK_PORT || 3030;
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3000;
+const PROXY_HOST = process.env.PROXY_HOST || '0.0.0.0';
+const PROXY_PORT = process.env.PROXY_PORT || 3030;
 
 const phpServer = childProcess.spawn(`${process.cwd()}/bin/console`, [
 	'server:run',
-	`${PHP_HOST}:${PHP_PORT}`
+	`${HOST}:${PORT}`
 ], {
 	stdio: [ 'ignore', 'inherit', 'inherit' ],
 	env: Object.assign({}, process.env, {
@@ -44,7 +44,7 @@ const webpackCfg = require(path.resolve(process.cwd(), 'webpack.config.js'));
 Object.keys(webpackCfg.entry).forEach(entry =>
 {
 	webpackCfg.entry[entry].unshift(
-		`webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}/`,
+		`webpack-dev-server/client?http://${PROXY_HOST}:${PROXY_PORT}/`,
 		'webpack/hot/dev-server'
 	);
 });
@@ -52,11 +52,11 @@ Object.keys(webpackCfg.entry).forEach(entry =>
 const compiler = require('webpack')(webpackCfg);
 
 const options = {
-	host: WEBPACK_HOST,
-	port: WEBPACK_PORT,
+	host: PROXY_HOST,
+	port: PROXY_PORT,
 	proxy: {
 		'/': {
-			target: `http://${PHP_HOST}:${PHP_PORT}`
+			target: `http://${HOST}:${PORT}`
 		}
 	},
 	compress: true,
@@ -84,7 +84,7 @@ const options = {
 };
 
 webpackServer = new WebpackDevServer(compiler, options);
-webpackServer.listen(WEBPACK_PORT, err =>
+webpackServer.listen(PROXY_PORT, err =>
 {
 	if (err)
 	{
@@ -98,7 +98,7 @@ webpackServer.listen(WEBPACK_PORT, err =>
 		return;
 	}
 
-	console.info(`Webpack dev server running on http://${WEBPACK_HOST}:${WEBPACK_PORT}`);
+	console.info(`Webpack dev server running on http://${PROXY_HOST}:${PROXY_PORT}`);
 });
 
 /**
