@@ -69,7 +69,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     protected $passwordToken;
 
 	/**
-	 * @var \DateTime
+	 * @var \DateTimeInterface
 	 *
 	 * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
 	 */
@@ -211,7 +211,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): UserInterface
+	public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): UserInterface
 	{
 		$this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -221,7 +221,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPasswordRequestedAt(): ?\DateTime
+	public function getPasswordRequestedAt(): ?\DateTimeInterface
 	{
 		return $this->passwordRequestedAt;
 	}

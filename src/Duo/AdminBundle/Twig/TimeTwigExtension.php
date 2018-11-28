@@ -34,12 +34,12 @@ class TimeTwigExtension extends \Twig_Extension
 	/**
 	 * Get elapsed time
 	 *
-	 * @param \DateTime $start
-	 * @param \DateTime $end
+	 * @param \DateTimeInterface $start
+	 * @param \DateTimeInterface $end
 	 *
 	 * @return string
 	 */
-	public function getElapsedTime(\DateTime $start, \DateTime $end): string
+	public function getElapsedTime(\DateTimeInterface $start, \DateTimeInterface $end): string
 	{
 		$interval = $end->diff($start);
 

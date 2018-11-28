@@ -108,18 +108,18 @@ interface UserInterface extends IdInterface,
 	/**
 	 * Set passwordRequestedAt
 	 *
-	 * @param \DateTime $passwordRequestedAt
+	 * @param \DateTimeInterface $passwordRequestedAt
 	 *
 	 * @return UserInterface
 	 */
-	public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): UserInterface;
+	public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): UserInterface;
 
 	/**
 	 * Get passwordRequestAt
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
 	 */
-	public function getPasswordRequestedAt(): ?\DateTime;
+	public function getPasswordRequestedAt(): ?\DateTimeInterface;
 
 	/**
 	 * Set active

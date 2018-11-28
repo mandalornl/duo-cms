@@ -8,14 +8,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 trait TimestampTrait
 {
 	/**
-	 * @var \DateTime
+	 * @var \DateTimeInterface
 	 *
 	 * @ORM\Column(name="created_at", type="datetime", options={ "default" = "CURRENT_TIMESTAMP" })
 	 */
 	protected $createdAt;
 
 	/**
-	 * @var \DateTime
+	 * @var \DateTimeInterface
 	 *
 	 * @ORM\Column(name="modified_at", type="datetime", options={ "default" = "CURRENT_TIMESTAMP" })
 	 */
@@ -40,7 +40,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setCreatedAt(?\DateTime $createdAt): TimestampInterface
+	public function setCreatedAt(?\DateTimeInterface $createdAt): TimestampInterface
 	{
 		$this->createdAt = $createdAt;
 
@@ -50,7 +50,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getCreatedAt(): ?\DateTime
+	public function getCreatedAt(): ?\DateTimeInterface
 	{
 		return $this->createdAt;
 	}
@@ -58,7 +58,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setModifiedAt(?\DateTime $modifiedAt): TimestampInterface
+	public function setModifiedAt(?\DateTimeInterface $modifiedAt): TimestampInterface
 	{
 		$this->modifiedAt = $modifiedAt;
 
@@ -68,7 +68,7 @@ trait TimestampTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getModifiedAt(): ?\DateTime
+	public function getModifiedAt(): ?\DateTimeInterface
 	{
 		return $this->modifiedAt;
 	}

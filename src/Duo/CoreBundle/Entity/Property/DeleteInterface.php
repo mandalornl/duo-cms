@@ -9,18 +9,18 @@ interface DeleteInterface
 	/**
 	 * Set deletedAt
 	 *
-	 * @param \DateTime $deletedAt
+	 * @param \DateTimeInterface $deletedAt
 	 *
 	 * @return DeleteInterface
 	 */
-	public function setDeletedAt(\DateTime $deletedAt): DeleteInterface;
+	public function setDeletedAt(\DateTimeInterface $deletedAt): DeleteInterface;
 
 	/**
 	 * Get deletedAt
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
 	 */
-	public function getDeletedAt(): ?\DateTime;
+	public function getDeletedAt(): ?\DateTimeInterface;
 
 	/**
 	 * Get deletedBy

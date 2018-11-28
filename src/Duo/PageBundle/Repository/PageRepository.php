@@ -105,9 +105,11 @@ class PageRepository extends AbstractEntityRepository
 	/**
 	 * Find latest modified at
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
+	 *
+	 * @throws \Throwable
 	 */
-	public function findLastModifiedAt(): \DateTime
+	public function findLastModifiedAt(): \DateTimeInterface
 	{
 		try
 		{

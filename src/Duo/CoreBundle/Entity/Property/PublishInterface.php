@@ -24,34 +24,34 @@ interface PublishInterface
 	/**
 	 * Set publishAt
 	 *
-	 * @param \DateTime $publishAt
+	 * @param \DateTimeInterface $publishAt
 	 *
 	 * @return PublishInterface
 	 */
-	public function setPublishAt(?\DateTime $publishAt): PublishInterface;
+	public function setPublishAt(?\DateTimeInterface $publishAt): PublishInterface;
 
 	/**
 	 * Get publishAt
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
 	 */
-	public function getPublishAt(): ?\DateTime;
+	public function getPublishAt(): ?\DateTimeInterface;
 
 	/**
 	 * Set unpublishAt
 	 *
-	 * @param \DateTime $unpublishAt
+	 * @param \DateTimeInterface $unpublishAt
 	 *
 	 * @return PublishInterface
 	 */
-	public function setUnpublishAt(?\DateTime $unpublishAt): PublishInterface;
+	public function setUnpublishAt(?\DateTimeInterface $unpublishAt): PublishInterface;
 
 	/**
 	 * Get unpublishAt
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
 	 */
-	public function getUnpublishAt(): ?\DateTime;
+	public function getUnpublishAt(): ?\DateTimeInterface;
 
 	/**
 	 * Set publishedBy

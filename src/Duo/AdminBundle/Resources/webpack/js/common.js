@@ -4,6 +4,7 @@ import 'bootstrap/js/dist/util';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/alert';
+import 'bootstrap/js/dist/tab';
 
 import 'duo/AdminBundle/Resources/webpack/js/checkable';
 import 'duo/AdminBundle/Resources/webpack/js/menu';
@@ -13,6 +14,7 @@ import 'duo/AdminBundle/Resources/webpack/js/nestable-tree';
 
 import 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
 import 'duo/AdminBundle/Resources/webpack/js/lib/select2';
+import 'duo/AdminBundle/Resources/webpack/js/lib/maxlength';
 
 import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 

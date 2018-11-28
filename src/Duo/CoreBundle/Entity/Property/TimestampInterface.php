@@ -9,34 +9,34 @@ interface TimestampInterface
 	/**
 	 * Set created at
 	 *
-	 * @param \DateTime $createdAt
+	 * @param \DateTimeInterface $createdAt
 	 *
 	 * @return TimestampInterface
 	 */
-	public function setCreatedAt(?\DateTime $createdAt): TimestampInterface;
+	public function setCreatedAt(?\DateTimeInterface $createdAt): TimestampInterface;
 
 	/**
 	 * Get created at
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
 	 */
-	public function getCreatedAt(): ?\DateTime;
+	public function getCreatedAt(): ?\DateTimeInterface;
 
 	/**
 	 * Set modified at
 	 *
-	 * @param \DateTime $modifiedAt
+	 * @param \DateTimeInterface $modifiedAt
 	 *
 	 * @return TimestampInterface
 	 */
-	public function setModifiedAt(?\DateTime $modifiedAt): TimestampInterface;
+	public function setModifiedAt(?\DateTimeInterface $modifiedAt): TimestampInterface;
 
 	/**
 	 * Get modified at
 	 *
-	 * @return \DateTime
+	 * @return \DateTimeInterface
 	 */
-	public function getModifiedAt(): ?\DateTime;
+	public function getModifiedAt(): ?\DateTimeInterface;
 
 	/**
 	 * Set createdBy

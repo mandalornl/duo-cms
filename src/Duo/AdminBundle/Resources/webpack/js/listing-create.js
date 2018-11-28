@@ -1,11 +1,5 @@
 import $ from 'jquery';
-import 'bootstrap/js/dist/util';
-import 'bootstrap/js/dist/collapse';
-import 'bootstrap/js/dist/tab';
 
-import 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
-import 'duo/AdminBundle/Resources/webpack/js/lib/select2';
-import 'duo/AdminBundle/Resources/webpack/js/lib/maxlength';
 import autoComplete from 'duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
 import wysiwyg from 'duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
 import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+require('dotenv').config();
+
 const childProcess = require('child_process');
 const path = require('path');
-const fs = require('fs');
 
 const chokidar = require('chokidar');
 
@@ -10,48 +11,19 @@ const WebpackDevServer = require('webpack-dev-server');
 
 let webpackServer = null;
 
-const env = Object.assign({}, process.env, {
-	PATH: `${process.env.PATH}:${process.cwd()}/node_modules/bin`
-});
-
-/**
- * Read config
- *
- * @param {string} filename
- *
- * @returns {{}}
- */
-const readConfig = filename =>
-{
-	try
-	{
-		return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), filename)));
-	}
-	catch (err)
-	{
-		console.error(`Unable to read ${filename}`);
-
-		return {};
-	}
-};
-
-const config = Object.assign({
-	php: {
-		host: '127.0.0.1',
-		port: 8000
-	},
-	webpack: {
-		host: '0.0.0.0',
-		port: 8080
-	}
-}, readConfig('webpack/config.json'));
+const PHP_HOST = process.env.PHP_HOST || '127.0.0.1';
+const PHP_PORT = process.env.PHP_PORT || 3000;
+const WEBPACK_HOST = process.env.WEBPACK_HOST || '0.0.0.0';
+const WEBPACK_PORT = process.env.WEBPACK_PORT || 3030;
 
 const phpServer = childProcess.spawn(`${process.cwd()}/bin/console`, [
 	'server:run',
-	`${config.php.host}:${config.php.port}`
+	`${PHP_HOST}:${PHP_PORT}`
 ], {
 	stdio: [ 'ignore', 'inherit', 'inherit' ],
-	env: env
+	env: Object.assign({}, process.env, {
+		PATH: `${process.env.PATH}:${process.cwd()}/node_modules/bin`
+	})
 });
 
 phpServer.on('close', code =>
@@ -72,7 +44,7 @@ const webpackCfg = require(path.resolve(process.cwd(), 'webpack.config.js'));
 Object.keys(webpackCfg.entry).forEach(entry =>
 {
 	webpackCfg.entry[entry].unshift(
-		`webpack-dev-server/client?http://${config.webpack.host}:${config.webpack.port}/`,
+		`webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}/`,
 		'webpack/hot/dev-server'
 	);
 });
@@ -80,11 +52,11 @@ Object.keys(webpackCfg.entry).forEach(entry =>
 const compiler = require('webpack')(webpackCfg);
 
 const options = {
-	host: config.webpack.host,
-	port: config.webpack.port,
+	host: WEBPACK_HOST,
+	port: WEBPACK_PORT,
 	proxy: {
 		'/': {
-			target: `http://${config.php.host}:${config.php.port}`
+			target: `http://${PHP_HOST}:${PHP_PORT}`
 		}
 	},
 	compress: true,
@@ -112,7 +84,7 @@ const options = {
 };
 
 webpackServer = new WebpackDevServer(compiler, options);
-webpackServer.listen(config.webpack.port, err =>
+webpackServer.listen(WEBPACK_PORT, err =>
 {
 	if (err)
 	{
@@ -126,7 +98,7 @@ webpackServer.listen(config.webpack.port, err =>
 		return;
 	}
 
-	console.info(`Webpack dev server running on http://${config.webpack.host}:${config.webpack.port}`);
+	console.info(`Webpack dev server running on http://${WEBPACK_HOST}:${WEBPACK_PORT}`);
 });
 
 /**

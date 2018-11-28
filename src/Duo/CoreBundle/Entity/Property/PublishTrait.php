@@ -8,14 +8,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 trait PublishTrait
 {
 	/**
-	 * @var \DateTime
+	 * @var \DateTimeInterface
 	 *
 	 * @ORM\Column(name="publish_at", type="datetime", nullable=true)
 	 */
 	protected $publishAt;
 
 	/**
-	 * @var \DateTime
+	 * @var \DateTimeInterface
 	 *
 	 * @ORM\Column(name="unpublish_at", type="datetime", nullable=true)
 	 */
@@ -40,7 +40,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPublishAt(?\DateTime $publishAt): PublishInterface
+	public function setPublishAt(?\DateTimeInterface $publishAt): PublishInterface
 	{
 		$this->publishAt = $publishAt;
 
@@ -50,7 +50,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPublishAt(): ?\DateTime
+	public function getPublishAt(): ?\DateTimeInterface
 	{
 		return $this->publishAt;
 	}
@@ -58,7 +58,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setUnpublishAt(?\DateTime $unpublishAt): PublishInterface
+	public function setUnpublishAt(?\DateTimeInterface $unpublishAt): PublishInterface
 	{
 		$this->unpublishAt = $unpublishAt;
 
@@ -68,7 +68,7 @@ trait PublishTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getUnpublishAt(): ?\DateTime
+	public function getUnpublishAt(): ?\DateTimeInterface
 	{
 		return $this->unpublishAt;
 	}
@@ -134,6 +134,8 @@ trait PublishTrait
 	 * Is published
 	 *
 	 * @return bool
+	 *
+	 * @throws \Throwable
 	 */
 	public function isPublished(): bool
 	{

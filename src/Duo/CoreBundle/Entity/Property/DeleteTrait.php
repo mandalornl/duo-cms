@@ -8,8 +8,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 trait DeleteTrait
 {
 	/**
-	 * @var \DateTime
-	 * 
+	 * @var \DateTimeInterface
+	 *
 	 * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
 	 */
 	protected $deletedAt;
@@ -25,7 +25,7 @@ trait DeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDeletedAt(\DateTime $deletedAt): DeleteInterface
+	public function setDeletedAt(\DateTimeInterface $deletedAt): DeleteInterface
 	{
 		$this->deletedAt = $deletedAt;
 
@@ -35,7 +35,7 @@ trait DeleteTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getDeletedAt(): ?\DateTime
+	public function getDeletedAt(): ?\DateTimeInterface
 	{
 		return $this->deletedAt;
 	}
