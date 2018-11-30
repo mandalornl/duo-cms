@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/page-part/modal", name="duo_page_part_modal_")
+ * @Route("/page/modal", name="duo_page_modal_")
  *
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
@@ -27,7 +27,7 @@ class PagePartController extends AbstractPartController
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @Route("/prototype", name="prototype", methods={ "GET" })
+	 * @Route("/part-prototype", name="part_prototype", methods={ "GET" })
 	 */
 	public function modelAction(Request $request): JsonResponse
 	{

@@ -11,6 +11,6 @@ class PagePartCollectionType extends AbstractPartCollectionType
 	 */
 	protected function getRouteName(): string
 	{
-		return 'duo_page_part_modal_prototype';
+		return 'duo_page_modal_part_prototype';
 	}
 }

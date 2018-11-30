@@ -66,13 +66,15 @@ class UrlLoader extends Loader
 	 */
 	private function addUrlRoute(RouteCollection $routes): void
 	{
+		$slugPattern = '([\w\-\/]+)?';
+
 		if (count($this->localeHelper->getLocales()) > 1)
 		{
 			$routes->add('_url', new Route('/{_locale}/{url}', [
 				'_controller' => 'AppBundle:Default:index',
 				'_locale' => $this->localeHelper->getLocale()
 			], [
-				'url' => '(.+)?',
+				'url' => $slugPattern,
 				'_locale' => $this->localeHelper->getLocalesAsString()
 			]));
 
@@ -82,7 +84,7 @@ class UrlLoader extends Loader
 		$routes->add('_url', new Route('/{url}', [
 			'_controller' => 'AppBundle:Default:index'
 		], [
-			'url' => '(.+)?'
+			'url' => $slugPattern
 		]));
 	}
 

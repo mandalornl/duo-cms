@@ -11,6 +11,6 @@ class FormPartCollectionType extends AbstractPartCollectionType
 	 */
 	protected function getRouteName(): string
 	{
-		return 'duo_form_part_modal_prototype';
+		return 'duo_form_modal_part_prototype';
 	}
 }

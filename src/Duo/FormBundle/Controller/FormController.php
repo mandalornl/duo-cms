@@ -19,14 +19,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("/form-view", name="duo_form_view_")
+ * @Route("/form", name="duo_form_")
  */
-class FormViewController extends Controller
+class FormController extends Controller
 {
 	/**
 	 * View action
 	 *
-	 * @Route("/{uuid}", name="form", methods={ "GET", "POST" })
+	 * @Route("/{uuid}", name="view", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
 	 * @param MailerHelper $mailerHelper
@@ -67,7 +67,7 @@ class FormViewController extends Controller
 		}
 
 		$form = $this->createForm(FormViewType::class, null, [
-			'action' => $this->generateUrl('duo_form_view_form', [
+			'action' => $this->generateUrl('duo_form_view', [
 				'uuid' => $entity->getUuid(),
 				'locale' => $request->getLocale()
 			]),

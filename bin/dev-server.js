@@ -11,7 +11,7 @@ const WebpackDevServer = require('webpack-dev-server');
 
 let webpackServer = null;
 
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '127.0.0.1';
 const PORT = process.env.PORT || 3000;
 const PROXY_HOST = process.env.PROXY_HOST || '0.0.0.0';
 const PROXY_PORT = process.env.PROXY_PORT || 3030;
