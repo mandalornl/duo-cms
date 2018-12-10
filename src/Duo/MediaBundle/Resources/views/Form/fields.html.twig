@@ -39,7 +39,11 @@
 					</div>
 				{% endif %}
 				<p class="caption">
-					{%- if data %}{{ data.name }}{% endif -%}
+					{%- if data -%}
+						<a href="{{ data.url }}" download="{{ data.name }}" target="_blank">
+							{{- data.name -}}
+						</a>
+					{%- endif -%}
 				</p>
 			</div>
 			{% if not disabled | default(false) %}

@@ -1,1 +1,1 @@
-require('src/AppBundle/Resources/webpack/app');
+require('~/src/AppBundle/Resources/webpack/app');

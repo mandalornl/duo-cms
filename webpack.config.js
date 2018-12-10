@@ -21,27 +21,29 @@ module.exports = {
 
 	resolve: {
 		alias: {
-			web: path.resolve(process.cwd(), 'web'),
-			src: path.resolve(process.cwd(), 'src'),
-			duo: path.resolve(process.cwd(), 'src/Duo') // TODO: change to 'vendor/duo/duo-cms/src/Duo'
+			'~': __dirname,
+			'~~': __dirname,
+			'@': __dirname,
+			'@@': __dirname,
+			duo: path.resolve(__dirname, 'src/Duo') // TODO: change to 'vendor/duo/duo-cms/src/Duo'
 		}
 	},
 
 	output: {
 		filename: env === 'production' ? '[name].[hash].js' :'[name].js',
-		path: path.resolve(process.cwd(), 'web/build'),
+		path: path.resolve(__dirname, 'web/build'),
 		publicPath: '/build/'
 	},
 
 	entry: {
 		'app.min': [
 			'babel-polyfill',
-			path.resolve(process.cwd(), 'webpack/app.js')
+			path.resolve(__dirname, 'webpack/app.js')
 		],
 
 		'admin.min': [
 			'babel-polyfill',
-			path.resolve(process.cwd(), 'webpack/admin.js')
+			path.resolve(__dirname, 'webpack/admin.js')
 		]
 	},
 
@@ -172,7 +174,7 @@ module.exports = {
 		], {
 			verbose: true,
 			exclude: [ '.gitkeep' ],
-			root: path.resolve(process.cwd(), 'web/')
+			root: path.resolve(__dirname, 'web/')
 		}),
 
 		new webpack.NoEmitOnErrorsPlugin()

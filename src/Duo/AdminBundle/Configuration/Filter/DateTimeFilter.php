@@ -17,25 +17,23 @@ class DateTimeFilter extends AbstractFilter
 			return;
 		}
 
-		$param = $this->getParam($data);
+		$pid = $this->getParamId($data);
 
 		switch ($data['operator'])
 		{
 			case 'before':
-				$builder
-					->andWhere("{$this->alias}.{$this->property} < :{$param}")
-					->setParameter($param, $data['value']);
+				$builder->andWhere("{$this->alias}.{$this->property} < :{$pid}");
 				break;
 
 			case 'after':
-				$builder
-					->andWhere("{$this->alias}.{$this->property} > :{$param}")
-					->setParameter($param, $data['value']);
+				$builder->andWhere("{$this->alias}.{$this->property} > :{$pid}");
 				break;
 
 			default:
 				throw $this->createIllegalOperatorException($data['operator']);
 		}
+
+		$builder->setParameter($pid, $data['value']);
 	}
 
 	/**
@@ -44,13 +42,5 @@ class DateTimeFilter extends AbstractFilter
 	public function getFormType(): string
 	{
 		return DateTimeFilterType::class;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getParam(array $data): string
-	{
-		return 'date_' . md5("{$data['operator']}_{$this->property}");
 	}
 }

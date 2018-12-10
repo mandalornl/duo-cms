@@ -19,25 +19,34 @@ class TaxonomyFilter extends EnumFilter
 			return;
 		}
 
-		$param = $this->getParam($data);
+		$pid = $this->getParamId($data);
+		$alias = uniqid('taxonomy_');
 
 		switch ($data['operator'])
 		{
 			case 'contains':
-				$builder
-					->join("{$this->alias}.taxonomies", 'taxonomy', Join::WITH, "taxonomy.{$this->property} IN(:{$param})")
-					->setParameter($param, $data['value']);
+				$builder->join(
+					"{$this->alias}.taxonomies",
+					$alias,
+					Join::WITH,
+					"{$alias}.{$this->property} IN(:{$pid})"
+				);
 				break;
 
 			case 'notContains':
-				$builder
-					->join("{$this->alias}.taxonomies", 'taxonomy', Join::WITH, "taxonomy.{$this->property} NOT IN(:{$param})")
-					->setParameter($param, $data['value']);
+				$builder->join(
+					"{$this->alias}.taxonomies",
+					$alias,
+					Join::WITH,
+					"{$alias}.{$this->property} NOT IN(:{$pid})"
+				);
 				break;
 
 			default:
 				throw $this->createIllegalOperatorException($data['operator']);
 		}
+
+		$builder->setParameter($pid, $data['value']);
 	}
 
 	/**

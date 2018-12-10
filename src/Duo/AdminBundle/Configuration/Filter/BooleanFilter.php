@@ -17,11 +17,11 @@ class BooleanFilter extends AbstractFilter
 			return;
 		}
 
-		$param = $this->getParam($data);
+		$pid = $this->getParamId($data);
 
 		$builder
-			->andWhere("{$this->alias}.{$this->property} = :{$param}")
-			->setParameter($param, (int)$data['value']);
+			->andWhere("{$this->alias}.{$this->property} = :{$pid}")
+			->setParameter($pid, (int)$data['value']);
 	}
 
 	/**
@@ -30,13 +30,5 @@ class BooleanFilter extends AbstractFilter
 	public function getFormType(): string
 	{
 		return BooleanFilterType::class;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getParam(array $data): string
-	{
-		return 'bool_' . md5($this->property);
 	}
 }

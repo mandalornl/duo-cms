@@ -19,56 +19,56 @@ class StringFilter extends AbstractFilter implements SearchInterface
 			return;
 		}
 
-		$param = $this->getParam($data);
-		
+		$pid = $this->getParamId($data);
+
 		switch ($data['operator'])
 		{
 			case 'contains':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
-					->setParameter($param, Query::escapeLike($data['value']));
+					->andWhere("{$this->alias}.{$this->property} LIKE :{$pid}")
+					->setParameter($pid, Query::escapeLike($data['value']));
 				break;
 
 			case 'notContains':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
-					->setParameter($param, Query::escapeLike($data['value']));
+					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$pid}")
+					->setParameter($pid, Query::escapeLike($data['value']));
 				break;
 
 			case 'equals':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} = :{$param}")
-					->setParameter($param, $data['value']);
+					->andWhere("{$this->alias}.{$this->property} = :{$pid}")
+					->setParameter($pid, $data['value']);
 				break;
 
 			case 'notEquals':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} <> :{$param}")
-					->setParameter($param, $data['value']);
+					->andWhere("{$this->alias}.{$this->property} <> :{$pid}")
+					->setParameter($pid, $data['value']);
 				break;
 
 			case 'startsWith':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
-					->setParameter($param, Query::escapeLike($data['value'], '%s%%'));
+					->andWhere("{$this->alias}.{$this->property} LIKE :{$pid}")
+					->setParameter($pid, Query::escapeLike($data['value'], '%s%%'));
 				break;
 
 			case 'notStartsWith':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
-					->setParameter($param, Query::escapeLike($data['value'], '%s%%'));
+					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$pid}")
+					->setParameter($pid, Query::escapeLike($data['value'], '%s%%'));
 				break;
 
 			case 'endsWith':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} LIKE :{$param}")
-					->setParameter($param, Query::escapeLike($data['value'], '%%%s'));
+					->andWhere("{$this->alias}.{$this->property} LIKE :{$pid}")
+					->setParameter($pid, Query::escapeLike($data['value'], '%%%s'));
 				break;
 
 			case 'notEndsWith':
 				$builder
-					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$param}")
-					->setParameter($param, Query::escapeLike($data['value'], '%%%s'));
+					->andWhere("{$this->alias}.{$this->property} NOT LIKE :{$pid}")
+					->setParameter($pid, Query::escapeLike($data['value'], '%%%s'));
 				break;
 
 			default:
@@ -82,14 +82,6 @@ class StringFilter extends AbstractFilter implements SearchInterface
 	public function getFormType(): string
 	{
 		return StringFilterType::class;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getParam(array $data): string
-	{
-		return 'str_' . md5("{$data['operator']}_{$this->property}");
 	}
 
 	/**

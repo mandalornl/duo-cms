@@ -15,9 +15,7 @@ use Duo\AdminBundle\Form\Listing\SearchType;
 use Duo\AdminBundle\Tools\ORM\Query;
 use Duo\AdminBundle\Tools\Pagination\Paginator;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
-use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
-use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -396,6 +394,9 @@ abstract class AbstractIndexController extends AbstractController
 			return false;
 		}
 
+		// define properties
+		$this->defineFields($request);
+
 		/**
 		 * @var FieldInterface $field
 		 */
@@ -489,6 +490,9 @@ abstract class AbstractIndexController extends AbstractController
 		}
 
 		$filterData = $session->get($sessionName, []);
+
+		// define properties
+		$this->defineFilters($request);
 
 		/**
 		 * @var FormInterface $form

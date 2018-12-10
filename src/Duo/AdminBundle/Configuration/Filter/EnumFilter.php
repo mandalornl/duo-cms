@@ -17,25 +17,23 @@ class EnumFilter extends AbstractFilter
 			return;
 		}
 
-		$param = $this->getParam($data);
+		$pid = $this->getParamId($data);
 
 		switch ($data['operator'])
 		{
 			case 'contains':
-				$builder
-					->andWhere("{$this->alias}.{$this->property} IN(:{$param})")
-					->setParameter($param, $data['value']);
+				$builder->andWhere("{$this->alias}.{$this->property} IN(:{$pid})");
 				break;
 
 			case 'notContains':
-				$builder
-					->andWhere("{$this->alias}.{$this->property} NOT IN(:{$param})")
-					->setParameter($param, $data['value']);
+				$builder->andWhere("{$this->alias}.{$this->property} NOT IN(:{$pid})");
 				break;
 
 			default:
 				throw $this->createIllegalOperatorException($data['operator']);
 		}
+
+		$builder->setParameter($pid, $data['value']);
 	}
 
 	/**
@@ -44,13 +42,5 @@ class EnumFilter extends AbstractFilter
 	public function getFormType(): string
 	{
 		return EnumFilterType::class;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getParam(array $data): string
-	{
-		return 'enum_' . md5("{$data['operator']}_{$this->property}");
 	}
 }

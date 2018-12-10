@@ -96,7 +96,7 @@ export default ($ =>
 						 */
 						const selectItem = () =>
 						{
-							$caption.text(data.name);
+							$caption.html(`<a href="${data.url}" download="${data.name}" target="_blank">${data.name}</a>`);
 
 							$media.val(data.id);
 							$media.trigger('duo.event.media.selectItem');
@@ -133,7 +133,7 @@ export default ($ =>
 				{
 					e.preventDefault();
 
-					$caption.text(null);
+					$caption.empty();
 
 					$media.val(null);
 					$media.trigger('duo.event.media.clearItem');

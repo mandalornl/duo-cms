@@ -2,38 +2,36 @@
 
 namespace Duo\CoreBundle\Repository;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Query\ResultSetMapping;
 
 trait TreeTrait
 {
 	/**
 	 * Get offspring id's
 	 *
-	 * @param int|int[] $id
+	 * @param int $id
 	 * @param bool $traverse [optional]
 	 *
 	 * @return int[]
 	 */
-	public function getOffspringIds($id, bool $traverse = true): array
+	public function getOffspringIds(int $id, bool $traverse = true): array
 	{
-		$rsm = new ResultSetMapping();
-		$rsm->addScalarResult('id', 'id', 'integer');
-
 		/**
 		 * @var EntityRepository $this
 		 */
-		$className = $this->getClassMetadata()->getTableName();
+		$className = $this->getClassMetadata()->getName();
 
-		$sql = <<<SQL
-SELECT id FROM {$className} WHERE parent_id IN(:ids)
-SQL;
+		$dql = <<<DQL
+SELECT e.id FROM {$className} e WHERE e.parent IN (:ids)
+DQL;
 
 		/**
-		 * @var Query $query
+		 * @var EntityManagerInterface $manager
 		 */
-		$query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
+		$manager = $this->getEntityManager();
+
+		$query = $manager->createQuery($dql);
 
 		$offspring = [];
 		$iterations = 100;
@@ -57,29 +55,28 @@ SQL;
 	/**
 	 * Get parent id's
 	 *
-	 * @param int|int[] $id
+	 * @param int $id
 	 * @param bool $traverse [optional]
 	 *
 	 * @return int[]
 	 */
-	public function getParentIds($id, bool $traverse = true): array
+	public function getParentIds(int $id, bool $traverse = true): array
 	{
-		$rsm = new ResultSetMapping();
-		$rsm->addScalarResult('parent_id', 'id', 'integer');
-
 		/**
 		 * @var EntityRepository $this
 		 */
-		$className = $this->getClassMetadata()->getTableName();
+		$className = $this->getClassMetadata()->getName();
 
-		$sql = <<<SQL
-SELECT parent_id FROM {$className} WHERE id IN(:ids) AND parent_id IS NOT NULL
-SQL;
+		$dql = <<<DQL
+SELECT IDENTITY(e.parent) id FROM {$className} e WHERE e.id IN(:ids) AND e.parent IS NOT NULL
+DQL;
 
 		/**
-		 * @var Query $query
+		 * @var EntityManagerInterface $manager
 		 */
-		$query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
+		$manager = $this->getEntityManager();
+
+		$query = $manager->createQuery($dql);
 
 		$parents = [];
 		$iterations = 100;

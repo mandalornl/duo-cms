@@ -154,11 +154,14 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * Get param
+	 * Get param id
 	 *
 	 * @param array $data
 	 *
 	 * @return string
 	 */
-	abstract protected function getParam(array $data): string;
+	protected function getParamId(array $data): string
+	{
+		return 'pid_' . md5(static::class . ($data['comparator'] ?? '') . $this->property);
+	}
 }

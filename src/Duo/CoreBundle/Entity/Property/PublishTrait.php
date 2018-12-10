@@ -141,7 +141,7 @@ trait PublishTrait
 	{
 		$now = new \DateTime();
 
-		return ($this->publishAt !== null && $this->publishAt <= $now) &&
+		return $this->publishAt !== null && $this->publishAt <= $now &&
 			($this->unpublishAt === null || $this->unpublishAt > $now);
 	}
 

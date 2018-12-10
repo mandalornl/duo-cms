@@ -18,26 +18,22 @@ class OnlineFilter extends AbstractFilter
 			return;
 		}
 
-		$param = $this->getParam($data);
+		$pid = $this->getParamId($data);
 
-		if (!(int)$data['value'])
-		{
-			$builder
-				->andWhere(
-					"({$this->alias}.publishAt IS NULL OR {$this->alias}.publishAt > :{$param}) OR " .
-					"({$this->alias}.unpublishAt IS NOT NULL AND {$this->alias}.unpublishAt <= :{$param})"
-				);
-		}
-		else
-		{
-			$builder
-				->andWhere(
-					"{$this->alias}.publishAt IS NOT NULL AND {$this->alias}.publishAt <= :{$param} AND " .
-					"({$this->alias}.unpublishAt IS NULL OR {$this->alias}.unpublishAt > :{$param})"
-				);
-		}
+		$expression = <<<SQL
+(
+    {$this->alias}.publishAt IS NOT NULL AND 
+    {$this->alias}.publishAt <= :{$pid} AND 
+    (
+    	{$this->alias}.unpublishAt IS NULL OR 
+    	{$this->alias}.unpublishAt > :{$pid}
+    )
+)
+SQL;
 
-		$builder->setParameter($param, new \DateTime());
+		$builder
+			->andWhere((!(int)$data['value'] ? 'NOT ' : '') . $expression)
+			->setParameter($pid, new \DateTime());
 	}
 
 	/**
@@ -46,13 +42,5 @@ class OnlineFilter extends AbstractFilter
 	public function getFormType(): string
 	{
 		return OnlineFilterType::class;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getParam(array $data): string
-	{
-		return 'online_' . md5($this->property);
 	}
 }

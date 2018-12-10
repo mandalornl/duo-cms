@@ -44,7 +44,8 @@
 						id: entity.id,
 						name: entity | trim,
 						mimeType: entity.mimeType,
-						eventType: type
+						eventType: type,
+						url: entity.url
 					} %}
 					{% if 'image/' in entity.mimeType %}
 						{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
