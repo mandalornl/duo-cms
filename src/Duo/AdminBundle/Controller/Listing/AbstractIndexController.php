@@ -87,12 +87,12 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function modalIframeAction(Request $request): JsonResponse
 	{
-		return $this->json(
-			$this->renderView('@DuoAdmin/Listing/Modal/iframe.html.twig', [
+		return $this->json([
+			'html' => $this->renderView('@DuoAdmin/Listing/Modal/iframe.html.twig', [
 				'type' => $this->getType(),
 				'routePrefix' => $this->getRoutePrefix()
 			])
-		);
+		]);
 	}
 
 	/**
@@ -432,7 +432,7 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function addFilter(FilterInterface $filter)
 	{
-		$this->getFilters()->set($filter->getHash(), $filter);
+		$this->getFilters()->set($filter->getUid(), $filter);
 
 		return $this;
 	}
@@ -446,7 +446,7 @@ abstract class AbstractIndexController extends AbstractController
 	 */
 	public function removeFilter(FilterInterface $filter)
 	{
-		$this->getFilters()->remove($filter->getHash());
+		$this->getFilters()->remove($filter->getUid());
 
 		return $this;
 	}

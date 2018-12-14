@@ -13,7 +13,10 @@ trait CloneTrait
 	{
 		$reflectionClass = new \ReflectionClass($this);
 
-		foreach ($reflectionClass->getMethods(\ReflectionMethod::IS_PROTECTED) as $reflectionMethod)
+		foreach ($reflectionClass->getMethods(
+			\ReflectionMethod::IS_PROTECTED |
+			\ReflectionMethod::IS_PRIVATE
+		) as $reflectionMethod)
 		{
 			if (strpos($reflectionMethod->getName(), 'onClone') !== 0)
 			{

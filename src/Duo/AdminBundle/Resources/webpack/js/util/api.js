@@ -6,77 +6,42 @@ import {extend} from 'lodash';
  *
  * @param {string} method
  *
- * @returns {Function}
+ * @returns {function(string=, *=): Promise<Response>}
  */
-const call = method => async (url, data = null) =>
+const call = method => (url, data = null) =>
 {
-	let options = {
-		headers: {
-			accept: 'application/json'
-		},
+	if (method === 'GET')
+	{
+		url += (data ? `?${stringify(data)}` : '');
+	}
+
+	return fetch(url, {
+		headers: Object.assign({}, {
+			'accept': 'application/json'
+		}, data instanceof FormData ? {} : {
+			'content-type': 'application/json; charset=utf-8'
+		}),
+		method: method,
 		credentials: 'same-origin',
-		method: method
-	};
-
-	switch (method)
+		body: method === 'GET' ?
+			null :
+			data instanceof FormData ?
+				data :
+				JSON.stringify(data)
+	}).then(res =>
 	{
-		case 'GET':
-			url += (data ? `?${stringify(data)}` : '');
-
-			options = extend({}, options, {
-				headers: {
-					'content-type': 'application/json'
-				}
-			});
-			break;
-
-		default:
-			options = extend({}, options, (() =>
-			{
-				if (data instanceof FormData)
-				{
-					return {
-						body: data
-					};
-				}
-
-				return {
-					headers: {
-						'content-type': 'application/json'
-					},
-					body: data ? JSON.stringify(data) : null
-				}
-			})());
-	}
-
-	try
-	{
-		const response = await fetch(url, options);
-
-		if (response.status !== 200)
+		if (!res.ok && res.status !== 400)
 		{
-			console.error('Fetch error, resulted with status code: %s', response.status);
-
-			return null;
+			throw new Error(`Fetch error, resulted with: ${res.status} (${res.statusText}).`);
 		}
 
-		const result = (await response.json());
-
-		if (result.error)
-		{
-			console.error(result.error);
-
-			return null;
-		}
-
-		return result;
-	}
-	catch (err)
+		return res.json();
+	}).catch(err =>
 	{
 		console.error(err);
 
 		return null;
-	}
+	});
 };
 
 /**
@@ -96,40 +61,43 @@ const uploadFile = (url, file, options = {}) => new Promise((resolve, reject) =>
 		onUploadProgress: (e) => {}
 	}, options);
 
-	const params = extend(options.params, {
+	const params = Object.assign({}, options.params, {
 		filename: file.name,
 		mimeType: file.type,
 		size: file.size
 	});
 
-	const xhr = new XMLHttpRequest();
-	xhr.open('PUT', `${url}?${stringify(params)}`);
-	xhr.setRequestHeader('content-type', 'application/octet-stream');
-	xhr.upload.addEventListener('load', options.onUploadComplete);
-	xhr.upload.addEventListener('progress', options.onUploadProgress);
-	xhr.addEventListener('error', reject);
-	xhr.addEventListener('load', () =>
+	const req = new XMLHttpRequest();
+	req.open('PUT', `${url}?${stringify(params)}`);
+	req.setRequestHeader('content-type', 'application/octet-stream');
+	req.addEventListener('error', reject);
+	req.addEventListener('load', () =>
 	{
 		try
 		{
-			const response = JSON.parse(xhr.responseText);
+			const res = JSON.parse(req.responseText);
 
-			if (response.error)
+			if (res.error)
 			{
-				reject(response.error);
+				reject(res.error);
 
 				return;
 			}
 
-			resolve(response);
+			resolve(res);
 		}
-		catch (err)
+		catch (error)
 		{
-			reject(err);
+			reject(error);
 		}
 	});
 
-	xhr.send(file);
+	req.upload.addEventListener('load', options.onUploadComplete);
+	req.upload.addEventListener('progress', options.onUploadProgress);
+
+	req.withCredentials = true;
+
+	req.send(file);
 });
 
 module.exports = {

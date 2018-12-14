@@ -104,9 +104,9 @@ interface FilterInterface
 	public function getFormType(): string;
 
 	/**
-	 * Get hash
+	 * Get uid
 	 *
 	 * @return string
 	 */
-	public function getHash(): string;
+	public function getUid(): string;
 }

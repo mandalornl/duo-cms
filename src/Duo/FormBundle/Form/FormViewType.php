@@ -32,8 +32,8 @@ class FormViewType extends AbstractType
 			if ($formPart instanceof TextFormPartInterface)
 			{
 				$formOptions = array_replace_recursive($formOptions, [
-					'required' => $formPart->getRequired(),
-					'constraints' => $formPart->getRequired() ? [
+					'required' => $formPart->isRequired(),
+					'constraints' => $formPart->isRequired() ? [
 						$formPart->getErrorMessage() ? new NotBlank([
 							'message' => $formPart->getErrorMessage()
 						]) : new NotBlank()
@@ -52,7 +52,7 @@ class FormViewType extends AbstractType
 				$formOptions = array_replace_recursive($formOptions, [
 					'placeholder' => $formPart->getPlaceholder(),
 					'choices' => $choices,
-					'constraints' => $formPart->getRequired() ? [
+					'constraints' => $formPart->isRequired() ? [
 						$formPart->getErrorMessage() ? new Choice([
 							'choices' => $choices,
 							'message' => $formPart->getErrorMessage()
@@ -60,8 +60,8 @@ class FormViewType extends AbstractType
 							'choices' => $choices
 						])
 					] : null,
-					'expanded' => $formPart->getExpanded(),
-					'multiple' => $formPart->getMultiple()
+					'expanded' => $formPart->isExpanded(),
+					'multiple' => $formPart->isMultiple()
 				]);
 			}
 

@@ -51,11 +51,11 @@ class PrivacyFormPart extends AbstractFormPart
 	}
 
 	/**
-	 * Get required
+	 * Is required
 	 *
 	 * @return bool
 	 */
-	public function getRequired(): bool
+	public function isRequired(): bool
 	{
 		return $this->required;
 	}
@@ -122,7 +122,7 @@ class PrivacyFormPart extends AbstractFormPart
 	public function getFormOptions(): array
 	{
 		return [
-			'constraints' => $this->getRequired() ? [
+			'constraints' => $this->isRequired() ? [
 				$this->getErrorMessage() ? new IsTrue([
 					'message' => $this->getErrorMessage()
 				]) : new IsTrue()

@@ -112,7 +112,7 @@ class Field implements FieldInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSortable(): bool
+	public function isSortable(): bool
 	{
 		return $this->sortable;
 	}

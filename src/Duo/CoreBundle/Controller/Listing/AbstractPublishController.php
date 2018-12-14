@@ -46,7 +46,6 @@ abstract class AbstractPublishController extends AbstractController
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
-				'success' => true,
 				'id' => $entity->getId(),
 				'message' => $this->get('translator')->trans('duo.admin.publish_success', [], 'flashes')
 			]);
@@ -102,7 +101,6 @@ abstract class AbstractPublishController extends AbstractController
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
-				'success' => true,
 				'id' => $entity->getId(),
 				'message' => $this->get('translator')->trans('duo.admin.unpublish_success', [], 'flashes')
 			]);

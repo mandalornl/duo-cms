@@ -15,5 +15,7 @@
 
 - Multi domains
 
+- recaptcha
+
 #### High priority ####
 - Assocation: inversedBy (joinColumn) / mappedBy (cascade) (http://www.inanzzz.com/index.php/post/iarb/bidirectional-one-to-one-cascade-remove-and-orphan-removal-operations-in-doctrine)

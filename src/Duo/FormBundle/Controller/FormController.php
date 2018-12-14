@@ -2,7 +2,6 @@
 
 namespace Duo\FormBundle\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Duo\AdminBundle\Helper\MailerHelper;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
@@ -50,7 +49,8 @@ class FormController extends Controller
 		if ($entity === null)
 		{
 			return $this->json([
-				'error' => "Entity '{$className}::{$uuid}' not found"
+				'error' => "Entity '{$className}::{$uuid}' not found",
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
 			]);
 		}
 
@@ -62,7 +62,8 @@ class FormController extends Controller
 			$error = "Entity '{$className}::{$uuid}' doesn't implement '{$interface}'";
 
 			return $this->json([
-				'error' => $error
+				'error' => $error,
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
 			]);
 		}
 
@@ -128,7 +129,6 @@ class FormController extends Controller
 			}
 
 			return $this->json([
-				'success' => true,
 				'message' => $translation->getMessage(),
 				'url' => $entity->getPage() !== null ? $this->generateUrl('_url', [
 					'url' => $entity->getPage()->translate($request->getLocale())->getUrl(),
@@ -150,7 +150,7 @@ class FormController extends Controller
 	 * @param Request $request
 	 * @param Form $entity
 	 *
-	 * @return ArrayCollection
+	 * @return Collection
 	 */
 	private function getFormParts(Request $request, Form $entity): ?Collection
 	{

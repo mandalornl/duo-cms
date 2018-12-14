@@ -81,11 +81,11 @@ interface MenuInterface
 	public function setActive(bool $active): MenuInterface;
 
 	/**
-	 * Get active
+	 * Is active
 	 *
 	 * @return bool
 	 */
-	public function getActive(): bool;
+	public function isActive(): bool;
 
 	/**
 	 * Set parent

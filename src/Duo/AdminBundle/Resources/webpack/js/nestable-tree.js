@@ -135,10 +135,10 @@ export default ($ =>
 
 							const res = await get($folder.data('url'));
 
+							loader.hide();
+
 							if (!res.html)
 							{
-								loader.hide();
-
 								return;
 							}
 
@@ -153,8 +153,6 @@ export default ($ =>
 									onSortUpdate: onSortUpdate
 								});
 							}
-
-							loader.hide();
 						}
 
 						$list.removeClass('d-none');

@@ -45,8 +45,8 @@ a
 .loading
 {
 	@include loading((
-			color: theme-color('primary'),
-			'z-index': 2000
+		color: theme-color('primary'),
+		'z-index': 2000
 	));
 }
 

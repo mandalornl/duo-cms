@@ -383,7 +383,8 @@ abstract class AbstractSortController extends AbstractController
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
-				'error' => $error
+				'error' => $error,
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
 			]);
 		}
 

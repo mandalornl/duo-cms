@@ -42,9 +42,9 @@ interface PageTranslationInterface extends TranslationInterface,
 	public function setVisibleMenu(bool $visibleMenu): PageTranslationInterface;
 
 	/**
-	 * Get visibleMenu
+	 * Is visibleMenu
 	 *
 	 * @return bool
 	 */
-	public function getVisibleMenu(): bool;
+	public function isVisibleMenu(): bool;
 }

@@ -19,11 +19,11 @@ abstract class AbstractPartController extends Controller
 	{
 		$form = $this->createForm($this->getFormType());
 
-		return $this->json(
-			$this->renderView('@DuoPart/Modal/prototype.html.twig', [
+		return $this->json([
+			'html' => $this->renderView('@DuoPart/Modal/prototype.html.twig', [
 				'form' => $form->createView()
 			])
-		);
+		]);
 	}
 
 	/**

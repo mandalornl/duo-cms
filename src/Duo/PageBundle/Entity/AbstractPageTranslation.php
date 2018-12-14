@@ -72,7 +72,7 @@ class AbstractPageTranslation implements PageTranslationInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getVisibleMenu(): bool
+	public function isVisibleMenu(): bool
 	{
 		return $this->visibleMenu;
 	}

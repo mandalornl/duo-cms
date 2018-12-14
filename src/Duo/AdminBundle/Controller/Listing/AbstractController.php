@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
@@ -47,7 +48,7 @@ abstract class AbstractController extends Controller
 	 */
 	protected function entityNotFound(Request $request, int $id, string $className = null): JsonResponse
 	{
-		$className = $className ?: $this->getEntityClass();
+		$className = $className ?: $this->getEntityReflectionClass()->getName();
 
 		$error = "Entity '{$className}::{$id}' not found";
 
@@ -55,8 +56,9 @@ abstract class AbstractController extends Controller
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
-				'error' => $error
-			]);
+				'error' => $error,
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+			], Response::HTTP_BAD_REQUEST);
 		}
 
 		throw $this->createNotFoundException($error);
@@ -79,7 +81,7 @@ abstract class AbstractController extends Controller
 		string $className = null
 	): JsonResponse
 	{
-		$className = $className ?: $this->getEntityClass();
+		$className = $className ?: $this->getEntityReflectionClass()->getName();
 
 		$error = "Entity '{$className}::{$id}' doesn't implement '{$interfaceName}'";
 
@@ -87,8 +89,9 @@ abstract class AbstractController extends Controller
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
-				'error' => $error
-			]);
+				'error' => $error,
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+			], Response::HTTP_BAD_REQUEST);
 		}
 
 		throw $this->createNotFoundException($error);

@@ -65,11 +65,11 @@ class Redirect implements IdInterface, TimestampInterface
 	}
 
 	/**
-	 * Get active
+	 * Is active
 	 *
 	 * @return bool
 	 */
-	public function getActive(): bool
+	public function isActive(): bool
 	{
 		return $this->active;
 	}
@@ -89,11 +89,11 @@ class Redirect implements IdInterface, TimestampInterface
 	}
 
 	/**
-	 * Get permanent
+	 * Is permanent
 	 *
 	 * @return bool
 	 */
-	public function getPermanent(): bool
+	public function isPermanent(): bool
 	{
 		return $this->permanent;
 	}

@@ -42,7 +42,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getExpanded(): bool
+	public function isExpanded(): bool
 	{
 		return $this->expanded;
 	}
@@ -60,7 +60,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMultiple(): bool
+	public function isMultiple(): bool
 	{
 		return $this->multiple;
 	}

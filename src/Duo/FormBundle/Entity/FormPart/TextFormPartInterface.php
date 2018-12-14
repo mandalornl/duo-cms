@@ -14,11 +14,11 @@ interface TextFormPartInterface extends FormPartInterface
 	public function setRequired(bool $required): TextFormPartInterface;
 
 	/**
-	 * Get required
+	 * Is required
 	 *
 	 * @return bool
 	 */
-	public function getRequired(): bool;
+	public function isRequired(): bool;
 
 	/**
 	 * Set placeholder

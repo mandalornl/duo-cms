@@ -14,11 +14,11 @@ interface ChoiceFormPartInterface extends TextFormPartInterface
 	public function setExpanded(bool $expanded): ChoiceFormPartInterface;
 
 	/**
-	 * Get expanded
+	 * Is expanded
 	 *
 	 * @return bool
 	 */
-	public function getExpanded(): bool;
+	public function isExpanded(): bool;
 
 	/**
 	 * Set multiple
@@ -30,11 +30,11 @@ interface ChoiceFormPartInterface extends TextFormPartInterface
 	public function setMultiple(bool $multiple): ChoiceFormPartInterface;
 
 	/**
-	 * Get multiple
+	 * Is multiple
 	 *
 	 * @return bool
 	 */
-	public function getMultiple(): bool;
+	public function isMultiple(): bool;
 
 	/**
 	 * Set choices

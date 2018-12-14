@@ -40,7 +40,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getRequired(): bool
+	public function isRequired(): bool
 	{
 		return $this->required;
 	}

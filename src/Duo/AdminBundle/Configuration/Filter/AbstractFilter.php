@@ -136,7 +136,7 @@ abstract class AbstractFilter implements FilterInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getHash(): string
+	public function getUid(): string
 	{
 		return md5(static::class . $this->property);
 	}

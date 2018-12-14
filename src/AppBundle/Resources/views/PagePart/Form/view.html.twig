@@ -1,4 +1,4 @@
 {% if part.form %}
 	{% set form = part.form %}
-	<div class="form-pp loading" data-id="{{ form.id }}"></div>
+	<div class="form-pp" data-url="{{ path('duo_form_view', { uuid: form.uuid, locale: app.request.locale }) }}"></div>
 {% endif %}

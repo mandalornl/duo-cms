@@ -13,7 +13,7 @@ class RedirectLoader extends Loader
 	/**
 	 * @var bool
 	 */
-	private $isLoaded;
+	private $loaded;
 
 	/**
 	 * @var RedirectRepository
@@ -35,14 +35,14 @@ class RedirectLoader extends Loader
 	 */
 	public function load($resource, $type = null): RouteCollection
 	{
-		if ($this->isLoaded === true)
+		if ($this->loaded === true)
 		{
 			$className = static::class;
 
 			throw new \RuntimeException("Do not add the '{$className}' loader twice");
 		}
 
-		$this->isLoaded = true;
+		$this->loaded = true;
 
 		$routes = new RouteCollection();
 
@@ -58,7 +58,7 @@ class RedirectLoader extends Loader
 			$routes->add("_redirect_{$oid}", new Route($redirect->getOrigin(), [
 				'_controller' => 'FrameworkBundle:Redirect:urlRedirect',
 				'path' => $redirect->getTarget(),
-				'permanent' => $redirect->getPermanent()
+				'permanent' => $redirect->isPermanent()
 			]));
 		}
 

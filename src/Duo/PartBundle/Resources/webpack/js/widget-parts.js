@@ -67,9 +67,9 @@ export default ($ =>
 
 					if (!$modal)
 					{
-						const html = await get(url);
+						const res = await get(url);
 
-						$modal = $(html);
+						$modal = $(res.html);
 						$modal.appendTo('body');
 
 						modals[url] = $modal;

@@ -30,7 +30,7 @@ class EmailFormPart extends AbstractTextFormPart
 	{
 		return [
 			'constraints' => [
-				$this->getRequired() ? ($this->getErrorMessage() ? new NotBlank([
+				$this->isRequired() ? ($this->getErrorMessage() ? new NotBlank([
 					'message' => $this->getErrorMessage()
 				]) : new NotBlank()) : new Length([
 					'min' => 0

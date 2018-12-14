@@ -66,7 +66,6 @@ abstract class AbstractCreateController extends AbstractController
 			if ($request->getRequestFormat() === 'json')
 			{
 				return $this->json([
-					'success' => true,
 					'id' => $entity->getId(),
 					'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
 				]);

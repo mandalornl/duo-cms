@@ -64,11 +64,11 @@ interface FieldInterface
 	public function setSortable(bool $sortable): FieldInterface;
 
 	/**
-	 * Get sortable
+	 * Is sortable
 	 *
 	 * @return bool
 	 */
-	public function getSortable(): bool;
+	public function isSortable(): bool;
 
 	/**
 	 * Set template

@@ -131,11 +131,11 @@ interface UserInterface extends IdInterface,
 	public function setActive(bool $active): UserInterface;
 
 	/**
-	 * Get active
+	 * Is active
 	 *
 	 * @return bool
 	 */
-	public function getActive(): bool;
+	public function isActive(): bool;
 
 	/**
 	 * Add group

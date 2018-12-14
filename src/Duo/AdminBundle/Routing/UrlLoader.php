@@ -12,7 +12,7 @@ class UrlLoader extends Loader
 	/**
 	 * @var bool
 	 */
-	private $isLoaded;
+	private $loaded;
 
 	/**
 	 * @var LocaleHelper
@@ -34,14 +34,14 @@ class UrlLoader extends Loader
 	 */
 	public function load($resource, $type = null): RouteCollection
 	{
-		if ($this->isLoaded === true)
+		if ($this->loaded === true)
 		{
 			$className = static::class;
 
 			throw new \RuntimeException("Do not add the '{$className}' loader twice");
 		}
 
-		$this->isLoaded = true;
+		$this->loaded = true;
 
 		$routes = new RouteCollection();
 

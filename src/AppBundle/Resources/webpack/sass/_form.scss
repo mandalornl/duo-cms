@@ -1,0 +1,9 @@
+.form-pp.loading
+{
+	min-height: 40px;
+
+	&:before
+	{
+		content: none;
+	}
+}

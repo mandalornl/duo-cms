@@ -54,7 +54,7 @@ class MediaIndexController extends AbstractIndexController
 			->addFilter(new DateTimeFilter('createdAt', 'duo.media.listing.filter.created'))
 			->addFilter(new DateTimeFilter('modifiedAt', 'duo.media.listing.filter.modified'));
 
-		// filter images
+		// filter media type
 		if ($request->query->has('mediaType'))
 		{
 			$filter = (new StringFilter('mimeType', 'duo.media.listing.filter.type'))
@@ -70,7 +70,7 @@ class MediaIndexController extends AbstractIndexController
 			$sessionName = $this->getSessionName($request, 'filter');
 
 			$session->set($sessionName, array_merge($session->get($sessionName, []), [
-				$filter->getHash() => $filter->getData()
+				$filter->getUid() => $filter->getData()
 			]));
 
 			$this->addFilter($filter);

@@ -19,7 +19,7 @@ class FilterType extends AbstractType
 			/**
 			 * @var FilterInterface $filter
 			 */
-			$builder->add($filter->getHash(), $filter->getFormType(), array_merge($filter->getFormOptions(), [
+			$builder->add($filter->getUid(), $filter->getFormType(), array_merge($filter->getFormOptions(), [
 				'label' => $filter->getLabel(),
 				'required' => false
 			]));

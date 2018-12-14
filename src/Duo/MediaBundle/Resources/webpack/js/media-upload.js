@@ -59,7 +59,7 @@ $(() =>
 					`${file.name} 0%`,
 				'</div>',
 			'</div>'
-		].join('')).appendTo($view);
+		].join('')).prependTo($view);
 
 		window.setTimeout(() => $progressBar.addClass('show'), 0);
 

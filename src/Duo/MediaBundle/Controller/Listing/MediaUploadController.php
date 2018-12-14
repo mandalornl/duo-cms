@@ -8,6 +8,7 @@ use Duo\MediaBundle\Helper\UploadHelper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,8 +37,9 @@ class MediaUploadController extends AbstractController
 		if (($tmpFile = tempnam($tmpDir, 'php')) === false)
 		{
 			return $this->json([
-				'error' => "Temp file can not be created in '{$tmpDir}'"
-			]);
+				'error' => "Temp file can not be created in '{$tmpDir}'",
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+			], Response::HTTP_BAD_REQUEST);
 		}
 
 		try
@@ -45,8 +47,9 @@ class MediaUploadController extends AbstractController
 			if (file_put_contents($tmpFile, $request->getContent()) === false)
 			{
 				return $this->json([
-					'error' => 'Unable to write temporary file'
-				]);
+					'error' => 'Unable to write temporary file',
+					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+				], Response::HTTP_BAD_REQUEST);
 			}
 
 			$file = new UploadedFile(
@@ -67,11 +70,9 @@ class MediaUploadController extends AbstractController
 			$manager->flush();
 
 			return $this->json([
-				'result' => [
-					'id' => $entity->getId(),
-					'name' => $entity->getName(),
-					'url' => $entity->getUrl()
-				]
+				'id' => $entity->getId(),
+				'name' => $entity->getName(),
+				'url' => $entity->getUrl()
 			]);
 		}
 		catch (\Exception $e)
@@ -79,8 +80,9 @@ class MediaUploadController extends AbstractController
 			unlink($tmpFile);
 
 			return $this->json([
-				'error' => $e->getMessage()
-			]);
+				'error' => $e->getMessage(),
+				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+			], Response::HTTP_BAD_REQUEST);
 		}
 	}
 }

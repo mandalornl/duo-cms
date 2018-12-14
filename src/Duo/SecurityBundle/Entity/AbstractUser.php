@@ -247,7 +247,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getActive(): bool
+	public function isActive(): bool
 	{
 		return $this->active;
 	}

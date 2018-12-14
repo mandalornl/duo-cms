@@ -50,7 +50,6 @@ abstract class AbstractDuplicateController extends AbstractController
 		if ($request->getRequestFormat() === 'json')
 		{
 			return $this->json([
-				'success' => true,
 				'id' => $clone->getId(),
 				'message' => $this->get('translator')->trans('duo.admin.duplicate_success', [], 'flashes')
 			]);

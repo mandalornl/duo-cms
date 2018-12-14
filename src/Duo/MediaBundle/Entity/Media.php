@@ -19,7 +19,8 @@ use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
  * @ORM\Table(
  *     name="duo_media",
  *     indexes={
- *     	   @ORM\Index(name="IDX_URL", columns={ "url" })
+ *     	   @ORM\Index(name="IDX_URL", columns={ "url" }),
+ *     	   @ORM\Index(name="IDX_MIME_TYPE", columns={ "mime_type" })
  *	   }
  * )
  * @ORM\Entity()
