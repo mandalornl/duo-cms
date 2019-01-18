@@ -2,6 +2,6 @@
 	{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 	<img src="{{ imagine.thumb(part.media, 640) }}"
 		 class="img-fluid"
-		 {%- if part.section != 'widgets' %} srcset="{{ imagine.srcset(part.media, [640, 768, 1024, 1366]) }}" sizes="100vw"{% endif -%}
+		 {%- if part.section != 'widgets' %} srcset="{{ imagine.thumbSrcset(part.media, [640, 768, 1024, 1366]) }}" sizes="100vw"{% endif -%}
 		 {%- if part.altText %} alt="{{ part.altText }}"{% endif %}>
 {% endif %}

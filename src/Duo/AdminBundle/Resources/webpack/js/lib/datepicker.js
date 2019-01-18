@@ -6,9 +6,9 @@ require('bootstrap-datepicker/dist/css/bootstrap-datepicker3.css');
 export default ($ =>
 {
 	const NAME = 'datepicker';
-	const SELECTOR = `.${NAME}`;
+	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const defaults = {
+	const DEFAULT = {
 		calendarWeeks: true,
 		clearBtn: true,
 		format: 'dd-mm-yyyy'
@@ -35,8 +35,6 @@ export default ($ =>
 		 */
 		init: (selector, options = {}) =>
 		{
-			options = Object.assign({}, defaults, options);
-
 			_$(selector).each(function()
 			{
 				const $this = $(this);
@@ -46,7 +44,9 @@ export default ($ =>
 					return;
 				}
 
-				$this.attr('placeholder', options.format).datepicker(options).data(`init.${NAME}`, true);
+				const config = Object.assign({}, DEFAULT, options);
+
+				$this.attr('placeholder', config.format).datepicker(config).data(`init.${NAME}`, true);
 			});
 		},
 
@@ -55,7 +55,10 @@ export default ($ =>
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
 		 */
-		destroy: selector => _$(selector).removeData(`init.${NAME}`).datepicker('destroy')
+		destroy: selector =>
+		{
+			_$(selector).removeData(`init.${NAME}`).datepicker('destroy');
+		}
 	};
 
 	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));

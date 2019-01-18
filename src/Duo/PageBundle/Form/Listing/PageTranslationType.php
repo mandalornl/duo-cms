@@ -20,7 +20,9 @@ class PageTranslationType extends AbstractType
 		$builder->add(
 			$builder->create('tabs', TabsType::class)
 				->add($builder->create('content', ContentTabType::class))
-				->add($builder->create('menu', MenuTabType::class))
+				->add($builder->create('menu', MenuTabType::class, [
+					'isNew' => $options['isNew']
+				]))
 				->add($builder->create('publication', PublicationTabType::class))
 				->add($builder->create('seo', SeoTabType::class))
 		);

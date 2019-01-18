@@ -5,5 +5,5 @@ imports:
 doctrine:
     orm:
         resolve_target_entities:
-            Duo\PageBundle\Entity\PageInterface: '%duo.page.entity.page%'
-            Duo\PageBundle\Entity\PageTranslationInterface: '%duo.page.entity.page_translation%'
+            Duo\PageBundle\Entity\PageInterface: '%duo.page.entity.page_class%'
+            Duo\PageBundle\Entity\PageTranslationInterface: '%duo.page.entity.page_translation_class%'

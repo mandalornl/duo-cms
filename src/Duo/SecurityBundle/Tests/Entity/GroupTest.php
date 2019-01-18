@@ -62,7 +62,7 @@ class GroupTest extends TestCase
 		$role = $this->getRole();
 		$this->entity->addRole($role);
 
-		$roles = $this->entity->getRoles(true);
+		$roles = $this->entity->getRolesFlattened();
 		$this->assertEquals(['ROLE_TEST'], $roles);
 		$this->assertNotEquals(['ROLE_FOOBAR'], $roles);
 	}
@@ -76,10 +76,10 @@ class GroupTest extends TestCase
 		$role = $this->getRole();
 		$this->entity->addRole($role);
 
-		$this->assertEquals(['ROLE_TEST'], $this->entity->getRoles(true));
+		$this->assertEquals(['ROLE_TEST'], $this->entity->getRolesFlattened());
 
 		$this->entity->removeRole($role);
-		$this->assertNotEquals(['ROLE_TEST'], $this->entity->getRoles(true));
+		$this->assertNotEquals(['ROLE_TEST'], $this->entity->getRolesFlattened());
 	}
 
 	/**

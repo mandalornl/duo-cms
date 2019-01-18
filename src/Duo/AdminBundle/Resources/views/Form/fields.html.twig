@@ -1,3 +1,4 @@
+{% use 'bootstrap_base_layout.html.twig' %}
 {% use 'bootstrap_4_layout.html.twig' %}
 
 {# Rows #}
@@ -46,7 +47,7 @@
 {% block choice_widget_collapsed -%}
 	{%- set attr = attr | merge({ class: (attr.class | default('') ~ ' custom-select') | trim }) -%}
 	{% if multiple %}
-		{%- set attr = attr | merge({ class: (attr.class | default('') ~ ' select2') | trim }) -%}
+		{%- set attr = attr | merge({ 'data-init': 'select2' }) -%}
 	{% endif %}
 	{{- parent() -}}
 {%- endblock choice_widget_collapsed %}
@@ -63,7 +64,7 @@
 
 {% block date_widget -%}
 	{%- if widget == 'single_text' %}
-		{%- set attr = attr | merge({ class: (attr.class | default('') ~ ' datepicker') | trim }) -%}
+		{%- set attr = attr | merge({ 'data-init': 'datepicker' }) -%}
 	{%- else -%}
 		{%- if not valid -%}
 			{% set attr = attr | merge({ class: (attr.class | default('') ~ ' form-control is-invalid') | trim }) -%}
@@ -192,7 +193,8 @@
 	{% set attr = attr | merge({
 		'data-url': remotePath,
 		'data-placeholder': placeholder | trans,
-		class: (attr.class | default('') ~ ' custom-select autocomplete') | trim
+		'data-init': 'autocomplete',
+		class: (attr.class | default('') ~ ' custom-select') | trim
 	}) %}
 	<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
 		{% if value is iterable %}
@@ -203,6 +205,11 @@
 			{% endfor %}
 		{% endif %}
 	</select>
+{% endblock %}
+
+{% block duo_wysiwyg_widget %}
+	{% set attr = attr | merge({ 'data-init': 'wysiwyg' }) %}
+	{{- block('textarea_widget') -}}
 {% endblock %}
 
 {% block duo_filter_row %}

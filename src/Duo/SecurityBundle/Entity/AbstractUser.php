@@ -71,9 +71,9 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * @var \DateTimeInterface
 	 *
-	 * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+	 * @ORM\Column(name="password_token_requested_at", type="datetime", nullable=true)
 	 */
-    protected $passwordRequestedAt;
+    protected $passwordTokenRequestedAt;
 
 	/**
 	 * @var int
@@ -211,9 +211,9 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): UserInterface
+	public function setPasswordTokenRequestedAt(?\DateTimeInterface $passwordTokenRequestedAt): UserInterface
 	{
-		$this->passwordRequestedAt = $passwordRequestedAt;
+		$this->passwordTokenRequestedAt = $passwordTokenRequestedAt;
 
 		return $this;
 	}
@@ -221,9 +221,9 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getPasswordRequestedAt(): ?\DateTimeInterface
+	public function getPasswordTokenRequestedAt(): ?\DateTimeInterface
 	{
-		return $this->passwordRequestedAt;
+		return $this->passwordTokenRequestedAt;
 	}
 
 	/**
@@ -292,7 +292,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 			/**
 			 * @var GroupInterface $group
 			 */
-			$roles = array_merge($roles, $group->getRoles(true));
+			$roles = array_merge($roles, $group->getRolesFlattened());
 		}
 
 		return $roles;

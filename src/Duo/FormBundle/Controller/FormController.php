@@ -13,6 +13,7 @@ use Duo\FormBundle\Form\FormViewType;
 use Duo\PartBundle\Entity\Property\PartInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,7 @@ class FormController extends Controller
 	 * @Route("/{uuid}", name="view", methods={ "GET", "POST" })
 	 *
 	 * @param Request $request
+	 * @param FormFactoryInterface $formFactory
 	 * @param MailerHelper $mailerHelper
 	 * @param string $uuid
 	 *
@@ -35,7 +37,12 @@ class FormController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	public function viewAction(Request $request, MailerHelper $mailerHelper, string $uuid): Response
+	public function viewAction(
+		Request $request,
+		FormFactoryInterface $formFactory,
+		MailerHelper $mailerHelper,
+		string $uuid
+	): Response
 	{
 		$className = Form::class;
 
@@ -67,7 +74,7 @@ class FormController extends Controller
 			]);
 		}
 
-		$form = $this->createForm(FormViewType::class, null, [
+		$form = $formFactory->createNamed('form_' . $entity->getUuid(), FormViewType::class, null, [
 			'action' => $this->generateUrl('duo_form_view', [
 				'uuid' => $entity->getUuid(),
 				'locale' => $request->getLocale()
@@ -130,7 +137,7 @@ class FormController extends Controller
 
 			return $this->json([
 				'message' => $translation->getMessage(),
-				'url' => $entity->getPage() !== null ? $this->generateUrl('_url', [
+				'redirect' => $entity->getPage() !== null ? $this->generateUrl('_url', [
 					'url' => $entity->getPage()->translate($request->getLocale())->getUrl(),
 					'_locale' => $request->getLocale()
 				]) : null

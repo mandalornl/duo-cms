@@ -40,4 +40,25 @@ trait TaxonomyTrait
 	{
 		return $this->taxonomies = $this->taxonomies ?: new ArrayCollection();
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getTaxonomiesSorted(string $locale = null): array
+	{
+		/**
+		 * @var \ArrayIterator $iterator
+		 */
+		$iterator = $this->getTaxonomies()->getIterator();
+
+		$iterator->uasort(function(Taxonomy $a, Taxonomy $b) use ($locale)
+		{
+			return strnatcasecmp(
+				$a->translate($locale)->getName(),
+				$b->translate($locale)->getName()
+			);
+		});
+
+		return $iterator->getArrayCopy();
+	}
 }

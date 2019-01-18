@@ -49,21 +49,21 @@ class TaxonomySubscriber implements EventSubscriber
 		if (!$classMetadata->hasAssociation('taxonomies'))
 		{
 			$classMetadata->mapManyToMany([
-				'fieldName' => 'taxonomies',
-				'fetch' => ClassMetadata::FETCH_LAZY,
-				'targetEntity' => Taxonomy::class,
-				'cascade' => ['persist'],
-				'joinTable' => [
-					'name' => "{$classMetadata->getTableName()}_to_taxonomy",
-					'joinColumns' => [[
-						'name' => 'entity_id',
-						'referenceColumnName' => 'id',
-						'onDelete' => 'CASCADE'
+				'fieldName' 	=> 'taxonomies',
+				'fetch' 		=> ClassMetadata::FETCH_LAZY,
+				'targetEntity' 	=> Taxonomy::class,
+				'cascade' 		=> ['persist'],
+				'joinTable' 	=> [
+					'name' 					=> "{$classMetadata->getTableName()}_to_taxonomy",
+					'joinColumns' 			=> [[
+						'name' 					=> 'entity_id',
+						'referenceColumnName' 	=> 'id',
+						'onDelete' 				=> 'CASCADE'
 					]],
-					'inverseJoinColumns' => [[
-						'name' => 'taxonomy_id',
-						'referenceColumnName' => 'id',
-						'onDelete' => 'CASCADE'
+					'inverseJoinColumns' 	=> [[
+						'name' 					=> 'taxonomy_id',
+						'referenceColumnName' 	=> 'id',
+						'onDelete' 				=> 'CASCADE'
 					]]
 				]
 			]);

@@ -43,13 +43,13 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 			if ($locale !== null)
 			{
 				$builder
-					->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
+					->join('e.translations', 't', Join::WITH, 't.locale = :locale')
 					->setParameter('locale', $locale);
 			}
 			// or all
 			else
 			{
-				$builder->join('e.translations', 't', Join::WITH, 't.entity = e');
+				$builder->join('e.translations', 't');
 			}
 
 			$translationReflectionClass = $this->getEntityManager()
@@ -74,8 +74,10 @@ abstract class AbstractEntityRepository extends ServiceEntityRepository
 	 */
 	private function andWherePublished(QueryBuilder $builder, string $alias = 'e'): void
 	{
+		$pid = uniqid('now_');
+
 		$builder
-			->andWhere("({$alias}.publishAt <= :now AND ({$alias}.unpublishAt > :now OR {$alias}.unpublishAt IS NULL))")
-			->setParameter('now', new \DateTime());
+			->andWhere("({$alias}.publishAt <= :{$pid} AND ({$alias}.unpublishAt > :{$pid} OR {$alias}.unpublishAt IS NULL))")
+			->setParameter($pid, new \DateTime());
 	}
 }

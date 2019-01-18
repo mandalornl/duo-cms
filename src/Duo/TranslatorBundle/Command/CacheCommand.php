@@ -17,11 +17,13 @@ class CacheCommand extends ContainerAwareCommand
 	{
 		$this
 			->setName('duo:translator:cache')
-			->addOption('clear', 'c', InputOption::VALUE_NONE, 'Clear translation cache.');
+			->addOption('clear', null, InputOption::VALUE_NONE, 'Clear translation cache.');
 	}
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @throws \Exception
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{

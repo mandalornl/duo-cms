@@ -6,7 +6,7 @@ use Duo\AdminBundle\Form\Filter\AbstractFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class OnlineFilterType extends AbstractFilterType
+class PublishedFilterType extends AbstractFilterType
 {
 	/**
 	 * {@inheritdoc}

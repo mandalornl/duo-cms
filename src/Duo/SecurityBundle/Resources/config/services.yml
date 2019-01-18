@@ -21,6 +21,6 @@ services:
             - { name: doctrine.event_subscriber }
 
     duo.security.entity.user:
-        class: '%duo.security.entity.user%'
+        class: '%duo.security.entity.user_class%'
 
     Duo\SecurityBundle\Entity\UserInterface: '@duo.security.entity.user'

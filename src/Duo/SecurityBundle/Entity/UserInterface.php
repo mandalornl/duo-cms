@@ -106,20 +106,20 @@ interface UserInterface extends IdInterface,
 	public function getPasswordToken(): ?string;
 
 	/**
-	 * Set passwordRequestedAt
+	 * Set passwordTokenRequestedAt
 	 *
-	 * @param \DateTimeInterface $passwordRequestedAt
+	 * @param \DateTimeInterface $passwordTokenRequestedAt
 	 *
 	 * @return UserInterface
 	 */
-	public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): UserInterface;
+	public function setPasswordTokenRequestedAt(?\DateTimeInterface $passwordTokenRequestedAt): UserInterface;
 
 	/**
-	 * Get passwordRequestAt
+	 * Get passwordTokenRequestAt
 	 *
 	 * @return \DateTimeInterface
 	 */
-	public function getPasswordRequestedAt(): ?\DateTimeInterface;
+	public function getPasswordTokenRequestedAt(): ?\DateTimeInterface;
 
 	/**
 	 * Set active

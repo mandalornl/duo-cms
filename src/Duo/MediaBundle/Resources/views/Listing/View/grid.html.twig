@@ -17,7 +17,7 @@
 					{% if 'image/' in entity.mimeType %}
 						{% set item = item | merge({
 							src: imagine.thumb(entity, 640),
-							srcset: imagine.srcset(entity, [640, 768, 1024])
+							srcset: imagine.thumbSrcset(entity, [640, 768, 1024])
 						}) %}
 					{% endif %}
 				{% endif %}
@@ -25,7 +25,7 @@
 				<label for="{{ checkboxId }}_{{ entity.id }}" title="{{ entity.name }}">
 					{% if 'image/' in entity.mimeType %}
 						<span class="image-preview">
-							<img src="{{ imagine.thumb(entity, 640) }}" srcset="{{ imagine.srcset(entity, [640, 768]) }}" sizes="(min-width: 992px) 25vw, (min-width: 576px) 33.33333vw, 50vw">
+							<img src="{{ imagine.thumb(entity, 640) }}" srcset="{{ imagine.thumbSrcset(entity, [640, 768]) }}" sizes="(min-width: 992px) 25vw, (min-width: 576px) 33.33333vw, 50vw" alt="{{ entity.name }}">
 						</span>
 					{% else %}
 						<span class="icon">

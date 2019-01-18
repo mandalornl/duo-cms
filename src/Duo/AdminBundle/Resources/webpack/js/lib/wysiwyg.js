@@ -1,11 +1,11 @@
 import $ from 'jquery';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import uniqid from 'duo/AdminBundle/Resources/webpack/js/util/uniqid';
+import uniqid from 'Duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
 export default ($ =>
 {
 	const NAME = 'wysiwyg';
-	const SELECTOR = `.${NAME}`;
+	const SELECTOR = `[data-init="${NAME}"]`;
 
 	const editors = {};
 
@@ -40,7 +40,20 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				ClassicEditor.create(this).then(editor =>
+				ClassicEditor.create(this, {
+					removePlugins: [
+						'EasyImage', 'Image', 'ImageCaption',
+						'ImageStyle', 'ImageToolbar', 'ImageUpload',
+						'MediaEmbed', 'CKFinderUploadAdapter'
+					],
+					toolbar: [
+						'heading', '|',
+						'bold', 'italic',
+						'bulletedList', 'numberedList',
+						'link', 'insertTable', 'blockQuote',
+						'undo', 'redo'
+					]
+				}).then(editor =>
 				{
 					if ($this.prop('disabled'))
 					{

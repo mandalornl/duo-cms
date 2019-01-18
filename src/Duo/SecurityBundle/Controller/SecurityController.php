@@ -3,6 +3,7 @@
 namespace Duo\SecurityBundle\Controller;
 
 use Duo\AdminBundle\Helper\MailerHelper;
+use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\SecurityBundle\Form\ForgotPasswordType;
 use Duo\SecurityBundle\Form\ResetPasswordType;
 use Duo\SecurityBundle\Helper\LoginHelper;
@@ -19,6 +20,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class SecurityController extends Controller
 {
+	/**
+	 * Login
+	 *
+	 * @Route("/login", name="login", methods={ "GET", "POST" })
+	 *
+	 * @param Request $request
+	 * @param AuthenticationUtils $utils
+	 *
+	 * @return Response
+	 */
+	public function loginAction(Request $request, AuthenticationUtils $utils): Response
+	{
+		return $this->render('@DuoSecurity/Form/login.html.twig', [
+			'lastUsername' => $utils->getLastUsername(),
+			'error' => $utils->getLastAuthenticationError()
+		]);
+	}
+
 	/**
 	 * Forgot password
 	 *
@@ -45,6 +64,9 @@ class SecurityController extends Controller
 		{
 			$data = $form->getData();
 
+			/**
+			 * @var UserInterface $user
+			 */
 			$user = $userRepository->findOneBy([
 				'email' => $data['email']
 			]);
@@ -54,7 +76,7 @@ class SecurityController extends Controller
 				// wait at least one hour before making a new request
 				$minimalWaitTime = (new \DateTime())->modify('-1 hour');
 
-				if ($minimalWaitTime < $user->getPasswordRequestedAt())
+				if ($minimalWaitTime < $user->getPasswordTokenRequestedAt())
 				{
 					$this->addFlash('warning', $this->get('translator')->trans('duo.security.forgot_password_wait', [], 'flashes'));
 				}
@@ -64,7 +86,7 @@ class SecurityController extends Controller
 
 					$user
 						->setPasswordToken($token)
-						->setPasswordRequestedAt(new \DateTime());
+						->setPasswordTokenRequestedAt(new \DateTime());
 
 					$manager = $this->getDoctrine()->getManager();
 					$manager->persist($user);
@@ -95,24 +117,6 @@ class SecurityController extends Controller
 	}
 
 	/**
-	 * Login
-	 *
-	 * @Route("/login", name="login", methods={ "GET", "POST" })
-	 *
-	 * @param Request $request
-	 * @param AuthenticationUtils $utils
-	 *
-	 * @return Response
-	 */
-	public function loginAction(Request $request, AuthenticationUtils $utils): Response
-	{
-		return $this->render('@DuoSecurity/Form/login.html.twig', [
-			'lastUsername' => $utils->getLastUsername(),
-			'error' => $utils->getLastAuthenticationError()
-		]);
-	}
-
-	/**
 	 * Reset password
 	 *
 	 * @Route("/reset-password/{token}", name="reset_password", methods={ "GET", "POST" })
@@ -132,13 +136,13 @@ class SecurityController extends Controller
 		UserRepository $userRepository,
 		LoginHelper $loginHelper,
 		MailerHelper $mailerHelper,
-		string $token
+		string $token = null
 	): Response
 	{
 		// redirect to password forgot form on invalid token
-		if (!$userRepository->passwordTokenExists($token))
+		if ($token === null || !$userRepository->passwordTokenExists($token))
 		{
-			$this->addFlash('danger', $this->get('translator')->trans('duo.security.reset_password_error', [], 'flashes'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo.security.reset_password_invalid_token', [], 'flashes'));
 
 			return $this->redirectToRoute('duo_security_forgot_password');
 		}
@@ -148,6 +152,9 @@ class SecurityController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid())
 		{
+			/**
+			 * @var UserInterface $user
+			 */
 			$user = $userRepository->findOneByPasswordToken($token);
 
 			if ($user !== null)
@@ -157,7 +164,7 @@ class SecurityController extends Controller
 				$user
 					->setPlainPassword($data['password'])
 					->setPasswordToken(null)
-					->setPasswordRequestedAt(null);
+					->setPasswordTokenRequestedAt(null);
 
 				$manager = $this->getDoctrine()->getManager();
 				$manager->persist($user);

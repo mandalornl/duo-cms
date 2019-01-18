@@ -25,7 +25,6 @@ class WYSIWYGType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'attr' => [
-				'class' => 'wysiwyg',
 				'rows' => 6
 			]
 		]);
@@ -37,5 +36,13 @@ class WYSIWYGType extends AbstractType
 	public function getParent(): string
 	{
 		return TextareaType::class;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getBlockPrefix(): string
+	{
+		return 'duo_wysiwyg';
 	}
 }

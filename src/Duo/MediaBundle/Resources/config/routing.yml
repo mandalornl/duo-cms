@@ -1,3 +1,6 @@
+_liip_imagine:
+    resource: '@LiipImagineBundle/Resources/config/routing.yaml'
+
 duo_media:
     resource: '@DuoMediaBundle/Controller/'
     type: annotation

@@ -3,7 +3,7 @@
 	{{- media.url | imagine_filter('thumb', { thumbnail: { size: [size, ] }} ) -}}
 {%- endmacro -%}
 
-{%- macro srcset(media, sizes = [640, 768, 1024, 1366, 1600, 1920]) -%}
+{%- macro thumbSrcset(media, sizes = [640, 768, 1024, 1366, 1600, 1920]) -%}
 	{%- for size in sizes -%}
 		{{- media.url | imagine_filter('thumb', { thumbnail: { size: [size, ] }} ) }} {{ size }}w{% if not loop.last %},{% endif -%}
 	{%- endfor -%}

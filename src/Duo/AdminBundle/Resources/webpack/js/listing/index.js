@@ -1,11 +1,11 @@
 import $ from 'jquery';
 import {parse} from 'querystring';
 
-import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
-import confirm from 'duo/AdminBundle/Resources/webpack/js/util/confirm';
-import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
+import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
+import dialog from 'Duo/AdminBundle/Resources/webpack/js/util/dialog';
+import postMessage from 'Duo/AdminBundle/Resources/webpack/js/util/post-message';
 
-($ =>
+$(() =>
 {
 	const $listing = $('.listing-index');
 
@@ -22,8 +22,8 @@ import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 
 		const $this = $(this);
 
-		await confirm({
-			selector: '#modal_confirm_delete',
+		await dialog({
+			selector: '#modal_dialog_delete',
 			title: $this.data('title') || $this.text(),
 			body: $this.data('body')
 		});
@@ -69,7 +69,7 @@ import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 
 		const $this = $(this);
 
-		await confirm({
+		await dialog({
 			title: $this.data('title') || $this.text(),
 			body: $this.data('body')
 		});
@@ -94,4 +94,4 @@ import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
 
 		location.href = this.value;
 	});
-})($);
+});

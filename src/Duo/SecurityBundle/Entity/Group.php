@@ -46,14 +46,6 @@ class Group implements GroupInterface
 	private $roles;
 
 	/**
-	 * Group constructor
-	 */
-	public function __construct()
-	{
-		$this->roles = new ArrayCollection();
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function setName(?string $name): GroupInterface
@@ -76,7 +68,7 @@ class Group implements GroupInterface
 	 */
 	public function addRole(RoleInterface $role): GroupInterface
 	{
-		$this->roles[] = $role;
+		$this->getRoles()->add($role);
 
 		return $this;
 	}
@@ -86,29 +78,28 @@ class Group implements GroupInterface
 	 */
 	public function removeRole(RoleInterface $role): GroupInterface
 	{
-		$this->roles->removeElement($role);
+		$this->getRoles()->removeElement($role);
 
 		return $this;
 	}
 
 	/**
-	 * Get roles
-	 *
-	 * @param bool $flatten [optional]
-	 *
-	 * @return ArrayCollection|array
+	 * {@inheritdoc}
 	 */
-	public function getRoles(bool $flatten = false)
+	public function getRoles(): Collection
 	{
-		if ($flatten)
-		{
-			return $this->roles->map(function(RoleInterface $role)
-			{
-				return $role->getRole();
-			})->toArray();
-		}
+		return $this->roles = $this->roles ?: new ArrayCollection();
+	}
 
-		return $this->roles;
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getRolesFlattened(): array
+	{
+		return $this->getRoles()->map(function(RoleInterface $role)
+		{
+			return $role->getRole();
+		})->toArray();
 	}
 
 	/**

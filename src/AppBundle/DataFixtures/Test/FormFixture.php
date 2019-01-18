@@ -45,6 +45,8 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 					->setSection('main')
 					->setCreatedBy($user)
 					->setChoices("Dhr\nMevr")
+					->setRequired(true)
+					->setPlaceholder('Maak een keuze')
 			)
 			->addPart(
 				(new TextFormPart())
@@ -97,6 +99,8 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 					->setSection('main')
 					->setCreatedBy($user)
 					->setChoices("Mr\nMs\nMrs")
+					->setRequired(true)
+					->setPlaceholder('Please choose')
 			)
 			->addPart(
 				(new TextFormPart())

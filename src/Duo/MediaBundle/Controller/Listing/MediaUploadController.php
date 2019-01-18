@@ -70,9 +70,12 @@ class MediaUploadController extends AbstractController
 			$manager->flush();
 
 			return $this->json([
-				'id' => $entity->getId(),
-				'name' => $entity->getName(),
-				'url' => $entity->getUrl()
+				'result' => [
+					'id' => $entity->getId(),
+					'name' => $entity->getName(),
+					'mimeType' => $entity->getMimeType(),
+					'url' => $entity->getUrl()
+				]
 			]);
 		}
 		catch (\Exception $e)

@@ -8,6 +8,7 @@ use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
 use Duo\AdminBundle\Configuration\Filter\NumericFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
 use Duo\AdminBundle\Controller\Listing\AbstractIndexController;
+use Duo\TaxonomyBundle\Configuration\Field\TaxonomyField;
 use Duo\TaxonomyBundle\Configuration\Filter\TaxonomyFilter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +33,7 @@ class MediaIndexController extends AbstractIndexController
 				(new Field('size', 'duo.media.listing.field.size'))
 					->setTemplate('@DuoMedia/Listing/Field/size.html.twig')
 			)
-			->addField(
-				(new Field('taxonomies', 'duo.media.listing.field.taxonomies'))
-					->setSortable(false)
-					->setTemplate('@DuoTaxonomy/Listing/Field/taxonomy.html.twig')
-			)
+			->addField(new TaxonomyField('taxonomies', 'duo.media.listing.field.taxonomies'))
 			->addField(new Field('createdAt', 'duo.media.listing.field.created_at'))
 			->addField(new Field('modifiedAt', 'duo.media.listing.field.modified_at'));
 	}

@@ -32,4 +32,11 @@ interface TaxonomyInterface
 	 * @return ArrayCollection
 	 */
 	public function getTaxonomies(): Collection;
+
+	/**
+	 * Get taxonomies sorted
+	 *
+	 * @return TaxonomyInterface[]
+	 */
+	public function getTaxonomiesSorted(): array;
 }

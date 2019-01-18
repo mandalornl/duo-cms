@@ -1,3 +1,6 @@
-{%- for taxonomy in entity.taxonomies | slice(0, 3) -%}
-	{{- taxonomy.translate(app.request.locale).name }}{% if not loop.last %}, {% endif -%}
-{%- endfor %}{% if entity.taxonomies | length > 3 %} ...{% endif -%}
+{% set limit = limit | default(3) %}
+{%- for taxonomy in entity.taxonomies | slice(0, limit) -%}
+	<span class="badge badge-primary{% if not loop.last %} mr-1{% endif -%}">
+		{{- taxonomy.translate(app.request.locale).name }}
+	</span>
+{%- endfor %}{% if entity.taxonomies | length > limit %} ...{% endif -%}

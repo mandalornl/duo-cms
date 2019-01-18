@@ -1,16 +1,11 @@
 duo:
     security:
         forgot_password:
-            subject: Wachtwoord vergeten
+            subject: Wachtwoord opnieuw instellen
             message: |
-                Wachtwoord opnieuw instellen.
-
                 Gebruik de onderstaande url om het wachtwoord opnieuw in te stellen:
 
                 %url%
         reset_password:
             subject: Wachtwoord opnieuw ingesteld
-            message: |
-                Wachtwoord opnieuw ingesteld.
-
-                Onlangs is je wachtwoord opnieuw ingesteld. Neem contact met ons op indien je dit niet zelf hebt gedaan.
+            message: Onlangs is je wachtwoord opnieuw ingesteld. Neem contact met ons op indien je dit niet zelf hebt gedaan.

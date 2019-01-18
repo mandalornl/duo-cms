@@ -1,14 +1,14 @@
 import $ from 'jquery';
 import sortable from 'html5sortable/dist/html5sortable.es';
 
-import uniqid from 'duo/AdminBundle/Resources/webpack/js/util/uniqid';
+import uniqid from 'Duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
 export default ($ =>
 {
 	const NAME = 'nestable';
-	const SELECTOR = `.${NAME}`;
+	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const defaults = {
+	const DEFAULT = {
 		onSortStart: (e) => {},
 		onSortStop: (e) => {},
 		onSortUpdate: (e) => {}
@@ -35,8 +35,6 @@ export default ($ =>
 		 */
 		init: (selector, options) =>
 		{
-			options = Object.assign({}, defaults, options);
-
 			_$(selector).each(function()
 			{
 				const $this = $(this);
@@ -47,6 +45,8 @@ export default ($ =>
 				}
 
 				$this.data(`init.${NAME}`, true);
+
+				const config = Object.assign({}, DEFAULT, options);
 
 				const $list = $this.find('.nestable-list:not(.nestable-async)');
 
@@ -74,17 +74,17 @@ export default ($ =>
 						$this.closest('.nestable-item').addClass('nestable-empty');
 					});
 
-					options.onSortStart(e);
+					config.onSortStart(e);
 				});
 
 				$list.on('sortstop', e =>
 				{
 					$this.find('.nestable-empty').removeClass('nestable-empty');
 
-					options.onSortStop(e);
+					config.onSortStop(e);
 				});
 
-				$list.on('sortupdate', options.onSortUpdate);
+				$list.on('sortupdate', config.onSortUpdate);
 			});
 		},
 

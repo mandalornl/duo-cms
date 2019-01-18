@@ -184,13 +184,14 @@ abstract class AbstractIndexController extends AbstractController
 		 */
 		$repository = $this->getDoctrine()->getRepository($this->getEntityClass());
 
-		$builder = $repository->createQueryBuilder('e');
+		$builder = $repository->createQueryBuilder('e')
+			->groupBy('e.id');
 
 		// join translations
 		if ($this->getEntityReflectionClass()->implementsInterface(TranslateInterface::class))
 		{
 			$builder
-				->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
+				->join('e.translations', 't', Join::WITH, 't.locale = :locale')
 				->setParameter('locale', $request->getLocale());
 		}
 
@@ -219,6 +220,7 @@ abstract class AbstractIndexController extends AbstractController
 		return (new Paginator($builder))
 			->setPage($page)
 			->setLimit($limit)
+			->setFetchJoinCollection(false)
 			->createView();
 	}
 
@@ -407,7 +409,7 @@ abstract class AbstractIndexController extends AbstractController
 			return false;
 		}
 
-		$field->applySorting($builder, $sortingData['order']);
+		$field->buildSorting($request, $builder, $sortingData['order']);
 
 		return true;
 	}
@@ -460,6 +462,13 @@ abstract class AbstractIndexController extends AbstractController
 	{
 		return $this->filters = $this->filters ?: new ArrayCollection();
 	}
+
+	/**
+	 * Define filters
+	 *
+	 * @param Request $request
+	 */
+	abstract protected function defineFilters(Request $request): void;
 
 	/**
 	 * Filter action
@@ -617,13 +626,6 @@ abstract class AbstractIndexController extends AbstractController
 	{
 		// Implement applyDefaultFilters() method
 	}
-
-	/**
-	 * Define filters
-	 *
-	 * @param Request $request
-	 */
-	abstract protected function defineFilters(Request $request): void;
 
 	/**
 	 * Search action

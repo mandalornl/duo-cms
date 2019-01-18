@@ -15,7 +15,7 @@ duo:
                 name: Naam
                 title: Titel
                 url: Url
-                online: Online
+                published: Gepubliceerd
                 created_at: Aangemaakt op
                 modified_at: Gewijzigd op
 
@@ -23,7 +23,7 @@ duo:
                 name: Naam
                 title: Titel
                 url: Url
-                online: Online
+                published: Gepubliceerd
                 taxonomies: Taxonomieën
                 created: Aangemaakt
                 modified: Gewijzigd

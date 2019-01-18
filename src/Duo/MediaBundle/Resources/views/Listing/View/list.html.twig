@@ -51,7 +51,7 @@
 						{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 						{% set item = item | merge({
 							src: imagine.thumb(entity, 640),
-							srcset: imagine.srcset(entity, [640, 768, 1024])
+							srcset: imagine.thumbSrcset(entity, [640, 768, 1024])
 						}) %}
 					{% endif %}
 				{% endif %}

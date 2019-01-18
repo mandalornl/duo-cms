@@ -5,6 +5,7 @@ namespace AppBundle\DataFixtures\Test;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 
 class TaxonomyFixture extends Fixture implements DependentFixtureInterface
@@ -19,10 +20,13 @@ class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 			return;
 		}
 
+		/**
+		 * @var UserInterface $user
+		 */
 		$user = $this->getReference('user');
 
 		foreach ([
-			'taxonomy_files' => [
+			'taxonomy-files' => [
 				'en' => 'Files',
 				'nl' => 'Bestanden'
 			]

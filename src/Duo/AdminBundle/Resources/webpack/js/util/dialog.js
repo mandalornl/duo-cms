@@ -1,8 +1,9 @@
 import $ from 'jquery';
+
 import 'bootstrap/js/dist/modal';
 
 /**
- * Confirm dialog
+ * Dialog
  *
  * @param {{}} [options]
  *
@@ -11,7 +12,7 @@ import 'bootstrap/js/dist/modal';
 export default (options = {}) => new Promise(resolve =>
 {
 	options = $.extend({}, {
-		selector: '#modal_confirm',
+		selector: '#modal_dialog',
 		title: null,
 		body: null
 	}, options);

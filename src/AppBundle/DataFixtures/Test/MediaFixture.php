@@ -39,7 +39,7 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 		/**
 		 * @var Taxonomy $taxonomy
 		 */
-		$taxonomy = $this->getReference('taxonomy_files');
+		$taxonomy = $this->getReference('taxonomy-files');
 
 		foreach ([
 			'jpg' => __DIR__ . '/example.jpg',

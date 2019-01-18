@@ -1,3 +1,3 @@
 parameters:
-    duo.page.entity.page: ~
-    duo.page.entity.page_translation: ~
+    duo.page.entity.page_class: ~
+    duo.page.entity.page_translation_class: ~

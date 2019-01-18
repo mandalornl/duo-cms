@@ -54,7 +54,7 @@ class TaxonomyFilterType extends EnumFilterType
 
 		$result = $repository->createQueryBuilder('e')
 			->select('e.id, t.name')
-			->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
+			->join('e.translations', 't', Join::WITH, 't.locale = :locale')
 			->setParameter('locale', $this->translator->getLocale())
 			->orderBy('t.name', 'ASC')
 			->getQuery()

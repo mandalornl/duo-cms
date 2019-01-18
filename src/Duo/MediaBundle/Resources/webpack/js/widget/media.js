@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
-import {get} from 'duo/AdminBundle/Resources/webpack/js/util/api';
-import * as loader from 'duo/AdminBundle/Resources/webpack/js/util/loader';
+import {get} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
+import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 
 export default ($ =>
 {

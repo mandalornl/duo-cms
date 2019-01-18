@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import confirm from 'duo/AdminBundle/Resources/webpack/js/util/confirm';
+import dialog from 'Duo/AdminBundle/Resources/webpack/js/util/dialog';
 
 $(() =>
 {
@@ -10,13 +10,13 @@ $(() =>
 		return;
 	}
 
-	$listing.on('click', '[data-modal="confirm"]', async function(e)
+	$listing.on('click', '[data-modal="dialog"]', async function(e)
 	{
 		e.preventDefault();
 
 		const $this = $(this);
 
-		await confirm({
+		await dialog({
 			title: $this.data('title') || $this.text(),
 			body: $this.data('body')
 		});

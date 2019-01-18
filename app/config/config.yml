@@ -67,6 +67,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+        dql:
+            string_functions:
+                group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+
 doctrine_migrations:
     dir_name: '%kernel.project_dir%/app/migrations'
     namespace: Duo\Migrations
@@ -87,11 +91,3 @@ swiftmailer:
 mjml:
     bin: '%kernel.project_dir%/node_modules/.bin/mjml'
     mimify: true
-
-# Liip Imagine Configuration #
-liip_imagine:
-    resolvers:
-        default:
-            web_path:
-                cache_prefix: media/cache
-    driver: imagick

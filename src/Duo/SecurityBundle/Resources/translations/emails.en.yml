@@ -3,14 +3,9 @@ duo:
         forgot_password:
             subject: Forgot password
             message: |
-                Reset password.
-
                 Use the following url to reset your password:
 
                 %url%
         reset_password:
             subject: Password reset
-            message: |
-                Password reset.
-
-                Recently your password was reset. Please contact us if you have not done this yourself.
+            message: Recently your password was reset. Please contact us if you have not done this yourself.

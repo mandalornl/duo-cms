@@ -11,3 +11,10 @@
 		</label>
 	</div>
 {% endblock %}
+
+{% block duo_honeypot_row %}
+	<div class="form-group" style="position: absolute; height: 0; overflow: hidden;">
+		{{- form_label(form) -}}
+		{{- form_widget(form) -}}
+	</div>
+{% endblock %}

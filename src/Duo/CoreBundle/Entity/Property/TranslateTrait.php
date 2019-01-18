@@ -288,7 +288,7 @@ trait TranslateTrait
 	protected function onCloneTranslations(): void
 	{
 		$translations = $this->getTranslations();
-		
+
 		$this->translations = new ArrayCollection();
 
 		foreach ($translations as $translation)

@@ -5,8 +5,8 @@ namespace Duo\PageBundle\Controller\Listing;
 use Doctrine\ORM\QueryBuilder;
 use Duo\AdminBundle\Configuration\Field\Field;
 use Duo\AdminBundle\Configuration\Filter\DateTimeFilter;
+use Duo\AdminBundle\Configuration\Filter\PublishedFilter;
 use Duo\AdminBundle\Configuration\Filter\StringFilter;
-use Duo\PageBundle\Configuration\Filter\OnlineFilter;
 use Duo\AdminBundle\Controller\Listing\AbstractIndexController;
 use Duo\TaxonomyBundle\Configuration\Filter\TaxonomyFilter;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class PageIndexController extends AbstractIndexController
 					->setTemplate('@DuoAdmin/Listing/Field/url.html.twig')
 			)
 			->addField(
-				(new Field('published', 'duo.page.listing.field.online'))
+				(new Field('publishAt', 'duo.page.listing.field.published', 't'))
 					->setSortable(false)
 					->setTemplate('@DuoAdmin/Listing/Field/published.html.twig')
 			)
@@ -50,7 +50,7 @@ class PageIndexController extends AbstractIndexController
 			->addFilter(new StringFilter('name', 'duo.page.listing.filter.name'))
 			->addFilter(new StringFilter('title', 'duo.page.listing.filter.title', 't'))
 			->addFilter(new StringFilter('url', 'duo.page.listing.filter.url', 't'))
-			->addFilter(new OnlineFilter('online', 'duo.page.listing.filter.online', 't'))
+			->addFilter(new PublishedFilter('publishAt', 'duo.page.listing.filter.published', 't'))
 			->addFilter(new TaxonomyFilter('id', 'duo.page.listing.filter.taxonomies'))
 			->addFilter(new DateTimeFilter('createdAt', 'duo.page.listing.filter.created'))
 			->addFilter(new DateTimeFilter('modifiedAt', 'duo.page.listing.filter.modified'));

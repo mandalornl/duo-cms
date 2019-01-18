@@ -41,6 +41,8 @@ class TimestampSubscriber implements EventSubscriber
 	 * On pre persist event
 	 *
 	 * @param $args
+	 *
+	 * @throws \Exception
 	 */
 	public function prePersist(LifecycleEventArgs $args): void
 	{
@@ -75,6 +77,8 @@ class TimestampSubscriber implements EventSubscriber
 	 * On pre update event
 	 *
 	 * @param PreUpdateEventArgs $args
+	 *
+	 * @throws \Exception
 	 */
 	public function preUpdate(PreUpdateEventArgs $args): void
 	{

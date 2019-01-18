@@ -55,6 +55,30 @@ class PageRepository extends AbstractEntityRepository
 	}
 
 	/**
+	 * Find on by uuid
+	 *
+	 * @param string $uuid
+	 * @param string $locale [optional]
+	 *
+	 * @return PageInterface
+	 */
+	public function findOneByUuid(string $uuid, string $locale = null): ?PageInterface
+	{
+		try
+		{
+			return $this->createDefaultQueryBuilder($locale)
+				->andWhere('e.uuid = :uuid')
+				->setParameter('uuid', $uuid)
+				->getQuery()
+				->getOneOrNullResult();
+		}
+		catch (NonUniqueResultException $e)
+		{
+			return null;
+		}
+	}
+
+	/**
 	 * Find one by url
 	 *
 	 * @param string $url

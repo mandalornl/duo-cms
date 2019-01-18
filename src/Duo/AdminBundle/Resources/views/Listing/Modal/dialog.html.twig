@@ -1,5 +1,5 @@
-{% set id = 'modal_confirm' ~ (id is defined ? '_' ~ id : '') %}
-<div id="{{ id }}" class="modal confirm fade " tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="{{ id }}_title">
+{% set id = id | default('modal_dialog') %}
+<div id="{{ id }}" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="{{ id }}_title">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

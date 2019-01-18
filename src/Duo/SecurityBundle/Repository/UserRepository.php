@@ -59,13 +59,13 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 			$tokenLifetime = (new \DateTime())->modify('-1 day');
 
 			return $this->createQueryBuilder('e')
-				->where('e.passwordToken = :token AND :tokenLifetime < e.passwordRequestedAt')
+				->where('e.passwordToken = :token AND :tokenLifetime < e.passwordTokenRequestedAt')
 				->setParameter('token', $token)
 				->setParameter('tokenLifetime', $tokenLifetime)
 				->getQuery()
 				->getOneOrNullResult();
 		}
-		catch (NonUniqueResultException $e)
+		catch (NonUniqueResultException | \Exception $e)
 		{
 			return null;
 		}

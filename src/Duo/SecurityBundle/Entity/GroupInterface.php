@@ -3,6 +3,7 @@
 namespace Duo\SecurityBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Duo\CoreBundle\Entity\Property\IdInterface;
 use Duo\CoreBundle\Entity\Property\TimestampInterface;
 
@@ -45,9 +46,14 @@ interface GroupInterface extends IdInterface, TimestampInterface
 	/**
 	 * Get roles
 	 *
-	 * @param bool $flatten [optional]
-	 *
-	 * @return ArrayCollection|array
+	 * @return ArrayCollection
 	 */
-	public function getRoles(bool $flatten = false);
+	public function getRoles(): Collection;
+
+	/**
+	 * Get roles flattened
+	 *
+	 * @return array
+	 */
+	public function getRolesFlattened(): array;
 }

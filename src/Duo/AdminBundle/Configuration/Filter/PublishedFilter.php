@@ -1,12 +1,11 @@
 <?php
 
-namespace Duo\PageBundle\Configuration\Filter;
+namespace Duo\AdminBundle\Configuration\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Duo\AdminBundle\Configuration\Filter\AbstractFilter;
-use Duo\PageBundle\Form\Filter\OnlineFilterType;
+use Duo\PageBundle\Form\Filter\PublishedFilterType;
 
-class OnlineFilter extends AbstractFilter
+class PublishedFilter extends AbstractFilter
 {
 	/**
 	 * {@inheritdoc}
@@ -41,6 +40,6 @@ SQL;
 	 */
 	public function getFormType(): string
 	{
-		return OnlineFilterType::class;
+		return PublishedFilterType::class;
 	}
 }

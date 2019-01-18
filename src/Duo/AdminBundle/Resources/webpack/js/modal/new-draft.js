@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
+
+import doNotLeave from 'Duo/AdminBundle/Resources/webpack/js/util/donotleave';
 
 ($ =>
 {

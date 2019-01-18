@@ -21,7 +21,7 @@ class FormSubmissionDestroyController extends AbstractDestroyController
 	 *     path="/destroy/{id}.{_format}",
 	 *     name="destroy",
 	 *     requirements={ "id" = "\d+", "_format" = "html|json" },
-	 *	   defaults={ "_format" = "html" },  
+	 *	   defaults={ "_format" = "html" },
 	 *     methods={ "GET", "POST" }
 	 * )
 	 */

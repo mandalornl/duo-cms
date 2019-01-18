@@ -28,27 +28,27 @@
 								{% endif %}
 								{% if entity is deletable %}
 									{%- if entity.isDeleted() -%}
-										<a href="{{ path(routePrefix ~ '_undelete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_undelete', { id: entity.id }) }}" class="dropdown-item" data-modal="dialog" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.undelete' | trans -}}
 										</a>
 									{%- else -%}
-										<a href="{{ path(routePrefix ~ '_delete', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_delete', { id: entity.id }) }}" class="dropdown-item" data-modal="dialog" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.delete' | trans -}}
 										</a>
 									{%- endif -%}
 								{% else %}
-									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-body="{{ 'duo.admin.modal.action.body_permanent' | trans }}">
+									<a href="{{ path(routePrefix ~ '_destroy', { id: entity.id }) }}" class="dropdown-item" data-modal="dialog" data-body="{{ 'duo.admin.modal.action.body_permanent' | trans }}">
 										{{- 'duo.admin.toolbar.actions.destroy' | trans -}}
 									</a>
 								{% endif %}
 								{% if entity is publishable %}
 									{% set published = entity is published %}
 									{%- if published is constant('Duo\\CoreBundle\\Entity\\Property\\PublishInterface::NONE') -%}
-										<a href="{{ path(routePrefix ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_publish', { id: entity.id }) }}" class="dropdown-item" data-modal="dialog" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.publish' | trans -}}
 										</a>
 									{%- else -%}
-										<a href="{{ path(routePrefix ~ '_unpublish', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_unpublish', { id: entity.id }) }}" class="dropdown-item" data-modal="dialog" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 											{{- 'duo.admin.toolbar.actions.unpublish' | trans -}}
 										</a>
 									{%- endif -%}
@@ -59,7 +59,7 @@
 									</a>
 								{% endif %}
 								{% if entity is duplicatable %}
-									<a href="{{ path(routePrefix ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-modal="confirm" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+									<a href="{{ path(routePrefix ~ '_duplicate', { id: entity.id }) }}" class="dropdown-item" data-modal="dialog" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 										{{- 'duo.admin.toolbar.actions.duplicate' | trans -}}
 									</a>
 								{% endif %}
@@ -102,5 +102,5 @@
 {% endblock %}
 
 {% block modal %}
-	{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' %}
+	{% include '@DuoAdmin/Listing/Modal/dialog.html.twig' %}
 {% endblock %}

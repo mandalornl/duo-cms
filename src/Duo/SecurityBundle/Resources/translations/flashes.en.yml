@@ -7,4 +7,5 @@ duo:
 
             Be sure to also check your SPAM if you haven't received this email yet.
         reset_password_error: An error occurred, please try again.
+        reset_password_invalid_token: The token is invalid. Please try again.
         reset_password_success: Your password has been successfully changed.

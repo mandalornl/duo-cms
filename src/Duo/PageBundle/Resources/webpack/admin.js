@@ -1,1 +1,1 @@
-import './js/widget-slug';
+import './js/widget/slug';

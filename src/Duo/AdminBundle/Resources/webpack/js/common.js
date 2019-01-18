@@ -6,17 +6,18 @@ import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/alert';
 import 'bootstrap/js/dist/tab';
 
-import 'duo/AdminBundle/Resources/webpack/js/checkable';
-import 'duo/AdminBundle/Resources/webpack/js/menu';
-import 'duo/AdminBundle/Resources/webpack/js/sticky-navbar';
-import 'duo/AdminBundle/Resources/webpack/js/modal-fix';
-import 'duo/AdminBundle/Resources/webpack/js/nestable-tree';
+import 'Duo/AdminBundle/Resources/webpack/js/checkable';
+import 'Duo/AdminBundle/Resources/webpack/js/menu';
+import 'Duo/AdminBundle/Resources/webpack/js/sticky-navbar';
+import 'Duo/AdminBundle/Resources/webpack/js/nestable-tree';
 
-import 'duo/AdminBundle/Resources/webpack/js/lib/datepicker';
-import 'duo/AdminBundle/Resources/webpack/js/lib/select2';
-import 'duo/AdminBundle/Resources/webpack/js/lib/maxlength';
+import 'Duo/AdminBundle/Resources/webpack/js/modal/fix';
 
-import postMessage from 'duo/AdminBundle/Resources/webpack/js/lib/post-message';
+import 'Duo/AdminBundle/Resources/webpack/js/lib/datepicker';
+import 'Duo/AdminBundle/Resources/webpack/js/lib/select2';
+import 'Duo/AdminBundle/Resources/webpack/js/lib/maxlength';
+
+import postMessage from 'Duo/AdminBundle/Resources/webpack/js/util/post-message';
 
 postMessage.on(window, e =>
 {

@@ -1,24 +1,36 @@
 import $ from 'jquery';
 import 'select2';
 
-import md from 'duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
+import md from 'Duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
 
 require('select2/dist/css/select2.css');
 require('select2-theme-bootstrap4/dist/select2-bootstrap.css');
 
-// TODO: import proper i18n
-// import 'select2/dist/js/i18n/nl';
+const locale = window.locale.slice(0, 2);
+const locales = require.context('select2/src/js/select2/i18n/', false, /\.js$/);
 
 export default ($ =>
 {
 	const NAME = 'select2';
-	const SELECTOR = `.${NAME}`;
+	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const defaults = {
+	const DEFAULT = {
 		theme: 'bootstrap',
 		width: '100%',
 		dropdownAutoWidth: true,
-		allowClear: true
+		allowClear: true,
+		forceOnTouch: false,
+		language: (() =>
+		{
+			const key = `./${locale}.js`;
+
+			if (locales.keys().indexOf(key) === -1)
+			{
+				return 'en';
+			}
+
+			return Object.assign({}, locales(key));
+		})()
 	};
 
 	/**
@@ -42,12 +54,10 @@ export default ($ =>
 		 */
 		init: (selector, options = {}) =>
 		{
-			if (md.mobile() || md.tablet())
+			if ((md.mobile() || md.tablet()) && !options.forceOnTouch)
 			{
 				return;
 			}
-
-			options = $.extend(true, {}, defaults, options);
 
 			_$(selector).each(function()
 			{
@@ -58,13 +68,12 @@ export default ($ =>
 					return;
 				}
 
-				const _options = $.extend(true, {}, {
-					language: window.locale.slice(0, 2),
+				const config = $.extend(true, {}, DEFAULT, {
 					placeholder: $this.data('placeholder') || 'Please choose',
 					minimumResultsForSearch: $this.find('option').length <= 10 ? Infinity : 10
 				}, options);
 
-				$this.select2(_options).data(`init.${NAME}`, true);
+				$this.select2(config).data(`init.${NAME}`, true);
 			});
 		},
 
@@ -73,7 +82,10 @@ export default ($ =>
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
 		 */
-		destroy: selector => _$(selector).removeData(`init.${NAME}`).select2('destroy')
+		destroy: selector =>
+		{
+			_$(selector).removeData(`init.${NAME}`).select2('destroy');
+		}
 	};
 
 	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));

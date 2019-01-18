@@ -3,6 +3,7 @@
 namespace Duo\AdminBundle\Configuration\Field;
 
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpFoundation\Request;
 
 interface FieldInterface
 {
@@ -94,17 +95,19 @@ interface FieldInterface
 	public function getHash(): string;
 
 	/**
-	 * Apply sorting
+	 * Build sorting
 	 *
+	 * @param Request $request
 	 * @param QueryBuilder $builder
 	 * @param string $order
 	 */
-	public function applySorting(QueryBuilder $builder, string $order): void;
+	public function buildSorting(Request $request, QueryBuilder $builder, string $order): void;
 
 	/**
-	 * Apply export
+	 * Build export
 	 *
+	 * @param Request $request
 	 * @param QueryBuilder $builder
 	 */
-	public function applyExport(QueryBuilder $builder): void;
+	public function buildExport(Request $request, QueryBuilder $builder): void;
 };

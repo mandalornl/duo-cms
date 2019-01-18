@@ -35,7 +35,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setName(?string $name): DraftInterface
+	public function setName(?string $name): EntityDraftInterface
 	{
 		$this->name = $name;
 
@@ -53,7 +53,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setData(?array $data): DraftInterface
+	public function setData(?array $data): EntityDraftInterface
 	{
 		$this->data = $data;
 

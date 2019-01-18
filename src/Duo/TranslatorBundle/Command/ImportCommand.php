@@ -29,8 +29,8 @@ class ImportCommand extends ContainerAwareCommand
 			->setName('duo:translator:import')
 			->setDescription('Import translator entries.')
 			->setHelp('The <info>duo:translator:import</info> command will iterate all <info>[domain].[locale].db</info> translation files and import their contents to the database.')
-			->addOption('force', 'f', InputOption::VALUE_NONE, 'Overwrite existing database entries.')
-			->addOption('clear', 'c', InputOption::VALUE_NONE, 'Remove existing entries from database.')
+			->addOption('force', null, InputOption::VALUE_NONE, 'Overwrite existing database entries.')
+			->addOption('clear', null, InputOption::VALUE_NONE, 'Remove existing entries from database.')
 			->addOption('domain', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'The domain to use, e.g. <fg=cyan>messages</>.')
 			->addOption('locale', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'The locale to use. Defaults to <fg=cyan>%locales%</>.')
 			->addOption('file', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'The file to use relative to <fg=cyan>%kernel.project_dir%</>.')
@@ -38,11 +38,13 @@ class ImportCommand extends ContainerAwareCommand
 				'app/Resources',
 				'src'
 			])
-			->addOption('batch-size', 'b', InputOption::VALUE_OPTIONAL, 'The batch size to use.', 100);
+			->addOption('batch-size', null, InputOption::VALUE_OPTIONAL, 'The batch size to use.', 100);
 	}
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @throws \Throwable
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
@@ -403,6 +405,8 @@ class ImportCommand extends ContainerAwareCommand
 	 * Get timestamp
 	 *
 	 * @return string
+	 *
+	 * @throws \Exception
 	 */
 	private function getTimestamp(): string
 	{

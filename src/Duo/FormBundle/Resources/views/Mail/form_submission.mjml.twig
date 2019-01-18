@@ -13,6 +13,10 @@
 {% block body_text %}
 	{% import _self as self %}
 	{% autoescape false %}
+		{{ 'duo.form.form_submission.subject' | trans({
+			'%form_name%': submission.name
+		}, 'emails') }}
+
 		{{ 'duo.form.form_submission.message' | trans({
 			'%submission%': self.submission(submission.data) | trim
 		}, 'emails') }}

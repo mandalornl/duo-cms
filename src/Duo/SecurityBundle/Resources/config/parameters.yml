@@ -1,2 +1,2 @@
 parameters:
-    duo.security.entity.user: ~
+    duo.security.entity.user_class: ~

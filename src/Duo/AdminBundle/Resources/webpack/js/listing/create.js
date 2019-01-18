@@ -1,16 +1,16 @@
 import $ from 'jquery';
 
-import autoComplete from 'duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
-import wysiwyg from 'duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
-import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
+import autoComplete from 'Duo/AdminBundle/Resources/webpack/js/lib/autocomplete';
+import wysiwyg from 'Duo/AdminBundle/Resources/webpack/js/lib/wysiwyg';
+import doNotLeave from 'Duo/AdminBundle/Resources/webpack/js/util/donotleave';
 
-import 'duo/AdminBundle/Resources/webpack/js/modal-new-draft';
+import 'Duo/AdminBundle/Resources/webpack/js/modal/new-draft';
 
-import 'duo/AdminBundle/Resources/webpack/js/widget-collection';
-import 'duo/AdminBundle/Resources/webpack/js/widget-file';
-import 'duo/PartBundle/Resources/webpack/js/widget-parts';
-import widgetMedia from 'duo/MediaBundle/Resources/webpack/js/widget-media';
-import widgetImageCrop from 'duo/MediaBundle/Resources/webpack/js/widget-image-crop';
+import 'Duo/AdminBundle/Resources/webpack/js/widget/collection';
+import 'Duo/AdminBundle/Resources/webpack/js/widget/file';
+import 'Duo/PartBundle/Resources/webpack/js/widget/parts';
+import media from 'Duo/MediaBundle/Resources/webpack/js/widget/media';
+import imageCrop from 'Duo/MediaBundle/Resources/webpack/js/widget/image-crop';
 
 $(() =>
 {
@@ -66,8 +66,8 @@ $(() =>
 		[
 			autoComplete,
 			wysiwyg,
-			widgetMedia,
-			widgetImageCrop
+			media,
+			imageCrop // be sure to init image crop after media widget
 		].forEach(plugin =>
 		{
 			plugin.init($item.find(plugin.SELECTOR));
@@ -86,8 +86,8 @@ $(() =>
 		[
 			autoComplete,
 			wysiwyg,
-			widgetImageCrop,
-			widgetMedia
+			imageCrop, // be sure to destroy image crop before media widget
+			media
 		].forEach(plugin =>
 		{
 			plugin.destroy($item.find(plugin.SELECTOR));
@@ -139,10 +139,7 @@ $(() =>
 		} while ($tabPane.length);
 
 		// focus first invalid field
-		window.setTimeout(() =>
-		{
-			$invalid.first().focus();
-		}, 250);
+		window.setTimeout(() => $invalid.first().focus(), 250);
 
 		// add badge to tab
 		$form.find('.tab-pane').each(function()

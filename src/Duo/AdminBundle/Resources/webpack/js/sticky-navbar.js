@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-($ =>
+$(() =>
 {
 	const $nav = $('header > nav + nav');
 
@@ -22,7 +22,7 @@ import $ from 'jquery';
 	{
 		const isSticky = $window.scrollTop() > top;
 
-		$main.css('padding-top', isSticky ? $nav.outerHeight(true) : '');
+		$main.css('padding-top', isSticky ? $nav.prop('scrollHeight') : '');
 		$nav.toggleClass('fixed-top', isSticky);
 
 		if ($window.width() < 768)
@@ -38,4 +38,4 @@ import $ from 'jquery';
 		}
 
 	}).trigger(`scroll.${NAME}`);
-})($);
+});

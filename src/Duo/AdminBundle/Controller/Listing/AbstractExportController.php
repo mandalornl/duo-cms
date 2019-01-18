@@ -71,13 +71,13 @@ abstract class AbstractExportController extends AbstractController
 			if ($this->getEntityReflectionClass()->implementsInterface(TranslateInterface::class))
 			{
 				$builder
-					->join('e.translations', 't', Join::WITH, 't.entity = e AND t.locale = :locale')
+					->join('e.translations', 't', Join::WITH, 't.locale = :locale')
 					->setParameter('locale', $request->getLocale());
 			}
 
 			foreach ($fields as $index => $field)
 			{
-				$field->applyExport($builder);
+				$field->buildExport($request, $builder);
 			}
 
 			foreach (array_chunk($selection, 100) as $ids)

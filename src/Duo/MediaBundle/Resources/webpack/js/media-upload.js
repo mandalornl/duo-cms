@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import doNotLeave from 'duo/AdminBundle/Resources/webpack/js/util/donotleave';
-import {uploadFile} from 'duo/AdminBundle/Resources/webpack/js/util/api';
+import doNotLeave from 'Duo/AdminBundle/Resources/webpack/js/util/donotleave';
+import {uploadFile} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 
 $(() =>
 {
@@ -27,7 +27,7 @@ $(() =>
 		// use DataTransferItemList
 		if (dataTransfer.items)
 		{
-			files = Array.prototype.slice.call(dataTransfer.items).filter(item => item.kind === 'file').map(item => item.getAsFile());
+			files = Array.from(dataTransfer.items).filter(item => item.kind === 'file').map(item => item.getAsFile());
 
 			// cleanup
 			dataTransfer.items.clear();
@@ -36,7 +36,7 @@ $(() =>
 		}
 
 		// use DataTransfer interface instead
-		files = Array.prototype.slice.call(dataTransfer.files);
+		files = Array.from(dataTransfer.files);
 
 		// cleanup
 		dataTransfer.clearData();

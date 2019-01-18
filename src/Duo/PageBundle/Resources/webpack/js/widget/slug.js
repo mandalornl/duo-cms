@@ -1,9 +1,11 @@
 import $ from 'jquery';
 import {debounce} from 'lodash';
-import md from 'duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
+import md from 'Duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
 
 ($ =>
 {
+	const wait = (md.mobile() || md.tablet()) ? 300 : 150;
+
 	$(document).on('keyup.slug', '[id$="_slug"]', debounce(function()
 	{
 		const $this = $(this);
@@ -14,5 +16,5 @@ import md from 'duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
 		values.push($this.val());
 
 		$url.val(values.join('/'));
-	}, (md.mobile() || md.tablet()) ? 1000 : 250));
+	}, wait));
 })($);

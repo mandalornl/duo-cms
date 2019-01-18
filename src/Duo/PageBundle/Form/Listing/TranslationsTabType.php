@@ -4,6 +4,7 @@ namespace Duo\PageBundle\Form\Listing;
 
 use Duo\AdminBundle\Form\Type\TabType;
 use Duo\AdminBundle\Form\Type\TranslationType;
+use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,6 +37,8 @@ class TranslationsTabType extends AbstractType
 			'label' => 'duo.page.tab.translations',
 			'data' => null
 		]);
+
+		$resolver->setAllowedTypes('data', [PageInterface::class, 'null']);
 	}
 
 	/**

@@ -15,7 +15,7 @@ duo:
                 name: Name
                 title: Title
                 url: Url
-                online: Online
+                published: Published
                 created_at: Created at
                 modified_at: Modified at
 
@@ -23,7 +23,7 @@ duo:
                 name: Name
                 title: Title
                 url: Url
-                online: Online
+                published: Published
                 taxonomies: Taxonomies
                 created: Created
                 modified: Modified

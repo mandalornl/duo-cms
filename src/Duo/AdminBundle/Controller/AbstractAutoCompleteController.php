@@ -19,12 +19,7 @@ abstract class AbstractAutoCompleteController extends Controller
 	 */
 	protected function setFirstResultAndMaxResults(Request $request, QueryBuilder $builder, int $defaultLimit = 10): void
 	{
-		$limit = (int)$request->get('limit') ?: $defaultLimit;
-
-		if ($limit <= 0)
-		{
-			return;
-		}
+		$limit = max(1, (int)$request->get('limit') ?: $defaultLimit);
 
 		$builder->setMaxResults($limit);
 

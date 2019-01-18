@@ -20,7 +20,9 @@ class PageType extends AbstractType
 			->add('version', HiddenType::class)
 			->add(
 				$builder->create('tabs', TabsType::class)
-					->add($builder->create('translations', TranslationsTabType::class))
+					->add($builder->create('translations', TranslationsTabType::class, [
+						'data' => $options['data']
+					]))
 					->add($builder->create('properties', PropertiesTabType::class))
 			);
 	}
@@ -31,8 +33,7 @@ class PageType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'data_class' => PageInterface::class,
-			'data' => null
+			'data_class' => PageInterface::class
 		]);
 	}
 }

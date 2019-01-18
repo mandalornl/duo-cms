@@ -1,4 +1,19 @@
-.form-pp.loading
+.form-control-label.required:after
+{
+	content: ' *';
+}
+
+.invalid-feedback
+{
+	display: flex;
+}
+
+.custom-select
+{
+	@include appearance(none);
+}
+
+.widget-form.loading
 {
 	min-height: 40px;
 

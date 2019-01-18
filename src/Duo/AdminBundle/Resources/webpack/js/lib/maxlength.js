@@ -1,9 +1,13 @@
 import $ from 'jquery';
+import {debounce} from 'lodash';
+import md from 'Duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
 
 export default ($ =>
 {
 	const NAME = 'maxlength';
 	const SELECTOR = `[${NAME}]`;
+
+	const wait = (md.mobile() || md.tablet()) ? 300 : 150;
 
 	/**
 	 * Get jQuery
@@ -55,10 +59,10 @@ export default ($ =>
 
 				const $text = $inputGroup.find('.input-group-text');
 
-				$this.on(`keyup.${NAME}`, function()
+				$this.on(`keyup.${NAME}`, debounce(function()
 				{
 					$text.text(Math.max(0, $this.attr('maxlength') - (this.value || '').length));
-				}).trigger(`keyup.${NAME}`);
+				}, wait)).trigger(`keyup.${NAME}`);
 			});
 		},
 
@@ -67,7 +71,10 @@ export default ($ =>
 		 *
 		 * @param {string|HTMLElement|jQuery} selector
 		 */
-		destroy: selector => _$(selector).removeData(`init.${NAME}`).off(`keyup.${NAME}`)
+		destroy: selector =>
+		{
+			_$(selector).removeData(`init.${NAME}`).off(`keyup.${NAME}`);
+		}
 	};
 
 	$(window).on(`load.${NAME}`, () => methods.init(SELECTOR));

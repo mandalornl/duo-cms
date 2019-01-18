@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/page/tree", name="duo_page_listing_page_")
+ * @Route("/page-tree", name="duo_page_listing_page_")
  */
 class PageTreeController extends AbstractTreeController
 {

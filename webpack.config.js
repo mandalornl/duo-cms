@@ -25,7 +25,7 @@ module.exports = {
 			'~~': __dirname,
 			'@': __dirname,
 			'@@': __dirname,
-			duo: path.resolve(__dirname, 'src/Duo') // TODO: change to 'vendor/duo/duo-cms/src/Duo'
+			Duo: path.resolve(__dirname, 'src/Duo') // TODO: change to 'vendor/duo/duo-cms/src/Duo'
 		}
 	},
 

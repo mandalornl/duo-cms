@@ -39,12 +39,12 @@
 									</td>
 									<td>
 										<a href="{{ path(routePrefix ~ '_draft_view', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.view' | trans }}" target="_blank" class="btn btn-light btn-sm">
-											<i class="icon-display"></i>
+											<i class="icon-file-empty"></i>
 										</a>
-										<a href="{{ path(routePrefix ~ '_draft_apply', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.apply' | trans }}" class="btn btn-primary btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.drafts.apply' | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_draft_apply', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.apply' | trans }}" class="btn btn-primary btn-sm" data-modal="dialog" data-title="{{ 'duo.admin.modal.drafts.apply' | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
 											<i class="icon-paste"></i>
 										</a>
-										<a href="{{ path(routePrefix ~ '_draft_destroy', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="confirm" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_draft_destroy', { id: draft.id }) }}" title="{{ 'duo.admin.modal.drafts.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="dialog" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
 											<i class="icon-bin"></i>
 										</a>
 									</td>

@@ -157,14 +157,14 @@
 
 {% block modal %}
 	{% if not app.request.query.get('iframe') %}
-		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' with {
-			id: 'delete',
+		{% include '@DuoAdmin/Listing/Modal/dialog.html.twig' with {
+			id: 'modal_dialog_delete',
 			title: 'duo.admin.toolbar.actions.delete' | trans,
 			body: ((routePrefix ~ '_delete') is validroute ?
 				'duo.admin.modal.action.body' :
 				'duo.admin.modal.action.body_permanent') | trans
 		} %}
 
-		{% include '@DuoAdmin/Listing/Modal/confirm.html.twig' %}
+		{% include '@DuoAdmin/Listing/Modal/dialog.html.twig' %}
 	{% endif %}
 {% endblock %}

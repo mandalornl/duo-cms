@@ -4,9 +4,9 @@ import sortable from 'html5sortable/dist/html5sortable.es';
 export default ($ =>
 {
 	const NAME = 'sortable';
-	const SELECTOR = `.${NAME}`;
+	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const defaults = {
+	const DEFAULT = {
 		items: '.sortable-item:not(:disabled):not(.disabled)',
 		handle: '.sortable-handle',
 		placeholderClass: 'sortable-placeholder',
@@ -34,8 +34,6 @@ export default ($ =>
 		 */
 		init: (selector, options) =>
 		{
-			options = Object.assign({}, defaults, options);
-
 			_$(selector).each(function()
 			{
 				const $this = $(this);
@@ -47,7 +45,9 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				sortable(this, options);
+				const config = Object.assign({}, DEFAULT, options);
+
+				sortable(this, config);
 			});
 		},
 

@@ -33,6 +33,11 @@ class Paginator
 	private $adjacent = 2;
 
 	/**
+	 * @var bool
+	 */
+	private $fetchJoinCollection = true;
+
+	/**
 	 * @var int
 	 */
 	private $count = 0;
@@ -159,6 +164,30 @@ class Paginator
 	}
 
 	/**
+	 * Set fetchJoinCollection
+	 *
+	 * @param bool $fetchJoinCollection
+	 *
+	 * @return Paginator
+	 */
+	public function setFetchJoinCollection(bool $fetchJoinCollection): Paginator
+	{
+		$this->fetchJoinCollection = $fetchJoinCollection;
+
+		return $this;
+	}
+
+	/**
+	 * Get fetchJoinCollection
+	 *
+	 * @return bool
+	 */
+	public function getFetchJoinCollection(): bool
+	{
+		return $this->fetchJoinCollection;
+	}
+
+	/**
 	 * Get total
 	 *
 	 * @return int
@@ -261,11 +290,9 @@ class Paginator
 	/**
 	 * Create view
 	 *
-	 * @param bool $fetchJoinCollection [optional]
-	 *
 	 * @return Paginator
 	 */
-	public function createView(bool $fetchJoinCollection = true): Paginator
+	public function createView(): Paginator
 	{
 		$offset = max(0, $this->page - 1) * $this->getLimit();
 
@@ -274,7 +301,7 @@ class Paginator
 			->setMaxResults($this->getLimit())
 			->getQuery();
 
-		$paginator = new DoctrinePaginator($query, $fetchJoinCollection);
+		$paginator = new DoctrinePaginator($query, $this->fetchJoinCollection);
 
 		$this->count = $paginator->count();
 		$this->result = $paginator->getIterator();
