@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Duo\AdminBundle\Tools\ORM as Tools;
 use Duo\CoreBundle\Entity\DraftInterface as EntityDraftInterface;
 use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 
@@ -59,7 +60,7 @@ class DraftSubscriber implements EventSubscriber
 				'inversedBy' 	=> 'drafts',
 				'cascade' 		=> ['persist'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> substr($reflectionClass->getName(), 0, -5),
+				'targetEntity' 	=> Tools\ClassMetadata::getManyToOneTargetEntity($reflectionClass, 'Draft'),
 				'joinColumns' 	=> [[
 					'name' 					=> 'entity_id',
 					'referencedColumnName' 	=> 'id',
@@ -89,7 +90,7 @@ class DraftSubscriber implements EventSubscriber
 				'mappedBy' 		=> 'entity',
 				'cascade' 		=> ['persist'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> "{$reflectionClass->getName()}Draft",
+				'targetEntity' 	=> Tools\ClassMetadata::getOneToManyTargetEntity($reflectionClass, 'Draft'),
 				'orphanRemoval' => true,
 				'orderBy' 		=> [
 					'name' => 'ASC'

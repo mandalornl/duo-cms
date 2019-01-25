@@ -12,7 +12,7 @@ class StringFilter extends AbstractFilter implements SearchInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function applyFilter(QueryBuilder $builder, array $data): void
+	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
 		if (empty($data['value']) || empty($data['operator']))
 		{
@@ -87,7 +87,7 @@ class StringFilter extends AbstractFilter implements SearchInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function applySearch(QueryBuilder $builder, Orx $orX, string $keyword): void
+	public function buildSearch(QueryBuilder $builder, Orx $orX, string $keyword): void
 	{
 		$orX->add("{$this->alias}.{$this->property} LIKE :keyword");
 	}

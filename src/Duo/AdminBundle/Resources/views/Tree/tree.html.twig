@@ -1,15 +1,24 @@
+{% spaceless %}
 <ul class="nestable-list{% if not children | length %} d-none{% endif %}{% if async | default(false) %} nestable-async{% endif %}"{% if parent | default(null) %} data-id="{{ parent.id }}"{% endif %}>
+	{% set canEdit = canEdit | default(false) %}
 	{% for entity in children %}
 		<li class="nestable-item" data-id="{{ entity.id }}">
 			<div class="nestable-handle"{% if entity.uuid is defined %} title="{{ entity.uuid }}"{% endif %}>
 				<a href="javascript:;" class="nestable-folder{% if not entity.children | length %} d-none{% endif %}" data-url="{{ path(routePrefix ~ '_tree_children', { id: entity.id }) }}"></a>
-				{{- entity | trim -}}
+				<span class="nestable-label">{{ entity | trim }}</span>
+				{% if canEdit %}
+					<a class="btn btn-primary btn-sm" href="{{ path(routePrefix ~ '_update', { id: entity.id }) }}" title="{{ 'duo.admin.listing.action.edit' | trans }}">
+						<i class="icon-pencil"></i>
+					</a>
+				{% endif %}
 			</div>
 			{% include '@DuoAdmin/Tree/tree.html.twig' with {
 				parent: entity,
 				children: [],
-				async: entity.children | length
+				async: entity.children | length,
+				canEdit: canEdit
 			} %}
 		</li>
 	{% endfor %}
 </ul>
+{% endspaceless %}

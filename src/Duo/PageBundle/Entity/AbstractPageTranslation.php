@@ -35,13 +35,6 @@ class AbstractPageTranslation implements PageTranslationInterface
 	protected $title;
 
 	/**
-	 * @var bool
-	 *
-	 * @ORM\Column(name="visible_menu", type="boolean", options={ "default" = 1 })
-	 */
-	protected $visibleMenu = true;
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function setTitle(?string $title): PageTranslationInterface
@@ -57,24 +50,6 @@ class AbstractPageTranslation implements PageTranslationInterface
 	public function getTitle(): ?string
 	{
 		return $this->title;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setVisibleMenu(bool $visibleMenu = true): PageTranslationInterface
-	{
-		$this->visibleMenu = $visibleMenu;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function isVisibleMenu(): bool
-	{
-		return $this->visibleMenu;
 	}
 
 	/**

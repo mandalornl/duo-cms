@@ -30,13 +30,13 @@ trait TranslateTrait
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @throws \Exception
+	 * @throws \ReflectionException
 	 */
 	public function __call(string $name, array $arguments = [])
 	{
-		$entity = $this->translate($this->currentLocale, false);
+		$translation = $this->translate($this->currentLocale, false);
 
-		$reflectionClass = new \ReflectionClass($entity);
+		$reflectionClass = new \ReflectionClass($translation);
 
 		// access property
 		if ($reflectionClass->hasProperty($name))
@@ -46,12 +46,12 @@ trait TranslateTrait
 
 			if (count($arguments))
 			{
-				$property->setValue($entity, $arguments[0]);
+				$property->setValue($translation, $arguments[0]);
 
-				return $entity;
+				return $translation;
 			}
 
-			return $property->getValue($entity);
+			return $property->getValue($translation);
 		}
 
 		// invoke method
@@ -61,7 +61,7 @@ trait TranslateTrait
 
 			if ($method->isPublic())
 			{
-				return $method->invokeArgs($entity, $arguments);
+				return $method->invokeArgs($translation, $arguments);
 			}
 		}
 
@@ -214,7 +214,7 @@ trait TranslateTrait
 
 		if ($fallback)
 		{
-			if (($fallbackLocale = $this->computeFallbackLocale($locale)) &&
+			if (($fallbackLocale = $this->computeFallbackLocale($locale)) !== null &&
 				($translation = $this->findTranslationByLocale($fallbackLocale)) !== null)
 			{
 				return $translation;
@@ -249,16 +249,16 @@ trait TranslateTrait
 	 */
 	private function findTranslationByLocale(string $locale, bool $withNewTranslations = true): ?TranslationInterface
 	{
-		if (($translations = $this->getTranslations()) && $translations->containsKey($locale))
+		if ($this->getTranslations()->containsKey($locale))
 		{
-			return $translations->get($locale);
+			return $this->getTranslations()->get($locale);
 		}
 
 		if ($withNewTranslations)
 		{
-			if (($newTranslations = $this->getNewTranslations()) && $newTranslations->containsKey($locale))
+			if ($this->getNewTranslations()->containsKey($locale))
 			{
-				return $newTranslations->get($locale);
+				return $this->getNewTranslations()->get($locale);
 			}
 		}
 
@@ -294,6 +294,16 @@ trait TranslateTrait
 		foreach ($translations as $translation)
 		{
 			$this->addTranslation(clone $translation);
+		}
+
+		// do the same for new translations
+		$newTranslations = $this->getNewTranslations();
+
+		$this->newTranslations = new ArrayCollection();
+
+		foreach ($newTranslations as $translation)
+		{
+			$this->addNewTranslation(clone $translation);
 		}
 	}
 }

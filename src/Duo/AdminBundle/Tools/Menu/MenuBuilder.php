@@ -65,8 +65,7 @@ class MenuBuilder implements MenuBuilderInterface
 
 		$this->user = $security->getUser();
 
-		$this->configs = new ArrayCollection();
-		$this->configs[] = Yaml::parseFile(__DIR__ . '/../../Resources/config/menu.yml');
+		$this->addConfig(Yaml::parseFile(__DIR__ . '/../../Resources/config/menu.yml'));
 
 		// cache request uri
 		if (($request = $requestStack->getCurrentRequest()) !== null)
@@ -83,7 +82,7 @@ class MenuBuilder implements MenuBuilderInterface
 	 */
 	public function addConfig(array $config): MenuBuilderInterface
 	{
-		$this->configs[] = $config;
+		$this->getConfigs()->add($config);
 
 		return $this;
 	}
@@ -93,7 +92,7 @@ class MenuBuilder implements MenuBuilderInterface
 	 */
 	public function removeConfig(array $config): MenuBuilderInterface
 	{
-		$this->configs->removeElement($config);
+		$this->getConfigs()->removeElement($config);
 
 		return $this;
 	}
@@ -103,7 +102,7 @@ class MenuBuilder implements MenuBuilderInterface
 	 */
 	public function getConfigs(): Collection
 	{
-		return $this->configs;
+		return $this->configs = $this->configs ?: new ArrayCollection();
 	}
 
 	/**
@@ -143,7 +142,7 @@ class MenuBuilder implements MenuBuilderInterface
 			->setLabel('Root')
 			->setId('root');
 
-		foreach ($this->configs as $config)
+		foreach ($this->getConfigs() as $config)
 		{
 			$this->parse($config, $menu);
 		}
@@ -165,9 +164,9 @@ class MenuBuilder implements MenuBuilderInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function createView(): MenuInterface
+	public function createView(bool $rebuild = false): MenuInterface
 	{
-		$this->build();
+		$this->build($rebuild);
 
 		return $this->menu;
 	}

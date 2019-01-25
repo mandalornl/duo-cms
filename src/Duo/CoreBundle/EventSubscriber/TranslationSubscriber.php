@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Duo\AdminBundle\Tools\ORM as Tools;
 use Duo\CoreBundle\Entity\Property\TranslationInterface;
 
 class TranslationSubscriber implements EventSubscriber
@@ -42,7 +43,7 @@ class TranslationSubscriber implements EventSubscriber
 				'inversedBy' 	=> 'translations',
 				'cascade' 		=> ['persist', 'remove'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> substr($reflectionClass->getName(), 0, -11),
+				'targetEntity' 	=> Tools\ClassMetadata::getManyToOneTargetEntity($reflectionClass, 'Translation'),
 				'joinColumns' 	=> [[
 					'name' 					=> 'entity_id',
 					'referencedColumnName' 	=> 'id',

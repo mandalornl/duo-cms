@@ -16,6 +16,7 @@ use Duo\AdminBundle\Event\Listing\ORMEvents;
 use Duo\AdminBundle\Event\Listing\TwigEvent;
 use Duo\AdminBundle\Event\Listing\TwigEvents;
 use Duo\AdminBundle\Tools\Form\Form;
+use Duo\AdminBundle\Tools\ORM\ClassMetadata;
 use Duo\CoreBundle\Entity\Property\RevisionInterface as PropertyRevisionInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
@@ -120,7 +121,7 @@ abstract class AbstractUpdateController extends AbstractController
 				// add revision
 				if ($entity instanceof PropertyRevisionInterface)
 				{
-					$className = "{$manager->getRepository($this->getEntityClass())->getClassName()}Revision";
+					$className = ClassMetadata::getOneToManyTargetEntity($this->getEntityReflectionClass(), 'Revision');
 
 					/**
 					 * @var EntityRevisionInterface $revision

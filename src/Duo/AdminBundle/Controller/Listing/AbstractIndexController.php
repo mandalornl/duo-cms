@@ -606,7 +606,7 @@ abstract class AbstractIndexController extends AbstractController
 			 * @var FilterInterface $filter
 			 */
 			$filter = $this->getFilters()->get($key);
-			$filter->applyFilter($builder, $data);
+			$filter->buildFilter($builder, $data);
 		}
 
 		// clear search and page
@@ -765,7 +765,7 @@ abstract class AbstractIndexController extends AbstractController
 
 		foreach ($filters as $filter)
 		{
-			$filter->applySearch($builder, $orX, $keyword);
+			$filter->buildSearch($builder, $orX, $keyword);
 		}
 
 		$builder

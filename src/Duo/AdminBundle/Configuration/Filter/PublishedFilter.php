@@ -10,7 +10,7 @@ class PublishedFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function applyFilter(QueryBuilder $builder, array $data): void
+	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
 		if (!isset($data['value']))
 		{

@@ -102,7 +102,7 @@ interface TranslateInterface
 	 * @param string $locale [optional]
 	 * @param bool $fallback [optional]
 	 *
-	 * @return object
+	 * @return TranslationInterface
 	 */
 	public function translate(string $locale = null, bool $fallback = true);
 }

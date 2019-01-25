@@ -2,8 +2,8 @@
 
 namespace Duo\PageBundle\Controller\Listing;
 
-use AppBundle\Entity\PageRevision;
 use Duo\CoreBundle\Controller\Listing\AbstractRevisionController;
+use Duo\PageBundle\Entity\PageRevision;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

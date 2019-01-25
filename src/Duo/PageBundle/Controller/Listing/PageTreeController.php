@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @Route("/page-tree", name="duo_page_listing_page_")
@@ -39,9 +40,9 @@ class PageTreeController extends AbstractTreeController
 	 *     methods={ "GET" }
 	 * )
 	 */
-	public function childrenAction(Request $request, int $id): JsonResponse
+	public function childrenAction(Request $request, RouterInterface $router, int $id): JsonResponse
 	{
-		return $this->doChildrenAction($request, $id);
+		return $this->doChildrenAction($request, $router, $id);
 	}
 
 	/**

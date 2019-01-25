@@ -3,6 +3,7 @@
 namespace Duo\CoreBundle\Controller\Listing;
 
 use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Tools\ORM\ClassMetadata;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\CoreBundle\Entity\RevisionInterface;
 use Symfony\Component\Form\FormInterface;
@@ -226,7 +227,7 @@ abstract class AbstractRevisionController extends AbstractController
 	 */
 	protected function getRevisionEntityClass(): string
 	{
-		return "{$this->getEntityClass()}Revision";
+		return ClassMetadata::getOneToManyTargetEntity($this->getEntityReflectionClass(), 'Revision');
 	}
 
 	/**

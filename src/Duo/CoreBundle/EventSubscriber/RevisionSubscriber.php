@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Duo\AdminBundle\Tools\ORM as Tools;
 use Duo\CoreBundle\Entity\Property\RevisionInterface as PropertyRevisionInterface;
 use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
 
@@ -59,7 +60,7 @@ class RevisionSubscriber implements EventSubscriber
 				'inversedBy' 	=> 'revisions',
 				'cascade' 		=> ['persist'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> substr($reflectionClass->getName(), 0, -8),
+				'targetEntity' 	=> Tools\ClassMetadata::getManyToOneTargetEntity($reflectionClass, 'Revision'),
 				'joinColumns' 	=> [[
 					'name' 					=> 'entity_id',
 					'referencedColumnName' 	=> 'id',
@@ -89,7 +90,7 @@ class RevisionSubscriber implements EventSubscriber
 				'mappedBy' 		=> 'entity',
 				'cascade' 		=> ['persist'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> "{$reflectionClass->getName()}Revision",
+				'targetEntity' 	=> Tools\ClassMetadata::getOneToManyTargetEntity($reflectionClass, 'Revision'),
 				'orphanRemoval' => true,
 				'orderBy' 		=> [
 					'createdAt' => 'DESC'

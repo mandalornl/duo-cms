@@ -2,8 +2,8 @@
 
 namespace Duo\PageBundle\Controller\Listing;
 
-use AppBundle\Entity\PageDraft;
 use Duo\CoreBundle\Controller\Listing\AbstractDraftController;
+use Duo\PageBundle\Entity\PageDraft;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

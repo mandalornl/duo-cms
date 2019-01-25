@@ -42,6 +42,8 @@ class PartSubscriber implements EventSubscriber
 	 * On post load event
 	 *
 	 * @param LifecycleEventArgs $args
+	 *
+	 * @throws \ReflectionException
 	 */
 	public function postLoad(LifecycleEventArgs $args): void
 	{

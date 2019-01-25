@@ -51,7 +51,9 @@ interface MenuBuilderInterface
 	/**
 	 * Create view
 	 *
+	 * @param bool $rebuild [optional]
+	 *
 	 * @return MenuInterface
 	 */
-	public function createView(): MenuInterface;
+	public function createView(bool $rebuild = false): MenuInterface;
 }

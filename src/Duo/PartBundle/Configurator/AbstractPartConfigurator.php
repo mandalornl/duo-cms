@@ -27,8 +27,6 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	{
 		$this->eventDispatcher = $eventDispatcher;
 
-		$this->configs = new ArrayCollection();
-
 		// dispatch pre load event
 		$this->dispatchPreLoadEvent();
 	}
@@ -38,7 +36,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	 */
 	public function addConfig(array $config): PartConfiguratorInterface
 	{
-		$this->configs[] = $config;
+		$this->getConfigs()->add($config);
 
 		return $this;
 	}
@@ -48,7 +46,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	 */
 	public function removeConfig(array $config): PartConfiguratorInterface
 	{
-		$this->configs->removeElement($config);
+		$this->getConfigs()->removeElement($config);
 
 		return $this;
 	}
@@ -58,7 +56,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	 */
 	public function getConfigs(): Collection
 	{
-		return $this->configs;
+		return $this->configs = $this->configs ?: new ArrayCollection();
 	}
 
 	/**
@@ -68,7 +66,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	{
 		$types = [];
 
-		foreach ($this->configs as $config)
+		foreach ($this->getConfigs() as $config)
 		{
 			foreach ($config['types'] as $id => $entry)
 			{
@@ -91,7 +89,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	{
 		$sections = [];
 
-		foreach ($this->configs as $config)
+		foreach ($this->getConfigs() as $config)
 		{
 			foreach ($config['sections'] as $id => $entry)
 			{
@@ -112,7 +110,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	{
 		$icons = [];
 
-		foreach ($this->configs as $config)
+		foreach ($this->getConfigs() as $config)
 		{
 			foreach ($config['types'] as $entry)
 			{

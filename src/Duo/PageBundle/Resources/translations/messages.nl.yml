@@ -40,8 +40,6 @@ duo:
                     label: Bovenliggend
                 title:
                     label: Titel
-                visible_menu:
-                    label: Zichtbaar in menu
                 slug:
                     label: Slug
                 url:

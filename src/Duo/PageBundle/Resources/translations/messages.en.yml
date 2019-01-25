@@ -40,8 +40,6 @@ duo:
                     label: Parent
                 title:
                     label: Title
-                visible_menu:
-                    label: Visible in menu
                 slug:
                     label: Slug
                 url:

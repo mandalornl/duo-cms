@@ -8,11 +8,11 @@ use Doctrine\ORM\QueryBuilder;
 interface SearchInterface
 {
 	/**
-	 * Apply search
+	 * Build search
 	 *
 	 * @param QueryBuilder $builder
 	 * @param Orx $orX
 	 * @param string $keyword
 	 */
-	public function applySearch(QueryBuilder $builder, Orx $orX, string $keyword): void;
+	public function buildSearch(QueryBuilder $builder, Orx $orX, string $keyword): void;
 }

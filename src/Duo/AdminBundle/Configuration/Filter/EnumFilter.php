@@ -10,7 +10,7 @@ class EnumFilter extends AbstractFilter
 	/**
 	 * {@inheritdoc}
 	 */
-	public function applyFilter(QueryBuilder $builder, array $data): void
+	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
 		if (empty($data['value']) || empty($data['operator']))
 		{

@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Duo\AdminBundle\Helper\LocaleHelper;
+use Duo\AdminBundle\Tools\ORM as Tools;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 
 class TranslateSubscriber implements EventSubscriber
@@ -62,7 +63,7 @@ class TranslateSubscriber implements EventSubscriber
 				'indexBy' 		=> 'locale',
 				'cascade' 		=> ['persist', 'remove'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
-				'targetEntity' 	=> "{$reflectionClass->getName()}Translation",
+				'targetEntity' 	=> Tools\ClassMetadata::getOneToManyTargetEntity($reflectionClass, 'Translation'),
 				'orphanRemoval' => true
 			]);
 		}

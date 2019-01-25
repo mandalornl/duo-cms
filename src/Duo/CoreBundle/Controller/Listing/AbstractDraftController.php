@@ -3,6 +3,7 @@
 namespace Duo\CoreBundle\Controller\Listing;
 
 use Duo\AdminBundle\Controller\Listing\AbstractController;
+use Duo\AdminBundle\Tools\ORM\ClassMetadata;
 use Duo\CoreBundle\Entity\DraftInterface as EntityDraftInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
@@ -314,7 +315,7 @@ abstract class AbstractDraftController extends AbstractController
 	 */
 	protected function getDraftEntityClass(): string
 	{
-		return "{$this->getEntityClass()}Draft";
+		return ClassMetadata::getOneToManyTargetEntity($this->getEntityReflectionClass(), 'Draft');
 	}
 
 	/**

@@ -20,7 +20,6 @@ class WYSIWYGTransformer implements DataTransformerInterface
 	public function reverseTransform($value)
 	{
 		$values = [
-			null,
 			'',
 			' ',
 			'<p>&nbsp;</p>',

@@ -87,14 +87,14 @@ interface FilterInterface
 	public function getFormOptions(): array;
 
 	/**
-	 * Apply filter
+	 * Build filter
 	 *
 	 * @param QueryBuilder $builder
 	 * @param array $data
 	 *
 	 * @throws \LogicException
 	 */
-	public function applyFilter(QueryBuilder $builder, array $data): void;
+	public function buildFilter(QueryBuilder $builder, array $data): void;
 
 	/**
 	 * Get form type

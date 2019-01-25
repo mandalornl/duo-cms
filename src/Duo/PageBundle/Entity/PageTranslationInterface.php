@@ -31,20 +31,4 @@ interface PageTranslationInterface extends TranslationInterface,
 	 * @return string
 	 */
 	public function getTitle(): ?string;
-
-	/**
-	 * Set visibleMenu
-	 *
-	 * @param bool $visibleMenu
-	 *
-	 * @return PageTranslationInterface
-	 */
-	public function setVisibleMenu(bool $visibleMenu): PageTranslationInterface;
-
-	/**
-	 * Is visibleMenu
-	 *
-	 * @return bool
-	 */
-	public function isVisibleMenu(): bool;
 }
