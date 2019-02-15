@@ -1,12 +1,11 @@
-duo:
-    form:
-        form_submission:
-            subject: New form submission - %form_name%
-            message: |
-                New form submission.
+duo_form:
+    form_submission:
+        subject: New form submission - %form_name%
+        message: |
+            New form submission.
 
-                %submission%
-            url: |
-                Use the following url to view the submission:
+            %submission%
+        url: |
+            Use the following url to view the submission:
 
-                %url%
+            %url%

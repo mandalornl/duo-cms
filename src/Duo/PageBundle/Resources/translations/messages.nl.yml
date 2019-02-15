@@ -1,56 +1,55 @@
-duo:
-    page:
-        tab:
-            translations: Vertalingen
-            properties: Eigenschappen
-            content: Content
-            menu: Menu
+duo_page:
+    tab:
+        translations: Vertalingen
+        properties: Eigenschappen
+        content: Content
+        menu: Menu
 
-        menu:
-            pages: Pagina's
-            page_tree: Paginaboom
+    menu:
+        pages: Pagina's
+        page_tree: Paginaboom
 
-        listing:
-            field:
-                name: Naam
-                title: Titel
-                url: Url
-                published: Gepubliceerd
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+    listing:
+        field:
+            name: Naam
+            title: Titel
+            url: Url
+            published: Gepubliceerd
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
-            filter:
-                name: Naam
-                title: Titel
-                url: Url
-                published: Gepubliceerd
-                taxonomies: Taxonomieën
-                created: Aangemaakt
-                modified: Gewijzigd
+        filter:
+            name: Naam
+            title: Titel
+            url: Url
+            published: Gepubliceerd
+            taxonomies: Taxonomieën
+            created: Aangemaakt
+            modified: Gewijzigd
 
-        form:
-            page:
-                name:
-                    label: Interne naam
-                weight:
-                    label: Gewicht
-                taxonomies:
-                    label: Taxonomieën
-                parent:
-                    label: Bovenliggend
-                title:
-                    label: Titel
-                slug:
-                    label: Slug
-                url:
-                    label: Url
+    form:
+        page:
+            name:
+                label: Interne naam
+            weight:
+                label: Gewicht
+            taxonomies:
+                label: Taxonomieën
+            parent:
+                label: Bovenliggend
+            title:
+                label: Titel
+            slug:
+                label: Slug
+            url:
+                label: Url
 
-            page_autocomplete:
-                label: Parent
-                placeholder: Voer url or interne naam in
+        page_autocomplete:
+            label: Parent
+            placeholder: Voer url or interne naam in
 
-            published_filter:
-                placeholder: Maak een keuze
-                choices:
-                    yes: Ja
-                    no: Nee
+        published_filter:
+            placeholder: Maak een keuze
+            choices:
+                yes: Ja
+                no: Nee

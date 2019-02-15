@@ -56,7 +56,7 @@ class ImportCommand extends ContainerAwareCommand
 			{
 				$this->truncate($output);
 
-				$output->writeln("{$this->getTimestamp()} - Database cleared.");
+				$output->writeln('Database cleared.');
 			}
 			catch (ConnectionException $e)
 			{
@@ -92,7 +92,7 @@ class ImportCommand extends ContainerAwareCommand
 					{
 						$progressBar->clear();
 
-						$output->writeln("{$this->getTimestamp()} - Entry for '{$domain}.[locale] - {$keyword}' already exists.");
+						$output->writeln("Entry for '{$domain}.[locale] - {$keyword}' already exists.");
 
 						$progressBar->display();
 						$progressBar->advance(count($locales));
@@ -116,7 +116,7 @@ class ImportCommand extends ContainerAwareCommand
 
 					$progressBar->clear();
 
-					$output->writeln("{$this->getTimestamp()} - Entry for '{$domain}.{$locale} - {$keyword}' added.");
+					$output->writeln("Entry for '{$domain}.{$locale} - {$keyword}' added.");
 
 					$progressBar->display();
 					$progressBar->advance();
@@ -133,7 +133,7 @@ class ImportCommand extends ContainerAwareCommand
 
 					$progressBar->clear();
 
-					$output->writeln("{$this->getTimestamp()} - Batch complete.");
+					$output->writeln('Batch complete.');
 
 					$progressBar->display();
 				}
@@ -142,14 +142,14 @@ class ImportCommand extends ContainerAwareCommand
 
 		$progressBar->clear();
 
-		$output->writeln("{$this->getTimestamp()} - Flush remaining entities.");
+		$output->writeln('Flush remaining entities.');
 
 		$manager->flush();
 
 		$progressBar->finish();
 		$progressBar->clear();
 
-		$output->writeln("{$this->getTimestamp()} - Job finished.");
+		$output->writeln('Job finished.');
 	}
 
 	/**
@@ -290,7 +290,13 @@ class ImportCommand extends ContainerAwareCommand
 	 */
 	private function getManager(): EntityManagerInterface
 	{
-		return $this->getContainer()->get('doctrine')->getManager();
+		/**
+		 * @var EntityManagerInterface $manager
+		 */
+		$manager = $this->getContainer()->get('doctrine')->getManager();
+		$manager->getConnection()->getConfiguration()->setSQLLogger(null);
+
+		return $manager;
 	}
 
 	/**
@@ -322,7 +328,7 @@ class ImportCommand extends ContainerAwareCommand
 			foreach ([
 				 Entry::class,
 				 EntryTranslation::class
-			 ] as $className)
+			] as $className)
 			{
 				$connection->query($platform->getTruncateTableSQL($manager->getClassMetadata($className)->getTableName()));
 			}
@@ -399,17 +405,5 @@ class ImportCommand extends ContainerAwareCommand
 		}
 
 		return $result;
-	}
-
-	/**
-	 * Get timestamp
-	 *
-	 * @return string
-	 *
-	 * @throws \Exception
-	 */
-	private function getTimestamp(): string
-	{
-		return (new \DateTime())->format('Y-m-d H:i:s');
 	}
 }

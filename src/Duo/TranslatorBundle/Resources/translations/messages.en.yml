@@ -1,36 +1,35 @@
-duo:
-    translator:
-        tab:
-            content: Content
-            properties: Properties
+duo_translator:
+    tab:
+        content: Content
+        properties: Properties
 
-        menu:
-            translations: Translations
+    menu:
+        translations: Translations
 
-        toolbar:
-            actions:
-                reload: Reload
+    toolbar:
+        actions:
+            reload: Reload
 
-        listing:
-            field:
-                keyword: Keyword
-                domain: Domain
-                created_at: Created at
-                modified_at: Modified at
+    listing:
+        field:
+            keyword: Keyword
+            domain: Domain
+            created_at: Created at
+            modified_at: Modified at
 
-            filter:
-                keyword: Keyword
-                domain: Domain
-                created: Created
-                modified: Modified
+        filter:
+            keyword: Keyword
+            domain: Domain
+            created: Created
+            modified: Modified
 
-        form:
-            entry:
-                keyword:
-                    label: Keyword
-                domain:
-                    label: Domain
+    form:
+        entry:
+            keyword:
+                label: Keyword
+            domain:
+                label: Domain
 
-            entry_translation:
-                text:
-                    label: Text
+        entry_translation:
+            text:
+                label: Text

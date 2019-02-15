@@ -11,23 +11,23 @@ class UploadHelper
 	/**
 	 * @var string
 	 */
-	private $relativeUploadPath;
+	private $relativePath;
 
 	/**
 	 * @var string
 	 */
-	private $absoluteUploadPath;
+	private $absolutePath;
 
 	/**
 	 * UploadHelper constructor
 	 *
-	 * @param string $relativeUploadPath
-	 * @param string $absoluteUploadPath
+	 * @param string $relativePath
+	 * @param string $absolutePath
 	 */
-	public function __construct(string $relativeUploadPath, string $absoluteUploadPath)
+	public function __construct(string $relativePath, string $absolutePath)
 	{
-		$this->relativeUploadPath = $relativeUploadPath;
-		$this->absoluteUploadPath = $absoluteUploadPath;
+		$this->relativePath = $relativePath;
+		$this->absolutePath = $absolutePath;
 	}
 
 	/**
@@ -36,7 +36,7 @@ class UploadHelper
 	 * @param UploadedFile $file
 	 * @param Media $entity
 	 *
-	 * @throws \Throwable
+	 * @throws \IntlException
 	 */
 	public function upload(UploadedFile $file, Media $entity): void
 	{
@@ -67,13 +67,13 @@ class UploadHelper
 			->setSize($file->getSize())
 			->setMimeType($file->getMimeType())
 			->setMetadata($metadata)
-			->setUrl("{$this->relativeUploadPath}/{$entity->getUuid()}/{$filename}.{$extension}");
+			->setUrl("{$this->relativePath}/{$entity->getUuid()}/{$filename}.{$extension}");
 
 		if ($entity->getName() === null)
 		{
 			$entity->setName($file->getClientOriginalName());
 		}
 
-		$file->move("{$this->absoluteUploadPath}/{$entity->getUuid()}", "{$filename}.{$extension}");
+		$file->move("{$this->absolutePath}/{$entity->getUuid()}", "{$filename}.{$extension}");
 	}
 }

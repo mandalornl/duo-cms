@@ -2,7 +2,7 @@
 
 namespace Duo\AdminBundle\Tests\Controller;
 
-use Duo\AdminBundle\Controller\AbstractIndexController;
+use Duo\AdminBundle\Controller\Listing\AbstractIndexController;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
@@ -39,7 +39,7 @@ class ListingControllerTest extends WebTestCase
 			'/admin/security/role/',
 			'/admin/seo/redirects/',
 			'/admin/seo/robots/'
-		 ] as $url)
+		] as $url)
 		{
 			$crawler = $this->client->request('GET', $url);
 
@@ -53,7 +53,7 @@ class ListingControllerTest extends WebTestCase
 			'/admin/security/user/',
 			'/admin/security/group/',
 			'/admin/security/role/'
-		 ] as $url)
+		] as $url)
 		{
 			$this->client->request('GET', $url);
 			$this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());

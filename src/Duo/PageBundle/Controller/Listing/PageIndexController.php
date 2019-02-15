@@ -26,19 +26,19 @@ class PageIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('name', 'duo.page.listing.field.name'))
-			->addField(new Field('title', 'duo.page.listing.field.title', 't'))
+			->addField(new Field('name', 'duo_page.listing.field.name'))
+			->addField(new Field('title', 'duo_page.listing.field.title', 't'))
 			->addField(
-				(new Field('url', 'duo.page.listing.field.url', 't'))
+				(new Field('url', 'duo_page.listing.field.url', 't'))
 					->setTemplate('@DuoAdmin/Listing/Field/url.html.twig')
 			)
 			->addField(
-				(new Field('publishAt', 'duo.page.listing.field.published', 't'))
+				(new Field('publishAt', 'duo_page.listing.field.published', 't'))
 					->setSortable(false)
 					->setTemplate('@DuoAdmin/Listing/Field/published.html.twig')
 			)
-			->addField(new Field('createdAt', 'duo.page.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.page.listing.field.modified_at'));
+			->addField(new Field('createdAt', 'duo_page.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_page.listing.field.modified_at'));
 	}
 
 	/**
@@ -47,13 +47,13 @@ class PageIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new StringFilter('name', 'duo.page.listing.filter.name'))
-			->addFilter(new StringFilter('title', 'duo.page.listing.filter.title', 't'))
-			->addFilter(new StringFilter('url', 'duo.page.listing.filter.url', 't'))
-			->addFilter(new PublishedFilter('publishAt', 'duo.page.listing.filter.published', 't'))
-			->addFilter(new TaxonomyFilter('id', 'duo.page.listing.filter.taxonomies'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.page.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.page.listing.filter.modified'));
+			->addFilter(new StringFilter('name', 'duo_page.listing.filter.name'))
+			->addFilter(new StringFilter('title', 'duo_page.listing.filter.title', 't'))
+			->addFilter(new StringFilter('url', 'duo_page.listing.filter.url', 't'))
+			->addFilter(new PublishedFilter('publishAt', 'duo_page.listing.filter.published', 't'))
+			->addFilter(new TaxonomyFilter('id', 'duo_page.listing.filter.taxonomies'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_page.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_page.listing.filter.modified'));
 	}
 
 	/**

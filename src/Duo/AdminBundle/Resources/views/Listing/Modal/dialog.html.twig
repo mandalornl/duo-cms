@@ -6,7 +6,7 @@
 				<h5 class="modal-title" id="{{ id }}_title">
 					{%- if title is defined %}{{ title }}{% endif -%}
 				</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo_admin.modal.global.close' | trans }}">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -15,15 +15,15 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-light" data-dismiss="modal">
-					{{- 'duo.admin.modal.global.cancel' | trans -}}
+					{{- 'duo_admin.modal.global.cancel' | trans -}}
 				</button>
 				{% if action is defined %}
 					<a href="{{ action }}" class="btn btn-primary">
-						{{- 'duo.admin.modal.global.ok' | trans -}}
+						{{- 'duo_admin.modal.global.ok' | trans -}}
 					</a>
 				{% else %}
 					<button type="button" class="btn btn-primary">
-						{{- 'duo.admin.modal.global.ok' | trans -}}
+						{{- 'duo_admin.modal.global.ok' | trans -}}
 					</button>
 				{% endif %}
 			</div>

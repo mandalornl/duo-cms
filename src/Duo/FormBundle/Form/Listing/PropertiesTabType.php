@@ -20,25 +20,25 @@ class PropertiesTabType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.form.form.form.name.label'
+				'label' => 'duo_form.form.form.name.label'
 			])
 			->add('emailFrom', EmailType::class, [
-				'label' => 'duo.form.form.form.email_from.label'
+				'label' => 'duo_form.form.form.email_from.label'
 			])
 			->add('emailTo', EmailType::class, [
-				'label' => 'duo.form.form.form.email_to.label'
+				'label' => 'duo_form.form.form.email_to.label'
 			])
 			->add('keepSubmissions', CheckboxType::class, [
-				'label' => 'duo.form.form.form.keep_submissions.label',
+				'label' => 'duo_form.form.form.keep_submissions.label',
 				'required' => false
 			])
 			->add('sendSubmissionsTo', EmailType::class, [
 				'required' => false,
-				'label' => 'duo.form.form.form.send_submissions_to.label'
+				'label' => 'duo_form.form.form.send_submissions_to.label'
 			])
 			->add('page', PageAutoCompleteType::class, [
 				'required' => false,
-				'label' => 'duo.form.form.form.page.label'
+				'label' => 'duo_form.form.form.page.label'
 			]);
 	}
 
@@ -48,7 +48,7 @@ class PropertiesTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.tab.properties'
+			'label' => 'duo_form.tab.properties'
 		]);
 	}
 

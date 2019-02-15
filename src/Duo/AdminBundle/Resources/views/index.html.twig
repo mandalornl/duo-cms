@@ -23,10 +23,11 @@
 </head>
 <body class="{% block bodyClass %}admin{% endblock %}{% if app.request.query.get('iframe') %} iframe{% endif %}">
 	<div class="wrapper">
-		{% if not app.request.query.get('iframe') and menu is defined %}
-			<div class="sidebar">
+		{% if not app.request.query.get('iframe') %}
+			{# Sidebar #}
+			{% block sidebar %}
 				{% include '@DuoAdmin/Navigation/sidebar.html.twig' %}
-			</div>
+			{% endblock %}
 		{% endif %}
 		<div class="page">
 			{# Header #}
@@ -46,7 +47,7 @@
 			<main class="container-fluid" role="main">
 				{# Alerts #}
 				{% block alert %}
-					{%- include '@DuoAdmin/Layout/_alerts.html.twig' -%}
+					{% include '@DuoAdmin/Layout/_alerts.html.twig' %}
 				{% endblock %}
 
 				{# Filters #}

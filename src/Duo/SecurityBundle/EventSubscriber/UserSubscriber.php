@@ -91,13 +91,12 @@ class UserSubscriber implements EventSubscriber
 	 */
 	private function setPassword(UserInterface $entity): void
 	{
-		if (($plainPassword = $entity->getPlainPassword()) === null)
+		if ($entity->getPlainPassword() === null)
 		{
 			return;
 		}
 
-		$password = $this->encoder->encodePassword($entity, $plainPassword);
-		$entity->setPassword($password);
+		$entity->setPassword($this->encoder->encodePassword($entity, $entity->getPlainPassword()));
 	}
 
 	/**
@@ -114,8 +113,7 @@ class UserSubscriber implements EventSubscriber
 
 		if (!count($errors))
 		{
-			$username = mb_strtolower($entity->getUsername(), 'UTF-8');
-			$entity->setUsername($username);
+			$entity->setUsername(mb_strtolower($entity->getUsername(), 'UTF-8'));
 		}
 	}
 
@@ -126,11 +124,11 @@ class UserSubscriber implements EventSubscriber
 	 */
 	private function setEmail(UserInterface $entity): void
 	{
-		if (($email = $entity->getEmail()) === null)
+		if ($entity->getEmail() === null)
 		{
 			return;
 		}
 
-		$entity->setEmail(mb_strtolower($email, 'UTF-8'));
+		$entity->setEmail(mb_strtolower($entity->getEmail(), 'UTF-8'));
 	}
 }

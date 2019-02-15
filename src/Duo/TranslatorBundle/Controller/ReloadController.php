@@ -6,29 +6,39 @@ use Doctrine\ORM\EntityRepository;
 use Duo\TranslatorBundle\Entity\Entry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
-class ReloadController extends Controller
+class ReloadController extends AbstractController
 {
+	/**
+	 * @var KernelInterface
+	 */
+	private $kernel;
+
+	/**
+	 * ReloadController constructor
+	 *
+	 * @param KernelInterface $kernel
+	 */
+	public function __construct(KernelInterface $kernel)
+	{
+		$this->kernel = $kernel;
+	}
+
 	/**
 	 * Reload action
 	 *
-	 * @Route("/settings/translation/reload", name="duo_translator_reload", methods={ "GET", "POST" })
-	 *
-	 * @param KernelInterface $kernel
-	 *
 	 * @return Response
 	 */
-	public function reloadAction(KernelInterface $kernel): Response
+	public function reloadAction(): Response
 	{
-		$application = new Application($kernel);
+		$application = new Application($this->kernel);
 		$application->setAutoExit(false);
 
 		$input = new ArrayInput([
@@ -54,11 +64,11 @@ class ReloadController extends Controller
 				->getQuery()
 				->execute();
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.translator.reload_success', [], 'flashes'));
+			$this->addFlash('success', $this->get('translator')->trans('duo_translator.reload_success', [], 'flashes'));
 		}
 		catch (\Exception $e)
 		{
-			$this->addFlash('error', $this->get('translator')->trans('duo.translator.reload_error', [], 'flashes'));
+			$this->addFlash('error', $this->get('translator')->trans('duo_translator.reload_error', [], 'flashes'));
 		}
 
 		return $this->redirectToRoute('duo_translator_listing_entry_index');

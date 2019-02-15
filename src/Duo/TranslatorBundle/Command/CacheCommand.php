@@ -46,8 +46,6 @@ class CacheCommand extends ContainerAwareCommand
 			unlink($file->getRealPath());
 		}
 
-		$timestamp = (new \DateTime())->format('Y-m-d H:i:s');
-
-		$output->writeln("{$timestamp} - Cache cleared.");
+		$output->writeln('Cache cleared.');
 	}
 }

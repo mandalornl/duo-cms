@@ -18,10 +18,10 @@ class PropertiesTabType extends AbstractType
 	{
 		$builder
 			->add('active', CheckboxType::class, [
-				'label' => 'duo.security.form.user.active.label'
+				'label' => 'duo_security.form.user.active.label'
 			])
 			->add('groups', GroupChoiceType::class, [
-				'label' => 'duo.security.form.user.groups.label'
+				'label' => 'duo_security.form.user.groups.label'
 			]);
 	}
 
@@ -31,7 +31,7 @@ class PropertiesTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.security.tab.properties'
+			'label' => 'duo_security.tab.properties'
 		]);
 	}
 

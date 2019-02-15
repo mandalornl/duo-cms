@@ -16,7 +16,7 @@ class EntryTranslationType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder->add('text', TextareaType::class, [
-			'label' => 'duo.translator.form.entry_translation.text.label',
+			'label' => 'duo_translator.form.entry_translation.text.label',
 			'attr' => [
 				'rows' => 6
 			]

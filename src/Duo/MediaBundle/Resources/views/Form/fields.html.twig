@@ -49,10 +49,10 @@
 			{% if not disabled | default(false) %}
 				<div class="col-12">
 					<button type="button" class="btn btn-primary" data-action="select" data-url="{{ path('duo_media_listing_media_modal_iframe', { mediaType: mediaType, target: id }) }}">
-						{{- 'duo.media.select' | trans -}}
+						{{- 'duo_media.select' | trans -}}
 					</button>
 					<button type="button" class="btn btn-secondary ml-2" data-action="clear">
-						{{- 'duo.media.clear' | trans -}}
+						{{- 'duo_media.clear' | trans -}}
 					</button>
 				</div>
 			{% endif %}

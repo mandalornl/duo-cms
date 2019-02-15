@@ -16,8 +16,6 @@ trait RequestStackTrait
 	 * Set requestStack
 	 *
 	 * @param RequestStack $requestStack
-	 *
-	 * @required
 	 */
 	public function setRequestStack(RequestStack $requestStack): void
 	{

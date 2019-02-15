@@ -2,10 +2,8 @@
 
 namespace Duo\AdminBundle\Controller;
 
-use Duo\AdminBundle\Tools\Menu\MenuBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,21 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
-class DashboardController extends Controller
+class DashboardController extends AbstractController
 {
 	/**
 	 * Index
 	 *
 	 * @Route("/", name="index", methods={ "GET" })
 	 *
-	 * @param Request $request
-	 *
 	 * @return Response
 	 */
-	public function indexAction(Request $request): Response
+	public function indexAction(): Response
 	{
-		return $this->render('@DuoAdmin/index.html.twig', [
-			'menu' => $this->get(MenuBuilder::class)->createView()
-		]);
+		return $this->render('@DuoAdmin/index.html.twig');
 	}
 }

@@ -1,18 +1,23 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\SeoBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Tests}'
-
-    Duo\SeoBundle\Controller\:
-        resource: '../../Controller'
+    duo_seo.controller.sitemap:
+        class: Duo\SeoBundle\Controller\SitemapController
+        arguments:
+            $localeHelper: '@duo_admin.helper.locale'
         public: true
-        tags: ['controller.service_arguments']
 
-    Duo\SeoBundle\Routing\RedirectLoader:
+    duo_seo.form.type.meta_robots_choice:
+        class: Duo\SeoBundle\Form\Type\MetaRobotsChoiceType
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: form.type }
+
+    duo_seo.routing.redirect_loader:
+        class: Duo\SeoBundle\Routing\RedirectLoader
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
         tags:
             - { name: routing.loader, priority: 0 }

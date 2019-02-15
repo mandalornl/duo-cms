@@ -64,7 +64,7 @@ class AutoCompleteType extends AbstractType
 			'multiple',
 			'placeholder',
 			'excludeSelf'
-		 ] as $varName)
+		] as $varName)
 		{
 			$view->vars[$varName] = $options[$varName];
 		}
@@ -80,22 +80,39 @@ class AutoCompleteType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'multiple' => false,
-			'compound' => false,
-			'placeholder' => '',
+		$resolver
+			->setDefaults([
+				'multiple' => false,
+				'compound' => false,
+				'placeholder' => null,
 
-			'class' => null,
-			'propertyName' => null,
+				'class' => null,
+				'propertyName' => null,
 
-			'remotePath' => null,
+				'remotePath' => null,
 
-			'routeName' => null,
-			'routeParams' => [],
-			'routeType' => RouterInterface::ABSOLUTE_PATH,
+				'routeName' => null,
+				'routeParams' => [],
+				'routeType' => RouterInterface::ABSOLUTE_PATH,
 
-			'excludeSelf' => false
-		]);
+				'excludeSelf' => false
+			])
+			->setAllowedTypes('multiple', 'bool')
+			->setAllowedTypes('placeholder', ['string', 'null'])
+
+			->setAllowedTypes('class', 'string')
+			->setAllowedTypes('propertyName', ['string', 'closure'])
+
+			->setAllowedTypes('remotePath', ['string', 'null'])
+
+			->setAllowedTypes('routeName', ['string', 'null'])
+			->setAllowedTypes('routeParams', 'array')
+			->setAllowedValues('routeType', [
+				RouterInterface::ABSOLUTE_URL,
+				RouterInterface::ABSOLUTE_PATH
+			])
+
+			->setAllowedTypes('excludeSelf', 'bool');
 	}
 
 	/**

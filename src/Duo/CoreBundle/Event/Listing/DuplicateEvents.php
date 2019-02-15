@@ -7,7 +7,7 @@ final class DuplicateEvents
 	/**
 	 * @Event("Duo\CoreBundle\Event\Listing\DuplicateEvent")
 	 */
-	const DUPLICATE = 'duo.core.event.listing.duplicate';
+	const DUPLICATE = 'duo_core.event.listing.duplicate';
 
 	/**
 	 * DuplicateEvents constructor

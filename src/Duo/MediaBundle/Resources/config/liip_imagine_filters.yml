@@ -1,14 +1,4 @@
-imports:
-    - { resource: '@DuoMediaBundle/Resources/config/services.yml' }
-
-# Liip Imagine Configuration #
 liip_imagine:
-    resolvers:
-        default:
-            web_path:
-                cache_prefix: media/cache
-    driver: imagick
-
     filter_sets:
         thumb:
             quality: 85

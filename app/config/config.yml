@@ -1,5 +1,4 @@
 imports:
-    - { resource: '@DuoAdminBundle/Resources/config/config.yml' }
     - { resource: '@AppBundle/Resources/config/config.yml' }
 
     - { resource: parameters.yml }

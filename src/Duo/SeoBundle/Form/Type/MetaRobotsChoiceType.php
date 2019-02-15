@@ -2,10 +2,8 @@
 
 namespace Duo\SeoBundle\Form\Type;
 
-use Duo\AdminBundle\Form\DataTransformer\StringToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -29,14 +27,6 @@ class MetaRobotsChoiceType extends AbstractType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function buildForm(FormBuilderInterface $builder, array $options): void
-	{
-		$builder->addModelTransformer(new StringToArrayTransformer(','));
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
@@ -50,7 +40,7 @@ class MetaRobotsChoiceType extends AbstractType
 				'No image index' 	=> 'noimageindex'
 			],
 			'attr' => [
-				'data-placeholder' => $this->translator->trans('duo.seo.form.meta_robots.placeholder')
+				'data-placeholder' => $this->translator->trans('duo_seo.form.meta_robots.placeholder')
 			]
 		]);
 	}

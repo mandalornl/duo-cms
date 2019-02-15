@@ -1,25 +1,24 @@
-duo:
-    taxonomy:
-        menu:
-            modules: Modules
-            taxonomies: Taxonomies
+duo_taxonomy:
+    menu:
+        modules: Modules
+        taxonomies: Taxonomies
 
-        listing:
-            field:
-                name: Name
-                created_at: Created at
-                modified_at: Modified at
+    listing:
+        field:
+            name: Name
+            created_at: Created at
+            modified_at: Modified at
 
-            filter:
-                name: Name
-                created: Created
-                modified: Modified
+        filter:
+            name: Name
+            created: Created
+            modified: Modified
 
-        form:
-            taxonomy:
-                name:
-                    label: Name
+    form:
+        taxonomy:
+            name:
+                label: Name
 
-            taxonomy_choice:
-                label: Taxonomies
-                placeholder: Please choose
+        taxonomy_choice:
+            label: Taxonomies
+            placeholder: Please choose

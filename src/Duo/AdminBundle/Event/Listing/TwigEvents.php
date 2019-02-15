@@ -7,7 +7,7 @@ class TwigEvents
 	/**
 	 * @Event("Duo\AdminBundle\Event\Listing\TwigEvent")
 	 */
-	const CONTEXT = 'duo.admin.event.listing.twig.context';
+	const CONTEXT = 'duo_admin.event.listing.twig.context';
 
 	/**
 	 * TwigEvents constructor

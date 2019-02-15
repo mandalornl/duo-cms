@@ -32,15 +32,15 @@ class EnumFilterType extends AbstractFilterType
 		$builder
 			->add('operator', ChoiceType::class, [
 				'choices' => [
-					'duo.admin.listing.filter.contains' => 'contains',
-					'duo.admin.listing.filter.not_contains' => 'notContains'
+					'duo_admin.listing.filter.contains' => 'contains',
+					'duo_admin.listing.filter.not_contains' => 'notContains'
 				]
 			])
 			->add('value', ChoiceType::class, [
 				'choices' => $options['choices'],
 				'multiple' => true,
 				'attr' => [
-					'data-placeholder' => $this->translator->trans('duo.admin.form.enum_filter.placeholder')
+					'data-placeholder' => $this->translator->trans('duo_admin.form.enum_filter.placeholder')
 				]
 			]);
 	}
@@ -50,10 +50,10 @@ class EnumFilterType extends AbstractFilterType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setRequired('choices');
-
-		$resolver->setDefaults([
-			'choices' => []
-		]);
+		$resolver
+			->setRequired('choices')
+			->setDefaults([
+				'choices' => []
+			]);
 	}
 }

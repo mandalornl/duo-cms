@@ -2,7 +2,7 @@
 {%- spaceless -%}
 	<div class="widget-parts">
 		<label class="mb-0">
-			{{- 'duo.part.form.collection.label' | trans -}}
+			{{- 'duo_part.form.collection.label' | trans -}}
 		</label>
 		<hr>
 		{% if sections | length > 1 %}
@@ -22,7 +22,7 @@
 					<div class="section" data-section="{{ sectionId }}" data-types="{{ section.types | json_encode }}">
 						{% if not disabled and allow_add %}
 							<button type="button" class="btn btn-primary" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
-								{{- 'duo.part.form.collection.btn_add' | trans -}}
+								{{- 'duo_part.form.collection.btn_add' | trans -}}
 							</button>
 						{% endif %}
 						<div class="sortable-list{% if not disabled and allow_add %} my-3{% endif %}">
@@ -38,7 +38,7 @@
 						</div>
 						{% if not disabled and allow_add %}
 							<button type="button" class="btn btn-primary d-none" data-url="{{ path(routeName, routeParameters) }}" data-prototype-id="{{ id }}" data-prototype-name="{{ full_name }}">
-								{{- 'duo.part.form.collection.btn_add' | trans -}}
+								{{- 'duo_part.form.collection.btn_add' | trans -}}
 							</button>
 						{% endif %}
 					</div>
@@ -59,7 +59,7 @@
 			{%- if not disabled | default(false) and allow_delete | default(false) -%}
 				<div class="d-flex justify-content-end">
 					<button type="button" class="btn btn-danger btn-sm" data-dismiss="sortable-item">
-						{{- 'duo.part.form.collection.btn_delete' | trans -}}
+						{{- 'duo_part.form.collection.btn_delete' | trans -}}
 					</button>
 				</div>
 			{%- endif -%}

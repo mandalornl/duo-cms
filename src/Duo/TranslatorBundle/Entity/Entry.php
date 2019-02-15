@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *	   }
  * )
  * @ORM\Entity()
- * @UniqueEntity(fields={ "keyword", "domain" }, message="duo.translator.errors.keyword_used")
+ * @UniqueEntity(fields={ "keyword", "domain" }, message="duo_translator.errors.keyword_used")
  */
 class Entry implements IdInterface, TranslateInterface, TimestampInterface
 {

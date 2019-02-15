@@ -17,10 +17,10 @@ class RoleType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.security.form.role.name.label'
+				'label' => 'duo_security.form.role.name.label'
 			])
 			->add('role', TextType::class, [
-				'label' => 'duo.security.form.role.role.label'
+				'label' => 'duo_security.form.role.role.label'
 			]);
 	}
 

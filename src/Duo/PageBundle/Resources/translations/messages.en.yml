@@ -1,56 +1,55 @@
-duo:
-    page:
-        tab:
-            translations: Translations
-            properties: Properties
-            content: Content
-            menu: Menu
+duo_page:
+    tab:
+        translations: Translations
+        properties: Properties
+        content: Content
+        menu: Menu
 
-        menu:
-            pages: Pages
-            page_tree: Page tree
+    menu:
+        pages: Pages
+        page_tree: Page tree
 
-        listing:
-            field:
-                name: Name
-                title: Title
-                url: Url
-                published: Published
-                created_at: Created at
-                modified_at: Modified at
+    listing:
+        field:
+            name: Name
+            title: Title
+            url: Url
+            published: Published
+            created_at: Created at
+            modified_at: Modified at
 
-            filter:
-                name: Name
-                title: Title
-                url: Url
-                published: Published
-                taxonomies: Taxonomies
-                created: Created
-                modified: Modified
+        filter:
+            name: Name
+            title: Title
+            url: Url
+            published: Published
+            taxonomies: Taxonomies
+            created: Created
+            modified: Modified
 
-        form:
-            page:
-                name:
-                    label: Internal name
-                weight:
-                    label: Weight
-                taxonomies:
-                    label: Taxonomies
-                parent:
-                    label: Parent
-                title:
-                    label: Title
-                slug:
-                    label: Slug
-                url:
-                    label: Url
-
-            page_autocomplete:
+    form:
+        page:
+            name:
+                label: Internal name
+            weight:
+                label: Weight
+            taxonomies:
+                label: Taxonomies
+            parent:
                 label: Parent
-                placeholder: Enter url or internal name
+            title:
+                label: Title
+            slug:
+                label: Slug
+            url:
+                label: Url
 
-            published_filter:
-                placeholder: Please choose
-                choices:
-                    yes: Yes
-                    no: No
+        page_autocomplete:
+            label: Parent
+            placeholder: Enter url or internal name
+
+        published_filter:
+            placeholder: Please choose
+            choices:
+                yes: Yes
+                no: No

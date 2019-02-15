@@ -1,57 +1,56 @@
-duo:
-    media:
-        select: Selecteren
-        clear: Wissen
-        upload: Sleep hier je bestanden om ze direct te uploaden
+duo_media:
+    select: Selecteren
+    clear: Wissen
+    upload: Sleep hier je bestanden om ze direct te uploaden
 
-        menu:
-            media: Media
+    menu:
+        media: Media
 
-        listing:
-            field:
-                name: Naam
-                type: Type
-                size: Grootte
-                taxonomies: Taxonomieën
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+    listing:
+        field:
+            name: Naam
+            type: Type
+            size: Grootte
+            taxonomies: Taxonomieën
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
-            filter:
-                name: Naam
-                type: Type
-                byte_size: Grootte (bytes)
-                taxonomies: Taxonomieën
-                created: Aangemaakt
-                modified: Gewijzigd
+        filter:
+            name: Naam
+            type: Type
+            byte_size: Grootte (bytes)
+            taxonomies: Taxonomieën
+            created: Aangemaakt
+            modified: Gewijzigd
 
-            action:
-                download: Downloaden
+        action:
+            download: Downloaden
 
-        form:
-            media:
-                name:
-                    label: Naam
-                taxonomies:
-                    label: Taxonomieën
-                file:
-                    label: Bestand
+    form:
+        media:
+            name:
+                label: Naam
+            taxonomies:
+                label: Taxonomieën
+            file:
+                label: Bestand
 
-            image_crop:
-                ratio:
-                    choices:
-                        landscape_4_3: Landscape (4:3)
-                        portrait_4_3: Portrait (3:4)
-                        landscape_5_4: Landscape (5:4)
-                        portrait_4_5: Portrait (4:5)
-                        landscape_3_2: Landscape (3:2)
-                        portrait_2_3: Portrait (2:3)
-                        landscape_2_1: Landscape (2:1)
-                        portrait_1_2: Portrait (1:2)
-                        landscape_16_9: Landscape (16:9)
-                        portrait_9_16: Portrait (9:16)
-                        landscape_21_9: Landscape (21:9)
-                        portrait_9_21: Portrait (9:21)
-                        square: Vierkant (1:1)
+        image_crop:
+            ratio:
+                choices:
+                    landscape_4_3: Landscape (4:3)
+                    portrait_4_3: Portrait (3:4)
+                    landscape_5_4: Landscape (5:4)
+                    portrait_4_5: Portrait (4:5)
+                    landscape_3_2: Landscape (3:2)
+                    portrait_2_3: Portrait (2:3)
+                    landscape_2_1: Landscape (2:1)
+                    portrait_1_2: Portrait (1:2)
+                    landscape_16_9: Landscape (16:9)
+                    portrait_9_16: Portrait (9:16)
+                    landscape_21_9: Landscape (21:9)
+                    portrait_9_21: Portrait (9:21)
+                    square: Vierkant (1:1)
 
-        modal:
-            title: Bestanden
+    modal:
+        title: Bestanden

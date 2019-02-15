@@ -1,88 +1,87 @@
-duo:
-    security:
-        tab:
-            profile: Profiel
-            properties: Eigenschappen
+duo_security:
+    tab:
+        profile: Profiel
+        properties: Eigenschappen
 
-        menu:
-            security: Beveiliging
-            users: Gebruikers
-            groups: Groepen
-            roles: Rollen
+    menu:
+        security: Beveiliging
+        users: Gebruikers
+        groups: Groepen
+        roles: Rollen
 
-        listing:
-            field:
-                name: Naam
-                username: Gebruikersnaam
-                active: Actief
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+    listing:
+        field:
+            name: Naam
+            username: Gebruikersnaam
+            active: Actief
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
-            filter:
-                name: Naam
-                username: Gebruikersnaam
-                active: Actief
-                created: Aangemaakt
-                modified: Gewijzigd
+        filter:
+            name: Naam
+            username: Gebruikersnaam
+            active: Actief
+            created: Aangemaakt
+            modified: Gewijzigd
 
-        form:
-            login:
-                forgot_password: Wachtwoord vergeten
-                username:
-                    label: Gebruikersnaam
-                password:
-                    label: Wachtwoord
-                submit:
-                    label: Inloggen
-                remember_me:
-                    label: Houd mij ingelogd
+    form:
+        login:
+            forgot_password: Wachtwoord vergeten
+            username:
+                label: Gebruikersnaam
+            password:
+                label: Wachtwoord
+            submit:
+                label: Inloggen
+            remember_me:
+                label: Houd mij ingelogd
 
-            forgot_password:
-                title: Wachtwoord vergeten
-                email:
-                    label: E-mailadres
-                submit:
-                    label: Versturen
+        forgot_password:
+            title: Wachtwoord vergeten
+            email:
+                label: E-mailadres
+            submit:
+                label: Versturen
 
-            reset_password:
-                title: Wachtwoord opnieuw instellen
-                password:
-                    label: Wachtwoord
-                repeat_password:
-                    label: Herhaal wachtwoord
-                submit:
-                    label: Wijzigen
+        reset_password:
+            title: Wachtwoord opnieuw instellen
+            password:
+                label: Wachtwoord
+            repeat_password:
+                label: Herhaal wachtwoord
+            submit:
+                label: Wijzigen
 
+        role:
+            name:
+                label: Naam
             role:
-                name:
-                    label: Naam
-                role:
-                    label: Rol
+                label: Rol
 
-            group:
-                name:
-                    label: Naam
-                roles:
-                    label: Rollen
-
-            user:
-                name:
-                    label: Naam
-                email:
-                    label: E-mailadres
-                username:
-                    label: Gebruikersnaam
-                password:
-                    label: Wachtwoord
-                active:
-                    label: Actief
-                groups:
-                    label: Groepen
-
-            group_choice:
-                label: Groepen
-                placeholder: Maak een keuze
-
-            role_choice:
+        group:
+            name:
+                label: Naam
+            roles:
                 label: Rollen
-                placeholder: Maak een keuze
+
+        user:
+            name:
+                label: Naam
+            email:
+                label: E-mailadres
+            username:
+                label: Gebruikersnaam
+            password:
+                label: Wachtwoord
+            active:
+                label: Actief
+            groups:
+                label: Groepen
+
+        group_choice:
+            label: Groepen
+            placeholder: Maak een keuze
+
+        role_choice:
+            label: Rollen
+            placeholder: Maak een keuze

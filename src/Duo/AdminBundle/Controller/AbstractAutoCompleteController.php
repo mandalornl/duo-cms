@@ -5,10 +5,10 @@ namespace Duo\AdminBundle\Controller;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class AbstractAutoCompleteController extends Controller
+abstract class AbstractAutoCompleteController extends AbstractController
 {
 	/**
 	 * Set first result and max results

@@ -48,13 +48,13 @@ class TimeTwigExtension extends \Twig_Extension
 			$time = $interval->format('%s');
 
 			$labels = array_flip([
-				'duo.admin.elapsed_time.years' 		=> 3600 * 24 * 365,
-				'duo.admin.elapsed_time.months' 	=> 3600 * 24 * 30,
-				'duo.admin.elapsed_time.weeks' 		=> 3600 * 24 * 7,
-				'duo.admin.elapsed_time.days' 		=> 3600 * 24,
-				'duo.admin.elapsed_time.hours' 		=> 3600,
-				'duo.admin.elapsed_time.minutes' 	=> 60,
-				'duo.admin.elapsed_time.seconds' 	=> 1
+				'duo_admin.elapsed_time.years' 		=> 3600 * 24 * 365,
+				'duo_admin.elapsed_time.months' 	=> 3600 * 24 * 30,
+				'duo_admin.elapsed_time.weeks' 		=> 3600 * 24 * 7,
+				'duo_admin.elapsed_time.days' 		=> 3600 * 24,
+				'duo_admin.elapsed_time.hours' 		=> 3600,
+				'duo_admin.elapsed_time.minutes' 	=> 60,
+				'duo_admin.elapsed_time.seconds' 	=> 1
 			]);
 
 			foreach ($labels as $unit => $label)
@@ -72,7 +72,7 @@ class TimeTwigExtension extends \Twig_Extension
 			}
 		}
 
-		return $this->translator->transChoice('duo.admin.elapsed_time.seconds', 0, [
+		return $this->translator->transChoice('duo_admin.elapsed_time.seconds', 0, [
 			'%unit%' => 0
 		]);
 	}

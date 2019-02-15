@@ -6,7 +6,7 @@
 	{% for child in parent.children %}
 		<li class="nav-item">
 			{% if child.url %}
-				<a href="{{ child.url }}" class="nav-link{% if child.active %} active{% endif %}">
+				<a href="{{ child.url }}" class="nav-link{% if child.active %} active{% endif %}"{% if child.target %} target="{{ child.target }}"{% endif %}>
 					{%- if child.icon -%}
 						<i class="{{ child.icon }}"></i>
 					{%- endif -%}
@@ -29,8 +29,11 @@
 	{% endfor %}
 {% endmacro %}
 
-<nav role="navigation">
-	<ul class="nav flex-column">
-		{{- self.render(menu) -}}
-	</ul>
-</nav>
+{% set root = get_admin_menu() %}
+<div class="sidebar">
+	<nav role="navigation">
+		<ul class="nav flex-column">
+			{{- self.render(root) -}}
+		</ul>
+	</nav>
+</div>

@@ -5,7 +5,7 @@
 {% block toolbar %}
 	<nav class="navbar navbar-light bg-light justify-content-end">
 		<a href="{{ path(routePrefix ~ '_index') }}" class="btn btn-white">
-			{{- 'duo.admin.toolbar.actions.cancel' | trans -}}
+			{{- 'duo_admin.toolbar.actions.cancel' | trans -}}
 		</a>
 	</nav>
 {% endblock %}
@@ -35,7 +35,7 @@
 					</table>
 				</div>
 				<a href="{{ path('duo_form_listing_form_update', { id: entity.form.id}) }}" class="btn btn-secondary">
-					{{- 'duo.form.open_form' | trans -}}
+					{{- 'duo_form.open_form' | trans -}}
 				</a>
 			</div>
 		</div>

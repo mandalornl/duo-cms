@@ -16,10 +16,10 @@ class PublishedFilterType extends AbstractFilterType
 		$builder->add('value', ChoiceType::class, [
 			'required' => false,
 			'empty_data' => null,
-			'placeholder' => 'duo.page.form.published_filter.placeholder',
+			'placeholder' => 'duo_page.form.published_filter.placeholder',
 			'choices' => [
-				'duo.page.form.published_filter.choices.yes' => 1,
-				'duo.page.form.published_filter.choices.no' => 0
+				'duo_page.form.published_filter.choices.yes' => 1,
+				'duo_page.form.published_filter.choices.no' => 0
 			]
 		]);
 	}

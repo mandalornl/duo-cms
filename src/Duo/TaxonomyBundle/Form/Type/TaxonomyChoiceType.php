@@ -33,7 +33,7 @@ class TaxonomyChoiceType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.taxonomy.form.taxonomy_choice.label',
+			'label' => 'duo_taxonomy.form.taxonomy_choice.label',
 			'class' => Taxonomy::class,
 			'empty_data' => null,
 			'multiple' => true,
@@ -49,7 +49,7 @@ class TaxonomyChoiceType extends AbstractType
 				return $taxonomy->translate($this->translator->getLocale())->getName();
 			},
 			'attr' => [
-				'data-placeholder' => $this->translator->trans('duo.taxonomy.form.taxonomy_choice.placeholder')
+				'data-placeholder' => $this->translator->trans('duo_taxonomy.form.taxonomy_choice.placeholder')
 			]
 		]);
 	}

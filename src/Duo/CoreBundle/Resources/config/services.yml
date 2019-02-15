@@ -1,68 +1,81 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\CoreBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
-
-#    Duo\CoreBundle\Controller\:
-#        resource: '../../Controller'
-#        public: true
-#        tags: ['controller.service_arguments']
-
-    Duo\CoreBundle\EventSubscriber\UuidSubscriber:
+    duo_core.event_subscriver.uuid:
+        class: Duo\CoreBundle\EventSubscriber\UuidSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\PublishSubscriber:
+    duo_core.event_subscriber.publish:
+        class: Duo\CoreBundle\EventSubscriber\PublishSubscriber
         arguments:
             $security: '@security.helper'
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\RevisionSubscriber:
+    duo_core.event_subscriber.revision:
+        class: Duo\CoreBundle\EventSubscriber\RevisionSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\DraftSubscriber:
+    duo_core.event_subscriber.draft:
+        class: Duo\CoreBundle\EventSubscriber\DraftSubscriber
         tags:
         - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\DeleteSubscriber:
+    duo_core.event_subscriber.delete:
+        class: Duo\CoreBundle\EventSubscriber\DeleteSubscriber
         arguments:
             $security: '@security.helper'
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\SortSubscriber:
+    duo_core.event_subscriber.sort:
+        class: Duo\CoreBundle\EventSubscriber\SortSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\TimestampSubscriber:
+    duo_core.event_subscriber.timestamp:
+        class: Duo\CoreBundle\EventSubscriber\TimestampSubscriber
         arguments:
             $security: '@security.helper'
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\TranslateSubscriber:
+    duo_core.event_subscriber.translate:
+        class: Duo\CoreBundle\EventSubscriber\TranslateSubscriber
+        arguments:
+            $localeHelper: '@duo_admin.helper.locale'
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\TranslationSubscriber:
+    duo_core.event_subscriber.translation:
+        class: Duo\CoreBundle\EventSubscriber\TranslationSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\TreeSubscriber:
+    duo_core.event_subscriber.tree:
+        class: Duo\CoreBundle\EventSubscriber\TreeSubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\CoreBundle\EventSubscriber\SlugSubscriber:
+    duo_core.event_subscriber.slug:
+        class: Duo\CoreBundle\EventSubscriber\SlugSubscriber
         tags:
             - { name: doctrine.event_subscriber, priority: -8 }
 
-    Duo\CoreBundle\EventSubscriber\UrlSubscriber:
+    duo_core.event_subscriber.url:
+        class: Duo\CoreBundle\EventSubscriber\UrlSubscriber
         tags:
             - { name: doctrine.event_subscriber, priority: -16 }
+
+    duo_core.twig_extension.core:
+        class: Duo\CoreBundle\Twig\CoreTwigExtension
+        tags:
+            - { name: twig.extension }
+
+    duo_core.twig_extension.publish:
+        class: Duo\CoreBundle\Twig\PublishTwigExtension
+        tags:
+            - { name: twig.extension }

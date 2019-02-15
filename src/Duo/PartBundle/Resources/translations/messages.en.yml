@@ -1,10 +1,9 @@
-duo:
-    part:
-        modal:
-            title: Parts
+duo_part:
+    modal:
+        title: Parts
 
-        form:
-            collection:
-                label: Parts
-                btn_add: Add
-                btn_delete: Delete
+    form:
+        collection:
+            label: Parts
+            btn_add: Add
+            btn_delete: Delete

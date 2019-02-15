@@ -57,11 +57,11 @@ abstract class AbstractDestroyController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.no_items', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.no_items', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_items', [], 'flashes'));
+			$this->addFlash('warning', $this->get('translator')->trans('duo_admin.no_items', [], 'flashes'));
 		}
 		else
 		{
@@ -89,11 +89,11 @@ abstract class AbstractDestroyController extends AbstractController
 			{
 				return $this->json([
 					'success' => true,
-					'message' => $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.destroy_success', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes'));
+			$this->addFlash('success', $this->get('translator')->trans('duo_admin.destroy_success', [], 'flashes'));
 		}
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_index");

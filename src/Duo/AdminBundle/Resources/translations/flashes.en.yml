@@ -1,14 +1,13 @@
-duo:
-    admin:
-        error: An error occurred. Please try again.
-        no_items: No item(s) selected.
-        no_changes: No changes found.
-        destroy_success: Item(s) deleted succesfully.
-        save_success: Item saved successfully.
-        locked: Someone else has already applied some changes. Please try again.
-        delete_success: Item(s) deleted succesfully.
-        undelete_success: Item(s) undeleted succesfully.
-        revert_success: Item successfully reverted.
-        duplicate_success: Item successfully duplicated.
-        publish_success: Item successfully published.
-        unpublish_success: Item successfully taken offline.
+duo_admin:
+    error: An error occurred. Please try again.
+    no_items: No item(s) selected.
+    no_changes: No changes found.
+    destroy_success: Item(s) deleted succesfully.
+    save_success: Item saved successfully.
+    locked: Someone else has already applied some changes. Please try again.
+    delete_success: Item(s) deleted succesfully.
+    undelete_success: Item(s) undeleted succesfully.
+    revert_success: Item successfully reverted.
+    duplicate_success: Item successfully duplicated.
+    publish_success: Item successfully published.
+    unpublish_success: Item successfully taken offline.

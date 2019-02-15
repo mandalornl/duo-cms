@@ -1,20 +1,21 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\FormBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Tests}'
-
-    Duo\FormBundle\Controller\:
-        resource: '../../Controller'
-        public: true
-        tags: ['controller.service_arguments']
-
-    Duo\FormBundle\Form\Type\FormPartCollectionType:
+    duo_form.configurator.form_part:
+        class: Duo\FormBundle\Configurator\FormPartConfigurator
         arguments:
-            $configurator: '@Duo\FormBundle\Configurator\FormPartConfigurator'
+            $eventDispatcher: '@event_dispatcher'
+
+    duo_form.controller.form:
+        class: Duo\FormBundle\Controller\FormController
+        arguments:
+            $mailerHelper: '@duo_admin.helper.mailer'
+        public: true
+
+    duo_form.form.type.form_part_collection:
+        class: Duo\FormBundle\Form\Type\FormPartCollectionType
+        arguments:
+            $configurator: '@duo_form.configurator.form_part'
         tags:
             - { name: form.type }

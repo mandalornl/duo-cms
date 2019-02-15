@@ -1,5 +1,4 @@
-duo:
-    page:
-        errors:
-            url_used: Deze url is al in gebruik
-            name_used: Deze naam is al in gebruik
+duo_page:
+    errors:
+        url_used: Deze url is al in gebruik
+        name_used: Deze naam is al in gebruik

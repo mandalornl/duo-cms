@@ -46,7 +46,7 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 				'Remarks' => 'Lorem ipsum dolor sit amet',
 				'I agree to the privacy statement' => 1
 			]
-		 ] as $locale => $data)
+		] as $locale => $data)
 		{
 			$result = (new FormSubmission())
 				->setForm($form)

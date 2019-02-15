@@ -54,7 +54,7 @@ class GroupFixture extends Fixture implements DependentFixtureInterface
 			 'Guests' => [
 				 'IS_AUTHENTICATED_ANONYMOUSLY'
 			 ]
-		 ] as $groupName => $roleNames)
+		] as $groupName => $roleNames)
 		{
 			$group = (new Group())
 				->setName($groupName);

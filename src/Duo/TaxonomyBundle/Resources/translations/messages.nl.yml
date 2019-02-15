@@ -1,25 +1,24 @@
-duo:
-    taxonomy:
-        menu:
-            modules: Modulen
-            taxonomies: Taxonomieën
+duo_taxonomy:
+    menu:
+        modules: Modulen
+        taxonomies: Taxonomieën
 
-        listing:
-            field:
-                name: Naam
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+    listing:
+        field:
+            name: Naam
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
-            filter:
-                name: Naam
-                created: Aangemaakt
-                modified: Gewijzigd
+        filter:
+            name: Naam
+            created: Aangemaakt
+            modified: Gewijzigd
 
-        form:
-            taxonomy:
-                name:
-                    label: Naam
+    form:
+        taxonomy:
+            name:
+                label: Naam
 
-            taxonomy_choice:
-                label: Taxonomieën
-                placeholder: Maak een keuze
+        taxonomy_choice:
+            label: Taxonomieën
+            placeholder: Maak een keuze

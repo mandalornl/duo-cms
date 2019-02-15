@@ -7,7 +7,7 @@ final class PagePartConfiguratorEvents
 	/**
 	 * @Event("Duo\PageBundle\Event\PagePartConfiguratorEvent")
 	 */
-	const PRE_LOAD = 'duo.event.page_part_configurator.preLoad';
+	const PRE_LOAD = 'duo_page.event.page_part_configurator.preLoad';
 
 	/**
 	 * PagePartConfiguratorEvents constructor

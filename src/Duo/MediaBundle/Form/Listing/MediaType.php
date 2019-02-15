@@ -24,15 +24,15 @@ class MediaType extends AbstractType
 		$builder
 			->add('name', TextType::class, [
 				'required' => false,
-				'label' => 'duo.media.form.media.name.label'
+				'label' => 'duo_media.form.media.name.label'
 			])
 			->add('taxonomies', TaxonomyChoiceType::class, [
 				'required' => false,
-				'label' => 'duo.media.form.media.taxonomies.label'
+				'label' => 'duo_media.form.media.taxonomies.label'
 			])
 			->add('file', FileType::class, [
 				'mapped' => false,
-				'label' => 'duo.media.form.media.file.label',
+				'label' => 'duo_media.form.media.file.label',
 				'constraints' => [
 					new NotBlank()
 				]

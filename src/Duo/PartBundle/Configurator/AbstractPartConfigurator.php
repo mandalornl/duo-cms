@@ -9,14 +9,14 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 {
 	/**
-	 * @var Collection
-	 */
-	protected $configs;
-
-	/**
 	 * @var EventDispatcherInterface
 	 */
 	protected $eventDispatcher;
+
+	/**
+	 * @var Collection
+	 */
+	protected $configs;
 
 	/**
 	 * PartConfigurator constructor

@@ -2,7 +2,7 @@
 {%- if value is instanceof('\\DateTimeInterface') -%}
 	{{- value | localizeddate('short', 'short', app.request.locale) -}}
 {%- elseif value is bool -%}
-	{{- (value ? 'duo.admin.type.bool.yes' : 'duo.admin.type.bool.no') | trans -}}
+	{{- (value ? 'duo_admin.type.bool.yes' : 'duo_admin.type.bool.no') | trans -}}
 {%- else -%}
 	{{- value -}}
 {%- endif -%}

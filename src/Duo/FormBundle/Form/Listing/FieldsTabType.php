@@ -29,7 +29,7 @@ class FieldsTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.tab.fields'
+			'label' => 'duo_form.tab.fields'
 		]);
 	}
 

@@ -16,7 +16,7 @@ class TaxonomyTranslationType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
 		$builder->add('name', TextType::class, [
-			'label' => 'duo.taxonomy.form.taxonomy.name.label'
+			'label' => 'duo_taxonomy.form.taxonomy.name.label'
 		]);
 	}
 

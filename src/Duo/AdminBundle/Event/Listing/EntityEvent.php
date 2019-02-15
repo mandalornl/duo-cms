@@ -2,9 +2,9 @@
 
 namespace Duo\AdminBundle\Event\Listing;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Request;
 
-class EntityEvent extends Event
+class EntityEvent extends AbstractEvent
 {
 	/**
 	 * @var object
@@ -15,10 +15,13 @@ class EntityEvent extends Event
 	 * EntityEvent constructor
 	 *
 	 * @param object $entity
+	 * @param Request $request
 	 */
-	public function __construct(object $entity)
+	public function __construct(object $entity, Request $request)
 	{
 		$this->entity = $entity;
+
+		parent::__construct($request);
 	}
 
 	/**

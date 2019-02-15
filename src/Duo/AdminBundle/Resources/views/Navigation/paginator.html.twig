@@ -1,22 +1,22 @@
 {% set pageCount = paginator.getPageCount() %}
-<nav aria-label="{{ 'duo.admin.paginator.label' | trans }}">
+<nav aria-label="{{ 'duo_admin.paginator.label' | trans }}">
 	<ul class="pagination">
 		{% set previous = paginator.getPreviousPage() %}
 		{% if paginator.page <= 1 %}
 			<li class="page-item disabled">
-				<span class="page-link" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
+				<span class="page-link" aria-label="{{ 'duo_admin.paginator.previous' | trans }}">
 					<span aria-hidden="true">&lsaquo;</span>
 					<span class="sr-only">
-						{{- 'duo.admin.paginator.previous' | trans -}}
+						{{- 'duo_admin.paginator.previous' | trans -}}
 					</span>
 				</span>
 			</li>
 		{% else %}
 			<li class="page-item">
-				<a class="page-link" href="{{ path(routeName, routeParameters | merge({ page: previous })) }}" aria-label="{{ 'duo.admin.paginator.previous' | trans }}">
+				<a class="page-link" href="{{ path(routeName, routeParameters | merge({ page: previous })) }}" aria-label="{{ 'duo_admin.paginator.previous' | trans }}">
 					<span aria-hidden="true">&lsaquo;</span>
 					<span class="sr-only">
-						{{- 'duo.admin.paginator.previous' | trans -}}
+						{{- 'duo_admin.paginator.previous' | trans -}}
 					</span>
 				</a>
 			</li>
@@ -42,7 +42,7 @@
 				{%- if paginator.page == page %}
 					<span class="page-link">
 						{{- page -}}
-						<span class="sr-only"> ({{ 'duo.admin.paginator.current' | trans }})</span>
+						<span class="sr-only"> ({{ 'duo_admin.paginator.current' | trans }})</span>
 					</span>
 				{% else %}
 					<a href="{{ path(routeName, routeParameters | merge({ page: page })) }}" class="page-link">
@@ -69,19 +69,19 @@
 		{% set next = paginator.getNextPage() %}
 		{% if paginator.page >= pageCount %}
 			<li class="page-item disabled">
-				<span class="page-link" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
+				<span class="page-link" aria-label="{{ 'duo_admin.paginator.next' | trans }}">
 					<span aria-hidden="true">&rsaquo;</span>
 					<span class="sr-only">
-						{{- 'duo.admin.paginator.next' | trans -}}
+						{{- 'duo_admin.paginator.next' | trans -}}
 					</span>
 				</span>
 			</li>
 		{% else %}
 			<li class="page-item">
-				<a class="page-link" href="{{ path(routeName, routeParameters | merge({ page: next })) }}" aria-label="{{ 'duo.admin.paginator.next' | trans }}">
+				<a class="page-link" href="{{ path(routeName, routeParameters | merge({ page: next })) }}" aria-label="{{ 'duo_admin.paginator.next' | trans }}">
 					<span aria-hidden="true">&rsaquo;</span>
 					<span class="sr-only">
-						{{- 'duo.admin.paginator.next' | trans -}}
+						{{- 'duo_admin.paginator.next' | trans -}}
 					</span>
 				</a>
 			</li>

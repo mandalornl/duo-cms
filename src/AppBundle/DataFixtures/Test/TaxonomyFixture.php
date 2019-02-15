@@ -30,7 +30,7 @@ class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 				'en' => 'Files',
 				'nl' => 'Bestanden'
 			]
-		 ] as $reference => $item)
+		] as $reference => $item)
 		{
 			$taxonomy = (new Taxonomy());
 			$taxonomy->setCreatedBy($user);

@@ -8,28 +8,35 @@ class AppKernel extends Kernel
 	public function registerBundles()
 	{
 		$bundles = [
-			new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-			new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-			new Symfony\Bundle\TwigBundle\TwigBundle(),
-			new Symfony\Bundle\MonologBundle\MonologBundle(),
-			new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-			new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-			new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-			new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-			new Infinite\FormBundle\InfiniteFormBundle(),
-			new NotFloran\MjmlBundle\MjmlBundle(),
-			new Liip\ImagineBundle\LiipImagineBundle(),
+			new Duo\AdminBundle\DuoAdminBundle(),
             new Duo\CoreBundle\DuoCoreBundle(),
-            new Duo\PartBundle\DuoPartBundle(),
-            new Duo\PageBundle\DuoPageBundle(),
             new Duo\FormBundle\DuoFormBundle(),
+			new Duo\MediaBundle\DuoMediaBundle(),
+            new Duo\PageBundle\DuoPageBundle(),
+            new Duo\PartBundle\DuoPartBundle(),
             new Duo\SecurityBundle\DuoSecurityBundle(),
             new Duo\SeoBundle\DuoSeoBundle(),
             new Duo\TaxonomyBundle\DuoTaxonomyBundle(),
-			new Duo\MediaBundle\DuoMediaBundle(),
 			new Duo\TranslatorBundle\DuoTranslatorBundle(),
-			new Duo\AdminBundle\DuoAdminBundle(),
+
 			new AppBundle\AppBundle(),
+
+			new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+			new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+			new Symfony\Bundle\MonologBundle\MonologBundle(),
+			new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+			new Symfony\Bundle\TwigBundle\TwigBundle(),
+
+			new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+			new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+
+			new Infinite\FormBundle\InfiniteFormBundle(),
+
+			new Liip\ImagineBundle\LiipImagineBundle(),
+
+			new NotFloran\MjmlBundle\MjmlBundle(),
+
+			new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
         ];
 
 		if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

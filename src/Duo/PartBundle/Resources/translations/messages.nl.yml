@@ -1,10 +1,9 @@
-duo:
-    part:
-        modal:
-            title: Onderdelen
+duo_part:
+    modal:
+        title: Onderdelen
 
-        form:
-            collection:
-                label: Onderdelen
-                btn_add: Toevoegen
-                btn_delete: Verwijderen
+    form:
+        collection:
+            label: Onderdelen
+            btn_add: Toevoegen
+            btn_delete: Verwijderen

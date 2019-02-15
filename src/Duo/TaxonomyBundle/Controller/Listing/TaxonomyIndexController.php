@@ -24,9 +24,9 @@ class TaxonomyIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('name', 'duo.taxonomy.listing.field.name', 't'))
-			->addField(new Field('createdAt', 'duo.taxonomy.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.taxonomy.listing.field.modified_at'));
+			->addField(new Field('name', 'duo_taxonomy.listing.field.name', 't'))
+			->addField(new Field('createdAt', 'duo_taxonomy.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_taxonomy.listing.field.modified_at'));
 	}
 
 	/**
@@ -35,9 +35,9 @@ class TaxonomyIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new StringFilter('name', 'duo.taxonomy.listing.filter.name', 't'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.taxonomy.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.taxonomy.listing.filter.modified'));
+			->addFilter(new StringFilter('name', 'duo_taxonomy.listing.filter.name', 't'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_taxonomy.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_taxonomy.listing.filter.modified'));
 	}
 
 	/**

@@ -49,6 +49,13 @@ interface MenuBuilderInterface
 	public function getMenu(): MenuInterface;
 
 	/**
+	 * Build menu
+	 *
+	 * @param bool $rebuild [optional]
+	 */
+	public function buildMenu(bool $rebuild = false): void;
+
+	/**
 	 * Create view
 	 *
 	 * @param bool $rebuild [optional]

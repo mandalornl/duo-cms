@@ -15,10 +15,10 @@ class BooleanFilterType extends AbstractFilterType
 		$builder->add('value', ChoiceType::class, [
 			'required' => false,
 			'empty_data' => null,
-			'placeholder' => 'duo.admin.form.boolean_filter.placeholder',
+			'placeholder' => 'duo_admin.form.boolean_filter.placeholder',
 			'choices' => [
-				'duo.admin.form.boolean_filter.choices.yes' => 1,
-				'duo.admin.form.boolean_filter.choices.no' => 0
+				'duo_admin.form.boolean_filter.choices.yes' => 1,
+				'duo_admin.form.boolean_filter.choices.no' => 0
 			]
 		]);
 	}

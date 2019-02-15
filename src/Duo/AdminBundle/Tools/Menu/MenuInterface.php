@@ -8,6 +8,32 @@ use Doctrine\Common\Collections\Collection;
 interface MenuInterface
 {
 	/**
+	 * @var string
+	 */
+	const TARGET_BLANK = '_blank';
+
+	/**
+	 * @var string
+	 */
+	const TARGET_SELF = '_self';
+
+	/**
+	 * Set id
+	 *
+	 * @param string $id
+	 *
+	 * @return MenuInterface
+	 */
+	public function setId(string $id): MenuInterface;
+
+	/**
+	 * Get id
+	 *
+	 * @return string
+	 */
+	public function getId(): ?string;
+
+	/**
 	 * Set label
 	 *
 	 * @param string $label
@@ -40,22 +66,6 @@ interface MenuInterface
 	public function getIcon(): ?string;
 
 	/**
-	 * Set id
-	 *
-	 * @param string $id
-	 *
-	 * @return MenuInterface
-	 */
-	public function setId(string $id): MenuInterface;
-
-	/**
-	 * Get id
-	 *
-	 * @return string
-	 */
-	public function getId(): ?string;
-
-	/**
 	 * Set url
 	 *
 	 * @param string $url
@@ -70,6 +80,22 @@ interface MenuInterface
 	 * @return string
 	 */
 	public function getUrl(): ?string;
+
+	/**
+	 * Set target
+	 *
+	 * @param string $target
+	 *
+	 * @return MenuInterface
+	 */
+	public function setTarget(?string $target): MenuInterface;
+
+	/**
+	 * Get target
+	 *
+	 * @return string
+	 */
+	public function getTarget(): ?string;
 
 	/**
 	 * Set active
@@ -127,4 +153,20 @@ interface MenuInterface
 	 * @return ArrayCollection
 	 */
 	public function getChildren(): Collection;
+
+	/**
+	 * Set breadcrumbs
+	 *
+	 * @param MenuInterface[] $breadcrumbs
+	 *
+	 * @return MenuInterface
+	 */
+	public function setBreadcrumbs(array $breadcrumbs): MenuInterface;
+
+	/**
+	 * Get breadcrumbs
+	 *
+	 * @return MenuInterface[]
+	 */
+	public function getBreadcrumbs(): array;
 }

@@ -37,7 +37,7 @@ trait PartTrait
 
 		$this->getParts()->add($part);
 
-		// dirty entity
+		// dirty entity to trigger update
 		$this->partVersion = uniqid();
 
 		return $this;
@@ -53,7 +53,7 @@ trait PartTrait
 		$part->setEntity(null);
 		$part->setReference(null);
 
-		// dirty entity
+		// dirty entity to trigger update
 		$this->partVersion = uniqid();
 
 		return $this;

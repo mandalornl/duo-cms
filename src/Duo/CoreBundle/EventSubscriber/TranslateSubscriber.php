@@ -61,7 +61,7 @@ class TranslateSubscriber implements EventSubscriber
 				'fieldName' 	=> 'translations',
 				'mappedBy' 		=> 'entity',
 				'indexBy' 		=> 'locale',
-				'cascade' 		=> ['persist', 'remove'],
+				'cascade' 		=> ['persist'],
 				'fetch' 		=> ClassMetadata::FETCH_LAZY,
 				'targetEntity' 	=> Tools\ClassMetadata::getOneToManyTargetEntity($reflectionClass, 'Translation'),
 				'orphanRemoval' => true

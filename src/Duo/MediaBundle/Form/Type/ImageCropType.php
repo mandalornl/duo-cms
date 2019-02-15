@@ -23,19 +23,19 @@ class ImageCropType extends AbstractType
 
 		$ratioOptions = array_replace_recursive([
 			'choices' => [
-				'duo.media.form.image_crop.ratio.choices.landscape_4_3' => '4:3',
-				'duo.media.form.image_crop.ratio.choices.portrait_4_3' => '3:4',
-				'duo.media.form.image_crop.ratio.choices.landscape_5_4' => '5:4',
-				'duo.media.form.image_crop.ratio.choices.portrait_4_5' => '4:5',
-				'duo.media.form.image_crop.ratio.choices.landscape_3_2' => '3:2',
-				'duo.media.form.image_crop.ratio.choices.portrait_2_3' => '2:3',
-				'duo.media.form.image_crop.ratio.choices.landscape_2_1' => '2:1',
-				'duo.media.form.image_crop.ratio.choices.portrait_1_2' => '1:2',
-				'duo.media.form.image_crop.ratio.choices.landscape_16_9' => '16:9',
-				'duo.media.form.image_crop.ratio.choices.portrait_9_16' => '9:16',
-				'duo.media.form.image_crop.ratio.choices.landscape_21_9' => '21:9',
-				'duo.media.form.image_crop.ratio.choices.portrait_9_21' => '9:21',
-				'duo.media.form.image_crop.ratio.choices.square' => '1:1'
+				'duo_media.form.image_crop.ratio.choices.landscape_4_3' => '4:3',
+				'duo_media.form.image_crop.ratio.choices.portrait_4_3' => '3:4',
+				'duo_media.form.image_crop.ratio.choices.landscape_5_4' => '5:4',
+				'duo_media.form.image_crop.ratio.choices.portrait_4_5' => '4:5',
+				'duo_media.form.image_crop.ratio.choices.landscape_3_2' => '3:2',
+				'duo_media.form.image_crop.ratio.choices.portrait_2_3' => '2:3',
+				'duo_media.form.image_crop.ratio.choices.landscape_2_1' => '2:1',
+				'duo_media.form.image_crop.ratio.choices.portrait_1_2' => '1:2',
+				'duo_media.form.image_crop.ratio.choices.landscape_16_9' => '16:9',
+				'duo_media.form.image_crop.ratio.choices.portrait_9_16' => '9:16',
+				'duo_media.form.image_crop.ratio.choices.landscape_21_9' => '21:9',
+				'duo_media.form.image_crop.ratio.choices.portrait_9_21' => '9:21',
+				'duo_media.form.image_crop.ratio.choices.square' => '1:1'
 			]
 		], $options['ratioOptions'], [
 			'label' => false

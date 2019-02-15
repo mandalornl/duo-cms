@@ -1,36 +1,35 @@
-duo:
-    translator:
-        tab:
-            content: Content
-            properties: Eigenschappen
+duo_translator:
+    tab:
+        content: Content
+        properties: Eigenschappen
 
-        menu:
-            translations: Vertalingen
+    menu:
+        translations: Vertalingen
 
-        toolbar:
-            actions:
-                reload: Herladen
+    toolbar:
+        actions:
+            reload: Herladen
 
-        listing:
-            field:
-                keyword: Keyword
-                domain: Domein
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+    listing:
+        field:
+            keyword: Keyword
+            domain: Domein
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
-            filter:
-                keyword: Keyword
-                domain: Domein
-                created: Aangemaakt
-                modified: Gewijzigd
+        filter:
+            keyword: Keyword
+            domain: Domein
+            created: Aangemaakt
+            modified: Gewijzigd
 
-        form:
-            entry:
-                keyword:
-                    label: Keyword
-                domain:
-                    label: Domein
+    form:
+        entry:
+            keyword:
+                label: Keyword
+            domain:
+                label: Domein
 
-            entry_translation:
-                text:
-                    label: Tekst
+        entry_translation:
+            text:
+                label: Tekst

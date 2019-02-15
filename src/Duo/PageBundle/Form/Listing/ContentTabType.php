@@ -19,7 +19,7 @@ class ContentTabType extends AbstractType
 	{
 		$builder
 			->add('title', TextType::class, [
-				'label' => 'duo.page.form.page.title.label'
+				'label' => 'duo_page.form.page.title.label'
 			])
 			->add('parts', PagePartCollectionType::class, [
 				'constraints' => [
@@ -34,7 +34,7 @@ class ContentTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.page.tab.content'
+			'label' => 'duo_page.tab.content'
 		]);
 	}
 

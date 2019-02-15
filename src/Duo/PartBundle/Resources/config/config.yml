@@ -1,2 +1,0 @@
-imports:
-    - { resource: '@DuoPartBundle/Resources/config/services.yml' }

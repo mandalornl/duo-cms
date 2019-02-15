@@ -30,17 +30,23 @@ abstract class AbstractCreateController extends AbstractController
 		$entity = $manager->getClassMetadata($this->getEntityClass())->getReflectionClass()->newInstance();
 
 		// dispatch pre create event
-		$this->get('event_dispatcher')->dispatch(EntityEvents::PRE_CREATE, new EntityEvent($entity));
+		$event = $this->get('event_dispatcher')->dispatch(EntityEvents::PRE_CREATE, new EntityEvent($entity, $request));
+
+		// return with response when given
+		if ($event->hasResponse())
+		{
+			return $event->getResponse();
+		}
 
 		$form = $this->createForm($this->getFormType(), $entity);
 
 		// dispatch pre create event
-		$this->get('event_dispatcher')->dispatch(FormEvents::PRE_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
+		$event = $this->get('event_dispatcher')->dispatch(FormEvents::PRE_CREATE, new FormEvent($form, $entity, $request));
 
-		// return when response is given
-		if ($formEvent->hasResponse())
+		// return with response when given
+		if ($event->hasResponse())
 		{
-			return $formEvent->getResponse();
+			return $event->getResponse();
 		}
 
 		$form->handleRequest($request);
@@ -48,30 +54,36 @@ abstract class AbstractCreateController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post create event
-			$this->get('event_dispatcher')->dispatch(FormEvents::POST_CREATE, ($formEvent = new FormEvent($form, $entity, $request)));
+			$event = $this->get('event_dispatcher')->dispatch(FormEvents::POST_CREATE, new FormEvent($form, $entity, $request));
 
-			// return when response is given
-			if ($formEvent->hasResponse())
+			// return with response when given
+			if ($event->hasResponse())
 			{
-				return $formEvent->getResponse();
+				return $event->getResponse();
 			}
 
 			$manager->persist($entity);
 			$manager->flush();
 
 			// dispatch post flush event
-			$this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
+			$event = $this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity, $request));
+
+			// return with response when given
+			if ($event->hasResponse())
+			{
+				return $event->getResponse();
+			}
 
 			// reply with json response
 			if ($request->getRequestFormat() === 'json')
 			{
 				return $this->json([
 					'id' => $entity->getId(),
-					'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.save_success', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
+			$this->addFlash('success', $this->get('translator')->trans('duo_admin.save_success', [], 'flashes'));
 
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
@@ -86,7 +98,7 @@ abstract class AbstractCreateController extends AbstractController
 			]);
 		}
 
-		return $this->render($this->getCreateTemplate(), (array)$this->getDefaultContext([
+		return $this->render($this->getCreateTemplate(), (array)$this->createTwigContext([
 			'form' => $form->createView(),
 			'entity' => $entity
 		]));

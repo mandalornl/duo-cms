@@ -1,4 +1,3 @@
-duo:
-    taxonomy:
-        errors:
-            taxonomy_used: Deze naam is al in gebruik voor deze taal
+duo_taxonomy:
+    errors:
+        taxonomy_used: Deze naam is al in gebruik voor deze taal

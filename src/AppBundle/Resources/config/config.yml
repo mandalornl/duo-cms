@@ -1,3 +1,36 @@
 imports:
     - { resource: '@AppBundle/Resources/config/parameters.yml' }
     - { resource: '@AppBundle/Resources/config/services.yml' }
+
+# Doctrine Configuration #
+doctrine:
+    orm:
+        resolve_target_entities:
+            Duo\PageBundle\Entity\PageInterface: '%duo_page.entity.page_class%'
+            Duo\PageBundle\Entity\PageTranslationInterface: '%duo_page.entity.page_translation_class%'
+            Duo\SecurityBundle\Entity\UserInterface: '%duo_security.entity.user_class%'
+
+# Liip Imagine Configuration #
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+                cache_prefix: '%duo_media.cache_prefix%'
+    driver: imagick
+
+# Duo Page Configuration #
+duo_page:
+    target_entities:
+        page_class: AppBundle\Entity\Page
+        page_translation_class: AppBundle\Entity\PageTranslation
+
+# Duo Media Configuration #
+duo_media:
+    relative_path: '/media'
+    absolute_path: '%kernel.project_dir%/web/media'
+    cache_prefix: 'media/cache'
+
+# Duo Security Configuration #
+duo_security:
+    target_entities:
+        user_class: AppBundle\Entity\User

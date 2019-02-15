@@ -1,57 +1,56 @@
-duo:
-    media:
-        select: Select
-        clear: Clear
-        upload: Drop your files here to upload them instantly
+duo_media:
+    select: Select
+    clear: Clear
+    upload: Drop your files here to upload them instantly
 
-        menu:
-            media: Media
+    menu:
+        media: Media
 
-        listing:
-            field:
-                name: Name
-                type: Type
-                size: Size
-                taxonomies: Taxonomies
-                created_at: Created at
-                modified_at: Modified at
+    listing:
+        field:
+            name: Name
+            type: Type
+            size: Size
+            taxonomies: Taxonomies
+            created_at: Created at
+            modified_at: Modified at
 
-            filter:
-                name: Name
-                type: Type
-                byte_size: Size (bytes)
-                taxonomies: Taxonomies
-                created: Created
-                modified: Modified
+        filter:
+            name: Name
+            type: Type
+            byte_size: Size (bytes)
+            taxonomies: Taxonomies
+            created: Created
+            modified: Modified
 
-            action:
-                download: Download
+        action:
+            download: Download
 
-        form:
-            media:
-                name:
-                    label: Name
-                taxonomies:
-                    label: Taxonomies
-                file:
-                    label: File
+    form:
+        media:
+            name:
+                label: Name
+            taxonomies:
+                label: Taxonomies
+            file:
+                label: File
 
-            image_crop:
-                ratio:
-                    choices:
-                        landscape_4_3: Landscape (4:3)
-                        portrait_4_3: Portrait (3:4)
-                        landscape_5_4: Landscape (5:4)
-                        portrait_4_5: Portrait (4:5)
-                        landscape_3_2: Landscape (3:2)
-                        portrait_2_3: Portrait (2:3)
-                        landscape_2_1: Landscape (2:1)
-                        portrait_1_2: Portrait (1:2)
-                        landscape_16_9: Landscape (16:9)
-                        portrait_9_16: Portrait (9:16)
-                        landscape_21_9: Landscape (21:9)
-                        portrait_9_21: Portrait (9:21)
-                        square: Square (1:1)
+        image_crop:
+            ratio:
+                choices:
+                    landscape_4_3: Landscape (4:3)
+                    portrait_4_3: Portrait (3:4)
+                    landscape_5_4: Landscape (5:4)
+                    portrait_4_5: Portrait (4:5)
+                    landscape_3_2: Landscape (3:2)
+                    portrait_2_3: Portrait (2:3)
+                    landscape_2_1: Landscape (2:1)
+                    portrait_1_2: Portrait (1:2)
+                    landscape_16_9: Landscape (16:9)
+                    portrait_9_16: Portrait (9:16)
+                    landscape_21_9: Landscape (21:9)
+                    portrait_9_21: Portrait (9:21)
+                    square: Square (1:1)
 
-        modal:
-            title: Files
+    modal:
+        title: Files

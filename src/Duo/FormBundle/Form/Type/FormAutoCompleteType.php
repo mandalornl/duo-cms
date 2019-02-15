@@ -15,10 +15,10 @@ class FormAutoCompleteType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.form.form_autocomplete.label',
+			'label' => 'duo_form.form.form_autocomplete.label',
 			'class' => Form::class,
 			'routeName' => 'duo_form_autocomplete_form_name',
-			'placeholder' => 'duo.form.form.form_autocomplete.placeholder',
+			'placeholder' => 'duo_form.form.form_autocomplete.placeholder',
 			'propertyName' => 'name'
 		]);
 	}

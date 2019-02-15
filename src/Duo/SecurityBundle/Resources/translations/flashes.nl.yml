@@ -1,11 +1,10 @@
-duo:
-    security:
-        forgot_password_error: Onbekend e-mailadres.
-        forgot_password_wait: Je dient minstens één uur te wachten, voordat je een nieuw verzoek kunt indienen.
-        forgot_password_success: |
-            Er is een e-mail naar je verzonden waarmee je jouw wachtwoord opnieuw kunt instellen.
+duo_security:
+    forgot_password_error: Onbekend e-mailadres.
+    forgot_password_wait: Je dient minstens één uur te wachten, voordat je een nieuw verzoek kunt indienen.
+    forgot_password_success: |
+        Er is een e-mail naar je verzonden waarmee je jouw wachtwoord opnieuw kunt instellen.
 
-            Vergeet niet om ook je SPAM te controlleren, indien je deze e-mail nog niet hebt ontvangen.
-        reset_password_error: Er is een fout opgetreden, probeer het nogmaals.
-        reset_password_invalid_token: De token is ongeldig. Probeer het nogmaals.
-        reset_password_success: Je wachtwoord is succesvol gewijzigd.
+        Vergeet niet om ook je SPAM te controlleren, indien je deze e-mail nog niet hebt ontvangen.
+    reset_password_error: Er is een fout opgetreden, probeer het nogmaals.
+    reset_password_invalid_token: De token is ongeldig. Probeer het nogmaals.
+    reset_password_success: Je wachtwoord is succesvol gewijzigd.

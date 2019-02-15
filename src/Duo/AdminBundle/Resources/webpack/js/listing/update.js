@@ -17,7 +17,7 @@ $(() =>
 		const $this = $(this);
 
 		await dialog({
-			title: $this.data('title') || $this.text(),
+			title: $this.data('title') || $this.attr('title') || $this.text(),
 			body: $this.data('body')
 		});
 

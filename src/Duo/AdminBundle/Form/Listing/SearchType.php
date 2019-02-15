@@ -17,7 +17,7 @@ class SearchType extends AbstractType
 			'label' => false,
 			'required' => false,
 			'attr' => [
-				'placeholder' => 'duo.admin.form.listing_search.placeholder'
+				'placeholder' => 'duo_admin.form.listing_search.placeholder'
 			]
 		]);
 	}

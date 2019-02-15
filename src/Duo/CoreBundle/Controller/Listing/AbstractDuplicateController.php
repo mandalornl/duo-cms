@@ -51,11 +51,11 @@ abstract class AbstractDuplicateController extends AbstractController
 		{
 			return $this->json([
 				'id' => $clone->getId(),
-				'message' => $this->get('translator')->trans('duo.admin.duplicate_success', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.duplicate_success', [], 'flashes')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.admin.duplicate_success', [], 'flashes'));
+		$this->addFlash('success', $this->get('translator')->trans('duo_admin.duplicate_success', [], 'flashes'));
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 			'id' => $clone->getId()

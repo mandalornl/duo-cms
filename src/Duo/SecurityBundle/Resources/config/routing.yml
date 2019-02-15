@@ -1,7 +1,25 @@
-duo_security:
-    resource: '@DuoSecurityBundle/Controller/'
+duo_security_listing:
+    resource: '@DuoSecurityBundle/Controller/Listing/'
     type: annotation
     prefix: /admin
+
+duo_security_login:
+    path: /admin/login
+    methods: [ 'GET', 'POST' ]
+    defaults:
+        _controller: 'duo_security.controller.security:loginAction'
+
+duo_security_forgot_password:
+    path: /admin/forgot-password
+    methods: [ 'GET', 'POST' ]
+    defaults:
+        _controller: 'duo_security.controller.security:forgotPasswordAction'
+
+duo_security_reset_password:
+    path: /admin/reset-password/{token}
+    methods: [ 'GET', 'POST' ]
+    defaults:
+        _controller: 'duo_security.controller.security:resetPasswordAction'
 
 duo_security_logout:
     path: /admin/logout

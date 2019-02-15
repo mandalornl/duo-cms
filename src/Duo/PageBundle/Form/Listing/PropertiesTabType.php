@@ -20,19 +20,19 @@ class PropertiesTabType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.page.form.page.name.label',
+				'label' => 'duo_page.form.page.name.label',
 				'required' => false
 			])
 			->add('weight', WeightChoiceType::class, [
-				'label' => 'duo.page.form.page.weight.label',
+				'label' => 'duo_page.form.page.weight.label',
 				'required' => false
 			])
 			->add('taxonomies', TaxonomyChoiceType::class, [
-				'label' => 'duo.page.form.page.taxonomies.label',
+				'label' => 'duo_page.form.page.taxonomies.label',
 				'required' => false
 			])
 			->add('parent', PageAutoCompleteType::class, [
-				'label' => 'duo.page.form.page.parent.label',
+				'label' => 'duo_page.form.page.parent.label',
 				'required' => false,
 				'excludeSelf' => true
 			]);
@@ -44,7 +44,7 @@ class PropertiesTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.page.tab.properties'
+			'label' => 'duo_page.tab.properties'
 		]);
 	}
 

@@ -52,7 +52,7 @@ abstract class AbstractRevisionController extends AbstractController
 			'disabled' => true
 		]);
 
-		return $this->render($this->getRevisionTemplate(), (array)$this->getDefaultContext([
+		return $this->render($this->getRevisionTemplate(), (array)$this->createTwigContext([
 			'entity' => $entity,
 			'form' => $form->createView()
 		]));
@@ -106,20 +106,21 @@ abstract class AbstractRevisionController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.error', [], 'flashes'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo_admin.error', [], 'flashes'));
 
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
 
-		$form = $this->createForm($this->getFormType());
+		$form = $this->createForm($this->getFormType(), $entity);
 
 		$request->setMethod('post');
 		$request->request->set($form->getName(), $this->getFormData($revision, $form));
 
+		// forward to update controller to handle entity
 		$response = $this->forward($route->getDefault('_controller'), [
 			'request' => $request,
 			'id' => $entity->getId()
@@ -182,11 +183,11 @@ abstract class AbstractRevisionController extends AbstractController
 		{
 			return $this->json([
 				'success' => true,
-				'message' => $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.destroy_success', [], 'flashes')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes'));
+		$this->addFlash('success', $this->get('translator')->trans('duo_admin.destroy_success', [], 'flashes'));
 
 		if (($entity = $entity->getEntity()) !== null)
 		{

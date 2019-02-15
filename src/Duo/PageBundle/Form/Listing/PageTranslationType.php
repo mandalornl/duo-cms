@@ -33,11 +33,11 @@ class PageTranslationType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'data_class' => PageTranslationInterface::class,
-			'isNew' => true
-		]);
-
-		$resolver->setAllowedTypes('isNew', 'bool');
+		$resolver
+			->setDefaults([
+				'data_class' => PageTranslationInterface::class,
+				'isNew' => true
+			])
+			->setAllowedTypes('isNew', 'bool');
 	}
 }

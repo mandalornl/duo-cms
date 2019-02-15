@@ -27,9 +27,9 @@ class GroupIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('name', 'duo.security.listing.field.name'))
-			->addField(new Field('createdAt', 'duo.security.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.security.listing.field.modified_at'));
+			->addField(new Field('name', 'duo_security.listing.field.name'))
+			->addField(new Field('createdAt', 'duo_security.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_security.listing.field.modified_at'));
 	}
 
 	/**
@@ -38,9 +38,9 @@ class GroupIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new StringFilter('name', 'duo.security.listing.filter.name'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.security.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.security.listing.filter.modified'));
+			->addFilter(new StringFilter('name', 'duo_security.listing.filter.name'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_security.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_security.listing.filter.modified'));
 	}
 
 	/**

@@ -9,6 +9,22 @@ use Duo\CoreBundle\Entity\Property\TimestampInterface;
 interface RevisionInterface extends IdInterface, TimestampInterface
 {
 	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return RevisionInterface
+	 */
+	public function setName(?string $name): RevisionInterface;
+
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName(): ?string;
+
+	/**
 	 * Set data
 	 *
 	 * @param array $data

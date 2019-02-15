@@ -1,26 +1,46 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\SecurityBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Tests}'
+    Duo\SecurityBundle\Entity\UserInterface: '@duo_security.entity.user'
 
-    Duo\SecurityBundle\Controller\:
-        resource: '../../Controller'
+    duo_security.entity.user:
+        class: '%duo_security.entity.user_class%'
+
+    duo_security.controller.security:
+        class: Duo\SecurityBundle\Controller\SecurityController
+        arguments:
+            $authenticationUtils: '@security.authentication_utils'
+            $loginHelper: '@duo_security.helper.login'
+            $mailerHelper: '@duo_admin.helper.mailer'
         public: true
-        tags: ['controller.service_arguments']
 
-    Duo\SecurityBundle\EventSubscriber\UserSubscriber:
+    duo_security.event_subscriber.user:
+        class: Duo\SecurityBundle\EventSubscriber\UserSubscriber
         arguments:
             $encoder: '@security.password_encoder'
             $validator: '@validator'
         tags:
             - { name: doctrine.event_subscriber }
 
-    duo.security.entity.user:
-        class: '%duo.security.entity.user_class%'
+    duo_security.form.type.group_choice:
+        class: Duo\SecurityBundle\Form\Type\GroupChoiceType
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: form.type }
 
-    Duo\SecurityBundle\Entity\UserInterface: '@duo.security.entity.user'
+    duo_security.form.type.role_choice:
+        class: Duo\SecurityBundle\Form\Type\RoleChoiceType
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: form.type }
+
+    duo_security.helper.login:
+        class: Duo\SecurityBundle\Helper\LoginHelper
+        arguments:
+            $tokenStorage: '@security.token_storage'
+            $eventDispatcher: '@event_dispatcher'
+        calls:
+            - [ setRequestStack, [ '@request_stack' ]]

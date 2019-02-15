@@ -1,4 +1,3 @@
-duo:
-    seo:
-        errors:
-            origin_used: This origin has already been used
+duo_seo:
+    errors:
+        origin_used: This origin has already been used

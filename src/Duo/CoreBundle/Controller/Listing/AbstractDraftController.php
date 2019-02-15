@@ -52,7 +52,7 @@ abstract class AbstractDraftController extends AbstractController
 			'disabled' => true
 		]);
 
-		return $this->render($this->getDraftTemplate(), (array)$this->getDefaultContext([
+		return $this->render($this->getDraftTemplate(), (array)$this->createTwigContext([
 			'entity' => $entity,
 			'form' => $form->createView()
 		]));
@@ -121,11 +121,11 @@ abstract class AbstractDraftController extends AbstractController
 			{
 				return $this->json([
 					'success' => true,
-					'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.save_success', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
+			$this->addFlash('success', $this->get('translator')->trans('duo_admin.save_success', [], 'flashes'));
 		}
 		else
 		{
@@ -134,11 +134,11 @@ abstract class AbstractDraftController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.error', [], 'flashes'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo_admin.error', [], 'flashes'));
 		}
 
 		return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
@@ -194,11 +194,11 @@ abstract class AbstractDraftController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('danger', $this->get('translator')->trans('duo.admin.error', [], 'flashes'));
+			$this->addFlash('danger', $this->get('translator')->trans('duo_admin.error', [], 'flashes'));
 
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
@@ -270,11 +270,11 @@ abstract class AbstractDraftController extends AbstractController
 		{
 			return $this->json([
 				'success' => true,
-				'message' => $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.destroy_success', [], 'flashes')
 			]);
 		}
 
-		$this->addFlash('success', $this->get('translator')->trans('duo.admin.destroy_success', [], 'flashes'));
+		$this->addFlash('success', $this->get('translator')->trans('duo_admin.destroy_success', [], 'flashes'));
 
 		if (($entity = $entity->getEntity()) !== null)
 		{

@@ -33,12 +33,12 @@ class TranslationsTabType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'label' => 'duo.page.tab.translations',
-			'data' => null
-		]);
-
-		$resolver->setAllowedTypes('data', [PageInterface::class, 'null']);
+		$resolver
+			->setDefaults([
+				'label' => 'duo_page.tab.translations',
+				'data' => null
+			])
+			->setAllowedTypes('data', [PageInterface::class, 'null']);
 	}
 
 	/**

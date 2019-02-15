@@ -36,10 +36,10 @@
 						<span class="name">{{ entity }}</span>
 						{% if not app.request.query.get('iframe') %}
 							<span class="actions">
-								<a href="{{ entity.url }}" download="{{ entity.name }}" title="{{ 'duo.media.listing.action.download' | trans }}" target="_blank" class="btn btn-white btn-sm">
+								<a href="{{ entity.url }}" download="{{ entity.name }}" title="{{ 'duo_media.listing.action.download' | trans }}" target="_blank" class="btn btn-white btn-sm">
 									<i class="icon-download"></i>
 								</a>
-								<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo.admin.listing.action.edit' | trans }}">
+								<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm" title="{{ 'duo_admin.listing.action.edit' | trans }}">
 									<i class="icon-pencil"></i>
 								</a>
 								{% if canDelete %}
@@ -47,7 +47,7 @@
 								{% else %}
 									{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
 								{% endif %}
-								<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo.admin.listing.action.destroy' | trans }}">
+								<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo_admin.listing.action.destroy' | trans }}">
 									<i class="icon-bin"></i>
 								</a>
 							</span>

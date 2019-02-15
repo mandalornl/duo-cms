@@ -3,9 +3,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal_revisions_title">
-					{{- 'duo.admin.modal.revisions.title' | trans -}}
+					{{- 'duo_admin.modal.revisions.title' | trans -}}
 				</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo.admin.modal.global.close' | trans }}">
+				<button type="button" class="close" data-dismiss="modal" aria-label="{{ 'duo_admin.modal.global.close' | trans }}">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -14,8 +14,8 @@
 					<table class="table table-hover table-striped">
 						<thead>
 							<tr>
-								<th>{{ 'duo.admin.modal.revisions.created_at' | trans }}</th>
-								<th>{{ 'duo.admin.modal.revisions.created_by' | trans }}</th>
+								<th>{{ 'duo_admin.modal.revisions.created_at' | trans }}</th>
+								<th>{{ 'duo_admin.modal.revisions.created_by' | trans }}</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -32,13 +32,13 @@
 										{% endif %}
 									</td>
 									<td>
-										<a href="{{ path(routePrefix ~ '_revision_view', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.view' | trans }}" target="_blank" class="btn btn-light btn-sm" >
-											<i class="icon-file-empty"></i>
+										<a href="{{ path(routePrefix ~ '_revision_view', { id: revision.id }) }}" title="{{ 'duo_admin.modal.revisions.view' | trans }}" target="_blank" class="btn btn-light btn-sm" >
+											<i class="icon-search"></i>
 										</a>
-										<a href="{{ path(routePrefix ~ '_revision_revert', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.revert' | trans }}" class="btn btn-primary btn-sm" data-modal="dialog" data-title="{{ 'duo.admin.modal.revert.title' | trans }}" data-body="{{ 'duo.admin.modal.revert.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_revision_revert', { id: revision.id }) }}" title="{{ 'duo_admin.modal.revisions.revert' | trans }}" class="btn btn-primary btn-sm" data-modal="dialog" data-body="{{ 'duo_admin.modal.action.body' | trans }}">
 											<i class="icon-history"></i>
 										</a>
-										<a href="{{ path(routePrefix ~ '_revision_destroy', { id: revision.id }) }}" title="{{ 'duo.admin.modal.revisions.delete' | trans }}" class="btn btn-danger btn-sm" data-modal="dialog" data-title="{{ 'duo.admin.modal.destroy.title' | trans }}" data-body="{{ 'duo.admin.modal.destroy.body' | trans }}">
+										<a href="{{ path(routePrefix ~ '_revision_destroy', { id: revision.id }) }}" title="{{ 'duo_admin.modal.revisions.destroy' | trans }}" class="btn btn-danger btn-sm" data-modal="dialog" data-body="{{ 'duo_admin.modal.action.body_permanent' | trans }}">
 											<i class="icon-bin"></i>
 										</a>
 									</td>
@@ -50,7 +50,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" data-dismiss="modal">
-					{{- 'duo.admin.modal.global.close' | trans -}}
+					{{- 'duo_admin.modal.global.close' | trans -}}
 				</button>
 			</div>
 		</div>

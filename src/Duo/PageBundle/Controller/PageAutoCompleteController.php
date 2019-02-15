@@ -5,6 +5,7 @@ namespace Duo\PageBundle\Controller;
 use Doctrine\ORM\Query\Expr\Join;
 use Duo\AdminBundle\Controller\AbstractAutoCompleteController;
 use Duo\AdminBundle\Tools\ORM\Query;
+use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,13 +22,17 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 	 * @Route("/url", name="url", methods={ "GET" })
 	 *
 	 * @param Request $request
-	 * @param PageRepository $pageRepository
 	 *
 	 * @return JsonResponse
 	 */
-	public function searchUrlAction(Request $request, PageRepository $pageRepository): JsonResponse
+	public function searchUrlAction(Request $request): JsonResponse
 	{
-		$builder = $pageRepository
+		/**
+		 * @var PageRepository $repository
+		 */
+		$repository = $this->getDoctrine()->getRepository(PageInterface::class);
+
+		$builder = $repository
 			->createQueryBuilder('e')
 			->join('e.translations', 't', Join::WITH, 't.locale = :locale')
 			->where('e.deletedAt IS NULL')
@@ -39,7 +44,7 @@ class PageAutoCompleteController extends AbstractAutoCompleteController
 		// don't include self or offspring
 		if (($id = (int)$request->get('id')))
 		{
-			$ids = array_merge([$id], $pageRepository->getOffspringIds($id));
+			$ids = array_merge([$id], $repository->getOffspringIds($id));
 
 			$builder
 				->andWhere('e.id NOT IN(:ids)')

@@ -1,158 +1,157 @@
-duo:
-    admin:
-        choose_language: Choose language
+duo_admin:
+    choose_language: Choose language
 
-        elapsed_time:
-            seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'
-            minutes: '{0} %unit% minutes|{1} %unit% minute|]1,Inf[ %unit% minutes'
-            hours: '{0} %unit% hours|{1} %unit% hour|]1,Inf[ %unit% hours'
-            days: '{0} %unit% days|{1} %unit% day|]1,Inf[ %unit% days'
-            weeks: '{0} %unit% weeks|{1} %unit% week|]1,Inf[ %unit% weeks'
-            months: '{0} %unit% months|{1} %unit% month|]1,Inf[ %unit% months'
-            years: '{0} %unit% years|{1} %unit% year|]1,Inf[ %unit% years'
+    elapsed_time:
+        seconds: '{0} %unit% seconds|{1} %unit% second|]1,Inf[ %unit% seconds'
+        minutes: '{0} %unit% minutes|{1} %unit% minute|]1,Inf[ %unit% minutes'
+        hours: '{0} %unit% hours|{1} %unit% hour|]1,Inf[ %unit% hours'
+        days: '{0} %unit% days|{1} %unit% day|]1,Inf[ %unit% days'
+        weeks: '{0} %unit% weeks|{1} %unit% week|]1,Inf[ %unit% weeks'
+        months: '{0} %unit% months|{1} %unit% month|]1,Inf[ %unit% months'
+        years: '{0} %unit% years|{1} %unit% year|]1,Inf[ %unit% years'
 
-        type:
-            bool:
+    type:
+        bool:
+            yes: Yes
+            no: No
+        publish:
+            partially: Partially
+
+    navbar:
+        toggle: Toggle navigation
+        logout: Logout
+
+    breadcrumbs:
+        label: Breadcrumbs
+
+    tab:
+        publication: Publication
+
+    menu:
+        content: Content
+        settings: Settings
+
+    toolbar:
+        actions:
+            label: Actions
+            new: New
+            save: Save
+            cancel: Cancel
+            destroy: Delete
+            publish: Online
+            unpublish: Offline
+            delete: Delete
+            undelete: Undelete
+            duplicate: Duplicate
+            revisions: Revisions
+            preview: Preview
+            save_draft: Save as draft
+            drafts: Drafts
+
+        dropdown:
+            global:
+                more: More
+
+    listing:
+        action:
+            destroy: Delete
+            edit: Edit
+            delete: Delete
+            move_up: Move up
+            move_down: Move down
+            export: Export
+
+        filter:
+            filter: Filter
+            clear: Clear
+            contains: Contains
+            not_contains: Does not contain
+            equals: Equals
+            not_equals: Not equal to
+            starts_with: Starts with
+            not_starts_with: Does not start with
+            ends_with: Ends with
+            not_ends_with: Does not end with
+            before: Before
+            after: After
+            greater_or_equals: Greater of equals
+            greater: Greater than
+            less: Less than
+            less_or_equals: Less or equals
+
+        search:
+            search: Search
+            clear: Clear
+
+        view:
+            list: View list
+            grid: View grid
+            switch: Switch view
+
+    paginator:
+        label: Pagination
+        previous: Previous
+        next: Next
+        current: Current
+        limiter: Items per page
+
+    modal:
+        global:
+            close: Close
+            cancel: Cancel
+            ok: Ok
+            actions: Actions
+
+        action:
+            title: Action
+            body: Are you sure you want to perform this action?
+            body_permanent: Are you sure you want to perform this action? This action can not be undone!
+
+        revisions:
+            title: Revisions
+            created_at: Created at
+            created_by: Created by
+            view: View
+            revert: Revert
+            destroy: Delete
+
+        drafts:
+            title: Drafts
+            name: Name
+            created_at: Created at
+            created_by: Created by
+            view: View
+            apply: Apply
+            destroy: Delete
+
+        new_draft:
+            title: New draft
+            name: Name
+
+    form:
+        file:
+            placeholder: Choose file
+
+        publication:
+            publish_at: Publish at
+            unpublish_at: Unpublish at
+
+        collection:
+            btn_add: Add
+            btn_delete: Delete
+
+        weight_choice:
+            label: Weight
+            placeholder: Please choose
+
+        boolean_filter:
+            placeholder: Please choose
+            choices:
                 yes: Yes
                 no: No
-            publish:
-                partially: Partially
 
-        navbar:
-            toggle: Toggle navigation
-            logout: Logout
+        enum_filter:
+            placeholder: Please choose
 
-        breadcrumbs:
-            label: Breadcrumbs
-
-        tab:
-            publication: Publication
-
-        menu:
-            content: Content
-            settings: Settings
-
-        toolbar:
-            actions:
-                label: Actions
-                new: New
-                save: Save
-                cancel: Cancel
-                destroy: Delete
-                publish: Online
-                unpublish: Offline
-                delete: Delete
-                undelete: Undelete
-                duplicate: Duplicate
-                revisions: Revisions
-                preview: Preview
-                save_draft: Save as draft
-                drafts: Drafts
-
-            dropdown:
-                global:
-                    more: More
-
-        listing:
-            action:
-                destroy: Delete
-                edit: Edit
-                delete: Delete
-                move_up: Move up
-                move_down: Move down
-                export: Export
-
-            filter:
-                filter: Filter
-                clear: Clear
-                contains: Contains
-                not_contains: Does not contain
-                equals: Equals
-                not_equals: Not equal to
-                starts_with: Starts with
-                not_starts_with: Does not start with
-                ends_with: Ends with
-                not_ends_with: Does not end with
-                before: Before
-                after: After
-                greater_or_equals: Greater of equals
-                greater: Greater than
-                less: Less than
-                less_or_equals: Less or equals
-
-            search:
-                search: Search
-                clear: Clear
-
-            view:
-                list: View list
-                grid: View grid
-                switch: Switch view
-
-        paginator:
-            label: Pagination
-            previous: Previous
-            next: Next
-            current: Current
-            limiter: Items per page
-
-        modal:
-            global:
-                close: Close
-                cancel: Cancel
-                ok: Ok
-                actions: Actions
-
-            action:
-                title: Action
-                body: Are you sure you want to perform this action?
-                body_permanent: Are you sure you want to perform this action? This action can not be undone!
-
-            revisions:
-                title: Revisions
-                created_at: Created at
-                created_by: Created by
-                view: View
-                revert: Revert
-                delete: Delete
-
-            drafts:
-                title: Drafts
-                name: Name
-                created_at: Created at
-                created_by: Created by
-                view: View
-                apply: Apply
-                delete: Delete
-
-            new_draft:
-                title: New draft
-                name: Name
-
-        form:
-            file:
-                placeholder: Choose file
-
-            publication:
-                publish_at: Publish at
-                unpublish_at: Unpublish at
-
-            collection:
-                btn_add: Add
-                btn_delete: Delete
-
-            weight_choice:
-                label: Weight
-                placeholder: Please choose
-
-            boolean_filter:
-                placeholder: Please choose
-                choices:
-                    yes: Yes
-                    no: No
-
-            enum_filter:
-                placeholder: Please choose
-
-            listing_search:
-                placeholder: Enter keyword
+        listing_search:
+            placeholder: Enter keyword

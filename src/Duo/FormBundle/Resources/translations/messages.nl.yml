@@ -1,81 +1,80 @@
-duo:
+duo_form:
+    open_form: Bekijk formulier
+
+    tab:
+        content: Content
+        properties: Eigenschappen
+        message: Bericht
+        fields: Velden
+
+    menu:
+        forms: Formulieren
+        submissions: Inzendingen
+
+    listing:
+        field:
+            name: Naam
+            locale: Taal
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
+
+        filter:
+            name: Naam
+            locale: Taal
+            created: Aangemaakt
+            modified: Gewijzigd
+
     form:
-        open_form: Bekijk formulier
-
-        tab:
-            content: Content
-            properties: Eigenschappen
-            message: Bericht
-            fields: Velden
-
-        menu:
-            forms: Formulieren
-            submissions: Inzendingen
-
-        listing:
-            field:
-                name: Naam
-                locale: Taal
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
-
-            filter:
-                name: Naam
-                locale: Taal
-                created: Aangemaakt
-                modified: Gewijzigd
-
         form:
-            form:
-                name:
-                    label: Naam
-                email_from:
-                    label: E-mail van
-                email_to:
-                    label: E-mail naar
-                keep_submissions:
-                    label: Inzendingen bewaren
-                send_submissions_to:
-                    label: Inzendingen versturen naar
-                page:
-                    label: Bedankt pagina
-                subject:
-                    label: Onderwerp
-                message:
-                    label: Bericht
+            name:
+                label: Naam
+            email_from:
+                label: E-mail van
+            email_to:
+                label: E-mail naar
+            keep_submissions:
+                label: Inzendingen bewaren
+            send_submissions_to:
+                label: Inzendingen versturen naar
+            page:
+                label: Bedankt pagina
+            subject:
+                label: Onderwerp
+            message:
+                label: Bericht
 
-            form_autocomplete:
-                label: Formulier
-                placeholder: Voer naam in
+        form_autocomplete:
+            label: Formulier
+            placeholder: Voer naam in
 
-            honeypot:
-                label: Laat dit veld leeg, als je dit leest
-
-            form_part:
-                label:
-                    label: Label
-                required:
-                    label: Verplicht
-                placeholder:
-                    label: Placeholder
-                error_message:
-                    label: Foutmelding
-                choices:
-                    label: Keuzes (scheiden met een nieuwe regel)
-                expanded:
-                    label: Radio of checkbox
-                multiple:
-                    label: Meerdere
-                page:
-                    label: Pagina
+        honeypot:
+            label: Laat dit veld leeg, als je dit leest
 
         form_part:
-            text: Tekst (één regel)
-            textarea: Tekst (meerdere regels)
-            email: E-mail
-            choice: Keuzeveld (menu, radio, checkbox)
-            privacy: Privacyverklaring
-            submit: Verzendknop
+            label:
+                label: Label
+            required:
+                label: Verplicht
+            placeholder:
+                label: Placeholder
+            error_message:
+                label: Foutmelding
+            choices:
+                label: Keuzes (scheiden met een nieuwe regel)
+            expanded:
+                label: Radio of checkbox
+            multiple:
+                label: Meerdere
+            page:
+                label: Pagina
 
-        privacy:
-            view: bekijken
+    form_part:
+        text: Tekst (één regel)
+        textarea: Tekst (meerdere regels)
+        email: E-mail
+        choice: Keuzeveld (menu, radio, checkbox)
+        privacy: Privacyverklaring
+        submit: Verzendknop
+
+    privacy:
+        view: bekijken

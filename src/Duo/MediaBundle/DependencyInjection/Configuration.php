@@ -12,24 +12,21 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getConfigTreeBuilder(): TreeBuilder
-    {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('duo_media');
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getConfigTreeBuilder(): TreeBuilder
+	{
+		$treeBuilder = new TreeBuilder();
+		$rootNode = $treeBuilder->root('duo_media');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
-
-        $rootNode
+		$rootNode
 			->children()
-				->scalarNode('relative_upload_path')->defaultValue('/media')->cannotBeEmpty()->end()
-				->scalarNode('absolute_upload_path')->defaultValue('%kernel.project_dir%/web/media')->cannotBeEmpty()->end()
+				->scalarNode('relative_path')->defaultValue('/media')->end()
+				->scalarNode('absolute_path')->defaultValue('%kernel.project_dir%/web/media')->end()
+				->scalarNode('cache_prefix')->defaultValue('media/cache')->end()
 			->end();
 
-        return $treeBuilder;
-    }
+		return $treeBuilder;
+	}
 }

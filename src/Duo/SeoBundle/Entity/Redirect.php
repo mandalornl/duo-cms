@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="duo_seo_redirect")
- * @ORM\Entity(repositoryClass="Duo\SeoBundle\Repository\RedirectRepository")
- * @UniqueEntity(fields={ "origin" }, message="duo.seo.errors.origin_used")
+ * @ORM\Entity()
+ * @UniqueEntity(fields={ "origin" }, message="duo_seo.errors.origin_used")
  */
 class Redirect implements IdInterface, TimestampInterface
 {

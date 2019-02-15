@@ -83,12 +83,12 @@
 					{% if not app.request.query.get('iframe') %}
 						<td>
 							{% if canMoveUp and not entity is treeable %}
-								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.admin.listing.action.move_up' | trans }}">
+								<a href="{{ path(routePrefix ~ '_move_up', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo_admin.listing.action.move_up' | trans }}">
 									<i class="icon-arrow-up"></i>
 								</a>
 							{% endif %}
 							{% if canMoveDown and not entity is treeable %}
-								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo.admin.listing.action.move_down' | trans }}">
+								<a href="{{ path(routePrefix ~ '_move_down', { id: entity.id }) }}" class="btn btn-white btn-sm" title="{{ 'duo_admin.listing.action.move_down' | trans }}">
 									<i class="icon-arrow-down"></i>
 								</a>
 							{% endif %}
@@ -97,10 +97,10 @@
 							{% else %}
 								{% set url = path(routePrefix ~ '_destroy', { id: entity.id }) %}
 							{% endif %}
-							<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm btn-edit" title="{{ 'duo.admin.listing.action.edit' | trans }}">
+							<a href="{{ path(routePrefix ~ '_update', { id: entity. id }) }}" class="btn btn-primary btn-sm btn-edit" title="{{ 'duo_admin.listing.action.edit' | trans }}">
 								<i class="icon-pencil"></i>
 							</a>
-							<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo.admin.listing.action.destroy' | trans }}">
+							<a href="{{ url }}" class="btn btn-danger btn-sm" data-modal="delete" title="{{ 'duo_admin.listing.action.destroy' | trans }}">
 								<i class="icon-bin"></i>
 							</a>
 						</td>

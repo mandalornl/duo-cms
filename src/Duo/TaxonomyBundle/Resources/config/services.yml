@@ -1,18 +1,23 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\TaxonomyBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests,Configuration}'
-
-    Duo\TaxonomyBundle\Controller\:
-        resource: '../../Controller'
-        public: true
-        tags: ['controller.service_arguments']
-
-    Duo\TaxonomyBundle\EventSubscriber\TaxonomySubscriber:
+    duo_taxonomy.event_subscriber.taxonomy:
+        class: Duo\TaxonomyBundle\EventSubscriber\TaxonomySubscriber
         tags:
             - { name: doctrine.event_subscriber }
+
+    duo_taxonomy.form.filter.taxonomy:
+        class: Duo\TaxonomyBundle\Form\Filter\TaxonomyFilterType
+        arguments:
+            $translator: '@translator'
+            $manager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+
+    duo_taxonomy.form.type.taxonomy_choice:
+        class: Duo\TaxonomyBundle\Form\Type\TaxonomyChoiceType
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: form.type }

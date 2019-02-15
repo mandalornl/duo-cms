@@ -69,6 +69,7 @@ export default ($ =>
 				}
 
 				const config = $.extend(true, {}, DEFAULT, {
+					tags: $this.data('tags') || false,
 					placeholder: $this.data('placeholder') || 'Please choose',
 					minimumResultsForSearch: $this.find('option').length <= 10 ? Infinity : 10
 				}, options);

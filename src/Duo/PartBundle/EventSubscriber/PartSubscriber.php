@@ -13,21 +13,6 @@ use Duo\PartBundle\Entity\Property\PartInterface as PropertyPartInterface;
 class PartSubscriber implements EventSubscriber
 {
 	/**
-	 * @var EntityManagerInterface
-	 */
-	private $manager;
-
-	/**
-	 * PartSubscriber constructor
-	 *
-	 * @param EntityManagerInterface $manager
-	 */
-	public function __construct(EntityManagerInterface $manager)
-	{
-		$this->manager = $manager;
-	}
-
-	/**
 	 * {@inheritdoc}
 	 */
 	public function getSubscribedEvents(): array

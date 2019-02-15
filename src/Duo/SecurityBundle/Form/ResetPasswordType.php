@@ -19,7 +19,7 @@ class ResetPasswordType extends AbstractType
 		$builder
 			->add('password', RepeatedType::class, [
 				'type' => PasswordType::class,
-				'invalid_message' => 'duo.security.errors.password_mismatch',
+				'invalid_message' => 'duo_security.errors.password_mismatch',
 				'options' => [
 					'attr' => [
 						'autocomplete' => 'off'
@@ -29,14 +29,14 @@ class ResetPasswordType extends AbstractType
 					new NotBlank()
 				],
 				'first_options' => [
-					'label' => 'duo.security.form.reset_password.password.label'
+					'label' => 'duo_security.form.reset_password.password.label'
 				],
 				'second_options' => [
-					'label' => 'duo.security.form.reset_password.repeat_password.label'
+					'label' => 'duo_security.form.reset_password.repeat_password.label'
 				]
 			])
 			->add('submit', SubmitType::class, [
-				'label' => 'duo.security.form.reset_password.submit.label',
+				'label' => 'duo_security.form.reset_password.submit.label',
 				'attr' => [
 					'class' => 'btn-primary btn-block'
 				]

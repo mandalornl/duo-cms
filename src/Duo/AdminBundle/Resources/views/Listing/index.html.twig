@@ -5,12 +5,12 @@
 {% block toolbar %}
 	<nav class="navbar navbar-light bg-light justify-content-end">
 		<div class="form-inline">
-			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo.admin.toolbar.actions.label' | trans }}">
+			<div class="btn-toolbar" role="toolbar" aria-label="{{ 'duo_admin.toolbar.actions.label' | trans }}">
 				<div class="btn-group" role="group">
 					{% if paginator.count %}
 						<div class="btn-group" role="group">
 							<button id="actions_{{ type }}" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
-								{{- 'duo.admin.toolbar.dropdown.global.more' | trans -}}
+								{{- 'duo_admin.toolbar.dropdown.global.more' | trans -}}
 							</button>
 							<div class="dropdown-menu" aria-labelledby="actions_{{ type }}">
 								{% if list.actions is defined %}
@@ -18,7 +18,7 @@
 										{% if action.template %}
 											{% include action.template %}
 										{% elseif action.route %}
-											<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
+											<a href="{{ path(action.route, action.routeParameters) }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo_admin.modal.action.body' | trans }}">
 												{{- action.label | trans -}}
 											</a>
 										{% else %}
@@ -29,17 +29,17 @@
 									{% endfor %}
 								{% endif %}
 								{% if (routePrefix ~ '_export') is validroute %}
-									<a href="{{ path(routePrefix ~ '_export') }}" target="_blank" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo.admin.listing.action.export' | trans }}" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
-										{{- 'duo.admin.listing.action.export' | trans }} (xlsx)
+									<a href="{{ path(routePrefix ~ '_export') }}" target="_blank" class="dropdown-item" data-modal="multi-action" data-title="{{ 'duo_admin.listing.action.export' | trans }}" data-body="{{ 'duo_admin.modal.action.body' | trans }}">
+										{{- 'duo_admin.listing.action.export' | trans }} (.xlsx)
 									</a>
 								{% endif %}
 								{% if (routePrefix ~ '_delete') is validroute %}
-									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo.admin.modal.action.body' | trans }}">
-										{{- 'duo.admin.listing.action.delete' | trans -}}
+									<a href="{{ path(routePrefix ~ '_delete') }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo_admin.modal.action.body' | trans }}">
+										{{- 'duo_admin.listing.action.delete' | trans -}}
 									</a>
 								{% else %}
-									<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo.admin.modal.action.body_permanent' | trans }}">
-										{{- 'duo.admin.listing.action.destroy' | trans -}}
+									<a href="{{ path(routePrefix ~ '_destroy') }}" class="dropdown-item" data-modal="multi-action" data-body="{{ 'duo_admin.modal.action.body_permanent' | trans }}">
+										{{- 'duo_admin.listing.action.destroy' | trans -}}
 									</a>
 								{% endif %}
 							</div>
@@ -47,7 +47,7 @@
 					{% endif %}
 					{% if (routePrefix ~ '_create') is validroute %}
 						<a href="{{ path(routePrefix ~ '_create') }}" class="btn btn-primary">
-							{{- 'duo.admin.toolbar.actions.new' | trans -}}
+							{{- 'duo_admin.toolbar.actions.new' | trans -}}
 						</a>
 					{% endif %}
 				</div>
@@ -61,7 +61,7 @@
 		<div class="listing-filter mb-3">
 			{% set activeFilters = app.request.session.get((app.request.query.get('iframe') ? 'i' : '') ~ 'filter_' ~ type, []) | length %}
 			<button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#listing_filter" aria-expanded="false" aria-controls="listing_filter">
-				{{- 'duo.admin.listing.filter.filter' | trans }}{% if activeFilters %} ({{ activeFilters }}){% endif -%}
+				{{- 'duo_admin.listing.filter.filter' | trans }}{% if activeFilters %} ({{ activeFilters }}){% endif -%}
 			</button>
 			<div id="listing_filter" class="collapse my-3">
 				{% form_theme list.filterForm with ['@DuoAdmin/Form/fields.html.twig'] only %}
@@ -70,10 +70,10 @@
 				<div class="row">
 					<div class="col d-flex justify-content-end">
 						<a href="{{ path(routePrefix ~ '_filter', app.request.query.all | merge({ clear: true })) }}" class="btn btn-light mr-2">
-							{{- 'duo.admin.listing.filter.clear' | trans -}}
+							{{- 'duo_admin.listing.filter.clear' | trans -}}
 						</a>
 						<button type="submit" class="btn btn-primary">
-							{{- 'duo.admin.listing.filter.filter' | trans -}}
+							{{- 'duo_admin.listing.filter.filter' | trans -}}
 						</button>
 					</div>
 				</div>
@@ -94,12 +94,12 @@
 					<div class="input-group-append">
 						<a href="{{ path(routePrefix ~ '_search', app.request.query.all | merge({ clear: true })) }}" class="btn btn-secondary">
 							<span>
-								{{- 'duo.admin.listing.search.clear' | trans -}}
+								{{- 'duo_admin.listing.search.clear' | trans -}}
 							</span> <i class="icon-bin"></i>
 						</a>
 						<button type="submit" class="btn btn-primary">
 							<span>
-								{{- 'duo.admin.listing.search.search' | trans -}}
+								{{- 'duo_admin.listing.search.search' | trans -}}
 							</span> <i class="icon-search"></i>
 						</button>
 					</div>
@@ -124,11 +124,11 @@
 	<form action="javascript:;" method="post" class="listing-form">
 		{% if list.canSwitchView | default(false) %}
 			<div class="d-flex justify-content-end mb-3">
-				<div class="btn-group" role="group" aria-label="{{ 'duo.admin.listing.view.switch' | trans }}">
-					<a href="{{ path(routePrefix ~ '_index', app.request.query.all | merge({ view: 'list' })) }}" class="btn btn-white{% if list.view != 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.list' | trans }}">
+				<div class="btn-group" role="group" aria-label="{{ 'duo_admin.listing.view.switch' | trans }}">
+					<a href="{{ path(routePrefix ~ '_index', app.request.query.all | merge({ view: 'list' })) }}" class="btn btn-white{% if list.view != 'grid' %} active{% endif %}" title="{{ 'duo_admin.listing.view.list' | trans }}">
 						<i class="icon-list"></i>
 					</a>
-					<a href="{{ path(routePrefix ~ '_index', app.request.query.all | merge({ view: 'grid' })) }}" class="btn btn-white{% if list.view == 'grid' %} active{% endif %}" title="{{ 'duo.admin.listing.view.grid' | trans }}">
+					<a href="{{ path(routePrefix ~ '_index', app.request.query.all | merge({ view: 'grid' })) }}" class="btn btn-white{% if list.view == 'grid' %} active{% endif %}" title="{{ 'duo_admin.listing.view.grid' | trans }}">
 						<i class="icon-grid"></i>
 					</a>
 				</div>
@@ -159,10 +159,10 @@
 	{% if not app.request.query.get('iframe') %}
 		{% include '@DuoAdmin/Listing/Modal/dialog.html.twig' with {
 			id: 'modal_dialog_delete',
-			title: 'duo.admin.toolbar.actions.delete' | trans,
+			title: 'duo_admin.toolbar.actions.delete' | trans,
 			body: ((routePrefix ~ '_delete') is validroute ?
-				'duo.admin.modal.action.body' :
-				'duo.admin.modal.action.body_permanent') | trans
+				'duo_admin.modal.action.body' :
+				'duo_admin.modal.action.body_permanent') | trans
 		} %}
 
 		{% include '@DuoAdmin/Listing/Modal/dialog.html.twig' %}

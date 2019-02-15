@@ -2,12 +2,10 @@
 
 namespace Duo\AdminBundle\Event\Listing;
 
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-class FormEvent extends Event
+class FormEvent extends AbstractEvent
 {
 	/**
 	 * @var FormInterface
@@ -20,16 +18,6 @@ class FormEvent extends Event
 	private $entity;
 
 	/**
-	 * @var Request
-	 */
-	private $request;
-
-	/**
-	 * @var Response
-	 */
-	private $response;
-
-	/**
 	 * FormEvent constructor
 	 *
 	 * @param FormInterface $form
@@ -40,7 +28,8 @@ class FormEvent extends Event
 	{
 		$this->form = $form;
 		$this->entity = $entity;
-		$this->request = $request;
+
+		parent::__construct($request);
 	}
 
 	/**
@@ -89,49 +78,5 @@ class FormEvent extends Event
 	public function getEntity(): ?object
 	{
 		return $this->entity;
-	}
-
-	/**
-	 * Set request
-	 *
-	 * @param Request $request
-	 *
-	 * @return FormEvent
-	 */
-	public function setRequest(?Request $request): FormEvent
-	{
-		$this->request = $request;
-
-		return $this;
-	}
-
-	/**
-	 * Get request
-	 *
-	 * @return Request
-	 */
-	public function getRequest(): ?Request
-	{
-		return $this->request;
-	}
-
-	/**
-	 * Has response
-	 *
-	 * @return bool
-	 */
-	public function hasResponse(): bool
-	{
-		return $this->response instanceof Response;
-	}
-
-	/**
-	 * Get response
-	 *
-	 * @return Response
-	 */
-	public function getResponse(): ?Response
-	{
-		return $this->response;
 	}
 }

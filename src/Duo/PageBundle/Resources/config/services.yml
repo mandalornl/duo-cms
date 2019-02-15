@@ -1,30 +1,36 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\PageBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Tests,Configuration}'
+    Duo\PageBundle\Entity\PageInterface: '@duo_page.entity.page'
+    Duo\PageBundle\Entity\PageTranslationInterface: '@duo_page.entity.page_translation'
 
-    Duo\PageBundle\Controller\:
-        resource: '../../Controller'
-        public: true
-        tags: ['controller.service_arguments']
-
-    Duo\PageBundle\Form\Type\PagePartCollectionType:
+    duo_page.configurator.page_part:
+        class: Duo\PageBundle\Configurator\PagePartConfigurator
         arguments:
-            $configurator: '@Duo\PageBundle\Configurator\PagePartConfigurator'
+            $eventDispatcher: '@event_dispatcher'
+
+    duo_page.entity.page:
+        class: '%duo_page.entity.page_class%'
+
+    duo_page.entity.page_translation:
+        class: '%duo_page.entity.page_translation_class%'
+
+    duo_page.form.type.page_part_collection:
+        class: Duo\PageBundle\Form\Type\PagePartCollectionType
+        arguments:
+            $configurator: '@duo_page.configurator.page_part'
         tags:
             - { name: form.type }
 
-    duo.page.entity.page:
-        class: '%duo.page.entity.page_class%'
+    duo_page.twig_extension.breadcrumbs:
+        class: Duo\PageBundle\Twig\BreadcrumbsTwigExtension
+        tags:
+            - { name: twig.extension }
 
-    Duo\PageBundle\Entity\PageInterface: '@duo.page.entity.page'
-
-    duo.page.entity.page_translation:
-        class: '%duo.page.entity.page_translation_class%'
-
-    Duo\PageBundle\Entity\PageTranslationInterface: '@duo.page.entity.page_translation'
+    duo_page.twig_extension.page:
+        class: Duo\PageBundle\Twig\PageTwigExtension
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: twig.extension }

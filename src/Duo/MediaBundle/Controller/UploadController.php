@@ -1,36 +1,40 @@
 <?php
 
-namespace Duo\MediaBundle\Controller\Listing;
+namespace Duo\MediaBundle\Controller;
 
-use Duo\AdminBundle\Controller\Listing\AbstractController;
 use Duo\MediaBundle\Entity\Media;
 use Duo\MediaBundle\Helper\UploadHelper;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/media", name="duo_media_listing_media_")
- */
-class MediaUploadController extends AbstractController
+class UploadController extends AbstractController
 {
-	use MediaConfigurationTrait;
+	/**
+	 * @var UploadHelper
+	 */
+	private $uploadHelper;
+
+	/**
+	 * UploadController constructor
+	 *
+	 * @param UploadHelper $uploadHelper
+	 */
+	public function __construct(UploadHelper $uploadHelper)
+	{
+		$this->uploadHelper = $uploadHelper;
+	}
 
 	/**
 	 * Upload action
 	 *
-	 * @Route("/upload", name="upload", methods={ "PUT" })
-	 *
 	 * @param Request $request
-	 * @param UploadHelper $uploadHelper
 	 *
 	 * @return JsonResponse
-	 *
-	 * @throws \Throwable
 	 */
-	public function uploadAction(Request $request, UploadHelper $uploadHelper): JsonResponse
+	public function uploadAction(Request $request): JsonResponse
 	{
 		$tmpDir = sys_get_temp_dir();
 
@@ -38,7 +42,7 @@ class MediaUploadController extends AbstractController
 		{
 			return $this->json([
 				'error' => "Temp file can not be created in '{$tmpDir}'",
-				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 			], Response::HTTP_BAD_REQUEST);
 		}
 
@@ -48,7 +52,7 @@ class MediaUploadController extends AbstractController
 			{
 				return $this->json([
 					'error' => 'Unable to write temporary file',
-					'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 				], Response::HTTP_BAD_REQUEST);
 			}
 
@@ -63,7 +67,7 @@ class MediaUploadController extends AbstractController
 
 			$entity = new Media();
 
-			$uploadHelper->upload($file, $entity);
+			$this->uploadHelper->upload($file, $entity);
 
 			$manager = $this->getDoctrine()->getManager();
 			$manager->persist($entity);
@@ -84,7 +88,7 @@ class MediaUploadController extends AbstractController
 
 			return $this->json([
 				'error' => $e->getMessage(),
-				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 			], Response::HTTP_BAD_REQUEST);
 		}
 	}

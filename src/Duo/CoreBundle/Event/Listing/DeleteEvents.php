@@ -7,12 +7,12 @@ final class DeleteEvents
 	/**
 	 * @Event("Duo\CoreBundle\Event\Listing\DeleteEvent")
 	 */
-	const DELETE = 'duo.core.event.listing.delete';
+	const DELETE = 'duo_core.event.listing.delete';
 
 	/**
 	 * @Event("Duo\CoreBundle\Event\Listing\DeleteEvent")
 	 */
-	const UNDELETE = 'duo.core.event.listing.undelete';
+	const UNDELETE = 'duo_core.event.listing.undelete';
 
 	/**
 	 * DeleteEvents constructor

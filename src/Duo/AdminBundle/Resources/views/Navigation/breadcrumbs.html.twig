@@ -1,0 +1,34 @@
+{% set root = get_admin_menu() %}
+{% if root.breadcrumbs | length > 1 %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{ path('duo_admin_dashboard_index') }}">
+					<i class="icon-home"></i>
+				</a>
+			</li>
+			{% for child in root.breadcrumbs %}
+				{% if loop.last and entity is not defined %}
+					<li class="breadcrumb-item active" aria-current="page">
+						{{- child.label | trans -}}
+					</li>
+				{% else %}
+					<li class="breadcrumb-item">
+						{%- if child.url -%}
+							<a href="{{ child.url }}"{% if child.target %} target="{{ child.target }}"{% endif %}>
+								{{- child.label | trans -}}
+							</a>
+						{%- else -%}
+							{{- child.label | trans -}}
+						{%- endif -%}
+					</li>
+				{% endif %}
+			{% endfor %}
+			{% if entity is defined %}
+				<li class="breadcrumb-item active" aria-current="page">
+					{{- entity | default(entity.id) -}}
+				</li>
+			{% endif %}
+		</ol>
+	</nav>
+{% endif %}

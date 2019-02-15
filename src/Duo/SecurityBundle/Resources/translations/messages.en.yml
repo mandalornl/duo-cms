@@ -1,88 +1,87 @@
-duo:
-    security:
-        tab:
-            profile: Profile
-            properties: Properties
+duo_security:
+    tab:
+        profile: Profile
+        properties: Properties
 
-        menu:
-            security: Security
-            users: Users
-            groups: Groups
-            roles: Roles
+    menu:
+        security: Security
+        users: Users
+        groups: Groups
+        roles: Roles
 
-        listing:
-            field:
-                name: Name
-                username: Username
-                active: Active
-                created_at: Created at
-                modified_at: Modified at
+    listing:
+        field:
+            name: Name
+            username: Username
+            active: Active
+            created_at: Created at
+            modified_at: Modified at
 
-            filter:
-                name: Name
-                username: Username
-                active: Active
-                created: Created
-                modified: Modified
+        filter:
+            name: Name
+            username: Username
+            active: Active
+            created: Created
+            modified: Modified
 
-        form:
-            login:
-                forgot_password: Forgot password
-                username:
-                    label: Username
-                password:
-                    label: Password
-                submit:
-                    label: Login
-                remember_me:
-                    label: Keep me logged in
+    form:
+        login:
+            forgot_password: Forgot password
+            username:
+                label: Username
+            password:
+                label: Password
+            submit:
+                label: Login
+            remember_me:
+                label: Keep me logged in
 
-            forgot_password:
-                title: Forgot password
-                email:
-                    label: Email
-                submit:
-                    label: Send
+        forgot_password:
+            title: Forgot password
+            email:
+                label: Email
+            submit:
+                label: Send
 
-            reset_password:
-                title: Reset password
-                password:
-                    label: Password
-                repeat_password:
-                    label: Repeat password
-                submit:
-                    label: Change
+        reset_password:
+            title: Reset password
+            password:
+                label: Password
+            repeat_password:
+                label: Repeat password
+            submit:
+                label: Change
 
+        role:
+            name:
+                label: Name
             role:
-                name:
-                    label: Name
-                role:
-                    label: Role
+                label: Role
 
-            group:
-                name:
-                    label: Name
-                roles:
-                    label: Roles
-
-            user:
-                name:
-                    label: Name
-                email:
-                    label: Email
-                username:
-                    label: Username
-                password:
-                    label: Password
-                active:
-                    label: Active
-                groups:
-                    label: Groups
-
-            group_choice:
-                label: Groups
-                placeholder: Please choose
-
-            role_choice:
+        group:
+            name:
+                label: Name
+            roles:
                 label: Roles
-                placeholder: Please choose
+
+        user:
+            name:
+                label: Name
+            email:
+                label: Email
+            username:
+                label: Username
+            password:
+                label: Password
+            active:
+                label: Active
+            groups:
+                label: Groups
+
+        group_choice:
+            label: Groups
+            placeholder: Please choose
+
+        role_choice:
+            label: Roles
+            placeholder: Please choose

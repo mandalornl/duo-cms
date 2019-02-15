@@ -3,20 +3,14 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\SeoBundle\Entity\Robot;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/", name="duo_seo_robots_")
- */
-class RobotController extends Controller
+class RobotController extends AbstractController
 {
 	/**
 	 * Index
-	 *
-	 * @Route("/robots.txt", name="index", methods={ "GET" })
 	 *
 	 * @param Request $request
 	 *

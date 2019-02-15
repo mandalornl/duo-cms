@@ -40,10 +40,21 @@ class RobotIndexController extends AbstractController
 			$manager->persist($entity);
 			$manager->flush();
 
+			// reply with json response
+			if ($request->getRequestFormat() === 'json')
+			{
+				return $this->json([
+					'success' => true,
+					'message' => $this->get('translator')->trans('duo_admin.save_success', [], 'flashes')
+				]);
+			}
+
+			$this->addFlash('success', $this->get('translator')->trans('duo_admin.save_success', [], 'flashes'));
+
 			return $this->redirectToRoute("{$this->getRoutePrefix()}_index");
 		}
 
-		return $this->render('@DuoSeo/Listing/robots.html.twig', (array)$this->getDefaultContext([
+		return $this->render('@DuoSeo/Listing/robots.html.twig', (array)$this->createTwigContext([
 			'form' => $form->createView()
 		]));
 	}

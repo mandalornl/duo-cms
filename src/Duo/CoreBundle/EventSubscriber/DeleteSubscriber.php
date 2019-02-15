@@ -64,12 +64,9 @@ class DeleteSubscriber implements EventSubscriber
 	 */
 	public function setDeletedBy(object $entity): void
 	{
-		if (!$entity instanceof DeleteInterface || !$entity->isDeleted())
-		{
-			return;
-		}
-
-		if (($user = $this->security->getUser()) === null)
+		if (!$entity instanceof DeleteInterface ||
+			!$entity->isDeleted() ||
+			($user = $this->security->getUser()) === null)
 		{
 			return;
 		}

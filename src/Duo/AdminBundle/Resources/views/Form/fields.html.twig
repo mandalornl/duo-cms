@@ -80,7 +80,7 @@
 	<div class="custom-file">
 		<input type="{{ type }}" {{ block('widget_attributes') }}{% if value is not empty %} value="{{ value }}"{% endif %}>
 		<label{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
-			{{- 'duo.admin.form.file.placeholder' | trans({}, translation_domain) -}}
+			{{- 'duo_admin.form.file.placeholder' | trans({}, translation_domain) -}}
 		</label>
 	</div>
 {% endblock %}
@@ -89,7 +89,7 @@
 	<div class="widget-collection" data-item="{{ block('collection_widget_item') | escape }}">
 		{% if not disabled and allow_add %}
 			<button type="button" class="btn btn-primary mb-3" data-action="add">
-				{{- 'duo.admin.form.collection.btn_add' | trans -}}
+				{{- 'duo_admin.form.collection.btn_add' | trans -}}
 			</button>
 		{% endif %}
 		{% if prototype is defined %}
@@ -101,7 +101,7 @@
 		{{- block('form_widget') -}}
 		{% if not disabled and allow_add %}
 			<button type="button" class="btn btn-primary my-3{% if not form | length %} d-none{% endif %}" data-action="add">
-				{{- 'duo.admin.form.collection.btn_add' | trans -}}
+				{{- 'duo_admin.form.collection.btn_add' | trans -}}
 			</button>
 		{% endif %}
 	</div>
@@ -112,7 +112,7 @@
 		{% if not disabled | default(false) and allow_delete | default(false) %}
 			<div class="d-flex justify-content-end">
 				<button type="button" class="btn btn-danger btn-sm" data-dismiss="collection-item">
-					{{- 'duo.admin.form.collection.btn_delete' | trans }}
+					{{- 'duo_admin.form.collection.btn_delete' | trans }}
 				</button>
 			</div>
 		{% endif %}
@@ -156,7 +156,7 @@
 	<div id="{{ id }}" class="translation-list">
 		<nav class="tab-list">
 			<label for="{{ id }}_locale_selector" class="sr-only">
-				{{- 'duo.admin.choose_language' | trans -}}
+				{{- 'duo_admin.choose_language' | trans -}}
 			</label>
 			<select id="{{ id }}_locale_selector" class="custom-select w-auto locale-selector">
 				{% for locale, child in form %}
@@ -210,6 +210,23 @@
 {% block duo_wysiwyg_widget %}
 	{% set attr = attr | merge({ 'data-init': 'wysiwyg' }) %}
 	{{- block('textarea_widget') -}}
+{% endblock %}
+
+{% block duo_tag_widget %}
+	{% set attr = attr | merge({
+		'data-init': 'select2',
+		'data-tags': 'true',
+		class: (attr.class | default('') ~ ' custom-select') | trim
+	}) %}
+	<select {{ block('widget_attributes') }}{% if multiple %} multiple{% endif %}>
+		{% if value is iterable %}
+			{% for label in value %}
+				<option value="{{ label }}" selected>
+					{{- label | trans -}}
+				</option>
+			{% endfor %}
+		{% endif %}
+	</select>
 {% endblock %}
 
 {% block duo_filter_row %}

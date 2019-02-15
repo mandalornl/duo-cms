@@ -44,13 +44,13 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 		foreach ([
 			'jpg' => __DIR__ . '/example.jpg',
 			'pdf' => __DIR__ . '/example.pdf'
-		 ] as $type => $filename)
+		] as $type => $filename)
 		{
 			$size = @filesize($filename);
 
 			$info = pathinfo($filename);
 
-			$relativePath = $this->container->getParameter('duo.media.relative_upload_path');
+			$relativePath = $this->container->getParameter('duo_media.relative_path');
 
 			$mimeType = mime_content_type($filename);
 
@@ -84,7 +84,7 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 			$manager->persist($media);
 			$manager->flush();
 
-			$absolutePath = $this->container->getParameter('duo.media.absolute_upload_path');
+			$absolutePath = $this->container->getParameter('duo_media.absolute_path');
 
 			if (!is_dir("{$absolutePath}/{$media->getUuid()}"))
 			{

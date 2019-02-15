@@ -1,0 +1,9 @@
+{% if pageTranslation.metaDescription %}
+	<meta name="description" content="{{ pageTranslation.metaDescription }}">
+{% endif %}
+{% if pageTranslation.metaKeywords is not empty %}
+	<meta name="keywords" content="{{ pageTranslation.metaKeywords | join(',') }}">
+{% endif %}
+{% if pageTranslation.metaRobots is not empty %}
+	<meta name="robots" content="{{ pageTranslation.metaRobots | join(',') }}">
+{% endif %}

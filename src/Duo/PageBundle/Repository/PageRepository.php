@@ -2,32 +2,19 @@
 
 namespace Duo\PageBundle\Repository;
 
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Duo\AdminBundle\Repository\AbstractEntityRepository;
+use Duo\CoreBundle\Repository\SortInterface;
 use Duo\CoreBundle\Repository\SortTrait;
+use Duo\CoreBundle\Repository\TreeInterface;
 use Duo\CoreBundle\Repository\TreeTrait;
 use Duo\PageBundle\Entity\PageInterface;
 
-class PageRepository extends AbstractEntityRepository
+class PageRepository extends AbstractEntityRepository implements SortInterface, TreeInterface
 {
 	use SortTrait;
 	use TreeTrait;
-
-	/**
-	 * PageRepository constructor
-	 *
-	 * @param ManagerRegistry $registry
-	 */
-	public function __construct(ManagerRegistry $registry)
-	{
-		$entityClass = $registry->getManager()
-			->getClassMetadata(PageInterface::class)
-			->getName();
-
-		parent::__construct($registry, $entityClass);
-	}
 
 	/**
 	 * Find one by id

@@ -30,7 +30,7 @@ class ContentTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.tab.content'
+			'label' => 'duo_form.tab.content'
 		]);
 	}
 

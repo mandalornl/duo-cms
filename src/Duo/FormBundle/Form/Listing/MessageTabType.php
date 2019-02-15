@@ -18,10 +18,10 @@ class MessageTabType extends AbstractType
 	{
 		$builder
 			->add('subject', TextType::class, [
-				'label' => 'duo.form.form.form.subject.label'
+				'label' => 'duo_form.form.form.subject.label'
 			])
 			->add('message', WYSIWYGType::class, [
-				'label' => 'duo.form.form.form.message.label'
+				'label' => 'duo_form.form.form.message.label'
 			]);
 	}
 
@@ -31,7 +31,7 @@ class MessageTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.tab.message'
+			'label' => 'duo_form.tab.message'
 		]);
 	}
 

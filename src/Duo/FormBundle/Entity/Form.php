@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="duo_form")
  * @ORM\Entity(repositoryClass="Duo\FormBundle\Repository\FormRepository")
- * @UniqueEntity(fields={ "name" }, message="duo.form.errors.name_used")
+ * @UniqueEntity(fields={ "name" }, message="duo_form.errors.name_used")
  */
 class Form implements IdInterface,
 					  UuidInterface,
@@ -248,5 +248,14 @@ class Form implements IdInterface,
 	public function __toString(): string
 	{
 		return $this->name;
+	}
+
+	/**
+	 * On clone name
+	 */
+	protected function onCloneName(): void
+	{
+		// ensure unique name
+		$this->name = ltrim(uniqid("{$this->name}-"), '-');
 	}
 }

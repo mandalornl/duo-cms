@@ -1,32 +1,113 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\AdminBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests,Configuration}'
+    duo_admin.event_listener.listing.delete:
+        class: Duo\AdminBundle\EventListener\Listing\DeleteListener
+        tags:
+            - { name: kernel.event_listener, event: duo_core.event.listing.delete, method: onDelete }
+            - { name: kernel.event_listener, event: duo_core.event.listing.undelete, method: onUndelete }
 
-    Duo\AdminBundle\Controller\:
-        resource: '../../Controller'
-        public: true
-        tags: ['controller.service_arguments']
+    duo_admin.event_listener.listing.translate:
+        class: Duo\AdminBundle\EventListener\Listing\TranslateListener
+        arguments:
+            $localeHelper: '@duo_admin.helper.locale'
+        tags:
+            - { name: kernel.event_listener, event: duo_admin.event.listing.entity.preCreate, method: preCreate }
+            - { name: kernel.event_listener, event: duo_admin.event.listing.entity.preUpdate, method: preUpdate }
 
-    Duo\AdminBundle\Helper\LocaleHelper:
+    duo_admin.event_listener.locale:
+        class: Duo\AdminBundle\EventListener\LocaleListener
+        arguments:
+            $localeHelper: '@duo_admin.helper.locale'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 16 }
+
+    duo_admin.form.filter.enum:
+        class: Duo\AdminBundle\Form\Filter\EnumFilterType
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: form.type }
+
+    duo_admin.form.type.auto_complete:
+        class: Duo\AdminBundle\Form\Type\AutoCompleteType
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
+            $router: '@router'
+        tags:
+            - { name: form.type }
+
+    duo_admin.form.type.weight_choice:
+        class: Duo\AdminBundle\Form\Type\WeightChoiceType
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: form.type }
+
+    duo_admin.helper.locale:
+        class: Duo\AdminBundle\Helper\LocaleHelper
         calls:
+            - [ setRequestStack, [ '@request_stack' ]]
             - [ setDefaultLocale, [ '%locale%' ]]
             - [ setLocalesFromString, [ '%locales%' ]]
 
-    Duo\AdminBundle\Helper\MailerHelper:
+    duo_admin.helper.mailer:
+        class: Duo\AdminBundle\Helper\MailerHelper
         arguments:
             $twig: '@twig'
             $emailFrom: '%mailer_from%'
             $dkimConfig: { keyFile: '%dkim_key_file%', domain: '%dkim_domain%', selector: '%dkim_selector%' }
 
-    Duo\AdminBundle\Tools\Menu\MenuBuilder:
-        public: true
-
-    Duo\AdminBundle\Routing\UrlLoader:
+    duo_admin.routing.url_loader:
+        class: Duo\AdminBundle\Routing\UrlLoader
+        arguments:
+            $localeHelper: '@duo_admin.helper.locale'
         tags:
             - { name: routing.loader, priority: 0 }
+
+    duo_admin.tools.menu_builder:
+        class: Duo\AdminBundle\Tools\Menu\MenuBuilder
+        arguments:
+            $router: '@router'
+            $eventDispatcher: '@event_dispatcher'
+            $requestStack: '@request_stack'
+            $security: '@security.helper'
+
+    duo_admin.twig_extension.locale:
+        class: Duo\AdminBundle\Twig\LocaleTwigExtension
+        arguments:
+            $localeHelper: '@duo_admin.helper.locale'
+        tags:
+            - { name: twig.extension }
+
+    duo_admin.twig_extension.menu:
+        class: Duo\AdminBundle\Twig\MenuTwigExtension
+        arguments:
+            $builder: '@duo_admin.tools.menu_builder'
+        tags:
+            - { name: twig.extension }
+
+    duo_admin.twig_extension.paginator:
+        class: Duo\AdminBundle\Twig\PaginatorTwigExtension
+        tags:
+            - { name: twig.extension }
+
+    duo_admin.twig_extension.route:
+        class: Duo\AdminBundle\Twig\RouteTwigExtension
+        arguments:
+            $router: '@router'
+        tags:
+            - { name: twig.extension }
+
+    duo_admin.twig_extension.test:
+        class: Duo\AdminBundle\Twig\TestTwigExtension
+        tags:
+            - { name: twig.extension }
+
+    duo_admin.twig_extension.time:
+        class: Duo\AdminBundle\Twig\TimeTwigExtension
+        arguments:
+            $translator: '@translator'
+        tags:
+            - { name: twig.extension }

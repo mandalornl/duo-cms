@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *	   }
  * )
  * @ORM\Entity()
- * @UniqueEntity(fields={ "role" }, message="duo.security.errors.role_used")
+ * @UniqueEntity(fields={ "role" }, message="duo_security.errors.role_used")
  */
 class Role implements RoleInterface
 {

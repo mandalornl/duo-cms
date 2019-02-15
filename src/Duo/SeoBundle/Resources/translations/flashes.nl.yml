@@ -1,4 +1,3 @@
-duo:
-    seo:
-        activate_success: Item(s) succesvol geactiveerd.
-        deactivate_success: Item(s) succesvol gedeactiveerd.
+duo_seo:
+    activate_success: Item(s) succesvol geactiveerd.
+    deactivate_success: Item(s) succesvol gedeactiveerd.

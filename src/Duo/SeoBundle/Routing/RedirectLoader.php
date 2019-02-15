@@ -2,8 +2,8 @@
 
 namespace Duo\SeoBundle\Routing;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Duo\SeoBundle\Entity\Redirect;
-use Duo\SeoBundle\Repository\RedirectRepository;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -16,18 +16,18 @@ class RedirectLoader extends Loader
 	private $loaded;
 
 	/**
-	 * @var RedirectRepository
+	 * @var EntityManagerInterface
 	 */
-	private $repository;
+	private $manager;
 
 	/**
 	 * RedirectLoader constructor
 	 *
-	 * @param RedirectRepository $repository
+	 * @param EntityManagerInterface $manager
 	 */
-	public function __construct(RedirectRepository $repository)
+	public function __construct(EntityManagerInterface $manager)
 	{
-		$this->repository = $repository;
+		$this->manager = $manager;
 	}
 
 	/**
@@ -46,7 +46,7 @@ class RedirectLoader extends Loader
 
 		$routes = new RouteCollection();
 
-		foreach ($this->repository->findBy([
+		foreach ($this->manager->getRepository(Redirect::class)->findBy([
 			'active' => true
 		]) as $redirect)
 		{

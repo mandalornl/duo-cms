@@ -18,18 +18,18 @@ class RedirectType extends AbstractType
 	{
 		$builder
 			->add('active', CheckboxType::class, [
-				'label' => 'duo.seo.form.redirect.active.label',
+				'label' => 'duo_seo.form.redirect.active.label',
 				'required' => false
 			])
 			->add('permanent', CheckboxType::class, [
-				'label' => 'duo.seo.form.redirect.permanent.label',
+				'label' => 'duo_seo.form.redirect.permanent.label',
 				'required' => false
 			])
 			->add('origin', TextType::class, [
-				'label' => 'duo.seo.form.redirect.origin.label'
+				'label' => 'duo_seo.form.redirect.origin.label'
 			])
 			->add('target', TextType::class, [
-				'label' => 'duo.seo.form.redirect.target.label'
+				'label' => 'duo_seo.form.redirect.target.label'
 			]);
 	}
 

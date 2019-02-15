@@ -23,18 +23,18 @@ interface SeoInterface
 	/**
 	 * Set metaKeywords
 	 *
-	 * @param string $metaKeywords
+	 * @param string[] $metaKeywords
 	 *
 	 * @return SeoInterface
 	 */
-	public function setMetaKeywords(?string $metaKeywords): SeoInterface;
+	public function setMetaKeywords(?array $metaKeywords): SeoInterface;
 
 	/**
 	 * Get metaKeywords
 	 *
-	 * @return string
+	 * @return string[]
 	 */
-	public function getMetaKeywords(): ?string;
+	public function getMetaKeywords(): ?array;
 
 	/**
 	 * Set metaDescription
@@ -55,16 +55,16 @@ interface SeoInterface
 	/**
 	 * Set metaRobots
 	 *
-	 * @param string $metaRobots
+	 * @param string[] $metaRobots
 	 *
 	 * @return SeoInterface
 	 */
-	public function setMetaRobots(?string $metaRobots): SeoInterface;
+	public function setMetaRobots(?array $metaRobots): SeoInterface;
 
 	/**
 	 * Get metaRobots
 	 *
-	 * @return string
+	 * @return string[]
 	 */
-	public function getMetaRobots(): ?string;
+	public function getMetaRobots(): ?array;
 }

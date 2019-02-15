@@ -17,17 +17,17 @@ abstract class AbstractChoiceFormPartType extends AbstractTextFormPartType
 
 		$builder
 			->add('choices', TextareaType::class, [
-				'label' => 'duo.form.form.form_part.choices.label',
+				'label' => 'duo_form.form.form_part.choices.label',
 				'attr' => [
 					'rows' => 5
 				]
 			])
 			->add('expanded', CheckboxType::class, [
-				'label' => 'duo.form.form.form_part.expanded.label',
+				'label' => 'duo_form.form.form_part.expanded.label',
 				'required' => false
 			])
 			->add('multiple', CheckboxType::class, [
-				'label' => 'duo.form.form.form_part.multiple.label',
+				'label' => 'duo_form.form.form_part.multiple.label',
 				'required' => false
 			]);
 	}

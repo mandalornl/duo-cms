@@ -27,15 +27,15 @@ class MediaIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('name', 'duo.media.listing.field.name'))
-			->addField(new Field('mimeType', 'duo.media.listing.field.type'))
+			->addField(new Field('name', 'duo_media.listing.field.name'))
+			->addField(new Field('mimeType', 'duo_media.listing.field.type'))
 			->addField(
-				(new Field('size', 'duo.media.listing.field.size'))
+				(new Field('size', 'duo_media.listing.field.size'))
 					->setTemplate('@DuoMedia/Listing/Field/size.html.twig')
 			)
-			->addField(new TaxonomyField('taxonomies', 'duo.media.listing.field.taxonomies'))
-			->addField(new Field('createdAt', 'duo.media.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.media.listing.field.modified_at'));
+			->addField(new TaxonomyField('taxonomies', 'duo_media.listing.field.taxonomies'))
+			->addField(new Field('createdAt', 'duo_media.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_media.listing.field.modified_at'));
 	}
 
 	/**
@@ -44,17 +44,17 @@ class MediaIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new StringFilter('name', 'duo.media.listing.filter.name'))
-			->addFilter(new StringFilter('mimeType', 'duo.media.listing.filter.type'))
-			->addFilter(new NumericFilter('size', 'duo.media.listing.filter.byte_size'))
-			->addFilter(new TaxonomyFilter('id', 'duo.media.listing.filter.taxonomies'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.media.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.media.listing.filter.modified'));
+			->addFilter(new StringFilter('name', 'duo_media.listing.filter.name'))
+			->addFilter(new StringFilter('mimeType', 'duo_media.listing.filter.type'))
+			->addFilter(new NumericFilter('size', 'duo_media.listing.filter.byte_size'))
+			->addFilter(new TaxonomyFilter('id', 'duo_media.listing.filter.taxonomies'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_media.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_media.listing.filter.modified'));
 
 		// filter media type
 		if ($request->query->has('mediaType'))
 		{
-			$filter = (new StringFilter('mimeType', 'duo.media.listing.filter.type'))
+			$filter = (new StringFilter('mimeType', 'duo_media.listing.filter.type'))
 				->setData([
 					'operator' => $request->query->get('mediaType') === 'image' ? 'startsWith' : 'notStartsWith',
 					'value' => 'image/'

@@ -34,7 +34,7 @@ class FormSubmissionUpdateController extends AbstractUpdateController
 			return $this->entityNotFound($request, $id);
 		}
 
-		return $this->render($this->getUpdateTemplate(), (array)$this->getDefaultContext([
+		return $this->render($this->getUpdateTemplate(), (array)$this->createTwigContext([
 			'entity' => $entity
 		]));
 	}

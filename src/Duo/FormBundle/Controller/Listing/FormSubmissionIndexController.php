@@ -24,10 +24,10 @@ class FormSubmissionIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('name', 'duo.form.listing.field.name'))
-			->addField(new Field('locale', 'duo.form.listing.field.locale'))
-			->addField(new Field('createdAt', 'duo.form.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.form.listing.field.modified_at'));
+			->addField(new Field('name', 'duo_form.listing.field.name'))
+			->addField(new Field('locale', 'duo_form.listing.field.locale'))
+			->addField(new Field('createdAt', 'duo_form.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_form.listing.field.modified_at'));
 	}
 
 	/**
@@ -36,10 +36,10 @@ class FormSubmissionIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new StringFilter('name', 'duo.form.listing.filter.name'))
-			->addFilter(new StringFilter('locale', 'duo.form.listing.filter.locale'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.form.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.form.listing.filter.modified'));
+			->addFilter(new StringFilter('name', 'duo_form.listing.filter.name'))
+			->addFilter(new StringFilter('locale', 'duo_form.listing.filter.locale'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_form.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_form.listing.filter.modified'));
 	}
 
 	/**

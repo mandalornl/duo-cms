@@ -31,7 +31,7 @@ abstract class AbstractDeleteController extends AbstractController
 			$entity->delete();
 
 			$this->get('event_dispatcher')->dispatch(DeleteEvents::DELETE, new DeleteEvent($entity));
-		}, 'duo.admin.delete_success', $request, $id);
+		}, 'duo_admin.delete_success', $request, $id);
 	}
 
 	/**
@@ -63,7 +63,7 @@ abstract class AbstractDeleteController extends AbstractController
 			$entity->undelete();
 
 			$this->get('event_dispatcher')->dispatch(DeleteEvents::UNDELETE, new DeleteEvent($entity));
-		}, 'duo.admin.undelete_success', $request, $id);
+		}, 'duo_admin.undelete_success', $request, $id);
 	}
 
 	/**
@@ -106,11 +106,11 @@ abstract class AbstractDeleteController extends AbstractController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.no_items', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.no_items', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_items', [], 'flashes'));
+			$this->addFlash('warning', $this->get('translator')->trans('duo_admin.no_items', [], 'flashes'));
 		}
 		else
 		{

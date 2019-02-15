@@ -1,4 +1,10 @@
-duo_translator:
-    resource: '@DuoTranslatorBundle/Controller/'
+duo_translator_listing:
+    resource: '@DuoTranslatorBundle/Controller/Listing/'
     type: annotation
     prefix: /admin
+
+duo_translator_reload:
+    path: /admin/settings/translation/reload
+    methods: [ 'GET', 'POST' ]
+    defaults:
+        _controller: 'duo_translator.controller.reload:reloadAction'

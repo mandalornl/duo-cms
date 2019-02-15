@@ -12,11 +12,7 @@ use Duo\CoreBundle\Entity\Property\TreeInterface;
 trait SortTrait
 {
 	/**
-	 * Find previous to sort
-	 *
-	 * @param SortInterface $entity
-	 *
-	 * @return SortInterface
+	 * {@inheritdoc}
 	 */
 	public function findPrevToSort(SortInterface $entity): ?SortInterface
 	{
@@ -35,11 +31,7 @@ trait SortTrait
 	}
 
 	/**
-	 * Find previous all to sort
-	 *
-	 * @param SortInterface $entity
-	 *
-	 * @return SortInterface[]
+	 * {@inheritdoc}
 	 */
 	public function findPrevAllToSort(SortInterface $entity): array
 	{
@@ -64,11 +56,7 @@ trait SortTrait
 	}
 
 	/**
-	 * Find next all to sort
-	 *
-	 * @param SortInterface $entity
-	 *
-	 * @return SortInterface[]
+	 * {@inheritdoc}
 	 */
 	public function findNextAllToSort(SortInterface $entity): array
 	{
@@ -79,11 +67,7 @@ trait SortTrait
 	}
 
 	/**
-	 * Find next entity to sort
-	 *
-	 * @param SortInterface $entity
-	 *
-	 * @return SortInterface
+	 * {@inheritdoc}
 	 */
 	public function findNextToSort(SortInterface $entity): ?SortInterface
 	{
@@ -117,11 +101,7 @@ trait SortTrait
 	}
 
 	/**
-	 * Find siblings to sort
-	 *
-	 * @param SortInterface $entity
-	 *
-	 * @return SortInterface[]
+	 * {@inheritdoc}
 	 */
 	public function findSiblingsToSort(SortInterface $entity): array
 	{

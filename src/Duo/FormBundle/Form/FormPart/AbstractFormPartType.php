@@ -16,7 +16,7 @@ abstract class AbstractFormPartType extends AbstractPartType
 		parent::buildForm($builder, $options);
 
 		$builder->add('label', TextType::class, [
-			'label' => 'duo.form.form.form_part.label.label'
+			'label' => 'duo_form.form.form_part.label.label'
 		]);
 	}
 }

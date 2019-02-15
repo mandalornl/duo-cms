@@ -69,12 +69,9 @@ class PublishSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof PublishInterface || !$entity->isPublished())
-		{
-			return;
-		}
-
-		if (($user = $this->security->getUser()) === null)
+		if (!$entity instanceof PublishInterface ||
+			!$entity->isPublished() ||
+			($user = $this->security->getUser()) === null)
 		{
 			return;
 		}
@@ -91,12 +88,8 @@ class PublishSubscriber implements EventSubscriber
 	{
 		$entity = $args->getObject();
 
-		if (!$entity instanceof PublishInterface)
-		{
-			return;
-		}
-
-		if (($user = $this->security->getUser()) === null)
+		if (!$entity instanceof PublishInterface ||
+			($user = $this->security->getUser()) === null)
 		{
 			return;
 		}

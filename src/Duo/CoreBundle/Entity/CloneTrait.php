@@ -7,7 +7,7 @@ trait CloneTrait
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @throws \Throwable
+	 * @throws \ReflectionException
 	 */
 	public function __clone()
 	{
@@ -23,7 +23,8 @@ trait CloneTrait
 				continue;
 			}
 
-			call_user_func([$this, $reflectionMethod->getName()]);
+			$reflectionMethod->setAccessible(true);
+			$reflectionMethod->invoke($this);
 		}
 	}
 }

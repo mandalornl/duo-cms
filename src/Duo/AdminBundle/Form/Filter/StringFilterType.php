@@ -16,14 +16,14 @@ class StringFilterType extends AbstractFilterType
 		$builder
 			->add('operator', ChoiceType::class, [
 				'choices' => [
-					'duo.admin.listing.filter.contains' => 'contains',
-					'duo.admin.listing.filter.not_contains' => 'notContains',
-					'duo.admin.listing.filter.equals' => 'equals',
-					'duo.admin.listing.filter.not_equals' => 'notEquals',
-					'duo.admin.listing.filter.starts_with' => 'startsWith',
-					'duo.admin.listing.filter.not_starts_with' => 'notStartsWith',
-					'duo.admin.listing.filter.ends_with' => 'endsWith',
-					'duo.admin.listing.filter.not_ends_with' => 'notEndsWith'
+					'duo_admin.listing.filter.contains' => 'contains',
+					'duo_admin.listing.filter.not_contains' => 'notContains',
+					'duo_admin.listing.filter.equals' => 'equals',
+					'duo_admin.listing.filter.not_equals' => 'notEquals',
+					'duo_admin.listing.filter.starts_with' => 'startsWith',
+					'duo_admin.listing.filter.not_starts_with' => 'notStartsWith',
+					'duo_admin.listing.filter.ends_with' => 'endsWith',
+					'duo_admin.listing.filter.not_ends_with' => 'notEndsWith'
 				]
 			])
 			->add('value', TextType::class, [

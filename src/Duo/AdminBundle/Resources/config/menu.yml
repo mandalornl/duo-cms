@@ -1,74 +1,77 @@
 content:
-    label: duo.admin.menu.content
+    label: duo_admin.menu.content
+    icon: icon-display
     children:
         pages:
-            label: duo.page.menu.pages
+            label: duo_page.menu.pages
             route: duo_page_listing_page_index
             icon: icon-files-empty
         menu:
-            label: duo.page.menu.page_tree
+            label: duo_page.menu.page_tree
             route: duo_page_listing_page_tree_index
             icon: icon-tree
         media:
-            label: duo.media.menu.media
+            label: duo_media.menu.media
             route: duo_media_listing_media_index
             icon: icon-images
 
 forms:
-    label: duo.form.menu.forms
+    label: duo_form.menu.forms
     icon: icon-clipboard
     children:
         forms:
-            label: duo.form.menu.forms
+            label: duo_form.menu.forms
             route: duo_form_listing_form_index
+            icon: icon-paste
         submissions:
-            label: duo.form.menu.submissions
+            label: duo_form.menu.submissions
             route: duo_form_listing_submission_index
+            icon: icon-drawer
 
 security:
-    label: duo.security.menu.security
+    label: duo_security.menu.security
     icon: icon-shield
     children:
         users:
-            label: duo.security.menu.users
+            label: duo_security.menu.users
             route: duo_security_listing_user_index
-            #icon: icon-user
+            icon: icon-user
         groups:
-            label: duo.security.menu.groups
+            label: duo_security.menu.groups
             route: duo_security_listing_group_index
-            #icon: icon-users
+            icon: icon-users
         roles:
-            label: duo.security.menu.roles
+            label: duo_security.menu.roles
             route: duo_security_listing_role_index
-            #icon: icon-tree
+            icon: icon-man-woman
 
 modules:
-    label: duo.taxonomy.menu.modules
-    icon: icon-settings
+    label: duo_taxonomy.menu.modules
+    icon: icon-equalizer
     children:
         taxonomies:
-            label: duo.taxonomy.menu.taxonomies
+            label: duo_taxonomy.menu.taxonomies
             route: duo_taxonomy_listing_taxonomy_index
-            #icon: icon-tags
+            icon: icon-price-tags
 
 seo:
-    label: duo.seo.menu.seo
+    label: duo_seo.menu.seo
     icon: icon-search
     children:
         redirects:
-            label: duo.seo.menu.redirects
+            label: duo_seo.menu.redirects
             route: duo_seo_listing_redirect_index
-            #icon: icon-shuffle
+            icon: icon-shuffle
         robots:
-            label: duo.seo.menu.robots
+            label: duo_seo.menu.robots
             route: duo_seo_listing_robots_index
-            #icon: icon-bug
+            icon: icon-bug
 
 settings:
-    label: duo.admin.menu.settings
+    label: duo_admin.menu.settings
     icon: icon-cogs
     children:
         translations:
-            label: duo.translator.menu.translations
+            label: duo_translator.menu.translations
             route: duo_translator_listing_entry_index
-            #icon: icon-earth
+            icon: icon-earth

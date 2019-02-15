@@ -18,7 +18,7 @@ class ForgotPasswordType extends AbstractType
 	{
 		$builder
 			->add('email', EmailType::class, [
-				'label' => 'duo.security.form.forgot_password.email.label',
+				'label' => 'duo_security.form.forgot_password.email.label',
 				'attr' => [
 					'autocomplete' => 'off'
 				],
@@ -28,7 +28,7 @@ class ForgotPasswordType extends AbstractType
 				]
 			])
 			->add('submit', SubmitType::class, [
-				'label' => 'duo.security.form.forgot_password.submit.label',
+				'label' => 'duo_security.form.forgot_password.submit.label',
 				'attr' => [
 					'class' => 'btn-primary btn-block'
 				]

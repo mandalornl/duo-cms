@@ -8,7 +8,6 @@ use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractTreeController extends AbstractController
 {
@@ -23,7 +22,7 @@ abstract class AbstractTreeController extends AbstractController
 	 */
 	protected function doIndexAction(Request $request): Response
 	{
-		return $this->render('@DuoAdmin/Tree/view.html.twig', (array)$this->getDefaultContext([
+		return $this->render('@DuoAdmin/Tree/view.html.twig', (array)$this->createTwigContext([
 			'children' => $this->getChildren($request),
 			'moveToUrl' => $this->generateUrl("{$this->getRoutePrefix()}_move_to", [
 				'_format' => 'json'
@@ -47,14 +46,13 @@ abstract class AbstractTreeController extends AbstractController
 	 * Children action
 	 *
 	 * @param Request $request
-	 * @param RouterInterface $router
 	 * @param int $id
 	 *
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	protected function doChildrenAction(Request $request, RouterInterface $router, int $id): JsonResponse
+	protected function doChildrenAction(Request $request, int $id): JsonResponse
 	{
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -73,7 +71,7 @@ abstract class AbstractTreeController extends AbstractController
 				'children' => $this->getChildren($request, $entity),
 				'parent' => $entity,
 				'routePrefix' => $this->getRoutePrefix(),
-				'canEdit' => $router->getRouteCollection()->get("{$this->getRoutePrefix()}_update") !== null
+				'canEdit' => $this->get('router')->getRouteCollection()->get("{$this->getRoutePrefix()}_update") !== null
 			])
 		]);
 	}
@@ -92,14 +90,13 @@ abstract class AbstractTreeController extends AbstractController
 	 * Children action
 	 *
 	 * @param Request $request
-	 * @param RouterInterface $router
 	 * @param int $id
 	 *
 	 * @return JsonResponse
 	 *
 	 * @throws \Throwable
 	 */
-	abstract public function childrenAction(Request $request, RouterInterface $router, int $id): JsonResponse;
+	abstract public function childrenAction(Request $request, int $id): JsonResponse;
 
 	/**
 	 * Get children

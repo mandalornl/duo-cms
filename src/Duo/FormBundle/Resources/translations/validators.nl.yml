@@ -1,5 +1,4 @@
-duo:
-    form:
-        errors:
-            name_used: Deze naam is al in gebruik
-            honeypot: Je hebt een veld ingevuld dat leeg moet blijven
+duo_form:
+    errors:
+        name_used: Deze naam is al in gebruik
+        honeypot: Je hebt een veld ingevuld dat leeg moet blijven

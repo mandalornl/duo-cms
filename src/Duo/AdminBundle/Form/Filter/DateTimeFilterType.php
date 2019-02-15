@@ -16,8 +16,8 @@ class DateTimeFilterType extends AbstractFilterType
 		$builder
 			->add('operator', ChoiceType::class, [
 				'choices' => [
-					'duo.admin.listing.filter.before' => 'before',
-					'duo.admin.listing.filter.after' => 'after'
+					'duo_admin.listing.filter.before' => 'before',
+					'duo_admin.listing.filter.after' => 'after'
 				]
 			])
 			->add('value', DateTimeType::class, [

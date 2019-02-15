@@ -18,8 +18,10 @@ use Duo\AdminBundle\Event\Listing\TwigEvents;
 use Duo\AdminBundle\Tools\Form\Form;
 use Duo\AdminBundle\Tools\ORM\ClassMetadata;
 use Duo\CoreBundle\Entity\Property\RevisionInterface as PropertyRevisionInterface;
+use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Entity\Property\VersionInterface;
 use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
+use Duo\CoreBundle\Repository\RevisionInterface as RepositoryRevisionInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +53,13 @@ abstract class AbstractUpdateController extends AbstractController
 		}
 
 		// dispatch pre update event
-		$this->get('event_dispatcher')->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity));
+		$event = $this->get('event_dispatcher')->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity, $request));
+
+		// return with response when given
+		if ($event->hasResponse())
+		{
+			return $event->getResponse();
+		}
 
 		$form = $this->createForm($this->getFormType(), $entity);
 
@@ -59,12 +67,12 @@ abstract class AbstractUpdateController extends AbstractController
 		$preSubmitState = Form::getViewData($form);
 
 		// dispatch pre update event
-		$this->get('event_dispatcher')->dispatch(FormEvents::PRE_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+		$event = $this->get('event_dispatcher')->dispatch(FormEvents::PRE_UPDATE, new FormEvent($form, $entity, $request));
 
-		// return when response is given
-		if ($formEvent->hasResponse())
+		// return with response when given
+		if ($event->hasResponse())
 		{
-			return $formEvent->getResponse();
+			return $event->getResponse();
 		}
 
 		$form->handleRequest($request);
@@ -72,12 +80,12 @@ abstract class AbstractUpdateController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post update event
-			$this->get('event_dispatcher')->dispatch(FormEvents::POST_UPDATE, ($formEvent = new FormEvent($form, $entity, $request)));
+			$event = $this->get('event_dispatcher')->dispatch(FormEvents::POST_UPDATE, new FormEvent($form, $entity, $request));
 
-			// return when response is given
-			if ($formEvent->hasResponse())
+			// return with response when given
+			if ($event->hasResponse())
 			{
-				return $formEvent->getResponse();
+				return $event->getResponse();
 			}
 
 			// post submit state
@@ -92,11 +100,11 @@ abstract class AbstractUpdateController extends AbstractController
 					return $this->json([
 						'success' => false,
 						'id' => $entity->getId(),
-						'message' => $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes')
+						'message' => $this->get('translator')->trans('duo_admin.no_changes', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_changes', [], 'flashes'));
+				$this->addFlash('warning', $this->get('translator')->trans('duo_admin.no_changes', [], 'flashes'));
 
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 					'id' => $entity->getId()
@@ -119,39 +127,33 @@ abstract class AbstractUpdateController extends AbstractController
 				$manager->persist($entity);
 
 				// add revision
-				if ($entity instanceof PropertyRevisionInterface)
+				if ($entity instanceof RevisionInterface &&
+					($revision = $this->createRevision($entity, $preSubmitState)) !== null)
 				{
-					$className = ClassMetadata::getOneToManyTargetEntity($this->getEntityReflectionClass(), 'Revision');
-
-					/**
-					 * @var EntityRevisionInterface $revision
-					 */
-					$revision = $manager->getClassMetadata($className)->getReflectionClass()->newInstance();
-					$revision
-						->setEntity($entity)
-						->setData(array_diff_key($preSubmitState, [
-							'version' => null,
-							'_token' => null
-						]));
-
 					$manager->persist($revision);
 				}
 
 				$manager->flush();
 
 				// dispatch post flush event
-				$this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity));
+				$event = $this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity, $request));
+
+				// return with response when given
+				if ($event->hasResponse())
+				{
+					return $event->getResponse();
+				}
 
 				// reply with json response
 				if ($request->getRequestFormat() === 'json')
 				{
 					return $this->json([
 						'success' => true,
-						'message' => $this->get('translator')->trans('duo.admin.save_success', [], 'flashes')
+						'message' => $this->get('translator')->trans('duo_admin.save_success', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('success', $this->get('translator')->trans('duo.admin.save_success', [], 'flashes'));
+				$this->addFlash('success', $this->get('translator')->trans('duo_admin.save_success', [], 'flashes'));
 
 				return $this->redirectToRoute("{$this->getRoutePrefix()}_update", [
 					'id' => $entity->getId()
@@ -164,11 +166,11 @@ abstract class AbstractUpdateController extends AbstractController
 				{
 					return $this->json([
 						'success' => false,
-						'message' => $this->get('translator')->trans('duo.admin.locked', [], 'flashes')
+						'message' => $this->get('translator')->trans('duo_admin.locked', [], 'flashes')
 					]);
 				}
 
-				$this->addFlash('warning', $this->get('translator')->trans('duo.admin.locked', [], 'flashes'));
+				$this->addFlash('warning', $this->get('translator')->trans('duo_admin.locked', [], 'flashes'));
 			}
 		}
 
@@ -185,7 +187,7 @@ abstract class AbstractUpdateController extends AbstractController
 		// define properties
 		$this->defineActions($request);
 
-		$context = $this->getDefaultContext([
+		$context = $this->createTwigContext([
 			'form' => $form->createView(),
 			'entity' => $entity,
 			'actions' => $this->getActions()
@@ -265,5 +267,50 @@ abstract class AbstractUpdateController extends AbstractController
 	protected function defineActions(Request $request): void
 	{
 		// Implement defineItemActions() method.
+	}
+
+	/**
+	 * Create revision
+	 *
+	 * @param PropertyRevisionInterface $entity
+	 * @param array $data
+	 *
+	 * @return EntityRevisionInterface
+	 */
+	protected function createRevision(PropertyRevisionInterface $entity, array $data): ?EntityRevisionInterface
+	{
+		$className = ClassMetadata::getOneToManyTargetEntity($this->getEntityReflectionClass(), 'Revision');
+
+		/**
+		 * @var RepositoryRevisionInterface $repository
+		 */
+		$repository = $this->getDoctrine()->getRepository($className);
+
+		$data = array_diff_key($data, [
+			'version' => null,
+			'_token' => null
+		]);
+
+		$name = md5(serialize($data));
+
+		if ($repository->nameExists($name))
+		{
+			return null;
+		}
+
+		/**
+		 * @var EntityRevisionInterface $revision
+		 */
+		$revision = $this->getDoctrine()->getManager()
+			->getClassMetadata($className)
+			->getReflectionClass()
+			->newInstance();
+
+		$revision
+			->setName($name)
+			->setEntity($entity)
+			->setData($data);
+
+		return $revision;
 	}
 }

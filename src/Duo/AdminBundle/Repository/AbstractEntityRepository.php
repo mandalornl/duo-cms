@@ -2,14 +2,14 @@
 
 namespace Duo\AdminBundle\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 
-abstract class AbstractEntityRepository extends ServiceEntityRepository
+abstract class AbstractEntityRepository extends EntityRepository
 {
 	/**
 	 * Create default query builder

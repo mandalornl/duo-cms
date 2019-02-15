@@ -14,8 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @UniqueEntity(fields={ "username" }, message="duo.security.errors.username_used")
- * @UniqueEntity(fields={ "email" }, message="duo.security.errors.email_used")
+ * @UniqueEntity(fields={ "username" }, message="duo_security.errors.username_used")
+ * @UniqueEntity(fields={ "email" }, message="duo_security.errors.email_used")
  */
 abstract class AbstractUser implements UserInterface, \Serializable
 {

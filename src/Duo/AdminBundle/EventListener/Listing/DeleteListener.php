@@ -5,22 +5,9 @@ namespace Duo\AdminBundle\EventListener\Listing;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Event\Listing\DeleteEvent;
-use Duo\CoreBundle\Event\Listing\DeleteEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DeleteListener implements EventSubscriberInterface
+class DeleteListener
 {
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function getSubscribedEvents(): array
-	{
-		return [
-			DeleteEvents::DELETE => 'onDelete',
-			DeleteEvents::UNDELETE => 'onUndelete'
-		];
-	}
-
 	/**
 	 * On delete event
 	 *

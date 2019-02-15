@@ -1,11 +1,10 @@
-duo:
-    security:
-        forgot_password_error: Unknown email address.
-        forgot_password_wait: You have to wait at least one hour before you can make a new request.
-        forgot_password_success: |
-            An email has ben sent to you that allows you to reset your password.
+duo_security:
+    forgot_password_error: Unknown email address.
+    forgot_password_wait: You have to wait at least one hour before you can make a new request.
+    forgot_password_success: |
+        An email has ben sent to you that allows you to reset your password.
 
-            Be sure to also check your SPAM if you haven't received this email yet.
-        reset_password_error: An error occurred, please try again.
-        reset_password_invalid_token: The token is invalid. Please try again.
-        reset_password_success: Your password has been successfully changed.
+        Be sure to also check your SPAM if you haven't received this email yet.
+    reset_password_error: An error occurred, please try again.
+    reset_password_invalid_token: The token is invalid. Please try again.
+    reset_password_success: Your password has been successfully changed.

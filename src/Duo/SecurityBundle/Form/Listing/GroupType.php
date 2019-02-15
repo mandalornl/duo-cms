@@ -18,10 +18,10 @@ class GroupType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.security.form.group.name.label'
+				'label' => 'duo_security.form.group.name.label'
 			])
 			->add('roles', RoleChoiceType::class, [
-				'label' => 'duo.security.form.group.roles.label'
+				'label' => 'duo_security.form.group.roles.label'
 			]);
 	}
 

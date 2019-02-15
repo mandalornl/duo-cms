@@ -1,2 +1,0 @@
-imports:
-    - { resource: '@DuoTranslatorBundle/Resources/config/services.yml' }

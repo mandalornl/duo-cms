@@ -8,7 +8,7 @@ use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Event\Listing\SortEvent;
 use Duo\CoreBundle\Event\Listing\SortEvents;
-use Duo\CoreBundle\Repository\SortTrait;
+use Duo\CoreBundle\Repository\SortInterface as RepositorySortInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ abstract class AbstractSortController extends AbstractController
 			$manager = $this->getDoctrine()->getManager();
 
 			/**
-			 * @var SortTrait $repository
+			 * @var RepositorySortInterface $repository
 			 */
 			$repository = $manager->getRepository($this->getEntityClass());
 
@@ -85,7 +85,7 @@ abstract class AbstractSortController extends AbstractController
 			$manager = $this->getDoctrine()->getManager();
 
 			/**
-			 * @var SortTrait $repository
+			 * @var RepositorySortInterface $repository
 			 */
 			$repository = $manager->getRepository($this->getEntityClass());
 
@@ -195,7 +195,7 @@ abstract class AbstractSortController extends AbstractController
 		$manager = $this->getDoctrine()->getManager();
 
 		/**
-		 * @var EntityRepository|SortTrait $repository
+		 * @var EntityRepository|RepositorySortInterface $repository
 		 */
 		$repository = $manager->getRepository($this->getEntityClass());
 
@@ -384,7 +384,7 @@ abstract class AbstractSortController extends AbstractController
 		{
 			return $this->json([
 				'error' => $error,
-				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 			]);
 		}
 

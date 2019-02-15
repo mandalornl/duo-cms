@@ -1,7 +1,13 @@
 _liip_imagine:
     resource: '@LiipImagineBundle/Resources/config/routing.yaml'
 
-duo_media:
-    resource: '@DuoMediaBundle/Controller/'
+duo_media_listing:
+    resource: '@DuoMediaBundle/Controller/Listing/'
     type: annotation
     prefix: /admin
+
+duo_media_upload:
+    path: /media/upload
+    methods: 'PUT'
+    defaults:
+        _controller: 'duo_media.controller.upload:uploadAction'

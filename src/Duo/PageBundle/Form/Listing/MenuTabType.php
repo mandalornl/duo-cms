@@ -18,13 +18,13 @@ class MenuTabType extends AbstractType
 	{
 		$builder
 			->add('slug', TextType::class, [
-				'label' => 'duo.page.form.page.slug.label',
+				'label' => 'duo_page.form.page.slug.label',
 				'required' => false,
 				// empty string is allowed for existing entities e.g. home
 				'empty_data' => $options['isNew'] ? null : ''
 			])
 			->add('url', UrlType::class, [
-				'label' => 'duo.page.form.page.url.label',
+				'label' => 'duo_page.form.page.url.label',
 				'required' => false,
 				'attr' => [
 					'readonly' => true
@@ -37,12 +37,12 @@ class MenuTabType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'label' => 'duo.page.tab.menu',
-			'isNew' => true
-		]);
-
-		$resolver->setAllowedTypes('isNew', 'bool');
+		$resolver
+			->setDefaults([
+				'label' => 'duo_page.tab.menu',
+				'isNew' => true
+			])
+			->setAllowedTypes('isNew', 'bool');
 	}
 
 	/**

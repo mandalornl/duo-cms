@@ -17,10 +17,10 @@ class PropertiesTabType extends AbstractType
 	{
 		$builder
 			->add('keyword', TextType::class, [
-				'label' => 'duo.translator.form.entry.keyword.label'
+				'label' => 'duo_translator.form.entry.keyword.label'
 			])
 			->add('domain', TextType::class, [
-				'label' => 'duo.translator.form.entry.domain.label'
+				'label' => 'duo_translator.form.entry.domain.label'
 			]);
 	}
 
@@ -30,7 +30,7 @@ class PropertiesTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.translator.tab.properties'
+			'label' => 'duo_translator.tab.properties'
 		]);
 	}
 

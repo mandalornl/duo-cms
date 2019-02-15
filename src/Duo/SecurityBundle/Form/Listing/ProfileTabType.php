@@ -19,16 +19,16 @@ class ProfileTabType extends AbstractType
 	{
 		$builder
 			->add('name', TextType::class, [
-				'label' => 'duo.security.form.user.name.label'
+				'label' => 'duo_security.form.user.name.label'
 			])
 			->add('email', EmailType::class, [
-				'label' => 'duo.security.form.user.email.label',
+				'label' => 'duo_security.form.user.email.label',
 				'attr' => [
 					'autocomplete' => 'off'
 				]
 			])
 			->add('username', TextType::class, [
-				'label' => 'duo.security.form.user.username.label',
+				'label' => 'duo_security.form.user.username.label',
 				'required' => false,
 				'disabled' => true,
 				'attr' => [
@@ -36,7 +36,7 @@ class ProfileTabType extends AbstractType
 				]
 			])
 			->add('plainPassword', PasswordType::class, [
-				'label' => 'duo.security.form.user.password.label',
+				'label' => 'duo_security.form.user.password.label',
 				'required' => false,
 				'attr' => [
 					'autocomplete' => 'off'
@@ -50,7 +50,7 @@ class ProfileTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.security.tab.profile'
+			'label' => 'duo_security.tab.profile'
 		]);
 	}
 

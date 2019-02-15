@@ -27,7 +27,7 @@ class RoleFixture extends Fixture
 			 'Can read' => 'ROLE_CAN_READ',
 			 'Can update' => 'ROLE_CAN_UPDATE',
 			 'Can delete' => 'ROLE_CAN_DELETE'
-		 ] as $name => $roleName)
+		] as $name => $roleName)
 		{
 			$role = (new Role())
 				->setName($name)

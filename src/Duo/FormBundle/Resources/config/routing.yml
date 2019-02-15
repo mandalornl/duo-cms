@@ -1,9 +1,20 @@
-duo_form:
-    resource: '@DuoFormBundle/Controller/'
+duo_form_listing:
+    resource: '@DuoFormBundle/Controller/Listing/'
+    type: annotation
+    prefix: /admin
+
+duo_form_modal:
+    resource: '@DuoFormBundle/Controller/Modal/'
+    type: annotation
+    prefix: /admin
+
+duo_form_autocomplete:
+    resource: '@DuoFormBundle/Controller/FormAutoCompleteController.php'
     type: annotation
     prefix: /admin
 
 duo_form_view:
-    resource: '@DuoFormBundle/Controller/FormController.php'
-    type: annotation
-    prefix: /
+    path: /form/{uuid}
+    methods: [ 'GET', 'POST' ]
+    defaults:
+        _controller: 'duo_form.controller.form:viewAction'

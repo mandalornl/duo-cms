@@ -1,158 +1,157 @@
-duo:
-    admin:
-        choose_language: Kies taal
+duo_admin:
+    choose_language: Kies taal
 
-        elapsed_time:
-            seconds: '{0} %unit% seconden|{1} %unit% seconde|]1,Inf[ %unit% seconden'
-            minutes: '{0} %unit% minuten|{1} %unit% minuut|]1,Inf[ %unit% minuten'
-            hours: '{0} %unit% uur|{1} %unit% uur|]1,Inf[ %unit% uur'
-            days: '{0} %unit% dagen|{1} %unit% dag|]1,Inf[ %unit% dagen'
-            weeks: '{0} %unit% weken|{1} %unit% week|]1,Inf[ %unit% weken'
-            months: '{0} %unit% maanden|{1} %unit% maand|]1,Inf[ %unit% maanden'
-            years: '{0} %unit% jaar|{1} %unit% jaar|]1,Inf[ %unit% jaar'
+    elapsed_time:
+        seconds: '{0} %unit% seconden|{1} %unit% seconde|]1,Inf[ %unit% seconden'
+        minutes: '{0} %unit% minuten|{1} %unit% minuut|]1,Inf[ %unit% minuten'
+        hours: '{0} %unit% uur|{1} %unit% uur|]1,Inf[ %unit% uur'
+        days: '{0} %unit% dagen|{1} %unit% dag|]1,Inf[ %unit% dagen'
+        weeks: '{0} %unit% weken|{1} %unit% week|]1,Inf[ %unit% weken'
+        months: '{0} %unit% maanden|{1} %unit% maand|]1,Inf[ %unit% maanden'
+        years: '{0} %unit% jaar|{1} %unit% jaar|]1,Inf[ %unit% jaar'
 
-        type:
-            bool:
-                yes: Ja
-                no: Nee
-            publish:
-                partially: Deels
+    type:
+        bool:
+            yes: Ja
+            no: Nee
+        publish:
+            partially: Deels
 
-        navbar:
-            toggle: Toggle navigatie
-            logout: Uitloggen
+    navbar:
+        toggle: Toggle navigatie
+        logout: Uitloggen
 
-        breadcrumbs:
-            label: Broodkruimelpad
+    breadcrumbs:
+        label: Broodkruimelpad
 
-        tab:
-            publication: Publicatie
+    tab:
+        publication: Publicatie
 
-        menu:
-            content: Inhoud
-            settings: Instellingen
+    menu:
+        content: Inhoud
+        settings: Instellingen
 
-        toolbar:
-            actions:
-                label: Acties
-                new: Nieuw
-                save: Opslaan
-                cancel: Annuleren
-                destroy: Verwijderen
-                publish: Online
-                unpublish: Offline
-                delete: Verwijderen
-                undelete: Herstellen
-                duplicate: Dupliceren
-                revisions: Revisies
-                preview: Preview
-                save_draft: Opslaan als concept
-                drafts: Concepten
+    toolbar:
+        actions:
+            label: Acties
+            new: Nieuw
+            save: Opslaan
+            cancel: Annuleren
+            destroy: Verwijderen
+            publish: Online
+            unpublish: Offline
+            delete: Verwijderen
+            undelete: Herstellen
+            duplicate: Dupliceren
+            revisions: Revisies
+            preview: Preview
+            save_draft: Opslaan als concept
+            drafts: Concepten
 
-            dropdown:
-                global:
-                    more: Meer
-
-        listing:
-            action:
-                destroy: Verwijderen
-                edit: Wijzigen
-                delete: Verwijderen
-                move_up: Verplaats omhoog
-                move_down: Verplaats omlaag
-                export: Exporteren
-
-            filter:
-                filter: Filteren
-                clear: Wissen
-                contains: Bevat
-                not_contains: Bevat niet
-                equals: Gelijk aan
-                not_equals: Niet gelijk aan
-                starts_with: Begint met
-                not_starts_with: Begint niet met
-                ends_with: Eindigt met
-                not_ends_with: Eindigt niet met
-                before: Voor
-                after: Na
-                greater_or_equals: Groter of gelijk aan
-                greater: Groter dan
-                less: Kleiner dan
-                less_or_equals: Kleiner of gelijk aan
-
-            search:
-                search: Zoeken
-                clear: Wissen
-
-            view:
-                list: Toon lijst
-                grid: Toon grid
-                switch: Wissel weergave
-
-        paginator:
-            label: Paginering
-            previous: Vorige
-            next: Volgende
-            current: Huidige
-            limiter: Items per pagina
-
-        modal:
+        dropdown:
             global:
-                close: Sluiten
-                cancel: Annuleren
-                ok: Ok
-                actions: Acties
+                more: Meer
 
-            action:
-                title: Actie
-                body: Weet je zeker dat je deze actie wilt uitvoeren?
-                body_permanent: Weet je zeker dat je deze actie wilt uitvoeren? Deze actie kan niet ongedaan worden gemaakt!
+    listing:
+        action:
+            destroy: Verwijderen
+            edit: Wijzigen
+            delete: Verwijderen
+            move_up: Verplaats omhoog
+            move_down: Verplaats omlaag
+            export: Exporteren
 
-            revisions:
-                title: Revisies
-                created_at: Aangemaakt op
-                created_by: Aangemaakt door
-                view: Inzien
-                revert: Terugzetten
-                delete: Verwijderen
+        filter:
+            filter: Filteren
+            clear: Wissen
+            contains: Bevat
+            not_contains: Bevat niet
+            equals: Gelijk aan
+            not_equals: Niet gelijk aan
+            starts_with: Begint met
+            not_starts_with: Begint niet met
+            ends_with: Eindigt met
+            not_ends_with: Eindigt niet met
+            before: Voor
+            after: Na
+            greater_or_equals: Groter of gelijk aan
+            greater: Groter dan
+            less: Kleiner dan
+            less_or_equals: Kleiner of gelijk aan
 
-            drafts:
-                title: Concepten
-                name: Naam
-                created_at: Aangemaakt op
-                created_by: Aangemaakt door
-                view: Inzien
-                apply: Toepassen
-                delete: Verwijderen
+        search:
+            search: Zoeken
+            clear: Wissen
 
-            new_draft:
-                title: Nieuw concept
-                name: Naam
+        view:
+            list: Toon lijst
+            grid: Toon grid
+            switch: Wissel weergave
 
-        form:
-            file:
-                placeholder: Kies bestand
+    paginator:
+        label: Paginering
+        previous: Vorige
+        next: Volgende
+        current: Huidige
+        limiter: Items per pagina
 
-            publication:
-                publish_at: Publiceer op
-                unpublish_at: Depubliceer op
+    modal:
+        global:
+            close: Sluiten
+            cancel: Annuleren
+            ok: Ok
+            actions: Acties
 
-            collection:
-                btn_add: Toevoegen
-                btn_delete: Verwijderen
+        action:
+            title: Actie
+            body: Weet je zeker dat je deze actie wilt uitvoeren?
+            body_permanent: Weet je zeker dat je deze actie wilt uitvoeren? Deze actie kan niet ongedaan worden gemaakt!
 
-            weight_choice:
-                label: Gewicht
-                placeholder: Maak een keuze
+        revisions:
+            title: Revisies
+            created_at: Aangemaakt op
+            created_by: Aangemaakt door
+            view: Inzien
+            revert: Terugzetten
+            destroy: Verwijderen
 
-            boolean_filter:
-                placeholder: Maak een keuze
-                choices:
-                    yes: Yes
-                    no: No
+        drafts:
+            title: Concepten
+            name: Naam
+            created_at: Aangemaakt op
+            created_by: Aangemaakt door
+            view: Inzien
+            apply: Toepassen
+            destroy: Verwijderen
 
-            enum_filter:
-                placeholder: Maak een keuze
+        new_draft:
+            title: Nieuw concept
+            name: Naam
 
-            listing_search:
-                placeholder: Voer zoekterm in
+    form:
+        file:
+            placeholder: Kies bestand
+
+        publication:
+            publish_at: Publiceer op
+            unpublish_at: Depubliceer op
+
+        collection:
+            btn_add: Toevoegen
+            btn_delete: Verwijderen
+
+        weight_choice:
+            label: Gewicht
+            placeholder: Maak een keuze
+
+        boolean_filter:
+            placeholder: Maak een keuze
+            choices:
+                yes: Yes
+                no: No
+
+        enum_filter:
+            placeholder: Maak een keuze
+
+        listing_search:
+            placeholder: Voer zoekterm in

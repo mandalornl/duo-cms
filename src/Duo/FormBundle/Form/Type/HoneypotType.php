@@ -15,13 +15,13 @@ class HoneypotType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.form.form.honeypot.label',
+			'label' => 'duo_form.form.honeypot.label',
 			'mapped' => false,
 			'required' => false,
 			'data' => '',
 			'constraints' => [
 				new Blank([
-					'message' => 'duo.form.errors.honeypot'
+					'message' => 'duo_form.errors.honeypot'
 				])
 			],
 			'error_bubbling' => true,

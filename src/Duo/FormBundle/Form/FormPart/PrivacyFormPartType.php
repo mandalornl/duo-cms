@@ -19,15 +19,15 @@ class PrivacyFormPartType extends AbstractFormPartType
 
 		$builder
 			->add('required', CheckboxType::class, [
-				'label' => 'duo.form.form.form_part.required.label',
+				'label' => 'duo_form.form.form_part.required.label',
 				'required' => false
 			])
 			->add('errorMessage', TextType::class, [
-				'label' => 'duo.form.form.form_part.error_message.label',
+				'label' => 'duo_form.form.form_part.error_message.label',
 				'required' => false
 			])
 			->add('page', PageAutoCompleteType::class, [
-				'label' => 'duo.form.form.form_part.page.label',
+				'label' => 'duo_form.form.form_part.page.label',
 				'required' => false
 			]);
 	}

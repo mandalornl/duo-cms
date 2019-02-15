@@ -53,12 +53,12 @@ class MediaType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setRequired('mediaType');
-
-		$resolver->setAllowedValues('mediaType', [
-			'file',
-			'image'
-		]);
+		$resolver
+			->setRequired('mediaType')
+			->setAllowedValues('mediaType', [
+				'file',
+				'image'
+			]);
 	}
 
 	/**

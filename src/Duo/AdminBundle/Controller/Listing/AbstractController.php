@@ -3,10 +3,9 @@
 namespace Duo\AdminBundle\Controller\Listing;
 
 use Duo\AdminBundle\Controller\RoutePrefixTrait;
-use Duo\AdminBundle\Tools\Menu\MenuBuilder;
 use Duo\AdminBundle\Twig\TwigContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as CoreAbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
  */
-abstract class AbstractController extends Controller
+abstract class AbstractController extends CoreAbstractController
 {
 	use RoutePrefixTrait;
 
@@ -57,7 +56,7 @@ abstract class AbstractController extends Controller
 		{
 			return $this->json([
 				'error' => $error,
-				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 			], Response::HTTP_BAD_REQUEST);
 		}
 
@@ -90,7 +89,7 @@ abstract class AbstractController extends Controller
 		{
 			return $this->json([
 				'error' => $error,
-				'message' => $this->get('translator')->trans('duo.admin.error', [], 'flashes')
+				'message' => $this->get('translator')->trans('duo_admin.error', [], 'flashes')
 			], Response::HTTP_BAD_REQUEST);
 		}
 
@@ -117,7 +116,7 @@ abstract class AbstractController extends Controller
 	}
 
 	/**
-	 * Get default context
+	 * Create twig context
 	 *
 	 * @param array $context [optional]
 	 *
@@ -125,10 +124,9 @@ abstract class AbstractController extends Controller
 	 *
 	 * @throws \Throwable
 	 */
-	protected function getDefaultContext(array $context = []): TwigContext
+	protected function createTwigContext(array $context = []): TwigContext
 	{
 		$context = array_merge([
-			'menu' => $this->get(MenuBuilder::class)->createView(),
 			'routePrefix' => $this->getRoutePrefix(),
 			'type' => $this->getType()
 		], $context);

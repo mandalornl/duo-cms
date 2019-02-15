@@ -1,5 +1,4 @@
-duo:
-    form:
-        errors:
-            name_used: This name has already been used
-            honeypot: You've filled in a field which should be left blank
+duo_form:
+    errors:
+        name_used: This name has already been used
+        honeypot: You've filled in a field which should be left blank

@@ -14,6 +14,13 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	use TimestampTrait;
 
 	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="name", type="string", nullable=true)
+	 */
+	protected $name;
+
+	/**
 	 * @var array
 	 *
 	 * @ORM\Column(name="data", type="json", nullable=true)
@@ -24,6 +31,24 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	 * @var PropertyRevisionInterface
 	 */
 	protected $entity;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setName(?string $name): EntityRevisionInterface
+	{
+		$this->name = $name;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getName(): ?string
+	{
+		return $this->name;
+	}
 
 	/**
 	 * {@inheritdoc}

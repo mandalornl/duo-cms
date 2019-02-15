@@ -30,7 +30,7 @@ class ContentTabType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.translator.tab.content'
+			'label' => 'duo_translator.tab.content'
 		]);
 	}
 

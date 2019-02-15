@@ -10,6 +10,11 @@ class Menu implements MenuInterface
 	/**
 	 * @var string
 	 */
+	private $id;
+
+	/**
+	 * @var string
+	 */
 	private $label;
 
 	/**
@@ -20,12 +25,12 @@ class Menu implements MenuInterface
 	/**
 	 * @var string
 	 */
-	private $id;
+	private $url;
 
 	/**
 	 * @var string
 	 */
-	private $url;
+	private $target;
 
 	/**
 	 * @var bool
@@ -41,6 +46,29 @@ class Menu implements MenuInterface
 	 * @var Collection
 	 */
 	private $children;
+
+	/**
+	 * @var MenuInterface[]
+	 */
+	private $breadcrumbs = [];
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setId(string $id): MenuInterface
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getId(): ?string
+	{
+		return $this->id;
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -81,24 +109,6 @@ class Menu implements MenuInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setId(string $id): MenuInterface
-	{
-		$this->id = $id;
-
-		return $this;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getId(): ?string
-	{
-		return $this->id;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
 	public function setUrl(?string $url): MenuInterface
 	{
 		$this->url = $url;
@@ -112,6 +122,24 @@ class Menu implements MenuInterface
 	public function getUrl(): ?string
 	{
 		return $this->url;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setTarget(?string $target): MenuInterface
+	{
+		$this->target = $target;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getTarget(): ?string
+	{
+		return $this->target;
 	}
 
 	/**
@@ -180,5 +208,23 @@ class Menu implements MenuInterface
 	public function getChildren(): Collection
 	{
 		return $this->children = $this->children ?: new ArrayCollection();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function setBreadcrumbs(array $breadcrumbs): MenuInterface
+	{
+		$this->breadcrumbs = $breadcrumbs;
+
+		return $this;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getBreadcrumbs(): array
+	{
+		return $this->breadcrumbs;
 	}
 }

@@ -1,50 +1,49 @@
-duo:
-    seo:
-        tab: Seo
+duo_seo:
+    tab: Seo
 
-        menu:
-            seo: Seo
-            redirects: Redirects
-            robots: Robots
+    menu:
+        seo: Seo
+        redirects: Redirects
+        robots: Robots
 
-        listing:
-            action:
-                activate: Activeren
-                deactivate: Deactiveren
+    listing:
+        action:
+            activate: Activeren
+            deactivate: Deactiveren
 
-            field:
-                active: Actief
-                origin: Oorsprong
-                target: Doel
-                permanent: Permanent
-                created_at: Aangemaakt op
-                modified_at: Gewijzigd op
+        field:
+            active: Actief
+            origin: Oorsprong
+            target: Doel
+            permanent: Permanent
+            created_at: Aangemaakt op
+            modified_at: Gewijzigd op
 
-            filter:
-                active: Actief
-                origin: Oorsprong
-                target: Doel
-                permanent: Permanent
-                created: Aangemaakt
-                modified: Gewijzigd
+        filter:
+            active: Actief
+            origin: Oorsprong
+            target: Doel
+            permanent: Permanent
+            created: Aangemaakt
+            modified: Gewijzigd
 
-        form:
-            meta_title:
-                label: Meta titel
-            meta_description:
-                label: Meta omschrijving
-            meta_keywords:
-                label: Meta trefwoorden
-            meta_robots:
-                label: Meta robots
-                placeholder: Maak een keuze
+    form:
+        meta_title:
+            label: Meta titel
+        meta_description:
+            label: Meta omschrijving
+        meta_keywords:
+            label: Meta trefwoorden
+        meta_robots:
+            label: Meta robots
+            placeholder: Maak een keuze
 
-            redirect:
-                active:
-                    label: Actief
-                permanent:
-                    label: Permanent
-                origin:
-                    label: Oorsprong
-                target:
-                    label: Doel
+        redirect:
+            active:
+                label: Actief
+            permanent:
+                label: Permanent
+            origin:
+                label: Oorsprong
+            target:
+                label: Doel

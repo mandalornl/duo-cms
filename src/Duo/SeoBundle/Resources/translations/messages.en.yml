@@ -1,50 +1,49 @@
-duo:
-    seo:
-        tab: Seo
+duo_seo:
+    tab: Seo
 
-        menu:
-            seo: Seo
-            redirects: Redirects
-            robots: Robots
+    menu:
+        seo: Seo
+        redirects: Redirects
+        robots: Robots
 
-        listing:
-            action:
-                activate: Activeren
-                deactivate: Deactiveren
+    listing:
+        action:
+            activate: Activeren
+            deactivate: Deactiveren
 
-            field:
-                active: Active
-                origin: Origin
-                target: Target
-                permanent: Permanent
-                created_at: Created at
-                modified_at: Modified at
+        field:
+            active: Active
+            origin: Origin
+            target: Target
+            permanent: Permanent
+            created_at: Created at
+            modified_at: Modified at
 
-            filter:
-                active: Active
-                origin: Origin
-                target: Target
-                permanent: Permanent
-                created: Created
-                modified: Modified
+        filter:
+            active: Active
+            origin: Origin
+            target: Target
+            permanent: Permanent
+            created: Created
+            modified: Modified
 
-        form:
-            meta_title:
-                label: Meta title
-            meta_description:
-                label: Meta description
-            meta_keywords:
-                label: Meta keywords
-            meta_robots:
-                label: Meta robots
-                placeholder: Please choose
+    form:
+        meta_title:
+            label: Meta title
+        meta_description:
+            label: Meta description
+        meta_keywords:
+            label: Meta keywords
+        meta_robots:
+            label: Meta robots
+            placeholder: Please choose
 
-            redirect:
-                active:
-                    label: Active
-                permanent:
-                    label: Permanent
-                origin:
-                    label: Origin
-                target:
-                    label: Target
+        redirect:
+            active:
+                label: Active
+            permanent:
+                label: Permanent
+            origin:
+                label: Origin
+            target:
+                label: Target

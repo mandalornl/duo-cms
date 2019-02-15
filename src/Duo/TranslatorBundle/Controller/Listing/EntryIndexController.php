@@ -36,7 +36,7 @@ class EntryIndexController extends AbstractIndexController
 
 		if ($count)
 		{
-			$this->addFlash('info', $this->get('translator')->trans('duo.translator.not_live', [], 'flashes'));
+			$this->addFlash('info', $this->get('translator')->trans('duo_translator.not_live', [], 'flashes'));
 		}
 
 		return $this->doIndexAction($request);
@@ -48,10 +48,10 @@ class EntryIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('keyword', 'duo.translator.listing.field.keyword'))
-			->addField(new Field('domain', 'duo.translator.listing.field.domain'))
-			->addField(new Field('createdAt', 'duo.translator.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.translator.listing.field.modified_at'));
+			->addField(new Field('keyword', 'duo_translator.listing.field.keyword'))
+			->addField(new Field('domain', 'duo_translator.listing.field.domain'))
+			->addField(new Field('createdAt', 'duo_translator.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_translator.listing.field.modified_at'));
 	}
 
 	/**
@@ -60,10 +60,10 @@ class EntryIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new StringFilter('keyword', 'duo.translator.listing.filter.keyword'))
-			->addFilter(new StringFilter('domain', 'duo.translator.listing.filter.domain'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.translator.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.translator.listing.filter.modified'));
+			->addFilter(new StringFilter('keyword', 'duo_translator.listing.filter.keyword'))
+			->addFilter(new StringFilter('domain', 'duo_translator.listing.filter.domain'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_translator.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_translator.listing.filter.modified'));
 	}
 
 	/**
@@ -72,7 +72,7 @@ class EntryIndexController extends AbstractIndexController
 	protected function defineActions(Request $request): void
 	{
 		$this->addAction(
-			(new Action('duo.translator.toolbar.actions.reload'))
+			(new Action('duo_translator.toolbar.actions.reload'))
 				->setRoute('duo_translator_reload')
 		);
 	}

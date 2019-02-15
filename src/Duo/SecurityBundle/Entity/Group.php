@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="duo_security_group")
  * @ORM\Entity()
- * @UniqueEntity(fields={ "name" }, message="duo.security.errors.name_used")
+ * @UniqueEntity(fields={ "name" }, message="duo_security.errors.name_used")
  */
 class Group implements GroupInterface
 {

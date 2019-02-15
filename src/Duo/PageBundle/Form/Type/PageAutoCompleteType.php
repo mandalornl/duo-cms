@@ -15,10 +15,10 @@ class PageAutoCompleteType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.page.form.page_autocomplete.label',
+			'label' => 'duo_page.form.page_autocomplete.label',
 			'class' => PageInterface::class,
 			'routeName' => 'duo_page_autocomplete_page_url',
-			'placeholder' => 'duo.page.form.page_autocomplete.placeholder',
+			'placeholder' => 'duo_page.form.page_autocomplete.placeholder',
 			'propertyName' => function(PageInterface $page)
 			{
 				return "/{$page->translate()->getUrl()}";

@@ -29,12 +29,12 @@ class RedirectIndexController extends AbstractIndexController
 	protected function defineFields(Request $request): void
 	{
 		$this
-			->addField(new Field('active', 'duo.seo.listing.field.active'))
-			->addField(new Field('permanent', 'duo.seo.listing.field.permanent'))
-			->addField(new Field('origin', 'duo.seo.listing.field.origin'))
-			->addField(new Field('target', 'duo.seo.listing.field.target'))
-			->addField(new Field('createdAt', 'duo.seo.listing.field.created_at'))
-			->addField(new Field('modifiedAt', 'duo.seo.listing.field.modified_at'));
+			->addField(new Field('active', 'duo_seo.listing.field.active'))
+			->addField(new Field('permanent', 'duo_seo.listing.field.permanent'))
+			->addField(new Field('origin', 'duo_seo.listing.field.origin'))
+			->addField(new Field('target', 'duo_seo.listing.field.target'))
+			->addField(new Field('createdAt', 'duo_seo.listing.field.created_at'))
+			->addField(new Field('modifiedAt', 'duo_seo.listing.field.modified_at'));
 	}
 
 	/**
@@ -43,12 +43,12 @@ class RedirectIndexController extends AbstractIndexController
 	protected function defineFilters(Request $request): void
 	{
 		$this
-			->addFilter(new BooleanFilter('active', 'duo.seo.listing.filter.active'))
-			->addFilter(new BooleanFilter('permanent', 'duo.seo.listing.filter.permanent'))
-			->addFilter(new StringFilter('origin', 'duo.seo.listing.filter.origin'))
-			->addFilter(new StringFilter('target', 'duo.seo.listing.filter.target'))
-			->addFilter(new DateTimeFilter('createdAt', 'duo.seo.listing.filter.created'))
-			->addFilter(new DateTimeFilter('modifiedAt', 'duo.seo.listing.filter.modified'));
+			->addFilter(new BooleanFilter('active', 'duo_seo.listing.filter.active'))
+			->addFilter(new BooleanFilter('permanent', 'duo_seo.listing.filter.permanent'))
+			->addFilter(new StringFilter('origin', 'duo_seo.listing.filter.origin'))
+			->addFilter(new StringFilter('target', 'duo_seo.listing.filter.target'))
+			->addFilter(new DateTimeFilter('createdAt', 'duo_seo.listing.filter.created'))
+			->addFilter(new DateTimeFilter('modifiedAt', 'duo_seo.listing.filter.modified'));
 	}
 
 	/**
@@ -60,11 +60,11 @@ class RedirectIndexController extends AbstractIndexController
 	{
 		$this
 			->addAction(
-				(new Action('duo.seo.listing.action.activate'))
+				(new Action('duo_seo.listing.action.activate'))
 					->setRoute("{$this->getRoutePrefix()}_activate")
 			)
 			->addAction(
-				(new Action('duo.seo.listing.action.deactivate'))
+				(new Action('duo_seo.listing.action.deactivate'))
 					->setRoute("{$this->getRoutePrefix()}_deactivate")
 			);
 	}
@@ -102,7 +102,7 @@ class RedirectIndexController extends AbstractIndexController
 		return $this->handleActivationRequest(function(Redirect $entity)
 		{
 			$entity->setActive(true);
-		}, 'duo.seo.activate_success', $request, $id);
+		}, 'duo_seo.activate_success', $request, $id);
 	}
 
 	/**
@@ -128,7 +128,7 @@ class RedirectIndexController extends AbstractIndexController
 		return $this->handleActivationRequest(function(Redirect $entity)
 		{
 			$entity->setActive(false);
-		}, 'duo.seo.deactivate_success', $request, $id);
+		}, 'duo_seo.deactivate_success', $request, $id);
 	}
 
 	/**
@@ -159,11 +159,11 @@ class RedirectIndexController extends AbstractIndexController
 			{
 				return $this->json([
 					'success' => false,
-					'message' => $this->get('translator')->trans('duo.admin.no_items', [], 'flashes')
+					'message' => $this->get('translator')->trans('duo_admin.no_items', [], 'flashes')
 				]);
 			}
 
-			$this->addFlash('warning', $this->get('translator')->trans('duo.admin.no_items', [], 'flashes'));
+			$this->addFlash('warning', $this->get('translator')->trans('duo_admin.no_items', [], 'flashes'));
 		}
 		else
 		{

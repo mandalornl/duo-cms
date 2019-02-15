@@ -1,8 +1,28 @@
-duo_seo:
-    resource: '@DuoSeoBundle/Controller/'
+duo_seo_listing:
+    resource: '@DuoSeoBundle/Controller/Listing/'
     type: annotation
     prefix: /
 
-duo_redirect:
+duo_seo_sitemap_index:
+    path: /sitemap.xml
+    methods: 'GET'
+    defaults:
+        _controller: 'duo_seo.controller.sitemap:indexAction'
+
+duo_seo_sitemap_feed:
+    path: /sitemap-{_locale}.xml
+    methods: 'GET'
+    requirements:
+        _locale: '%locales%'
+    defaults:
+        _controller: 'duo_seo.controller.sitemap:feedAction'
+
+duo_seo_robots:
+    path: /robots.txt
+    methods: 'GET'
+    defaults:
+        _controller: DuoSeoBundle:Robot:index
+
+duo_seo_redirect:
     resource: .
     type: redirect

@@ -2,11 +2,11 @@
 
 namespace Duo\PartBundle\Controller\Modal;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class AbstractPartController extends Controller
+abstract class AbstractPartController extends AbstractController
 {
 	/**
 	 * Modal action

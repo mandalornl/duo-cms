@@ -1,23 +1,40 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\MediaBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
-
-    Duo\MediaBundle\Controller\:
-        resource: '../../Controller'
-        public: true
-        tags: ['controller.service_arguments']
-
-    Duo\MediaBundle\Helper\UploadHelper:
+    duo_media.controller.upload:
+        class: Duo\MediaBundle\Controller\UploadController
         arguments:
-            $relativeUploadPath: '%duo.media.relative_upload_path%'
-            $absoluteUploadPath: '%duo.media.absolute_upload_path%'
+            $uploadHelper: '@duo_media.helper.upload'
+        public: true
 
-    Duo\MediaBundle\EventSubscriber\ImageCropSubscriber:
+    duo_media.event_listener.upload_file:
+        class: Duo\MediaBundle\EventListener\UploadFileListener
+        arguments:
+            $uploadHelper: '@duo_media.helper.upload'
+        tags:
+            - { name: kernel.event_listener, event: duo_admin.event.listing.form.postCreate, method: postCreate }
+            - { name: kernel.event_listener, event: duo_admin.event.listing.form.postUpdate, method: postUpdate }
+
+    duo_media.helper.upload:
+        class: Duo\MediaBundle\Helper\UploadHelper
+        arguments:
+            $relativePath: '%duo_media.relative_path%'
+            $absolutePath: '%duo_media.absolute_path%'
+
+    duo_media:event_subscriber.image_crop:
+        class: Duo\MediaBundle\EventSubscriber\ImageCropSubscriber
         tags:
             - { name: doctrine.event_subscriber }
+
+    duo_media.form.type.media:
+        class: Duo\MediaBundle\Form\Type\MediaType
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: form.type }
+
+    duo_media.twig_extension.media:
+        class: Duo\MediaBundle\Twig\MediaTwigExtension
+        tags:
+            - { name: twig.extension }

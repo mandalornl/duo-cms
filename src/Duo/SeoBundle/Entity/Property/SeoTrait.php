@@ -16,9 +16,9 @@ trait SeoTrait
 	protected $metaTitle;
 
 	/**
-	 * @var string
+	 * @var array
 	 *
-	 * @ORM\Column(name="meta_keywords", type="text", nullable=true)
+	 * @ORM\Column(name="meta_keywords", type="json", nullable=true)
 	 */
 	protected $metaKeywords;
 
@@ -31,9 +31,9 @@ trait SeoTrait
 	protected $metaDescription;
 
 	/**
-	 * @var string
+	 * @var array
 	 *
-	 * @ORM\Column(name="meta_robots", type="string", length=56, nullable=true)
+	 * @ORM\Column(name="meta_robots", type="json", length=56, nullable=true)
 	 */
 	protected $metaRobots;
 
@@ -58,7 +58,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMetaKeywords(?string $metaKeywords): SeoInterface
+	public function setMetaKeywords(?array $metaKeywords): SeoInterface
 	{
 		$this->metaKeywords = $metaKeywords;
 
@@ -68,7 +68,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMetaKeywords(): ?string
+	public function getMetaKeywords(): ?array
 	{
 		return $this->metaKeywords;
 	}
@@ -94,7 +94,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setMetaRobots(?string $metaRobots): SeoInterface
+	public function setMetaRobots(?array $metaRobots): SeoInterface
 	{
 		$this->metaRobots = $metaRobots;
 
@@ -104,7 +104,7 @@ trait SeoTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getMetaRobots(): ?string
+	public function getMetaRobots(): ?array
 	{
 		return $this->metaRobots;
 	}

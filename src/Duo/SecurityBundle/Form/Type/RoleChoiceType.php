@@ -32,7 +32,7 @@ class RoleChoiceType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'label' => 'duo.security.form.role_choice.label',
+			'label' => 'duo_security.form.role_choice.label',
 			'class' => Role::class,
 			'empty_data' => null,
 			'multiple' => true,
@@ -43,7 +43,7 @@ class RoleChoiceType extends AbstractType
 			},
 			'choice_label' => 'name',
 			'attr' => [
-				'data-placeholder' => $this->translator->trans('duo.security.form.role_choice.placeholder')
+				'data-placeholder' => $this->translator->trans('duo_security.form.role_choice.placeholder')
 			]
 		]);
 	}

@@ -3,32 +3,43 @@
 namespace Duo\SeoBundle\Controller;
 
 use Duo\AdminBundle\Helper\LocaleHelper;
+use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/", name="duo_seo_sitemap_")
- */
-class SitemapController extends Controller
+class SitemapController extends AbstractController
 {
 	/**
-	 * Index
+	 * @var LocaleHelper
+	 */
+	private $localeHelper;
+
+	/**
+	 * SitemapController constructor
 	 *
-	 * @Route("/sitemap.xml", name="index", methods={ "GET" })
-	 *
-	 * @param PageRepository $repository
 	 * @param LocaleHelper $localeHelper
+	 */
+	public function __construct(LocaleHelper $localeHelper)
+	{
+		$this->localeHelper = $localeHelper;
+	}
+
+	/**
+	 * Index action
+	 *
+	 * @param Request $request
 	 *
 	 * @return Response
+	 *
+	 * @throws \Throwable
 	 */
-	public function indexAction(PageRepository $repository, LocaleHelper $localeHelper): Response
+	public function indexAction(Request $request): Response
 	{
 		$view = $this->renderView('@DuoSeo/sitemap_index.xml.twig', [
-			'lastMod' => $repository->findLastModifiedAt(),
-			'locales' => $localeHelper->getLocales()
+			'lastMod' => $this->getPageRepository()->findLastModifiedAt(),
+			'locales' => $this->localeHelper->getLocales()
 		]);
 
 		return new Response($view, 200, [
@@ -39,25 +50,34 @@ class SitemapController extends Controller
 	/**
 	 * Feed
 	 *
-	 * @Route("/sitemap-{locale}.xml", name="feed", requirements={ "locale" = "%locales%" }, methods={ "GET" })
-	 *
 	 * @param Request $request
-	 * @param PageRepository $repository
-	 * @param string $locale
 	 *
 	 * @return Response
 	 *
 	 */
-	public function feedAction(Request $request, PageRepository $repository, string $locale): Response
+	public function feedAction(Request $request): Response
 	{
-		$request->setLocale($locale);
-
 		$view = $this->renderView('@DuoSeo/sitemap.xml.twig', [
-			'root' => $repository->findOneByName('home', $locale)
+			'root' => $this->getPageRepository()->findOneByName('home', $request->getLocale())
 		]);
 
 		return new Response($view, 200, [
 			'content-type' => 'application/xml'
 		]);
+	}
+
+	/**
+	 * Get page repository
+	 *
+	 * @return PageRepository
+	 */
+	private function getPageRepository(): PageRepository
+	{
+		/**
+		 * @var PageRepository $repository
+		 */
+		$repository = $this->getDoctrine()->getRepository(PageInterface::class);
+
+		return $repository;
 	}
 }

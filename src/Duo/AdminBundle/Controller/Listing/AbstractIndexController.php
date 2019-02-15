@@ -57,7 +57,7 @@ abstract class AbstractIndexController extends AbstractController
 		$this->defineFilters($request);
 		$this->defineActions($request);
 
-		return $this->render($this->getIndexTemplate(), (array)$this->getDefaultContext([
+		return $this->render($this->getIndexTemplate(), (array)$this->createTwigContext([
 			'paginator' => $this->getPaginator($request),
 			'list' => array_merge([
 				'filterForm' => $this->getFilterFormView($request),

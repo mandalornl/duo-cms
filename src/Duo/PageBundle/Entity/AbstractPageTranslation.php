@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @UniqueEntity(fields={ "url", "locale" }, message="duo.page.errors.url_used")
+ * @UniqueEntity(fields={ "url", "locale" }, message="duo_page.errors.url_used")
  */
 class AbstractPageTranslation implements PageTranslationInterface
 {
@@ -66,5 +66,14 @@ class AbstractPageTranslation implements PageTranslationInterface
 	public function getValueToUrlize(): string
 	{
 		return $this->slug;
+	}
+
+	/**
+	 * On clone slug
+	 */
+	protected function onCloneSlug(): void
+	{
+		// ensure unique slug, which in turn results in a unique url
+		$this->slug = ltrim(uniqid("{$this->slug}-"), '-');
 	}
 }

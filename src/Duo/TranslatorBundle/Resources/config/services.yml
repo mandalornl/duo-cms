@@ -1,22 +1,21 @@
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
         public: false
 
-    Duo\TranslatorBundle\:
-        resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests}'
-
-    Duo\TranslatorBundle\Controller\:
-        resource: '../../Controller'
+    duo_translator.controller.reload:
+        class: Duo\TranslatorBundle\Controller\ReloadController
+        arguments:
+            $kernel: '@kernel'
         public: true
-        tags: ['controller.service_arguments']
 
-    Duo\TranslatorBundle\EventSubscriber\EntrySubscriber:
+    duo_translator.event_subscriber.entry:
+        class: Duo\TranslatorBundle\EventSubscriber\EntrySubscriber
         tags:
             - { name: doctrine.event_subscriber }
 
-    Duo\TranslatorBundle\Loader\DatabaseLoader:
+    duo_translator.loader.database:
+        class: Duo\TranslatorBundle\Loader\DatabaseLoader
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
         tags:
             - { name: translation.loader, alias: db, priority: 8 }

@@ -9,12 +9,12 @@ final class PublishEvents
 	/**
 	 * @Event("Duo\CoreBundle\Event\Listing\PublishEvent")
 	 */
-	const PUBLISH = 'duo.core.event.listing.publish';
+	const PUBLISH = 'duo_core.event.listing.publish';
 
 	/**
 	 * @Event("Duo\CoreBundle\Event\Listing\PublishEvent")
 	 */
-	const UNPUBLISH = 'duo.core.event.listing.unpublish';
+	const UNPUBLISH = 'duo_core.event.listing.unpublish';
 
 	/**
 	 * PublishEvents constructor

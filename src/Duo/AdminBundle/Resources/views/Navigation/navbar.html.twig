@@ -8,7 +8,7 @@
 		</a>
 	</div>
 	{% if app.user %}
-		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="{{ 'duo.admin.navbar.toggle' | trans }}">
+		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="{{ 'duo_admin.navbar.toggle' | trans }}">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
@@ -20,7 +20,7 @@
 				</li>
 				<li class="nav-item">
 					<a href="{{ path('duo_security_logout') }}" class="nav-link">
-						{{- 'duo.admin.navbar.logout' | trans -}}
+						{{- 'duo_admin.navbar.logout' | trans -}}
 					</a>
 				</li>
 			</ul>

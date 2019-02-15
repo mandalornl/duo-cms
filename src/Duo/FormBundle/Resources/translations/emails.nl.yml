@@ -1,12 +1,11 @@
-duo:
-    form:
-        form_submission:
-            subject: Nieuwe inzending formulier - %form_name%
-            message: |
-                Nieuwe inzending formulier.
+duo_form:
+    form_submission:
+        subject: Nieuwe inzending formulier - %form_name%
+        message: |
+            Nieuwe inzending formulier.
 
-                %submission%
-            url: |
-                Gebruik de onderstaande url om de inzending te bekijken:
+            %submission%
+        url: |
+            Gebruik de onderstaande url om de inzending te bekijken:
 
-                %url%
+            %url%

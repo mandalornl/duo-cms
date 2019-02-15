@@ -18,7 +18,7 @@ use Duo\TaxonomyBundle\Entity\Property\TaxonomyTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @UniqueEntity(fields={ "name" }, message="duo.page.errors.name_used")
+ * @UniqueEntity(fields={ "name" }, message="duo_page.errors.name_used")
  */
 abstract class AbstractPage implements PageInterface
 {
@@ -66,5 +66,14 @@ abstract class AbstractPage implements PageInterface
 	public function __toString(): string
 	{
 		return $this->name;
+	}
+
+	/**
+	 * On clone name and slug
+	 */
+	protected function onCloneName(): void
+	{
+		// ensure unique name
+		$this->name = ltrim(uniqid("{$this->name}-"), '-');
 	}
 }

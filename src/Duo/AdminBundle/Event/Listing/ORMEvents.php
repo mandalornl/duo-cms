@@ -9,7 +9,7 @@ class ORMEvents
 	 *
 	 * @Event("Duo\AdminBundle\Event\Listing\ORMEvent")
 	 */
-	const POST_FLUSH = 'duo.admin.event.listing.orm.postFlush';
+	const POST_FLUSH = 'duo_admin.event.listing.orm.postFlush';
 
 	/**
 	 * ORMEvents constructor

@@ -46,6 +46,11 @@ class MenuBuilder implements MenuBuilderInterface
 	private $menu;
 
 	/**
+	 * @var MenuInterface
+	 */
+	private $activeItem;
+
+	/**
 	 * MenuBuilder constructor
 	 *
 	 * @param RouterInterface $router
@@ -124,11 +129,9 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * Build
-	 *
-	 * @param bool $rebuild [optional]
+	 * {@inheritdoc}
 	 */
-	public function build(bool $rebuild = false): void
+	public function buildMenu(bool $rebuild = false): void
 	{
 		if ($this->menu !== null && !$rebuild)
 		{
@@ -139,12 +142,12 @@ class MenuBuilder implements MenuBuilderInterface
 		$this->eventDispatcher->dispatch(MenuEvents::PRE_BUILD, new MenuEvent($this));
 
 		$menu = (new Menu())
-			->setLabel('Root')
-			->setId('root');
+			->setId('root')
+			->setLabel('Root');
 
 		foreach ($this->getConfigs() as $config)
 		{
-			$this->parse($config, $menu);
+			$this->parseConfig($config, $menu);
 		}
 
 		foreach ($menu->getChildren() as $child)
@@ -157,8 +160,35 @@ class MenuBuilder implements MenuBuilderInterface
 
 		$this->menu = $menu;
 
+		$this->buildBreadcrumbs();
+
 		// dispatch post build event
 		$this->eventDispatcher->dispatch(MenuEvents::POST_BUILD, new MenuEvent($this));
+	}
+
+	/**
+	 * Build breadcrumbs
+	 */
+	private function buildBreadcrumbs(): void
+	{
+		if ($this->activeItem === null)
+		{
+			return;
+		}
+
+		$breadcrumbs = [];
+
+		$parent = $this->activeItem;
+
+		do
+		{
+			$breadcrumbs[] = $parent;
+
+			$parent = $parent->getParent();
+		}
+		while ($parent !== null);
+
+		$this->menu->setBreadcrumbs(array_reverse($breadcrumbs));
 	}
 
 	/**
@@ -166,7 +196,7 @@ class MenuBuilder implements MenuBuilderInterface
 	 */
 	public function createView(bool $rebuild = false): MenuInterface
 	{
-		$this->build($rebuild);
+		$this->buildMenu($rebuild);
 
 		return $this->menu;
 	}
@@ -178,11 +208,11 @@ class MenuBuilder implements MenuBuilderInterface
 	 *
 	 * @param MenuInterface $parent
 	 */
-	private function parse(array $config, MenuInterface $parent): void
+	private function parseConfig(array $config, MenuInterface $parent): void
 	{
 		foreach ($config as $id => $item)
 		{
-			// check whether or not route is accessible by user
+			// check whether or not user has proper roles
 			if (isset($item['roles']) && ($this->user === null || !$this->user->hasRoles((array)$item['roles'])))
 			{
 				continue;
@@ -199,29 +229,21 @@ class MenuBuilder implements MenuBuilderInterface
 				$menu = (new Menu())->setId($id);
 			}
 
-			// set label
-			if (isset($item['label']))
-			{
-				$menu->setLabel($item['label']);
-			}
-
-			// set icon
-			if (isset($item['icon']))
-			{
-				$menu->setIcon($item['icon']);
-			}
+			$menu
+				->setLabel($item['label'] ?? $menu->getLabel())
+				->setIcon($item['icon'] ?? $menu->getIcon())
+				->setTarget($item['target'] ?? $menu->getTarget());
 
 			// generate url from route
 			if (isset($item['route']))
 			{
-				$routeParameters = [];
-
-				if (isset($item['routeParameters']))
-				{
-					$routeParameters = $item['routeParameters'];
-				}
-
-				$menu->setUrl($this->router->generate($item['route'], $routeParameters));
+				$menu->setUrl(
+					$this->router->generate(
+						$item['route'],
+						$item['routeParameters'] ?? [],
+						$item['routeType'] ?? RouterInterface::ABSOLUTE_PATH
+					)
+				);
 			}
 			else
 			{
@@ -236,12 +258,14 @@ class MenuBuilder implements MenuBuilderInterface
 			if (($url = $menu->getUrl()) !== null && strpos($this->requestUri, $url) === 0)
 			{
 				$menu->setActive(true);
+
+				$this->activeItem = $menu;
 			}
 
 			// contains children
 			if (isset($item['children']))
 			{
-				$this->parse($item['children'], $menu);
+				$this->parseConfig($item['children'], $menu);
 			}
 
 			$parent->addChild($menu);

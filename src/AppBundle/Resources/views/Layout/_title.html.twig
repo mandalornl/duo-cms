@@ -1,0 +1,5 @@
+{%- if pageTranslation.metaTitle -%}
+	{{- pageTranslation.metaTitle -}}
+{%- else -%}
+	{%- if pageTranslation.title %}{{ pageTranslation.title }} - {% endif %}{{ brand_name -}}
+{%- endif -%}
