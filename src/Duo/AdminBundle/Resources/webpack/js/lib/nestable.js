@@ -8,7 +8,7 @@ export default ($ =>
 	const NAME = 'nestable';
 	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const DEFAULT = {
+	const DEFAULTS = {
 		onSortStart: (e) => {},
 		onSortStop: (e) => {},
 		onSortUpdate: (e) => {}
@@ -46,7 +46,7 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				const config = Object.assign({}, DEFAULT, options);
+				const config = Object.assign({}, DEFAULTS, options);
 
 				const $list = $this.find('.nestable-list:not(.nestable-async)');
 

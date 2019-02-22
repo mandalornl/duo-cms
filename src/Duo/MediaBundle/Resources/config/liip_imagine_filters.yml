@@ -1,19 +1,19 @@
 liip_imagine:
     filter_sets:
-        thumb:
+        duo_media_thumb:
             quality: 85
             filters:
                 auto_rotate: ~
                 strip: ~
                 thumbnail: { mode: outbound, allow_upscale: false }
 
-        crop:
+        duo_media_crop:
             quality: 85
             filters:
                 auto_rotate: ~
                 strip: ~
 
-        listing_preview:
+        duo_media_preview:
             quality: 85
             filters:
                 auto_rotate: ~

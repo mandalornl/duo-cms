@@ -13,7 +13,7 @@ export default ($ =>
 	const NAME = 'autocomplete';
 	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const DEFAULT = {
+	const DEFAULTS = {
 		theme: 'bootstrap',
 		width: '100%',
 		dropdownAutoWidth: true,
@@ -65,7 +65,7 @@ export default ($ =>
 					return;
 				}
 
-				const config = $.extend(true, {}, DEFAULT, {
+				const config = $.extend(true, {}, DEFAULTS, {
 					placeholder: $this.data('placeholder') || 'Enter keyword(s)',
 					ajax: {
 						url: $this.data('url'),

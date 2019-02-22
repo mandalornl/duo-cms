@@ -32,7 +32,7 @@ class DefaultController extends AbstractController
 
 		if ($page === null)
 		{
-			throw $this->createNotFoundException("Page for '/{$url}' not found");
+			throw $this->createNotFoundException("Page '/{$url}' not found");
 		}
 
 		/**

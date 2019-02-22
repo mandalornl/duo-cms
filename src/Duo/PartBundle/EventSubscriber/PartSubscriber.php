@@ -44,7 +44,7 @@ class PartSubscriber implements EventSubscriber
 		 */
 		$manager = $args->getObjectManager();
 
-		$reflectionClass = $args->getObjectManager()->getClassMetadata(get_class($entity))->getReflectionClass();
+		$reflectionClass = $manager->getClassMetadata(get_class($entity))->getReflectionClass();
 
 		$property = $reflectionClass->getProperty('parts');
 		$property->setAccessible(true);

@@ -14,7 +14,7 @@ export default ($ =>
 	const NAME = 'select2';
 	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const DEFAULT = {
+	const DEFAULTS = {
 		theme: 'bootstrap',
 		width: '100%',
 		dropdownAutoWidth: true,
@@ -68,7 +68,7 @@ export default ($ =>
 					return;
 				}
 
-				const config = $.extend(true, {}, DEFAULT, {
+				const config = $.extend(true, {}, DEFAULTS, {
 					tags: $this.data('tags') || false,
 					placeholder: $this.data('placeholder') || 'Please choose',
 					minimumResultsForSearch: $this.find('option').length <= 10 ? Infinity : 10

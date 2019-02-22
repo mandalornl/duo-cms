@@ -7,7 +7,7 @@
 				{% if 'image/' in data.mimeType %}
 					{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 					<div class="image-preview">
-						<img src="{{ imagine.thumb(data, 640) }}" srcset="{{ imagine.thumbSrcset(data, [640, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
+						<img src="{{ imagine.thumb(data, 640) }}" srcset="{{ imagine.thumbs(data, [640, 768]) }}" sizes="(min-width: 576px) 400px, 100vw">
 					</div>
 				{% else %}
 					{{- data.name -}}
@@ -34,7 +34,7 @@
 					<div class="image-preview">
 						{% if data and 'image/' in data.mimeType %}
 							{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
-							<img src="{{ imagine.thumb(data, 640) }}" srcset="{{ imagine.thumbSrcset(data, [640, 768, 1024]) }}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="{{ data.name }}">
+							<img src="{{ imagine.thumb(data, 640) }}" srcset="{{ imagine.thumbs(data, [640, 768, 1024]) }}" sizes="(min-width: 576px) 66.66667vw, (min-width: 768px) 50vw, 100vw" alt="{{ data.name }}">
 						{% endif %}
 					</div>
 				{% endif %}

@@ -8,7 +8,7 @@ export default ($ =>
 	const NAME = 'datepicker';
 	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const DEFAULT = {
+	const DEFAULTS = {
 		calendarWeeks: true,
 		clearBtn: true,
 		format: 'dd-mm-yyyy'
@@ -44,7 +44,7 @@ export default ($ =>
 					return;
 				}
 
-				const config = Object.assign({}, DEFAULT, options);
+				const config = Object.assign({}, DEFAULTS, options);
 
 				$this.attr('placeholder', config.format).datepicker(config).data(`init.${NAME}`, true);
 			});

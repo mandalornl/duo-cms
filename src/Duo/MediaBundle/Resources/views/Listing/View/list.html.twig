@@ -51,7 +51,7 @@
 						{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 						{% set item = item | merge({
 							src: imagine.thumb(entity, 640),
-							srcset: imagine.thumbSrcset(entity, [640, 768, 1024])
+							srcset: imagine.thumbs(entity, [640, 768, 1024])
 						}) %}
 					{% endif %}
 				{% endif %}
@@ -67,7 +67,7 @@
 					<td>
 						{% if 'image/' in entity.mimeType %}
 							<div class="image-preview">
-								<img src="{{ entity.url | imagine_filter('listing_preview') }}" alt="{{ entity.name }}">
+								<img src="{{ entity.url | imagine_filter('duo_media_preview') }}" alt="{{ entity.name }}">
 							</div>
 						{% endif %}
 					</td>

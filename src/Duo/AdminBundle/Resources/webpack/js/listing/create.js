@@ -108,6 +108,12 @@ $(() =>
 	// destroy widgets inside collection widget
 	$form.on('duo.event.collection.removeItem', '.widget-collection .collection-item', onRemoveItem);
 
+	// prevent window unload after sortable list update
+	$listing.find('.widget-parts .sortable-list').on('sortupdate', () =>
+	{
+		doNotLeave.enable();
+	});
+
 	// handle form submit
 	$listing.on('click', 'button[data-action="save"]', function()
 	{

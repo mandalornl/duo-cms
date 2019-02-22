@@ -6,7 +6,7 @@ export default ($ =>
 	const NAME = 'sortable';
 	const SELECTOR = `[data-init="${NAME}"]`;
 
-	const DEFAULT = {
+	const DEFAULTS = {
 		items: '.sortable-item:not(:disabled):not(.disabled)',
 		handle: '.sortable-handle',
 		placeholderClass: 'sortable-placeholder',
@@ -45,7 +45,7 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true);
 
-				const config = Object.assign({}, DEFAULT, options);
+				const config = Object.assign({}, DEFAULTS, options);
 
 				sortable(this, config);
 			});

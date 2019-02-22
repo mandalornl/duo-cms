@@ -2,6 +2,6 @@
 	{% import '@DuoMedia/Marco/imagine.html.twig' as imagine %}
 	<img src="{{ imagine.crop(part.imageCrop, 640) }}"
 		 class="img-fluid"
-		 {%- if part.section != 'widgets' %} srcset="{{ imagine.cropSrcset(part.imageCrop, [640, 768, 1024, 1366]) }}" sizes="100vw"{% endif -%}
+		 {%- if part.section != 'widgets' %} srcset="{{ imagine.crops(part.imageCrop, [640, 768, 1024, 1366]) }}" sizes="100vw"{% endif -%}
 		 {%- if part.altText %} alt="{{ part.altText }}"{% endif -%}>
 {% endif %}

@@ -13,3 +13,10 @@ https://www.npmjs.com/package/html5sortable
 
 # doctrine
 http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/transactions-and-concurrency.html#optimistic-locking
+
+# symfony
+https://symfony.com/doc/current/best_practices/index.html
+https://symfony.com/doc/current/bundles/best_practices.html
+https://symfony.com/doc/current/bundles/configuration.html
+https://symfony.com/doc/current/bundles/extension.html
+https://symfonycasts.com/screencast/symfony-fundamentals
