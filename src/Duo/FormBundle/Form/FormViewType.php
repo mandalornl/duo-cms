@@ -5,7 +5,7 @@ namespace Duo\FormBundle\Form;
 use Duo\FormBundle\Entity\FormPart\ChoiceFormPartInterface;
 use Duo\FormBundle\Entity\FormPart\FormPartInterface;
 use Duo\FormBundle\Entity\FormPart\TextFormPartInterface;
-use Duo\FormBundle\Form\Type\HoneypotType;
+use Duo\PartBundle\Collection\PartCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,36 +19,33 @@ class FormViewType extends AbstractType
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
-		// TODO: randomize position and name
-		$builder->add(count($options['formParts']) + 1, HoneypotType::class);
-
-		foreach ($options['formParts'] as $index => $formPart)
+		foreach ($options['fields'] as $index => $field)
 		{
-			$formOptions = [];
-
-			if ($formPart instanceof FormPartInterface)
+			if (!$field instanceof FormPartInterface)
 			{
-				$formOptions = array_replace_recursive($formOptions, [
-					'label' => $formPart->getLabel()
-				]);
+				continue;
 			}
 
-			if ($formPart instanceof ChoiceFormPartInterface)
+			$formOptions = [
+				'label' => $field->getLabel()
+			];
+
+			if ($field instanceof ChoiceFormPartInterface)
 			{
-				$formOptions = array_replace_recursive($formOptions, $this->getChoiceFormOptions($formPart));
+				$formOptions = array_replace_recursive($formOptions, $this->getChoiceFormOptions($field));
 			}
 			else
 			{
-				if ($formPart instanceof TextFormPartInterface)
+				if ($field instanceof TextFormPartInterface)
 				{
-					$formOptions = array_replace_recursive($formOptions, $this->getTextFormOptions($formPart));
+					$formOptions = array_replace_recursive($formOptions, $this->getTextFormOptions($field));
 				}
 			}
 
 			// overwrite/extend form options
-			$formOptions = array_replace_recursive($formOptions, $formPart->getFormOptions());
+			$formOptions = array_replace_recursive($formOptions, $field->getFormOptions());
 
-			$builder->add($index, $formPart->getFormType(), $formOptions);
+			$builder->add($index, $field->getFormType(), $formOptions);
 		}
 	}
 
@@ -108,8 +105,13 @@ class FormViewType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'formParts' => []
-		]);
+		$resolver
+			->setDefaults([
+				'fields' => []
+			])
+			->setAllowedTypes('fields',  [
+				PartCollection::class,
+				'Duo\FormBundle\Entity\FormPart\FormPartInterface[]'
+			]);
 	}
 }

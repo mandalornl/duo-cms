@@ -30,7 +30,7 @@
 	@include button-variant(#fff, #fff, $gray-200, $gray-200, $gray-400, $gray-400);
 }
 
-.form-error-icon
+.form-error-icon + .form-error-message
 {
-	margin-right: .25rem;
+	margin-left: .25rem;
 }

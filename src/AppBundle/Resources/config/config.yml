@@ -18,17 +18,22 @@ liip_imagine:
                 cache_prefix: '%duo_media.cache_prefix%'
     driver: imagick
 
-# Duo Page Configuration #
-duo_page:
-    target_entities:
-        page_class: AppBundle\Entity\Page
-        page_translation_class: AppBundle\Entity\PageTranslation
+# Duo Form Configuration #
+duo_form:
+    recaptcha_key: '%recaptcha_key%'
+    recaptcha_secret: '%recaptcha_secret%'
 
 # Duo Media Configuration #
 duo_media:
     relative_path: '/media'
     absolute_path: '%kernel.project_dir%/web/media'
     cache_prefix: 'media/cache'
+
+# Duo Page Configuration #
+duo_page:
+    target_entities:
+        page_class: AppBundle\Entity\Page
+        page_translation_class: AppBundle\Entity\PageTranslation
 
 # Duo Security Configuration #
 duo_security:

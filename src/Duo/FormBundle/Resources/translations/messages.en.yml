@@ -47,9 +47,6 @@ duo_form:
             label: Form
             placeholder: Enter name
 
-        honeypot:
-            label: Leave this field blank if you're reading this
-
         form_part:
             label:
                 label: Label
@@ -78,3 +75,5 @@ duo_form:
 
     privacy:
         view: view
+
+Invalid reCAPTCHA.: Invalid reCAPTCHA.

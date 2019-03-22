@@ -1,10 +1,7 @@
 duo_form:
     form_submission:
         subject: New form submission - %form_name%
-        message: |
-            New form submission.
-
-            %submission%
+        message: '%submission%'
         url: |
             Use the following url to view the submission:
 

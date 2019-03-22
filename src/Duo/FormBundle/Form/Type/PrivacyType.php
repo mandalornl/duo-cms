@@ -2,6 +2,7 @@
 
 namespace Duo\FormBundle\Form\Type;
 
+use Duo\PageBundle\Entity\PageInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
@@ -23,9 +24,11 @@ class PrivacyType extends AbstractType
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'page' => null
-		]);
+		$resolver
+			->setDefaults([
+				'page' => null
+			])
+			->setAllowedTypes('page', ['null', PageInterface::class]);
 	}
 
 	/**

@@ -5435,6 +5435,11 @@ readdirp@^2.0.0, readdirp@^2.2.1:
     micromatch "^3.1.10"
     readable-stream "^2.0.2"
 
+recaptcha-v3@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/recaptcha-v3/-/recaptcha-v3-1.4.0.tgz#82735b1b4accea1c5bb5a8c46f410e15f10afc0d"
+  integrity sha512-OWOaFq2p0UMG2PUcnPBjlRK86kDmS8EhnFOhbKWJg/+hQdQnLR6Soz/AgbfWii+a2DlOslSw8pyuz0gD3ITM5A==
+
 recast@~0.11.12:
   version "0.11.23"
   resolved "https://registry.yarnpkg.com/recast/-/recast-0.11.23.tgz#451fd3004ab1e4df9b4e4b66376b2a21912462d3"

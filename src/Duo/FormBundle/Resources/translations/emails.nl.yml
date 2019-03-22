@@ -1,10 +1,7 @@
 duo_form:
     form_submission:
         subject: Nieuwe inzending formulier - %form_name%
-        message: |
-            Nieuwe inzending formulier.
-
-            %submission%
+        message: '%submission%'
         url: |
             Gebruik de onderstaande url om de inzending te bekijken:
 

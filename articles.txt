@@ -19,4 +19,5 @@ https://symfony.com/doc/current/best_practices/index.html
 https://symfony.com/doc/current/bundles/best_practices.html
 https://symfony.com/doc/current/bundles/configuration.html
 https://symfony.com/doc/current/bundles/extension.html
+https://symfony.com/doc/current/configuration/configuration_organization.html
 https://symfonycasts.com/screencast/symfony-fundamentals

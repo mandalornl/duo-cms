@@ -12,9 +12,9 @@
 	</div>
 {% endblock %}
 
-{% block duo_honeypot_row %}
-	<div class="form-group" style="position: absolute; height: 0; overflow: hidden;">
-		{{- form_label(form) -}}
-		{{- form_widget(form) -}}
-	</div>
+{% block duo_recaptcha_widget %}
+	{{ form_widget(form) }}
+	{% if autoHideBadge %}
+		<p><small>This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.</small></p>
+	{% endif %}
 {% endblock %}

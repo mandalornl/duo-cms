@@ -5,25 +5,9 @@ namespace Duo\AdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class WeightChoiceType extends AbstractType
 {
-	/**
-	 * @var TranslatorInterface
-	 */
-	private $translator;
-
-	/**
-	 * WeightChoiceType constructor
-	 *
-	 * @param TranslatorInterface $translator
-	 */
-	public function __construct(TranslatorInterface $translator)
-	{
-		$this->translator = $translator;
-	}
-
 	/**
 	 * {@inheritdoc}
 	 */
@@ -33,7 +17,8 @@ class WeightChoiceType extends AbstractType
 
 		$resolver->setDefaults([
 			'choices' => array_combine($choices, $choices),
-			'placeholder' => $this->translator->trans('duo_admin.form.weight_choice.placeholder')
+			'placeholder' => 'duo_admin.form.weight_choice.placeholder',
+			'choice_translation_domain' => false
 		]);
 	}
 

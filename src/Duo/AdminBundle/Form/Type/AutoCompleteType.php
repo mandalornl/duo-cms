@@ -98,14 +98,14 @@ class AutoCompleteType extends AbstractType
 				'excludeSelf' => false
 			])
 			->setAllowedTypes('multiple', 'bool')
-			->setAllowedTypes('placeholder', ['string', 'null'])
+			->setAllowedTypes('placeholder', ['null', 'string'])
 
 			->setAllowedTypes('class', 'string')
 			->setAllowedTypes('propertyName', ['string', 'closure'])
 
-			->setAllowedTypes('remotePath', ['string', 'null'])
+			->setAllowedTypes('remotePath', ['null', 'string'])
 
-			->setAllowedTypes('routeName', ['string', 'null'])
+			->setAllowedTypes('routeName', ['null', 'string'])
 			->setAllowedTypes('routeParams', 'array')
 			->setAllowedValues('routeType', [
 				RouterInterface::ABSOLUTE_URL,

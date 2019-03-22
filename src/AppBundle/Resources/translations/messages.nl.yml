@@ -36,4 +36,4 @@ app:
 
         video_page_part:
             value:
-                label: bijv. YouTube url
+                placeholder: bijv. YouTube url

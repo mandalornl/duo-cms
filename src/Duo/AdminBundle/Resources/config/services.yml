@@ -38,13 +38,6 @@ services:
         tags:
             - { name: form.type }
 
-    duo_admin.form.type.weight_choice:
-        class: Duo\AdminBundle\Form\Type\WeightChoiceType
-        arguments:
-            $translator: '@translator'
-        tags:
-            - { name: form.type }
-
     duo_admin.helper.locale:
         class: Duo\AdminBundle\Helper\LocaleHelper
         calls:

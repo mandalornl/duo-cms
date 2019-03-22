@@ -32,6 +32,7 @@
 		"mobile-detect": "^1.4.3",
 		"node-sass": "^4.11.0",
 		"popper.js": "^1.14.7",
+		"recaptcha-v3": "^1.4.0",
 		"resolve-url-loader": "^3.0.1",
 		"sass-libs": "https://github.com/mandalornl/sass-libs.git",
 		"sass-loader": "^7.1.0",
@@ -51,13 +52,19 @@
 		"yargs": "^13.2.1"
 	},
 	"engines": {
-		"node": ">=8.11.4",
-		"yarn": ">=1.13.0"
+		"node": "8.15.1",
+		"npm": "5.1.0",
+		"yarn": "1.15.2"
 	},
 	"scripts": {
 		"dev": "bin/dev-server.js",
 		"icomoon": "bin/icomoon.js --src src/Duo/AdminBundle/Resources/webpack --dest src/Duo/AdminBundle/Resources/webpack/sass/_icomoon.scss",
 		"build": "NODE_ENV=production webpack --config webpack.config.js",
+		"heroku-postbuild": "echo Build script is executed by composer.json",
 		"stats": "NODE_ENV=production webpack --config webpack.config.js --json > stats.json"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mandalornl/duo-cms.git"
 	}
 }

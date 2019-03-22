@@ -43,7 +43,7 @@ class PrivacyFormPart extends AbstractFormPart
 	 *
 	 * @return PrivacyFormPart
 	 */
-	public function setRequired(bool $required = false): PrivacyFormPart
+	public function setRequired(bool $required): PrivacyFormPart
 	{
 		$this->required = $required;
 

@@ -47,9 +47,6 @@ duo_form:
             label: Formulier
             placeholder: Voer naam in
 
-        honeypot:
-            label: Laat dit veld leeg, als je dit leest
-
         form_part:
             label:
                 label: Label
@@ -78,3 +75,5 @@ duo_form:
 
     privacy:
         view: bekijken
+
+Invalid reCAPTCHA.: Ongeldige reCAPTCHA.

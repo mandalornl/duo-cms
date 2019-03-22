@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {load} from 'recaptcha-v3';
 import {get, post} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 
@@ -41,6 +42,16 @@ export default ($ =>
 				const res = await get($this.data('url'));
 
 				$this.html(res.html).removeClass('loading');
+
+				const $recaptchaResponse = $this.find('[id$="g-recaptcha-response"]');
+
+				const recaptcha = await load($recaptchaResponse.data('key'), {
+					useRecaptchaNet: $recaptchaResponse.data('use-recaptcha-net'),
+					autoHideBadge: $recaptchaResponse.data('auto-hide-badge')
+				});
+				const token = await recaptcha.execute($this.find('form').attr('name'));
+
+				$recaptchaResponse.val(token);
 
 				$this.on(`submit.${NAME}`, 'form', async function(e)
 				{

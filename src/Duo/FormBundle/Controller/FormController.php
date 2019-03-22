@@ -10,6 +10,7 @@ use Duo\FormBundle\Entity\FormTranslation;
 use Duo\FormBundle\Event\FormSubmissionEvent;
 use Duo\FormBundle\Event\FormSubmissionEvents;
 use Duo\FormBundle\Form\FormViewType;
+use Duo\FormBundle\Form\Type\RecaptchaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,15 +62,24 @@ class FormController extends AbstractController
 			]);
 		}
 
-		$formParts = $entity->translate($request->getLocale())->getParts();
+		$formName = str_replace('-', '_', "form_{$entity->getUuid()}");
 
-		$form = $this->get('form.factory')->createNamed('form_' . $entity->getUuid(), FormViewType::class, null, [
+		$form = $this->get('form.factory')->createNamed($formName, FormViewType::class, null, [
 			'action' => $this->generateUrl('duo_form_view', [
 				'uuid' => $entity->getUuid(),
 				'locale' => $request->getLocale()
 			]),
-			'formParts' => $formParts
+			'fields' => $entity->translate($request->getLocale())->getParts()
 		]);
+
+		// add recaptcha
+		$form->add('g-recaptcha-response', RecaptchaType::class, [
+			'expectedAction' => $formName,
+			'remoteIp' => $request->getClientIp(),
+			'useRecaptchaNet' => true,
+			'autoHideBadge' => true
+		]);
+
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid())
@@ -78,7 +88,7 @@ class FormController extends AbstractController
 
 			$submissionData = [];
 
-			foreach ($formParts as $index => $formPart)
+			foreach ($entity->translate($request->getLocale())->getParts() as $index => $part)
 			{
 				if (!isset($data[$index]))
 				{
@@ -86,9 +96,9 @@ class FormController extends AbstractController
 				}
 
 				/**
-				 * @var FormPartInterface $formPart
+				 * @var FormPartInterface $part
 				 */
-				$submissionData[$formPart->getLabel()] = trim($data[$index]);
+				$submissionData[$part->getLabel()] = trim($data[$index]);
 			}
 
 			$submission = (new FormSubmission())

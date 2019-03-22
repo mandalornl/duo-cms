@@ -59,7 +59,7 @@
 {% block filter %}
 	{% if list.filterForm is defined and list.filterForm %}
 		<div class="listing-filter mb-3">
-			{% set activeFilters = app.request.session.get((app.request.query.get('iframe') ? 'i' : '') ~ 'filter_' ~ type, []) | length %}
+			{% set activeFilters = app.request.session.get('filter_' ~ type ~ (app.request.query.get('iframe') ? '_iframe' : ''), []) | length %}
 			<button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#listing_filter" aria-expanded="false" aria-controls="listing_filter">
 				{{- 'duo_admin.listing.filter.filter' | trans }}{% if activeFilters %} ({{ activeFilters }}){% endif -%}
 			</button>

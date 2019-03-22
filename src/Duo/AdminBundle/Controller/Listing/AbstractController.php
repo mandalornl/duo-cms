@@ -148,7 +148,7 @@ abstract class AbstractController extends CoreAbstractController
 
 		if ($request->query->has('iframe') && $request->query->get('iframe'))
 		{
-			return "i{$sessionName}";
+			return "{$sessionName}_iframe";
 		}
 
 		return $sessionName;

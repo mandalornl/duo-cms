@@ -20,6 +20,7 @@
         "ext-fileinfo": "*",
         "ext-imagick": "^3.4",
         "ext-intl": "^1.1",
+        "ext-json": "*",
         "ext-memcached": "^3.0",
         "beberlei/doctrineextensions": "^1.2",
         "box/spout": "^2.7",
@@ -27,6 +28,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "doctrine/orm": "^2.5",
+        "google/recaptcha": "^1.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "infinite-networks/form-bundle": "^1.0",
         "liip/imagine-bundle": "^2.0",
@@ -57,7 +59,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "if [ $STACK ]; then yarn build; fi"
         ],
         "post-update-cmd": [
             "@symfony-scripts"

@@ -38,7 +38,7 @@ class TranslationsTabType extends AbstractType
 				'label' => 'duo_page.tab.translations',
 				'data' => null
 			])
-			->setAllowedTypes('data', [PageInterface::class, 'null']);
+			->setAllowedTypes('data', ['null', PageInterface::class]);
 	}
 
 	/**

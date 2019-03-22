@@ -19,3 +19,17 @@ services:
             $configurator: '@duo_form.configurator.form_part'
         tags:
             - { name: form.type }
+
+    duo_form.form.type.recaptcha:
+        class: Duo\FormBundle\Form\Type\RecaptchaType
+        arguments:
+            $key: '%duo_form.recaptcha_key%'
+        tags:
+            - { name: form.type }
+
+    duo_form.validator.recaptcha:
+        class: Duo\FormBundle\Validator\Constraints\RecaptchaValidator
+        arguments:
+            $secret: '%duo_form.recaptcha_secret%'
+        tags:
+            - { name: validator.constraint_validator }

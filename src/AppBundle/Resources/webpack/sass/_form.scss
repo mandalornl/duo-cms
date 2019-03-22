@@ -22,3 +22,8 @@
 		content: none;
 	}
 }
+
+.form-error-icon + .form-error-message
+{
+	margin-left: .25rem;
+}
