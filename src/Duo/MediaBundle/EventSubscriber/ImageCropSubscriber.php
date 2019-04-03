@@ -10,7 +10,7 @@ use Duo\MediaBundle\Entity\ImageCrop;
 class ImageCropSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

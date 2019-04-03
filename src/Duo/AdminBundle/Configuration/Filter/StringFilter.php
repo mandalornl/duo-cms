@@ -10,7 +10,7 @@ use Duo\AdminBundle\Tools\ORM\Query;
 class StringFilter extends AbstractFilter implements SearchInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
@@ -77,7 +77,7 @@ class StringFilter extends AbstractFilter implements SearchInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{
@@ -85,7 +85,7 @@ class StringFilter extends AbstractFilter implements SearchInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildSearch(QueryBuilder $builder, Orx $orX, string $keyword): void
 	{

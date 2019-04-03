@@ -7,7 +7,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class UrlTransformer implements DataTransformerInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function transform($value)
 	{
@@ -15,7 +15,7 @@ class UrlTransformer implements DataTransformerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function reverseTransform($value)
 	{

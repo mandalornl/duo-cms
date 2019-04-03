@@ -17,7 +17,7 @@ class ListingControllerTest extends WebTestCase
 	private $client;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUp()
 	{

@@ -19,7 +19,7 @@ class FormSubmissionIndexController extends AbstractIndexController
 	use FormSubmissionConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFields(Request $request): void
 	{
@@ -31,7 +31,7 @@ class FormSubmissionIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFilters(Request $request): void
 	{
@@ -43,7 +43,7 @@ class FormSubmissionIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/", name="index", methods={ "GET" })
 	 */
@@ -53,7 +53,7 @@ class FormSubmissionIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{

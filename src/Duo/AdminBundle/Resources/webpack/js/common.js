@@ -30,10 +30,10 @@ postMessage.on(window, e =>
 	{
 		const response = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
 
-		if (response.event)
+		if (response.eventName)
 		{
 			// trigger target or use window instead
-			$(response.target ? `#${response.target}` : window).trigger(response.event, response.data);
+			$(response.target ? `#${response.target}` : window).trigger(response.eventName, response.data);
 		}
 	}
 	catch (err)

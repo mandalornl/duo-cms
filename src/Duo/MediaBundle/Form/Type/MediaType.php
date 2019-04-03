@@ -30,7 +30,7 @@ class MediaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -41,7 +41,7 @@ class MediaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function finishView(FormView $view, FormInterface $form, array $options): void
 	{
@@ -49,7 +49,7 @@ class MediaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -59,7 +59,7 @@ class MediaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): string
 	{
@@ -67,7 +67,7 @@ class MediaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBlockPrefix(): string
 	{

@@ -42,7 +42,7 @@ abstract class AbstractPart implements PartInterface
 	protected $section;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setEntity(?PropertyPartInterface $entity): PartInterface
 	{
@@ -52,7 +52,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEntity(): ?PropertyPartInterface
 	{
@@ -60,7 +60,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setReference(?ReferenceInterface $reference): PartInterface
 	{
@@ -70,7 +70,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getReference(): ?ReferenceInterface
 	{
@@ -78,7 +78,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setWeight(?int $weight): PartInterface
 	{
@@ -88,7 +88,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getWeight(): ?int
 	{
@@ -96,7 +96,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setSection(?string $section): PartInterface
 	{
@@ -106,7 +106,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSection(): ?string
 	{
@@ -114,7 +114,7 @@ abstract class AbstractPart implements PartInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

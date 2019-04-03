@@ -11,7 +11,7 @@ use Duo\SeoBundle\Entity\Robot;
 class RobotFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -35,7 +35,7 @@ EOT;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

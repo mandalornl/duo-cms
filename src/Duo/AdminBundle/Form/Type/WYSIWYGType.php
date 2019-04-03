@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class WYSIWYGType extends AbstractType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -19,7 +19,7 @@ class WYSIWYGType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -31,7 +31,7 @@ class WYSIWYGType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): string
 	{
@@ -39,7 +39,7 @@ class WYSIWYGType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBlockPrefix(): string
 	{

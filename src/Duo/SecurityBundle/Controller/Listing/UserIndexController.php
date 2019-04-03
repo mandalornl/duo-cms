@@ -16,14 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/security/user", name="duo_security_listing_user_")
  *
- * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class UserIndexController extends AbstractIndexController
 {
 	use UserConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFields(Request $request): void
 	{
@@ -36,7 +36,7 @@ class UserIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFilters(Request $request): void
 	{
@@ -49,7 +49,7 @@ class UserIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/", name="index", methods={ "GET" })
 	 */
@@ -59,7 +59,7 @@ class UserIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{

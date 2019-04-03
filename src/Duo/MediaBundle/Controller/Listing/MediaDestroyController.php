@@ -15,7 +15,7 @@ class MediaDestroyController extends AbstractDestroyController
 	use MediaConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/destroy/{id}.{_format}",

@@ -28,7 +28,7 @@ class RecaptchaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function finishView(FormView $view, FormInterface $form, array $options): void
 	{
@@ -36,7 +36,7 @@ class RecaptchaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -83,7 +83,7 @@ class RecaptchaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): string
 	{
@@ -91,7 +91,7 @@ class RecaptchaType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBlockPrefix(): string
 	{

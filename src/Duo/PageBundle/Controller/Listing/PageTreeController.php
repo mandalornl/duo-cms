@@ -19,7 +19,7 @@ class PageTreeController extends AbstractTreeController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/", name="tree_index", methods={ "GET" })
 	 */
@@ -29,7 +29,7 @@ class PageTreeController extends AbstractTreeController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     "/{id}/children",
@@ -45,7 +45,7 @@ class PageTreeController extends AbstractTreeController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getChildren(Request $request, TreeInterface $parent = null): array
 	{

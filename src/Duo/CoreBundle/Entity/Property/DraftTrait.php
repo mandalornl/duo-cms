@@ -15,7 +15,7 @@ trait DraftTrait
 	protected $drafts;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addDraft(EntityDraftInterface $draft): PropertyDraftInterface
 	{
@@ -27,7 +27,7 @@ trait DraftTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeDraft(EntityDraftInterface $draft): PropertyDraftInterface
 	{
@@ -39,7 +39,7 @@ trait DraftTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDrafts(): Collection
 	{

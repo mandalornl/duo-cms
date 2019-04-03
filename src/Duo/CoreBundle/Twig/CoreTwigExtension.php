@@ -15,7 +15,7 @@ use Duo\CoreBundle\Entity\PreviewInterface;
 class CoreTwigExtension extends \Twig_Extension
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTests(): array
 	{

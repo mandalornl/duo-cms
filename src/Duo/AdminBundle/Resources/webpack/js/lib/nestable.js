@@ -9,9 +9,9 @@ export default ($ =>
 	const SELECTOR = `[data-init="${NAME}"]`;
 
 	const DEFAULTS = {
-		onSortStart: (e) => {},
-		onSortStop: (e) => {},
-		onSortUpdate: (e) => {}
+		onSortStart: e => {},
+		onSortStop: e => {},
+		onSortUpdate: e => {}
 	};
 
 	/**

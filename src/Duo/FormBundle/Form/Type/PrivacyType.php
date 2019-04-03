@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PrivacyType extends AbstractType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function finishView(FormView $view, FormInterface $form, array $options): void
 	{
@@ -20,7 +20,7 @@ class PrivacyType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -32,7 +32,7 @@ class PrivacyType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): string
 	{
@@ -40,7 +40,7 @@ class PrivacyType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBlockPrefix(): string
 	{

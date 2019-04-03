@@ -32,7 +32,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addConfig(array $config): PartConfiguratorInterface
 	{
@@ -42,7 +42,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeConfig(array $config): PartConfiguratorInterface
 	{
@@ -52,7 +52,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getConfigs(): Collection
 	{
@@ -60,7 +60,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTypes(bool $isView = false, array $ids = []): array
 	{
@@ -83,7 +83,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSections(bool $isView = false): array
 	{
@@ -104,7 +104,7 @@ abstract class AbstractPartConfigurator implements PartConfiguratorInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getIcons(bool $isView = false): array
 	{

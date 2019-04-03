@@ -8,7 +8,7 @@ use Duo\PageBundle\Form\Listing\PageType;
 trait PageConfigurationTrait
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getEntityClass(): string
 	{
@@ -16,7 +16,7 @@ trait PageConfigurationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getFormType(): ?string
 	{
@@ -24,7 +24,7 @@ trait PageConfigurationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getType(): string
 	{

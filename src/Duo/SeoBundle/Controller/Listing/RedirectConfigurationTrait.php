@@ -8,7 +8,7 @@ use Duo\SeoBundle\Form\Listing\RedirectType;
 trait RedirectConfigurationTrait
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getEntityClass(): string
 	{
@@ -16,7 +16,7 @@ trait RedirectConfigurationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getFormType(): ?string
 	{
@@ -24,7 +24,7 @@ trait RedirectConfigurationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getType(): string
 	{

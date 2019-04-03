@@ -13,7 +13,7 @@ use Duo\CoreBundle\Entity\RevisionInterface as EntityRevisionInterface;
 class RevisionSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

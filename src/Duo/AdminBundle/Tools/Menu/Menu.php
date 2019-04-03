@@ -53,7 +53,7 @@ class Menu implements MenuInterface
 	private $breadcrumbs = [];
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setId(string $id): MenuInterface
 	{
@@ -63,7 +63,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getId(): ?string
 	{
@@ -71,7 +71,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setLabel(string $label): MenuInterface
 	{
@@ -81,7 +81,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getLabel(): ?string
 	{
@@ -89,7 +89,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setIcon(?string $icon): MenuInterface
 	{
@@ -99,7 +99,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getIcon(): ?string
 	{
@@ -107,7 +107,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUrl(?string $url): MenuInterface
 	{
@@ -117,7 +117,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUrl(): ?string
 	{
@@ -125,7 +125,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setTarget(?string $target): MenuInterface
 	{
@@ -135,7 +135,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTarget(): ?string
 	{
@@ -143,7 +143,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setActive(bool $active): MenuInterface
 	{
@@ -153,7 +153,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isActive(): bool
 	{
@@ -161,7 +161,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setParent(?MenuInterface $parent): MenuInterface
 	{
@@ -171,7 +171,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): ?MenuInterface
 	{
@@ -179,7 +179,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addChild(MenuInterface $menuItem): MenuInterface
 	{
@@ -191,7 +191,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeChild(MenuInterface $menuItem): MenuInterface
 	{
@@ -203,7 +203,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getChildren(): Collection
 	{
@@ -211,7 +211,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setBreadcrumbs(array $breadcrumbs): MenuInterface
 	{
@@ -221,7 +221,7 @@ class Menu implements MenuInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBreadcrumbs(): array
 	{

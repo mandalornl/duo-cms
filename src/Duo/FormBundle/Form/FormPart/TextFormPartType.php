@@ -7,7 +7,7 @@ use Duo\FormBundle\Entity\FormPart\TextFormPart;
 class TextFormPartType extends AbstractTextFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

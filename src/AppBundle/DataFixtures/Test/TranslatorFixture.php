@@ -10,7 +10,7 @@ use Duo\TranslatorBundle\Entity\Entry;
 class TranslatorFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -38,7 +38,7 @@ class TranslatorFixture extends Fixture implements DependentFixtureInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

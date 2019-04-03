@@ -158,7 +158,7 @@ module.exports = {
 			writeToFileEmit: true,
 			basePath: '/build/',
 			filename: 'manifest.json',
-			map: (file) =>
+			map: file =>
 			{
 				if (/\.css$/.test(file.name))
 				{

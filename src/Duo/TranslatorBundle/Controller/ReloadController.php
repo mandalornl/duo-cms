@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class ReloadController extends AbstractController
 {

@@ -233,7 +233,7 @@ class Form implements IdInterface,
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @return FormTranslation|TranslationInterface
 	 */
@@ -243,7 +243,7 @@ class Form implements IdInterface,
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

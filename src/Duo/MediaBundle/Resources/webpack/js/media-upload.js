@@ -53,7 +53,7 @@ $(() =>
 	 */
 	const handleUpload = file =>
 	{
-		const $progressBar = $([
+		const $progress = $([
 			'<div class="progress fade">',
 				'<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">',
 					`${file.name} 0%`,
@@ -61,10 +61,10 @@ $(() =>
 			'</div>'
 		].join('')).prependTo($view);
 
-		window.setTimeout(() => $progressBar.addClass('show'), 0);
+		window.setTimeout(() => $progress.addClass('show'), 0);
 
 		return uploadFile($container.data('url'), file, {
-			onUploadProgress: (e) =>
+			onUploadProgress: e =>
 			{
 				if (!e.lengthComputable)
 				{
@@ -73,7 +73,7 @@ $(() =>
 
 				const percentage = Math.round(e.loaded / e.total * 100);
 
-				$progressBar.find('.progress-bar')
+				$progress.find('.progress-bar')
 					.css('width', `${percentage}%`)
 					.attr('aria-valuenow', percentage)
 					.text(`${file.name} ${percentage}%`);
@@ -81,9 +81,9 @@ $(() =>
 
 			onUploadComplete: () =>
 			{
-				$progressBar.removeClass('show').on('bsTransitionEnd', () =>
+				$progress.removeClass('show').on('bsTransitionEnd', () =>
 				{
-					$progressBar.remove();
+					$progress.remove();
 				}).emulateTransitionEnd(150);
 			}
 		});
@@ -94,7 +94,7 @@ $(() =>
 	});
 
 	$container.on({
-		'drop': function(e)
+		'drop': e =>
 		{
 			e.preventDefault();
 
@@ -114,7 +114,7 @@ $(() =>
 			}).catch(err => console.error(err));
 		},
 
-		'dragover': (e) => e.preventDefault(),
+		'dragover': e => e.preventDefault(),
 
 		'dragleave': () => $container.removeClass('enter')
 

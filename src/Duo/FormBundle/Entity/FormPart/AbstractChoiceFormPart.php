@@ -30,7 +30,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	protected $choices;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setExpanded(bool $expanded): ChoiceFormPartInterface
 	{
@@ -40,7 +40,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isExpanded(): bool
 	{
@@ -48,7 +48,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setMultiple(bool $multiple): ChoiceFormPartInterface
 	{
@@ -58,7 +58,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isMultiple(): bool
 	{
@@ -66,7 +66,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setChoices(?string $choices): ChoiceFormPartInterface
 	{
@@ -76,7 +76,7 @@ abstract class AbstractChoiceFormPart extends AbstractTextFormPart implements Ch
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getChoices(): ?string
 	{

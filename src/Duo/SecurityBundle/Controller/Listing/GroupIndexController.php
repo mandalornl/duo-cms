@@ -15,14 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/security/group", name="duo_security_listing_group_")
  *
- * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class GroupIndexController extends AbstractIndexController
 {
 	use GroupConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFields(Request $request): void
 	{
@@ -33,7 +33,7 @@ class GroupIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFilters(Request $request): void
 	{
@@ -44,7 +44,7 @@ class GroupIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/", name="index", methods={ "GET" })
 	 */
@@ -54,7 +54,7 @@ class GroupIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{

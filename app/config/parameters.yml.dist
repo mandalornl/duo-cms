@@ -4,21 +4,10 @@
 parameters:
     brand_name: Duo
 
-    database_host: '%env(DATABASE_HOST)%'
-    database_port: '%env(DATABASE_PORT)%'
-    database_name: '%env(DATABASE_NAME)%'
-    database_user: '%env(DATABASE_USER)%'
-    database_password: '%env(DATABASE_PASSWORD)%'
-    # You should uncomment this if you want to use pdo_sqlite
-    #database_path: '%kernel.project_dir%/var/data/data.sqlite'
+    database_url: '%env(resolve:DATABASE_URL)%'
 
-    mailer_transport: '%env(MAILER_TRANSPORT)%'
-    mailer_host: '%env(MAILER_HOST)%'
-    mailer_port: '%env(MAILER_PORT)%'
-    mailer_user: '%env(MAILER_USER)%'
-    mailer_password: '%env(MAILER_PASSWORD)%'
-    mailer_encryption: '%env(MAILER_ENCRYPTION)%'
-    mailer_from: '%env(MAILER_FROM)%'
+    mailer_url: '%env(MAILER_URL)%'
+    mailer_sender_address: '%env(MAILER_SENDER_ADRESS)%'
 
     memcached_host: '%env(MEMCACHED_HOST)%'
     memcached_port: '%env(MEMCACHED_PORT)%'
@@ -38,22 +27,13 @@ parameters:
 
     google_analytics_id: '%env(GOOGLE_ANALYTICS_ID)%'
 
-    recaptcha_key: '%env(RECAPTCHA_KEY)%'
-    recaptcha_secret: '%env(RECAPTCHA_SECRET)%'
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    google_recaptcha_secret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
 
-    env(DATABASE_HOST): 127.0.0.1
-    env(DATABASE_PORT): ~
-    env(DATABASE_NAME): duo
-    env(DATABASE_USER): root
-    env(DATABASE_PASSWORD): ~
+    env(DATABASE_URL): ~
 
-    env(MAILER_TRANSPORT): smtp
-    env(MAILER_HOST): 127.0.0.1
-    env(MAILER_PORT): 25
-    env(MAILER_USER): ~
-    env(MAILER_PASSWORD): ~
-    env(MAILER_ENCRYPTION): ~
-    env(MAILER_FROM): info@example.com
+    env(MAILER_URL): 'null://localhost'
+    env(MAILER_SENDER_ADDRESS): info@example.com
 
     env(MEMCACHED_HOST): localhost
     env(MEMCACHED_PORT): 11211
@@ -71,5 +51,5 @@ parameters:
 
     env(GOOGLE_ANALYTICS_ID): ~
 
-    env(RECAPTCHA_KEY): ~
-    env(RECAPTCHA_SECRET): ~
+    env(GOOGLE_RECAPTCHA_SITE_KEY): ~
+    env(GOOGLE_RECAPTCHA_SECRET): ~

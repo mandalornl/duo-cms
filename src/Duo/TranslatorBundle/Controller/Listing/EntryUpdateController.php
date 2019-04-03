@@ -15,7 +15,7 @@ class EntryUpdateController extends AbstractUpdateController
 	use EntryConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",

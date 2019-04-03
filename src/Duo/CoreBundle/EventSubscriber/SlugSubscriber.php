@@ -13,7 +13,7 @@ use Duo\CoreBundle\Entity\Property\SlugInterface;
 class SlugSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

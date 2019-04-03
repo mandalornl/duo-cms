@@ -26,7 +26,7 @@ class VideoPagePartType extends AbstractPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -41,7 +41,7 @@ class VideoPagePartType extends AbstractPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

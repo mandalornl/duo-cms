@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class WYSIWYGPagePartType extends AbstractPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -22,7 +22,7 @@ class WYSIWYGPagePartType extends AbstractPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

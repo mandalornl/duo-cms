@@ -15,7 +15,7 @@ class FormSubmissionUpdateController extends AbstractUpdateController
 	use FormSubmissionConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",
@@ -40,7 +40,7 @@ class FormSubmissionUpdateController extends AbstractUpdateController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getUpdateTemplate(): string
 	{

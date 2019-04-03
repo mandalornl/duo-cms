@@ -24,7 +24,7 @@ class RedirectIndexController extends AbstractIndexController
 	use RedirectConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFields(Request $request): void
 	{
@@ -38,7 +38,7 @@ class RedirectIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFilters(Request $request): void
 	{
@@ -52,7 +52,7 @@ class RedirectIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @throws \Throwable
 	 */
@@ -70,7 +70,7 @@ class RedirectIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/", name="index", methods={ "GET" })
 	 */
@@ -204,7 +204,7 @@ class RedirectIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{

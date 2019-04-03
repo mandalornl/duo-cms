@@ -8,7 +8,7 @@ use Duo\AdminBundle\Form\Filter\NumericFilterType;
 class NumericFilter extends AbstractFilter
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
@@ -53,7 +53,7 @@ class NumericFilter extends AbstractFilter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{

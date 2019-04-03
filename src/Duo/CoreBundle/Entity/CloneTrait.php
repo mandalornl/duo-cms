@@ -5,7 +5,7 @@ namespace Duo\CoreBundle\Entity;
 trait CloneTrait
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @throws \ReflectionException
 	 */

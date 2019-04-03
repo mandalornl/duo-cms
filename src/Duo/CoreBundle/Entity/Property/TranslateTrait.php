@@ -28,7 +28,7 @@ trait TranslateTrait
 	protected $defaultLocale = 'nl';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @throws \ReflectionException
 	 */
@@ -69,7 +69,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setCurrentLocale(string $currentLocale): TranslateInterface
 	{
@@ -79,7 +79,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getCurrentLocale(): string
 	{
@@ -87,7 +87,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setDefaultLocale(string $defaultLocale): TranslateInterface
 	{
@@ -97,7 +97,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDefaultLocale(): string
 	{
@@ -105,7 +105,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addTranslation(TranslationInterface $translation): TranslateInterface
 	{
@@ -117,7 +117,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeTranslation(TranslationInterface $translation): TranslateInterface
 	{
@@ -129,7 +129,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTranslations(): Collection
 	{
@@ -137,7 +137,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
@@ -149,7 +149,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeNewTranslation(TranslationInterface $translation): TranslateInterface
 	{
@@ -161,7 +161,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getNewTranslations(): Collection
 	{
@@ -169,7 +169,7 @@ trait TranslateTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function mergeNewTranslations(): TranslateInterface
 	{

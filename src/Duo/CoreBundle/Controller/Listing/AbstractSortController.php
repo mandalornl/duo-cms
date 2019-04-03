@@ -169,7 +169,15 @@ abstract class AbstractSortController extends AbstractController
 	 */
 	protected function doMoveToAction(Request $request): Response
 	{
-		$id = (int)$request->get('id') ?: null;
+		if (!($id = (int)$request->get('id')))
+		{
+			return $this->createMoveToException($request, 'Missing \'id\' parameter');
+		}
+
+		if (!($parentId = (int)$request->get('parentId')))
+		{
+			return $this->createMoveToException($request, 'Missing \'parentId\' parameter');
+		}
 
 		$entity = $this->getDoctrine()->getRepository($this->getEntityClass())->find($id);
 
@@ -181,15 +189,6 @@ abstract class AbstractSortController extends AbstractController
 		if (!$entity instanceof SortInterface)
 		{
 			return $this->interfaceNotImplemented($request, $id, SortInterface::class);
-		}
-
-		$parentId = (int)$request->get('parentId') ?: null;
-		$prevSiblingId = (int)$request->get('prevSiblingId') ?: null;
-		$nextSiblingId = (int)$request->get('nextSiblingId') ?: null;
-
-		if (!$parentId && !$prevSiblingId && !$nextSiblingId)
-		{
-			return $this->createMoveToException($request, 'Missing parent and/or prev/next sibling id\'s');
 		}
 
 		$manager = $this->getDoctrine()->getManager();
@@ -299,10 +298,12 @@ abstract class AbstractSortController extends AbstractController
 		/**
 		 * @var SortInterface $prevSibling
 		 */
-		if ($prevSiblingId && ($prevSibling = $repository->find($prevSiblingId)) !== null)
+		if (($prevSiblingId = (int)$request->get('prevSiblingId')) &&
+			($prevSibling = $repository->find($prevSiblingId)) !== null)
 		{
 			$siblings = $repository->findPrevAllToSort($prevSibling);
 
+			// ignore if entity is sibling
 			if (($index = array_search($entity, $siblings)) !== false)
 			{
 				unset($siblings[$index]);
@@ -317,10 +318,12 @@ abstract class AbstractSortController extends AbstractController
 		/**
 		 * @var SortInterface $nextSibling
 		 */
-		if ($nextSiblingId && ($nextSibling = $repository->find($nextSiblingId)) !== null)
+		if (($nextSiblingId = (int)$request->get('nextSiblingId')) &&
+			($nextSibling = $repository->find($nextSiblingId)) !== null)
 		{
 			$siblings = $repository->findNextAllToSort($nextSibling);
 
+			// ignore if entity is sibling
 			if (($index = array_search($entity, $siblings)) !== false)
 			{
 				unset($siblings[$index]);

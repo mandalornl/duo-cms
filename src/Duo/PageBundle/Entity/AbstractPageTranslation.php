@@ -35,7 +35,7 @@ class AbstractPageTranslation implements PageTranslationInterface
 	protected $title;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setTitle(?string $title): PageTranslationInterface
 	{
@@ -45,7 +45,7 @@ class AbstractPageTranslation implements PageTranslationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTitle(): ?string
 	{
@@ -53,7 +53,7 @@ class AbstractPageTranslation implements PageTranslationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getValueToSlugify(): string
 	{
@@ -61,7 +61,7 @@ class AbstractPageTranslation implements PageTranslationInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getValueToUrlize(): string
 	{

@@ -11,7 +11,7 @@ use Duo\PartBundle\Entity\PartInterface as EntityPartInterface;
 class ReferenceSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

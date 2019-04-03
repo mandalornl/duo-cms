@@ -8,7 +8,7 @@ use Duo\AdminBundle\Form\Filter\EnumFilterType;
 class EnumFilter extends AbstractFilter
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
@@ -37,7 +37,7 @@ class EnumFilter extends AbstractFilter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{

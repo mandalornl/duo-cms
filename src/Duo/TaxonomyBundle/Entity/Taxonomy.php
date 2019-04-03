@@ -22,7 +22,7 @@ class Taxonomy implements IdInterface, TranslateInterface, TimestampInterface
 	use TimestampTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @return TaxonomyTranslation|TranslationInterface
 	 */
@@ -32,7 +32,7 @@ class Taxonomy implements IdInterface, TranslateInterface, TimestampInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

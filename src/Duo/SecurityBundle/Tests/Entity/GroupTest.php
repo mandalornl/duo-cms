@@ -16,7 +16,7 @@ class GroupTest extends TestCase
 	private $entity;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function setUp()
 	{

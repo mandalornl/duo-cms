@@ -11,14 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/security/role", name="duo_security_listing_role_")
  *
- * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_SUPER_ADMIN')")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class RoleCreateController extends AbstractCreateController
 {
 	use RoleConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

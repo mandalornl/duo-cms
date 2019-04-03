@@ -13,7 +13,7 @@ class RoleTest extends TestCase
 	private $entity;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function setUp()
 	{

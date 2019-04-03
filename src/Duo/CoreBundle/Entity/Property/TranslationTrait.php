@@ -24,7 +24,7 @@ trait TranslationTrait
 	protected $locale;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setEntity(?TranslateInterface $entity): TranslationInterface
 	{
@@ -34,7 +34,7 @@ trait TranslationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEntity(): ?TranslateInterface
 	{
@@ -42,7 +42,7 @@ trait TranslationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setLocale(string $locale): TranslationInterface
 	{
@@ -52,7 +52,7 @@ trait TranslationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getLocale(): ?string
 	{

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ImagePagePartType extends AbstractPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -29,7 +29,7 @@ class ImagePagePartType extends AbstractPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

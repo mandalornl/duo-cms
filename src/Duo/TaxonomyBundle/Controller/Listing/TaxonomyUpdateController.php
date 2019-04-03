@@ -15,7 +15,7 @@ class TaxonomyUpdateController extends AbstractUpdateController
 	use TaxonomyConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",

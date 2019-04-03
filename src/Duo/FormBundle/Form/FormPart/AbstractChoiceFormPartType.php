@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 abstract class AbstractChoiceFormPartType extends AbstractTextFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{

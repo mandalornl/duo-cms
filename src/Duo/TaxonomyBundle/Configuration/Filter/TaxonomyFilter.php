@@ -10,7 +10,7 @@ use Duo\TaxonomyBundle\Form\Filter\TaxonomyFilterType;
 class TaxonomyFilter extends EnumFilter
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
@@ -50,7 +50,7 @@ class TaxonomyFilter extends EnumFilter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{

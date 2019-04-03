@@ -26,7 +26,7 @@ abstract class AbstractFormPart extends AbstractPart implements FormPartInterfac
 	protected $label;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setLabel(?string $label): FormPartInterface
 	{
@@ -36,7 +36,7 @@ abstract class AbstractFormPart extends AbstractPart implements FormPartInterfac
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getLabel(): ?string
 	{
@@ -44,7 +44,7 @@ abstract class AbstractFormPart extends AbstractPart implements FormPartInterfac
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormOptions(): array
 	{

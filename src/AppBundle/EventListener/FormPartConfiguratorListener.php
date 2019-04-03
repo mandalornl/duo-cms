@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 class FormPartConfiguratorListener implements EventSubscriberInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public static function getSubscribedEvents(): array
 	{

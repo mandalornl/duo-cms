@@ -18,7 +18,7 @@ use Duo\SecurityBundle\Entity\UserInterface;
 class PageFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -301,7 +301,7 @@ class PageFixture extends Fixture implements DependentFixtureInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

@@ -27,7 +27,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildView(FormView $view, FormInterface $form, array $options): void
 	{
@@ -38,7 +38,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{
@@ -65,7 +65,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): string
 	{
@@ -73,7 +73,7 @@ abstract class AbstractPartCollectionType extends AbstractType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBlockPrefix(): string
 	{

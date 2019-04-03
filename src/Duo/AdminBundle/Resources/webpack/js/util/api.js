@@ -57,8 +57,8 @@ const uploadFile = (url, file, options = {}) => new Promise((resolve, reject) =>
 {
 	options = extend({}, {
 		params: {},
-		onUploadComplete: (e) => {},
-		onUploadProgress: (e) => {}
+		onUploadComplete: e => {},
+		onUploadProgress: e => {}
 	}, options);
 
 	const params = Object.assign({}, options.params, {

@@ -24,7 +24,7 @@ class TaxonomyField extends AbstractField
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildSorting(Request $request, QueryBuilder $builder, string $order): void
 	{
@@ -44,7 +44,7 @@ class TaxonomyField extends AbstractField
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildExport(Request $request, QueryBuilder $builder): void
 	{

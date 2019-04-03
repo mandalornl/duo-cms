@@ -23,7 +23,7 @@ trait PartTrait
 	protected $partVersion;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addPart(EntityPartInterface $part): PartInterface
 	{
@@ -44,7 +44,7 @@ trait PartTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removePart(EntityPartInterface $part): PartInterface
 	{
@@ -60,7 +60,7 @@ trait PartTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParts(): Collection
 	{
@@ -68,7 +68,7 @@ trait PartTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartsFromSection(string $section): Collection
 	{
@@ -79,7 +79,7 @@ trait PartTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPartVersion(string $partVersion): PartInterface
 	{
@@ -89,7 +89,7 @@ trait PartTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartVersion(): ?string
 	{

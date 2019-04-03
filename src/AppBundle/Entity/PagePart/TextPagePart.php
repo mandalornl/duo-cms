@@ -46,7 +46,7 @@ class TextPagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{

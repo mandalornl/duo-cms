@@ -54,7 +54,7 @@ class Reference implements ReferenceInterface
 
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setEntityId(?int $entityId): ReferenceInterface
 	{
@@ -64,7 +64,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEntityId(): ?int
 	{
@@ -72,7 +72,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setEntityClass(?string $entityClass): ReferenceInterface
 	{
@@ -82,7 +82,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEntityClass(): ?string
 	{
@@ -90,7 +90,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPartId(?int $partId): ReferenceInterface
 	{
@@ -100,7 +100,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartId(): ?int
 	{
@@ -108,7 +108,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPartClass(?string $partClass): ReferenceInterface
 	{
@@ -118,7 +118,7 @@ class Reference implements ReferenceInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartClass(): ?string
 	{

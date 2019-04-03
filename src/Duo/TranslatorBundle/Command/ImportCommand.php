@@ -21,7 +21,7 @@ use Symfony\Component\Yaml\Yaml;
 class ImportCommand extends ContainerAwareCommand
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function configure(): void
 	{
@@ -42,7 +42,7 @@ class ImportCommand extends ContainerAwareCommand
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @throws \Throwable
 	 */

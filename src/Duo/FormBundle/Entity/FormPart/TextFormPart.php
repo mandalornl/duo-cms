@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class TextFormPart extends AbstractTextFormPart
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{
@@ -21,7 +21,7 @@ class TextFormPart extends AbstractTextFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{

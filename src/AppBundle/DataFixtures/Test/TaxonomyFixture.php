@@ -11,7 +11,7 @@ use Duo\TaxonomyBundle\Entity\Taxonomy;
 class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -51,7 +51,7 @@ class TaxonomyFixture extends Fixture implements DependentFixtureInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

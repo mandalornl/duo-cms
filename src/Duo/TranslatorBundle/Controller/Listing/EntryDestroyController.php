@@ -15,7 +15,7 @@ class EntryDestroyController extends AbstractDestroyController
 	use EntryConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/destroy/{id}.{_format}",

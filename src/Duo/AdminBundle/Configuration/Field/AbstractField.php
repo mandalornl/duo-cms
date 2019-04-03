@@ -47,7 +47,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setProperty(string $property): FieldInterface
 	{
@@ -57,7 +57,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getProperty(): string
 	{
@@ -65,7 +65,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setLabel(string $label): FieldInterface
 	{
@@ -75,7 +75,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getLabel(): string
 	{
@@ -83,7 +83,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setAlias(string $alias): FieldInterface
 	{
@@ -93,7 +93,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getAlias(): string
 	{
@@ -101,7 +101,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setSortable(bool $sortable): FieldInterface
 	{
@@ -111,7 +111,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isSortable(): bool
 	{
@@ -119,7 +119,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setTemplate(string $template): FieldInterface
 	{
@@ -129,7 +129,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTemplate(): ?string
 	{
@@ -137,7 +137,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getHash(): string
 	{
@@ -145,7 +145,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildSorting(Request $request, QueryBuilder $builder, string $order): void
 	{
@@ -153,7 +153,7 @@ abstract class AbstractField implements FieldInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildExport(Request $request, QueryBuilder $builder): void
 	{

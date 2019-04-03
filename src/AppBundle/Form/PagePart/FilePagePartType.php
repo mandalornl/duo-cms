@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class FilePagePartType extends AbstractPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -23,7 +23,7 @@ class FilePagePartType extends AbstractPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

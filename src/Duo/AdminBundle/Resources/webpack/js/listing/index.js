@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {parse} from 'querystring';
 
-import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
+import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 import dialog from 'Duo/AdminBundle/Resources/webpack/js/util/dialog';
 import postMessage from 'Duo/AdminBundle/Resources/webpack/js/util/post-message';
 
@@ -56,7 +56,7 @@ $(() =>
 		const params = parse(location.search.substr(1));
 
 		postMessage.send(window.parent, {
-			event: 'duo.event.iframe.selectItem',
+			eventName: 'duo.event.iframe.selectItem',
 			target: params.target || null,
 			data: $(this).data('item')
 		}, location.origin);

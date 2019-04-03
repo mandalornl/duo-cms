@@ -18,7 +18,7 @@ trait TreeTrait
 	protected $children;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setParent(?TreeInterface $parent): TreeInterface
 	{
@@ -28,7 +28,7 @@ trait TreeTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParent(): ?TreeInterface
 	{
@@ -36,7 +36,7 @@ trait TreeTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addChild(TreeInterface $child): TreeInterface
 	{
@@ -48,7 +48,7 @@ trait TreeTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeChild(TreeInterface $child): TreeInterface
 	{
@@ -60,7 +60,7 @@ trait TreeTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getChildren(): Collection
 	{

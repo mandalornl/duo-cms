@@ -16,7 +16,7 @@ class SecurityControllerTest extends WebTestCase
 	private $client;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUp()
 	{

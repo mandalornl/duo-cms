@@ -21,7 +21,7 @@ class EntryIndexController extends AbstractIndexController
 	use EntryConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/", name="index", methods={ "GET" })
 	 */
@@ -43,7 +43,7 @@ class EntryIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFields(Request $request): void
 	{
@@ -55,7 +55,7 @@ class EntryIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineFilters(Request $request): void
 	{
@@ -67,7 +67,7 @@ class EntryIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defineActions(Request $request): void
 	{
@@ -78,7 +78,7 @@ class EntryIndexController extends AbstractIndexController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function defaultSorting(Request $request, QueryBuilder $builder): void
 	{

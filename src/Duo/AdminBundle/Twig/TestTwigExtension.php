@@ -5,7 +5,7 @@ namespace Duo\AdminBundle\Twig;
 class TestTwigExtension extends \Twig_Extension
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTests(): array
 	{

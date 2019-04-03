@@ -33,7 +33,7 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	protected $entity;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setName(?string $name): EntityRevisionInterface
 	{
@@ -43,7 +43,7 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): ?string
 	{
@@ -51,7 +51,7 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setData(?array $data): EntityRevisionInterface
 	{
@@ -61,7 +61,7 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getData(): ?array
 	{
@@ -69,7 +69,7 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setEntity(?PropertyRevisionInterface $entity): EntityRevisionInterface
 	{
@@ -79,7 +79,7 @@ abstract class AbstractRevision implements EntityRevisionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEntity(): ?PropertyRevisionInterface
 	{

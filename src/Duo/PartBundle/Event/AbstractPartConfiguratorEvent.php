@@ -23,7 +23,7 @@ abstract class AbstractPartConfiguratorEvent extends Event implements PartConfig
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setConfigurator(PartConfiguratorInterface $configurator): PartConfigurationEventInterface
 	{
@@ -33,7 +33,7 @@ abstract class AbstractPartConfiguratorEvent extends Event implements PartConfig
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getConfigurator(): PartConfiguratorInterface
 	{

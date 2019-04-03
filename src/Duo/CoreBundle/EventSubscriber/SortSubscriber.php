@@ -14,7 +14,7 @@ use Duo\CoreBundle\Entity\Property\TreeInterface;
 class SortSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

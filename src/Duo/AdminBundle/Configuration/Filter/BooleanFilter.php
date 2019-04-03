@@ -8,7 +8,7 @@ use Duo\AdminBundle\Form\Filter\BooleanFilterType;
 class BooleanFilter extends AbstractFilter
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
@@ -25,7 +25,7 @@ class BooleanFilter extends AbstractFilter
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{

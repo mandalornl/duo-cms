@@ -40,7 +40,7 @@ class Role implements RoleInterface
 	private $role;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setName(?string $name): RoleInterface
 	{
@@ -50,7 +50,7 @@ class Role implements RoleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): ?string
 	{
@@ -58,7 +58,7 @@ class Role implements RoleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setRole(?string $role): RoleInterface
 	{
@@ -68,7 +68,7 @@ class Role implements RoleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRole(): ?string
 	{
@@ -76,7 +76,7 @@ class Role implements RoleInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

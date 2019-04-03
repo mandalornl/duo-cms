@@ -9,7 +9,7 @@ use Duo\PartBundle\Configurator\AbstractPartConfigurator;
 class PagePartConfigurator extends AbstractPartConfigurator
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function dispatchPreLoadEvent(): void
 	{

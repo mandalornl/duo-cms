@@ -49,7 +49,7 @@ services:
         class: Duo\AdminBundle\Helper\MailerHelper
         arguments:
             $twig: '@twig'
-            $emailFrom: '%mailer_from%'
+            $from: '%mailer_sender_address%'
             $dkimConfig: { keyFile: '%dkim_key_file%', domain: '%dkim_domain%', selector: '%dkim_selector%' }
 
     duo_admin.routing.url_loader:

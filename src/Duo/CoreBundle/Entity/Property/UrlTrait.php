@@ -14,7 +14,7 @@ trait UrlTrait
 	protected $url;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUrl(?string $url): UrlInterface
 	{
@@ -24,7 +24,7 @@ trait UrlTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUrl(): ?string
 	{

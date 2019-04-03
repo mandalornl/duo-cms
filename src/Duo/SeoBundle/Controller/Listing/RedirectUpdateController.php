@@ -15,7 +15,7 @@ class RedirectUpdateController extends AbstractUpdateController
 	use RedirectConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",

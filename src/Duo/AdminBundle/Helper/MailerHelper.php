@@ -12,7 +12,7 @@ class MailerHelper
 	/**
 	 * @var string
 	 */
-	private $emailFrom;
+	private $from;
 
 	/**
 	 * @var array
@@ -23,13 +23,13 @@ class MailerHelper
 	 * MailerHelper constructor
 	 *
 	 * @param \Twig_Environment $twig
-	 * @param string $emailFrom
+	 * @param string $from
 	 * @param array $dkimConfig [optional]
 	 */
-	public function __construct(\Twig_Environment $twig, string $emailFrom, array $dkimConfig = null)
+	public function __construct(\Twig_Environment $twig, string $from, array $dkimConfig = null)
 	{
 		$this->twig = $twig;
-		$this->emailFrom = $emailFrom;
+		$this->from = $from;
 		$this->dkimConfig = $dkimConfig;
 	}
 
@@ -54,7 +54,7 @@ class MailerHelper
 		$bodyHtml = $template->renderBlock('body_html', $parameters);
 
 		$message = (new \Swift_Message())
-			->setFrom($this->emailFrom)
+			->setFrom($this->from)
 			->setSubject($subject)
 			->setBody($bodyHtml, 'text/html', 'utf-8')
 			->addPart($bodyText, 'text/plain', 'utf-8');
@@ -76,7 +76,10 @@ class MailerHelper
 			);
 		}
 
-		if ($this->dkimConfig !== null)
+		if ($this->dkimConfig !== null &&
+			!empty($this->dkimConfig['keyFile']) &&
+			!empty($this->dkimConfig['domain']) &&
+			!empty($this->dkimConfig['selector']))
 		{
 			$message->attachSigner(new \Swift_Signers_DKIMSigner(
 				file_get_contents($this->dkimConfig['keyFile']),

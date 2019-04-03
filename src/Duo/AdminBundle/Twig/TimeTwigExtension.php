@@ -22,7 +22,7 @@ class TimeTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFilters(): array
 	{

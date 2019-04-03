@@ -38,7 +38,7 @@ trait SeoTrait
 	protected $metaRobots;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setMetaTitle(?string $metaTitle): SeoInterface
 	{
@@ -48,7 +48,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getMetaTitle(): ?string
 	{
@@ -56,7 +56,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setMetaKeywords(?array $metaKeywords): SeoInterface
 	{
@@ -66,7 +66,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getMetaKeywords(): ?array
 	{
@@ -74,7 +74,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setMetaDescription(?string $metaDescription): SeoInterface
 	{
@@ -84,7 +84,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getMetaDescription(): ?string
 	{
@@ -92,7 +92,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setMetaRobots(?array $metaRobots): SeoInterface
 	{
@@ -102,7 +102,7 @@ trait SeoTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getMetaRobots(): ?array
 	{

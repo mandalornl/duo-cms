@@ -15,7 +15,7 @@ class FormSubmissionDestroyController extends AbstractDestroyController
 	use FormSubmissionConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/destroy/{id}.{_format}",

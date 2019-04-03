@@ -12,7 +12,7 @@ use Duo\CoreBundle\Entity\Property\TranslationInterface;
 class TranslationSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

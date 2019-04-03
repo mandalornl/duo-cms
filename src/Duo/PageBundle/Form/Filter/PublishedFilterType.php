@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class PublishedFilterType extends AbstractFilterType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{

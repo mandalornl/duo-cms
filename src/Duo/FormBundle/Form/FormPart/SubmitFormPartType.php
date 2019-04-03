@@ -7,7 +7,7 @@ use Duo\FormBundle\Entity\FormPart\SubmitFormPart;
 class SubmitFormPartType extends AbstractFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

@@ -46,7 +46,7 @@ class Group implements GroupInterface
 	private $roles;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setName(?string $name): GroupInterface
 	{
@@ -56,7 +56,7 @@ class Group implements GroupInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): ?string
 	{
@@ -64,7 +64,7 @@ class Group implements GroupInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addRole(RoleInterface $role): GroupInterface
 	{
@@ -74,7 +74,7 @@ class Group implements GroupInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeRole(RoleInterface $role): GroupInterface
 	{
@@ -84,7 +84,7 @@ class Group implements GroupInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRoles(): Collection
 	{
@@ -92,7 +92,7 @@ class Group implements GroupInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRolesFlattened(): array
 	{
@@ -103,7 +103,7 @@ class Group implements GroupInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class TextPagePartType extends AbstractPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -25,7 +25,7 @@ class TextPagePartType extends AbstractPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

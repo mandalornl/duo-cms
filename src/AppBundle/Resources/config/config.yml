@@ -10,6 +10,17 @@ doctrine:
             Duo\PageBundle\Entity\PageTranslationInterface: '%duo_page.entity.page_translation_class%'
             Duo\SecurityBundle\Entity\UserInterface: '%duo_security.entity.user_class%'
 
+        dql:
+            string_functions:
+                group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+
+# Doctrine Migrations Configuration #
+doctrine_migrations:
+    dir_name: '%kernel.project_dir%/app/migrations'
+    namespace: Duo\Migrations
+    table_name: duo_migrations
+    name: Duo Migrations
+
 # Liip Imagine Configuration #
 liip_imagine:
     resolvers:
@@ -18,10 +29,22 @@ liip_imagine:
                 cache_prefix: '%duo_media.cache_prefix%'
     driver: imagick
 
+# Mjml Configuration #
+mjml:
+    bin: '%kernel.project_dir%/node_modules/.bin/mjml'
+    mimify: true
+
+# Twig Configuration #
+twig:
+    globals:
+        brand_name: '%brand_name%'
+        google_analytics_id: '%google_analytics_id%'
+        google_recaptcha_site_key: '%google_recaptcha_site_key%'
+
 # Duo Form Configuration #
 duo_form:
-    recaptcha_key: '%recaptcha_key%'
-    recaptcha_secret: '%recaptcha_secret%'
+    recaptcha_key: '%google_recaptcha_site_key%'
+    recaptcha_secret: '%google_recaptcha_secret%'
 
 # Duo Media Configuration #
 duo_media:

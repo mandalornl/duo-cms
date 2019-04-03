@@ -11,7 +11,7 @@ use Symfony\Component\Finder\Finder;
 class CacheCommand extends ContainerAwareCommand
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function configure(): void
 	{
@@ -21,7 +21,7 @@ class CacheCommand extends ContainerAwareCommand
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @throws \Exception
 	 */

@@ -9,7 +9,7 @@ use Duo\SecurityBundle\Entity\Role;
 class RoleFixture extends Fixture
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -23,10 +23,10 @@ class RoleFixture extends Fixture
 			 'Administrator' => 'ROLE_ADMIN',
 			 'User' => 'ROLE_USER',
 			 'Anonymous' => 'IS_AUTHENTICATED_ANONYMOUSLY',
-			 'Can create' => 'ROLE_CAN_CREATE',
-			 'Can read' => 'ROLE_CAN_READ',
-			 'Can update' => 'ROLE_CAN_UPDATE',
-			 'Can delete' => 'ROLE_CAN_DELETE'
+			 'Can create' => 'CAN_CREATE',
+			 'Can read' => 'CAN_READ',
+			 'Can update' => 'CAN_UPDATE',
+			 'Can delete' => 'CAN_DELETE'
 		] as $name => $roleName)
 		{
 			$role = (new Role())

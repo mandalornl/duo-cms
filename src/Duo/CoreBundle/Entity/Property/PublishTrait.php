@@ -38,7 +38,7 @@ trait PublishTrait
 	protected $unpublishedBy;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPublishAt(?\DateTimeInterface $publishAt): PublishInterface
 	{
@@ -48,7 +48,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPublishAt(): ?\DateTimeInterface
 	{
@@ -56,7 +56,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUnpublishAt(?\DateTimeInterface $unpublishAt): PublishInterface
 	{
@@ -66,7 +66,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUnpublishAt(): ?\DateTimeInterface
 	{
@@ -74,7 +74,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPublishedBy(?UserInterface $publishedBy): PublishInterface
 	{
@@ -84,7 +84,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPublishedBy(): ?UserInterface
 	{
@@ -92,7 +92,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setUnpublishedBy(?UserInterface $unpublishedBy): PublishInterface
 	{
@@ -102,7 +102,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUnpublishedBy(): ?UserInterface
 	{
@@ -110,7 +110,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function publish(): PublishInterface
 	{
@@ -121,7 +121,7 @@ trait PublishTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function unpublish(): PublishInterface
 	{

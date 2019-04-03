@@ -15,7 +15,7 @@ class MediaCreateController extends AbstractCreateController
 	use MediaConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

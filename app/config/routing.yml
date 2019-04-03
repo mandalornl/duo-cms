@@ -1,26 +1,2 @@
-duo_admin:
-    resource: '@DuoAdminBundle/Resources/config/routing.yml'
-
-duo_page:
-    resource: '@DuoPageBundle/Resources/config/routing.yml'
-
-duo_form:
-    resource: '@DuoFormBundle/Resources/config/routing.yml'
-
-duo_security:
-    resource: '@DuoSecurityBundle/Resources/config/routing.yml'
-
-duo_taxonomy:
-    resource: '@DuoTaxonomyBundle/Resources/config/routing.yml'
-
-duo_media:
-    resource: '@DuoMediaBundle/Resources/config/routing.yml'
-
-duo_translator:
-    resource: '@DuoTranslatorBundle/Resources/config/routing.yml'
-
-duo_seo:
-    resource: '@DuoSeoBundle/Resources/config/routing.yml'
-
 app:
     resource: '@AppBundle/Resources/config/routing.yml'

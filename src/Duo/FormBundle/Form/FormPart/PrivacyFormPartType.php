@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class PrivacyFormPartType extends AbstractFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{
@@ -33,7 +33,7 @@ class PrivacyFormPartType extends AbstractFormPartType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

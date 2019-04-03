@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class SearchType extends AbstractType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{

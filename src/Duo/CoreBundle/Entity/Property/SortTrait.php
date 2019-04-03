@@ -14,7 +14,7 @@ trait SortTrait
 	protected $weight;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setWeight(?int $weight): SortInterface
 	{
@@ -24,7 +24,7 @@ trait SortTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getWeight(): ?int
 	{

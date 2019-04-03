@@ -43,7 +43,7 @@ abstract class AbstractPage implements PageInterface
 	protected $name;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setName(?string $name): PageInterface
 	{
@@ -53,7 +53,7 @@ abstract class AbstractPage implements PageInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): ?string
 	{
@@ -61,7 +61,7 @@ abstract class AbstractPage implements PageInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

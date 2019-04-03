@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class ChoiceFormPart extends AbstractChoiceFormPart
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{
@@ -21,7 +21,7 @@ class ChoiceFormPart extends AbstractChoiceFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{

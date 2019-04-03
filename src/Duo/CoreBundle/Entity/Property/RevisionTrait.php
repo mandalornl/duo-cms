@@ -15,7 +15,7 @@ trait RevisionTrait
 	protected $revisions;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addRevision(EntityRevisionInterface $revision): PropertyRevisionInterface
 	{
@@ -27,7 +27,7 @@ trait RevisionTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeRevision(EntityRevisionInterface $revision): PropertyRevisionInterface
 	{
@@ -39,7 +39,7 @@ trait RevisionTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRevisions(): Collection
 	{

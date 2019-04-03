@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ResetPasswordType extends AbstractType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{

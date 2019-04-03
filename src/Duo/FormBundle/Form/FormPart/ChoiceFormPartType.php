@@ -7,7 +7,7 @@ use Duo\FormBundle\Entity\FormPart\ChoiceFormPart;
 class ChoiceFormPartType extends AbstractChoiceFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

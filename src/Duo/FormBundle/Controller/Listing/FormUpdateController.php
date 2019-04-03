@@ -15,7 +15,7 @@ class FormUpdateController extends AbstractUpdateController
 	use FormConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",

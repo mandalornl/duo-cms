@@ -15,7 +15,7 @@ class PagePublishController extends AbstractPublishController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/publish/{id}.{_format}",
@@ -31,7 +31,7 @@ class PagePublishController extends AbstractPublishController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/unpublish/{id}.{_format}",

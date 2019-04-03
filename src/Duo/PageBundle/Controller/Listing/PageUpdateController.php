@@ -15,7 +15,7 @@ class PageUpdateController extends AbstractUpdateController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",

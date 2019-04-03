@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 abstract class AbstractFilterType extends AbstractType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getBlockPrefix(): string
 	{

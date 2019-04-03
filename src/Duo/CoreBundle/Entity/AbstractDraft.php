@@ -33,7 +33,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	protected $entity;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setName(?string $name): EntityDraftInterface
 	{
@@ -43,7 +43,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getName(): ?string
 	{
@@ -51,7 +51,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setData(?array $data): EntityDraftInterface
 	{
@@ -61,7 +61,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getData(): ?array
 	{
@@ -69,7 +69,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setEntity(?PropertyDraftInterface $entity): EntityDraftInterface
 	{
@@ -79,7 +79,7 @@ abstract class AbstractDraft implements EntityDraftInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEntity(): ?PropertyDraftInterface
 	{

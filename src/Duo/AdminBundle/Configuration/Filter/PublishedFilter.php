@@ -8,7 +8,7 @@ use Duo\PageBundle\Form\Filter\PublishedFilterType;
 class PublishedFilter extends AbstractFilter
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildFilter(QueryBuilder $builder, array $data): void
 	{
@@ -36,7 +36,7 @@ SQL;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{

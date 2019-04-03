@@ -7,7 +7,7 @@ use Duo\PartBundle\Form\Type\AbstractPartCollectionType;
 class FormPartCollectionType extends AbstractPartCollectionType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getRouteName(): string
 	{

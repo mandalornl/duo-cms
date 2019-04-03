@@ -32,7 +32,7 @@ class PublishSubscriber implements EventSubscriber
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

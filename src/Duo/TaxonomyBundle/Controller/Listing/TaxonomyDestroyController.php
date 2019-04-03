@@ -15,7 +15,7 @@ class TaxonomyDestroyController extends AbstractDestroyController
 	use TaxonomyConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/destroy/{id}.{_format}",

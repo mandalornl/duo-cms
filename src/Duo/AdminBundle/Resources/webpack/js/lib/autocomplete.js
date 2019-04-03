@@ -72,7 +72,7 @@ export default ($ =>
 						dataType: 'json',
 						cache: true,
 
-						data: (params) =>
+						data: params =>
 						{
 							return {
 								q: params.term,

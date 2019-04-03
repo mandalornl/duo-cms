@@ -31,7 +31,7 @@ class RedirectLoader extends Loader
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load($resource, $type = null): RouteCollection
 	{
@@ -66,7 +66,7 @@ class RedirectLoader extends Loader
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function supports($resource, $type = null): bool
 	{

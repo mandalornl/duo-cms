@@ -30,7 +30,7 @@ abstract class AbstractCreateController extends AbstractController
 		$entity = $manager->getClassMetadata($this->getEntityClass())->getReflectionClass()->newInstance();
 
 		// dispatch pre create event
-		$event = $this->get('event_dispatcher')->dispatch(EntityEvents::PRE_CREATE, new EntityEvent($entity, $request));
+		$this->get('event_dispatcher')->dispatch(EntityEvents::PRE_CREATE, ($event = new EntityEvent($entity, $request)));
 
 		// return with response when given
 		if ($event->hasResponse())
@@ -41,7 +41,7 @@ abstract class AbstractCreateController extends AbstractController
 		$form = $this->createForm($this->getFormType(), $entity);
 
 		// dispatch pre create event
-		$event = $this->get('event_dispatcher')->dispatch(FormEvents::PRE_CREATE, new FormEvent($form, $entity, $request));
+		$this->get('event_dispatcher')->dispatch(FormEvents::PRE_CREATE, ($event = new FormEvent($form, $entity, $request)));
 
 		// return with response when given
 		if ($event->hasResponse())
@@ -54,7 +54,7 @@ abstract class AbstractCreateController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post create event
-			$event = $this->get('event_dispatcher')->dispatch(FormEvents::POST_CREATE, new FormEvent($form, $entity, $request));
+			$this->get('event_dispatcher')->dispatch(FormEvents::POST_CREATE, ($event = new FormEvent($form, $entity, $request)));
 
 			// return with response when given
 			if ($event->hasResponse())
@@ -66,7 +66,7 @@ abstract class AbstractCreateController extends AbstractController
 			$manager->flush();
 
 			// dispatch post flush event
-			$event = $this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity, $request));
+			$this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, ($event = new ORMEvent($entity, $request)));
 
 			// return with response when given
 			if ($event->hasResponse())

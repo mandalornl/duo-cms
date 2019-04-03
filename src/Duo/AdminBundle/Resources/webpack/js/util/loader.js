@@ -20,4 +20,4 @@ const hide = () =>
 	$body.removeClass('loading immediately');
 };
 
-export {show, hide};
+export default { show, hide };

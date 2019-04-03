@@ -143,7 +143,7 @@ class FormSubmission implements IdInterface, TimestampInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

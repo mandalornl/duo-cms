@@ -22,7 +22,7 @@ class ArrayToStringTransformer implements DataTransformerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function transform($values): ?string
 	{
@@ -35,7 +35,7 @@ class ArrayToStringTransformer implements DataTransformerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function reverseTransform($value): ?array
 	{

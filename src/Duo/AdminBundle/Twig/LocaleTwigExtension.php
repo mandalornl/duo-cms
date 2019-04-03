@@ -23,7 +23,7 @@ class LocaleTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFunctions(): array
 	{

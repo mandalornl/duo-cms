@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class EmailFormPart extends AbstractTextFormPart
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{
@@ -24,7 +24,7 @@ class EmailFormPart extends AbstractTextFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormOptions(): array
 	{
@@ -43,7 +43,7 @@ class EmailFormPart extends AbstractTextFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{

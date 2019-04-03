@@ -13,7 +13,7 @@ use Duo\PartBundle\Entity\Property\PartInterface as PropertyPartInterface;
 class PartSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

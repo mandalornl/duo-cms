@@ -15,7 +15,7 @@ class PageDeleteController extends AbstractDeleteController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/delete/{id}.{_format}",
@@ -31,7 +31,7 @@ class PageDeleteController extends AbstractDeleteController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/undelete/{id}.{_format}",

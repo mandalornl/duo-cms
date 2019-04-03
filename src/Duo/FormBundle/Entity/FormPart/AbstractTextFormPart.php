@@ -28,7 +28,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	protected $errorMessage;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setRequired(bool $required): TextFormPartInterface
 	{
@@ -38,7 +38,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isRequired(): bool
 	{
@@ -46,7 +46,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPlaceholder(?string $placeholder): TextFormPartInterface
 	{
@@ -56,7 +56,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPlaceholder(): ?string
 	{
@@ -64,7 +64,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setErrorMessage(?string $errorMessage): TextFormPartInterface
 	{
@@ -74,7 +74,7 @@ abstract class AbstractTextFormPart extends AbstractFormPart implements TextForm
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getErrorMessage(): ?string
 	{

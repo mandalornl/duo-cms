@@ -8,7 +8,7 @@ use Duo\SecurityBundle\Form\Listing\GroupType;
 trait GroupConfigurationTrait
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getEntityClass(): string
 	{
@@ -16,7 +16,7 @@ trait GroupConfigurationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getFormType(): ?string
 	{
@@ -24,7 +24,7 @@ trait GroupConfigurationTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getType(): string
 	{

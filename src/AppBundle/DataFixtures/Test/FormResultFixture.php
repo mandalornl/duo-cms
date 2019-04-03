@@ -12,7 +12,7 @@ use Duo\SecurityBundle\Entity\UserInterface;
 class FormResultFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -63,7 +63,7 @@ class FormResultFixture extends Fixture implements DependentFixtureInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

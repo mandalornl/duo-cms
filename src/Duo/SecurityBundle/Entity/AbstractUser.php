@@ -100,7 +100,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     protected $groups;
 
 	/**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function setName(?string $name): UserInterface
     {
@@ -110,7 +110,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getName(): ?string
     {
@@ -118,7 +118,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     }
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
     public function setEmail(string $email): UserInterface
 	{
@@ -128,7 +128,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getEmail(): ?string
 	{
@@ -136,7 +136,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function setUsername(?string $username): UserInterface
     {
@@ -146,7 +146,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function getUsername(): ?string
     {
@@ -154,7 +154,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
     }
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
     public function setPassword(string $password): UserInterface
 	{
@@ -164,7 +164,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPassword(): ?string
 	{
@@ -172,7 +172,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPlainPassword(string $plainPassword): UserInterface
 	{
@@ -183,7 +183,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPlainPassword(): ?string
 	{
@@ -191,7 +191,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPasswordToken(?string $passwordToken): UserInterface
 	{
@@ -201,7 +201,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPasswordToken(): ?string
 	{
@@ -209,7 +209,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setPasswordTokenRequestedAt(?\DateTimeInterface $passwordTokenRequestedAt): UserInterface
 	{
@@ -219,7 +219,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPasswordTokenRequestedAt(): ?\DateTimeInterface
 	{
@@ -227,7 +227,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSalt(): ?string
 	{
@@ -235,7 +235,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setActive(bool $active): UserInterface
 	{
@@ -245,7 +245,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isActive(): bool
 	{
@@ -253,7 +253,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addGroup(GroupInterface $group): UserInterface
 	{
@@ -263,7 +263,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeGroup(GroupInterface $group): UserInterface
 	{
@@ -273,7 +273,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getGroups(): Collection
 	{
@@ -281,7 +281,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRoles(): array
 	{
@@ -299,7 +299,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function hasRole(string $roleName): bool
 	{
@@ -307,7 +307,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function hasRoles(array $roleNames): bool
 	{
@@ -315,7 +315,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function eraseCredentials(): void
 	{
@@ -323,7 +323,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{
@@ -331,7 +331,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function serialize(): string
 	{
@@ -344,7 +344,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function unserialize($serialized): void
 	{
@@ -357,7 +357,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isAccountNonExpired(): bool
 	{
@@ -365,7 +365,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isAccountNonLocked(): bool
 	{
@@ -373,7 +373,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isCredentialsNonExpired(): bool
 	{
@@ -381,7 +381,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isEnabled(): bool
 	{
@@ -389,7 +389,7 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isEqualTo(CoreUserInterface $user): bool
 	{

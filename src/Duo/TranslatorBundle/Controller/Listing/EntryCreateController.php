@@ -15,7 +15,7 @@ class EntryCreateController extends AbstractCreateController
 	use EntryConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

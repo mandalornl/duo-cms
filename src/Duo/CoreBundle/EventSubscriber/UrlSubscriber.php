@@ -15,7 +15,7 @@ use Duo\CoreBundle\Entity\Property\UrlInterface;
 class UrlSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

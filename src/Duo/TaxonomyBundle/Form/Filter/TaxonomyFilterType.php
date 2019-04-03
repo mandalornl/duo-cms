@@ -31,7 +31,7 @@ class TaxonomyFilterType extends EnumFilterType
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function configureOptions(OptionsResolver $resolver): void
 	{

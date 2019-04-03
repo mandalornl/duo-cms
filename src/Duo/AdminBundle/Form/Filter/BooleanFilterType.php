@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class BooleanFilterType extends AbstractFilterType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options): void
 	{

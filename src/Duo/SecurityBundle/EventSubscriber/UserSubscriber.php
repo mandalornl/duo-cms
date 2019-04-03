@@ -36,7 +36,7 @@ class UserSubscriber implements EventSubscriber
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

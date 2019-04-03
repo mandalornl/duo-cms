@@ -7,7 +7,7 @@ use Duo\FormBundle\Entity\FormPart\TextareaFormPart;
 class TextareaFormPartType extends AbstractTextFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

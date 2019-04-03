@@ -23,7 +23,7 @@ trait DeleteTrait
 	protected $deletedBy;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setDeletedAt(\DateTimeInterface $deletedAt): DeleteInterface
 	{
@@ -33,7 +33,7 @@ trait DeleteTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDeletedAt(): ?\DateTimeInterface
 	{
@@ -41,7 +41,7 @@ trait DeleteTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setDeletedBy(?UserInterface $deletedBy): DeleteInterface
 	{
@@ -51,7 +51,7 @@ trait DeleteTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDeletedBy(): ?UserInterface
 	{
@@ -59,7 +59,7 @@ trait DeleteTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function delete(): DeleteInterface
 	{
@@ -69,7 +69,7 @@ trait DeleteTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function undelete(): DeleteInterface
 	{
@@ -79,7 +79,7 @@ trait DeleteTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function isDeleted(): bool
 	{

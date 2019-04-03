@@ -9,7 +9,7 @@ use Doctrine\ORM\Query;
 trait RevisionTrait
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function nameExists(string $name): bool
 	{

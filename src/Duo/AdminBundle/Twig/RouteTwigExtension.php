@@ -22,7 +22,7 @@ class RouteTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTests(): array
 	{

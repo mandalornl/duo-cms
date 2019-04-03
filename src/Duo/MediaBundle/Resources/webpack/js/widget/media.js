@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import {get} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
-import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
+import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 
 export default ($ =>
 {
@@ -77,8 +77,8 @@ export default ($ =>
 						}
 
 						// check whether or not mime-type is correct
-						if ($this.data('mediaType') === 'image' && data.mimeType.indexOf('image/') !== 0 ||
-							$this.data('mediaType') !== 'image' && data.mimeType.indexOf('image/') === 0)
+						if (($this.data('mediaType') === 'image' && data.mimeType.indexOf('image/') !== 0) ||
+							($this.data('mediaType') !== 'image' && data.mimeType.indexOf('image/') === 0))
 						{
 							console.error(`Illegal mime-type: '${data.mimeType}'`);
 

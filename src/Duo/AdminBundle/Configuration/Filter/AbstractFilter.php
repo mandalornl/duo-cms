@@ -44,7 +44,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setProperty(string $property): FilterInterface
 	{
@@ -54,7 +54,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getProperty(): string
 	{
@@ -62,7 +62,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setLabel(string $label): FilterInterface
 	{
@@ -72,7 +72,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getLabel(): string
 	{
@@ -80,7 +80,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setAlias(string $alias): FilterInterface
 	{
@@ -90,7 +90,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getAlias(): string
 	{
@@ -98,7 +98,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setData(array $data): FilterInterface
 	{
@@ -108,7 +108,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getData(): array
 	{
@@ -116,7 +116,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setFormOptions(array $formOptions): FilterInterface
 	{
@@ -126,7 +126,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormOptions(): array
 	{
@@ -134,7 +134,7 @@ abstract class AbstractFilter implements FilterInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getUid(): string
 	{

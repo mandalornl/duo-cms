@@ -46,7 +46,7 @@ class VideoPagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{
@@ -54,7 +54,7 @@ class VideoPagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getView(): string
 	{

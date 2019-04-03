@@ -15,7 +15,7 @@ class PageCreateController extends AbstractCreateController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

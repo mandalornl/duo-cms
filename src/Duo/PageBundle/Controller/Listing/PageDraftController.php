@@ -16,7 +16,7 @@ class PageDraftController extends AbstractDraftController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/draft/view/{id}",
@@ -31,7 +31,7 @@ class PageDraftController extends AbstractDraftController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}/draft/create.{_format}",
@@ -47,7 +47,7 @@ class PageDraftController extends AbstractDraftController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/draft/apply/{id}.{_format}",
@@ -63,7 +63,7 @@ class PageDraftController extends AbstractDraftController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/draft/destroy/{id}.{_format}",
@@ -79,7 +79,7 @@ class PageDraftController extends AbstractDraftController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDraftEntityClass(): string
 	{

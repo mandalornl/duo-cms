@@ -60,13 +60,9 @@ security:
 
     access_control:
         - { path: ^/admin/(login|forgot-password|reset-password), roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/security, roles: ROLE_SUPER_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
     role_hierarchy:
-        ROLE_CAN_CREATE:     ROLE_CAN_READ
-        ROLE_CAN_READ:       ROLE_USER
-        ROLE_CAN_UPDATE:     ROLE_CAN_READ
-        ROLE_CAN_DELETE:     ROLE_CAN_READ
         ROLE_ADMIN:          ROLE_USER
         ROLE_SUPER_ADMIN:   [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]

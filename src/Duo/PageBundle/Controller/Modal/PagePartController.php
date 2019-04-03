@@ -12,12 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Route("/page/modal", name="duo_page_modal_")
  *
- * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED') and has_role('ROLE_ADMIN')")
+ * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
  */
 class PagePartController extends AbstractPartController
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getFormType(): string
 	{
@@ -25,7 +25,7 @@ class PagePartController extends AbstractPartController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route("/part-prototype", name="part_prototype", methods={ "GET" })
 	 */

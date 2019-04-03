@@ -15,7 +15,7 @@ class FormCreateController extends AbstractCreateController
 	use FormConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

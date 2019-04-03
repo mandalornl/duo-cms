@@ -29,7 +29,7 @@ abstract class AbstractEvent extends Event implements EventInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setRequest(?Request $request): EventInterface
 	{
@@ -39,7 +39,7 @@ abstract class AbstractEvent extends Event implements EventInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRequest(): ?Request
 	{
@@ -47,7 +47,7 @@ abstract class AbstractEvent extends Event implements EventInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function hasResponse(): bool
 	{
@@ -55,7 +55,7 @@ abstract class AbstractEvent extends Event implements EventInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getResponse(): ?Response
 	{

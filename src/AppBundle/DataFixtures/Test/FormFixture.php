@@ -16,7 +16,7 @@ use Duo\FormBundle\Entity\FormPart\TextFormPart;
 class FormFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -152,7 +152,7 @@ class FormFixture extends Fixture implements DependentFixtureInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

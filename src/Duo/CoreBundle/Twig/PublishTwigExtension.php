@@ -9,7 +9,7 @@ use Duo\CoreBundle\Entity\Property\TranslationInterface;
 class PublishTwigExtension extends \Twig_Extension
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTests(): array
 	{

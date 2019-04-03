@@ -14,7 +14,7 @@ trait SlugTrait
 	protected $slug;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setSlug(?string $slug): SlugInterface
 	{
@@ -24,7 +24,7 @@ trait SlugTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSlug(): ?string
 	{

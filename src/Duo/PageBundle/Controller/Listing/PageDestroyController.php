@@ -15,7 +15,7 @@ class PageDestroyController extends AbstractDestroyController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/destroy/{id}.{_format}",

@@ -10,7 +10,7 @@ use Duo\CoreBundle\Entity\Property\UuidInterface;
 class UuidSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

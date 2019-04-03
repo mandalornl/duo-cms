@@ -15,7 +15,7 @@ class RedirectDestroyController extends AbstractDestroyController
 	use RedirectConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/destroy/{id}.{_format}",

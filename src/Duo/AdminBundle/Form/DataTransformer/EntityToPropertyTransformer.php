@@ -53,7 +53,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function transform($value)
 	{
@@ -107,7 +107,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function reverseTransform($value)
 	{

@@ -2,13 +2,14 @@
  * Add event listener
  *
  * @param {Window} target
- * @param {Function} eventHandler
+ * @param {function} eventHandler
  */
 const on = (target, eventHandler) =>
 {
 	if (!target.addEventListener)
 	{
 		target.attachEvent('onmessage', eventHandler);
+
 		return;
 	}
 
@@ -20,11 +21,12 @@ const on = (target, eventHandler) =>
  *
  * @param {Window} target
  */
-const off = (target) =>
+const off = target =>
 {
 	if (!target.removeEventListener)
 	{
 		target.detachEvent('onmessage');
+
 		return;
 	}
 
@@ -43,8 +45,4 @@ const send = (target, data, domain = '*') =>
 	target.postMessage(JSON.stringify(data), domain);
 };
 
-export default {
-	on: on,
-	off: off,
-	send: send
-};
+export default { on, off, send };

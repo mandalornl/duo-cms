@@ -15,7 +15,7 @@ class MediaDeleteController extends AbstractDeleteController
 	use MediaConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/delete/{id}.{_format}",
@@ -31,7 +31,7 @@ class MediaDeleteController extends AbstractDeleteController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/undelete/{id}.{_format}",

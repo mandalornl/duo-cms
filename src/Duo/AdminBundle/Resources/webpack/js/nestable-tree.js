@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
+import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 import {get, post} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 import nestable from 'Duo/AdminBundle/Resources/webpack/js/lib/nestable';
 
@@ -79,7 +79,7 @@ export default ($ =>
 				 *
 				 * @returns {Promise<void>}
 				 */
-				const onSortUpdate = async (e) =>
+				const onSortUpdate = async e =>
 				{
 					const $item = $(e.detail.item);
 					const $parent = $(e.detail.destination.container);

@@ -15,7 +15,7 @@ class MediaUpdateController extends AbstractUpdateController
 	use MediaConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/{id}.{_format}",

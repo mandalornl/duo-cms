@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface as CoreUserInterface;
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function loadUserByUsername($username): ?CoreUserInterface
 	{

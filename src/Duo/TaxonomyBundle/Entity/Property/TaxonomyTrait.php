@@ -14,7 +14,7 @@ trait TaxonomyTrait
 	protected $taxonomies;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addTaxonomy(Taxonomy $taxonomy): TaxonomyInterface
 	{
@@ -24,7 +24,7 @@ trait TaxonomyTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeTaxonomy(Taxonomy $taxonomy): TaxonomyInterface
 	{
@@ -34,7 +34,7 @@ trait TaxonomyTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTaxonomies(): Collection
 	{
@@ -42,7 +42,7 @@ trait TaxonomyTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTaxonomiesSorted(string $locale = null): array
 	{

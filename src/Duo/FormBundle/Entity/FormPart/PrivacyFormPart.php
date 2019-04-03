@@ -109,7 +109,7 @@ class PrivacyFormPart extends AbstractFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormType(): string
 	{
@@ -117,7 +117,7 @@ class PrivacyFormPart extends AbstractFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFormOptions(): array
 	{
@@ -132,7 +132,7 @@ class PrivacyFormPart extends AbstractFormPart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{

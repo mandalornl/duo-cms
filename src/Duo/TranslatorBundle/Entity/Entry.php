@@ -153,7 +153,7 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @return EntryTranslation|TranslationInterface
 	 */
@@ -163,7 +163,7 @@ class Entry implements IdInterface, TranslateInterface, TimestampInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

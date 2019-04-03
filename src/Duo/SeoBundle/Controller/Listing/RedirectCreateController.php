@@ -15,7 +15,7 @@ class RedirectCreateController extends AbstractCreateController
 	use RedirectConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

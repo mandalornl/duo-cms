@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {load} from 'recaptcha-v3';
 import {get, post} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
-import * as loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
+import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 
 export default ($ =>
 {

@@ -14,7 +14,7 @@ use Duo\PageBundle\Entity\PageTranslationInterface;
 class Page extends AbstractPage
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @return PageTranslationInterface|TranslationInterface
 	 */
@@ -24,7 +24,7 @@ class Page extends AbstractPage
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

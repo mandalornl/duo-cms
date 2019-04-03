@@ -13,7 +13,7 @@ use Duo\CoreBundle\Entity\Property\DraftInterface as PropertyDraftInterface;
 class DraftSubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

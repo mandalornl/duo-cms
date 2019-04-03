@@ -11,7 +11,7 @@ use Duo\PartBundle\Entity\ReferenceInterface;
 class ReferenceRepository extends EntityRepository implements ReferenceRepositoryInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function findReferences(PropertyPartInterface $entity): array
 	{
@@ -22,7 +22,7 @@ class ReferenceRepository extends EntityRepository implements ReferenceRepositor
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function findReference(PropertyPartInterface $entity, EntityPartInterface $part): ?ReferenceInterface
 	{
@@ -40,7 +40,7 @@ class ReferenceRepository extends EntityRepository implements ReferenceRepositor
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function findParts(PropertyPartInterface $entity): array
 	{

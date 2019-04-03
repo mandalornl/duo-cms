@@ -35,7 +35,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setLabel(string $label): ActionInterface
 	{
@@ -45,7 +45,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getLabel(): string
 	{
@@ -53,7 +53,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setRoute(string $route): ActionInterface
 	{
@@ -63,7 +63,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRoute(): ?string
 	{
@@ -71,7 +71,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setRouteParameters(array $routeParameters): ActionInterface
 	{
@@ -81,7 +81,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getRouteParameters(): array
 	{
@@ -89,7 +89,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setTemplate(string $template): ActionInterface
 	{
@@ -99,7 +99,7 @@ class Action implements ActionInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTemplate(): ?string
 	{

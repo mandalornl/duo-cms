@@ -15,7 +15,7 @@ trait VersionTrait
 	protected $version = 1;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setVersion(int $version): VersionInterface
 	{
@@ -25,7 +25,7 @@ trait VersionTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getVersion(): int
 	{

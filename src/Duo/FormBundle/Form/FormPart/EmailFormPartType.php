@@ -7,7 +7,7 @@ use Duo\FormBundle\Entity\FormPart\EmailFormPart;
 class EmailFormPartType extends AbstractTextFormPartType
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getDataClass(): string
 	{

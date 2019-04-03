@@ -30,7 +30,7 @@ class UrlLoader extends Loader
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load($resource, $type = null): RouteCollection
 	{
@@ -52,7 +52,7 @@ class UrlLoader extends Loader
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function supports($resource, $type = null): bool
 	{

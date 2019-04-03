@@ -244,7 +244,7 @@ class Media implements IdInterface,
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

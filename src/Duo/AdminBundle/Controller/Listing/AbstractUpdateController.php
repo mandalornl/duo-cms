@@ -53,7 +53,7 @@ abstract class AbstractUpdateController extends AbstractController
 		}
 
 		// dispatch pre update event
-		$event = $this->get('event_dispatcher')->dispatch(EntityEvents::PRE_UPDATE, new EntityEvent($entity, $request));
+		$this->get('event_dispatcher')->dispatch(EntityEvents::PRE_UPDATE, ($event = new EntityEvent($entity, $request)));
 
 		// return with response when given
 		if ($event->hasResponse())
@@ -67,7 +67,7 @@ abstract class AbstractUpdateController extends AbstractController
 		$preSubmitState = Form::getViewData($form);
 
 		// dispatch pre update event
-		$event = $this->get('event_dispatcher')->dispatch(FormEvents::PRE_UPDATE, new FormEvent($form, $entity, $request));
+		$this->get('event_dispatcher')->dispatch(FormEvents::PRE_UPDATE, ($event = new FormEvent($form, $entity, $request)));
 
 		// return with response when given
 		if ($event->hasResponse())
@@ -80,7 +80,7 @@ abstract class AbstractUpdateController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			// dispatch post update event
-			$event = $this->get('event_dispatcher')->dispatch(FormEvents::POST_UPDATE, new FormEvent($form, $entity, $request));
+			$this->get('event_dispatcher')->dispatch(FormEvents::POST_UPDATE, ($event = new FormEvent($form, $entity, $request)));
 
 			// return with response when given
 			if ($event->hasResponse())
@@ -136,7 +136,7 @@ abstract class AbstractUpdateController extends AbstractController
 				$manager->flush();
 
 				// dispatch post flush event
-				$event = $this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, new ORMEvent($entity, $request));
+				$this->get('event_dispatcher')->dispatch(ORMEvents::POST_FLUSH, ($event = new ORMEvent($entity, $request)));
 
 				// return with response when given
 				if ($event->hasResponse())

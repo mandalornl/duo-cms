@@ -11,7 +11,7 @@ use Duo\SecurityBundle\Entity\Role;
 class GroupFixture extends Fixture implements DependentFixtureInterface
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function load(ObjectManager $manager): void
 	{
@@ -31,25 +31,13 @@ class GroupFixture extends Fixture implements DependentFixtureInterface
 
 		foreach ([
 			 'Super Administrators' => [
-				 'ROLE_SUPER_ADMIN',
-				 'ROLE_ADMIN',
-				 'ROLE_USER',
-				 'ROLE_CAN_CREATE',
-				 'ROLE_CAN_READ',
-				 'ROLE_CAN_UPDATE',
-				 'ROLE_CAN_DELETE'
+				 'ROLE_SUPER_ADMIN'
 			 ],
 			 'Administrators' => [
-				 'ROLE_ADMIN',
-				 'ROLE_USER',
-				 'ROLE_CAN_CREATE',
-				 'ROLE_CAN_READ',
-				 'ROLE_CAN_UPDATE',
-				 'ROLE_CAN_DELETE'
+				 'ROLE_ADMIN'
 			 ],
 			 'Users' => [
-				 'ROLE_USER',
-				 'ROLE_CAN_READ'
+				 'ROLE_USER'
 			 ],
 			 'Guests' => [
 				 'IS_AUTHENTICATED_ANONYMOUSLY'
@@ -76,7 +64,7 @@ class GroupFixture extends Fixture implements DependentFixtureInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{

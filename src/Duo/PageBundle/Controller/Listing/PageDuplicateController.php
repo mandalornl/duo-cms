@@ -15,7 +15,7 @@ class PageDuplicateController extends AbstractDuplicateController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/duplicate/{id}.{_format}",

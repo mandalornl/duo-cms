@@ -15,7 +15,7 @@ class TaxonomyCreateController extends AbstractCreateController
 	use TaxonomyConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/create.{_format}",

@@ -15,7 +15,7 @@ class FormDuplicateController extends AbstractDuplicateController
 	use FormConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/duplicate/{id}.{_format}",

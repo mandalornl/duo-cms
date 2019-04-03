@@ -18,10 +18,10 @@
     "require": {
         "php": ">=7.2",
         "ext-fileinfo": "*",
-        "ext-imagick": "^3.4",
-        "ext-intl": "^1.1",
+        "ext-imagick": "*",
+        "ext-intl": "*",
         "ext-json": "*",
-        "ext-memcached": "^3.0",
+        "ext-memcached": "*",
         "beberlei/doctrineextensions": "^1.2",
         "box/spout": "^2.7",
         "doctrine/doctrine-bundle": "^1.6",

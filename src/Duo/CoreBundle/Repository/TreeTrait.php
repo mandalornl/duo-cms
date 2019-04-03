@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 trait TreeTrait
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getOffspringIds(int $id, bool $traverse = true): array
 	{
@@ -48,7 +48,7 @@ DQL;
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getParentIds(int $id, bool $traverse = true): array
 	{

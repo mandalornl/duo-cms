@@ -79,7 +79,7 @@ class ImagePagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{
@@ -87,7 +87,7 @@ class ImagePagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getView(): string
 	{

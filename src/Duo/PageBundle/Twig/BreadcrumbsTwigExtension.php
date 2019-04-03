@@ -7,7 +7,7 @@ use Duo\PageBundle\Entity\PageInterface;
 class BreadcrumbsTwigExtension extends \Twig_Extension
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFunctions(): array
 	{

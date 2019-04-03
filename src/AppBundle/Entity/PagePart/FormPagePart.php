@@ -48,7 +48,7 @@ class FormPagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getPartFormType(): string
 	{
@@ -56,7 +56,7 @@ class FormPagePart extends AbstractPagePart
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getView(): string
 	{

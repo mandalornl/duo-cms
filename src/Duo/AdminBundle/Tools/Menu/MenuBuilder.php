@@ -83,7 +83,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function addConfig(array $config): MenuBuilderInterface
 	{
@@ -93,7 +93,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeConfig(array $config): MenuBuilderInterface
 	{
@@ -103,7 +103,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getConfigs(): Collection
 	{
@@ -111,7 +111,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setMenu(MenuInterface $menu): MenuBuilderInterface
 	{
@@ -121,7 +121,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getMenu(): MenuInterface
 	{
@@ -129,7 +129,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function buildMenu(bool $rebuild = false): void
 	{
@@ -192,7 +192,7 @@ class MenuBuilder implements MenuBuilderInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function createView(bool $rebuild = false): MenuInterface
 	{

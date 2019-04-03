@@ -6,7 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Duo\MediaBundle\Entity\Media;
-use Duo\MediaBundle\Helper\UploadHelper;
 use Duo\SecurityBundle\Entity\UserInterface;
 use Duo\TaxonomyBundle\Entity\Taxonomy;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -20,7 +19,7 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 	private $container;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @throws \Throwable
 	 */
@@ -98,7 +97,7 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getDependencies(): array
 	{
@@ -108,7 +107,7 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setContainer(ContainerInterface $container = null): void
 	{

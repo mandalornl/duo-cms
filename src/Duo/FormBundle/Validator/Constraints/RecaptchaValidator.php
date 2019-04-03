@@ -25,7 +25,7 @@ class RecaptchaValidator extends ConstraintValidator
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function validate($value, Constraint $constraint): void
 	{

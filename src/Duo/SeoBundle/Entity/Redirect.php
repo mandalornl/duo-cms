@@ -146,7 +146,7 @@ class Redirect implements IdInterface, TimestampInterface
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __toString(): string
 	{

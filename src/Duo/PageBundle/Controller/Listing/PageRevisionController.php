@@ -16,7 +16,7 @@ class PageRevisionController extends AbstractRevisionController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/revision/view/{id}",
@@ -31,7 +31,7 @@ class PageRevisionController extends AbstractRevisionController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/revision/revert/{id}.{_format}",
@@ -47,7 +47,7 @@ class PageRevisionController extends AbstractRevisionController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/revision/destroy/{id}.{_format}",
@@ -63,7 +63,7 @@ class PageRevisionController extends AbstractRevisionController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function getRevisionEntityClass(): string
 	{

@@ -38,7 +38,7 @@ trait TimestampTrait
 	protected $modifiedBy;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setCreatedAt(?\DateTimeInterface $createdAt): TimestampInterface
 	{
@@ -48,7 +48,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getCreatedAt(): ?\DateTimeInterface
 	{
@@ -56,7 +56,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setModifiedAt(?\DateTimeInterface $modifiedAt): TimestampInterface
 	{
@@ -66,7 +66,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getModifiedAt(): ?\DateTimeInterface
 	{
@@ -74,7 +74,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setCreatedBy(?UserInterface $createdBy): TimestampInterface
 	{
@@ -84,7 +84,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getCreatedBy(): ?UserInterface
 	{
@@ -92,7 +92,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function setModifiedBy(?UserInterface $modifiedBy): TimestampInterface
 	{
@@ -102,7 +102,7 @@ trait TimestampTrait
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getModifiedBy(): ?UserInterface
 	{

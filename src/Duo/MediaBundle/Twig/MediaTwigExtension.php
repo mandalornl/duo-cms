@@ -7,7 +7,7 @@ use Duo\MediaBundle\Entity\ImageCrop;
 class MediaTwigExtension extends \Twig_Extension
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFilters(): array
 	{
@@ -17,7 +17,7 @@ class MediaTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getFunctions(): array
 	{
@@ -28,7 +28,7 @@ class MediaTwigExtension extends \Twig_Extension
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getTests(): array
 	{

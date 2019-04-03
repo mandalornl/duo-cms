@@ -12,7 +12,7 @@ use Duo\TaxonomyBundle\Entity\Taxonomy;
 class TaxonomySubscriber implements EventSubscriber
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getSubscribedEvents(): array
 	{

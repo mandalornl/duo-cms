@@ -43,7 +43,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected function doInitialize(): void
 	{
@@ -55,7 +55,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function set($key, $value): void
 	{
@@ -65,7 +65,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function offsetSet($offset, $value): void
 	{
@@ -75,7 +75,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function offsetUnset($offset): void
 	{
@@ -85,7 +85,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function add($element): bool
 	{
@@ -95,7 +95,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function remove($key): bool
 	{
@@ -105,7 +105,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function removeElement($element): bool
 	{
@@ -182,7 +182,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __sleep(): array
 	{
@@ -190,7 +190,7 @@ class PartCollection extends AbstractLazyCollection
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function __clone()
 	{

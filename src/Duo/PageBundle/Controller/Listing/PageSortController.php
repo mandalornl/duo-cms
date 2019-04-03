@@ -15,7 +15,7 @@ class PageSortController extends AbstractSortController
 	use PageConfigurationTrait;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/move-up/{id}.{_format}",
@@ -31,7 +31,7 @@ class PageSortController extends AbstractSortController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/move-down/{id}.{_format}",
@@ -47,7 +47,7 @@ class PageSortController extends AbstractSortController
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 *
 	 * @Route(
 	 *     path="/move-to.{_format}",
