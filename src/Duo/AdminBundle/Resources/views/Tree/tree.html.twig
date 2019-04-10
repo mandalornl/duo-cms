@@ -1,4 +1,3 @@
-{% spaceless %}
 <ul class="nestable-list{% if not children | length %} d-none{% endif %}{% if async | default(false) %} nestable-async{% endif %}"{% if parent | default(null) %} data-id="{{ parent.id }}"{% endif %}>
 	{% set canEdit = canEdit | default(false) %}
 	{% for entity in children %}
@@ -21,4 +20,3 @@
 		</li>
 	{% endfor %}
 </ul>
-{% endspaceless %}

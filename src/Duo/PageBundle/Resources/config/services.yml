@@ -11,10 +11,10 @@ services:
             $eventDispatcher: '@event_dispatcher'
 
     duo_page.entity.page:
-        class: '%duo_page.entity.page_class%'
+        class: '%duo_page.entity_class%'
 
     duo_page.entity.page_translation:
-        class: '%duo_page.entity.page_translation_class%'
+        class: '%duo_page.entity_translation_class%'
 
     duo_page.form.type.page_part_collection:
         class: Duo\PageBundle\Form\Type\PagePartCollectionType
@@ -24,12 +24,12 @@ services:
             - { name: form.type }
 
     duo_page.twig_extension.breadcrumbs:
-        class: Duo\PageBundle\Twig\BreadcrumbsTwigExtension
+        class: Duo\PageBundle\Twig\BreadcrumbsExtension
         tags:
             - { name: twig.extension }
 
     duo_page.twig_extension.page:
-        class: Duo\PageBundle\Twig\PageTwigExtension
+        class: Duo\PageBundle\Twig\PageExtension
         arguments:
             $manager: '@doctrine.orm.entity_manager'
         tags:

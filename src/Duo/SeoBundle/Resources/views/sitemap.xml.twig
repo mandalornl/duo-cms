@@ -1,7 +1,5 @@
-{% spaceless %}
 {% import '@DuoSeo/Macro/tag.html.twig' as tag %}
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	{{ tag.urls(root, 1.0) }}
+	{{- tag.urls(root, 1.0) -}}
 </urlset>
-{% endspaceless %}

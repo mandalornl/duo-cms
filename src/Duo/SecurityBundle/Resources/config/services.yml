@@ -5,7 +5,7 @@ services:
     Duo\SecurityBundle\Entity\UserInterface: '@duo_security.entity.user'
 
     duo_security.entity.user:
-        class: '%duo_security.entity.user_class%'
+        class: '%duo_security.entity_class%'
 
     duo_security.controller.security:
         class: Duo\SecurityBundle\Controller\SecurityController

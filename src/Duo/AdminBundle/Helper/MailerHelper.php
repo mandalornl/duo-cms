@@ -2,10 +2,12 @@
 
 namespace Duo\AdminBundle\Helper;
 
+use Twig\Environment;
+
 class MailerHelper
 {
 	/**
-	 * @var \Twig_Environment
+	 * @var Environment
 	 */
 	private $twig;
 
@@ -22,11 +24,11 @@ class MailerHelper
 	/**
 	 * MailerHelper constructor
 	 *
-	 * @param \Twig_Environment $twig
+	 * @param Environment $twig
 	 * @param string $from
 	 * @param array $dkimConfig [optional]
 	 */
-	public function __construct(\Twig_Environment $twig, string $from, array $dkimConfig = null)
+	public function __construct(Environment $twig, string $from, array $dkimConfig = null)
 	{
 		$this->twig = $twig;
 		$this->from = $from;
@@ -64,6 +66,7 @@ class MailerHelper
 			if ($attachment instanceof \Swift_Attachment)
 			{
 				$message->attach($attachment);
+
 				continue;
 			}
 
@@ -79,7 +82,8 @@ class MailerHelper
 		if ($this->dkimConfig !== null &&
 			!empty($this->dkimConfig['keyFile']) &&
 			!empty($this->dkimConfig['domain']) &&
-			!empty($this->dkimConfig['selector']))
+			!empty($this->dkimConfig['selector']) &&
+			is_readable($this->dkimConfig['keyFile']))
 		{
 			$message->attachSigner(new \Swift_Signers_DKIMSigner(
 				file_get_contents($this->dkimConfig['keyFile']),

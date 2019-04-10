@@ -16,9 +16,9 @@ $(() =>
 
 	const $form = $listing.find('.listing-form');
 
-	$form.on('click', '[data-modal="delete"]', async function(e)
+	$form.on('click', '[data-modal="delete"]', async function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $this = $(this);
 
@@ -31,9 +31,9 @@ $(() =>
 		location.href = $this.attr('href');
 	});
 
-	$form.on('click', 'tr:not([data-item])', function(e)
+	$form.on('click', 'tr:not([data-item])', function(event)
 	{
-		if ($(e.target).closest(':input, a, .custom-control').length)
+		if ($(event.target).closest(':input, a, .custom-control').length)
 		{
 			return;
 		}
@@ -49,9 +49,9 @@ $(() =>
 	});
 
 	// handle iframe item selection
-	$form.on('click', 'input[data-item]:not(:disabled), tr[data-item]:not(.disabled)', function(e)
+	$form.on('click', 'input[data-item]:not(:disabled), tr[data-item]:not(.disabled)', function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const params = parse(location.search.substr(1));
 
@@ -63,9 +63,9 @@ $(() =>
 	});
 
 	// handle actions
-	$listing.on('click', '.navbar [data-modal="multi-action"]', async function(e)
+	$listing.on('click', '.navbar [data-modal="multi-action"]', async function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $this = $(this);
 
@@ -88,9 +88,9 @@ $(() =>
 	});
 
 	// handle paginator limit
-	$listing.on('change', '.paginator-limiter select', function(e)
+	$listing.on('change', '.paginator-limiter select', function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		location.href = this.value;
 	});

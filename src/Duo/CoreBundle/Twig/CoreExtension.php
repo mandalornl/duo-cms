@@ -11,8 +11,10 @@ use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 use Duo\CoreBundle\Entity\Property\RevisionInterface;
 use Duo\CoreBundle\Entity\PreviewInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigTest;
 
-class CoreTwigExtension extends \Twig_Extension
+class CoreExtension extends AbstractExtension
 {
 	/**
 	 * {@inheritDoc}
@@ -20,15 +22,15 @@ class CoreTwigExtension extends \Twig_Extension
 	public function getTests(): array
 	{
 		return [
-			new \Twig_SimpleTest('deletable', [$this, 'isDeletable']),
-			new \Twig_SimpleTest('publishable', [$this, 'isPublishable']),
-			new \Twig_SimpleTest('sortable', [$this, 'isSortable']),
-			new \Twig_SimpleTest('translatable', [$this, 'isTranslatable']),
-			new \Twig_SimpleTest('treeable', [$this, 'isTreeable']),
-			new \Twig_SimpleTest('revisionable', [$this, 'isRevisionable']),
-			new \Twig_SimpleTest('duplicatable', [$this, 'isDuplicatable']),
-			new \Twig_SimpleTest('previewable', [$this, 'isPreviewable']),
-			new \Twig_SimpleTest('draftable', [$this, 'isDraftable'])
+			new TwigTest('deletable', [$this, 'isDeletable']),
+			new TwigTest('publishable', [$this, 'isPublishable']),
+			new TwigTest('sortable', [$this, 'isSortable']),
+			new TwigTest('translatable', [$this, 'isTranslatable']),
+			new TwigTest('treeable', [$this, 'isTreeable']),
+			new TwigTest('revisionable', [$this, 'isRevisionable']),
+			new TwigTest('duplicatable', [$this, 'isDuplicatable']),
+			new TwigTest('previewable', [$this, 'isPreviewable']),
+			new TwigTest('draftable', [$this, 'isDraftable'])
 		];
 	}
 

@@ -3,8 +3,11 @@
 namespace Duo\AdminBundle\Twig;
 
 use Duo\AdminBundle\Tools\Pagination\Paginator;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class PaginatorTwigExtension extends \Twig_Extension
+class PaginatorExtension extends AbstractExtension
 {
 	/**
 	 * {@inheritDoc}
@@ -12,12 +15,12 @@ class PaginatorTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('render_paginator', [$this, 'renderPaginator'], [
+			new TwigFunction('render_paginator', [$this, 'renderPaginator'], [
 				'needs_environment' => true,
 				'is_safe' => ['html']
 			]),
 
-			new \Twig_SimpleFunction('render_paginator_limiter', [$this, 'renderPaginatorLimiter'], [
+			new TwigFunction('render_paginator_limiter', [$this, 'renderPaginatorLimiter'], [
 				'needs_environment' => true,
 				'is_safe' => ['html']
 			])
@@ -27,7 +30,7 @@ class PaginatorTwigExtension extends \Twig_Extension
 	/**
 	 * Render paginator
 	 *
-	 * @param \Twig_Environment $env
+	 * @param Environment $env
 	 * @param Paginator $paginator
 	 * @param string $routeName
 	 * @param array $routeParameters [optional]
@@ -38,7 +41,7 @@ class PaginatorTwigExtension extends \Twig_Extension
 	 * @throws \Throwable
 	 */
 	public function renderPaginator(
-		\Twig_Environment $env,
+		Environment $env,
 		Paginator $paginator,
 		string $routeName,
 		array $routeParameters = [],
@@ -57,7 +60,7 @@ class PaginatorTwigExtension extends \Twig_Extension
 	/**
 	 * Render paginator limiter
 	 *
-	 * @param \Twig_Environment $env
+	 * @param Environment $env
 	 * @param Paginator $paginator
 	 * @param string $routeName
 	 * @param array $routeParameters [optional]
@@ -68,7 +71,7 @@ class PaginatorTwigExtension extends \Twig_Extension
 	 * @throws \Throwable
 	 */
 	public function renderPaginatorLimiter(
-		\Twig_Environment $env,
+		Environment $env,
 		Paginator $paginator,
 		string $routeName,
 		array $routeParameters,

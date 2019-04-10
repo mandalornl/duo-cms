@@ -8,11 +8,11 @@ import $ from 'jquery';
 	/**
 	 * Add item
 	 *
-	 * @param {Event} e
+	 * @param {Event} event
 	 */
-	const addItem = function(e)
+	const addItem = function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $this = $(this);
 
@@ -55,11 +55,11 @@ import $ from 'jquery';
 	/**
 	 * Remove item
 	 *
-	 * @param {Event} e
+	 * @param {Event} event
 	 */
-	const removeItem = function(e)
+	const removeItem = function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $this = $(this);
 

@@ -3,7 +3,8 @@ const webpack = require('webpack');
 
 const NotifierPlugin = require('webpack-notifier');
 const CleanPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserJsPlugin = require('terser-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -58,16 +59,14 @@ module.exports = {
 			test: /\.scss$/,
 			use: env === 'production' ? [
 				MiniCssExtractPlugin.loader,
-				{
-					loader: 'css-loader',
-					options: {
-						minimize: true
-					}
-				}, 'resolve-url-loader', sassLoader
+				'css-loader',
+				'resolve-url-loader',
+				sassLoader
 			] : [
 				'style-loader',
 				'css-loader',
-				'resolve-url-loader', sassLoader
+				'resolve-url-loader',
+				sassLoader
 			]
 		}, {
 			test: /\.js$/,
@@ -114,7 +113,19 @@ module.exports = {
 		}]
 	},
 
-	devtool: env === 'development' ? 'source-map': false,
+	devtool: env === 'development' ? 'source-map' : false,
+
+	optimization: {
+		minimize: env === 'production',
+		minimizer: [
+			new TerserJsPlugin({
+				sourceMap: true,
+				parallel: true,
+				cache: env === 'production'
+			}),
+			new OptimizeCssAssetsPlugin()
+		]
+	},
 
 	plugins: [
 		new webpack.ProvidePlugin({
@@ -130,28 +141,8 @@ module.exports = {
 			Alert: 'exports-loader?Alert!bootstrap/js/dist/alert'
 		})
 	].concat(env === 'production' ? [
-		new webpack.DefinePlugin({
-			'process.env': {
-				'NODE_ENV': JSON.stringify('production')
-			}
-		}),
-
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].[hash].css'
-		}),
-
-		new UglifyJsPlugin({
-			uglifyOptions: {
-				compress: {
-					warnings: false
-				},
-				sourceMap: true,
-				output: {
-					comments: true
-				}
-			},
-			parallel: true,
-			cache: true
 		}),
 
 		new ManifestPlugin({

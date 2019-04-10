@@ -22,12 +22,8 @@ class Configuration implements ConfigurationInterface
 
 		$rootNode
 			->children()
-				->arrayNode('target_entities')->isRequired()
-					->children()
-						->scalarNode('page_class')->isRequired()->cannotBeEmpty()->end()
-						->scalarNode('page_translation_class')->isRequired()->cannotBeEmpty()->end()
-					->end()
-				->end()
+				->scalarNode('entity_class')->isRequired()->cannotBeEmpty()->end()
+				->scalarNode('entity_translation_class')->isRequired()->cannotBeEmpty()->end()
 			->end();
 
 		return $treeBuilder;

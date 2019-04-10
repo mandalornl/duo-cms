@@ -5,8 +5,10 @@ namespace Duo\CoreBundle\Twig;
 use Duo\CoreBundle\Entity\Property\PublishInterface;
 use Duo\CoreBundle\Entity\Property\TranslateInterface;
 use Duo\CoreBundle\Entity\Property\TranslationInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigTest;
 
-class PublishTwigExtension extends \Twig_Extension
+class PublishExtension extends AbstractExtension
 {
 	/**
 	 * {@inheritDoc}
@@ -14,7 +16,7 @@ class PublishTwigExtension extends \Twig_Extension
 	public function getTests(): array
 	{
 		return [
-			new \Twig_SimpleTest('published', [$this, 'isPublished'])
+			new TwigTest('published', [$this, 'isPublished'])
 		];
 	}
 

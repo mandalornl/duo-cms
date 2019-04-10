@@ -293,7 +293,7 @@ abstract class AbstractUpdateController extends AbstractController
 
 		$name = md5(serialize($data));
 
-		if ($repository->nameExists($name))
+		if ($repository->revisionNameExists($name))
 		{
 			return null;
 		}

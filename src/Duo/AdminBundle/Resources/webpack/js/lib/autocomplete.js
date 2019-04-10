@@ -38,7 +38,7 @@ export default ($ =>
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -51,7 +51,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 * @param {{}} [options]
 		 */
 		init: (selector, options = {}) =>
@@ -101,7 +101,7 @@ export default ($ =>
 		/**
 		 * Destroy
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		destroy: selector =>
 		{

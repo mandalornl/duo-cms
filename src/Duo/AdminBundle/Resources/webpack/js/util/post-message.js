@@ -2,7 +2,7 @@
  * Add event listener
  *
  * @param {Window} target
- * @param {function} eventHandler
+ * @param {Function} eventHandler
  */
 const on = (target, eventHandler) =>
 {
@@ -38,7 +38,7 @@ const off = target =>
  *
  * @param {Window} target
  * @param {{}} data
- * @param {string} [domain = '*']
+ * @param {String} [domain = '*']
  */
 const send = (target, data, domain = '*') =>
 {

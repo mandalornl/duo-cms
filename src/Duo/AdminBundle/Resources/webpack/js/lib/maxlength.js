@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {debounce} from 'lodash';
+import debounce from 'lodash/debounce';
 import md from 'Duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
 
 export default ($ =>
@@ -12,7 +12,7 @@ export default ($ =>
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -25,7 +25,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		init: selector =>
 		{
@@ -69,7 +69,7 @@ export default ($ =>
 		/**
 		 * Destroy
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		destroy: selector =>
 		{

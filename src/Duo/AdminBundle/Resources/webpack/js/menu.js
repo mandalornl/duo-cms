@@ -4,9 +4,9 @@ import $ from 'jquery';
 {
 	const $body = $(document.body);
 
-	$(document).on('click.menu', '#menu', e =>
+	$(document).on('click.menu', '#menu', event =>
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		if (!$body.hasClass('sidebar-open'))
 		{

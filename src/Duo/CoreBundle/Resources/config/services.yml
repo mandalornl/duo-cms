@@ -71,11 +71,11 @@ services:
             - { name: doctrine.event_subscriber, priority: -16 }
 
     duo_core.twig_extension.core:
-        class: Duo\CoreBundle\Twig\CoreTwigExtension
+        class: Duo\CoreBundle\Twig\CoreExtension
         tags:
             - { name: twig.extension }
 
     duo_core.twig_extension.publish:
-        class: Duo\CoreBundle\Twig\PublishTwigExtension
+        class: Duo\CoreBundle\Twig\PublishExtension
         tags:
             - { name: twig.extension }

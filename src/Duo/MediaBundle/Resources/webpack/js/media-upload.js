@@ -64,14 +64,14 @@ $(() =>
 		window.setTimeout(() => $progress.addClass('show'), 0);
 
 		return uploadFile($container.data('url'), file, {
-			onUploadProgress: e =>
+			onUploadProgress: event =>
 			{
-				if (!e.lengthComputable)
+				if (!event.lengthComputable)
 				{
 					return;
 				}
 
-				const percentage = Math.round(e.loaded / e.total * 100);
+				const percentage = Math.round(event.loaded / event.total * 100);
 
 				$progress.find('.progress-bar')
 					.css('width', `${percentage}%`)
@@ -94,16 +94,16 @@ $(() =>
 	});
 
 	$container.on({
-		'drop': e =>
+		'drop': event =>
 		{
-			e.preventDefault();
+			event.preventDefault();
 
 			$container.removeClass('enter');
 
 			// show warning on page reload
 			doNotLeave.enable();
 
-			const files = getFiles(e.originalEvent.dataTransfer);
+			const files = getFiles(event.originalEvent.dataTransfer);
 			const promises = files.map(file => handleUpload(file));
 
 			Promise.all(promises).then(() =>
@@ -111,10 +111,10 @@ $(() =>
 				doNotLeave.disable();
 
 				location.reload();
-			}).catch(err => console.error(err));
+			}).catch(error => console.error(error));
 		},
 
-		'dragover': e => e.preventDefault(),
+		'dragover': event => event.preventDefault(),
 
 		'dragleave': () => $container.removeClass('enter')
 

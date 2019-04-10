@@ -3,8 +3,12 @@
 namespace Duo\MediaBundle\Twig;
 
 use Duo\MediaBundle\Entity\ImageCrop;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+use Twig\TwigTest;
 
-class MediaTwigExtension extends \Twig_Extension
+class MediaExtension extends AbstractExtension
 {
 	/**
 	 * {@inheritDoc}
@@ -12,7 +16,7 @@ class MediaTwigExtension extends \Twig_Extension
 	public function getFilters(): array
 	{
 		return [
-			new \Twig_SimpleFilter('humanizedbytes', 'Duo\MediaBundle\Tools\Unit\Byte::humanize')
+			new TwigFilter('humanizedbytes', 'Duo\MediaBundle\Tools\Unit\Byte::humanize')
 		];
 	}
 
@@ -22,8 +26,8 @@ class MediaTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('get_crop', [$this, 'getCrop']),
-			new \Twig_SimpleFunction('get_crop_imagine_config', [$this, 'getCropImagineConfig'])
+			new TwigFunction('get_crop', [$this, 'getCrop']),
+			new TwigFunction('get_crop_imagine_config', [$this, 'getCropImagineConfig'])
 		];
 	}
 
@@ -33,7 +37,7 @@ class MediaTwigExtension extends \Twig_Extension
 	public function getTests(): array
 	{
 		return [
-			new \Twig_SimpleTest('croppable', [$this, 'isCroppable'])
+			new TwigTest('croppable', [$this, 'isCroppable'])
 		];
 	}
 

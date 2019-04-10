@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {map} from 'lodash';
+import map from 'lodash/map';
 
 ($ =>
 {

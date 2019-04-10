@@ -15,7 +15,7 @@ export default ($ =>
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -28,7 +28,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		init: selector =>
 		{
@@ -49,9 +49,9 @@ export default ($ =>
 
 				const $btnClear = $this.find('button[data-action="clear"]');
 
-				$this.on(`click.${NAME}`, 'button[data-action="select"]', async function(e)
+				$this.on(`click.${NAME}`, 'button[data-action="select"]', async function(event)
 				{
-					e.preventDefault();
+					event.preventDefault();
 
 					const url = $(this).data('url');
 
@@ -59,9 +59,9 @@ export default ($ =>
 
 					if (!$modal)
 					{
-						const res = await get(url);
+						const response = await get(url);
 
-						$modal = $(res.html);
+						$modal = $(response.html);
 						$modal.appendTo('body');
 
 						modals[url] = $modal;
@@ -69,7 +69,7 @@ export default ($ =>
 
 					$modal.modal('show');
 
-					$media.off('duo.event.iframe.selectItem').on('duo.event.iframe.selectItem', (e, data) =>
+					$media.off('duo.event.iframe.selectItem').on('duo.event.iframe.selectItem', (event, data) =>
 					{
 						if (data.eventType !== 'media')
 						{
@@ -129,9 +129,9 @@ export default ($ =>
 					});
 				});
 
-				$this.on(`click.${NAME}`, 'button[data-action="clear"]', function(e)
+				$this.on(`click.${NAME}`, 'button[data-action="clear"]', event =>
 				{
-					e.preventDefault();
+					event.preventDefault();
 
 					$caption.empty();
 
@@ -150,7 +150,7 @@ export default ($ =>
 		/**
 		 * Destroy
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		destroy: selector =>
 		{

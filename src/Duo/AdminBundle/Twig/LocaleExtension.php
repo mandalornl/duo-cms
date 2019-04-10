@@ -4,8 +4,10 @@ namespace Duo\AdminBundle\Twig;
 
 use Duo\AdminBundle\Helper\LocaleHelper;
 use Symfony\Component\Intl\Intl;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class LocaleTwigExtension extends \Twig_Extension
+class LocaleExtension extends AbstractExtension
 {
 	/**
 	 * @var LocaleHelper
@@ -13,7 +15,7 @@ class LocaleTwigExtension extends \Twig_Extension
 	private $localeHelper;
 
 	/**
-	 * LocaleTwigExtension constructor
+	 * LocaleExtension constructor
 	 *
 	 * @param LocaleHelper $localeHelper
 	 */
@@ -28,8 +30,8 @@ class LocaleTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('get_locales', [$this, 'getLocales']),
-			new \Twig_SimpleFunction('get_countries', [$this, 'getCountries'])
+			new TwigFunction('get_locales', [$this, 'getLocales']),
+			new TwigFunction('get_countries', [$this, 'getCountries'])
 		];
 	}
 

@@ -18,9 +18,9 @@ parameters:
     locale: '%env(LOCALE)%'
     locales: '%env(LOCALES)%'
 
-    dkim_key_file: '%kernel.project_dir%/app/config/dkim.key'
-    dkim_domain: '%env(DKIM_DOMAIN)%'
-    dkim_selector: '%env(DKIM_SELECTOR)%'
+    dkim_key_file: ~
+    dkim_domain: example.com
+    dkim_selector: default
 
     router.request_context.host: '%env(ROUTER_REQUEST_CONTEXT_HOST)%'
     router.request_context.scheme: '%env(ROUTER_REQUEST_CONTEXT_SCHEME)%'
@@ -42,9 +42,6 @@ parameters:
 
     env(LOCALE): en
     env(LOCALES): en|nl
-
-    env(DKIM_DOMAIN): example.com
-    env(DKIM_SELECTOR): default
 
     env(ROUTER_REQUEST_CONTEXT_HOST): ~
     env(ROUTER_REQUEST_CONTEXT_SCHEME): ~

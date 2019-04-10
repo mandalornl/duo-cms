@@ -6,9 +6,9 @@ imports:
 doctrine:
     orm:
         resolve_target_entities:
-            Duo\PageBundle\Entity\PageInterface: '%duo_page.entity.page_class%'
-            Duo\PageBundle\Entity\PageTranslationInterface: '%duo_page.entity.page_translation_class%'
-            Duo\SecurityBundle\Entity\UserInterface: '%duo_security.entity.user_class%'
+            Duo\PageBundle\Entity\PageInterface: '%duo_page.entity_class%'
+            Duo\PageBundle\Entity\PageTranslationInterface: '%duo_page.entity_translation_class%'
+            Duo\SecurityBundle\Entity\UserInterface: '%duo_security.entity_class%'
 
         dql:
             string_functions:
@@ -41,6 +41,13 @@ twig:
         google_analytics_id: '%google_analytics_id%'
         google_recaptcha_site_key: '%google_recaptcha_site_key%'
 
+# Duo Admin Configuration #
+duo_admin:
+    locales: '%locales%'
+    dkim_key_file: '%dkim_key_file%'
+    dkim_domain: '%dkim_domain%'
+    dkim_selector: '%dkim_selector%'
+
 # Duo Form Configuration #
 duo_form:
     recaptcha_key: '%google_recaptcha_site_key%'
@@ -54,11 +61,9 @@ duo_media:
 
 # Duo Page Configuration #
 duo_page:
-    target_entities:
-        page_class: AppBundle\Entity\Page
-        page_translation_class: AppBundle\Entity\PageTranslation
+    entity_class: AppBundle\Entity\Page
+    entity_translation_class: AppBundle\Entity\PageTranslation
 
 # Duo Security Configuration #
 duo_security:
-    target_entities:
-        user_class: AppBundle\Entity\User
+    entity_class: AppBundle\Entity\User

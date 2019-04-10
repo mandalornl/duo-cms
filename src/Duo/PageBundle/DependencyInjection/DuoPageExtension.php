@@ -25,7 +25,7 @@ class DuoPageExtension extends Extension
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 		$loader->load('services.yml');
 
-		$container->setParameter('duo_page.entity.page_class', $config['target_entities']['page_class']);
-		$container->setParameter('duo_page.entity.page_translation_class', $config['target_entities']['page_translation_class']);
+		$container->setParameter('duo_page.entity_class', $config['entity_class']);
+		$container->setParameter('duo_page.entity_translation_class', $config['entity_translation_class']);
 	}
 }

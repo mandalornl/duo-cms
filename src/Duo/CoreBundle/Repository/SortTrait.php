@@ -2,13 +2,15 @@
 
 namespace Duo\CoreBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Duo\CoreBundle\Entity\Property\DeleteInterface;
 use Duo\CoreBundle\Entity\Property\SortInterface;
 use Duo\CoreBundle\Entity\Property\TreeInterface;
 
+/**
+ * @method QueryBuilder createQueryBuilder(string $alias, string $indexBy = null)
+ */
 trait SortTrait
 {
 	/**
@@ -120,9 +122,6 @@ trait SortTrait
 	 */
 	private function getSortQueryBuilder(SortInterface $entity): QueryBuilder
 	{
-		/**
-		 * @var EntityRepository $this
-		 */
 		$builder = $this->createQueryBuilder('e');
 
 		// use parent of entity

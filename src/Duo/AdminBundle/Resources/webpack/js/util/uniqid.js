@@ -1,7 +1,7 @@
 /**
  * Generate unique id
  *
- * @returns {string}
+ * @returns {String}
  */
 export default () =>
 {

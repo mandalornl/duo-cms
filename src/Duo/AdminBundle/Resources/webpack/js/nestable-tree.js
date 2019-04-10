@@ -12,7 +12,7 @@ export default ($ =>
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -25,7 +25,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		init: (selector) =>
 		{
@@ -75,14 +75,14 @@ export default ($ =>
 				/**
 				 * On sort update
 				 *
-				 * @param {CustomEvent} e
+				 * @param {CustomEvent} event
 				 *
 				 * @returns {Promise<void>}
 				 */
-				const onSortUpdate = async e =>
+				const onSortUpdate = async event =>
 				{
-					const $item = $(e.detail.item);
-					const $parent = $(e.detail.destination.container);
+					const $item = $(event.detail.item);
+					const $parent = $(event.detail.destination.container);
 					const $prevSibling = $item.prev('.nestable-item');
 					const $nextSibling = $item.next('.nestable-item');
 
@@ -94,19 +94,19 @@ export default ($ =>
 
 					loader.show(true);
 
-					const res = await post($this.data('move-to-url'), formData);
+					const response = await post($this.data('move-to-url'), formData);
 
 					loader.hide();
 
-					if (!res.success)
+					if (!response.success)
 					{
 						// reset position
-						const $origin = $(e.detail.origin.container);
+						const $origin = $(event.detail.origin.container);
 						const $items = $origin.find('> .nestable-item');
 
 						if ($items.length)
 						{
-							$item.insertAfter($items.eq(e.detail.origin.index - 1));
+							$item.insertAfter($items.eq(event.detail.origin.index - 1));
 
 							return;
 						}
@@ -116,13 +116,13 @@ export default ($ =>
 						return;
 					}
 
-					updateFolderAfterDrop(e.detail.origin.container);
-					updateFolderAfterDrop(e.detail.destination.container);
+					updateFolderAfterDrop(event.detail.origin.container);
+					updateFolderAfterDrop(event.detail.destination.container);
 				};
 
-				$this.on(`click.${NAME}`, '.nestable-folder', async function(e)
+				$this.on(`click.${NAME}`, '.nestable-folder', async function(event)
 				{
-					e.preventDefault();
+					event.preventDefault();
 
 					const $folder = $(this);
 					const $list = $folder.closest('.nestable-item').find('> .nestable-list');
@@ -133,16 +133,16 @@ export default ($ =>
 						{
 							loader.show(true);
 
-							const res = await get($folder.data('url'));
+							const response = await get($folder.data('url'));
 
 							loader.hide();
 
-							if (!res.html)
+							if (!response.html)
 							{
 								return;
 							}
 
-							const $html = $(res.html).find('.nestable-list').attr('data-group', $list.data('group')).end();
+							const $html = $(response.html).find('.nestable-list').attr('data-group', $list.data('group')).end();
 							$list.replaceWith($html);
 
 							// initialize sorting
@@ -178,7 +178,7 @@ export default ($ =>
 		/**
 		 * Destroy
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		destroy: selector =>
 		{

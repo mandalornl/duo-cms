@@ -8,6 +8,7 @@
 /var/
 !var/SymfonyRequirements.php
 /vendor/
+/node_modules/
 /web/bundles/
 /web/media/
 !**/.gitkeep

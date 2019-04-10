@@ -22,12 +22,12 @@
 			</li>
 		{% endif %}
 
-		{% set hideBegin = paginator.getHideBegin() %}
-		{% if hideBegin >= 1 %}
+		{% set hiddenBegin = paginator.getHiddenBegin() %}
+		{% if hiddenBegin >= 1 %}
 			<li class="page-item d-none d-sm-block">
 				<a href="{{ path(routeName, routeParameters) }}" class="page-link">1</a>
 			</li>
-			{% if hideBegin >= 2 %}
+			{% if hiddenBegin >= 2 %}
 				<li class="page-item d-none d-sm-block">
 					<span class="page-link">...</span>
 				</li>
@@ -52,9 +52,9 @@
 			</li>
 		{% endfor %}
 
-		{% set hideEnd = paginator.getHideEnd() %}
-		{% if hideEnd >= 1 %}
-			{% if hideEnd >= 2 %}
+		{% set hiddenEnd = paginator.getHiddenEnd() %}
+		{% if hiddenEnd >= 1 %}
+			{% if hiddenEnd >= 2 %}
 				<li class="page-item d-none d-sm-block">
 					<span class="page-link">...</span>
 				</li>

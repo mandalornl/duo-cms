@@ -10,11 +10,11 @@ import doNotLeave from 'Duo/AdminBundle/Resources/webpack/js/util/donotleave';
 	/**
 	 * Save
 	 *
-	 * @param {Event} e
+	 * @param {Event} event
 	 */
-	const save = function(e)
+	const save = function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $this = $(this);
 		const $modal = $this.closest('.modal');
@@ -48,11 +48,11 @@ import doNotLeave from 'Duo/AdminBundle/Resources/webpack/js/util/donotleave';
 	/**
 	 * Dismiss
 	 *
-	 * @param {Event} e
+	 * @param {Event} event
 	 */
-	const dismiss = function(e)
+	const dismiss = function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $modal = $(this).closest('.modal');
 

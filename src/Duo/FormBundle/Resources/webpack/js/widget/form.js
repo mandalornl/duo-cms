@@ -11,7 +11,7 @@ export default ($ =>
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -24,7 +24,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		init: selector =>
 		{
@@ -39,9 +39,9 @@ export default ($ =>
 
 				$this.data(`init.${NAME}`, true).addClass('loading');
 
-				const res = await get($this.data('url'));
+				const response = await get($this.data('url'));
 
-				$this.html(res.html).removeClass('loading');
+				$this.html(response.html).removeClass('loading');
 
 				const $recaptchaResponse = $this.find('[id$="g-recaptcha-response"]');
 
@@ -53,34 +53,34 @@ export default ($ =>
 
 				$recaptchaResponse.val(token);
 
-				$this.on(`submit.${NAME}`, 'form', async function(e)
+				$this.on(`submit.${NAME}`, 'form', async function(event)
 				{
-					e.preventDefault();
+					event.preventDefault();
 
 					const $form = $(this);
 					$form.find('[type=submit]').prop('disabled', true);
 
 					loader.show();
 
-					const res = await post($form.attr('action'), new FormData(this));
+					const response = await post($form.attr('action'), new FormData(this));
 
 					loader.hide();
 
-					if (res.html)
+					if (response.html)
 					{
-						$this.html(res.html);
+						$this.html(response.html);
 
 						return;
 					}
 
-					if (res.message)
+					if (response.message)
 					{
-						$this.html(res.message);
+						$this.html(response.message);
 					}
 
-					if (res.redirect)
+					if (response.redirect)
 					{
-						window.setTimeout(() => location.href = res.redirect, 0);
+						window.setTimeout(() => location.href = response.redirect, 0);
 					}
 				});
 			});
@@ -88,7 +88,7 @@ export default ($ =>
 
 		/**
 		 * Destroy
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		destroy: selector =>
 		{

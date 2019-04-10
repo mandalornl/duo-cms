@@ -2,7 +2,10 @@
 
 namespace Duo\AdminBundle\Twig;
 
-class TestTwigExtension extends \Twig_Extension
+use Twig\Extension\AbstractExtension;
+use Twig\TwigTest;
+
+class TestExtension extends AbstractExtension
 {
 	/**
 	 * {@inheritDoc}
@@ -10,8 +13,8 @@ class TestTwigExtension extends \Twig_Extension
 	public function getTests(): array
 	{
 		return [
-			new \Twig_SimpleTest('instanceof', [$this, 'isInstanceOf']),
-			new \Twig_SimpleTest('bool', [$this, 'isBool']),
+			new TwigTest('instanceof', [$this, 'isInstanceOf']),
+			new TwigTest('bool', [$this, 'isBool']),
 		];
 	}
 

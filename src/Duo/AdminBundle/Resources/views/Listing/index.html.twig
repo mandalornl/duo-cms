@@ -111,7 +111,7 @@
 {% endblock %}
 
 {% block content %}
-	{% if paginator.count > paginator.defaultLimit %}
+	{% if paginator.count > paginator.getDefaultLimit() %}
 		<div class="listing-paginator">
 			{% if paginator.canPaginate() %}
 				{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}
@@ -145,7 +145,7 @@
 		{% endif %}
 	</form>
 
-	{% if paginator.result | length >= paginator.defaultLimit %}
+	{% if paginator.result | length >= paginator.getDefaultLimit() %}
 		<div class="listing-paginator">
 			{% if paginator.canPaginate() %}
 				{{ render_paginator(paginator, routePrefix ~ '_index', app.request.query.all) }}

@@ -1,10 +1,9 @@
 import {stringify} from 'querystring';
-import {extend} from 'lodash';
 
 /**
  * Call
  *
- * @param {string} method
+ * @param {String} method
  *
  * @returns {function(string=, *=): Promise<Response>}
  */
@@ -28,17 +27,17 @@ const call = method => (url, data = null) =>
 			data instanceof FormData ?
 				data :
 				JSON.stringify(data)
-	}).then(res =>
+	}).then(response =>
 	{
-		if (!res.ok && res.status !== 400)
+		if (!response.ok && response.status !== 400)
 		{
-			throw new Error(`Fetch error, resulted with: ${res.status} (${res.statusText}).`);
+			throw new Error(`Fetch error, resulted with: ${response.status} (${response.statusText}).`);
 		}
 
-		return res.json();
-	}).catch(err =>
+		return response.json();
+	}).catch(error =>
 	{
-		console.error(err);
+		console.error(error);
 
 		return null;
 	});
@@ -47,44 +46,44 @@ const call = method => (url, data = null) =>
 /**
  * Upload file
  *
- * @param {string} url
+ * @param {String} url
  * @param {File} file
  * @param {{}} [options]
+ * @param {{}} [params]
  *
  * @returns {Promise<any>}
  */
-const uploadFile = (url, file, options = {}) => new Promise((resolve, reject) =>
+const uploadFile = (url, file, options = {}, params = {}) => new Promise((resolve, reject) =>
 {
-	options = extend({}, {
-		params: {},
-		onUploadComplete: e => {},
-		onUploadProgress: e => {}
+	options = Object.assign({}, {
+		onUploadProgress: null,
+		onUploadComplete: null
 	}, options);
 
-	const params = Object.assign({}, options.params, {
+	params = Object.assign({}, params, {
 		filename: file.name,
 		mimeType: file.type,
 		size: file.size
 	});
 
-	const req = new XMLHttpRequest();
-	req.open('PUT', `${url}?${stringify(params)}`);
-	req.setRequestHeader('content-type', 'application/octet-stream');
-	req.addEventListener('error', reject);
-	req.addEventListener('load', () =>
+	const request = new XMLHttpRequest();
+	request.open('PUT', `${url}?${stringify(params)}`);
+	request.setRequestHeader('content-type', 'application/octet-stream');
+	request.addEventListener('error', reject);
+	request.addEventListener('load', () =>
 	{
 		try
 		{
-			const res = JSON.parse(req.responseText);
+			const result = JSON.parse(request.responseText);
 
-			if (res.error)
+			if (result.error)
 			{
-				reject(res.error);
+				reject(result.error);
 
 				return;
 			}
 
-			resolve(res);
+			resolve(result);
 		}
 		catch (error)
 		{
@@ -92,12 +91,19 @@ const uploadFile = (url, file, options = {}) => new Promise((resolve, reject) =>
 		}
 	});
 
-	req.upload.addEventListener('load', options.onUploadComplete);
-	req.upload.addEventListener('progress', options.onUploadProgress);
+	if (options.onUploadComplete instanceof Function)
+	{
+		request.upload.addEventListener('load', options.onUploadComplete);
+	}
 
-	req.withCredentials = true;
+	if (options.onUploadProgress instanceof Function)
+	{
+		request.upload.addEventListener('progress', options.onUploadProgress);
+	}
 
-	req.send(file);
+	request.withCredentials = true;
+
+	request.send(file);
 });
 
 module.exports = {

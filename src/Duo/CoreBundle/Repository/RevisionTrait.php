@@ -2,22 +2,22 @@
 
 namespace Duo\CoreBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @method QueryBuilder createQueryBuilder(string $alias, string $indexBy = null)
+ */
 trait RevisionTrait
 {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function nameExists(string $name): bool
+	public function revisionNameExists(string $name): bool
 	{
 		try
 		{
-			/**
-			 * @var EntityRepository $this
-			 */
 			return (int)$this->createQueryBuilder('e')
 					->select('e.id')
 					->where('e.name = :name')

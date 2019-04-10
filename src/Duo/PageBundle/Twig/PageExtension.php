@@ -5,8 +5,10 @@ namespace Duo\PageBundle\Twig;
 use Doctrine\ORM\EntityManagerInterface;
 use Duo\PageBundle\Entity\PageInterface;
 use Duo\PageBundle\Repository\PageRepository;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class PageTwigExtension extends \Twig_Extension
+class PageExtension extends AbstractExtension
 {
 	/**
 	 * @var EntityManagerInterface
@@ -14,7 +16,7 @@ class PageTwigExtension extends \Twig_Extension
 	private $manager;
 
 	/**
-	 * PageTwigExtension constructor
+	 * PageExtension constructor
 	 *
 	 * @param EntityManagerInterface $manager
 	 */
@@ -29,9 +31,9 @@ class PageTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('get_page', [$this, 'getPage']),
-			new \Twig_SimpleFunction('get_page_by_url', [$this, 'getPageByUrl']),
-			new \Twig_SimpleFunction('get_page_by_name', [$this, 'getPageByName'])
+			new TwigFunction('get_page', [$this, 'getPage']),
+			new TwigFunction('get_page_by_url', [$this, 'getPageByUrl']),
+			new TwigFunction('get_page_by_name', [$this, 'getPageByName'])
 		];
 	}
 

@@ -9,15 +9,15 @@ export default ($ =>
 	const SELECTOR = `[data-init="${NAME}"]`;
 
 	const DEFAULTS = {
-		onSortStart: e => {},
-		onSortStop: e => {},
-		onSortUpdate: e => {}
+		onSortStart: null,
+		onSortStop: null,
+		onSortUpdate: null
 	};
 
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -30,7 +30,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 * @param {{}} [options]
 		 */
 		init: (selector, options) =>
@@ -60,7 +60,7 @@ export default ($ =>
 					acceptFrom: `[data-group="${$list.data('group')}"]`
 				});
 
-				$list.on('sortstart', e =>
+				$list.on('sortstart', function(event)
 				{
 					$list.each(function()
 					{
@@ -74,24 +74,33 @@ export default ($ =>
 						$this.closest('.nestable-item').addClass('nestable-empty');
 					});
 
-					config.onSortStart(e);
+					if (config.onSortStart instanceof Function)
+					{
+						config.onSortStart.call(this, event);
+					}
 				});
 
-				$list.on('sortstop', e =>
+				$list.on('sortstop', function(event)
 				{
 					$this.find('.nestable-empty').removeClass('nestable-empty');
 
-					config.onSortStop(e);
+					if (config.onSortStop instanceof Function)
+					{
+						config.onSortStop.call(this, event);
+					}
 				});
 
-				$list.on('sortupdate', config.onSortUpdate);
+				if (config.onSortUpdate instanceof Function)
+				{
+					$list.on('sortupdate', config.onSortUpdate);
+				}
 			});
 		},
 
 		/**
 		 * Destroy
 		 *
-		 * @param {string|HTMLElement|jquery} selector
+		 * @param {String|HTMLElement|jquery} selector
 		 */
 		destroy: selector =>
 		{

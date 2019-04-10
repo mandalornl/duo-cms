@@ -35,6 +35,6 @@ services:
             - { name: form.type }
 
     duo_media.twig_extension.media:
-        class: Duo\MediaBundle\Twig\MediaTwigExtension
+        class: Duo\MediaBundle\Twig\MediaExtension
         tags:
             - { name: twig.extension }

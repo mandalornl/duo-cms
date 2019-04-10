@@ -43,14 +43,14 @@ services:
         calls:
             - [ setRequestStack, [ '@request_stack' ]]
             - [ setDefaultLocale, [ '%locale%' ]]
-            - [ setLocalesFromString, [ '%locales%' ]]
+            - [ setLocalesFromString, [ '%duo_admin.locales%' ]]
 
     duo_admin.helper.mailer:
         class: Duo\AdminBundle\Helper\MailerHelper
         arguments:
             $twig: '@twig'
             $from: '%mailer_sender_address%'
-            $dkimConfig: { keyFile: '%dkim_key_file%', domain: '%dkim_domain%', selector: '%dkim_selector%' }
+            $dkimConfig: { keyFile: '%duo_admin.dkim_key_file%', domain: '%duo_admin.dkim_domain%', selector: '%duo_admin.dkim_selector%' }
 
     duo_admin.routing.url_loader:
         class: Duo\AdminBundle\Routing\UrlLoader
@@ -68,38 +68,38 @@ services:
             $security: '@security.helper'
 
     duo_admin.twig_extension.locale:
-        class: Duo\AdminBundle\Twig\LocaleTwigExtension
+        class: Duo\AdminBundle\Twig\LocaleExtension
         arguments:
             $localeHelper: '@duo_admin.helper.locale'
         tags:
             - { name: twig.extension }
 
     duo_admin.twig_extension.menu:
-        class: Duo\AdminBundle\Twig\MenuTwigExtension
+        class: Duo\AdminBundle\Twig\MenuExtension
         arguments:
             $builder: '@duo_admin.tools.menu_builder'
         tags:
             - { name: twig.extension }
 
     duo_admin.twig_extension.paginator:
-        class: Duo\AdminBundle\Twig\PaginatorTwigExtension
+        class: Duo\AdminBundle\Twig\PaginatorExtension
         tags:
             - { name: twig.extension }
 
     duo_admin.twig_extension.route:
-        class: Duo\AdminBundle\Twig\RouteTwigExtension
+        class: Duo\AdminBundle\Twig\RouteExtension
         arguments:
             $router: '@router'
         tags:
             - { name: twig.extension }
 
     duo_admin.twig_extension.test:
-        class: Duo\AdminBundle\Twig\TestTwigExtension
+        class: Duo\AdminBundle\Twig\TestExtension
         tags:
             - { name: twig.extension }
 
     duo_admin.twig_extension.time:
-        class: Duo\AdminBundle\Twig\TimeTwigExtension
+        class: Duo\AdminBundle\Twig\TimeExtension
         arguments:
             $translator: '@translator'
         tags:

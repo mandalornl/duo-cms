@@ -19,16 +19,16 @@ import 'Duo/AdminBundle/Resources/webpack/js/lib/maxlength';
 
 import postMessage from 'Duo/AdminBundle/Resources/webpack/js/util/post-message';
 
-postMessage.on(window, e =>
+postMessage.on(window, event =>
 {
-	if (e.origin !== location.origin)
+	if (event.origin !== location.origin)
 	{
 		throw new Error('Not allowed');
 	}
 
 	try
 	{
-		const response = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+		const response = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
 
 		if (response.eventName)
 		{
@@ -36,8 +36,8 @@ postMessage.on(window, e =>
 			$(response.target ? `#${response.target}` : window).trigger(response.eventName, response.data);
 		}
 	}
-	catch (err)
+	catch (error)
 	{
-		console.error(err);
+		console.error(error);
 	}
 });

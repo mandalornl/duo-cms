@@ -3,8 +3,10 @@
 namespace Duo\PageBundle\Twig;
 
 use Duo\PageBundle\Entity\PageInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class BreadcrumbsTwigExtension extends \Twig_Extension
+class BreadcrumbsExtension extends AbstractExtension
 {
 	/**
 	 * {@inheritDoc}
@@ -12,7 +14,7 @@ class BreadcrumbsTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('get_breadcrumbs', [$this, 'getBreadcrumbs'])
+			new TwigFunction('get_breadcrumbs', [$this, 'getBreadcrumbs'])
 		];
 	}
 

@@ -3,8 +3,10 @@
 namespace Duo\AdminBundle\Twig;
 
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class TimeTwigExtension extends \Twig_Extension
+class TimeExtension extends AbstractExtension
 {
 	/**
 	 * @var TranslatorInterface
@@ -12,7 +14,7 @@ class TimeTwigExtension extends \Twig_Extension
 	private $translator;
 
 	/**
-	 * TimeTwigExtension constructor
+	 * TimeExtension constructor
 	 *
 	 * @param TranslatorInterface $translator
 	 */
@@ -27,7 +29,7 @@ class TimeTwigExtension extends \Twig_Extension
 	public function getFilters(): array
 	{
 		return [
-			new \Twig_SimpleFilter('elapsed_time', [$this, 'getElapsedTime'])
+			new TwigFilter('elapsed_time', [$this, 'getElapsedTime'])
 		];
 	}
 

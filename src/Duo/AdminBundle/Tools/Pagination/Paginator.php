@@ -10,7 +10,7 @@ class Paginator
 	/**
 	 * @var int
 	 */
-	private $defaultLimit = 12;
+	const DEFAULT_LIMIT = 12;
 
 	/**
 	 * @var QueryBuilder
@@ -58,13 +58,13 @@ class Paginator
 	}
 
 	/**
-	 * Get defaultLimit
+	 * Get default limit
 	 *
 	 * @return int
 	 */
 	public function getDefaultLimit(): int
 	{
-		return $this->defaultLimit;
+		return self::DEFAULT_LIMIT;
 	}
 
 	/**
@@ -136,7 +136,7 @@ class Paginator
 	 */
 	public function getLimit(): int
 	{
-		return $this->limit ?: $this->defaultLimit;
+		return $this->limit ?: self::DEFAULT_LIMIT;
 	}
 
 	/**
@@ -268,21 +268,21 @@ class Paginator
 	}
 
 	/**
-	 * get hide begin
+	 * get hidden begin
 	 *
 	 * @return int
 	 */
-	public function getHideBegin(): int
+	public function getHiddenBegin(): int
 	{
 		return $this->page - ($this->adjacent + 1);
 	}
 
 	/**
-	 * Get hide end
+	 * Get hidden end
 	 *
 	 * @return int
 	 */
-	public function getHideEnd(): int
+	public function getHiddenEnd(): int
 	{
 		return $this->getPageCount() - ($this->page + $this->adjacent);
 	}

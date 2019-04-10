@@ -5,11 +5,11 @@ namespace Duo\CoreBundle\Repository;
 interface RevisionInterface
 {
 	/**
-	 * Check whether or not name exists.
+	 * Check whether or not revision name exists.
 	 *
 	 * @param string $name
 	 *
 	 * @return bool
 	 */
-	public function nameExists(string $name): bool;
+	public function revisionNameExists(string $name): bool;
 }

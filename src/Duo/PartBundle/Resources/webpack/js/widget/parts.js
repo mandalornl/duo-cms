@@ -13,7 +13,7 @@ export default ($ =>
 	/**
 	 * Get jQuery
 	 *
-	 * @param {string|HTMLElement|jQuery} selector
+	 * @param {String|HTMLElement|jQuery} selector
 	 *
 	 * @returns {jQuery}
 	 */
@@ -26,7 +26,7 @@ export default ($ =>
 		/**
 		 * Initialize
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		init: selector =>
 		{
@@ -53,9 +53,9 @@ export default ($ =>
 					$this.next('button').toggleClass('d-none', !$this.find('> .sortable-item').length);
 				});
 
-				$section.on(`click.${NAME}`, '> button[data-url][data-prototype-id]', async function(e)
+				$section.on(`click.${NAME}`, '> button[data-url][data-prototype-id]', async function(event)
 				{
-					e.preventDefault();
+					event.preventDefault();
 
 					const $this = $(this);
 					const $section = $this.closest('.section');
@@ -67,9 +67,9 @@ export default ($ =>
 
 					if (!$modal)
 					{
-						const res = await get(url);
+						const response = await get(url);
 
-						$modal = $(res.html);
+						$modal = $(response.html);
 						$modal.appendTo('body');
 
 						modals[url] = $modal;
@@ -82,9 +82,9 @@ export default ($ =>
 						$modal.find(`[data-type="${type}"]`).removeClass('d-none');
 					});
 
-					$modal.off('click', 'button[data-prototype]').on('click', 'button[data-prototype]', function(e)
+					$modal.off('click', 'button[data-prototype]').on('click', 'button[data-prototype]', function(event)
 					{
-						e.preventDefault();
+						event.preventDefault();
 
 						let prototype = $(this).data('prototype');
 						prototype = prototype.replace(/__name__/g, index++);
@@ -128,9 +128,9 @@ export default ($ =>
 					}).modal('show');
 				});
 
-				$list.on(`click.${NAME}`, 'button[data-dismiss="sortable-item"]', function(e)
+				$list.on(`click.${NAME}`, 'button[data-dismiss="sortable-item"]', function(event)
 				{
-					e.preventDefault();
+					event.preventDefault();
 
 					const $this = $(this);
 
@@ -174,7 +174,7 @@ export default ($ =>
 		/**
 		 * Destroy
 		 *
-		 * @param {string|HTMLElement|jQuery} selector
+		 * @param {String|HTMLElement|jQuery} selector
 		 */
 		destroy: selector =>
 		{

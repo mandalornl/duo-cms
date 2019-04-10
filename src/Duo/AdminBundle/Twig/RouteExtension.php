@@ -3,8 +3,10 @@
 namespace Duo\AdminBundle\Twig;
 
 use Symfony\Component\Routing\RouterInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigTest;
 
-class RouteTwigExtension extends \Twig_Extension
+class RouteExtension extends AbstractExtension
 {
 	/**
 	 * @var RouterInterface
@@ -12,7 +14,7 @@ class RouteTwigExtension extends \Twig_Extension
 	private $router;
 
 	/**
-	 * RouteTwigExtension constructor
+	 * RouteExtension constructor
 	 *
 	 * @param RouterInterface $router
 	 */
@@ -27,7 +29,7 @@ class RouteTwigExtension extends \Twig_Extension
 	public function getTests(): array
 	{
 		return [
-			new \Twig_SimpleTest('validroute', [$this, 'isValidRoute'])
+			new TwigTest('validroute', [$this, 'isValidRoute'])
 		];
 	}
 

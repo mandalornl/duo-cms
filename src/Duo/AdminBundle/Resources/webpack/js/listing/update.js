@@ -10,9 +10,9 @@ $(() =>
 		return;
 	}
 
-	$listing.on('click', '[data-modal="dialog"]', async function(e)
+	$listing.on('click', '[data-modal="dialog"]', async function(event)
 	{
-		e.preventDefault();
+		event.preventDefault();
 
 		const $this = $(this);
 

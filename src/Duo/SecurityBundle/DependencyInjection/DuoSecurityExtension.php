@@ -25,6 +25,6 @@ class DuoSecurityExtension extends Extension
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 		$loader->load('services.yml');
 
-		$container->setParameter('duo_security.entity.user_class', $config['target_entities']['user_class']);
+		$container->setParameter('duo_security.entity_class', $config['entity_class']);
 	}
 }

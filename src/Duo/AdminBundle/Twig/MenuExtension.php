@@ -4,8 +4,10 @@ namespace Duo\AdminBundle\Twig;
 
 use Duo\AdminBundle\Tools\Menu\MenuBuilderInterface;
 use Duo\AdminBundle\Tools\Menu\MenuInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class MenuTwigExtension extends \Twig_Extension
+class MenuExtension extends AbstractExtension
 {
 	/**
 	 * @var MenuBuilderInterface
@@ -13,7 +15,7 @@ class MenuTwigExtension extends \Twig_Extension
 	private $builder;
 
 	/**
-	 * MenuTwigExtension constructor
+	 * MenuExtension constructor
 	 *
 	 * @param MenuBuilderInterface $builder
 	 */
@@ -28,7 +30,7 @@ class MenuTwigExtension extends \Twig_Extension
 	public function getFunctions(): array
 	{
 		return [
-			new \Twig_SimpleFunction('get_admin_menu', [$this, 'getAdminMenu'])
+			new TwigFunction('get_admin_menu', [$this, 'getAdminMenu'])
 		];
 	}
 
