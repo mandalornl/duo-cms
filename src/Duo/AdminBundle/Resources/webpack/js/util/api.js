@@ -1,17 +1,18 @@
 import {stringify} from 'querystring';
+import isPlainObject from 'lodash/isPlainObject';
 
 /**
  * Call
  *
  * @param {String} method
  *
- * @returns {function(string=, *=): Promise<Response>}
+ * @returns {function(string=, *=): Promise<Object|null>}
  */
 const call = method => (url, data = null) =>
 {
-	if (method === 'GET')
+	if (method === 'GET' && isPlainObject(data))
 	{
-		url += (data ? `?${stringify(data)}` : '');
+		url += `?${stringify(data)}`;
 	}
 
 	return fetch(url, {
@@ -29,19 +30,27 @@ const call = method => (url, data = null) =>
 				JSON.stringify(data)
 	}).then(response =>
 	{
-		if (!response.ok && response.status !== 400)
+		if (!(response.status >= 200 && response.status < 300) && response.status !== 400)
 		{
-			throw new Error(`Fetch error, resulted with: ${response.status} (${response.statusText}).`);
+			throw {
+				status: response.status,
+				message: response.statusText
+			};
 		}
 
 		return response.json();
-	}).catch(error =>
+	}).catch(exception =>
 	{
-		console.error(error);
+		console.error(isPlainObject(exception) ? exception : exception.toString());
 
 		return null;
 	});
 };
+
+export const get = call('GET');
+export const post = call('POST');
+export const put = call('PUT');
+export const del = call('DELETE');
 
 /**
  * Upload file
@@ -53,7 +62,7 @@ const call = method => (url, data = null) =>
  *
  * @returns {Promise<any>}
  */
-const uploadFile = (url, file, options = {}, params = {}) => new Promise((resolve, reject) =>
+export const uploadFile = (url, file, options = {}, params = {}) => new Promise((resolve, reject) =>
 {
 	options = Object.assign({}, {
 		onUploadProgress: null,
@@ -106,11 +115,4 @@ const uploadFile = (url, file, options = {}, params = {}) => new Promise((resolv
 	request.send(file);
 });
 
-module.exports = {
-	get: call('GET'),
-	post: call('POST'),
-	put: call('PUT'),
-	delete: call('DELETE'),
-
-	uploadFile
-};
+export default { get, post, put, del, uploadFile }

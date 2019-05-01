@@ -1,6 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 
+const webpack = require('webpack');
 const NotifierPlugin = require('webpack-notifier');
 const CleanPlugin = require('clean-webpack-plugin');
 const TerserJsPlugin = require('terser-webpack-plugin');
@@ -10,15 +10,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV || 'development';
 
-const sassLoader = {
-	loader: 'sass-loader',
-	options: {
-		sourceMap: true
-	}
-};
-
 module.exports = {
 	mode: env,
+
+	devtool: env === 'production' ? 'source-map' : 'inline-source-map',
 
 	resolve: {
 		alias: {
@@ -31,7 +26,7 @@ module.exports = {
 	},
 
 	output: {
-		filename: env === 'production' ? '[name].[hash].js' :'[name].js',
+		filename: env === 'production' ? '[name].[contenthash].js' :'[name].js',
 		path: path.resolve(__dirname, 'web/build'),
 		publicPath: '/build/'
 	},
@@ -52,21 +47,21 @@ module.exports = {
 		rules: [{
 			test: /\.css$/,
 			loader: [
-				'style-loader',
+				env === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
 				'css-loader'
 			]
 		}, {
 			test: /\.scss$/,
-			use: env === 'production' ? [
-				MiniCssExtractPlugin.loader,
+			use: [
+				env === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
 				'css-loader',
 				'resolve-url-loader',
-				sassLoader
-			] : [
-				'style-loader',
-				'css-loader',
-				'resolve-url-loader',
-				sassLoader
+				{
+					loader: 'sass-loader',
+					options: {
+						sourceMap: true
+					}
+				}
 			]
 		}, {
 			test: /\.js$/,
@@ -113,8 +108,6 @@ module.exports = {
 		}]
 	},
 
-	devtool: env === 'development' ? 'source-map' : false,
-
 	optimization: {
 		minimize: env === 'production',
 		minimizer: [
@@ -141,31 +134,22 @@ module.exports = {
 			Alert: 'exports-loader?Alert!bootstrap/js/dist/alert'
 		})
 	].concat(env === 'production' ? [
-		new MiniCssExtractPlugin({
-			filename: 'css/[name].[hash].css'
-		}),
-
-		new ManifestPlugin({
-			writeToFileEmit: true,
-			basePath: '/build/',
-			filename: 'manifest.json',
-			map: file =>
-			{
-				if (/\.css$/.test(file.name))
-				{
-					file.name = `/build/css/${file.chunk.name}.css`;
-				}
-
-				return file;
-			}
-		}),
-
 		new CleanPlugin([
 			'build'
 		], {
 			verbose: true,
 			exclude: [ '.gitkeep' ],
 			root: path.resolve(__dirname, 'web/')
+		}),
+
+		new MiniCssExtractPlugin({
+			filename: '[name].[contenthash].css'
+		}),
+
+		new ManifestPlugin({
+			writeToFileEmit: true,
+			basePath: '/build/',
+			filename: 'manifest.json'
 		}),
 
 		new webpack.NoEmitOnErrorsPlugin()

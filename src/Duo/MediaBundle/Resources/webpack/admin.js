@@ -1,3 +1,3 @@
 import './js/media-upload';
 
-require('./sass/style.scss');
+import './sass/style.scss';
