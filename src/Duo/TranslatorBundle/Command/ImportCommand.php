@@ -92,7 +92,7 @@ class ImportCommand extends ContainerAwareCommand
 					{
 						$progressBar->clear();
 
-						$output->writeln("Entry for '{$domain}.[locale] - {$keyword}' already exists.");
+						$output->writeln("Entry for '<fg=magenta>{$domain}.[locale]</> - <fg=cyan>{$keyword}</>' already <fg=yellow>exists</>.");
 
 						$progressBar->display();
 						$progressBar->advance(count($locales));
@@ -116,7 +116,7 @@ class ImportCommand extends ContainerAwareCommand
 
 					$progressBar->clear();
 
-					$output->writeln("Entry for '{$domain}.{$locale} - {$keyword}' added.");
+					$output->writeln("Entry for '<fg=magenta>{$domain}.{$locale}</> - <fg=cyan>{$keyword}</>' was <fg=green>added</>.");
 
 					$progressBar->display();
 					$progressBar->advance();
@@ -139,10 +139,6 @@ class ImportCommand extends ContainerAwareCommand
 				}
 			}
 		}
-
-		$progressBar->clear();
-
-		$output->writeln('Flush remaining entities.');
 
 		$manager->flush();
 
@@ -175,7 +171,7 @@ class ImportCommand extends ContainerAwareCommand
 	{
 		if (count($input->getOption('file')))
 		{
-			$projectDir = $this->getContainer()->getParameter('kernel.project_dir');
+			$projectDir = $this->getProjectDir();
 
 			$fs = new FileSystem();
 
@@ -190,7 +186,7 @@ class ImportCommand extends ContainerAwareCommand
 			}, $files);
 		}
 
-		$dirs = $this->getDirectories($input);
+		$directories = $this->getDirectories($input);
 
 		$locales = implode('|', $this->getLocales($input));
 
@@ -204,7 +200,7 @@ class ImportCommand extends ContainerAwareCommand
 		}
 
 		$finder = new Finder();
-		$finder->files()->name("/{$pattern}/")->in($dirs);
+		$finder->files()->name("/{$pattern}/")->in($directories);
 
 		$files = [];
 
@@ -225,19 +221,19 @@ class ImportCommand extends ContainerAwareCommand
 	 */
 	private function getDirectories(InputInterface $input): array
 	{
-		$projectDir = $this->getContainer()->getParameter('kernel.project_dir');
+		$projectDir = $this->getProjectDir();
 
 		$fs = new Filesystem();
 
-		$dirs = array_filter($input->getOption('directory'), function(string $dir) use ($projectDir, $fs)
+		$directories = array_filter($input->getOption('directory'), function(string $dirname) use ($projectDir, $fs)
 		{
-			return $fs->exists("{$projectDir}/{$dir}");
+			return $fs->exists("{$projectDir}/{$dirname}");
 		});
 
-		return array_map(function(string $dir) use ($projectDir)
+		return array_map(function(string $dirname) use ($projectDir)
 		{
-			return "{$projectDir}/{$dir}";
-		}, $dirs);
+			return "{$projectDir}/{$dirname}";
+		}, $directories);
 	}
 
 	/**
@@ -281,6 +277,16 @@ class ImportCommand extends ContainerAwareCommand
 		{
 			return count($keywords, COUNT_RECURSIVE) - count($keywords);
 		}, $messages));
+	}
+
+	/**
+	 * Get project dir
+	 *
+	 * @return string
+	 */
+	private function getProjectDir(): string
+	{
+		return $this->getContainer()->getParameter('kernel.project_dir');
 	}
 
 	/**
@@ -330,7 +336,11 @@ class ImportCommand extends ContainerAwareCommand
 				 EntryTranslation::class
 			] as $className)
 			{
-				$connection->query($platform->getTruncateTableSQL($manager->getClassMetadata($className)->getTableName()));
+				$connection->query(
+					$platform->getTruncateTableSQL(
+						$manager->getClassMetadata($className)->getTableName()
+					)
+				);
 			}
 
 			$connection->query("SET FOREIGN_KEY_CHECKS={$oldForeignKeyChecks}");
