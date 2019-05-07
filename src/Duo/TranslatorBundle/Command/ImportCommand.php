@@ -92,7 +92,7 @@ class ImportCommand extends ContainerAwareCommand
 					{
 						$progressBar->clear();
 
-						$output->writeln("Entry for '<fg=magenta>{$domain}.[locale]</> - <fg=cyan>{$keyword}</>' already <fg=yellow>exists</>.");
+						$output->writeln("Entry for <fg=magenta>{$domain}.[locale]</> - <fg=cyan>'{$keyword}'</> already <fg=yellow>exists</>.");
 
 						$progressBar->display();
 						$progressBar->advance(count($locales));
@@ -116,7 +116,7 @@ class ImportCommand extends ContainerAwareCommand
 
 					$progressBar->clear();
 
-					$output->writeln("Entry for '<fg=magenta>{$domain}.{$locale}</> - <fg=cyan>{$keyword}</>' was <fg=green>added</>.");
+					$output->writeln("Entry for <fg=magenta>{$domain}.{$locale}</> - <fg=cyan>'{$keyword}'</> was <fg=green>added</>.");
 
 					$progressBar->display();
 					$progressBar->advance();
