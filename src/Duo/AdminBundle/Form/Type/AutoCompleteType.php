@@ -64,7 +64,7 @@ class AutoCompleteType extends AbstractType
 			'multiple',
 			'placeholder',
 			'excludeSelf'
-		] as $varName)
+		 ] as $varName)
 		{
 			$view->vars[$varName] = $options[$varName];
 		}

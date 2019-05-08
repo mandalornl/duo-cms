@@ -19,15 +19,15 @@ class RoleFixture extends Fixture
 		}
 
 		foreach ([
-			 'Super Administrator' => 'ROLE_SUPER_ADMIN',
-			 'Administrator' => 'ROLE_ADMIN',
-			 'User' => 'ROLE_USER',
-			 'Anonymous' => 'IS_AUTHENTICATED_ANONYMOUSLY',
-			 'Can create' => 'CAN_CREATE',
-			 'Can read' => 'CAN_READ',
-			 'Can update' => 'CAN_UPDATE',
-			 'Can delete' => 'CAN_DELETE'
-		] as $name => $roleName)
+			'Super Administrator' => 'ROLE_SUPER_ADMIN',
+			'Administrator' => 'ROLE_ADMIN',
+			'User' => 'ROLE_USER',
+			'Anonymous' => 'IS_AUTHENTICATED_ANONYMOUSLY',
+			'Can create' => 'CAN_CREATE',
+			'Can read' => 'CAN_READ',
+			'Can update' => 'CAN_UPDATE',
+			'Can delete' => 'CAN_DELETE'
+		 ] as $name => $roleName)
 		{
 			$role = (new Role())
 				->setName($name)

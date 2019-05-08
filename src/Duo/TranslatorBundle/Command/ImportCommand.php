@@ -332,9 +332,9 @@ class ImportCommand extends ContainerAwareCommand
 			$connection->query('SET FOREIGN_KEY_CHECKS=0');
 
 			foreach ([
-				 Entry::class,
-				 EntryTranslation::class
-			] as $className)
+				Entry::class,
+				EntryTranslation::class
+			 ] as $className)
 			{
 				$connection->query(
 					$platform->getTruncateTableSQL(

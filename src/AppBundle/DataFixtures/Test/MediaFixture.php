@@ -43,7 +43,7 @@ class MediaFixture extends Fixture implements DependentFixtureInterface, Contain
 		foreach ([
 			'jpg' => __DIR__ . '/example.jpg',
 			'pdf' => __DIR__ . '/example.pdf'
-		] as $type => $filename)
+		 ] as $type => $filename)
 		{
 			$size = @filesize($filename);
 
