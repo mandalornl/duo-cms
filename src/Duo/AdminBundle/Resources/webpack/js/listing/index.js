@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {parse} from 'querystring';
+import { parse } from 'querystring';
 
 import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 import dialog from 'Duo/AdminBundle/Resources/webpack/js/util/dialog';

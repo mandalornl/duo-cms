@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 import dialog from 'Duo/AdminBundle/Resources/webpack/js/util/dialog';
 
 $(() =>

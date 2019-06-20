@@ -1,9 +1,9 @@
+import $ from 'jquery';
 import 'select2';
+import 'select2/dist/css/select2.css';
+import 'select2-theme-bootstrap4/dist/select2-bootstrap.css';
 
 import md from 'Duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
-
-require('select2/dist/css/select2.css');
-require('select2-theme-bootstrap4/dist/select2-bootstrap.css');
 
 const locale = window.locale.slice(0, 2);
 const locales = require.context('select2/src/js/select2/i18n/', false, /\.js$/);

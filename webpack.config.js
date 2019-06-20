@@ -13,14 +13,12 @@ const env = process.env.NODE_ENV || 'development';
 module.exports = {
 	mode: env,
 
-	devtool: env === 'production' ? 'source-map' : 'inline-source-map',
+	devtool: env === 'production' ? 'source-map' : 'eval',
 
 	resolve: {
 		alias: {
 			'~': __dirname,
-			'~~': __dirname,
 			'@': __dirname,
-			'@@': __dirname,
 			Duo: path.resolve(__dirname, 'src/Duo') // TODO: change to 'vendor/duo/duo-cms/src/Duo'
 		}
 	},
@@ -114,7 +112,7 @@ module.exports = {
 			new TerserJsPlugin({
 				sourceMap: true,
 				parallel: true,
-				cache: env === 'production'
+				cache: true
 			}),
 			new OptimizeCssAssetsPlugin()
 		]

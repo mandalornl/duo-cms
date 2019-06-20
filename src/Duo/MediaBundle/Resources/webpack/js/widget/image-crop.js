@@ -1,7 +1,6 @@
 import $ from 'jquery';
+import 'cropper';
 import 'cropper/dist/cropper.css';
-
-require('cropper');
 
 export default ($ =>
 {

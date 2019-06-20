@@ -1,4 +1,4 @@
-require('Duo/AdminBundle/Resources/webpack/admin');
-require('Duo/PageBundle/Resources/webpack/admin');
-require('Duo/PartBundle/Resources/webpack/admin');
-require('Duo/MediaBundle/Resources/webpack/admin');
+import 'Duo/AdminBundle/Resources/webpack/admin';
+import 'Duo/PageBundle/Resources/webpack/admin';
+import 'Duo/PartBundle/Resources/webpack/admin';
+import 'Duo/MediaBundle/Resources/webpack/admin';

@@ -1,7 +1,6 @@
 import $ from 'jquery';
-import 'bootstrap-datepicker';
-
-require('bootstrap-datepicker/dist/css/bootstrap-datepicker3.css');
+import '@chenfengyuan/datepicker';
+import '@chenfengyuan/datepicker/dist/datepicker.css'
 
 export default ($ =>
 {
@@ -9,9 +8,9 @@ export default ($ =>
 	const SELECTOR = `[data-init="${NAME}"]`;
 
 	const DEFAULTS = {
-		calendarWeeks: true,
-		clearBtn: true,
-		format: 'dd-mm-yyyy'
+		weekStart: 1,
+		format: 'dd-mm-yyyy',
+		autoHide: true
 	};
 
 	/**

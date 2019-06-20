@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-import {get} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
+import { get } from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
 
 export default ($ =>

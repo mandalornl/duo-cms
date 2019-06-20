@@ -1,6 +1,7 @@
 import $ from 'jquery';
+
 import doNotLeave from 'Duo/AdminBundle/Resources/webpack/js/util/donotleave';
-import {uploadFile} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
+import { uploadFile } from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 
 $(() =>
 {

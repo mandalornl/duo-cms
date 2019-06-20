@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import debounce from 'lodash/debounce';
+
 import md from 'Duo/AdminBundle/Resources/webpack/js/util/mobiledetect';
 
 export default ($ =>

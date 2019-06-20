@@ -1,4 +1,7 @@
 ## TODO ##
+- Rename `Page tree` -> `Structure`
+- Add `Save` and `Save and edit` buttons
+
 - Preview
 - PHPUnit (wip)
 

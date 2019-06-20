@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import loader from 'Duo/AdminBundle/Resources/webpack/js/util/loader';
-import {get, post} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
+import { get, post } from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 import nestable from 'Duo/AdminBundle/Resources/webpack/js/lib/nestable';
 
 export default ($ =>

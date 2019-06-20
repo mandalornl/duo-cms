@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 import uniqid from 'Duo/AdminBundle/Resources/webpack/js/util/uniqid';
 
 export default ($ =>

@@ -72,7 +72,7 @@ const options = {
 	{
 		const routes = Object.keys(webpackCfg.entry).map(entry =>
 		{
-			return path.resolve(webpackCfg.output.publicPath, `css/${entry}.css`);
+			return path.resolve(webpackCfg.output.publicPath, `${entry}.css`);
 		});
 
 		app.get(routes, (req, res) =>

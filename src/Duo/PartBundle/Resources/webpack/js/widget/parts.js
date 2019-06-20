@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import sortable from 'Duo/AdminBundle/Resources/webpack/js/lib/sortable';
-import {get} from 'Duo/AdminBundle/Resources/webpack/js/util/api';
+import { get } from 'Duo/AdminBundle/Resources/webpack/js/util/api';
 
 export default ($ =>
 {
