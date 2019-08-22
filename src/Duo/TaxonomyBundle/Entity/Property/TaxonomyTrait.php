@@ -51,7 +51,7 @@ trait TaxonomyTrait
 		 */
 		$iterator = $this->getTaxonomies()->getIterator();
 
-		$iterator->uasort(function(Taxonomy $a, Taxonomy $b) use ($locale)
+		$iterator->uasort(function(Taxonomy $a, Taxonomy $b) use ($locale): int
 		{
 			return strnatcasecmp(
 				$a->translate($locale)->getName(),

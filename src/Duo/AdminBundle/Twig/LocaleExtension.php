@@ -46,7 +46,7 @@ class LocaleExtension extends AbstractExtension
 	{
 		$locales = $this->localeHelper->getLocales();
 
-		$list = array_map(function(string $locale) use ($displayLocale)
+		$list = array_map(function(string $locale) use ($displayLocale): ?string
 		{
 			$country = strtoupper($locale === 'en' ? 'gb' : $locale);
 			return Intl::getRegionBundle()->getCountryName($country, $displayLocale ?: $locale);
@@ -68,7 +68,7 @@ class LocaleExtension extends AbstractExtension
 	{
 		$locales = $this->localeHelper->getLocales();
 
-		$list = array_map(function(string $locale) use ($displayLocale)
+		$list = array_map(function(string $locale) use ($displayLocale): ?string
 		{
 			return ucfirst(Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale ?: $locale));
 		}, array_combine($locales, $locales));

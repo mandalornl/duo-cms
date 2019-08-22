@@ -2,7 +2,7 @@ services:
     _defaults:
         public: false
 
-    duo_core.event_subscriver.uuid:
+    duo_core.event_subscriber.uuid:
         class: Duo\CoreBundle\EventSubscriber\UuidSubscriber
         tags:
             - { name: doctrine.event_subscriber }

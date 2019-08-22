@@ -175,12 +175,12 @@ class ImportCommand extends ContainerAwareCommand
 
 			$fs = new FileSystem();
 
-			$files = array_filter($input->getOption('file'), function(string $filename) use ($projectDir, $fs)
+			$files = array_filter($input->getOption('file'), function(string $filename) use ($projectDir, $fs): bool
 			{
 				return $fs->exists("{$projectDir}/{$filename}");
 			});
 
-			return array_map(function(string $filename) use ($projectDir)
+			return array_map(function(string $filename) use ($projectDir): string
 			{
 				return "{$projectDir}/{$filename}";
 			}, $files);
@@ -225,12 +225,12 @@ class ImportCommand extends ContainerAwareCommand
 
 		$fs = new Filesystem();
 
-		$directories = array_filter($input->getOption('directory'), function(string $dirname) use ($projectDir, $fs)
+		$directories = array_filter($input->getOption('directory'), function(string $dirname) use ($projectDir, $fs): bool
 		{
 			return $fs->exists("{$projectDir}/{$dirname}");
 		});
 
-		return array_map(function(string $dirname) use ($projectDir)
+		return array_map(function(string $dirname) use ($projectDir): string
 		{
 			return "{$projectDir}/{$dirname}";
 		}, $directories);

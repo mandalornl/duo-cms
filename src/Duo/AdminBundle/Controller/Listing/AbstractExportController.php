@@ -41,7 +41,7 @@ abstract class AbstractExportController extends AbstractController
 		$this->defineFields($request);
 
 		$response = new StreamedResponse();
-		$response->setCallback(function() use ($request, $selection)
+		$response->setCallback(function() use ($request, $selection): void
 		{
 			$type = $request->getRequestFormat(Type::XLSX);
 

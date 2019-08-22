@@ -72,7 +72,7 @@ trait PartTrait
 	 */
 	public function getPartsFromSection(string $section): Collection
 	{
-		return $this->getParts()->filter(function(EntityPartInterface $part) use ($section)
+		return $this->getParts()->filter(function(EntityPartInterface $part) use ($section): bool
 		{
 			return $part->getSection() === $section;
 		});

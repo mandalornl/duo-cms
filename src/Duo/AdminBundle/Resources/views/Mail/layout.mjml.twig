@@ -6,7 +6,6 @@
 	{% mjml %}
 		<mjml>
 			<mj-head>
-				<mj-title>{% block subject %}{{ brand_name }}{% endblock %}</mj-title>
 				<mj-attributes>
 					<mj-all font-family="Helvetica Neue, Helvetica, Arial, sans-serif" color="#333"/>
 					<mj-button background-color="#007bff" color="#fff" border-radius="3px"/>
@@ -34,7 +33,7 @@
 					<!-- Footer -->
 					<mj-section padding-bottom="0" background-color="#fff">
 						<mj-column width="100%">
-							<mj-divider padding-top="20" padding-bottom="0" padding-left="0" padding-right="0" border-width="5px" border-color="#6c757d"/>
+							<mj-divider padding-top="20px" padding-bottom="0" padding-left="0" padding-right="0" border-width="5px" border-color="#6c757d"/>
 
 							<mj-text color="grey">{{ brand_name }} &copy; {{ 'now' | date('Y') }}</mj-text>
 						</mj-column>

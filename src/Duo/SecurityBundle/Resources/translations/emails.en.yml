@@ -1,6 +1,6 @@
 duo_security:
     forgot_password:
-        subject: Forgot password
+        subject: Reset password
         message: |
             Use the following url to reset your password:
 

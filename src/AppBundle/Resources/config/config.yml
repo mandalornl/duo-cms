@@ -39,7 +39,7 @@ twig:
     globals:
         brand_name: '%brand_name%'
         google_analytics_id: '%google_analytics_id%'
-        google_recaptcha_site_key: '%google_recaptcha_site_key%'
+        google_recaptcha_key: '%google_recaptcha_key%'
 
 # Duo Admin Configuration #
 duo_admin:
@@ -50,7 +50,7 @@ duo_admin:
 
 # Duo Form Configuration #
 duo_form:
-    recaptcha_key: '%google_recaptcha_site_key%'
+    recaptcha_key: '%google_recaptcha_key%'
     recaptcha_secret: '%google_recaptcha_secret%'
 
 # Duo Media Configuration #

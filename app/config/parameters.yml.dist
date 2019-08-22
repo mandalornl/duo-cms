@@ -27,7 +27,7 @@ parameters:
 
     google_analytics_id: '%env(GOOGLE_ANALYTICS_ID)%'
 
-    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    google_recaptcha_key: '%env(GOOGLE_RECAPTCHA_KEY)%'
     google_recaptcha_secret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
 
     env(DATABASE_URL): ~

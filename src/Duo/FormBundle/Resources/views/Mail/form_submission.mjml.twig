@@ -6,10 +6,6 @@
 	{% endfor %}
 {% endmacro %}
 
-{% block subject %}
-	{{- brand_name }} - {{ 'duo_form.form_submission.subject' | trans({ '%form_name%': submission.name }, 'emails') -}}
-{% endblock %}
-
 {% block body_text %}
 	{% import _self as self %}
 	{% autoescape false %}
