@@ -20,5 +20,7 @@
 
 - Webpack
 	- Code splitting
+	
+- Fix page tree sorting
 
 - Assocation: inversedBy (joinColumn) / mappedBy (cascade) (http://www.inanzzz.com/index.php/post/iarb/bidirectional-one-to-one-cascade-remove-and-orphan-removal-operations-in-doctrine)

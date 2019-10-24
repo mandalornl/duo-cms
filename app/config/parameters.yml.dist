@@ -48,5 +48,5 @@ parameters:
 
     env(GOOGLE_ANALYTICS_ID): ~
 
-    env(GOOGLE_RECAPTCHA_SITE_KEY): ~
+    env(GOOGLE_RECAPTCHA_KEY): ~
     env(GOOGLE_RECAPTCHA_SECRET): ~
