@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: app
+
+  pma:
+    image: phpmyadmin/phpmyadmin:4.9
+    ports:
+      - '8888:80'
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+
+  memcached:
+    image: memcached:1.5
+    ports:
+      - '11211:11211'
+
+  mail:
+    image: djfarrelly/maildev
+    ports:
+      - '1025:25'
+      - '1080:80'

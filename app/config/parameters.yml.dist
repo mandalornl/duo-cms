@@ -7,7 +7,7 @@ parameters:
     database_url: '%env(resolve:DATABASE_URL)%'
 
     mailer_url: '%env(MAILER_URL)%'
-    mailer_sender_address: '%env(MAILER_SENDER_ADRESS)%'
+    mailer_sender_address: '%env(MAILER_SENDER_ADDRESS)%'
 
     memcached_host: '%env(MEMCACHED_HOST)%'
     memcached_port: '%env(MEMCACHED_PORT)%'

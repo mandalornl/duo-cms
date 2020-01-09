@@ -52,9 +52,9 @@
 		"yargs": "^13.2.1"
 	},
 	"engines": {
-		"node": "10.16.3",
+		"node": "12.13.1",
 		"npm": "6.9.0",
-		"yarn": "1.17.3"
+		"yarn": "1.21.1"
 	},
 	"scripts": {
 		"dev": "bin/dev-server.js",

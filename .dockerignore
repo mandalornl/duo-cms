@@ -1,0 +1,9 @@
+node_modules
+vendor
+web/bundles
+web/media
+var/**
+!var/SymfonyRequirements.php
+app/config/parameters.yml
+Dockerfile
+.git
