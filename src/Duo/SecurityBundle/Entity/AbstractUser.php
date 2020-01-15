@@ -257,7 +257,10 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	 */
 	public function addGroup(GroupInterface $group): UserInterface
 	{
-		$this->getGroups()->add($group);
+	    if (!$this->hasGroup($group))
+        {
+            $this->getGroups()->add($group);
+        }
 
 		return $this;
 	}
@@ -267,12 +270,15 @@ abstract class AbstractUser implements UserInterface, \Serializable
 	 */
 	public function removeGroup(GroupInterface $group): UserInterface
 	{
-		$this->getGroups()->removeElement($group);
+	    if ($this->hasGroup($group))
+        {
+            $this->getGroups()->removeElement($group);
+        }
 
 		return $this;
 	}
 
-	/**
+    /**
 	 * {@inheritDoc}
 	 */
 	public function getGroups(): Collection
@@ -280,7 +286,15 @@ abstract class AbstractUser implements UserInterface, \Serializable
 		return $this->groups = $this->groups ?: new ArrayCollection();
 	}
 
-	/**
+    /**
+     * {@inheritDoc}
+     */
+    public function hasGroup(GroupInterface $group): bool
+    {
+        return $this->getGroups()->contains($group);
+    }
+
+    /**
 	 * {@inheritDoc}
 	 */
 	public function getRoles(): array

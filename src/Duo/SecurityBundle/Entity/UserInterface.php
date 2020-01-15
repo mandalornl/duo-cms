@@ -162,6 +162,15 @@ interface UserInterface extends IdInterface,
 	 */
 	public function getGroups(): Collection;
 
+    /**
+     * Has group
+     *
+     * @param GroupInterface $group
+     *
+     * @return bool
+     */
+	public function hasGroup(GroupInterface $group): bool;
+
 	/**
 	 * Get roles
 	 *
