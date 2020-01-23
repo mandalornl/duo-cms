@@ -9,8 +9,7 @@ parameters:
     mailer_url: '%env(MAILER_URL)%'
     mailer_sender_address: '%env(MAILER_SENDER_ADDRESS)%'
 
-    memcached_host: '%env(MEMCACHED_HOST)%'
-    memcached_port: '%env(MEMCACHED_PORT)%'
+    memcached_url: '%env(MEMCACHED_URL)%'
 
     # A secret key that's used to generate certain security-related tokens
     secret: '%env(SECRET)%'
@@ -35,8 +34,7 @@ parameters:
     env(MAILER_URL): 'null://localhost'
     env(MAILER_SENDER_ADDRESS): info@example.com
 
-    env(MEMCACHED_HOST): localhost
-    env(MEMCACHED_PORT): 11211
+    env(MEMCACHED_URL): ~
 
     env(SECRET): ThisTokenIsNotSoSecretChangeIt
 
