@@ -57,7 +57,7 @@
 		"yarn": "1.21.1"
 	},
 	"scripts": {
-		"dev": "bin/dev-server.js",
+		"dev": "node -r dotenv/config bin/dev-server.js",
 		"icomoon": "bin/icomoon.js --src src/Duo/AdminBundle/Resources/webpack --dest src/Duo/AdminBundle/Resources/webpack/sass/_icomoon.scss",
 		"build": "NODE_ENV=production webpack --config webpack.config.js",
 		"heroku-postbuild": "echo Build script is executed by composer.json",
